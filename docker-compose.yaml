@@ -1,0 +1,7 @@
+services:
+  pandasbench:
+    build: .
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./:/home/ubuntu

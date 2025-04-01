@@ -1,0 +1,109 @@
+
+import re
+import json
+import sys
+import subprocess
+import os
+from enum import Enum
+import glob
+
+import bench_utils
+
+def run_nb_file(nb_path: str, library: str, library_args: str, add_on: str, scale_factor: float, scale_input: bool):
+  source_cells = bench_utils.open_and_get_source_cells(nb_path)
+
+  # Don't do the following. You'll mess the cell index (i.e., we won't know that it is the nth cell)
+  # source_cells = [s for s in source_cells if s.strip() != ""]
+
+  src_dir = os.path.dirname(nb_path)
+
+  def run_config(source_cells, error_file, times_file, 
+                mem_usg_file, library, library_args, add_on, scale_factor, scale_input):
+    config = dict()
+    config['src_dir'] = src_dir
+    config['cells'] = source_cells
+    config['error_file'] = error_file
+    config['output_times_json'] = times_file
+    config['library'] = library
+    config['library_args'] = library_args
+    config['add_on'] = add_on
+    config['scale_factor'] = scale_factor
+    config['scale_input'] = scale_input
+
+    config_filename = 'run_config.json'
+    f = open(config_filename, 'w')
+    json.dump(config, f, indent=2)
+    f.close()
+
+    # We measure memory usage with GNU time -v. We will only take that into account later if Modin
+    # is not enabled, because this is unreliable for Modin.
+    res = subprocess.run(["/usr/bin/time", "-v", "-o", mem_usg_file, "ipython", "log_times.py", f"{config_filename}"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    return res.returncode == 0, res
+  
+  # END run_config() #
+
+  def load_json(file):
+    f = open(file, 'r')
+    jd = json.load(f)
+    f.close()
+    return jd
+
+  pwd = os.getcwd()
+
+  nb_path_split = nb_path.split('/')
+  file_base = 'errors/' + nb_path_split[-3] + '.' + nb_path_split[-2]
+  err_file = pwd + '/' + file_base + '.' + 'error.txt'
+  times_file = pwd + '/' + 'times.json'
+  mem_usg_file = pwd + '/' + 'mem.txt'
+  succ, res = run_config(source_cells, err_file, times_file,
+                         mem_usg_file, library, library_args, add_on, scale_factor, scale_input)
+  the_stdout = res.stdout.decode()
+  # We may have an exception which is not denoted as error unfortunately. We have to search the stdout.
+  if "Traceback" in the_stdout:
+    succ = False
+  if not succ:
+    stdout_file_name = file_base + '.stdout.txt'
+    stderr_file_name = file_base + '.stderr.txt'
+    print(f"There was an error while running {nb_path}. See {err_file}, {stderr_file_name} and {stdout_file_name}")
+    bench_utils.write_to_file(stdout_file_name, res.stdout.decode())
+    bench_utils.write_to_file(stderr_file_name, res.stderr.decode())
+    return False
+  os.remove('run_config.json')
+  if library == '':
+    return True
+  times = load_json(times_file)
+  os.remove(times_file)
+
+  # Parse the results of time -v
+  f = open(mem_usg_file, 'r')
+  time_v_output = f.read()
+  m = re.search("Maximum resident set size \(kbytes\): (\d+)", time_v_output)
+  assert m
+  in_kbytes = int(m.group(1))
+  in_mb = in_kbytes // 1024
+
+  f.close()
+  os.remove(mem_usg_file)
+
+  if 'max-mem-in-mb' not in times:
+    times['max-mem-in-mb'] = 0
+  if 'max-disk-in-mb' not in times:
+    times['max-disk-in-mb'] = 0
+  times['max-mem-in-mb2'] = in_mb
+
+  f = open('stats.json', 'w')
+  json.dump(times, f, indent=2)
+  f.close()
+
+  return True
+
+def run_nb_paper(nb_dir: str, library: str, library_args: str, add_on: str, scale_factor: float, scale_input: bool):
+  nb_file = ""
+  dirEntries = os.listdir(nb_dir)
+  for entry in dirEntries:
+    if '.ipynb' in entry and entry[0] != '.':
+      nb_file = entry
+      break
+  nb_path = "/".join((nb_dir, nb_file))
+
+  return run_nb_file(nb_path, library, library_args, add_on, scale_factor, scale_input)
