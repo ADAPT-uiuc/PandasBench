@@ -1,0 +1,16 @@
+FROM python:3.10.16
+
+WORKDIR /home/ubuntu/
+
+SHELL ["/bin/bash", "-c"]
+
+COPY . ./PandasBench
+
+RUN apt-get update -q \
+    && apt-get install -qy time openjdk-17-jdk-headless \
+    && rm -rf /var/lib/apt/lists/* \
+    && pip install --no-cache-dir -r ./PandasBench/runner/requirements.txt
+
+WORKDIR /home/ubuntu/PandasBench/scripts
+RUN ./docker_data_setup.sh
+WORKDIR /home/ubuntu/PandasBench/
