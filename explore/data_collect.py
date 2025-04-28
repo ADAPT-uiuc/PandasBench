@@ -12,7 +12,7 @@ sys.path.insert(1, '../')
 import nbs_to_run
 import bench_utils
 
-paths_s = '../../notebooks/*/*/*.ipynb'
+paths_s = '../notebooks/*/*/*.ipynb'
 paths = glob.glob(paths_s)
 
 def get_df(user, base, file):
