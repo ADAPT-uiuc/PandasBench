@@ -31,29 +31,6 @@ def open_and_get_source_cells(nb_path):
   f.close()
   return get_nb_source_cells(nb_as_json)
 
-def extract_json_cell_stats(s: str):
-  # Yes, I know I can use regular expressions but the
-  # code becomes totally unreadable.
-  lines = s.split('\n')
-  into = False
-  buf = ""
-  cells = []
-  for l in lines:
-    if "[IREWRITE JSON]" in l:
-      assert into == False
-      into = True
-      continue
-    if "[IREWRITE END JSON]" in l:
-      assert into == True
-      into = False
-      cells.append(buf)
-      buf = ""
-      continue
-    if into:
-      buf = buf + l + "\n"
-  
-  return cells
-
 def ns_to_ms(ns):
   return ns / 1_000_000
 

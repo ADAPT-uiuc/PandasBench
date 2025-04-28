@@ -1,6 +1,6 @@
 __pycache__
 error.txt
 mem.txt
-stats.json
-stderr.txt
-stdout.txt
+errors/
+stats/
+run_config.json
