@@ -8,10 +8,10 @@ import scales.nbs_to_run as nbs_to_run
 
 parser = argparse.ArgumentParser(description='Run benchmarks on all notebooks in nbs_to_run.py')
 
-parser.add_argument('--lib', default='pandas', choices=["pandas", "modin", "dask", "koalas"], type=str, metavar='API_IMPLEMENTATION', help='The Pandas API alternative to use. Pandas is used by default. Other options are modin (pass in --num_cores=NUM_CORES), dask, and koalas.')
-parser.add_argument('--add_on', default='', choices=['', 'dias'], type=str, metavar='LIBRARY', help='Add on library to include (like Dias). By default it uses no additional library.')
-parser.add_argument('--num_cores', default=0, type=int, metavar='LIB_ARGS', help='Pass additional argument for the library.')
-parser.add_argument('--scale_input_and_exit', action='store_true', help='Similar, but does not run the benchmark. The benchmark will not properly run if the input has never been scaled.')
+parser.add_argument('--lib', default='pandas', choices=["pandas", "modin", "dask", "koalas"], type=str, help='The Pandas API alternative to use. Pandas is used by default.')
+parser.add_argument('--add_on', choices=['dias'], type=str, help='Add on library to include (like Dias). By default it uses no additional library.')
+parser.add_argument('--num_cores', default=0, type=int, metavar='NUM_CORES', help='Pass additional argument for the library.')
+parser.add_argument('--scale_input_and_exit', action='store_true', help='Scales the benchmark. The benchmark will not properly run if the input has never been scaled.')
 
 args = parser.parse_args()
 
@@ -39,6 +39,8 @@ elif args.lib == 'koalas':
       msg += '--num_cores=NUM_CORES should be an integer that is at least 1 when using --lib=koalas'
   except:
     msg += 'Specify --num_cores=NUM_CORES when using --lib=koalas'
+
+add_on = args.add_on if args.add_on != None else ''
 
 if msg != default_msg:
   print(msg)
@@ -69,7 +71,7 @@ try:
     full_path = prefix+"/"+nb
     print(i + 1)
     print(f"--- RUNNING: {kernel_user}/{kernel_slug}")
-    succ = run_nb.run_nb_paper(full_path, args.lib if should_run_nb_body else '', args.num_cores, args.add_on, scale_factor, args.scale_input_and_exit)
+    succ = run_nb.run_nb_paper(full_path, args.lib if should_run_nb_body else '', args.num_cores, add_on, scale_factor, args.scale_input_and_exit)
     if should_run_nb_body:
       if succ:
         res = subprocess.run(["mv", "stats.json", f"stats/{kernel_user}_{kernel_slug}.json"])
