@@ -6,10 +6,12 @@ SHELL ["/bin/bash", "-c"]
 
 COPY . ./PandasBench
 
+COPY ./runner/requirements.txt .
+
 RUN apt-get update -q \
     && apt-get install -qy time openjdk-17-jdk-headless \
     && rm -rf /var/lib/apt/lists/* \
-    && pip install --no-cache-dir -r ./PandasBench/runner/requirements.txt
+    && pip install --no-cache-dir -r ./requirements.txt
 
 WORKDIR /home/ubuntu/PandasBench/scripts
 RUN ./docker_data_setup.sh
