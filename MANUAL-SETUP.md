@@ -1,22 +1,4 @@
-### Setup
-
 Use `source ./setup_everything.sh` or do the steps manually by fullowing `SETUP.md`.
-
-### Input Scaling
-
-In `nbs_to_run.py` is a list of pairs of notebook paths and a scale factor. The scale factor is the desired ratio between the size of the input to use for that notebook and the default size of the input.
-
-Before running the benchmark, you must scale the input. Either run
-
-```bash
-python3 run_all.py --scale_input_and_exit
-```
-
-to just scale the input, or to scale the input and run the benchmark, run
-
-```bash
-python3 run_all.py --scale_input
-```
 
 ### Running
 
