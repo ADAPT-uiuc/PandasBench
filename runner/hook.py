@@ -35,7 +35,7 @@ def _PandasBench_is_at_top_of_call_stack():
 def _make_prologue(attr):
   return f'''
   global inCall
-  _IREWR_start = None
+  _PBENCH_start = None
   if _PandasBench_is_at_top_of_call_stack():
     if '{attr}' in allCallCounts:
       allCallCounts['{attr}'] += 1
@@ -43,17 +43,17 @@ def _make_prologue(attr):
       allCallCounts['{attr}'] = 1
     if not inCall:
       inCall = True
-      _IREWR_start = time.perf_counter_ns()
+      _PBENCH_start = time.perf_counter_ns()
   '''
 
 def _make_epilogue(attr):
   return f'''
-  if _IREWR_start is not None:
-    _IREWR_end = time.perf_counter_ns()
+  if _PBENCH_start is not None:
+    _PBENCH_end = time.perf_counter_ns()
     if '{attr}' in externalCallTimes:
-      externalCallTimes['{attr}'].append(_IREWR_end - _IREWR_start)
+      externalCallTimes['{attr}'].append(_PBENCH_end - _PBENCH_start)
     else:
-      externalCallTimes['{attr}'] = [_IREWR_end - _IREWR_start]
+      externalCallTimes['{attr}'] = [_PBENCH_end - _PBENCH_start]
     inCall = False
   '''
 
