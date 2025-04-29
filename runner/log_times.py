@@ -56,11 +56,11 @@ def main():
     # See: https://modin.readthedocs.io/en/stable/getting_started/using_modin/using_modin_locally.html#advanced-configuring-the-resources-modin-uses
     # But also: https://github.com/modin-project/modin/issues/1666
     # It seems to me this applies only in a distributed setting, so we should be ok.
-    os.environ["MODIN_CPUS"] = _PBENCH_run_config['library_args']
+    os.environ["MODIN_CPUS"] = _PBENCH_run_config['num_cores']
   elif _PBENCH_run_config['library'] == 'dask':
-    os.environ['DASK_CPUS'] = _PBENCH_run_config['library_args']
+    os.environ['DASK_CPUS'] = _PBENCH_run_config['num_cores']
   elif _PBENCH_run_config['library'] == 'koalas':
-    os.environ['KOALAS_CPUS'] = _PBENCH_run_config['library_args']
+    os.environ['KOALAS_CPUS'] = _PBENCH_run_config['num_cores']
 
   _PBENCH_run_nb = _PBENCH_run_config['library'] != ''
   if _PBENCH_run_nb:

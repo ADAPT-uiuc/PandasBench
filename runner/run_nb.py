@@ -9,7 +9,7 @@ import glob
 
 import bench_utils
 
-def run_nb_file(nb_path: str, library: str, library_args: str, add_on: str, scale_factor: float, scale_input: bool):
+def run_nb_file(nb_path: str, library: str, num_cores: int, add_on: str, scale_factor: float, scale_input: bool):
   source_cells = bench_utils.open_and_get_source_cells(nb_path)
 
   # Don't do the following. You'll mess the cell index (i.e., we won't know that it is the nth cell)
@@ -18,14 +18,14 @@ def run_nb_file(nb_path: str, library: str, library_args: str, add_on: str, scal
   src_dir = os.path.dirname(nb_path)
 
   def run_config(source_cells, error_file, times_file, library,
-                 library_args, add_on, scale_factor, scale_input):
+                 num_cores, add_on, scale_factor, scale_input):
     config = dict()
     config['src_dir'] = src_dir
     config['cells'] = source_cells
     config['error_file'] = error_file
     config['output_times_json'] = times_file
     config['library'] = library
-    config['library_args'] = library_args
+    config['num_cores'] = str(num_cores)
     config['add_on'] = add_on
     config['scale_factor'] = scale_factor
     config['scale_input'] = scale_input
@@ -55,7 +55,7 @@ def run_nb_file(nb_path: str, library: str, library_args: str, add_on: str, scal
   err_file = pwd + '/' + file_base + '.' + 'error.txt'
   times_file = pwd + '/' + 'times.json'
   succ, res = run_config(source_cells, err_file, times_file, library,
-                         library_args, add_on, scale_factor, scale_input)
+                         num_cores, add_on, scale_factor, scale_input)
   the_stdout = res.stdout.decode()
   # We may have an exception which is not denoted as error unfortunately. We have to search the stdout.
   if "Traceback" in the_stdout:
@@ -84,7 +84,7 @@ def run_nb_file(nb_path: str, library: str, library_args: str, add_on: str, scal
 
   return True
 
-def run_nb_paper(nb_dir: str, library: str, library_args: str, add_on: str, scale_factor: float, scale_input: bool):
+def run_nb_paper(nb_dir: str, library: str, num_cores: int, add_on: str, scale_factor: float, scale_input: bool):
   nb_file = ""
   dirEntries = os.listdir(nb_dir)
   for entry in dirEntries:
@@ -93,4 +93,4 @@ def run_nb_paper(nb_dir: str, library: str, library_args: str, add_on: str, scal
       break
   nb_path = "/".join((nb_dir, nb_file))
 
-  return run_nb_file(nb_path, library, library_args, add_on, scale_factor, scale_input)
+  return run_nb_file(nb_path, library, num_cores, add_on, scale_factor, scale_input)

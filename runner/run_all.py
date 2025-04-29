@@ -64,6 +64,7 @@ end = len(nbs_to_run.notebooks)
 nbs_to_ignore = set()
 try:
   for i, (nb, scale_factor) in enumerate(nbs_to_run.notebooks):
+    scale_factor = 0.001
     if nb in nbs_to_ignore:
       continue
     kernel_user = nb.split('/')[0]
