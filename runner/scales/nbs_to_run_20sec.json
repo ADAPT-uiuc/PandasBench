@@ -1,0 +1,412 @@
+{
+  "notebooks": [
+    {
+      "nb": "akgauravin/gun-violence-data-exploration-and-plotting",
+      "scale-factor": 8.392072002926545
+    },
+    {
+      "nb": "akshaypetkar/supermarket-sales-analysis",
+      "scale-factor": 3.8765190888710643
+    },
+    {
+      "nb": "arimishabirin/globalsalary-simple-eda",
+      "scale-factor": 42915.85230031356
+    },
+    {
+      "nb": "arjoonn/scout-script-7",
+      "scale-factor": 932.4331542623991
+    },
+    {
+      "nb": "artgor/eda-and-models",
+      "scale-factor": 0.40025668497870026
+    },
+    {
+      "nb": "ashukr/first-step-ingestion-to-prediction",
+      "scale-factor": 2223.6194607737407
+    },
+    {
+      "nb": "atultaur/house-sales-in-king-county",
+      "scale-factor": 222.38149910136497
+    },
+    {
+      "nb": "ayushsingh5941/tweet-disaster-or-not",
+      "scale-factor": 24.44111840508174
+    },
+    {
+      "nb": "balajivenkat96/solar-plants",
+      "scale-factor": 0.8936620165697833
+    },
+    {
+      "nb": "bcannon/indexing-selecting-assigning",
+      "scale-factor": 19.279335481093526
+    },
+    {
+      "nb": "beratozmen/clash-of-clans-exploratory-data-analysis",
+      "scale-factor": 1.197178739573465
+    },
+    {
+      "nb": "blaskowitz100/feature-engineering-based-on-the-suprise-me",
+      "scale-factor": 2.397853742172321
+    },
+    {
+      "nb": "brianmendieta/data-cleaning-plus-eda",
+      "scale-factor": 1098.564824238531
+    },
+    {
+      "nb": "carlmcbrideellis/simple-eda-of-kaggle-grandmasters-scheduled",
+      "scale-factor": 0.5929950793068363
+    },
+    {
+      "nb": "charulatashelar/indian-startup-funding-exploratory-data-analysis",
+      "scale-factor": 547.7016652988822
+    },
+    {
+      "nb": "chinstan/notebook249b4f3f5b",
+      "scale-factor": 5.918859697083187
+    },
+    {
+      "nb": "christophriley/intro-machine-learning",
+      "scale-factor": 12303.410465363351
+    },
+    {
+      "nb": "corazzon/how-to-use-pandas-filter-in-survey-eda",
+      "scale-factor": 23.088094881887287
+    },
+    {
+      "nb": "danielresende/game-of-thrones-battles",
+      "scale-factor": 69061.72485227023
+    },
+    {
+      "nb": "dbatao/kernel2f80fc9d78",
+      "scale-factor": 175.95112817819384
+    },
+    {
+      "nb": "deffro/eda-is-fun",
+      "scale-factor": 0.6181452737729707
+    },
+    {
+      "nb": "drainvers/instacart-sandbox-lmf",
+      "scale-factor": 0.49470151928259365
+    },
+    {
+      "nb": "ersinsen/fraud-3-eda",
+      "scale-factor": 0.4605186904501116
+    },
+    {
+      "nb": "galiph/titanic-explorary-data-analysis",
+      "scale-factor": 1056.662137243126
+    },
+    {
+      "nb": "gautamsihag/notebook32c1acdb76",
+      "scale-factor": 116.00054479619074
+    },
+    {
+      "nb": "gmanish/help-ngo-country-clustering",
+      "scale-factor": 91458.76100139027
+    },
+    {
+      "nb": "gravix/gradient-in-a-box",
+      "scale-factor": 1.7353698863279337
+    },
+    {
+      "nb": "grudd0/mass-shooting-analysis",
+      "scale-factor": 6318.301184579325
+    },
+    {
+      "nb": "gsilves/quiz-4-question-1",
+      "scale-factor": 10695.100464560057
+    },
+    {
+      "nb": "guyalmog/hr-analytics-predicting-employees-attrition",
+      "scale-factor": 7.937063294398765
+    },
+    {
+      "nb": "j0thu777/onlineretailanalysis",
+      "scale-factor": 0.2921642248556569
+    },
+    {
+      "nb": "jackwatson99/pima-indians-diabetes-rf-81",
+      "scale-factor": 24680.09188048124
+    },
+    {
+      "nb": "jagangupta/stop-the-s-toxic-comments-eda",
+      "scale-factor": 1.1095268928719402
+    },
+    {
+      "nb": "jaideepvalani/useful-eda-for-beginners-rsna-embolism",
+      "scale-factor": 6.81806927038059
+    },
+    {
+      "nb": "jirakst/book-recommendation",
+      "scale-factor": 1.02
+    },
+    {
+      "nb": "julieberteaux/workshop-2",
+      "scale-factor": 10.328528760484067
+    },
+    {
+      "nb": "jyotsananegi/melbourne-housing-snapshot-eda",
+      "scale-factor": 170.89486201062704
+    },
+    {
+      "nb": "kanncaa1/dataiteam-titanic-eda",
+      "scale-factor": 39.870852466045484
+    },
+    {
+      "nb": "kenjee/titanic-project-example",
+      "scale-factor": 2536.1574260615203
+    },
+    {
+      "nb": "kimtaehun/simple-preprocessing-for-time-series-prediction",
+      "scale-factor": 3.965037667695991
+    },
+    {
+      "nb": "kmader/analyzing-matches",
+      "scale-factor": 304.1571126729847
+    },
+    {
+      "nb": "koko1998/summer-products-and-sales-wish-com",
+      "scale-factor": 171.25997150310693
+    },
+    {
+      "nb": "kwullum/when-do-traffic-related-deaths-occur",
+      "scale-factor": 49.50637035451104
+    },
+    {
+      "nb": "loveall/favorita-analytics",
+      "scale-factor": 0.95
+    },
+    {
+      "nb": "luckygemini/notebook5d5fc80c9f",
+      "scale-factor": 436.70207850795845
+    },
+    {
+      "nb": "luizep/movieslens20m",
+      "scale-factor": 0.9010830122065513
+    },
+    {
+      "nb": "macespinoza/simple-eda-with-python-pandas-data-avocado-paltas",
+      "scale-factor": 417.26664147493585
+    },
+    {
+      "nb": "madseth/customer-shopping-trends-dataset-eda",
+      "scale-factor": 1739.0130795156651
+    },
+    {
+      "nb": "mahtieu/nyc-taxi-fare-prediction-data-expl-xgboost",
+      "scale-factor": 0.24564953333251538
+    },
+    {
+      "nb": "mathewvondersaar/analysis-of-student-performance",
+      "scale-factor": 23556.59899256851
+    },
+    {
+      "nb": "maxiaoyue/data-cleaning-challenge-handling-missing-values",
+      "scale-factor": 2.2317694406159303
+    },
+    {
+      "nb": "mikedelong/python-eda-with-kdes",
+      "scale-factor": 71.05075677179308
+    },
+    {
+      "nb": "muhammadawaistayyab/used-cars-in-pakistan-stats",
+      "scale-factor": 397.1689665588773
+    },
+    {
+      "nb": "mustafatatarhan1/iris-kernel",
+      "scale-factor": 132500.6801365306
+    },
+    {
+      "nb": "nadare/feature-engenieering-with-pivot-table",
+      "scale-factor": 0.4074224399247163
+    },
+    {
+      "nb": "nandhuelan/ott-platforms",
+      "scale-factor": 122.26412786012145
+    },
+    {
+      "nb": "narasimhach/ashrae-data-preprocessing",
+      "scale-factor": 0.442624614759448
+    },
+    {
+      "nb": "nihhaar/etltransform",
+      "scale-factor": 1255.7836184041084
+    },
+    {
+      "nb": "paramarthasengupta/plotly-eda-top-movies-of-20th-century",
+      "scale-factor": 1847.255345040808
+    },
+    {
+      "nb": "penny8/my-sub1",
+      "scale-factor": 0.15930467983227625
+    },
+    {
+      "nb": "pmr3508f20977e697/poverty-level-pmr3508-2018-f20977e697",
+      "scale-factor": 11.834827821119156
+    },
+    {
+      "nb": "poiss0nriot/classifying-client-type-using-client-names",
+      "scale-factor": 0.4326338266034307
+    },
+    {
+      "nb": "pradeepjeya/allstate-encoding-high-cardinality-features",
+      "scale-factor": 5.863157894736842
+    },
+    {
+      "nb": "qingyuanwu/deep-neural-network",
+      "scale-factor": 0.09122547293327263
+    },
+    {
+      "nb": "qnqfbqfqo/electric-vehicle-landscape-in-washington-state",
+      "scale-factor": 72.90968501382883
+    },
+    {
+      "nb": "robikscube/big-data-bowl-comprehensive-eda-with-pandas",
+      "scale-factor": 2.1496133401929116
+    },
+    {
+      "nb": "robinfaber/monsters-a-simple-logistic-regression-approach",
+      "scale-factor": 21533.088448625993
+    },
+    {
+      "nb": "roopahegde/cryptocurrency-price-correlation",
+      "scale-factor": 4.0
+    },
+    {
+      "nb": "roydatascience/malware-detection-stacking-2-0",
+      "scale-factor": 0.14597914989291674
+    },
+    {
+      "nb": "sabya40/data-cleaning-and-pandas-for-beginners",
+      "scale-factor": 359.27846896296074
+    },
+    {
+      "nb": "sal001/beginner-s-note-top-12-by-single-linear-model",
+      "scale-factor": 236.2394046118427
+    },
+    {
+      "nb": "salmaneunus/student-s-performance-quantitative-visual-eda",
+      "scale-factor": 18344.520712491172
+    },
+    {
+      "nb": "saniaks/melbourne-house-price-eda",
+      "scale-factor": 189.02691809188642
+    },
+    {
+      "nb": "sanket30/eda-of-application-train-home-credit-default",
+      "scale-factor": 6.034782608695652
+    },
+    {
+      "nb": "santhoshrao1995/assi01-santhosh-19101036",
+      "scale-factor": 284.75953197223697
+    },
+    {
+      "nb": "seriousran/eda-ing",
+      "scale-factor": 14.886594737323277
+    },
+    {
+      "nb": "shashi772/data-cleaning-challenge-parsing-dates",
+      "scale-factor": 507.57464388281363
+    },
+    {
+      "nb": "shivavashishtha/zomato-eda-tutorial",
+      "scale-factor": 0.39175871613442614
+    },
+    {
+      "nb": "shubhammahalank/eda-hotel-booking-demand",
+      "scale-factor": 12.089603996015866
+    },
+    {
+      "nb": "shunjiangxu/blood-is-thicker-than-water-friendship-forever",
+      "scale-factor": 12.695146503490385
+    },
+    {
+      "nb": "snanilim/video-games-sales-analysis-and-visualization",
+      "scale-factor": 546.1432579825872
+    },
+    {
+      "nb": "stefanjov/my-first-normalize-on-big-dataset",
+      "scale-factor": 7.798170059112338
+    },
+    {
+      "nb": "sudheer259/house-price-prediction",
+      "scale-factor": 298.4322948276589
+    },
+    {
+      "nb": "sunnybiswas/eda-on-airline-dataset",
+      "scale-factor": 70.1527298067536
+    },
+    {
+      "nb": "tanulsingh077/twitter-sentiment-extaction-analysis-eda-and-model",
+      "scale-factor": 0.5003817922850604
+    },
+    {
+      "nb": "taylorhickem/singapore-building-energy",
+      "scale-factor": 14072.84644587057
+    },
+    {
+      "nb": "teemingyi/pubg-data-exploration-example-matches",
+      "scale-factor": 2.565374687548368
+    },
+    {
+      "nb": "thirumani/biggboss-hindi-telugu-tamil-kannada-marathi-bangla",
+      "scale-factor": 4431.222864886392
+    },
+    {
+      "nb": "trinath003/data-manipulation-visualisation-on-kaggle-datasets",
+      "scale-factor": 1715.1345136628702
+    },
+    {
+      "nb": "tunguz/fathers-day-specials-just-the-features",
+      "scale-factor": 0.18056417461278798
+    },
+    {
+      "nb": "ukveteran/sarima-time-series-eda-predict-jma-sao-paulo",
+      "scale-factor": 1404209.2443216091
+    },
+    {
+      "nb": "vatsalmavani/music-recommendation-system-using-spotify-dataset",
+      "scale-factor": 51.98053887568724
+    },
+    {
+      "nb": "vbmokin/automatic-eda-with-pandas-profiling-2-9-09-2020",
+      "scale-factor": 2447.344141215378
+    },
+    {
+      "nb": "vinothsuku/osic-pulmonary-fibrosis-simple-eda",
+      "scale-factor": 15341.336429919986
+    },
+    {
+      "nb": "viviktpharale/house-price-prediction-eda-linear-ridge-lasso",
+      "scale-factor": 352.8730735132316
+    },
+    {
+      "nb": "willkoehrsen/start-here-a-gentle-introduction",
+      "scale-factor": 0.48466088775609
+    },
+    {
+      "nb": "wyl4417/machine-learning-and-how-it-affects-you",
+      "scale-factor": 11.197210002522715
+    },
+    {
+      "nb": "xingobar/computer-science-data-visualization",
+      "scale-factor": 57616.313867621655
+    },
+    {
+      "nb": "xokent/cyber-security-attack-eda",
+      "scale-factor": 65.78190067435119
+    },
+    {
+      "nb": "yashjaiswal1097/911-emergency-calls-kernel",
+      "scale-factor": 5.878318869754784
+    },
+    {
+      "nb": "yonelanuba/elo-merchant-by-yonela",
+      "scale-factor": 0.2994870619741942
+    },
+    {
+      "nb": "yuliagm/talkingdata-eda-plus-time-patterns",
+      "scale-factor": 1.1661766655089516
+    }
+  ]
+}
