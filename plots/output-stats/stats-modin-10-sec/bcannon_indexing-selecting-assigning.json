@@ -1,0 +1,110 @@
+{
+  "max-mem-in-mb": 2924,
+  "max-mem-in-mb2": 909,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sns\n\nreviews = pd.read_csv(\"./input/winemag-data-130k-v2.scaled.csv\", index_col=0)\n\n\ndef check_q1(ans):\n    expected = reviews.description\n    return ans.equals(expected)\n\n\ndef answer_q1():\n    print(\"\"\"reviews.description\"\"\")\n\n\ndef check_q2(ans):\n    expected = reviews.description[0]\n    return ans == expected\n\n\ndef answer_q2():\n    print(\"\"\"reviews.description[0]\"\"\")\n\n\ndef check_q3(ans):\n    expected = reviews.iloc[0]\n    return ans.equals(expected)\n\n\ndef answer_q3():\n    print(\"\"\"reviews.iloc[0]\"\"\")\n\n\ndef check_q4(ans):\n    expected = reviews.iloc[0:10, 1]\n    return ans.equals(expected)\n\n\ndef answer_q4():\n    print(\"\"\"reviews.iloc[0:10, 1]\"\"\")\n\n\ndef check_q5(ans):\n    expected = reviews.iloc[[1, 2, 3, 5, 8]]\n    return ans.equals(expected)\n\n\ndef answer_q5():\n    print(\"\"\"reviews.iloc[[1, 2, 3, 5, 8]]\"\"\")\n\n\ndef check_q6(ans):\n    expected = reviews.loc[[0, 1, 10, 100], ['country', 'province', 'region_1', 'region_2']]\n    return ans.equals(expected)\n\n\ndef answer_q6():\n    print(\"\"\"reviews.loc[[0, 1, 10, 100], ['country', 'province', 'region_1', 'region_2']]\"\"\")\n\n\ndef check_q7(ans):\n    expected = reviews.loc[0:100, ['country', 'variety']]\n    return ans.equals(expected)\n\n\ndef answer_q7():\n    print(\"\"\"reviews.loc[0:100, ['country', 'variety']]\"\"\")\n\n\ndef check_q8(ans):\n    expected = reviews.loc[reviews.country == 'Italy']\n    return ans.equals(expected)\n\n\ndef answer_q8():\n    print(\"\"\"reviews.loc[reviews.country == 'Italy']\"\"\")\n\n\ndef check_q9(ans):\n    expected = reviews.loc[reviews.region_2.notnull()]\n    return ans.head().equals(expected.head())\n\n\ndef answer_q9():\n    print(\"\"\"reviews.loc[reviews.region_2.notnull()]\"\"\")\n\n\ndef check_q10(ans):\n    expected = reviews.points\n# ALEX: remove plotting\n#     return sns.countplot(ans) if ans.head().equals(expected.head()) else False\n    return True if ans.head().equals(expected.head()) else False\n\n\ndef answer_q10():\n    print(\"\"\"reviews.points\"\"\")\n\n\ndef check_q11(ans):\n    expected = reviews.loc[:1000, 'points']\n# ALEX: remove plotting\n#     return sns.countplot(ans) if ans.head().equals(expected.head()) else False\n    return True if ans.head().equals(expected.head()) else False\n\n\ndef answer_q11():\n    print(\"\"\"reviews.loc[:1000, 'points']\"\"\")\n\n\ndef check_q12(ans):\n    expected = reviews.iloc[-1000:, 3]\n# ALEX: remove plotting\n#     return sns.countplot(ans) if ans.head().equals(expected.head()) else False\n    return True if ans.head().equals(expected.head()) else False\n\n\ndef answer_q12():\n    print(\"\"\"reviews.iloc[-1000:, 3]\"\"\")\n\n\ndef check_q13(ans):\n    expected = reviews[reviews.country == \"Italy\"].points\n# ALEX: remove plotting\n#     return sns.countplot(ans) if ans.head().equals(expected.head()) else False\n    return True if ans.head().equals(expected.head()) else False\n\n\ndef answer_q13():\n    print(\"\"\"reviews[reviews.country == \"Italy\"].points\"\"\")\n\n\ndef check_q14(ans):\n    expected = reviews[reviews.country.isin([\"Italy\", \"France\"]) & (reviews.points >= 90)].country\n# ALEX: remove plotting\n#     return sns.countplot(ans) if ans.head().equals(expected.head()) else False\n    return True if ans.head().equals(expected.head()) else False\n\n\ndef answer_q14():\n    print(\"\"\"reviews[reviews.country.isin([\"Italy\", \"France\"]) & (reviews.points >= 90)].country\"\"\")\n\nreviews = pd.read_csv(\"./input/winemag-data-130k-v2.scaled.csv\", index_col=0)\npd.set_option(\"display.max_rows\", 5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 12323642855
+    },
+    {
+      "raw": "reviews.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1106769
+    },
+    {
+      "raw": "check_q1(pd.DataFrame())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2992378148
+    },
+    {
+      "raw": "reviews.filter(items=[\"description\"])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1838461
+    },
+    {
+      "raw": "reviews.at[0,\"description\"]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 391108262
+    },
+    {
+      "raw": "reviews.loc[0]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3413531
+    },
+    {
+      "raw": "reviews.loc[0:9].filter(items=[\"description\"])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4622936
+    },
+    {
+      "raw": "reviews.loc[[1,2,3,5,8]]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1313155
+    },
+    {
+      "raw": "reviews.loc[[0,1,10,100]].filter([\"country\",\"province\",\"region_1\",\"region_2\"])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2332766
+    },
+    {
+      "raw": "reviews.loc[0:99].filter([\"country\",\"variety\"])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2095429
+    },
+    {
+      "raw": "reviews.loc[reviews.country == 'Italy']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 845221932
+    },
+    {
+      "raw": "reviews.loc[reviews.region_2 != 'NaN']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1434223366
+    },
+    {
+      "raw": "reviews.filter(items=[\"points\"])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1574804
+    },
+    {
+      "raw": "reviews.points.loc[0:999]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2003215
+    },
+    {
+      "raw": "reviews.points.loc[reviews.shape[0]-1000:reviews.shape[0]]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2057020
+    },
+    {
+      "raw": "reviews.points.loc[reviews.country == 'Italy']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 535500787
+    },
+    {
+      "raw": "reviews[reviews.country.isin([\"Italy\", \"France\"]) & (reviews.points >= 90)].country",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2669451597
+    }
+  ],
+  "total-time-in-sec": 21.213885033,
+  "max-disk-in-mb": 0
+}

@@ -1,0 +1,518 @@
+{
+  "max-mem-in-mb": 287,
+  "max-mem-in-mb2": 298,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 434903
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt\n\n# from IPython.display import set_matplotlib_formats\n# set_matplotlib_formats(\"retina\")\n\n# plt.style.use(\"seaborn-whitegrid\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 219372
+    },
+    {
+      "raw": "raw = pd.read_csv(r\"./input/kaggle_survey_2020_responses.scaled.csv\", low_memory=False)\nraw.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 665198495
+    },
+    {
+      "raw": "raw.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 638769
+    },
+    {
+      "raw": "question = raw.iloc[0]\nquestion",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 545719
+    },
+    {
+      "raw": "answer = raw.drop([0])\nanswer",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 65143583
+    },
+    {
+      "raw": "answer.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 15110290
+    },
+    {
+      "raw": "question[\"Q1\"]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 447882
+    },
+    {
+      "raw": "Q1 = answer['Q1'].value_counts().sort_index()\n# ALEX: remove plotting\n# sns.countplot(data=answer.sort_values(\"Q1\"), x=\"Q1\", \n#               palette=\"Blues_r\").set_title(question[\"Q1\"])\n_ = answer.sort_values(\"Q1\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 95418589
+    },
+    {
+      "raw": "question_no = \"Q2\"\nQ2 = answer[question_no].value_counts()\nQ2",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1585415
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(data=answer, \n#               y=question_no).set_title(question[question_no])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 187098
+    },
+    {
+      "raw": "q1q2 = pd.crosstab(answer[\"Q1\"], answer[\"Q2\"])\n# ALEX: remove plotting\n# q1q2[[\"Man\", \"Woman\"]].plot.bar(rot=0)\n_ = q1q2[[\"Man\", \"Woman\"]]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 26054946
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# q1q2[[\"Man\", \"Woman\"]].sort_index(ascending=False).plot.barh(figsize=(10, 6), title=\"Age & Gender\")\n_ = q1q2[[\"Man\", \"Woman\"]].sort_index(ascending=False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 938986
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10, 6))\n# sns.countplot(data=answer.sort_values(\"Q1\"), x=\"Q1\", hue=\"Q2\").set_title(\"Age & Gender\")\n_ = answer.sort_values(\"Q1\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 59072320
+    },
+    {
+      "raw": "def show_countplot_by_qno(qno, fsize=(10, 6), order=None):\n    \"\"\"\n    qno : question_no, ex) Q12\n    fsize : figsize default (10, 6)\n    order : optional order list, default value_counts().index\n    \"\"\"\n    if not order :\n        order = answer[qno].value_counts().index\n        \n# ALEX: remove plotting\n#     plt.figure(figsize=fsize)\n#     sns.countplot(data=answer, \n#                   y=qno,\n#                   order=order,\n#                   palette=\"Blues_r\"\n#                  ).set_title(question[qno])\n    _ = question[qno]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 749857
+    },
+    {
+      "raw": "show_countplot_by_qno(\"Q3\", fsize=(12, 12))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1300197
+    },
+    {
+      "raw": "show_countplot_by_qno(\"Q4\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1123547
+    },
+    {
+      "raw": "show_countplot_by_qno(\"Q5\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1062352
+    },
+    {
+      "raw": "show_countplot_by_qno(\"Q6\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1029942
+    },
+    {
+      "raw": "q6_cols = ['I have never written code', '< 1 years', '1-2 years', '3-5 years', '5-10 years',  \n       '10-20 years', '20+ years']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 219012
+    },
+    {
+      "raw": "show_countplot_by_qno(\"Q6\", order=q6_cols)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 217017
+    },
+    {
+      "raw": "question.filter(regex=\"Q7\")[0].split(\"-\")[0]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 941691
+    },
+    {
+      "raw": "answer_Q7 = answer.filter(regex=\"Q7\")\nanswer_Q7",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2381673
+    },
+    {
+      "raw": "answer_Q7_desc = answer_Q7.describe()\nanswer_Q7_desc",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 17854940
+    },
+    {
+      "raw": "answer_Q7_count = answer_Q7_desc.loc[[\"top\", \"count\"]].T\nanswer_Q7_count = answer_Q7_count.set_index(\"top\")\nanswer_Q7_count = answer_Q7_count.sort_values(\"count\", ascending=False)\nanswer_Q7_count",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1310156
+    },
+    {
+      "raw": "q7_title = question.filter(regex=\"Q7\")[0].split(\"-\")[0]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 586741
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.barplot(data=answer_Q7_count, \n#             y=answer_Q7_count.index, x=\"count\", palette=\"Blues_r\").set_title(q7_title)\n_ = answer_Q7_count.index",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 14793938
+    },
+    {
+      "raw": "def get_question_title_by_qno(qno):\n    if qno in question.index:\n        return question[qno]\n    else:\n        q_no = question.filter(regex=qno)[0].split(\"-\")[0]\n        return q_no\n\nget_question_title_by_qno(\"Q7\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 822219
+    },
+    {
+      "raw": "def get_multiple_choice_answer_by_qno(qno):\n    df_answer = answer.filter(regex=qno)\n    answer_desc = df_answer.describe()\n    answer_count = answer_desc.loc[[\"top\", \"count\"]].T.set_index(\"top\")\n    answer_count = answer_count.sort_values(by=\"count\", ascending=False)\n    return answer_count",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 465154
+    },
+    {
+      "raw": "get_multiple_choice_answer_by_qno(\"Q9\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 19690423
+    },
+    {
+      "raw": "def show_multiple_choice_bar_plot_by_qno(qno):\n    multiple_choice_answer = get_multiple_choice_answer_by_qno(qno)\n     \n# ALEX: remove plotting\n#     plt.figure(figsize=(10, 6))\n#     sns.barplot(data=multiple_choice_answer,\n#                 y=multiple_choice_answer.index, \n#                 x=\"count\", \n#                 palette=\"Blues_r\").set_title(get_question_title_by_qno(qno))\n    _ = multiple_choice_answer.index",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 304030
+    },
+    {
+      "raw": "show_multiple_choice_bar_plot_by_qno(\"Q7\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 20486943
+    },
+    {
+      "raw": "q7_cols = answer.filter(regex=\"Q7\").describe().loc[\"top\"].tolist()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 20069895
+    },
+    {
+      "raw": "q2q7 = answer.filter(regex=\"Q7|Q2$\")\nq2q7_count = q2q7.groupby(\"Q2\").count()\nq2q7_count.columns = q7_cols\nq2q7_count",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 24412943
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = q2q7_count.loc[[\"Man\", \"Woman\"]].T.sort_values(\"Woman\").plot.barh(title=\"Gender & Programming Language\")\n_ = q2q7_count.loc[[\"Man\", \"Woman\"]].T.sort_values(\"Woman\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1253481
+    },
+    {
+      "raw": "# show_countplot_by_qno(\"Q7\")\n# show_multiple_choice_bar_plot_by_qno(\"Q1\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 111828
+    },
+    {
+      "raw": "question.index",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 186771
+    },
+    {
+      "raw": "def show_plot_by_qno(qno):\n    if qno in question.index:\n        show_countplot_by_qno(qno)\n    else:\n        show_multiple_choice_bar_plot_by_qno(qno)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 308274
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q8\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1016895
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q9\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 18879129
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q10\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 21204349
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q11\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1030592
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q12\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 7802259
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q13\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1009338
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q14\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 18424983
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q15\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1034075
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q16\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 24369504
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q17\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 18962903
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q18\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 11191862
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q19\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 9850164
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q20\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 996915
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q21\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 970983
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q22\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 965392
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q23\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 13013280
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q24\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1010737
+    },
+    {
+      "raw": "q24_count = answer[\"Q24\"].value_counts().reset_index()\nq24_count.columns = [\"range\", \"count\"]\nq24_count",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1458607
+    },
+    {
+      "raw": "q24_count[\"min\"] = q24_count[\"range\"].str.split(\"-\", expand=True)[0]\nq24_count[\"max\"] = q24_count[\"range\"].str.split(\"-\", expand=True)[1]\nq24_count[\"min\"] = q24_count[\"min\"].str.replace(\",|\\$|>\", \"\").astype(int)\nq24_count = q24_count.sort_values(\"min\")\nq24_count",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2312268
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10, 6))\n# g = sns.barplot(data=q24_count, \n#                 y=\"range\", x=\"count\", \n#                 palette=\"Blues\").set_title(get_question_title_by_qno(\"Q24\"))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 128386
+    },
+    {
+      "raw": "q24_cols = q24_count.range.tolist()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 257834
+    },
+    {
+      "raw": "q3_usa = answer[answer[\"Q3\"].isin([\"United States of America\"])]\n#ALEX: remove plotting\n# plt.figure(figsize=(10, 6))\n# g= sns.countplot(data=q3_usa, \n#               y=\"Q24\", \n#               order=q24_cols, \n#               palette=\"Blues\").set_title(\"USA yearly compensation\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 8388539
+    },
+    {
+      "raw": "q3_korea = answer[answer[\"Q3\"].isin([\"South Korea\"])]\n# ALEX: remove plotting\n# plt.figure(figsize=(10, 6))\n# g = sns.countplot(data=q3_korea, \n#                   y=\"Q24\", \n#                   order=q24_cols, \n#                   palette=\"Blues\").set_title(\"South Korea yearly compensation\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2009100
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q25\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1080427
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q26_A\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 18093128
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q26_B\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 17953244
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q27_A\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 17368088
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q27_B\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 18006803
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q28_A\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 15824418
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q28_B\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 16715740
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q29_A\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 25850261
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q29_B\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 25792223
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q30\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 781758
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q31_A\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 21091910
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q31_B\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 21430804
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q32\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 733573
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q33_A\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 12234018
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q33_B\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 12692416
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q34_A\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 16958743
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q34_B\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 17482916
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q35_A\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 15801380
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q35_B\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 16222114
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q36\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 14813821
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q37\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 18569935
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q38\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 995020
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q39\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 18662804
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 72286
+    }
+  ],
+  "total-time-in-sec": 1.574195315,
+  "max-disk-in-mb": 0
+}

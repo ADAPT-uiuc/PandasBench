@@ -1,0 +1,332 @@
+{
+  "max-mem-in-mb": 10222,
+  "max-mem-in-mb2": 10299,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# from matplotlib import pyplot as plt\n# import seaborn as sns\n# import missingno as msno\nimport datetime\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 5GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "rewrite-ns": 568035,
+      "overhead-ns": 568035,
+      "exec-ns": 285026,
+      "total-ns": 853061,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\nimport datetime\n"
+    },
+    {
+      "raw": "# CALISACAGIM DATASET\ntrain_transaction=pd.read_csv('./input/train_transaction.scaled.csv')\ntest_transaction=pd.read_csv('./input/test_transaction.scaled.csv')",
+      "rewrite-ns": 672596,
+      "overhead-ns": 672596,
+      "exec-ns": 19090084457,
+      "total-ns": 19090757053,
+      "patts-hit": {},
+      "rewritten": "train_transaction = pd.read_csv('./input/train_transaction.scaled.csv')\ntest_transaction = pd.read_csv('./input/test_transaction.scaled.csv')\n"
+    },
+    {
+      "raw": "# test_transaction setinde isFraud sutunu bulunmadigindan concat oncesi yeni ekliyoruz ve 2 degerini dolduruyoruz\ntest_transaction['isFraud']=2\n# train_transaction ve test_transaction setlerini concat ediyoruz\ntransaction=pd.concat([train_transaction, test_transaction], ignore_index=True)",
+      "rewrite-ns": 1054735,
+      "overhead-ns": 1054735,
+      "exec-ns": 1332456387,
+      "total-ns": 1333511122,
+      "patts-hit": {},
+      "rewritten": "test_transaction['isFraud'] = 2\ntransaction = pd.concat([train_transaction, test_transaction], ignore_index\n    =True)\n"
+    },
+    {
+      "raw": "transaction['D1'].head(40)",
+      "rewrite-ns": 509978,
+      "overhead-ns": 509978,
+      "exec-ns": 3217606,
+      "total-ns": 3727584,
+      "patts-hit": {},
+      "rewritten": "transaction['D1'].head(40)\n"
+    },
+    {
+      "raw": "# Column ve Degerlerine genel bakis\nfor col, values in transaction.iteritems():\n    num_uniques = values.nunique()\n    print ('{name}: {num_unique}'.format(name=col, num_unique=num_uniques))\n    print (values.unique())\n    print ('\\n')",
+      "rewrite-ns": 1602208,
+      "overhead-ns": 1602208,
+      "exec-ns": 6536840705,
+      "total-ns": 6538442913,
+      "patts-hit": {},
+      "rewritten": "for col, values in transaction.iteritems():\n    num_uniques = values.nunique()\n    print('{name}: {num_unique}'.format(name=col, num_unique=num_uniques))\n    print(values.unique())\n    print('\\n')\n"
+    },
+    {
+      "raw": "# NE KADAR ROW-COLINM OLDUGU\n\nprint(f'Train Transaction has {transaction.shape[0]} rows and {transaction.shape[1]} columns.')",
+      "rewrite-ns": 893407,
+      "overhead-ns": 893407,
+      "exec-ns": 324264,
+      "total-ns": 1217671,
+      "patts-hit": {},
+      "rewritten": "print(\n    f'Train Transaction has {transaction.shape[0]} rows and {transaction.shape[1]} columns.'\n    )\n"
+    },
+    {
+      "raw": "#COLUMN ISIMLER\ntransaction.columns",
+      "rewrite-ns": 74674,
+      "overhead-ns": 74674,
+      "exec-ns": 773605,
+      "total-ns": 848279,
+      "patts-hit": {},
+      "rewritten": "transaction.columns\n"
+    },
+    {
+      "raw": "# BENIM KISIM OLAN COLUMNLARI BASKA BIR VARIABLE ATIYORUZ ve CALISMAMIZDA COPYASINI KULLANIYORUZ\ntransaction_mycolumns=transaction.iloc[:,0:55]\nmy_transaction=transaction_mycolumns.copy()",
+      "rewrite-ns": 852458,
+      "overhead-ns": 852458,
+      "exec-ns": 682291334,
+      "total-ns": 683143792,
+      "patts-hit": {},
+      "rewritten": "transaction_mycolumns = transaction.iloc[:, 0:55]\nmy_transaction = transaction_mycolumns.copy()\n"
+    },
+    {
+      "raw": "my_transaction.info()",
+      "rewrite-ns": 126589,
+      "overhead-ns": 126589,
+      "exec-ns": 1309407892,
+      "total-ns": 1309534481,
+      "patts-hit": {},
+      "rewritten": "my_transaction.info()\n"
+    },
+    {
+      "raw": "my_transaction.info(memory_usage='deep')",
+      "rewrite-ns": 142397,
+      "overhead-ns": 142397,
+      "exec-ns": 2350003000,
+      "total-ns": 2350145397,
+      "patts-hit": {},
+      "rewritten": "my_transaction.info(memory_usage='deep')\n"
+    },
+    {
+      "raw": "my_transaction.describe()",
+      "rewrite-ns": 121421,
+      "overhead-ns": 121421,
+      "exec-ns": 1432720377,
+      "total-ns": 1432841798,
+      "patts-hit": {},
+      "rewritten": "my_transaction.describe()\n"
+    },
+    {
+      "raw": "# kololasyonu anlam ifade eden kisimlari gozlemleyelim\na=my_transaction.corr().abs()<1\nb=my_transaction.corr().abs()>0.5\nmy_transaction.corr().abs()[a&b]\n",
+      "rewrite-ns": 1551417,
+      "overhead-ns": 1551417,
+      "exec-ns": 10597203505,
+      "total-ns": 10598754922,
+      "patts-hit": {},
+      "rewritten": "a = my_transaction.corr().abs() < 1\nb = my_transaction.corr().abs() > 0.5\nmy_transaction.corr().abs()[a & b]\n"
+    },
+    {
+      "raw": "# NE KADAR COLUMNDA MISSING VALUE OLDUGU\nprint(f'There are {my_transaction.isnull().any().sum()} columns in my_train transaction dataset with missing values.')",
+      "rewrite-ns": 784519,
+      "overhead-ns": 784519,
+      "exec-ns": 1264018632,
+      "total-ns": 1264803151,
+      "patts-hit": {},
+      "rewritten": "print(\n    f'There are {my_transaction.isnull().any().sum()} columns in my_train transaction dataset with missing values.'\n    )\n"
+    },
+    {
+      "raw": "# Eksik verileri oransal bar ile gorsellestirme\n# ALEX: remove plotting\n# msno.bar(train_Mytransaction);",
+      "rewrite-ns": 21281,
+      "overhead-ns": 21281,
+      "exec-ns": 116234,
+      "total-ns": 137515,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# msno.matrix(my_transaction);",
+      "rewrite-ns": 19810,
+      "overhead-ns": 19810,
+      "exec-ns": 106305,
+      "total-ns": 126115,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# degiskenler arasindaki yokluk koralasyonu  -1 demek- birinde null varsa digerinde de null her durumda var\n# ALEX: remove plotting\n# msno.heatmap(my_transaction);",
+      "rewrite-ns": 19960,
+      "overhead-ns": 19960,
+      "exec-ns": 93746,
+      "total-ns": 113706,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "emails = {'gmail': 'google', 'att.net': 'att', 'twc.com': 'spectrum', \n          'scranton.edu': 'other', 'optonline.net': 'other', 'hotmail.co.uk': 'microsoft',\n          'comcast.net': 'other', 'yahoo.com.mx': 'yahoo', 'yahoo.fr': 'yahoo',\n          'yahoo.es': 'yahoo', 'charter.net': 'spectrum', 'live.com': 'microsoft', \n          'aim.com': 'aol', 'hotmail.de': 'microsoft', 'centurylink.net': 'centurylink',\n          'gmail.com': 'google', 'me.com': 'apple', 'earthlink.net': 'other', 'gmx.de': 'other',\n          'web.de': 'other', 'cfl.rr.com': 'other', 'hotmail.com': 'microsoft', \n          'protonmail.com': 'other', 'hotmail.fr': 'microsoft', 'windstream.net': 'other', \n          'outlook.es': 'microsoft', 'yahoo.co.jp': 'yahoo', 'yahoo.de': 'yahoo',\n          'servicios-ta.com': 'other', 'netzero.net': 'other', 'suddenlink.net': 'other',\n          'roadrunner.com': 'other', 'sc.rr.com': 'other', 'live.fr': 'microsoft',\n          'verizon.net': 'yahoo', 'msn.com': 'microsoft', 'q.com': 'centurylink', \n          'prodigy.net.mx': 'att', 'frontier.com': 'yahoo', 'anonymous.com': 'other', \n          'rocketmail.com': 'yahoo', 'sbcglobal.net': 'att', 'frontiernet.net': 'yahoo', \n          'ymail.com': 'yahoo', 'outlook.com': 'microsoft', 'mail.com': 'other', \n          'bellsouth.net': 'other', 'embarqmail.com': 'centurylink', 'cableone.net': 'other', \n          'hotmail.es': 'microsoft', 'mac.com': 'apple', 'yahoo.co.uk': 'yahoo', 'netzero.com': 'other', \n          'yahoo.com': 'yahoo', 'live.com.mx': 'microsoft', 'ptd.net': 'other', 'cox.net': 'other',\n          'aol.com': 'aol', 'juno.com': 'other', 'icloud.com': 'apple'}\n\nus_emails = ['gmail', 'net', 'edu']\n\n# https://www.kaggle.com/c/ieee-fraud-detection/discussion/100499#latest-579654\nfor c in ['P_emaildomain', 'R_emaildomain']:\n    my_transaction[c + '_bin'] = my_transaction[c].map(emails)\n    my_transaction[c + '_suffix'] = my_transaction[c].map(lambda x: str(x).split('.')[-1])\n    my_transaction[c + '_suffix'] = my_transaction[c + '_suffix'].map(lambda x: x if str(x) not in us_emails else 'us')\n",
+      "rewrite-ns": 7844433,
+      "overhead-ns": 7844433,
+      "exec-ns": 1054705850,
+      "total-ns": 1062550283,
+      "patts-hit": {},
+      "rewritten": "emails = {'gmail': 'google', 'att.net': 'att', 'twc.com': 'spectrum',\n    'scranton.edu': 'other', 'optonline.net': 'other', 'hotmail.co.uk':\n    'microsoft', 'comcast.net': 'other', 'yahoo.com.mx': 'yahoo',\n    'yahoo.fr': 'yahoo', 'yahoo.es': 'yahoo', 'charter.net': 'spectrum',\n    'live.com': 'microsoft', 'aim.com': 'aol', 'hotmail.de': 'microsoft',\n    'centurylink.net': 'centurylink', 'gmail.com': 'google', 'me.com':\n    'apple', 'earthlink.net': 'other', 'gmx.de': 'other', 'web.de': 'other',\n    'cfl.rr.com': 'other', 'hotmail.com': 'microsoft', 'protonmail.com':\n    'other', 'hotmail.fr': 'microsoft', 'windstream.net': 'other',\n    'outlook.es': 'microsoft', 'yahoo.co.jp': 'yahoo', 'yahoo.de': 'yahoo',\n    'servicios-ta.com': 'other', 'netzero.net': 'other', 'suddenlink.net':\n    'other', 'roadrunner.com': 'other', 'sc.rr.com': 'other', 'live.fr':\n    'microsoft', 'verizon.net': 'yahoo', 'msn.com': 'microsoft', 'q.com':\n    'centurylink', 'prodigy.net.mx': 'att', 'frontier.com': 'yahoo',\n    'anonymous.com': 'other', 'rocketmail.com': 'yahoo', 'sbcglobal.net':\n    'att', 'frontiernet.net': 'yahoo', 'ymail.com': 'yahoo', 'outlook.com':\n    'microsoft', 'mail.com': 'other', 'bellsouth.net': 'other',\n    'embarqmail.com': 'centurylink', 'cableone.net': 'other', 'hotmail.es':\n    'microsoft', 'mac.com': 'apple', 'yahoo.co.uk': 'yahoo', 'netzero.com':\n    'other', 'yahoo.com': 'yahoo', 'live.com.mx': 'microsoft', 'ptd.net':\n    'other', 'cox.net': 'other', 'aol.com': 'aol', 'juno.com': 'other',\n    'icloud.com': 'apple'}\nus_emails = ['gmail', 'net', 'edu']\nfor c in ['P_emaildomain', 'R_emaildomain']:\n    my_transaction[c + '_bin'] = my_transaction[c].map(emails)\n    my_transaction[c + '_suffix'] = my_transaction[c].map(lambda x: str(x).\n        split('.')[-1])\n    my_transaction[c + '_suffix'] = my_transaction[c + '_suffix'].map(lambda\n        x: x if str(x) not in us_emails else 'us')\n"
+    },
+    {
+      "raw": "for column_name in ['P_emaildomain', 'R_emaildomain']:\n    my_transaction.drop(column_name, axis=1, inplace=True)",
+      "rewrite-ns": 745671,
+      "overhead-ns": 745671,
+      "exec-ns": 451576587,
+      "total-ns": 452322258,
+      "patts-hit": {},
+      "rewritten": "for column_name in ['P_emaildomain', 'R_emaildomain']:\n    my_transaction.drop(column_name, axis=1, inplace=True)\n"
+    },
+    {
+      "raw": "object_columns_name=my_transaction.select_dtypes(include='object').columns",
+      "rewrite-ns": 517895,
+      "overhead-ns": 517895,
+      "exec-ns": 335162055,
+      "total-ns": 335679950,
+      "patts-hit": {},
+      "rewritten": "object_columns_name = my_transaction.select_dtypes(include='object').columns\n"
+    },
+    {
+      "raw": "object_columns_name",
+      "rewrite-ns": 74621,
+      "overhead-ns": 74621,
+      "exec-ns": 774755,
+      "total-ns": 849376,
+      "patts-hit": {},
+      "rewritten": "object_columns_name\n"
+    },
+    {
+      "raw": "for kategorik_sutun in object_columns_name:\n    modun_stringdegeri=my_transaction[kategorik_sutun].mode()[0]\n    my_transaction[kategorik_sutun].fillna(modun_stringdegeri,inplace=True)",
+      "rewrite-ns": 1099806,
+      "overhead-ns": 1099806,
+      "exec-ns": 1079691763,
+      "total-ns": 1080791569,
+      "patts-hit": {},
+      "rewritten": "for kategorik_sutun in object_columns_name:\n    modun_stringdegeri = my_transaction[kategorik_sutun].mode()[0]\n    my_transaction[kategorik_sutun].fillna(modun_stringdegeri, inplace=True)\n"
+    },
+    {
+      "raw": "# Kategorik degerlerin eksik degerlerini doldurma yontemlerinden Frekansi kullanacagiz\ndef frekans(data,columns,n_label=\"NONE\"):\n    \n    for col in columns:\n        #data[col].fillna(n_label,inplace=True)\n        fq_encode = data[col].value_counts(dropna=False).to_dict()   \n        data[col+\"_Fr\"] = data[col].map(fq_encode)\n        data=data.drop(col,axis=1)\n    return data",
+      "rewrite-ns": 2024503,
+      "overhead-ns": 2024503,
+      "exec-ns": 609143,
+      "total-ns": 2633646,
+      "patts-hit": {},
+      "rewritten": "def frekans(data, columns, n_label='NONE'):\n    for col in columns:\n        fq_encode = data[col].value_counts(dropna=False).to_dict()\n        data[col + '_Fr'] = data[col].map(fq_encode)\n        data = data.drop(col, axis=1)\n    return data\n"
+    },
+    {
+      "raw": "my_transaction = frekans(my_transaction,object_columns_name)",
+      "rewrite-ns": 384327,
+      "overhead-ns": 384327,
+      "exec-ns": 3439352899,
+      "total-ns": 3439737226,
+      "patts-hit": {},
+      "rewritten": "my_transaction = frekans(my_transaction, object_columns_name)\n"
+    },
+    {
+      "raw": "my_transaction.head()",
+      "rewrite-ns": 122415,
+      "overhead-ns": 122415,
+      "exec-ns": 28951517,
+      "total-ns": 29073932,
+      "patts-hit": {},
+      "rewritten": "my_transaction.head()\n"
+    },
+    {
+      "raw": "my_transaction.info()",
+      "rewrite-ns": 104637,
+      "overhead-ns": 104637,
+      "exec-ns": 67973139,
+      "total-ns": 68077776,
+      "patts-hit": {},
+      "rewritten": "my_transaction.info()\n"
+    },
+    {
+      "raw": "# Preprocess date column\nSTART_DATE = '2017-12-01'\nmy_transaction = my_transaction.rename(columns={'TransactionDT': 'TransactionDate'})\nstartdate = datetime.datetime.strptime(START_DATE, '%Y-%m-%d')\nmy_transaction['TransactionDate'] = my_transaction['TransactionDate'].apply(lambda x: (startdate + datetime.timedelta(seconds = x)))\n\n\nprint(my_transaction['TransactionDate'].head())\nprint(my_transaction['TransactionDate'].tail())",
+      "rewrite-ns": 2681441,
+      "overhead-ns": 2681441,
+      "exec-ns": 997007630,
+      "total-ns": 999689071,
+      "patts-hit": {},
+      "rewritten": "START_DATE = '2017-12-01'\nmy_transaction = my_transaction.rename(columns={'TransactionDT':\n    'TransactionDate'})\nstartdate = datetime.datetime.strptime(START_DATE, '%Y-%m-%d')\nmy_transaction['TransactionDate'] = my_transaction['TransactionDate'].apply(\n    lambda x: startdate + datetime.timedelta(seconds=x))\nprint(my_transaction['TransactionDate'].head())\nprint(my_transaction['TransactionDate'].tail())\n"
+    },
+    {
+      "raw": "my_transaction.columns",
+      "rewrite-ns": 83148,
+      "overhead-ns": 83148,
+      "exec-ns": 860896,
+      "total-ns": 944044,
+      "patts-hit": {},
+      "rewritten": "my_transaction.columns\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# import seaborn as sns\nmy_transaction_TransactionAmt_Fraud=my_transaction[['isFraud','TransactionAmt']]\n# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(5,5))\n# sns.heatmap(my_transaction_TransactionAmt_Fraud.corr(), ax=ax,linewidths=.5,annot=True)\n# plt.show()\n_ = my_transaction_TransactionAmt_Fraud.corr()",
+      "rewrite-ns": 728904,
+      "overhead-ns": 728904,
+      "exec-ns": 20463284,
+      "total-ns": 21192188,
+      "patts-hit": {},
+      "rewritten": "my_transaction_TransactionAmt_Fraud = my_transaction[['isFraud',\n    'TransactionAmt']]\n_ = my_transaction_TransactionAmt_Fraud.corr()\n"
+    },
+    {
+      "raw": "# boxplot\n# ALEX: remove plotting\n# sns.boxplot(x=my_transaction['TransactionAmt']);\n_ = my_transaction['TransactionAmt']",
+      "rewrite-ns": 348294,
+      "overhead-ns": 348294,
+      "exec-ns": 347240,
+      "total-ns": 695534,
+      "patts-hit": {},
+      "rewritten": "_ = my_transaction['TransactionAmt']\n"
+    },
+    {
+      "raw": "# boxplot da esik deger atama\nQ1=my_transaction['TransactionAmt'].quantile(0.25)\nQ3=my_transaction['TransactionAmt'].quantile(0.75)\nIQR=Q3-Q1\nmy_TransactionAmt_Alt_Sinir = Q1-2.5*IQR\nmy_TransactionAmt_Ust_Sinir = Q3 + 2.5*IQR",
+      "rewrite-ns": 1820930,
+      "overhead-ns": 1820930,
+      "exec-ns": 30126046,
+      "total-ns": 31946976,
+      "patts-hit": {},
+      "rewritten": "Q1 = my_transaction['TransactionAmt'].quantile(0.25)\nQ3 = my_transaction['TransactionAmt'].quantile(0.75)\nIQR = Q3 - Q1\nmy_TransactionAmt_Alt_Sinir = Q1 - 2.5 * IQR\nmy_TransactionAmt_Ust_Sinir = Q3 + 2.5 * IQR\n"
+    },
+    {
+      "raw": "Q1, Q3 , IQR,my_TransactionAmt_Alt_Sinir,my_TransactionAmt_Ust_Sinir",
+      "rewrite-ns": 450841,
+      "overhead-ns": 450841,
+      "exec-ns": 612605,
+      "total-ns": 1063446,
+      "patts-hit": {},
+      "rewritten": "Q1, Q3, IQR, my_TransactionAmt_Alt_Sinir, my_TransactionAmt_Ust_Sinir\n"
+    },
+    {
+      "raw": "# boxplot ile belirlenen aykiri degerlere erismek\naykiri_TF=(my_transaction['TransactionAmt']<my_TransactionAmt_Alt_Sinir)|(my_transaction['TransactionAmt']>my_TransactionAmt_Ust_Sinir)\nmy_transaction[aykiri_TF].index",
+      "rewrite-ns": 1029269,
+      "overhead-ns": 1029269,
+      "exec-ns": 32180990,
+      "total-ns": 33210259,
+      "patts-hit": {},
+      "rewritten": "aykiri_TF = (my_transaction['TransactionAmt'] < my_TransactionAmt_Alt_Sinir\n    ) | (my_transaction['TransactionAmt'] > my_TransactionAmt_Ust_Sinir)\nmy_transaction[aykiri_TF].index\n"
+    },
+    {
+      "raw": "# baskilama ile ust deger sonrasi degerlere ust degeri, alt deger sonrasina ise alt degeri atama\ndef AykiriDegeriBaskila(deger):\n    \n    if deger > my_TransactionAmt_Ust_Sinir:\n       \n        deger=my_TransactionAmt_Ust_Sinir\n    elif deger < my_TransactionAmt_Alt_Sinir:\n       \n        deger=-my_TransactionAmt_Alt_Sinir\n    \n    return deger\n\nmy_transaction['TransactionAmt'] = my_transaction['TransactionAmt'].apply(lambda x: AykiriDegeriBaskila(x))",
+      "rewrite-ns": 1777775,
+      "overhead-ns": 1777775,
+      "exec-ns": 313662117,
+      "total-ns": 315439892,
+      "patts-hit": {},
+      "rewritten": "def AykiriDegeriBaskila(deger):\n    if deger > my_TransactionAmt_Ust_Sinir:\n        deger = my_TransactionAmt_Ust_Sinir\n    elif deger < my_TransactionAmt_Alt_Sinir:\n        deger = -my_TransactionAmt_Alt_Sinir\n    return deger\nmy_transaction['TransactionAmt'] = my_transaction['TransactionAmt'].apply(\n    lambda x: AykiriDegeriBaskila(x))\n"
+    },
+    {
+      "raw": "my_transaction.card1.describe()",
+      "rewrite-ns": 378222,
+      "overhead-ns": 378222,
+      "exec-ns": 24116248,
+      "total-ns": 24494470,
+      "patts-hit": {},
+      "rewritten": "my_transaction.card1.describe()\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\ndf = my_transaction\n\ndf_train, df_test = df[df['isFraud'] != 'test'], df[df['isFraud'] == 2].drop('isFraud', axis=1)",
+      "rewrite-ns": 1445090,
+      "overhead-ns": 1445090,
+      "exec-ns": 434617925,
+      "total-ns": 436063015,
+      "patts-hit": {},
+      "rewritten": "df = my_transaction\ndf_train, df_test = df[df['isFraud'] != 'test'], df[df['isFraud'] == 2].drop(\n    'isFraud', axis=1)\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 23164,
+      "overhead-ns": 23164,
+      "exec-ns": 121218,
+      "total-ns": 144382,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 52.945557853,
+  "max-disk-in-mb": 0
+}

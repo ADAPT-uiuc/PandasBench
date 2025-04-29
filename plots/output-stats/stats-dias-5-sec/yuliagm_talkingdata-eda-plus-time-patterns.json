@@ -1,0 +1,334 @@
+{
+  "max-mem-in-mb": 997,
+  "max-mem-in-mb2": 1248,
+  "cells": [
+    {
+      "raw": "import numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import datetime\n# import os\n# #print(os.listdir(\"../input\"))\n\n# import time\n\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# %matplotlib inline",
+      "rewrite-ns": 515881,
+      "overhead-ns": 515881,
+      "exec-ns": 297772,
+      "total-ns": 813653,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "#make wider graphs\n# ALEX: remove plotting\n# sns.set(rc={'figure.figsize':(12,5)});\n# plt.figure(figsize=(12,5));",
+      "rewrite-ns": 12260,
+      "overhead-ns": 12260,
+      "exec-ns": 68299,
+      "total-ns": 80559,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#import first 10,000,000 rows of train and all test data\ntrain = pd.read_csv('./input/train.csv', nrows=nrows)\ntest = pd.read_csv('./input/test.scaled.csv')",
+      "rewrite-ns": 732794,
+      "overhead-ns": 732794,
+      "exec-ns": 3079435579,
+      "total-ns": 3080168373,
+      "patts-hit": {},
+      "rewritten": "train = pd.read_csv('./input/train.csv', nrows=nrows)\ntest = pd.read_csv('./input/test.scaled.csv')\n"
+    },
+    {
+      "raw": "train.head()",
+      "rewrite-ns": 186223,
+      "overhead-ns": 186223,
+      "exec-ns": 7930970,
+      "total-ns": 8117193,
+      "patts-hit": {},
+      "rewritten": "train.head()\n"
+    },
+    {
+      "raw": "test.head()",
+      "rewrite-ns": 95340,
+      "overhead-ns": 95340,
+      "exec-ns": 4362157,
+      "total-ns": 4457497,
+      "patts-hit": {},
+      "rewritten": "test.head()\n"
+    },
+    {
+      "raw": "variables = ['ip', 'app', 'device', 'os', 'channel']\nfor v in variables:\n    train[v] = train[v].astype('category')\n    test[v]=test[v].astype('category')",
+      "rewrite-ns": 1532712,
+      "overhead-ns": 1532712,
+      "exec-ns": 766828903,
+      "total-ns": 768361615,
+      "patts-hit": {},
+      "rewritten": "variables = ['ip', 'app', 'device', 'os', 'channel']\nfor v in variables:\n    train[v] = train[v].astype('category')\n    test[v] = test[v].astype('category')\n"
+    },
+    {
+      "raw": "#set click_time and attributed_time as timeseries\ntrain['click_time'] = pd.to_datetime(train['click_time'])\ntrain['attributed_time'] = pd.to_datetime(train['attributed_time'])\ntest['click_time'] = pd.to_datetime(test['click_time'])\n\n#set as_attributed in train as a categorical\ntrain['is_attributed']=train['is_attributed'].astype('category')",
+      "rewrite-ns": 2053963,
+      "overhead-ns": 2053963,
+      "exec-ns": 796530574,
+      "total-ns": 798584537,
+      "patts-hit": {},
+      "rewritten": "train['click_time'] = pd.to_datetime(train['click_time'])\ntrain['attributed_time'] = pd.to_datetime(train['attributed_time'])\ntest['click_time'] = pd.to_datetime(test['click_time'])\ntrain['is_attributed'] = train['is_attributed'].astype('category')\n"
+    },
+    {
+      "raw": "train.describe()",
+      "rewrite-ns": 118277,
+      "overhead-ns": 118277,
+      "exec-ns": 148061131,
+      "total-ns": 148179408,
+      "patts-hit": {},
+      "rewritten": "train.describe()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10, 6))\ncols = ['ip', 'app', 'device', 'os', 'channel']\nuniques = [len(train[col].unique()) for col in cols]\n# ALEX: remove plotting\n# sns.set(font_scale=1.2)\n# ax = sns.barplot(cols, uniques, log=True)\n# ax.set(xlabel='Feature', ylabel='log(unique count)', title='Number of unique values per feature (from 10,000,000 samples)')\n# for p, uniq in zip(ax.patches, uniques):\n#     height = p.get_height()\n#     ax.text(p.get_x()+p.get_width()/2.,\n#             height + 10,\n#             uniq,\n#             ha=\"center\") \n# for col, uniq in zip(cols, uniques):\n#     ax.text(col, uniq, uniq, color='black', ha=\"center\")",
+      "rewrite-ns": 668129,
+      "overhead-ns": 668129,
+      "exec-ns": 46155648,
+      "total-ns": 46823777,
+      "patts-hit": {
+        "LenUnique": 1
+      },
+      "rewritten": "cols = ['ip', 'app', 'device', 'os', 'channel']\nuniques = [dias.rewriter.len_unique(series=train[col]) for col in cols]\n"
+    },
+    {
+      "raw": "#double check that 'attributed_time' is not Null for all values that resulted in download (i.e. is_attributed == 1)\ntrain[['attributed_time', 'is_attributed']][train['is_attributed']==1].describe()",
+      "rewrite-ns": 818440,
+      "overhead-ns": 818440,
+      "exec-ns": 51964075,
+      "total-ns": 52782515,
+      "patts-hit": {},
+      "rewritten": "train[['attributed_time', 'is_attributed']][train['is_attributed'] == 1\n    ].describe()\n"
+    },
+    {
+      "raw": "#set click_id to categorical, for cleaner statistics view\ntest['click_id']=test['click_id'].astype('category')\ntest.describe()",
+      "rewrite-ns": 656158,
+      "overhead-ns": 656158,
+      "exec-ns": 745977693,
+      "total-ns": 746633851,
+      "patts-hit": {},
+      "rewritten": "test['click_id'] = test['click_id'].astype('category')\ntest.describe()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(6,6))\n#sns.set(font_scale=1.2)\nmean = (train.is_attributed.values == 1).mean()\n# ALEX: remove plotting\n# ax = sns.barplot(['App Downloaded (1)', 'Not Downloaded (0)'], [mean, 1-mean])\n# ax.set(ylabel='Proportion', title='App Downloaded vs Not Downloaded')\n# for p, uniq in zip(ax.patches, [mean, 1-mean]):\n#     height = p.get_height()\n#     ax.text(p.get_x()+p.get_width()/2.,\n#             height+0.01,\n#             '{}%'.format(round(uniq * 100, 2)),\n#             ha=\"center\")",
+      "rewrite-ns": 622370,
+      "overhead-ns": 622370,
+      "exec-ns": 2359899,
+      "total-ns": 2982269,
+      "patts-hit": {},
+      "rewritten": "mean = (train.is_attributed.values == 1).mean()\n"
+    },
+    {
+      "raw": "#temporary table to see ips with their associated count frequencies\ntemp = train['ip'].value_counts().reset_index(name='counts')\ntemp.columns = ['ip', 'counts']\ntemp[:10]",
+      "rewrite-ns": 1157407,
+      "overhead-ns": 1157407,
+      "exec-ns": 15094308,
+      "total-ns": 16251715,
+      "patts-hit": {},
+      "rewritten": "temp = train['ip'].value_counts().reset_index(name='counts')\ntemp.columns = ['ip', 'counts']\ntemp[:10]\n"
+    },
+    {
+      "raw": "#add temporary counts of ip feature ('counts') to the train table, to see if IPs with high counts have conversions\ntrain= train.merge(temp, on='ip', how='left')",
+      "rewrite-ns": 554237,
+      "overhead-ns": 554237,
+      "exec-ns": 228361043,
+      "total-ns": 228915280,
+      "patts-hit": {},
+      "rewritten": "train = train.merge(temp, on='ip', how='left')\n"
+    },
+    {
+      "raw": "#check top 10 values\ntrain[train['is_attributed']==1].sort_values('counts', ascending=False)[:10]",
+      "rewrite-ns": 873146,
+      "overhead-ns": 873146,
+      "exec-ns": 10089816,
+      "total-ns": 10962962,
+      "patts-hit": {},
+      "rewritten": "train[train['is_attributed'] == 1].sort_values('counts', ascending=False)[:10]\n"
+    },
+    {
+      "raw": "train[train['is_attributed']==1].ip.describe()",
+      "rewrite-ns": 659925,
+      "overhead-ns": 659925,
+      "exec-ns": 4362697,
+      "total-ns": 5022622,
+      "patts-hit": {},
+      "rewritten": "train[train['is_attributed'] == 1].ip.describe()\n"
+    },
+    {
+      "raw": "#convert 'is_attributed' back to numeric for proportion calculations\ntrain['is_attributed']=train['is_attributed'].astype(int)",
+      "rewrite-ns": 588528,
+      "overhead-ns": 588528,
+      "exec-ns": 10145768,
+      "total-ns": 10734296,
+      "patts-hit": {},
+      "rewritten": "train['is_attributed'] = train['is_attributed'].astype(int)\n"
+    },
+    {
+      "raw": "proportion = train[['ip', 'is_attributed']].groupby('ip', as_index=False).mean().sort_values('is_attributed', ascending=False)\ncounts = train[['ip', 'is_attributed']].groupby('ip', as_index=False).count().sort_values('is_attributed', ascending=False)\nmerge = counts.merge(proportion, on='ip', how='left')\nmerge.columns = ['ip', 'click_count', 'prop_downloaded']\n\n# ALEX: remove plotting\n# ax = merge[:300].plot(secondary_y='prop_downloaded')\n# plt.title('Conversion Rates over Counts of 300 Most Popular IPs')\n# ax.set(ylabel='Count of clicks')\n# plt.ylabel('Proportion Downloaded')\n# plt.show()\nmerge[:300]\n\nprint('Counversion Rates over Counts of Most Popular IPs')\nprint(merge[:20])\n",
+      "rewrite-ns": 3218948,
+      "overhead-ns": 3218948,
+      "exec-ns": 59264585,
+      "total-ns": 62483533,
+      "patts-hit": {},
+      "rewritten": "proportion = train[['ip', 'is_attributed']].groupby('ip', as_index=False).mean(\n    ).sort_values('is_attributed', ascending=False)\ncounts = train[['ip', 'is_attributed']].groupby('ip', as_index=False).count(\n    ).sort_values('is_attributed', ascending=False)\nmerge = counts.merge(proportion, on='ip', how='left')\nmerge.columns = ['ip', 'click_count', 'prop_downloaded']\nmerge[:300]\nprint('Counversion Rates over Counts of Most Popular IPs')\nprint(merge[:20])\n"
+    },
+    {
+      "raw": "proportion = train[['app', 'is_attributed']].groupby('app', as_index=False).mean().sort_values('is_attributed', ascending=False)\ncounts = train[['app', 'is_attributed']].groupby('app', as_index=False).count().sort_values('is_attributed', ascending=False)\nmerge = counts.merge(proportion, on='app', how='left')\nmerge.columns = ['app', 'click_count', 'prop_downloaded']\n\n# ALEX: remove plotting\n# ax = merge[:100].plot(secondary_y='prop_downloaded')\n# plt.title('Conversion Rates over Counts of 100 Most Popular Apps')\n# ax.set(ylabel='Count of clicks')\n# plt.ylabel('Proportion Downloaded')\n# plt.show()\nmerge[:100]\n\nprint('Counversion Rates over Counts of Most Popular Apps')\nprint(merge[:20])",
+      "rewrite-ns": 3052895,
+      "overhead-ns": 3052895,
+      "exec-ns": 40884797,
+      "total-ns": 43937692,
+      "patts-hit": {},
+      "rewritten": "proportion = train[['app', 'is_attributed']].groupby('app', as_index=False\n    ).mean().sort_values('is_attributed', ascending=False)\ncounts = train[['app', 'is_attributed']].groupby('app', as_index=False).count(\n    ).sort_values('is_attributed', ascending=False)\nmerge = counts.merge(proportion, on='app', how='left')\nmerge.columns = ['app', 'click_count', 'prop_downloaded']\nmerge[:100]\nprint('Counversion Rates over Counts of Most Popular Apps')\nprint(merge[:20])\n"
+    },
+    {
+      "raw": "proportion = train[['os', 'is_attributed']].groupby('os', as_index=False).mean().sort_values('is_attributed', ascending=False)\ncounts = train[['os', 'is_attributed']].groupby('os', as_index=False).count().sort_values('is_attributed', ascending=False)\nmerge = counts.merge(proportion, on='os', how='left')\nmerge.columns = ['os', 'click_count', 'prop_downloaded']\n\n# ALEX: remove plotting\n# ax = merge[:100].plot(secondary_y='prop_downloaded')\n# plt.title('Conversion Rates over Counts of 100 Most Popular Operating Systems')\n# ax.set(ylabel='Count of clicks')\n# plt.ylabel('Proportion Downloaded')\n# plt.show()\nmerge[:100]\n\nprint('Counversion Rates over Counts of Most Popular Operating Systems')\nprint(merge[:20])",
+      "rewrite-ns": 3186078,
+      "overhead-ns": 3186078,
+      "exec-ns": 41218745,
+      "total-ns": 44404823,
+      "patts-hit": {},
+      "rewritten": "proportion = train[['os', 'is_attributed']].groupby('os', as_index=False).mean(\n    ).sort_values('is_attributed', ascending=False)\ncounts = train[['os', 'is_attributed']].groupby('os', as_index=False).count(\n    ).sort_values('is_attributed', ascending=False)\nmerge = counts.merge(proportion, on='os', how='left')\nmerge.columns = ['os', 'click_count', 'prop_downloaded']\nmerge[:100]\nprint('Counversion Rates over Counts of Most Popular Operating Systems')\nprint(merge[:20])\n"
+    },
+    {
+      "raw": "proportion = train[['device', 'is_attributed']].groupby('device', as_index=False).mean().sort_values('is_attributed', ascending=False)\ncounts = train[['device', 'is_attributed']].groupby('device', as_index=False).count().sort_values('is_attributed', ascending=False)\nmerge = counts.merge(proportion, on='device', how='left')\nmerge.columns = ['device', 'click_count', 'prop_downloaded']\n\nprint('Count of clicks and proportion of downloads by device:')\nprint(merge)",
+      "rewrite-ns": 2562073,
+      "overhead-ns": 2562073,
+      "exec-ns": 55497485,
+      "total-ns": 58059558,
+      "patts-hit": {},
+      "rewritten": "proportion = train[['device', 'is_attributed']].groupby('device', as_index=\n    False).mean().sort_values('is_attributed', ascending=False)\ncounts = train[['device', 'is_attributed']].groupby('device', as_index=False\n    ).count().sort_values('is_attributed', ascending=False)\nmerge = counts.merge(proportion, on='device', how='left')\nmerge.columns = ['device', 'click_count', 'prop_downloaded']\nprint('Count of clicks and proportion of downloads by device:')\nprint(merge)\n"
+    },
+    {
+      "raw": "proportion = train[['channel', 'is_attributed']].groupby('channel', as_index=False).mean().sort_values('is_attributed', ascending=False)\ncounts = train[['channel', 'is_attributed']].groupby('channel', as_index=False).count().sort_values('is_attributed', ascending=False)\nmerge = counts.merge(proportion, on='channel', how='left')\nmerge.columns = ['channel', 'click_count', 'prop_downloaded']\n\n# ALEX: remove plotting\n# ax = merge[:100].plot(secondary_y='prop_downloaded')\n# plt.title('Conversion Rates over Counts of 100 Most Popular Apps')\n# ax.set(ylabel='Count of clicks')\n# plt.ylabel('Proportion Downloaded')\n# plt.show()\nmerge[:100]\n\nprint('Counversion Rates over Counts of Most Popular Channels')\nprint(merge[:20])",
+      "rewrite-ns": 3079868,
+      "overhead-ns": 3079868,
+      "exec-ns": 40638771,
+      "total-ns": 43718639,
+      "patts-hit": {},
+      "rewritten": "proportion = train[['channel', 'is_attributed']].groupby('channel',\n    as_index=False).mean().sort_values('is_attributed', ascending=False)\ncounts = train[['channel', 'is_attributed']].groupby('channel', as_index=False\n    ).count().sort_values('is_attributed', ascending=False)\nmerge = counts.merge(proportion, on='channel', how='left')\nmerge.columns = ['channel', 'click_count', 'prop_downloaded']\nmerge[:100]\nprint('Counversion Rates over Counts of Most Popular Channels')\nprint(merge[:20])\n"
+    },
+    {
+      "raw": "train_smp = pd.read_csv('./input/train_sample.scaled.csv')",
+      "rewrite-ns": 415543,
+      "overhead-ns": 415543,
+      "exec-ns": 17998153,
+      "total-ns": 18413696,
+      "patts-hit": {},
+      "rewritten": "train_smp = pd.read_csv('./input/train_sample.scaled.csv')\n"
+    },
+    {
+      "raw": "train_smp.head(7)",
+      "rewrite-ns": 119444,
+      "overhead-ns": 119444,
+      "exec-ns": 5957524,
+      "total-ns": 6076968,
+      "patts-hit": {},
+      "rewritten": "train_smp.head(7)\n"
+    },
+    {
+      "raw": "#convert click_time and attributed_time to time series\ntrain_smp['click_time'] = pd.to_datetime(train_smp['click_time'])\ntrain_smp['attributed_time'] = pd.to_datetime(train_smp['attributed_time'])",
+      "rewrite-ns": 1053122,
+      "overhead-ns": 1053122,
+      "exec-ns": 6334559,
+      "total-ns": 7387681,
+      "patts-hit": {},
+      "rewritten": "train_smp['click_time'] = pd.to_datetime(train_smp['click_time'])\ntrain_smp['attributed_time'] = pd.to_datetime(train_smp['attributed_time'])\n"
+    },
+    {
+      "raw": "#round the time to nearest hour\ntrain_smp['click_rnd']=train_smp['click_time'].dt.round('H')  \n\n#check for hourly patterns\n# ALEX: remove plotting\n# train_smp[['click_rnd','is_attributed']].groupby(['click_rnd'], as_index=True).count().plot()\n# plt.title('HOURLY CLICK FREQUENCY');\n# plt.ylabel('Number of Clicks');\ntrain_smp[['click_rnd','is_attributed']].groupby(['click_rnd'], as_index=True).count()\n\n# ALEX: remove plotting\n# train_smp[['click_rnd','is_attributed']].groupby(['click_rnd'], as_index=True).mean().plot()\n# plt.title('HOURLY CONVERSION RATIO');\n# plt.ylabel('Converted Ratio');\ntrain_smp[['click_rnd','is_attributed']].groupby(['click_rnd'], as_index=True).mean()",
+      "rewrite-ns": 1869016,
+      "overhead-ns": 1869016,
+      "exec-ns": 7698772,
+      "total-ns": 9567788,
+      "patts-hit": {},
+      "rewritten": "train_smp['click_rnd'] = train_smp['click_time'].dt.round('H')\ntrain_smp[['click_rnd', 'is_attributed']].groupby(['click_rnd'], as_index=True\n    ).count()\ntrain_smp[['click_rnd', 'is_attributed']].groupby(['click_rnd'], as_index=True\n    ).mean()\n"
+    },
+    {
+      "raw": "#extract hour as a feature\ntrain_smp['click_hour']=train_smp['click_time'].dt.hour",
+      "rewrite-ns": 494582,
+      "overhead-ns": 494582,
+      "exec-ns": 1397939,
+      "total-ns": 1892521,
+      "patts-hit": {},
+      "rewritten": "train_smp['click_hour'] = train_smp['click_time'].dt.hour\n"
+    },
+    {
+      "raw": "train_smp.head(7)",
+      "rewrite-ns": 96573,
+      "overhead-ns": 96573,
+      "exec-ns": 6526574,
+      "total-ns": 6623147,
+      "patts-hit": {},
+      "rewritten": "train_smp.head(7)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# train_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=True).count().plot(kind='bar', color='#a675a1')\n# plt.title('HOURLY CLICK FREQUENCY Barplot');\n# plt.ylabel('Number of Clicks');\ntrain_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=True).count()\n\n# ALEX: remove plotting\n# train_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=True).count().plot(color='#a675a1')\n# plt.title('HOURLY CLICK FREQUENCY Lineplot');\n# plt.ylabel('Number of Clicks');\ntrain_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=True).count()",
+      "rewrite-ns": 1381245,
+      "overhead-ns": 1381245,
+      "exec-ns": 5548529,
+      "total-ns": 6929774,
+      "patts-hit": {},
+      "rewritten": "train_smp[['click_hour', 'is_attributed']].groupby(['click_hour'], as_index\n    =True).count()\ntrain_smp[['click_hour', 'is_attributed']].groupby(['click_hour'], as_index\n    =True).count()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# train_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=True).mean().plot(kind='bar', color='#75a1a6')\n# plt.title('HOURLY CONVERSION RATIO Barplot');\n# plt.ylabel('Converted Ratio');\ntrain_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=True).mean()\n\n# ALEX: remove plotting\n# train_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=True).mean().plot( color='#75a1a6')\n# plt.title('HOURLY CONVERSION RATIO Lineplot');\n# plt.ylabel('Converted Ratio');\ntrain_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=True).mean()",
+      "rewrite-ns": 1355965,
+      "overhead-ns": 1355965,
+      "exec-ns": 5255412,
+      "total-ns": 6611377,
+      "patts-hit": {},
+      "rewritten": "train_smp[['click_hour', 'is_attributed']].groupby(['click_hour'], as_index\n    =True).mean()\ntrain_smp[['click_hour', 'is_attributed']].groupby(['click_hour'], as_index\n    =True).mean()\n"
+    },
+    {
+      "raw": "#adapted from https://stackoverflow.com/questions/9103166/multiple-axis-in-matplotlib-with-different-scales\n#smonek's answer\n\n\ngroup = train_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=False).mean()\nx = group['click_hour']\nymean = group['is_attributed']\ngroup = train_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=False).count()\nycount = group['is_attributed']\n\n\n# ALEX: remove plotting\n# fig = plt.figure()\n# host = fig.add_subplot(111)\n\n# par1 = host.twinx()\n\n# host.set_xlabel(\"Time\")\n# host.set_ylabel(\"Proportion Converted\")\n# par1.set_ylabel(\"Click Count\")\n\n# #color1 = plt.cm.viridis(0)\n# #color2 = plt.cm.viridis(0.5)\n# color1 = '#75a1a6'\n# color2 = '#a675a1'\n\n# p1, = host.plot(x, ymean, color=color1,label=\"Proportion Converted\")\n# p2, = par1.plot(x, ycount, color=color2, label=\"Click Count\")\n\n# lns = [p1, p2]\n# host.legend(handles=lns, loc='best')\n\n# host.yaxis.label.set_color(p1.get_color())\n# par1.yaxis.label.set_color(p2.get_color())\n\n# plt.savefig(\"pyplot_multiple_y-axis.png\", bbox_inches='tight')",
+      "rewrite-ns": 2124838,
+      "overhead-ns": 2124838,
+      "exec-ns": 3484257,
+      "total-ns": 5609095,
+      "patts-hit": {},
+      "rewritten": "group = train_smp[['click_hour', 'is_attributed']].groupby(['click_hour'],\n    as_index=False).mean()\nx = group['click_hour']\nymean = group['is_attributed']\ngroup = train_smp[['click_hour', 'is_attributed']].groupby(['click_hour'],\n    as_index=False).count()\nycount = group['is_attributed']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.barplot('click_hour', 'is_attributed', data=train_smp)\n# plt.title('HOURLY CONVERSION RATIO');\n# plt.ylabel('Converted Ratio');",
+      "rewrite-ns": 13865,
+      "overhead-ns": 13865,
+      "exec-ns": 70951,
+      "total-ns": 84816,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "train_smp['timePass']= train_smp['attributed_time']-train_smp['click_time']\n#check:\ntrain_smp[train_smp['is_attributed']==1][:15]",
+      "rewrite-ns": 1069242,
+      "overhead-ns": 1069242,
+      "exec-ns": 8785177,
+      "total-ns": 9854419,
+      "patts-hit": {},
+      "rewritten": "train_smp['timePass'] = train_smp['attributed_time'] - train_smp['click_time']\ntrain_smp[train_smp['is_attributed'] == 1][:15]\n"
+    },
+    {
+      "raw": "train_smp['timePass'].describe()",
+      "rewrite-ns": 373285,
+      "overhead-ns": 373285,
+      "exec-ns": 2577640,
+      "total-ns": 2950925,
+      "patts-hit": {},
+      "rewritten": "train_smp['timePass'].describe()\n"
+    },
+    {
+      "raw": "#check first 10,000,000 of actual train data\ntrain['timePass']= train['attributed_time']-train['click_time']\ntrain['timePass'].describe()",
+      "rewrite-ns": 879848,
+      "overhead-ns": 879848,
+      "exec-ns": 87732527,
+      "total-ns": 88612375,
+      "patts-hit": {},
+      "rewritten": "train['timePass'] = train['attributed_time'] - train['click_time']\ntrain['timePass'].describe()\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 22881,
+      "overhead-ns": 22881,
+      "exec-ns": 111409,
+      "total-ns": 134290,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 6.353225239,
+  "max-disk-in-mb": 0
+}

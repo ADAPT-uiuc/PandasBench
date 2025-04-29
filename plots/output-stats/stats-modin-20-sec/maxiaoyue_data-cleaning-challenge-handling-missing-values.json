@@ -1,0 +1,260 @@
+{
+  "max-mem-in-mb": 3528,
+  "max-mem-in-mb2": 339,
+  "cells": [
+    {
+      "raw": "# modules we'll use\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n\n# read in all our data\nnfl_data = pd.read_csv(\"./input/NFL Play by Play 2009-2017 (v4).scaled.csv\")\nsf_permits = pd.read_csv(\"./input/Building_Permits.scaled.csv\")\n\n# set seed for reproducibility\nnp.random.seed(0) ",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 10763186749
+    },
+    {
+      "raw": "# look at a few rows of the nfl_data file. I can see a handful of missing data already!\nnfl_data.sample(5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 42174890
+    },
+    {
+      "raw": "# your turn! Look at a couple of rows from the sf_permits dataset. Do you notice any missing data?\nsf_permits.sample(6)\n# your code goes here :)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 22018525
+    },
+    {
+      "raw": "sf_permits.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1091938
+    },
+    {
+      "raw": "sf_permits.tail()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1166850
+    },
+    {
+      "raw": "# get the number of missing data points per column\nmissing_values_count = nfl_data.isnull().sum()\n\n# look at the # of missing points in the first ten columns\nmissing_values_count[0:10]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 29027470
+    },
+    {
+      "raw": "# how many total missing values do we have?\ntotal_cells = np.product(nfl_data.shape)\ntotal_missing = missing_values_count.sum()\n\n# percent of data that is missing\n(total_missing/total_cells) * 100",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1479065949
+    },
+    {
+      "raw": "sf_permits.isnull().sum()[:10]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 12709590
+    },
+    {
+      "raw": "# your turn! Find out what percent of the sf_permits dataset is missing\nsf_permits.isnull().sum().sum() * 100.0/np.prod(sf_permits.shape)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 853911002
+    },
+    {
+      "raw": "# look at the # of missing points in the first ten columns\nmissing_values_count[0:10]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1185726
+    },
+    {
+      "raw": "sf_permits[['Street Number Suffix', 'Zipcode']].isnull().sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 13738550
+    },
+    {
+      "raw": "sf_permits.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 425303
+    },
+    {
+      "raw": "# remove all the rows that contain a missing value\nnfl_data.dropna()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 9631750
+    },
+    {
+      "raw": "# remove all columns with at least one missing value\ncolumns_with_na_dropped = nfl_data.dropna(axis=1)\ncolumns_with_na_dropped.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5474261918
+    },
+    {
+      "raw": "# just how much data did we lose?\nprint(\"Columns in original dataset: %d \\n\" % nfl_data.shape[1])\nprint(\"Columns with na's dropped: %d\" % columns_with_na_dropped.shape[1])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 585831
+    },
+    {
+      "raw": "# Your turn! Try removing all the rows from the sf_permits dataset that contain missing values. How many are left?\nprint (sf_permits.shape[0])\nprint (sf_permits.dropna().shape[0])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1194546979
+    },
+    {
+      "raw": "col_na_dropped_sf_permits = sf_permits.dropna(axis= 1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4388911
+    },
+    {
+      "raw": "print ('Columns in original dataset: %d' % sf_permits.shape[1])\nprint ('Columns with missing values dropped: %d' % col_na_dropped_sf_permits.shape[1])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1862532176
+    },
+    {
+      "raw": "# Now try removing all the columns with empty values. Now how much of your data is left?\nsf_permits.dropna(axis = 1, how = 'all').shape[1]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2346062630
+    },
+    {
+      "raw": "# get a small subset of the NFL dataset\nsubset_nfl_data = nfl_data.loc[:, 'EPA':'Season'].head()\nsubset_nfl_data",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2867348
+    },
+    {
+      "raw": "# replace all NA's with 0\nsubset_nfl_data.fillna(0)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2341314
+    },
+    {
+      "raw": "# replace all NA's the value that comes directly after it in the same column, \n# then replace all the reamining na's with 0\nsubset_nfl_data.fillna(method = 'bfill', axis=0).fillna(0)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4056977
+    },
+    {
+      "raw": "# Your turn! Try replacing all the NaN's in the sf_permits data with the one that\n# comes directly after it and then replacing any remaining NaN's with 0\nsf_permits.fillna(method = 'bfill', axis = 0).fillna(0)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4568609
+    },
+    {
+      "raw": "sf_permits[sf_permits.Zipcode.isnull()]['Block'].head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 352473603
+    },
+    {
+      "raw": "sf_permits.sort_values(by = 'Block')[['Block','Zipcode']].loc[sf_permits.Block == '0552']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4490157477
+    },
+    {
+      "raw": "sf_permits.groupby('Block').Zipcode.nunique().shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 280184788
+    },
+    {
+      "raw": "mask = (sf_permits.groupby('Block').Zipcode.nunique() > 1)\nsf_permits.groupby('Block').Zipcode.nunique()[mask].head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 764512045
+    },
+    {
+      "raw": "sf_permits.Zipcode.isnull().sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 90248809
+    },
+    {
+      "raw": "sf_permits_Zip_na_fill_with_block = sf_permits.sort_values(by = 'Block').Zipcode.fillna(method = 'bfill').fillna(method = 'ffill')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4672778319
+    },
+    {
+      "raw": "sf_permits_Zip_na_fill_with_block.isnull().sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 27210809
+    },
+    {
+      "raw": "sf_permits.columns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 503484
+    },
+    {
+      "raw": "sf_permits.sort_values(by= ['Street Name','Street Number']).Zipcode.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4071740058
+    },
+    {
+      "raw": "sf_permits_Zip_na_fill_with_street = sf_permits.sort_values(by= ['Street Name','Street Number']).Zipcode.fillna(method = 'bfill').fillna(method = 'ffill')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4213317939
+    },
+    {
+      "raw": "sf_permits_Zip_na_fill_with_street.isnull().sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 25627763
+    },
+    {
+      "raw": "(sf_permits_Zip_na_fill_with_street.sort_index() != sf_permits_Zip_na_fill_with_block.sort_index()).sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1514450057
+    },
+    {
+      "raw": "mask = (sf_permits_Zip_na_fill_with_street.sort_index() != sf_permits_Zip_na_fill_with_block.sort_index())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 200547030
+    },
+    {
+      "raw": "sf_permits_Zip_na_fill_with_street[mask]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1200802749
+    },
+    {
+      "raw": "sf_permits_zip_na_fill_with_block_street = sf_permits.sort_values(by = ['Block', 'Street Name', 'Street Number']).Zipcode.fillna(method = 'bfill').fillna(method = 'ffill')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4686586550
+    },
+    {
+      "raw": "sf_permits_zip_na_fill_with_block_street.sort_index().head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 122857545
+    },
+    {
+      "raw": "sf_permits_Zip_na_fill_with_block.sort_index().head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 131634575
+    },
+    {
+      "raw": "(sf_permits_zip_na_fill_with_block_street.sort_index() != sf_permits_Zip_na_fill_with_block.sort_index()).sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1611565178
+    },
+    {
+      "raw": "(sf_permits_zip_na_fill_with_block_street.sort_index() != sf_permits_Zip_na_fill_with_street.sort_index()).sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 230120315
+    }
+  ],
+  "total-time-in-sec": 52.812866078,
+  "max-disk-in-mb": 0
+}

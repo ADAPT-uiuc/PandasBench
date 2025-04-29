@@ -1,0 +1,134 @@
+{
+  "max-mem-in-mb": 4520,
+  "max-mem-in-mb2": 4524,
+  "cells": [
+    {
+      "raw": "import numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting, path printing\n# import seaborn as sns\n# %pylab inline\n# from subprocess import check_output\n# print(check_output([\"ls\", \"../input\"]).decode(\"utf8\"))\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 384459
+    },
+    {
+      "raw": "df = pd.read_csv('./input/survey.scaled.csv')\ndf.info()\nto_drop = ['Timestamp']  # A list of columns we will drop later on",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5212270576
+    },
+    {
+      "raw": "df.Gender.unique()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 26384187
+    },
+    {
+      "raw": "# Holy hamburgers! That's a lot of possibilities for gender. Let's clean it up\n# Let's see their freq counts first\ndf.Gender.value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 43753804
+    },
+    {
+      "raw": "df.Gender = df.Gender.str.lower()\ndf.Gender = df.Gender = df.Gender.replace('m', 'male')\ndf.Gender = df.Gender.replace('f', 'female')\ndf['HasMale'] = df.Gender.str.contains('male|man|guy|maile|malr|androgyne|male|mal|make|msle')\ndf['HasFemale'] = df.Gender.str.contains('female|woman|femail|androgyne|femake')\ndf['HasNB'] = df.Gender.str.contains('non-binary|enby|queer|all|fluid|agender|neuter|p')\n# That's gender cleaned up.\nto_drop.append('Gender')\n# Moving on.\ndf.describe(include=['O'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3958310368
+    },
+    {
+      "raw": "# Let's take care of country first.\ndf.Country.unique()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 32927704
+    },
+    {
+      "raw": "# They're clean. They can be one-hot-encoded\nfor country in sorted(list(df.Country.unique())):\n    df['Country_'+str(country)] = (df.Country == country).astype(int)\nto_drop.append('Country')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2156145440
+    },
+    {
+      "raw": "# First we need to handle the missing values in state. There are simply too many to ignore\n# Let's see where exactly they are missing. I suspect that only US states have been recorded\ndf.groupby('Country')['state'].apply(lambda x: x.isnull().mean())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 103966636
+    },
+    {
+      "raw": "# As we can see, most countries have no state data.\n# It's just easier to leave the NA's as they are\n# We'll one hot them too.\nfor st in list(df.state.unique()):\n    df['state_'+str(st)] = (df.state == st).astype(int)\nto_drop.append('state')\n\n# all the columns which are binary in nature, let's make them 01 based.\ndf.self_employed.fillna(df.self_employed.mode()[0], inplace=True)\nfor col in df.select_dtypes(include=['object']):\n    u_count = len(df[col].unique()) \n    if u_count < 2:\n        to_drop.append(col)\n        print('adding ', col, 'to drop list as no variation')\n    elif u_count == 2:\n        first = list(df[col].unique())[-1]\n        df[col] = (df[col] == first).astype(int)\n        print('converted', col)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4592145725
+    },
+    {
+      "raw": "# Let's see what is still left\ndf.drop(to_drop, axis=1).info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 568813131
+    },
+    {
+      "raw": "# For now we drop everything else.\ndf.work_interfere.unique()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 30877990
+    },
+    {
+      "raw": "df.work_interfere.fillna(df.work_interfere.mode().values[0], inplace=True)\ndf.work_interfere = df.work_interfere.map({'Never': 0, 'Rarely': 1,\n                                           'Sometimes': 2, 'Often': 3})\ndf.no_employees.unique()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 285562609
+    },
+    {
+      "raw": "df.no_employees = df.no_employees.map({'6-25': 6, '26-100': 26,\n                                       '100-500': 100, '500-1000': 500,\n                                       'More than 1000': 1000, '1-5': 1\n                                      })\ndf.benefits.unique()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 202790451
+    },
+    {
+      "raw": "# There is another pattern here. We take advantage of that:\noption_map = {'Yes': 1, 'No': -1, \"Don't know\": 0,\n              'Not sure': 0, 'Maybe': 0, 'Some of them': 0}\nynns = {'Yes': 1, 'No': -1, 'Not sure': 0}\nfor col in df.select_dtypes(include=['object']):\n    uniques = set(df[col].unique())\n    if (uniques == {'Yes', 'No', \"Don't know\"} or\n        uniques == {'Yes', 'No', 'Not sure'} or\n        uniques == {'Yes', 'No', 'Maybe'} or\n        uniques == {'Yes', 'No', 'Some of them'}):\n        print('encoding', col, 'To -1, 0, 1')\n        df[col] = df[col].map(option_map)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2414538614
+    },
+    {
+      "raw": "df.describe(include=['O'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 577984945
+    },
+    {
+      "raw": "df.leave.unique()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 36650285
+    },
+    {
+      "raw": "df.leave = df.leave.map({'Very easy': 0, 'Somewhat easy': 1, \"Don't know\": 2, 'Somewhat difficult': 3,\n                         'Very difficult': 4\n                        })\n# this leaves comments as the only string data. Since it's quiet small in number, we'll drop it",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 70321067
+    },
+    {
+      "raw": "to_drop.append('comments')\ndf.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5165683
+    },
+    {
+      "raw": "# We obtain a clean dataset. Now we can try predicting stuff.\nprint(to_drop)\ndata = df.drop(to_drop, axis=1)\ndata.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 417250987
+    },
+    {
+      "raw": "# Thos who have shought treatment\nx, y = data.drop('treatment', axis=1), data.treatment\n\n# ALEX: remove ML code\n# from sklearn.ensemble import RandomForestClassifier\n# from sklearn.model_selection import cross_val_score\n# model = RandomForestClassifier(n_jobs=-1, n_estimators=200, class_weight='balanced')\n# scores = cross_val_score(model, x, y, scoring='roc_auc', cv=5)\n# print(scores.mean())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 409170179
+    },
+    {
+      "raw": "# Family history\nx, y = data.drop('family_history', axis=1), data.family_history\n# ALEX: remove ML code\n# model = RandomForestClassifier(n_jobs=-1, n_estimators=200, class_weight='balanced')\n# scores = cross_val_score(model, x, y, scoring='roc_auc', cv=5)\n# print(scores.mean())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 409068357
+    }
+  ],
+  "total-time-in-sec": 21.554483197,
+  "max-disk-in-mb": 0
+}

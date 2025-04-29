@@ -1,0 +1,134 @@
+{
+  "max-mem-in-mb": 109,
+  "max-mem-in-mb2": 113,
+  "cells": [
+    {
+      "raw": "# import pandas as pd # data processing, CSV file I/O\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sns # plotting\n# from sklearn.linear_model import LogisticRegression # Logistic regression",
+      "rewrite-ns": 571773,
+      "overhead-ns": 571773,
+      "exec-ns": 397118,
+      "total-ns": 968891,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "train = pd.read_csv(\"./input/train.scaled.csv\")\ntest = pd.read_csv(\"./input/test.scaled.csv\")\n\ntrain.isnull().any()",
+      "rewrite-ns": 1306924,
+      "overhead-ns": 1306924,
+      "exec-ns": 7218269,
+      "total-ns": 8525193,
+      "patts-hit": {},
+      "rewritten": "train = pd.read_csv('./input/train.scaled.csv')\ntest = pd.read_csv('./input/test.scaled.csv')\ntrain.isnull().any()\n"
+    },
+    {
+      "raw": "train.head()",
+      "rewrite-ns": 119876,
+      "overhead-ns": 119876,
+      "exec-ns": 7580202,
+      "total-ns": 7700078,
+      "patts-hit": {},
+      "rewritten": "train.head()\n"
+    },
+    {
+      "raw": "train.describe()",
+      "rewrite-ns": 117178,
+      "overhead-ns": 117178,
+      "exec-ns": 14528984,
+      "total-ns": 14646162,
+      "patts-hit": {},
+      "rewritten": "train.describe()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# ax = sns.countplot(x='type', data=train, palette='Set3')",
+      "rewrite-ns": 20862,
+      "overhead-ns": 20862,
+      "exec-ns": 109395,
+      "total-ns": 130257,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# ax = sns.countplot(x='color', data=train, palette='Set3')",
+      "rewrite-ns": 18502,
+      "overhead-ns": 18502,
+      "exec-ns": 96943,
+      "total-ns": 115445,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "id_list = list(train['id']) # Create list of 'id' column in case we need it later\n# ALEX: make notebook run\n# train = train.drop('id', 1) # Drop 'id' column\ntrain = train.drop('id', axis=1) # Drop 'id' column\n\n# Create dictionaries for 'type' and 'color' variables\n\ntype_dict = {'Ghoul': 0,\n            'Goblin': 1,\n            'Ghost': 2}\n\ncolor_dict = {'clear': 0,\n             'green': 1,\n             'black': 2,\n             'white': 3,\n             'blue': 4,\n             'blood': 5}\n\n# Use dictionaries to re-map values categorical variables\n\ntrain['type'] = train['type'].map(type_dict).astype(float)\ntrain['color'] = train['color'].map(color_dict).astype(float)\n\ntest['color'] = test['color'].map(color_dict).astype(float)",
+      "rewrite-ns": 4798248,
+      "overhead-ns": 4798248,
+      "exec-ns": 4156202,
+      "total-ns": 8954450,
+      "patts-hit": {},
+      "rewritten": "id_list = list(train['id'])\ntrain = train.drop('id', axis=1)\ntype_dict = {'Ghoul': 0, 'Goblin': 1, 'Ghost': 2}\ncolor_dict = {'clear': 0, 'green': 1, 'black': 2, 'white': 3, 'blue': 4,\n    'blood': 5}\ntrain['type'] = train['type'].map(type_dict).astype(float)\ntrain['color'] = train['color'].map(color_dict).astype(float)\ntest['color'] = test['color'].map(color_dict).astype(float)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.pairplot(train, hue='type', palette='Set3') \n\n#Legend label text shows (0, 1, 2); any tips on how to change legend text are more than welcome!",
+      "rewrite-ns": 21546,
+      "overhead-ns": 21546,
+      "exec-ns": 106894,
+      "total-ns": 128440,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "train.corr(method='pearson')",
+      "rewrite-ns": 495411,
+      "overhead-ns": 495411,
+      "exec-ns": 8449864,
+      "total-ns": 8945275,
+      "patts-hit": {},
+      "rewritten": "train.corr(method='pearson')\n"
+    },
+    {
+      "raw": "train = pd.concat([train, pd.get_dummies(train['color'], prefix = 'color')], axis=1) # Create dummies\n# ALEX: make notebook run\n# train = train.drop('color', 1) # Drop 'color' column\ntrain = train.drop('color', axis=1) # Drop 'color' column\n\ntest = pd.concat([test, pd.get_dummies(test['color'], prefix = 'color')], axis=1) # Create dummies\n# ALEX: make notebook run\n# test = test.drop('color', 1) # Drop 'color' column\ntest = test.drop('color', axis=1) # Drop 'color' column",
+      "rewrite-ns": 3205519,
+      "overhead-ns": 3205519,
+      "exec-ns": 3533963,
+      "total-ns": 6739482,
+      "patts-hit": {},
+      "rewritten": "train = pd.concat([train, pd.get_dummies(train['color'], prefix='color')],\n    axis=1)\ntrain = train.drop('color', axis=1)\ntest = pd.concat([test, pd.get_dummies(test['color'], prefix='color')], axis=1)\ntest = test.drop('color', axis=1)\n"
+    },
+    {
+      "raw": "# List of columns we are using in the model\n\nfeature_cols = ['bone_length', \n                'rotting_flesh', \n                'hair_length', \n                'has_soul', \n                'color_0.0',\n                'color_1.0',\n                'color_2.0',\n                'color_3.0',\n                'color_4.0',\n                'color_5.0']",
+      "rewrite-ns": 818465,
+      "overhead-ns": 818465,
+      "exec-ns": 356593,
+      "total-ns": 1175058,
+      "patts-hit": {},
+      "rewritten": "feature_cols = ['bone_length', 'rotting_flesh', 'hair_length', 'has_soul',\n    'color_0.0', 'color_1.0', 'color_2.0', 'color_3.0', 'color_4.0',\n    'color_5.0']\n"
+    },
+    {
+      "raw": "X = train.loc[:, feature_cols] # Set independent variables\ny = train.type # Set outcome variable\n\n# ALEX: remove ML code\n# logreg = LogisticRegression()\n# logreg.fit(X, y) # Fit model",
+      "rewrite-ns": 887888,
+      "overhead-ns": 887888,
+      "exec-ns": 1056240,
+      "total-ns": 1944128,
+      "patts-hit": {},
+      "rewritten": "X = train.loc[:, feature_cols]\ny = train.type\n"
+    },
+    {
+      "raw": "X_test = test.loc[:, feature_cols]\n# ALEX: remove ML code\n# new_type_pred = logreg.predict(X_test) # Use fitted model to predict outcome in test df\nnew_type_pred = train.type",
+      "rewrite-ns": 893166,
+      "overhead-ns": 893166,
+      "exec-ns": 997644,
+      "total-ns": 1890810,
+      "patts-hit": {},
+      "rewritten": "X_test = test.loc[:, feature_cols]\nnew_type_pred = train.type\n"
+    },
+    {
+      "raw": "# Create submission df\n\nsubmission = pd.DataFrame({'id': test.id, 'type': new_type_pred})\n\n# Convert 'type' variable back to string variable\n\ntype_dict_sub = {0: 'Ghoul',\n            1: 'Goblin',\n            2: 'Ghost'}\n\nsubmission['type'] = submission['type'].map(type_dict_sub).astype(object)\n\n# Write submission file to CSV\n\nsubmission.to_csv('submission.csv', index=False)",
+      "rewrite-ns": 2553992,
+      "overhead-ns": 2553992,
+      "exec-ns": 4233026,
+      "total-ns": 6787018,
+      "patts-hit": {},
+      "rewritten": "submission = pd.DataFrame({'id': test.id, 'type': new_type_pred})\ntype_dict_sub = {(0): 'Ghoul', (1): 'Goblin', (2): 'Ghost'}\nsubmission['type'] = submission['type'].map(type_dict_sub).astype(object)\nsubmission.to_csv('submission.csv', index=False)\n"
+    }
+  ],
+  "total-time-in-sec": 0.068650687,
+  "max-disk-in-mb": 0
+}

@@ -1,0 +1,128 @@
+{
+  "max-mem-in-mb": 1343,
+  "max-mem-in-mb2": 316,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3427535075
+    },
+    {
+      "raw": "#load dataset\n# Alex: update paths\nproteins = pd.read_csv(\"./input/train_proteins.scaled.csv\")\npeptides = pd.read_csv(\"./input/train_peptides.scaled.csv\")\nclinical = pd.read_csv(\"./input/train_clinical_data.scaled.csv\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3245008731
+    },
+    {
+      "raw": "print('proteins shape:             ', proteins.shape)\nprint('peptides shape:             ', peptides.shape)\nprint('clinical shape:             ', clinical.shape)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 684893
+    },
+    {
+      "raw": "proteins[proteins['patient_id'] == 55]['visit_month'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1846013913
+    },
+    {
+      "raw": "peptides[peptides['patient_id'] == 55]['visit_month'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 208801923
+    },
+    {
+      "raw": "# merge proteins and peptides dataset based on 'visit_id' and 'UniPort'\ndf_all = proteins.merge(peptides[['visit_id', 'UniProt', 'Peptide','PeptideAbundance']], on = ['visit_id','UniProt'], how = 'left')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1144151169
+    },
+    {
+      "raw": "def summary(df):\n    print(f'data shape: {df.shape}')\n    summ = pd.DataFrame(df.dtypes, columns=['data type'])\n    summ['#missing'] = df.isnull().sum().values * 100\n    summ['%missing'] = df.isnull().sum().values / len(df)\n    summ['#unique'] = df.nunique().values\n    desc = pd.DataFrame(df.describe(include='all').transpose())\n    summ['min'] = desc['min'].values\n    summ['max'] = desc['max'].values\n    summ['first value'] = df.loc[0].values\n    summ['second value'] = df.loc[1].values\n    summ['third value'] = df.loc[2].values\n    \n    return summ",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1709555
+    },
+    {
+      "raw": "summary(df_all) # .style.background_gradient(cmap='YlOrBr')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1764321835
+    },
+    {
+      "raw": "# group by uniprot\ndf_by_uniprot = df_all.groupby(['visit_id','UniProt'])['NPX'].mean().reset_index()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1838535628
+    },
+    {
+      "raw": "# group by peptides\ndf_by_peptide = df_all.groupby(['visit_id','Peptide'])['PeptideAbundance'].mean().reset_index()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2443708177
+    },
+    {
+      "raw": "# pivot groupby table for uniprot dataset\ndf_uniprot = df_by_uniprot.pivot(index='visit_id',columns = 'UniProt', values = 'NPX').rename_axis(columns=None).reset_index()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 223417250
+    },
+    {
+      "raw": "# pivot groupby table for pepdite dataset\ndf_peptide = df_by_peptide.pivot(index='visit_id',columns = 'Peptide', values = 'PeptideAbundance').rename_axis(columns=None).reset_index()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 720935655
+    },
+    {
+      "raw": "### let's see how these talbe looks like",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 389024
+    },
+    {
+      "raw": "df_uniprot.sample(5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4060044
+    },
+    {
+      "raw": "df_peptide.sample(5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3961676
+    },
+    {
+      "raw": "# add patient id and visit month\ndf_uniprot[['patient_id','visit_month']] = df_uniprot.visit_id.str.split(\"_\", expand=True)\ndf_peptide[['patient_id','visit_month']] = df_peptide.visit_id.str.split(\"_\", expand=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 109506306
+    },
+    {
+      "raw": "clinical.head(5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1106419
+    },
+    {
+      "raw": "clinical.melt(id_vars=['visit_id', 'patient_id', 'visit_month', 'upd23b_clinical_state_on_medication'], \n                   var_name='updrs', value_name='rating')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 19757311
+    },
+    {
+      "raw": "# to be continued....",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 360832
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 183341
+    }
+  ],
+  "total-time-in-sec": 17.004148757,
+  "max-disk-in-mb": 0
+}

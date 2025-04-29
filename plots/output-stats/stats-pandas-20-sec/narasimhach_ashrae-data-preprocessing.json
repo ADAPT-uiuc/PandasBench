@@ -1,0 +1,122 @@
+{
+  "max-mem-in-mb": 3555,
+  "max-mem-in-mb2": 6124,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# Any results you write to the current directory are saved as output.",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 433469
+    },
+    {
+      "raw": "# ALEX: remove path printing\n# import os\n# os.getcwd()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 194767
+    },
+    {
+      "raw": "# ALEX: remove sys calls\n# os.chdir(\"./input\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 168599
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.preprocessing import LabelEncoder\n# from sklearn import metrics",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 168194
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.metrics import mean_squared_error\n# import lightgbm as lgb\n# from sklearn.model_selection import train_test_split",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 168187
+    },
+    {
+      "raw": "#########Reading all the files#########\ntrain_df=pd.read_csv('./input/train.scaled.csv')\ntest_df=pd.read_csv('./input/test.scaled.csv')\nweather_train_df=pd.read_csv('./input/weather_train.scaled.csv')\nweather_test_df=pd.read_csv('./input/weather_test.scaled.csv')\nbuilding_meta_df=pd.read_csv('./input/building_metadata.scaled.csv')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 6091154091
+    },
+    {
+      "raw": "train_df.shape \ntrain_df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 422542
+    },
+    {
+      "raw": "######### Converting time stamp to datetime formats##########\ntrain_df['timestamp'] = pd.to_datetime(train_df['timestamp'])\ntest_df['timestamp'] = pd.to_datetime(test_df['timestamp'])\nweather_train_df['timestamp'] = pd.to_datetime(weather_train_df['timestamp'])\nweather_test_df['timestamp'] = pd.to_datetime(weather_test_df['timestamp'])\n    \nbuilding_meta_df['primary_use'] = building_meta_df['primary_use'].astype('category')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1905801907
+    },
+    {
+      "raw": "########### Merging data frames - step1 #################\ntemp_df = train_df[['building_id']]\ntemp_df = temp_df.merge(building_meta_df, on=['building_id'], how='left')\ndel temp_df['building_id']\ntrain_df = pd.concat([train_df, temp_df], axis=1)\n\ntemp_df = test_df[['building_id']]\ntemp_df = temp_df.merge(building_meta_df, on=['building_id'], how='left')\n\ndel temp_df['building_id']\ntest_df = pd.concat([test_df, temp_df], axis=1)\ndel temp_df, building_meta_df",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2807214720
+    },
+    {
+      "raw": "############Merging data frames step-2 ################\ntemp_df = train_df[['site_id','timestamp']]\ntemp_df = temp_df.merge(weather_train_df, on=['site_id','timestamp'], how='left')\n\ndel temp_df['site_id'], temp_df['timestamp']\ntrain_df = pd.concat([train_df, temp_df], axis=1)\n\ntemp_df = test_df[['site_id','timestamp']]\ntemp_df = temp_df.merge(weather_test_df, on=['site_id','timestamp'], how='left')\n\ndel temp_df['site_id'], temp_df['timestamp']\ntest_df = pd.concat([test_df, temp_df], axis=1)\n\ndel temp_df, weather_train_df, weather_test_df",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5970325515
+    },
+    {
+      "raw": "train_df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 547316
+    },
+    {
+      "raw": "test_df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 315456
+    },
+    {
+      "raw": "train_df.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 231378
+    },
+    {
+      "raw": "evaluate_lazy(train_df.describe())\n#test_df.describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4147554262
+    },
+    {
+      "raw": "########To check the Missing values count by columns wise#################\nprint(evaluate_lazy(train_df.isnull().sum()))\nprint(evaluate_lazy(test_df.isnull().sum()))\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 450630841
+    },
+    {
+      "raw": "###########Missing value imputation for both train and test data sets manually ###############\ntrain_df['floor_count'] = train_df['floor_count'].fillna(-999).astype(np.int16)\ntest_df['floor_count'] = test_df['floor_count'].fillna(-999).astype(np.int16)\ntrain_df['year_built'] = train_df['year_built'].fillna(-999).astype(np.int16)\ntest_df['year_built'] = test_df['year_built'].fillna(-999).astype(np.int16)\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 480082922
+    },
+    {
+      "raw": "train_df['air_temperature']=train_df['air_temperature'].fillna(-999).astype(np.int16)\ntrain_df['cloud_coverage']=train_df['cloud_coverage'].fillna(-999).astype(np.int16)\ntrain_df['dew_temperature']=train_df['dew_temperature'].fillna(-999).astype(np.int16)\ntrain_df['precip_depth_1_hr']=train_df['precip_depth_1_hr'].fillna(-999).astype(np.int16)\ntrain_df['sea_level_pressure']=train_df['sea_level_pressure'].fillna(-999).astype(np.int16)\ntrain_df['wind_direction']=train_df['wind_direction'].fillna(-999).astype(np.int16)\ntrain_df['wind_speed']=train_df['wind_speed'].fillna(-999).astype(np.int16)\n\ntest_df['air_temperature']=test_df['air_temperature'].fillna(-999).astype(np.int16)\ntest_df['cloud_coverage']=test_df['cloud_coverage'].fillna(-999).astype(np.int16)\ntest_df['dew_temperature']=test_df['dew_temperature'].fillna(-999).astype(np.int16)\ntest_df['precip_depth_1_hr']=test_df['precip_depth_1_hr'].fillna(-999).astype(np.int16)\ntest_df['sea_level_pressure']=test_df['sea_level_pressure'].fillna(-999).astype(np.int16)\ntest_df['wind_direction']=test_df['wind_direction'].fillna(-999).astype(np.int16)\ntest_df['wind_speed']=test_df['wind_speed'].fillna(-999).astype(np.int16)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2330068608
+    },
+    {
+      "raw": "print(evaluate_lazy(train_df.isnull().sum()))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 111895798
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 126266
+    }
+  ],
+  "total-time-in-sec": 24.297504838,
+  "max-disk-in-mb": 0
+}

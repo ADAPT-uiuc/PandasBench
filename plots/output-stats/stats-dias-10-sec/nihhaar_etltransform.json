@@ -1,0 +1,107 @@
+{
+  "max-mem-in-mb": 1929,
+  "max-mem-in-mb2": 3354,
+  "cells": [
+    {
+      "raw": "import os\nimport numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n\n# ALEX: remove path printing\n# print(os.listdir(\"./input\"))",
+      "rewrite-ns": 776484,
+      "overhead-ns": 776484,
+      "exec-ns": 418696,
+      "total-ns": 1195180,
+      "patts-hit": {},
+      "rewritten": "import os\nimport numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "csv_file = \"./input/books.scaled.csv\"\ndf = pd.read_csv(csv_file, error_bad_lines=False)\ndf.head()",
+      "rewrite-ns": 913447,
+      "overhead-ns": 913447,
+      "exec-ns": 9606434872,
+      "total-ns": 9607348319,
+      "patts-hit": {},
+      "rewritten": "csv_file = './input/books.scaled.csv'\ndf = pd.read_csv(csv_file, error_bad_lines=False)\ndf.head()\n"
+    },
+    {
+      "raw": "df.shape",
+      "rewrite-ns": 108946,
+      "overhead-ns": 108946,
+      "exec-ns": 592939,
+      "total-ns": 701885,
+      "patts-hit": {},
+      "rewritten": "df.shape\n"
+    },
+    {
+      "raw": "df.dtypes",
+      "rewrite-ns": 73803,
+      "overhead-ns": 73803,
+      "exec-ns": 1043128,
+      "total-ns": 1116931,
+      "patts-hit": {},
+      "rewritten": "df.dtypes\n"
+    },
+    {
+      "raw": "rating_df = df.groupby(['authors'])['average_rating'].mean().reset_index().round(3)\nrating_df.head()",
+      "rewrite-ns": 1021857,
+      "overhead-ns": 1021857,
+      "exec-ns": 525098665,
+      "total-ns": 526120522,
+      "patts-hit": {},
+      "rewritten": "rating_df = df.groupby(['authors'])['average_rating'].mean().reset_index(\n    ).round(3)\nrating_df.head()\n"
+    },
+    {
+      "raw": "rating_df.sort_values(['average_rating', 'authors'], ascending=[False, True]).reset_index(drop=True).head(10)",
+      "rewrite-ns": 985255,
+      "overhead-ns": 985255,
+      "exec-ns": 8134530,
+      "total-ns": 9119785,
+      "patts-hit": {},
+      "rewritten": "rating_df.sort_values(['average_rating', 'authors'], ascending=[False, True]\n    ).reset_index(drop=True).head(10)\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# pd.cut(df['# num_pages'], [-1, 100, 200, 300]).head()\npd.cut(df['  num_pages'], [-1, 100, 200, 300]).head()",
+      "rewrite-ns": 850776,
+      "overhead-ns": 850776,
+      "exec-ns": 123119825,
+      "total-ns": 123970601,
+      "patts-hit": {},
+      "rewritten": "pd.cut(df['  num_pages'], [-1, 100, 200, 300]).head()\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# range_df = df.groupby(pd.cut(df['# num_pages'], [-1, 100, 200, 300]))\nrange_df = df.groupby(pd.cut(df['  num_pages'], [-1, 100, 200, 300]))\nrange_df = range_df[['ratings_count']]\nrange_df.sum().reset_index()",
+      "rewrite-ns": 1600268,
+      "overhead-ns": 1600268,
+      "exec-ns": 182614120,
+      "total-ns": 184214388,
+      "patts-hit": {},
+      "rewritten": "range_df = df.groupby(pd.cut(df['  num_pages'], [-1, 100, 200, 300]))\nrange_df = range_df[['ratings_count']]\nrange_df.sum().reset_index()\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# df.groupby(['authors'])['# num_pages'].max().reset_index()\ndf.groupby(['authors'])['  num_pages'].max().reset_index()",
+      "rewrite-ns": 737804,
+      "overhead-ns": 737804,
+      "exec-ns": 514881254,
+      "total-ns": 515619058,
+      "patts-hit": {},
+      "rewritten": "df.groupby(['authors'])['  num_pages'].max().reset_index()\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# avg_df = df.groupby(['authors'])['# num_pages'].mean().reset_index()\n# avg_df['# num_pages'] = avg_df['# num_pages'].astype('int64')\navg_df = df.groupby(['authors'])['  num_pages'].mean().reset_index()\navg_df['  num_pages'] = avg_df['  num_pages'].astype('int64')\navg_df",
+      "rewrite-ns": 1314835,
+      "overhead-ns": 1314835,
+      "exec-ns": 532002699,
+      "total-ns": 533317534,
+      "patts-hit": {},
+      "rewritten": "avg_df = df.groupby(['authors'])['  num_pages'].mean().reset_index()\navg_df['  num_pages'] = avg_df['  num_pages'].astype('int64')\navg_df\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 20959,
+      "overhead-ns": 20959,
+      "exec-ns": 143409,
+      "total-ns": 164368,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 11.502888571,
+  "max-disk-in-mb": 0
+}

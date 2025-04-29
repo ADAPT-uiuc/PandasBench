@@ -1,0 +1,568 @@
+{
+  "max-mem-in-mb": 120,
+  "max-mem-in-mb2": 124,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 5GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "rewrite-ns": 730849,
+      "overhead-ns": 730849,
+      "exec-ns": 409070,
+      "total-ns": 1139919,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "mydateparser = lambda x: pd.datetime.strptime(x, \"%d-%m-%Y %H:%M\")\n",
+      "rewrite-ns": 827679,
+      "overhead-ns": 827679,
+      "exec-ns": 397213,
+      "total-ns": 1224892,
+      "patts-hit": {},
+      "rewritten": "mydateparser = lambda x: pd.datetime.strptime(x, '%d-%m-%Y %H:%M')\n"
+    },
+    {
+      "raw": "gen_data = pd.read_csv(\"./input/Plant_1_Generation_Data.scaled.csv\",index_col = \"DATE_TIME\",parse_dates = [\"DATE_TIME\"] , date_parser = mydateparser)",
+      "rewrite-ns": 898888,
+      "overhead-ns": 898888,
+      "exec-ns": 175147160,
+      "total-ns": 176046048,
+      "patts-hit": {},
+      "rewritten": "gen_data = pd.read_csv('./input/Plant_1_Generation_Data.scaled.csv',\n    index_col='DATE_TIME', parse_dates=['DATE_TIME'], date_parser=mydateparser)\n"
+    },
+    {
+      "raw": "gen_data.head()",
+      "rewrite-ns": 127667,
+      "overhead-ns": 127667,
+      "exec-ns": 9887607,
+      "total-ns": 10015274,
+      "patts-hit": {},
+      "rewritten": "gen_data.head()\n"
+    },
+    {
+      "raw": "gen_data[\"Date\"] = pd.to_datetime(gen_data.index.map(lambda x : x.date()))\ngen_data[\"Time\"] = gen_data.index.map(lambda x : x.time())",
+      "rewrite-ns": 2132722,
+      "overhead-ns": 2132722,
+      "exec-ns": 40599495,
+      "total-ns": 42732217,
+      "patts-hit": {},
+      "rewritten": "gen_data['Date'] = pd.to_datetime(gen_data.index.map(lambda x: x.date()))\ngen_data['Time'] = gen_data.index.map(lambda x: x.time())\n"
+    },
+    {
+      "raw": "gen_data.loc[(gen_data[\"DC_POWER\"] == 0) & (gen_data[\"AC_POWER\"] != 0)]",
+      "rewrite-ns": 1114451,
+      "overhead-ns": 1114451,
+      "exec-ns": 2879775,
+      "total-ns": 3994226,
+      "patts-hit": {},
+      "rewritten": "gen_data.loc[(gen_data['DC_POWER'] == 0) & (gen_data['AC_POWER'] != 0)]\n"
+    },
+    {
+      "raw": "gen_data.loc[(gen_data[\"DC_POWER\"] != 0) & (gen_data[\"AC_POWER\"] == 0)]",
+      "rewrite-ns": 1101978,
+      "overhead-ns": 1101978,
+      "exec-ns": 2105326,
+      "total-ns": 3207304,
+      "patts-hit": {},
+      "rewritten": "gen_data.loc[(gen_data['DC_POWER'] != 0) & (gen_data['AC_POWER'] == 0)]\n"
+    },
+    {
+      "raw": "[any(pd.isnull(gen_data[column])) for column in gen_data.columns]",
+      "rewrite-ns": 1026142,
+      "overhead-ns": 1026142,
+      "exec-ns": 9294712,
+      "total-ns": 10320854,
+      "patts-hit": {},
+      "rewritten": "[any(pd.isnull(gen_data[column])) for column in gen_data.columns]\n"
+    },
+    {
+      "raw": "numeric_columns = [column for column in gen_data.columns if gen_data[column].dtype in ['int64','float64']]\nother_columns = [column for column in gen_data.columns if column not in numeric_columns]",
+      "rewrite-ns": 1903418,
+      "overhead-ns": 1903418,
+      "exec-ns": 659452,
+      "total-ns": 2562870,
+      "patts-hit": {},
+      "rewritten": "numeric_columns = [column for column in gen_data.columns if gen_data[column\n    ].dtype in ['int64', 'float64']]\nother_columns = [column for column in gen_data.columns if column not in\n    numeric_columns]\n"
+    },
+    {
+      "raw": "[any(np.isnan(gen_data[column])) for column in numeric_columns]",
+      "rewrite-ns": 936082,
+      "overhead-ns": 936082,
+      "exec-ns": 5490723,
+      "total-ns": 6426805,
+      "patts-hit": {},
+      "rewritten": "[any(np.isnan(gen_data[column])) for column in numeric_columns]\n"
+    },
+    {
+      "raw": "gen_data[\"Date\"].head()",
+      "rewrite-ns": 531039,
+      "overhead-ns": 531039,
+      "exec-ns": 1233616,
+      "total-ns": 1764655,
+      "patts-hit": {},
+      "rewritten": "gen_data['Date'].head()\n"
+    },
+    {
+      "raw": "gen_data.columns",
+      "rewrite-ns": 83936,
+      "overhead-ns": 83936,
+      "exec-ns": 785720,
+      "total-ns": 869656,
+      "patts-hit": {},
+      "rewritten": "gen_data.columns\n"
+    },
+    {
+      "raw": "len(gen_data[\"SOURCE_KEY\"].unique())",
+      "rewrite-ns": 252256,
+      "overhead-ns": 252256,
+      "exec-ns": 1385317,
+      "total-ns": 1637573,
+      "patts-hit": {
+        "LenUnique": 1
+      },
+      "rewritten": "dias.rewriter.len_unique(series=gen_data['SOURCE_KEY'])\n"
+    },
+    {
+      "raw": "inverters = gen_data[\"SOURCE_KEY\"].unique()",
+      "rewrite-ns": 618192,
+      "overhead-ns": 618192,
+      "exec-ns": 1004427,
+      "total-ns": 1622619,
+      "patts-hit": {},
+      "rewritten": "inverters = gen_data['SOURCE_KEY'].unique()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig = plt.figure(figsize = (25,16))\nfor i,inverter in enumerate(inverters,1):\n# ALEX: remove plotting\n#     plt.subplot(6,4,i)\n#     plt.yscale(\"log\")\n#     gen_data.loc[(gen_data[\"Date\"] == \"2020-05-15\") &  (gen_data[\"SOURCE_KEY\"] == inverter),\"DC_POWER\"].plot(label = inverter + \" DC\")\n#     gen_data.loc[(gen_data[\"Date\"] == \"2020-05-15\") & (gen_data[\"SOURCE_KEY\"] == inverter),\"AC_POWER\"].plot(label = inverter + \" AC\")\n#     plt.legend()\n    gen_data.loc[(gen_data[\"Date\"] == \"2020-05-15\") &  (gen_data[\"SOURCE_KEY\"] == inverter),\"DC_POWER\"]\n    gen_data.loc[(gen_data[\"Date\"] == \"2020-05-15\") & (gen_data[\"SOURCE_KEY\"] == inverter),\"AC_POWER\"]",
+      "rewrite-ns": 2978788,
+      "overhead-ns": 2978788,
+      "exec-ns": 49692825,
+      "total-ns": 52671613,
+      "patts-hit": {},
+      "rewritten": "for i, inverter in enumerate(inverters, 1):\n    gen_data.loc[(gen_data['Date'] == '2020-05-15') & (gen_data[\n        'SOURCE_KEY'] == inverter), 'DC_POWER']\n    gen_data.loc[(gen_data['Date'] == '2020-05-15') & (gen_data[\n        'SOURCE_KEY'] == inverter), 'AC_POWER']\n"
+    },
+    {
+      "raw": "gen_data.groupby(\"SOURCE_KEY\").count()",
+      "rewrite-ns": 453513,
+      "overhead-ns": 453513,
+      "exec-ns": 8776268,
+      "total-ns": 9229781,
+      "patts-hit": {},
+      "rewritten": "gen_data.groupby('SOURCE_KEY').count()\n"
+    },
+    {
+      "raw": "34 * 24 * 4 #Number of data points required",
+      "rewrite-ns": 374270,
+      "overhead-ns": 374270,
+      "exec-ns": 482376,
+      "total-ns": 856646,
+      "patts-hit": {},
+      "rewritten": "34 * 24 * 4\n"
+    },
+    {
+      "raw": "gen_data[\"Date\"].unique()",
+      "rewrite-ns": 124067,
+      "overhead-ns": 124067,
+      "exec-ns": 939899,
+      "total-ns": 1063966,
+      "patts-hit": {},
+      "rewritten": "gen_data['Date'].unique()\n"
+    },
+    {
+      "raw": "gen_data.groupby(\"SOURCE_KEY\").sum()[\"DC_POWER\"]",
+      "rewrite-ns": 517679,
+      "overhead-ns": 517679,
+      "exec-ns": 3248147,
+      "total-ns": 3765826,
+      "patts-hit": {},
+      "rewritten": "gen_data.groupby('SOURCE_KEY').sum()['DC_POWER']\n"
+    },
+    {
+      "raw": "#split the dataframes by inverter IDs first\nsplit_by_inverters = {}\nfor inverter in inverters:\n    split_by_inverters[inverter] = gen_data.loc[gen_data[\"SOURCE_KEY\"] == inverter]",
+      "rewrite-ns": 975266,
+      "overhead-ns": 975266,
+      "exec-ns": 20825860,
+      "total-ns": 21801126,
+      "patts-hit": {},
+      "rewritten": "split_by_inverters = {}\nfor inverter in inverters:\n    split_by_inverters[inverter] = gen_data.loc[gen_data['SOURCE_KEY'] ==\n        inverter]\n"
+    },
+    {
+      "raw": "unique_dates = gen_data.index.map(lambda x : x.date()).unique()",
+      "rewrite-ns": 728199,
+      "overhead-ns": 728199,
+      "exec-ns": 13133148,
+      "total-ns": 13861347,
+      "patts-hit": {},
+      "rewritten": "unique_dates = gen_data.index.map(lambda x: x.date()).unique()\n"
+    },
+    {
+      "raw": "temp = split_by_inverters['1BY6WEcLGh8j5v7']",
+      "rewrite-ns": 305821,
+      "overhead-ns": 305821,
+      "exec-ns": 211938,
+      "total-ns": 517759,
+      "patts-hit": {},
+      "rewritten": "temp = split_by_inverters['1BY6WEcLGh8j5v7']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig = plt.figure(figsize = (30,25))\ninverter_daily_power = {}\nfor i,(inverter,data) in enumerate(split_by_inverters.items(),1):\n# ALEX: remove plotting\n#     plt.subplot(6,4,i)\n    inverter_daily_power[inverter] = data.groupby(\"Date\").sum()[\"DC_POWER\"]\n# ALEX: remove plotting\n#     inverter_daily_power[inverter].plot(label = inverter)\n#     plt.legend()\n    inverter_daily_power[inverter]",
+      "rewrite-ns": 1503647,
+      "overhead-ns": 1503647,
+      "exec-ns": 22355202,
+      "total-ns": 23858849,
+      "patts-hit": {},
+      "rewritten": "inverter_daily_power = {}\nfor i, (inverter, data) in enumerate(split_by_inverters.items(), 1):\n    inverter_daily_power[inverter] = data.groupby('Date').sum()['DC_POWER']\n    inverter_daily_power[inverter]\n"
+    },
+    {
+      "raw": "weather_data = pd.read_csv(\"./input/Plant_1_Weather_Sensor_Data.scaled.csv\",index_col = \"DATE_TIME\",parse_dates = True)",
+      "rewrite-ns": 527284,
+      "overhead-ns": 527284,
+      "exec-ns": 2155560,
+      "total-ns": 2682844,
+      "patts-hit": {},
+      "rewritten": "weather_data = pd.read_csv('./input/Plant_1_Weather_Sensor_Data.scaled.csv',\n    index_col='DATE_TIME', parse_dates=True)\n"
+    },
+    {
+      "raw": "weather_data[\"Date\"] = pd.to_datetime(weather_data.index.map(lambda x : x.date()))\nweather_data[\"Time\"] = weather_data.index.map(lambda x : x.time())",
+      "rewrite-ns": 1521425,
+      "overhead-ns": 1521425,
+      "exec-ns": 3110608,
+      "total-ns": 4632033,
+      "patts-hit": {},
+      "rewritten": "weather_data['Date'] = pd.to_datetime(weather_data.index.map(lambda x: x.\n    date()))\nweather_data['Time'] = weather_data.index.map(lambda x: x.time())\n"
+    },
+    {
+      "raw": "weather_data.head()",
+      "rewrite-ns": 79719,
+      "overhead-ns": 79719,
+      "exec-ns": 5847276,
+      "total-ns": 5926995,
+      "patts-hit": {},
+      "rewritten": "weather_data.head()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig = plt.figure(figsize = (18,4))\n# plt.subplot(131)\n# weather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"), \"IRRADIATION\"].plot(legend = True)\n# #plt.legend()\n# plt.subplot(132)\n# weather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"),\"AMBIENT_TEMPERATURE\"].plot(legend = True)\n# plt.subplot(133)\n# weather_data.loc[(weather_data[\"Date\"] == \"2020-05-15 00:00:00\"),\"MODULE_TEMPERATURE\"].plot(legend = True)\nweather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"), \"IRRADIATION\"]\nweather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"),\"AMBIENT_TEMPERATURE\"]\nweather_data.loc[(weather_data[\"Date\"] == \"2020-05-15 00:00:00\"),\"MODULE_TEMPERATURE\"]",
+      "rewrite-ns": 1630233,
+      "overhead-ns": 1630233,
+      "exec-ns": 2096238,
+      "total-ns": 3726471,
+      "patts-hit": {},
+      "rewritten": "weather_data.loc[weather_data['Date'] == '2020-05-15', 'IRRADIATION']\nweather_data.loc[weather_data['Date'] == '2020-05-15', 'AMBIENT_TEMPERATURE']\nweather_data.loc[weather_data['Date'] == '2020-05-15 00:00:00',\n    'MODULE_TEMPERATURE']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.scatterplot(x = weather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"),\"AMBIENT_TEMPERATURE\"], y =weather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"),\"MODULE_TEMPERATURE\"])\n_ = weather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"),\"AMBIENT_TEMPERATURE\"]\n_ = weather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"),\"MODULE_TEMPERATURE\"]",
+      "rewrite-ns": 1231208,
+      "overhead-ns": 1231208,
+      "exec-ns": 841184,
+      "total-ns": 2072392,
+      "patts-hit": {},
+      "rewritten": "_ = weather_data.loc[weather_data['Date'] == '2020-05-15',\n    'AMBIENT_TEMPERATURE']\n_ = weather_data.loc[weather_data['Date'] == '2020-05-15', 'MODULE_TEMPERATURE'\n    ]\n"
+    },
+    {
+      "raw": "#Timestamp of maximum irradiation on the 15th of May\nweather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"),\"IRRADIATION\"].idxmax()",
+      "rewrite-ns": 698351,
+      "overhead-ns": 698351,
+      "exec-ns": 881332,
+      "total-ns": 1579683,
+      "patts-hit": {},
+      "rewritten": "weather_data.loc[weather_data['Date'] == '2020-05-15', 'IRRADIATION'].idxmax()\n"
+    },
+    {
+      "raw": "#Timestamp of maximum ambient temperature on the 15th of May\nweather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"),\"AMBIENT_TEMPERATURE\"].idxmax()",
+      "rewrite-ns": 709412,
+      "overhead-ns": 709412,
+      "exec-ns": 849914,
+      "total-ns": 1559326,
+      "patts-hit": {},
+      "rewritten": "weather_data.loc[weather_data['Date'] == '2020-05-15', 'AMBIENT_TEMPERATURE'\n    ].idxmax()\n"
+    },
+    {
+      "raw": "weather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"),\"MODULE_TEMPERATURE\"].idxmax()",
+      "rewrite-ns": 711986,
+      "overhead-ns": 711986,
+      "exec-ns": 835335,
+      "total-ns": 1547321,
+      "patts-hit": {},
+      "rewritten": "weather_data.loc[weather_data['Date'] == '2020-05-15', 'MODULE_TEMPERATURE'\n    ].idxmax()\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 13186,
+      "overhead-ns": 13186,
+      "exec-ns": 68217,
+      "total-ns": 81403,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "inverter_daily_power.keys()",
+      "rewrite-ns": 266943,
+      "overhead-ns": 266943,
+      "exec-ns": 403039,
+      "total-ns": 669982,
+      "patts-hit": {},
+      "rewritten": "inverter_daily_power.keys()\n"
+    },
+    {
+      "raw": "weather_data[\"date\"] = weather_data.index.map(lambda x : x.date())\ndaily_irradiation = weather_data.groupby(\"date\").sum()[\"IRRADIATION\"]\n# ALEX: remove plotting\n# sns.scatterplot(x = daily_irradiation, y = inverter_daily_power[\"1BY6WEcLGh8j5v7\"])\n_ = inverter_daily_power[\"1BY6WEcLGh8j5v7\"]",
+      "rewrite-ns": 1390176,
+      "overhead-ns": 1390176,
+      "exec-ns": 2442486,
+      "total-ns": 3832662,
+      "patts-hit": {},
+      "rewritten": "weather_data['date'] = weather_data.index.map(lambda x: x.date())\ndaily_irradiation = weather_data.groupby('date').sum()['IRRADIATION']\n_ = inverter_daily_power['1BY6WEcLGh8j5v7']\n"
+    },
+    {
+      "raw": "max_temps = weather_data.groupby(\"date\").max()[\"AMBIENT_TEMPERATURE\"]\nmin_temps = weather_data.groupby(\"date\").min()[\"AMBIENT_TEMPERATURE\"]",
+      "rewrite-ns": 988059,
+      "overhead-ns": 988059,
+      "exec-ns": 5392624,
+      "total-ns": 6380683,
+      "patts-hit": {},
+      "rewritten": "max_temps = weather_data.groupby('date').max()['AMBIENT_TEMPERATURE']\nmin_temps = weather_data.groupby('date').min()['AMBIENT_TEMPERATURE']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize = (12,6))\n# max_temps.plot(label = \"Maximum Temperature\")\n# min_temps.plot(label = \"Minimum Temperature\")\n# plt.legend()",
+      "rewrite-ns": 14107,
+      "overhead-ns": 14107,
+      "exec-ns": 70618,
+      "total-ns": 84725,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "max_temps = weather_data.groupby(\"date\").max()[\"AMBIENT_TEMPERATURE\"]\nmin_temps = weather_data.groupby(\"date\").min()[\"AMBIENT_TEMPERATURE\"]\ndiff_temps = max_temps - min_temps\ndaily_irradiation = weather_data.groupby(\"date\").sum()[\"IRRADIATION\"]",
+      "rewrite-ns": 1694459,
+      "overhead-ns": 1694459,
+      "exec-ns": 6452597,
+      "total-ns": 8147056,
+      "patts-hit": {},
+      "rewritten": "max_temps = weather_data.groupby('date').max()['AMBIENT_TEMPERATURE']\nmin_temps = weather_data.groupby('date').min()['AMBIENT_TEMPERATURE']\ndiff_temps = max_temps - min_temps\ndaily_irradiation = weather_data.groupby('date').sum()['IRRADIATION']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.scatterplot(daily_irradiation,diff_temps)",
+      "rewrite-ns": 13152,
+      "overhead-ns": 13152,
+      "exec-ns": 69491,
+      "total-ns": 82643,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "temp_before_sunrise = weather_data.loc[(weather_data[\"Time\"] < pd.to_datetime(\"07:00\").time()) & (weather_data[\"IRRADIATION\"] > 0)].groupby(\"date\")[\"AMBIENT_TEMPERATURE\"].min()",
+      "rewrite-ns": 1438778,
+      "overhead-ns": 1438778,
+      "exec-ns": 1573551,
+      "total-ns": 3012329,
+      "patts-hit": {},
+      "rewritten": "temp_before_sunrise = weather_data.loc[(weather_data['Time'] < pd.\n    to_datetime('07:00').time()) & (weather_data['IRRADIATION'] > 0)].groupby(\n    'date')['AMBIENT_TEMPERATURE'].min()\n"
+    },
+    {
+      "raw": "diff_temps = max_temps - temp_before_sunrise",
+      "rewrite-ns": 316612,
+      "overhead-ns": 316612,
+      "exec-ns": 624914,
+      "total-ns": 941526,
+      "patts-hit": {},
+      "rewritten": "diff_temps = max_temps - temp_before_sunrise\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.scatterplot(daily_irradiation,diff_temps)",
+      "rewrite-ns": 12373,
+      "overhead-ns": 12373,
+      "exec-ns": 66308,
+      "total-ns": 78681,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 10890,
+      "overhead-ns": 10890,
+      "exec-ns": 60587,
+      "total-ns": 71477,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "average_power = gen_data.reset_index().groupby(\"DATE_TIME\").mean()[[\"DC_POWER\",\"AC_POWER\"]]",
+      "rewrite-ns": 753649,
+      "overhead-ns": 753649,
+      "exec-ns": 2921132,
+      "total-ns": 3674781,
+      "patts-hit": {},
+      "rewritten": "average_power = gen_data.reset_index().groupby('DATE_TIME').mean()[[\n    'DC_POWER', 'AC_POWER']]\n"
+    },
+    {
+      "raw": "total_power = average_power * gen_data[\"PLANT_ID\"].nunique()",
+      "rewrite-ns": 517876,
+      "overhead-ns": 517876,
+      "exec-ns": 472317,
+      "total-ns": 990193,
+      "patts-hit": {},
+      "rewritten": "total_power = average_power * gen_data['PLANT_ID'].nunique()\n"
+    },
+    {
+      "raw": "total_power[\"Date\"] = total_power.index.map(lambda x : x.date())\n# ALEX: remove plotting\n# fig = plt.figure()\n# total_power.groupby(\"Date\").sum().plot()\n# plt.yscale(\"log\")\ntotal_power.groupby(\"Date\").sum()",
+      "rewrite-ns": 1030244,
+      "overhead-ns": 1030244,
+      "exec-ns": 4796723,
+      "total-ns": 5826967,
+      "patts-hit": {},
+      "rewritten": "total_power['Date'] = total_power.index.map(lambda x: x.date())\ntotal_power.groupby('Date').sum()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.regplot(x = weather_data.groupby(\"Date\")[\"IRRADIATION\"].sum(), y = total_power.groupby(\"Date\")[\"DC_POWER\"].sum())\n_ = weather_data.groupby(\"Date\")[\"IRRADIATION\"].sum()\n_ = total_power.groupby(\"Date\")[\"DC_POWER\"].sum()",
+      "rewrite-ns": 1010923,
+      "overhead-ns": 1010923,
+      "exec-ns": 1185899,
+      "total-ns": 2196822,
+      "patts-hit": {},
+      "rewritten": "_ = weather_data.groupby('Date')['IRRADIATION'].sum()\n_ = total_power.groupby('Date')['DC_POWER'].sum()\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.linear_model import LinearRegression\n# model = LinearRegression()\n# model.fit(weather_data.groupby(\"Date\")[\"IRRADIATION\"].sum().values.reshape(-1,1),total_power.groupby(\"Date\")[\"DC_POWER\"].sum())\n# model.intercept_,model.coef_\n_ = weather_data.groupby(\"Date\")[\"IRRADIATION\"].sum().values.reshape(-1,1)\n_ = total_power.groupby(\"Date\")[\"DC_POWER\"].sum()",
+      "rewrite-ns": 1283271,
+      "overhead-ns": 1283271,
+      "exec-ns": 1154573,
+      "total-ns": 2437844,
+      "patts-hit": {},
+      "rewritten": "_ = weather_data.groupby('Date')['IRRADIATION'].sum().values.reshape(-1, 1)\n_ = total_power.groupby('Date')['DC_POWER'].sum()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.regplot(x = total_power.groupby(\"Date\")[\"DC_POWER\"].sum(),y = total_power.groupby(\"Date\")[\"AC_POWER\"].sum())\n_ = total_power.groupby(\"Date\")[\"DC_POWER\"].sum()\n_ = total_power.groupby(\"Date\")[\"AC_POWER\"].sum()",
+      "rewrite-ns": 1009648,
+      "overhead-ns": 1009648,
+      "exec-ns": 1115835,
+      "total-ns": 2125483,
+      "patts-hit": {},
+      "rewritten": "_ = total_power.groupby('Date')['DC_POWER'].sum()\n_ = total_power.groupby('Date')['AC_POWER'].sum()\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.linear_model import LinearRegression",
+      "rewrite-ns": 13150,
+      "overhead-ns": 13150,
+      "exec-ns": 68098,
+      "total-ns": 81248,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# a = LinearRegression()\n# a.fit(total_power.groupby(\"Date\")[\"DC_POWER\"].sum().values.reshape(-1,1),total_power.groupby(\"Date\")[\"AC_POWER\"].sum())\n# a.intercept_,a.coef_\n_ = total_power.groupby(\"Date\")[\"DC_POWER\"].sum().values.reshape(-1,1)\n_ = total_power.groupby(\"Date\")[\"AC_POWER\"].sum()",
+      "rewrite-ns": 1266997,
+      "overhead-ns": 1266997,
+      "exec-ns": 1138739,
+      "total-ns": 2405736,
+      "patts-hit": {},
+      "rewritten": "_ = total_power.groupby('Date')['DC_POWER'].sum().values.reshape(-1, 1)\n_ = total_power.groupby('Date')['AC_POWER'].sum()\n"
+    },
+    {
+      "raw": "gen_data_2 = pd.read_csv(\"./input/Plant_2_Generation_Data.scaled.csv\",index_col = \"DATE_TIME\",parse_dates = [\"DATE_TIME\"])",
+      "rewrite-ns": 564303,
+      "overhead-ns": 564303,
+      "exec-ns": 11916636,
+      "total-ns": 12480939,
+      "patts-hit": {},
+      "rewritten": "gen_data_2 = pd.read_csv('./input/Plant_2_Generation_Data.scaled.csv',\n    index_col='DATE_TIME', parse_dates=['DATE_TIME'])\n"
+    },
+    {
+      "raw": "gen_data_2[\"Date\"] = gen_data_2.index.map(lambda x : x.date())\ngen_data_2[\"Time\"] = gen_data_2.index.map(lambda x : x.time())",
+      "rewrite-ns": 1321557,
+      "overhead-ns": 1321557,
+      "exec-ns": 24827792,
+      "total-ns": 26149349,
+      "patts-hit": {},
+      "rewritten": "gen_data_2['Date'] = gen_data_2.index.map(lambda x: x.date())\ngen_data_2['Time'] = gen_data_2.index.map(lambda x: x.time())\n"
+    },
+    {
+      "raw": "gen_data_2.groupby(\"SOURCE_KEY\").count()",
+      "rewrite-ns": 408964,
+      "overhead-ns": 408964,
+      "exec-ns": 8962143,
+      "total-ns": 9371107,
+      "patts-hit": {},
+      "rewritten": "gen_data_2.groupby('SOURCE_KEY').count()\n"
+    },
+    {
+      "raw": "[any(pd.isnull(gen_data_2[column])) for column in gen_data_2.columns]",
+      "rewrite-ns": 717425,
+      "overhead-ns": 717425,
+      "exec-ns": 7234282,
+      "total-ns": 7951707,
+      "patts-hit": {},
+      "rewritten": "[any(pd.isnull(gen_data_2[column])) for column in gen_data_2.columns]\n"
+    },
+    {
+      "raw": "inverters = gen_data_2[\"SOURCE_KEY\"].unique()\n# ALEX: remove plotting\n# fig = plt.figure(figsize = (25,16))\nfor i,inverter in enumerate(inverters,1):\n# ALEX: remove plotting\n#     plt.subplot(6,4,i)\n#     plt.yscale(\"log\")\n#     gen_data_2.loc[(gen_data_2[\"Date\"] == pd.to_datetime(\"2020-05-15\")) &  (gen_data_2[\"SOURCE_KEY\"] == inverter),\"DC_POWER\"].plot(label = inverter + \" DC\")\n#     gen_data_2.loc[(gen_data_2[\"Date\"] == pd.to_datetime(\"2020-05-15\")) & (gen_data_2[\"SOURCE_KEY\"] == inverter),\"AC_POWER\"].plot(label = inverter + \" AC\")\n#     plt.legend()\n    gen_data_2.loc[(gen_data_2[\"Date\"] == pd.to_datetime(\"2020-05-15\")) &  (gen_data_2[\"SOURCE_KEY\"] == inverter),\"DC_POWER\"]\n    gen_data_2.loc[(gen_data_2[\"Date\"] == pd.to_datetime(\"2020-05-15\")) & (gen_data_2[\"SOURCE_KEY\"] == inverter),\"AC_POWER\"]",
+      "rewrite-ns": 2692848,
+      "overhead-ns": 2692848,
+      "exec-ns": 6644203168,
+      "total-ns": 6646896016,
+      "patts-hit": {},
+      "rewritten": "inverters = gen_data_2['SOURCE_KEY'].unique()\nfor i, inverter in enumerate(inverters, 1):\n    gen_data_2.loc[(gen_data_2['Date'] == pd.to_datetime('2020-05-15')) & (\n        gen_data_2['SOURCE_KEY'] == inverter), 'DC_POWER']\n    gen_data_2.loc[(gen_data_2['Date'] == pd.to_datetime('2020-05-15')) & (\n        gen_data_2['SOURCE_KEY'] == inverter), 'AC_POWER']\n"
+    },
+    {
+      "raw": "inverters",
+      "rewrite-ns": 117059,
+      "overhead-ns": 117059,
+      "exec-ns": 744213,
+      "total-ns": 861272,
+      "patts-hit": {},
+      "rewritten": "inverters\n"
+    },
+    {
+      "raw": "average_power_2 = gen_data_2.reset_index().groupby(\"DATE_TIME\").mean()[[\"DC_POWER\",\"AC_POWER\"]]\ntotal_power_2 = average_power_2 * gen_data_2[\"SOURCE_KEY\"].nunique()\ntotal_power_2[\"Date\"] = total_power_2.index.map(lambda x : x.date())",
+      "rewrite-ns": 1907565,
+      "overhead-ns": 1907565,
+      "exec-ns": 6191077,
+      "total-ns": 8098642,
+      "patts-hit": {},
+      "rewritten": "average_power_2 = gen_data_2.reset_index().groupby('DATE_TIME').mean()[[\n    'DC_POWER', 'AC_POWER']]\ntotal_power_2 = average_power_2 * gen_data_2['SOURCE_KEY'].nunique()\ntotal_power_2['Date'] = total_power_2.index.map(lambda x: x.date())\n"
+    },
+    {
+      "raw": "weather_data_2 = pd.read_csv(\"./input/Plant_2_Weather_Sensor_Data.scaled.csv\",index_col = \"DATE_TIME\",parse_dates = True)\nweather_data_2[\"Date\"] = weather_data_2.index.map(lambda x : x.date())\nweather_data_2[\"Time\"] = weather_data_2.index.map(lambda x : x.time())",
+      "rewrite-ns": 1804096,
+      "overhead-ns": 1804096,
+      "exec-ns": 4678871,
+      "total-ns": 6482967,
+      "patts-hit": {},
+      "rewritten": "weather_data_2 = pd.read_csv('./input/Plant_2_Weather_Sensor_Data.scaled.csv',\n    index_col='DATE_TIME', parse_dates=True)\nweather_data_2['Date'] = weather_data_2.index.map(lambda x: x.date())\nweather_data_2['Time'] = weather_data_2.index.map(lambda x: x.time())\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.regplot(x = weather_data_2.groupby(\"Date\")[\"IRRADIATION\"].sum(),y = total_power_2.groupby(\"Date\").sum()[\"DC_POWER\"])\n_ = weather_data_2.groupby(\"Date\")[\"IRRADIATION\"].sum()\n_ = total_power_2.groupby(\"Date\").sum()[\"DC_POWER\"]",
+      "rewrite-ns": 1002899,
+      "overhead-ns": 1002899,
+      "exec-ns": 1708014,
+      "total-ns": 2710913,
+      "patts-hit": {},
+      "rewritten": "_ = weather_data_2.groupby('Date')['IRRADIATION'].sum()\n_ = total_power_2.groupby('Date').sum()['DC_POWER']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.regplot(x = total_power_2.groupby(\"Date\").sum()[\"DC_POWER\"], y = total_power_2.groupby(\"Date\").sum()[\"AC_POWER\"])\n_ = total_power_2.groupby(\"Date\").sum()[\"DC_POWER\"]\n_ = total_power_2.groupby(\"Date\").sum()[\"AC_POWER\"]",
+      "rewrite-ns": 986338,
+      "overhead-ns": 986338,
+      "exec-ns": 1926496,
+      "total-ns": 2912834,
+      "patts-hit": {},
+      "rewritten": "_ = total_power_2.groupby('Date').sum()['DC_POWER']\n_ = total_power_2.groupby('Date').sum()['AC_POWER']\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# model_2 = LinearRegression()\n# model_2.fit(total_power_2.groupby(\"Date\").sum()[\"DC_POWER\"].values.reshape(-1,1), y = total_power_2.groupby(\"Date\").sum()[\"AC_POWER\"])\n# model_2.coef_,model_2.intercept_\n_ = total_power_2.groupby(\"Date\").sum()[\"DC_POWER\"].values.reshape(-1,1)\n_ = total_power_2.groupby(\"Date\").sum()[\"AC_POWER\"]",
+      "rewrite-ns": 1281702,
+      "overhead-ns": 1281702,
+      "exec-ns": 2004438,
+      "total-ns": 3286140,
+      "patts-hit": {},
+      "rewritten": "_ = total_power_2.groupby('Date').sum()['DC_POWER'].values.reshape(-1, 1)\n_ = total_power_2.groupby('Date').sum()['AC_POWER']\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 11857,
+      "overhead-ns": 11857,
+      "exec-ns": 70114,
+      "total-ns": 81971,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 7.185324988,
+  "max-disk-in-mb": 0
+}

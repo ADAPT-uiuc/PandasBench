@@ -1,0 +1,647 @@
+{
+  "max-mem-in-mb": 128,
+  "max-mem-in-mb2": 132,
+  "cells": [
+    {
+      "raw": "import re\nimport string\nimport numpy as np \nimport random\n# import pandas as pd \nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# %matplotlib inline\n# from plotly import graph_objs as go\n# import plotly.express as px\n# import plotly.figure_factory as ff\nfrom collections import Counter\n\n# ALEX: remove plotting, ML code\n# from PIL import Image\n# from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator\n\n\n# import nltk\n# from nltk.corpus import stopwords\n\nfrom tqdm import tqdm\n# ALEX: remove ML code\n# import os\n# import nltk\n# import spacy\n# import random\n# from spacy.util import compounding\n# from spacy.util import minibatch\n\n# import warnings\n# warnings.filterwarnings(\"ignore\")\n\n# ALEX: remove path\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# Any results you write to the current directory are saved as output.\n# ALEX: make notebook work with runner\nfrom IPython.display import display",
+      "rewrite-ns": 911428,
+      "overhead-ns": 911428,
+      "exec-ns": 2711517,
+      "total-ns": 3622945,
+      "patts-hit": {},
+      "rewritten": "import re\nimport string\nimport numpy as np\nimport random\nexec(os.environ['IREWR_IMPORTS'])\nfrom collections import Counter\nfrom tqdm import tqdm\nfrom IPython.display import display\n"
+    },
+    {
+      "raw": "def random_colours(number_of_colors):\n    '''\n    Simple function for random colours generation.\n    Input:\n        number_of_colors - integer value indicating the number of colours which are going to be generated.\n    Output:\n        Color in the following format: ['#E86DA4'] .\n    '''\n    colors = []\n    for i in range(number_of_colors):\n        colors.append(\"#\"+''.join([random.choice('0123456789ABCDEF') for j in range(6)]))\n    return colors",
+      "rewrite-ns": 1653628,
+      "overhead-ns": 1653628,
+      "exec-ns": 619793,
+      "total-ns": 2273421,
+      "patts-hit": {},
+      "rewritten": "def random_colours(number_of_colors):\n    \"\"\"\n    Simple function for random colours generation.\n    Input:\n        number_of_colors - integer value indicating the number of colours which are going to be generated.\n    Output:\n        Color in the following format: ['#E86DA4'] .\n    \"\"\"\n    colors = []\n    for i in range(number_of_colors):\n        colors.append('#' + ''.join([random.choice('0123456789ABCDEF') for\n            j in range(6)]))\n    return colors\n"
+    },
+    {
+      "raw": "train = pd.read_csv('./input/train.scaled.csv')\ntest = pd.read_csv('./input/test.scaled.csv')\nss = pd.read_csv('./input/sample_submission.scaled.csv')",
+      "rewrite-ns": 938593,
+      "overhead-ns": 938593,
+      "exec-ns": 14441235,
+      "total-ns": 15379828,
+      "patts-hit": {},
+      "rewritten": "train = pd.read_csv('./input/train.scaled.csv')\ntest = pd.read_csv('./input/test.scaled.csv')\nss = pd.read_csv('./input/sample_submission.scaled.csv')\n"
+    },
+    {
+      "raw": "print(train.shape)\nprint(test.shape)",
+      "rewrite-ns": 550702,
+      "overhead-ns": 550702,
+      "exec-ns": 238298,
+      "total-ns": 789000,
+      "patts-hit": {},
+      "rewritten": "print(train.shape)\nprint(test.shape)\n"
+    },
+    {
+      "raw": "train.info()",
+      "rewrite-ns": 67896,
+      "overhead-ns": 67896,
+      "exec-ns": 5712478,
+      "total-ns": 5780374,
+      "patts-hit": {},
+      "rewritten": "train.info()\n"
+    },
+    {
+      "raw": "train.dropna(inplace=True)",
+      "rewrite-ns": 366669,
+      "overhead-ns": 366669,
+      "exec-ns": 3122349,
+      "total-ns": 3489018,
+      "patts-hit": {},
+      "rewritten": "train.dropna(inplace=True)\n"
+    },
+    {
+      "raw": "test.info()",
+      "rewrite-ns": 77137,
+      "overhead-ns": 77137,
+      "exec-ns": 2701138,
+      "total-ns": 2778275,
+      "patts-hit": {},
+      "rewritten": "test.info()\n"
+    },
+    {
+      "raw": "train.head()",
+      "rewrite-ns": 78666,
+      "overhead-ns": 78666,
+      "exec-ns": 4793890,
+      "total-ns": 4872556,
+      "patts-hit": {},
+      "rewritten": "train.head()\n"
+    },
+    {
+      "raw": "train.describe()",
+      "rewrite-ns": 78220,
+      "overhead-ns": 78220,
+      "exec-ns": 10978096,
+      "total-ns": 11056316,
+      "patts-hit": {},
+      "rewritten": "train.describe()\n"
+    },
+    {
+      "raw": "temp = train.groupby('sentiment').count()['text'].reset_index().sort_values(by='text',ascending=False)\n# ALEX: remove table styling\ntemp # .style.background_gradient(cmap='Purples')",
+      "rewrite-ns": 940845,
+      "overhead-ns": 940845,
+      "exec-ns": 5298231,
+      "total-ns": 6239076,
+      "patts-hit": {},
+      "rewritten": "temp = train.groupby('sentiment').count()['text'].reset_index().sort_values(by\n    ='text', ascending=False)\ntemp\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,6))\n# sns.countplot(x='sentiment',data=train)",
+      "rewrite-ns": 13231,
+      "overhead-ns": 13231,
+      "exec-ns": 67120,
+      "total-ns": 80351,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig = go.Figure(go.Funnelarea(\n#     text =temp.sentiment,\n#     values = temp.text,\n#     title = {\"position\": \"top center\", \"text\": \"Funnel-Chart of Sentiment Distribution\"}\n#     ))\n# fig.show()\n_ = temp.sentiment\n_ = temp.text",
+      "rewrite-ns": 455787,
+      "overhead-ns": 455787,
+      "exec-ns": 279215,
+      "total-ns": 735002,
+      "patts-hit": {},
+      "rewritten": "_ = temp.sentiment\n_ = temp.text\n"
+    },
+    {
+      "raw": "def jaccard(str1, str2): \n    a = set(str1.lower().split()) \n    b = set(str2.lower().split())\n    c = a.intersection(b)\n    return float(len(c)) / (len(a) + len(b) - len(c))",
+      "rewrite-ns": 2163845,
+      "overhead-ns": 2163845,
+      "exec-ns": 466741,
+      "total-ns": 2630586,
+      "patts-hit": {},
+      "rewritten": "def jaccard(str1, str2):\n    a = set(str1.lower().split())\n    b = set(str2.lower().split())\n    c = a.intersection(b)\n    return float(len(c)) / (len(a) + len(b) - len(c))\n"
+    },
+    {
+      "raw": "results_jaccard=[]\n\nfor ind,row in train.iterrows():\n    sentence1 = row.text\n    sentence2 = row.selected_text\n\n    jaccard_score = jaccard(sentence1,sentence2)\n    results_jaccard.append([sentence1,sentence2,jaccard_score])",
+      "rewrite-ns": 1605999,
+      "overhead-ns": 1605999,
+      "exec-ns": 253895952,
+      "total-ns": 255501951,
+      "patts-hit": {},
+      "rewritten": "results_jaccard = []\nfor ind, row in train.iterrows():\n    sentence1 = row.text\n    sentence2 = row.selected_text\n    jaccard_score = jaccard(sentence1, sentence2)\n    results_jaccard.append([sentence1, sentence2, jaccard_score])\n"
+    },
+    {
+      "raw": "jaccard = pd.DataFrame(results_jaccard,columns=[\"text\",\"selected_text\",\"jaccard_score\"])\ntrain = train.merge(jaccard,how='outer')",
+      "rewrite-ns": 992361,
+      "overhead-ns": 992361,
+      "exec-ns": 5062606,
+      "total-ns": 6054967,
+      "patts-hit": {},
+      "rewritten": "jaccard = pd.DataFrame(results_jaccard, columns=['text', 'selected_text',\n    'jaccard_score'])\ntrain = train.merge(jaccard, how='outer')\n"
+    },
+    {
+      "raw": "train['Num_words_ST'] = train['selected_text'].apply(lambda x:len(str(x).split())) #Number Of words in Selected Text\ntrain['Num_word_text'] = train['text'].apply(lambda x:len(str(x).split())) #Number Of words in main text\ntrain['difference_in_words'] = train['Num_word_text'] - train['Num_words_ST'] #Difference in Number of words text and Selected Text",
+      "rewrite-ns": 2369158,
+      "overhead-ns": 2369158,
+      "exec-ns": 9964812,
+      "total-ns": 12333970,
+      "patts-hit": {},
+      "rewritten": "train['Num_words_ST'] = train['selected_text'].apply(lambda x: len(str(x).\n    split()))\ntrain['Num_word_text'] = train['text'].apply(lambda x: len(str(x).split()))\ntrain['difference_in_words'] = train['Num_word_text'] - train['Num_words_ST']\n"
+    },
+    {
+      "raw": "train.head()",
+      "rewrite-ns": 75314,
+      "overhead-ns": 75314,
+      "exec-ns": 5734399,
+      "total-ns": 5809713,
+      "patts-hit": {},
+      "rewritten": "train.head()\n"
+    },
+    {
+      "raw": "hist_data = [train['Num_words_ST'],train['Num_word_text']]\n\ngroup_labels = ['Selected_Text', 'Text']\n\n# Create distplot with custom bin_size\n# ALEX: remove plotting\n# fig = ff.create_distplot(hist_data, group_labels,show_curve=False)\n# fig.update_layout(title_text='Distribution of Number Of words')\n# fig.update_layout(\n#     autosize=False,\n#     width=900,\n#     height=700,\n#     paper_bgcolor=\"LightSteelBlue\",\n# )\n# fig.show()",
+      "rewrite-ns": 714274,
+      "overhead-ns": 714274,
+      "exec-ns": 272914,
+      "total-ns": 987188,
+      "patts-hit": {},
+      "rewritten": "hist_data = [train['Num_words_ST'], train['Num_word_text']]\ngroup_labels = ['Selected_Text', 'Text']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,6))\n# p1=sns.kdeplot(train['Num_words_ST'], shade=True, color=\"r\").set_title('Kernel Distribution of Number Of words')\n# p1=sns.kdeplot(train['Num_word_text'], shade=True, color=\"b\")\n_ = train['Num_words_ST']\n_ = train['Num_word_text']",
+      "rewrite-ns": 522222,
+      "overhead-ns": 522222,
+      "exec-ns": 218515,
+      "total-ns": 740737,
+      "patts-hit": {},
+      "rewritten": "_ = train['Num_words_ST']\n_ = train['Num_word_text']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,6))\n# p1=sns.kdeplot(train[train['sentiment']=='positive']['difference_in_words'], shade=True, color=\"b\").set_title('Kernel Distribution of Difference in Number Of words')\n# p2=sns.kdeplot(train[train['sentiment']=='negative']['difference_in_words'], shade=True, color=\"r\")\n_ = train[train['sentiment']=='positive']['difference_in_words']\n_ = train[train['sentiment']=='negative']['difference_in_words']",
+      "rewrite-ns": 1058762,
+      "overhead-ns": 1058762,
+      "exec-ns": 1756628,
+      "total-ns": 2815390,
+      "patts-hit": {},
+      "rewritten": "_ = train[train['sentiment'] == 'positive']['difference_in_words']\n_ = train[train['sentiment'] == 'negative']['difference_in_words']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,6))\n# sns.distplot(train[train['sentiment']=='neutral']['difference_in_words'],kde=False)\n_ = train[train['sentiment']=='neutral']['difference_in_words']",
+      "rewrite-ns": 572801,
+      "overhead-ns": 572801,
+      "exec-ns": 919655,
+      "total-ns": 1492456,
+      "patts-hit": {},
+      "rewritten": "_ = train[train['sentiment'] == 'neutral']['difference_in_words']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,6))\n# p1=sns.kdeplot(train[train['sentiment']=='positive']['jaccard_score'], shade=True, color=\"b\").set_title('KDE of Jaccard Scores across different Sentiments')\n# p2=sns.kdeplot(train[train['sentiment']=='negative']['jaccard_score'], shade=True, color=\"r\")\n# plt.legend(labels=['positive','negative'])\n_ = train[train['sentiment']=='positive']['jaccard_score']\n_ = train[train['sentiment']=='negative']['jaccard_score']",
+      "rewrite-ns": 1074303,
+      "overhead-ns": 1074303,
+      "exec-ns": 1564547,
+      "total-ns": 2638850,
+      "patts-hit": {},
+      "rewritten": "_ = train[train['sentiment'] == 'positive']['jaccard_score']\n_ = train[train['sentiment'] == 'negative']['jaccard_score']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,6))\n# sns.distplot(train[train['sentiment']=='neutral']['jaccard_score'],kde=False)\n_ = train[train['sentiment']=='neutral']['jaccard_score']",
+      "rewrite-ns": 581653,
+      "overhead-ns": 581653,
+      "exec-ns": 870141,
+      "total-ns": 1451794,
+      "patts-hit": {},
+      "rewritten": "_ = train[train['sentiment'] == 'neutral']['jaccard_score']\n"
+    },
+    {
+      "raw": "k = train[train['Num_word_text']<=2]",
+      "rewrite-ns": 493955,
+      "overhead-ns": 493955,
+      "exec-ns": 522684,
+      "total-ns": 1016639,
+      "patts-hit": {},
+      "rewritten": "k = train[train['Num_word_text'] <= 2]\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# k.groupby('sentiment').mean()['jaccard_score']\nk.groupby('sentiment').mean(numeric_only=True)['jaccard_score']",
+      "rewrite-ns": 565324,
+      "overhead-ns": 565324,
+      "exec-ns": 1585704,
+      "total-ns": 2151028,
+      "patts-hit": {},
+      "rewritten": "k.groupby('sentiment').mean(numeric_only=True)['jaccard_score']\n"
+    },
+    {
+      "raw": "k[k['sentiment']=='positive']",
+      "rewrite-ns": 449794,
+      "overhead-ns": 449794,
+      "exec-ns": 8500663,
+      "total-ns": 8950457,
+      "patts-hit": {},
+      "rewritten": "k[k['sentiment'] == 'positive']\n"
+    },
+    {
+      "raw": "def clean_text(text):\n    '''Make text lowercase, remove text in square brackets,remove links,remove punctuation\n    and remove words containing numbers.'''\n    text = str(text).lower()\n    text = re.sub('\\[.*?\\]', '', text)\n    text = re.sub('https?://\\S+|www\\.\\S+', '', text)\n    text = re.sub('<.*?>+', '', text)\n    text = re.sub('[%s]' % re.escape(string.punctuation), '', text)\n    text = re.sub('\\n', '', text)\n    text = re.sub('\\w*\\d\\w*', '', text)\n    return text",
+      "rewrite-ns": 2998025,
+      "overhead-ns": 2998025,
+      "exec-ns": 624946,
+      "total-ns": 3622971,
+      "patts-hit": {},
+      "rewritten": "def clean_text(text):\n    \"\"\"Make text lowercase, remove text in square brackets,remove links,remove punctuation\n    and remove words containing numbers.\"\"\"\n    text = str(text).lower()\n    text = re.sub('\\\\[.*?\\\\]', '', text)\n    text = re.sub('https?://\\\\S+|www\\\\.\\\\S+', '', text)\n    text = re.sub('<.*?>+', '', text)\n    text = re.sub('[%s]' % re.escape(string.punctuation), '', text)\n    text = re.sub('\\n', '', text)\n    text = re.sub('\\\\w*\\\\d\\\\w*', '', text)\n    return text\n"
+    },
+    {
+      "raw": "train['text'] = train['text'].apply(lambda x:clean_text(x))\ntrain['selected_text'] = train['selected_text'].apply(lambda x:clean_text(x))",
+      "rewrite-ns": 1393965,
+      "overhead-ns": 1393965,
+      "exec-ns": 124641436,
+      "total-ns": 126035401,
+      "patts-hit": {},
+      "rewritten": "train['text'] = train['text'].apply(lambda x: clean_text(x))\ntrain['selected_text'] = train['selected_text'].apply(lambda x: clean_text(x))\n"
+    },
+    {
+      "raw": "train.head()",
+      "rewrite-ns": 76589,
+      "overhead-ns": 76589,
+      "exec-ns": 5569061,
+      "total-ns": 5645650,
+      "patts-hit": {},
+      "rewritten": "train.head()\n"
+    },
+    {
+      "raw": "train['temp_list'] = train['selected_text'].apply(lambda x:str(x).split())\ntop = Counter([item for sublist in train['temp_list'] for item in sublist])\ntemp = pd.DataFrame(top.most_common(20))\ntemp.columns = ['Common_words','count']\n# ALEX: remove table styling\ntemp # .style.background_gradient(cmap='Blues')",
+      "rewrite-ns": 2162175,
+      "overhead-ns": 2162175,
+      "exec-ns": 12091735,
+      "total-ns": 14253910,
+      "patts-hit": {},
+      "rewritten": "train['temp_list'] = train['selected_text'].apply(lambda x: str(x).split())\ntop = Counter([item for sublist in train['temp_list'] for item in sublist])\ntemp = pd.DataFrame(top.most_common(20))\ntemp.columns = ['Common_words', 'count']\ntemp\n"
+    },
+    {
+      "raw": "# fig = px.bar(temp, x=\"count\", y=\"Common_words\", title='Commmon Words in Selected Text', orientation='h', \n#              width=700, height=700,color='Common_words')\n# fig.show()",
+      "rewrite-ns": 13415,
+      "overhead-ns": 13415,
+      "exec-ns": 68981,
+      "total-ns": 82396,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "def remove_stopword(x):\n# ALEX: make notebook run\n#     return [y for y in x if y not in stopwords.words('english')]\n    return [y for y in x if y not in ['i', 'me', 'my', 'myself', 'we', 'our', 'ours',\n                                      'ourselves', 'you', \"you're\", \"you've\", \"you'll\",\n                                      \"you'd\", 'your', 'yours', 'yourself', 'yourselves',\n                                      'he', 'him', 'his', 'himself', 'she', \"she's\", 'her',\n                                      'hers', 'herself', 'it', \"it's\", 'its', 'itself', 'they',\n                                      'them', 'their', 'theirs', 'themselves', 'what', 'which',\n                                      'who', 'whom', 'this', 'that', \"that'll\", 'these',\n                                      'those', 'am', 'is', 'are', 'was', 'were', 'be',\n                                      'been', 'being', 'have', 'has', 'had', 'having', 'do',\n                                      'does', 'did', 'doing', 'a', 'an', 'the', 'and', 'but',\n                                      'if', 'or', 'because', 'as', 'until', 'while', 'of', 'at',\n                                      'by', 'for', 'with', 'about', 'against', 'between', 'into',\n                                      'through', 'during', 'before', 'after', 'above',\n                                      'below', 'to', 'from', 'up', 'down', 'in', 'out', 'on',\n                                      'off', 'over', 'under', 'again', 'further', 'then', 'once',\n                                      'here', 'there', 'when', 'where', 'why', 'how', 'all', 'any',\n                                      'both', 'each', 'few', 'more', 'most', 'other', 'some',\n                                      'such', 'no', 'nor', 'not', 'only', 'own', 'same', 'so',\n                                      'than', 'too', 'very', 's', 't', 'can', 'will', 'just',\n                                      'don', \"don't\", 'should', \"should've\", 'now', 'd', 'll',\n                                      'm', 'o', 're', 've', 'y', 'ain', 'aren', \"aren't\", 'couldn',\n                                      \"couldn't\", 'didn', \"didn't\", 'doesn', \"doesn't\", 'hadn',\n                                      \"hadn't\", 'hasn', \"hasn't\", 'haven', \"haven't\", 'isn',\n                                      \"isn't\", 'ma', 'mightn', \"mightn't\", 'mustn', \"mustn't\",\n                                      'needn', \"needn't\", 'shan', \"shan't\", 'shouldn', \"shouldn't\",\n                                      'wasn', \"wasn't\", 'weren', \"weren't\", 'won', \"won't\", 'wouldn', \"wouldn't\"]]\ntrain['temp_list'] = train['temp_list'].apply(lambda x:remove_stopword(x))",
+      "rewrite-ns": 7573188,
+      "overhead-ns": 7573188,
+      "exec-ns": 47178734,
+      "total-ns": 54751922,
+      "patts-hit": {},
+      "rewritten": "def remove_stopword(x):\n    return [y for y in x if y not in ['i', 'me', 'my', 'myself', 'we',\n        'our', 'ours', 'ourselves', 'you', \"you're\", \"you've\", \"you'll\",\n        \"you'd\", 'your', 'yours', 'yourself', 'yourselves', 'he', 'him',\n        'his', 'himself', 'she', \"she's\", 'her', 'hers', 'herself', 'it',\n        \"it's\", 'its', 'itself', 'they', 'them', 'their', 'theirs',\n        'themselves', 'what', 'which', 'who', 'whom', 'this', 'that',\n        \"that'll\", 'these', 'those', 'am', 'is', 'are', 'was', 'were', 'be',\n        'been', 'being', 'have', 'has', 'had', 'having', 'do', 'does',\n        'did', 'doing', 'a', 'an', 'the', 'and', 'but', 'if', 'or',\n        'because', 'as', 'until', 'while', 'of', 'at', 'by', 'for', 'with',\n        'about', 'against', 'between', 'into', 'through', 'during',\n        'before', 'after', 'above', 'below', 'to', 'from', 'up', 'down',\n        'in', 'out', 'on', 'off', 'over', 'under', 'again', 'further',\n        'then', 'once', 'here', 'there', 'when', 'where', 'why', 'how',\n        'all', 'any', 'both', 'each', 'few', 'more', 'most', 'other',\n        'some', 'such', 'no', 'nor', 'not', 'only', 'own', 'same', 'so',\n        'than', 'too', 'very', 's', 't', 'can', 'will', 'just', 'don',\n        \"don't\", 'should', \"should've\", 'now', 'd', 'll', 'm', 'o', 're',\n        've', 'y', 'ain', 'aren', \"aren't\", 'couldn', \"couldn't\", 'didn',\n        \"didn't\", 'doesn', \"doesn't\", 'hadn', \"hadn't\", 'hasn', \"hasn't\",\n        'haven', \"haven't\", 'isn', \"isn't\", 'ma', 'mightn', \"mightn't\",\n        'mustn', \"mustn't\", 'needn', \"needn't\", 'shan', \"shan't\", 'shouldn',\n        \"shouldn't\", 'wasn', \"wasn't\", 'weren', \"weren't\", 'won', \"won't\",\n        'wouldn', \"wouldn't\"]]\ntrain['temp_list'] = train['temp_list'].apply(lambda x: remove_stopword(x))\n"
+    },
+    {
+      "raw": "top = Counter([item for sublist in train['temp_list'] for item in sublist])\ntemp = pd.DataFrame(top.most_common(20))\ntemp = temp.iloc[1:,:]\ntemp.columns = ['Common_words','count']\n# ALEX: remove table styling\ntemp # .style.background_gradient(cmap='Purples')",
+      "rewrite-ns": 1783054,
+      "overhead-ns": 1783054,
+      "exec-ns": 5642894,
+      "total-ns": 7425948,
+      "patts-hit": {},
+      "rewritten": "top = Counter([item for sublist in train['temp_list'] for item in sublist])\ntemp = pd.DataFrame(top.most_common(20))\ntemp = temp.iloc[1:, :]\ntemp.columns = ['Common_words', 'count']\ntemp\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig = px.treemap(temp, path=['Common_words'], values='count',title='Tree of Most Common Words')\n# fig.show()",
+      "rewrite-ns": 13420,
+      "overhead-ns": 13420,
+      "exec-ns": 69171,
+      "total-ns": 82591,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "train['temp_list1'] = train['text'].apply(lambda x:str(x).split()) #List of words in every row for text\ntrain['temp_list1'] = train['temp_list1'].apply(lambda x:remove_stopword(x)) #Removing Stopwords",
+      "rewrite-ns": 1490145,
+      "overhead-ns": 1490145,
+      "exec-ns": 84307802,
+      "total-ns": 85797947,
+      "patts-hit": {},
+      "rewritten": "train['temp_list1'] = train['text'].apply(lambda x: str(x).split())\ntrain['temp_list1'] = train['temp_list1'].apply(lambda x: remove_stopword(x))\n"
+    },
+    {
+      "raw": "top = Counter([item for sublist in train['temp_list1'] for item in sublist])\ntemp = pd.DataFrame(top.most_common(25))\ntemp = temp.iloc[1:,:]\ntemp.columns = ['Common_words','count']\n# ALEX: remove table styling\ntemp # .style.background_gradient(cmap='Blues')",
+      "rewrite-ns": 1788550,
+      "overhead-ns": 1788550,
+      "exec-ns": 8317814,
+      "total-ns": 10106364,
+      "patts-hit": {},
+      "rewritten": "top = Counter([item for sublist in train['temp_list1'] for item in sublist])\ntemp = pd.DataFrame(top.most_common(25))\ntemp = temp.iloc[1:, :]\ntemp.columns = ['Common_words', 'count']\ntemp\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig = px.bar(temp, x=\"count\", y=\"Common_words\", title='Commmon Words in Text', orientation='h', \n#              width=700, height=700,color='Common_words')\n# fig.show()",
+      "rewrite-ns": 13443,
+      "overhead-ns": 13443,
+      "exec-ns": 69247,
+      "total-ns": 82690,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "Positive_sent = train[train['sentiment']=='positive']\nNegative_sent = train[train['sentiment']=='negative']\nNeutral_sent = train[train['sentiment']=='neutral']",
+      "rewrite-ns": 1318549,
+      "overhead-ns": 1318549,
+      "exec-ns": 2733416,
+      "total-ns": 4051965,
+      "patts-hit": {},
+      "rewritten": "Positive_sent = train[train['sentiment'] == 'positive']\nNegative_sent = train[train['sentiment'] == 'negative']\nNeutral_sent = train[train['sentiment'] == 'neutral']\n"
+    },
+    {
+      "raw": "#MosT common positive words\ntop = Counter([item for sublist in Positive_sent['temp_list'] for item in sublist])\ntemp_positive = pd.DataFrame(top.most_common(20))\ntemp_positive.columns = ['Common_words','count']\n# ALEX: remove table styling\ntemp_positive # .style.background_gradient(cmap='Greens')",
+      "rewrite-ns": 1411653,
+      "overhead-ns": 1411653,
+      "exec-ns": 3681370,
+      "total-ns": 5093023,
+      "patts-hit": {},
+      "rewritten": "top = Counter([item for sublist in Positive_sent['temp_list'] for item in\n    sublist])\ntemp_positive = pd.DataFrame(top.most_common(20))\ntemp_positive.columns = ['Common_words', 'count']\ntemp_positive\n"
+    },
+    {
+      "raw": "# fig = px.bar(temp_positive, x=\"count\", y=\"Common_words\", title='Most Commmon Positive Words', orientation='h', \n#              width=700, height=700,color='Common_words')\n# fig.show()",
+      "rewrite-ns": 13441,
+      "overhead-ns": 13441,
+      "exec-ns": 68027,
+      "total-ns": 81468,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#MosT common negative words\ntop = Counter([item for sublist in Negative_sent['temp_list'] for item in sublist])\ntemp_negative = pd.DataFrame(top.most_common(20))\ntemp_negative = temp_negative.iloc[1:,:]\ntemp_negative.columns = ['Common_words','count']\n# ALEX: remove table styling\ntemp_negative # .style.background_gradient(cmap='Reds')",
+      "rewrite-ns": 1809352,
+      "overhead-ns": 1809352,
+      "exec-ns": 4342335,
+      "total-ns": 6151687,
+      "patts-hit": {},
+      "rewritten": "top = Counter([item for sublist in Negative_sent['temp_list'] for item in\n    sublist])\ntemp_negative = pd.DataFrame(top.most_common(20))\ntemp_negative = temp_negative.iloc[1:, :]\ntemp_negative.columns = ['Common_words', 'count']\ntemp_negative\n"
+    },
+    {
+      "raw": "# fig = px.treemap(temp_negative, path=['Common_words'], values='count',title='Tree Of Most Common Negative Words')\n# fig.show()",
+      "rewrite-ns": 12916,
+      "overhead-ns": 12916,
+      "exec-ns": 68213,
+      "total-ns": 81129,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#MosT common Neutral words\ntop = Counter([item for sublist in Neutral_sent['temp_list'] for item in sublist])\ntemp_neutral = pd.DataFrame(top.most_common(20))\ntemp_neutral = temp_neutral.loc[1:,:]\ntemp_neutral.columns = ['Common_words','count']\n# ALEX: remove table styling\ntemp_neutral # .style.background_gradient(cmap='Reds')",
+      "rewrite-ns": 1805467,
+      "overhead-ns": 1805467,
+      "exec-ns": 4773133,
+      "total-ns": 6578600,
+      "patts-hit": {},
+      "rewritten": "top = Counter([item for sublist in Neutral_sent['temp_list'] for item in\n    sublist])\ntemp_neutral = pd.DataFrame(top.most_common(20))\ntemp_neutral = temp_neutral.loc[1:, :]\ntemp_neutral.columns = ['Common_words', 'count']\ntemp_neutral\n"
+    },
+    {
+      "raw": "# fig = px.bar(temp_neutral, x=\"count\", y=\"Common_words\", title='Most Commmon Neutral Words', orientation='h', \n#              width=700, height=700,color='Common_words')\n# fig.show()",
+      "rewrite-ns": 13047,
+      "overhead-ns": 13047,
+      "exec-ns": 70061,
+      "total-ns": 83108,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# fig = px.treemap(temp_neutral, path=['Common_words'], values='count',title='Tree Of Most Common Neutral Words')\n# fig.show()",
+      "rewrite-ns": 11417,
+      "overhead-ns": 11417,
+      "exec-ns": 62113,
+      "total-ns": 73530,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "raw_text = [word for word_list in train['temp_list1'] for word in word_list]",
+      "rewrite-ns": 580414,
+      "overhead-ns": 580414,
+      "exec-ns": 1396533,
+      "total-ns": 1976947,
+      "patts-hit": {},
+      "rewritten": "raw_text = [word for word_list in train['temp_list1'] for word in word_list]\n"
+    },
+    {
+      "raw": "def words_unique(sentiment,numwords,raw_words):\n    '''\n    Input:\n        segment - Segment category (ex. 'Neutral');\n        numwords - how many specific words do you want to see in the final result; \n        raw_words - list  for item in train_data[train_data.segments == segments]['temp_list1']:\n    Output: \n        dataframe giving information about the name of the specific ingredient and how many times it occurs in the chosen cuisine (in descending order based on their counts)..\n\n    '''\n    allother = []\n    for item in train[train.sentiment != sentiment]['temp_list1']:\n        for word in item:\n            allother .append(word)\n    allother  = list(set(allother ))\n    \n    specificnonly = [x for x in raw_text if x not in allother]\n    \n    mycounter = Counter()\n    \n    for item in train[train.sentiment == sentiment]['temp_list1']:\n        for word in item:\n            mycounter[word] += 1\n    keep = list(specificnonly)\n    \n    for word in list(mycounter):\n        if word not in keep:\n            del mycounter[word]\n    \n    Unique_words = pd.DataFrame(mycounter.most_common(numwords), columns = ['words','count'])\n    \n    return Unique_words",
+      "rewrite-ns": 4449115,
+      "overhead-ns": 4449115,
+      "exec-ns": 977727,
+      "total-ns": 5426842,
+      "patts-hit": {},
+      "rewritten": "def words_unique(sentiment, numwords, raw_words):\n    \"\"\"\n    Input:\n        segment - Segment category (ex. 'Neutral');\n        numwords - how many specific words do you want to see in the final result; \n        raw_words - list  for item in train_data[train_data.segments == segments]['temp_list1']:\n    Output: \n        dataframe giving information about the name of the specific ingredient and how many times it occurs in the chosen cuisine (in descending order based on their counts)..\n\n    \"\"\"\n    allother = []\n    for item in train[train.sentiment != sentiment]['temp_list1']:\n        for word in item:\n            allother.append(word)\n    allother = list(set(allother))\n    specificnonly = [x for x in raw_text if x not in allother]\n    mycounter = Counter()\n    for item in train[train.sentiment == sentiment]['temp_list1']:\n        for word in item:\n            mycounter[word] += 1\n    keep = list(specificnonly)\n    for word in list(mycounter):\n        if word not in keep:\n            del mycounter[word]\n    Unique_words = pd.DataFrame(mycounter.most_common(numwords), columns=[\n        'words', 'count'])\n    return Unique_words\n"
+    },
+    {
+      "raw": "Unique_Positive= words_unique('positive', 20, raw_text)\nprint(\"The top 20 unique words in Positive Tweets are:\")\n# ALEX: remove table styling\nUnique_Positive # .style.background_gradient(cmap='Greens')",
+      "rewrite-ns": 435597,
+      "overhead-ns": 435597,
+      "exec-ns": 1907307800,
+      "total-ns": 1907743397,
+      "patts-hit": {},
+      "rewritten": "Unique_Positive = words_unique('positive', 20, raw_text)\nprint('The top 20 unique words in Positive Tweets are:')\nUnique_Positive\n"
+    },
+    {
+      "raw": "# fig = px.treemap(Unique_Positive, path=['words'], values='count',title='Tree Of Unique Positive Words')\n# fig.show()",
+      "rewrite-ns": 21695,
+      "overhead-ns": 21695,
+      "exec-ns": 81774,
+      "total-ns": 103469,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# from palettable.colorbrewer.qualitative import Pastel1_7\n# ALEX: remove plotting\n# plt.figure(figsize=(16,10))\n# my_circle=plt.Circle((0,0), 0.7, color='white')\n# plt.pie(Unique_Positive['count'], labels=Unique_Positive.words) # , colors=Pastel1_7.hex_colors)\n# p=plt.gcf()\n# p.gca().add_artist(my_circle)\n# plt.title('DoNut Plot Of Unique Positive Words')\n# plt.show()\n_ = Unique_Positive['count']",
+      "rewrite-ns": 353691,
+      "overhead-ns": 353691,
+      "exec-ns": 273144,
+      "total-ns": 626835,
+      "patts-hit": {},
+      "rewritten": "_ = Unique_Positive['count']\n"
+    },
+    {
+      "raw": "Unique_Negative= words_unique('negative', 10, raw_text)\nprint(\"The top 10 unique words in Negative Tweets are:\")\n# ALEX: remove table styling\nUnique_Negative # .style.background_gradient(cmap='Reds')",
+      "rewrite-ns": 448715,
+      "overhead-ns": 448715,
+      "exec-ns": 1934558270,
+      "total-ns": 1935006985,
+      "patts-hit": {},
+      "rewritten": "Unique_Negative = words_unique('negative', 10, raw_text)\nprint('The top 10 unique words in Negative Tweets are:')\nUnique_Negative\n"
+    },
+    {
+      "raw": "# from palettable.colorbrewer.qualitative import Pastel1_7\n# ALEX: remove plotting\n# plt.figure(figsize=(16,10))\n# my_circle=plt.Circle((0,0), 0.7, color='white')\n# plt.rcParams['text.color'] = 'black'\n# plt.pie(Unique_Negative['count'], labels=Unique_Negative.words) # , colors=Pastel1_7.hex_colors)\n# p=plt.gcf()\n# p.gca().add_artist(my_circle)\n# plt.title('DoNut Plot Of Unique Negative Words')\n# plt.show()\n_ = Unique_Negative['count']",
+      "rewrite-ns": 304726,
+      "overhead-ns": 304726,
+      "exec-ns": 242213,
+      "total-ns": 546939,
+      "patts-hit": {},
+      "rewritten": "_ = Unique_Negative['count']\n"
+    },
+    {
+      "raw": "Unique_Neutral= words_unique('neutral', 10, raw_text)\nprint(\"The top 10 unique words in Neutral Tweets are:\")\n# ALEX: remove plotting\nUnique_Neutral # .style.background_gradient(cmap='Oranges')",
+      "rewrite-ns": 836622,
+      "overhead-ns": 836622,
+      "exec-ns": 1789435842,
+      "total-ns": 1790272464,
+      "patts-hit": {},
+      "rewritten": "Unique_Neutral = words_unique('neutral', 10, raw_text)\nprint('The top 10 unique words in Neutral Tweets are:')\nUnique_Neutral\n"
+    },
+    {
+      "raw": "# from palettable.colorbrewer.qualitative import Pastel1_7\n# ALEX: remove plotting\n# plt.figure(figsize=(16,10))\n# my_circle=plt.Circle((0,0), 0.7, color='white')\n# plt.pie(Unique_Neutral['count'], labels=Unique_Neutral.words) # , colors=Pastel1_7.hex_colors)\n# p=plt.gcf()\n# p.gca().add_artist(my_circle)\n# plt.title('DoNut Plot Of Unique Neutral Words')\n# plt.show()\nUnique_Neutral['count']",
+      "rewrite-ns": 248937,
+      "overhead-ns": 248937,
+      "exec-ns": 677334,
+      "total-ns": 926271,
+      "patts-hit": {},
+      "rewritten": "Unique_Neutral['count']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# def plot_wordcloud(text, mask=None, max_words=200, max_font_size=100, figure_size=(24.0,16.0), color = 'white',\n#                    title = None, title_size=40, image_color=False):\n#     stopwords = set(STOPWORDS)\n#     more_stopwords = {'u', \"im\"}\n#     stopwords = stopwords.union(more_stopwords)\n\n#     wordcloud = WordCloud(background_color=color,\n#                     stopwords = stopwords,\n#                     max_words = max_words,\n#                     max_font_size = max_font_size, \n#                     random_state = 42,\n#                     width=400, \n#                     height=200,\n#                     mask = mask)\n#     wordcloud.generate(str(text))\n    \n#     plt.figure(figsize=figure_size)\n#     if image_color:\n#         image_colors = ImageColorGenerator(mask);\n#         plt.imshow(wordcloud.recolor(color_func=image_colors), interpolation=\"bilinear\");\n#         plt.title(title, fontdict={'size': title_size,  \n#                                   'verticalalignment': 'bottom'})\n#     else:\n#         plt.imshow(wordcloud);\n#         plt.title(title, fontdict={'size': title_size, 'color': 'black', \n#                                   'verticalalignment': 'bottom'})\n#     plt.axis('off');\n#     plt.tight_layout()  \n# d = '/kaggle/input/masks-for-wordclouds/'",
+      "rewrite-ns": 18297,
+      "overhead-ns": 18297,
+      "exec-ns": 64750,
+      "total-ns": 83047,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# pos_mask = np.array(Image.open(d+ 'twitter_mask.png'))\n# plot_wordcloud(Neutral_sent.text,mask=pos_mask,color='white',max_font_size=100,title_size=30,title=\"WordCloud of Neutral Tweets\")\n_ = Neutral_sent.text",
+      "rewrite-ns": 246468,
+      "overhead-ns": 246468,
+      "exec-ns": 226802,
+      "total-ns": 473270,
+      "patts-hit": {},
+      "rewritten": "_ = Neutral_sent.text\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plot_wordcloud(Positive_sent.text,mask=pos_mask,title=\"Word Cloud Of Positive tweets\",title_size=30)\n_ = Positive_sent.text",
+      "rewrite-ns": 247360,
+      "overhead-ns": 247360,
+      "exec-ns": 221561,
+      "total-ns": 468921,
+      "patts-hit": {},
+      "rewritten": "_ = Positive_sent.text\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plot_wordcloud(Negative_sent.text,mask=pos_mask,title=\"Word Cloud of Negative Tweets\",color='white',title_size=30)\n_ = Negative_sent.text",
+      "rewrite-ns": 234559,
+      "overhead-ns": 234559,
+      "exec-ns": 219703,
+      "total-ns": 454262,
+      "patts-hit": {},
+      "rewritten": "_ = Negative_sent.text\n"
+    },
+    {
+      "raw": "df_train = pd.read_csv('./input/train.scaled.csv')\ndf_test = pd.read_csv('./input/test.scaled.csv')\ndf_submission = pd.read_csv('./input/sample_submission.scaled.csv')",
+      "rewrite-ns": 913124,
+      "overhead-ns": 913124,
+      "exec-ns": 13124372,
+      "total-ns": 14037496,
+      "patts-hit": {},
+      "rewritten": "df_train = pd.read_csv('./input/train.scaled.csv')\ndf_test = pd.read_csv('./input/test.scaled.csv')\ndf_submission = pd.read_csv('./input/sample_submission.scaled.csv')\n"
+    },
+    {
+      "raw": "df_train['Num_words_text'] = df_train['text'].apply(lambda x:len(str(x).split())) #Number Of words in main Text in train set",
+      "rewrite-ns": 984739,
+      "overhead-ns": 984739,
+      "exec-ns": 5429542,
+      "total-ns": 6414281,
+      "patts-hit": {},
+      "rewritten": "df_train['Num_words_text'] = df_train['text'].apply(lambda x: len(str(x).\n    split()))\n"
+    },
+    {
+      "raw": "df_train = df_train[df_train['Num_words_text']>=3]",
+      "rewrite-ns": 506974,
+      "overhead-ns": 506974,
+      "exec-ns": 798993,
+      "total-ns": 1305967,
+      "patts-hit": {},
+      "rewritten": "df_train = df_train[df_train['Num_words_text'] >= 3]\n"
+    },
+    {
+      "raw": "def save_model(output_dir, nlp, new_model_name):\n    ''' This Function Saves model to \n    given output directory'''\n    \n    output_dir = f'./working/{output_dir}'\n    if output_dir is not None:        \n        if not os.path.exists(output_dir):\n            os.makedirs(output_dir)\n        nlp.meta[\"name\"] = new_model_name\n        nlp.to_disk(output_dir)\n        print(\"Saved model to\", output_dir)",
+      "rewrite-ns": 2020118,
+      "overhead-ns": 2020118,
+      "exec-ns": 521893,
+      "total-ns": 2542011,
+      "patts-hit": {},
+      "rewritten": "def save_model(output_dir, nlp, new_model_name):\n    \"\"\" This Function Saves model to \n    given output directory\"\"\"\n    output_dir = f'./working/{output_dir}'\n    if output_dir is not None:\n        if not os.path.exists(output_dir):\n            os.makedirs(output_dir)\n        nlp.meta['name'] = new_model_name\n        nlp.to_disk(output_dir)\n        print('Saved model to', output_dir)\n"
+    },
+    {
+      "raw": "# pass model = nlp if you want to train on top of existing model \n\n# ALEX: remove ML code\n# def train(train_data, output_dir, n_iter=20, model=None):\n#     \"\"\"Load the model, set up the pipeline and train the entity recognizer.\"\"\"\n#     \"\"\n#     if model is not None:\n#         nlp = spacy.load(output_dir)  # load existing spaCy model\n#         print(\"Loaded model '%s'\" % model)\n#     else:\n#         nlp = spacy.blank(\"en\")  # create blank Language class\n#         print(\"Created blank 'en' model\")\n    \n#     # create the built-in pipeline components and add them to the pipeline\n#     # nlp.create_pipe works for built-ins that are registered with spaCy\n#     if \"ner\" not in nlp.pipe_names:\n#         ner = nlp.create_pipe(\"ner\")\n#         nlp.add_pipe(ner, last=True)\n#     # otherwise, get it so we can add labels\n#     else:\n#         ner = nlp.get_pipe(\"ner\")\n    \n#     # add labels\n#     for _, annotations in train_data:\n#         for ent in annotations.get(\"entities\"):\n#             ner.add_label(ent[2])\n\n#     # get names of other pipes to disable them during training\n#     other_pipes = [pipe for pipe in nlp.pipe_names if pipe != \"ner\"]\n#     with nlp.disable_pipes(*other_pipes):  # only train NER\n#         # sizes = compounding(1.0, 4.0, 1.001)\n#         # batch up the examples using spaCy's minibatch\n#         if model is None:\n#             nlp.begin_training()\n#         else:\n#             nlp.resume_training()\n\n\n#         for itn in tqdm(range(n_iter)):\n#             random.shuffle(train_data)\n#             batches = minibatch(train_data, size=compounding(4.0, 500.0, 1.001))    \n#             losses = {}\n#             for batch in batches:\n#                 texts, annotations = zip(*batch)\n#                 nlp.update(texts,  # batch of texts\n#                             annotations,  # batch of annotations\n#                             drop=0.5,   # dropout - make it harder to memorise data\n#                             losses=losses, \n#                             )\n#             print(\"Losses\", losses)\n#     save_model(output_dir, nlp, 'st_ner')",
+      "rewrite-ns": 21280,
+      "overhead-ns": 21280,
+      "exec-ns": 65420,
+      "total-ns": 86700,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# def get_model_out_path(sentiment):\n#     '''\n#     Returns Model output path\n#     '''\n#     model_out_path = None\n#     if sentiment == 'positive':\n#         model_out_path = 'models/model_pos'\n#     elif sentiment == 'negative':\n#         model_out_path = 'models/model_neg'\n#     return model_out_path",
+      "rewrite-ns": 12113,
+      "overhead-ns": 12113,
+      "exec-ns": 59018,
+      "total-ns": 71131,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "def get_training_data(sentiment):\n    '''\n    Returns Trainong data in the format needed to train spacy NER\n    '''\n    train_data = []\n    for index, row in df_train.iterrows():\n        if row.sentiment == sentiment:\n            selected_text = row.selected_text\n            text = row.text\n            start = text.find(selected_text)\n            end = start + len(selected_text)\n            train_data.append((text, {\"entities\": [[start, end, 'selected_text']]}))\n    return train_data",
+      "rewrite-ns": 2611091,
+      "overhead-ns": 2611091,
+      "exec-ns": 618819,
+      "total-ns": 3229910,
+      "patts-hit": {},
+      "rewritten": "def get_training_data(sentiment):\n    \"\"\"\n    Returns Trainong data in the format needed to train spacy NER\n    \"\"\"\n    train_data = []\n    for index, row in df_train.iterrows():\n        if row.sentiment == sentiment:\n            selected_text = row.selected_text\n            text = row.text\n            start = text.find(selected_text)\n            end = start + len(selected_text)\n            train_data.append((text, {'entities': [[start, end,\n                'selected_text']]}))\n    return train_data\n"
+    },
+    {
+      "raw": "sentiment = 'positive'\n\ntrain_data = get_training_data(sentiment)\n# ALEX: remove ML code\n# model_path = get_model_out_path(sentiment)\n# # For DEmo Purposes I have taken 3 iterations you can train the model as you want\n# train(train_data, model_path, n_iter=3, model=None)",
+      "rewrite-ns": 438180,
+      "overhead-ns": 438180,
+      "exec-ns": 204043284,
+      "total-ns": 204481464,
+      "patts-hit": {},
+      "rewritten": "sentiment = 'positive'\ntrain_data = get_training_data(sentiment)\n"
+    },
+    {
+      "raw": "sentiment = 'negative'\n\ntrain_data = get_training_data(sentiment)\n# ALEX: remove ML\n# model_path = get_model_out_path(sentiment)\n\n# train(train_data, model_path, n_iter=3, model=None)",
+      "rewrite-ns": 442295,
+      "overhead-ns": 442295,
+      "exec-ns": 201037370,
+      "total-ns": 201479665,
+      "patts-hit": {},
+      "rewritten": "sentiment = 'negative'\ntrain_data = get_training_data(sentiment)\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# def predict_entities(text, model):\n#     doc = model(text)\n#     ent_array = []\n#     for ent in doc.ents:\n#         start = text.find(ent.text)\n#         end = start + len(ent.text)\n#         new_int = [start, end, ent.label_]\n#         if new_int not in ent_array:\n#             ent_array.append([start, end, ent.label_])\n#     selected_text = text[ent_array[0][0]: ent_array[0][1]] if len(ent_array) > 0 else text\n#     return selected_text",
+      "rewrite-ns": 15043,
+      "overhead-ns": 15043,
+      "exec-ns": 70122,
+      "total-ns": 85165,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML\n# selected_texts = []\n# MODELS_BASE_PATH = './input/tse-spacy-model/models/'\n\n# if MODELS_BASE_PATH is not None:\n#     print(\"Loading Models  from \", MODELS_BASE_PATH)\n#     model_pos = spacy.load(MODELS_BASE_PATH + 'model_pos')\n#     model_neg = spacy.load(MODELS_BASE_PATH + 'model_neg')\n        \n#     for index, row in df_test.iterrows():\n#         text = row.text\n#         output_str = \"\"\n#         if row.sentiment == 'neutral' or len(text.split()) <= 2:\n#             selected_texts.append(text)\n#         elif row.sentiment == 'positive':\n#             selected_texts.append(predict_entities(text, model_pos))\n#         else:\n#             selected_texts.append(predict_entities(text, model_neg))\n\nselected_texts = [': you get to go home and i have to go to work' for _ in range(len(df_test))]\n\ndf_test['selected_text'] = selected_texts",
+      "rewrite-ns": 807794,
+      "overhead-ns": 807794,
+      "exec-ns": 550042,
+      "total-ns": 1357836,
+      "patts-hit": {},
+      "rewritten": "selected_texts = [': you get to go home and i have to go to work' for _ in\n    range(len(df_test))]\ndf_test['selected_text'] = selected_texts\n"
+    },
+    {
+      "raw": "df_submission['selected_text'] = df_test['selected_text']\ndf_submission.to_csv(\"submission.csv\", index=False)\ndisplay(df_submission.head(10))",
+      "rewrite-ns": 1037133,
+      "overhead-ns": 1037133,
+      "exec-ns": 4876091,
+      "total-ns": 5913224,
+      "patts-hit": {},
+      "rewritten": "df_submission['selected_text'] = df_test['selected_text']\ndf_submission.to_csv('submission.csv', index=False)\ndisplay(df_submission.head(10))\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 12323,
+      "overhead-ns": 12323,
+      "exec-ns": 75134,
+      "total-ns": 87457,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 6.776956144,
+  "max-disk-in-mb": 0
+}

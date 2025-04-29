@@ -1,0 +1,392 @@
+{
+  "max-mem-in-mb": 1694,
+  "max-mem-in-mb2": 162,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3365991829
+    },
+    {
+      "raw": "df = pd.read_csv('./input/kc_house_data.scaled.csv')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3789219486
+    },
+    {
+      "raw": "evaluate_lazy(df.isnull().sum())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1149425738
+    },
+    {
+      "raw": "evaluate_lazy(df.describe().transpose())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2677899168
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.distplot(df['price'])\nevaluate_lazy(df['price'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 761587
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(df['bedrooms'])\nevaluate_lazy(df['bedrooms'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 614222
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='price',y='sqft_living',data=df)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 284560
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(x='bedrooms',y='price',data=df)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 245495
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='price',y='long',data=df)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 231163
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='price',y='lat',data=df)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 222354
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='long',y='lat',data=df,hue='price')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 222226
+    },
+    {
+      "raw": "df.sort_values('price',ascending=False).head(20)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 124636718
+    },
+    {
+      "raw": "len(df)*(0.01)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 204544648
+    },
+    {
+      "raw": "non_top_1_perc = df.sort_values('price',ascending=False).iloc[216:]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 190128417
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='long',y='lat',\n#                 data=non_top_1_perc,hue='price',\n#                 palette='RdYlGn',edgecolor=None,alpha=0.2)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 328145
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(x='waterfront',y='price',data=df)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 260330
+    },
+    {
+      "raw": "df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 41825570
+    },
+    {
+      "raw": "df.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2164347871
+    },
+    {
+      "raw": "df = df.drop('id',axis=1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 13032692
+    },
+    {
+      "raw": "df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 45138625
+    },
+    {
+      "raw": "df['date'] = pd.to_datetime(df['date'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 53738752
+    },
+    {
+      "raw": "df['month'] = df['date'].apply(lambda date:date.month)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1978562645
+    },
+    {
+      "raw": "df['year'] = df['date'].apply(lambda date:date.year)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1638217034
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(x='year',y='price',data=df)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 253596
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(x='month',y='price',data=df)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 214905
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# df.groupby('month').mean()['price'].plot()\nevaluate_lazy(df.groupby('month').mean()['price'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 192712771
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# df.groupby('year').mean()['price'].plot()\nevaluate_lazy(df.groupby('year').mean()['price'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 197241145
+    },
+    {
+      "raw": "df = df.drop('date',axis=1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 12639421
+    },
+    {
+      "raw": "df.columns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 676726
+    },
+    {
+      "raw": "# https://i.pinimg.com/originals/4a/ab/31/4aab31ce95d5b8474fd2cc063f334178.jpg\n# May be worth considering to remove this or feature engineer categories from it\nevaluate_lazy(df['zipcode'].value_counts())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 43601623
+    },
+    {
+      "raw": "df = df.drop('zipcode',axis=1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 11519546
+    },
+    {
+      "raw": "df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 47351359
+    },
+    {
+      "raw": "# could make sense due to scaling, higher should correlate to more value\nevaluate_lazy(df['yr_renovated'].value_counts())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 35772899
+    },
+    {
+      "raw": "evaluate_lazy(df['sqft_basement'].value_counts())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 33996794
+    },
+    {
+      "raw": "X = df.drop('price',axis=1)\ny = df['price']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 12199912
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import train_test_split",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 230888
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.3,random_state=101)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 215288
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.preprocessing import MinMaxScaler",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 201717
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# scaler = MinMaxScaler()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 195575
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_train= scaler.fit_transform(X_train)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 189629
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_test = scaler.transform(X_test)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 197411
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_train.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 188450
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_test.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 183182
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from tensorflow.keras.models import Sequential\n# from tensorflow.keras.layers import Dense, Activation\n# from tensorflow.keras.optimizers import Adam",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 219220
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# model = Sequential()\n\n# model.add(Dense(19,activation='relu'))\n# model.add(Dense(19,activation='relu'))\n# model.add(Dense(19,activation='relu'))\n# model.add(Dense(19,activation='relu'))\n# model.add(Dense(1))\n\n# model.compile(optimizer='adam',loss='mse')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 236543
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# model.fit(x=X_train,y=y_train.values,\n#           validation_data=(X_test,y_test.values),\n#           batch_size=128,epochs=400)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 209013
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# losses = pd.DataFrame(model.history.history)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 200237
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# losses.plot()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 189040
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.metrics import mean_squared_error,mean_absolute_error,explained_variance_score",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 192698
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_test",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 185755
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# predictions = model.predict(X_test)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 190785
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# mean_absolute_error(y_test,predictions)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 188298
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# np.sqrt(mean_squared_error(y_test,predictions))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 192826
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# explained_variance_score(y_test,predictions)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 187769
+    },
+    {
+      "raw": "evaluate_lazy(df['price'].mean())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 243391983
+    },
+    {
+      "raw": "evaluate_lazy(df['price'].median())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 255951203
+    },
+    {
+      "raw": "# Our predictions\n# ALEX: remove plotting\n# plt.scatter(y_test,predictions)\n\n# # Perfect predictions\n# plt.plot(y_test,y_test,'r')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 358606
+    },
+    {
+      "raw": "single_house = df.drop('price',axis=1).iloc[0]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3620169108
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# single_house = scaler.transform(single_house.values.reshape(-1, 19))\nsingle_house.values.reshape(-1, 19)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 639643
+    },
+    {
+      "raw": "evaluate_lazy(single_house)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 502041
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# model.predict(single_house)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 284236
+    },
+    {
+      "raw": "evaluate_lazy(df.iloc[0])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 708702604
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 248970
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 212031
+    }
+  ],
+  "total-time-in-sec": 22.862314721,
+  "max-disk-in-mb": 0
+}

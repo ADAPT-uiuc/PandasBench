@@ -1,0 +1,831 @@
+{
+  "max-mem-in-mb": 369,
+  "max-mem-in-mb2": 380,
+  "cells": [
+    {
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import matplotlib.cm as cm\n# import seaborn as sns\n# import random\n# from wordcloud import WordCloud",
+      "rewrite-ns": 684678,
+      "overhead-ns": 684678,
+      "exec-ns": 426406,
+      "total-ns": 1111084,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "data = pd.read_csv(\"./input/zomato_restaurants_in_India.scaled.csv\")",
+      "rewrite-ns": 536271,
+      "overhead-ns": 536271,
+      "exec-ns": 1403144674,
+      "total-ns": 1403680945,
+      "patts-hit": {},
+      "rewritten": "data = pd.read_csv('./input/zomato_restaurants_in_India.scaled.csv')\n"
+    },
+    {
+      "raw": "data.head(10)",
+      "rewrite-ns": 201550,
+      "overhead-ns": 201550,
+      "exec-ns": 16909045,
+      "total-ns": 17110595,
+      "patts-hit": {},
+      "rewritten": "data.head(10)\n"
+    },
+    {
+      "raw": "data.tail()",
+      "rewrite-ns": 91230,
+      "overhead-ns": 91230,
+      "exec-ns": 13219537,
+      "total-ns": 13310767,
+      "patts-hit": {},
+      "rewritten": "data.tail()\n"
+    },
+    {
+      "raw": "data.city.nunique()",
+      "rewrite-ns": 341509,
+      "overhead-ns": 341509,
+      "exec-ns": 5300702,
+      "total-ns": 5642211,
+      "patts-hit": {},
+      "rewritten": "data.city.nunique()\n"
+    },
+    {
+      "raw": "data.city.unique()",
+      "rewrite-ns": 311570,
+      "overhead-ns": 311570,
+      "exec-ns": 5224168,
+      "total-ns": 5535738,
+      "patts-hit": {},
+      "rewritten": "data.city.unique()\n"
+    },
+    {
+      "raw": "data[data[\"city\"]==\"Mumbai\"]",
+      "rewrite-ns": 481959,
+      "overhead-ns": 481959,
+      "exec-ns": 24750876,
+      "total-ns": 25232835,
+      "patts-hit": {},
+      "rewritten": "data[data['city'] == 'Mumbai']\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 12002,
+      "overhead-ns": 12002,
+      "exec-ns": 68316,
+      "total-ns": 80318,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "data[data[\"city\"]==\"New Delhi\"]",
+      "rewrite-ns": 452061,
+      "overhead-ns": 452061,
+      "exec-ns": 23044624,
+      "total-ns": 23496685,
+      "patts-hit": {},
+      "rewritten": "data[data['city'] == 'New Delhi']\n"
+    },
+    {
+      "raw": "data[data[\"city\"]==\"Pune\"]",
+      "rewrite-ns": 451242,
+      "overhead-ns": 451242,
+      "exec-ns": 23059164,
+      "total-ns": 23510406,
+      "patts-hit": {},
+      "rewritten": "data[data['city'] == 'Pune']\n"
+    },
+    {
+      "raw": "data.shape",
+      "rewrite-ns": 52510,
+      "overhead-ns": 52510,
+      "exec-ns": 564977,
+      "total-ns": 617487,
+      "patts-hit": {},
+      "rewritten": "data.shape\n"
+    },
+    {
+      "raw": "data.info()",
+      "rewrite-ns": 74139,
+      "overhead-ns": 74139,
+      "exec-ns": 228004344,
+      "total-ns": 228078483,
+      "patts-hit": {},
+      "rewritten": "data.info()\n"
+    },
+    {
+      "raw": "data[data[\"average_cost_for_two\"]==30000]",
+      "rewrite-ns": 488541,
+      "overhead-ns": 488541,
+      "exec-ns": 13561926,
+      "total-ns": 14050467,
+      "patts-hit": {},
+      "rewritten": "data[data['average_cost_for_two'] == 30000]\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 12541,
+      "overhead-ns": 12541,
+      "exec-ns": 74461,
+      "total-ns": 87002,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "data.describe()",
+      "rewrite-ns": 87473,
+      "overhead-ns": 87473,
+      "exec-ns": 73549321,
+      "total-ns": 73636794,
+      "patts-hit": {},
+      "rewritten": "data.describe()\n"
+    },
+    {
+      "raw": "data.head()",
+      "rewrite-ns": 106113,
+      "overhead-ns": 106113,
+      "exec-ns": 13262238,
+      "total-ns": 13368351,
+      "patts-hit": {},
+      "rewritten": "data.head()\n"
+    },
+    {
+      "raw": "data.drop_duplicates([\"res_id\"],keep='first',inplace=True)\ndata.shape\n",
+      "rewrite-ns": 578062,
+      "overhead-ns": 578062,
+      "exec-ns": 9660786,
+      "total-ns": 10238848,
+      "patts-hit": {},
+      "rewritten": "data.drop_duplicates(['res_id'], keep='first', inplace=True)\ndata.shape\n"
+    },
+    {
+      "raw": "data.isnull().sum()",
+      "rewrite-ns": 398245,
+      "overhead-ns": 398245,
+      "exec-ns": 60966434,
+      "total-ns": 61364679,
+      "patts-hit": {},
+      "rewritten": "data.isnull().sum()\n"
+    },
+    {
+      "raw": "data[\"establishment\"].unique()",
+      "rewrite-ns": 139124,
+      "overhead-ns": 139124,
+      "exec-ns": 7581524,
+      "total-ns": 7720648,
+      "patts-hit": {},
+      "rewritten": "data['establishment'].unique()\n"
+    },
+    {
+      "raw": "print(data[\"establishment\"].unique()[0])\nprint(type(data[\"establishment\"].unique()[0]))",
+      "rewrite-ns": 1150521,
+      "overhead-ns": 1150521,
+      "exec-ns": 3838392,
+      "total-ns": 4988913,
+      "patts-hit": {},
+      "rewritten": "print(data['establishment'].unique()[0])\nprint(type(data['establishment'].unique()[0]))\n"
+    },
+    {
+      "raw": "# Removing [' '] from each value\nprint(data[\"establishment\"].unique()[0])\ndata[\"establishment\"] = data[\"establishment\"].apply(lambda x:x[2:-2])\nprint(data[\"establishment\"].unique()[0])\n\n# Changing ''  to 'NA'\nprint(data[\"establishment\"].unique())\ndata[\"establishment\"] = data[\"establishment\"].apply(lambda x : np.where(x==\"\", \"NA\", x))\nprint(data[\"establishment\"].unique())",
+      "rewrite-ns": 3583181,
+      "overhead-ns": 3583181,
+      "exec-ns": 149343635,
+      "total-ns": 152926816,
+      "patts-hit": {},
+      "rewritten": "print(data['establishment'].unique()[0])\ndata['establishment'] = data['establishment'].apply(lambda x: x[2:-2])\nprint(data['establishment'].unique()[0])\nprint(data['establishment'].unique())\ndata['establishment'] = data['establishment'].apply(lambda x: np.where(x ==\n    '', 'NA', x))\nprint(data['establishment'].unique())\n"
+    },
+    {
+      "raw": "x=10\ny=11",
+      "rewrite-ns": 371408,
+      "overhead-ns": 371408,
+      "exec-ns": 221990,
+      "total-ns": 593398,
+      "patts-hit": {},
+      "rewritten": "x = 10\ny = 11\n"
+    },
+    {
+      "raw": "x==y",
+      "rewrite-ns": 275022,
+      "overhead-ns": 275022,
+      "exec-ns": 450503,
+      "total-ns": 725525,
+      "patts-hit": {},
+      "rewritten": "x == y\n"
+    },
+    {
+      "raw": "len(data[data[\"city\"]==\"Shimla\"])",
+      "rewrite-ns": 563978,
+      "overhead-ns": 563978,
+      "exec-ns": 11154350,
+      "total-ns": 11718328,
+      "patts-hit": {},
+      "rewritten": "len(data[data['city'] == 'Shimla'])\n"
+    },
+    {
+      "raw": "len(data[data[\"city\"]==\"Agra\"])",
+      "rewrite-ns": 590395,
+      "overhead-ns": 590395,
+      "exec-ns": 2930152,
+      "total-ns": 3520547,
+      "patts-hit": {},
+      "rewritten": "len(data[data['city'] == 'Agra'])\n"
+    },
+    {
+      "raw": "len(data[\"city\"].unique())",
+      "rewrite-ns": 194249,
+      "overhead-ns": 194249,
+      "exec-ns": 1809358,
+      "total-ns": 2003607,
+      "patts-hit": {
+        "LenUnique": 1
+      },
+      "rewritten": "dias.rewriter.len_unique(series=data['city'])\n"
+    },
+    {
+      "raw": "data[\"city\"].unique()",
+      "rewrite-ns": 109663,
+      "overhead-ns": 109663,
+      "exec-ns": 1933220,
+      "total-ns": 2042883,
+      "patts-hit": {},
+      "rewritten": "data['city'].unique()\n"
+    },
+    {
+      "raw": "data[data[\"city\"]==\"Jabalpur\"]",
+      "rewrite-ns": 452101,
+      "overhead-ns": 452101,
+      "exec-ns": 18238951,
+      "total-ns": 18691052,
+      "patts-hit": {},
+      "rewritten": "data[data['city'] == 'Jabalpur']\n"
+    },
+    {
+      "raw": "data[\"locality\"].nunique()",
+      "rewrite-ns": 375385,
+      "overhead-ns": 375385,
+      "exec-ns": 2697865,
+      "total-ns": 3073250,
+      "patts-hit": {},
+      "rewritten": "data['locality'].nunique()\n"
+    },
+    {
+      "raw": "data[\"country_id\"].unique()",
+      "rewrite-ns": 104421,
+      "overhead-ns": 104421,
+      "exec-ns": 819877,
+      "total-ns": 924298,
+      "patts-hit": {},
+      "rewritten": "data['country_id'].unique()\n"
+    },
+    {
+      "raw": "data[\"locality_verbose\"].nunique()",
+      "rewrite-ns": 368455,
+      "overhead-ns": 368455,
+      "exec-ns": 2985979,
+      "total-ns": 3354434,
+      "patts-hit": {},
+      "rewritten": "data['locality_verbose'].nunique()\n"
+    },
+    {
+      "raw": "print(data[\"cuisines\"].nunique())\nprint(data[\"cuisines\"].unique())",
+      "rewrite-ns": 834314,
+      "overhead-ns": 834314,
+      "exec-ns": 5230883,
+      "total-ns": 6065197,
+      "patts-hit": {},
+      "rewritten": "print(data['cuisines'].nunique())\nprint(data['cuisines'].unique())\n"
+    },
+    {
+      "raw": "data[\"cuisines\"] = data[\"cuisines\"].fillna(\"No cuisine\")",
+      "rewrite-ns": 387607,
+      "overhead-ns": 387607,
+      "exec-ns": 2309218,
+      "total-ns": 2696825,
+      "patts-hit": {
+        "IsInplaceUpdate": 1
+      },
+      "rewritten": "_DIAS_ser = data['cuisines']\nif type(_DIAS_ser) != pd.Series:\n    data['cuisines'] = data['cuisines'].fillna('No cuisine')\nelse:\n    data['cuisines'].fillna('No cuisine', inplace=True)\n"
+    },
+    {
+      "raw": "cuisines = []\ndata[\"cuisines\"].apply(lambda x : cuisines.extend(x.split(\", \")))\ncuisines = pd.Series(cuisines)\nprint(\"Total number of unique cuisines = \", cuisines.nunique())",
+      "rewrite-ns": 1574444,
+      "overhead-ns": 1574444,
+      "exec-ns": 23906080,
+      "total-ns": 25480524,
+      "patts-hit": {},
+      "rewritten": "cuisines = []\ndata['cuisines'].apply(lambda x: cuisines.extend(x.split(', ')))\ncuisines = pd.Series(cuisines)\nprint('Total number of unique cuisines = ', cuisines.nunique())\n"
+    },
+    {
+      "raw": "print(data[\"timings\"].nunique())\nprint(data[\"timings\"].unique())",
+      "rewrite-ns": 822326,
+      "overhead-ns": 822326,
+      "exec-ns": 5075607,
+      "total-ns": 5897933,
+      "patts-hit": {},
+      "rewritten": "print(data['timings'].nunique())\nprint(data['timings'].unique())\n"
+    },
+    {
+      "raw": "data[\"average_cost_for_two\"].nunique()",
+      "rewrite-ns": 366242,
+      "overhead-ns": 366242,
+      "exec-ns": 763384,
+      "total-ns": 1129626,
+      "patts-hit": {},
+      "rewritten": "data['average_cost_for_two'].nunique()\n"
+    },
+    {
+      "raw": "data[\"price_range\"].unique()",
+      "rewrite-ns": 105321,
+      "overhead-ns": 105321,
+      "exec-ns": 801901,
+      "total-ns": 907222,
+      "patts-hit": {},
+      "rewritten": "data['price_range'].unique()\n"
+    },
+    {
+      "raw": "data[\"currency\"].unique()",
+      "rewrite-ns": 99552,
+      "overhead-ns": 99552,
+      "exec-ns": 1565611,
+      "total-ns": 1665163,
+      "patts-hit": {},
+      "rewritten": "data['currency'].unique()\n"
+    },
+    {
+      "raw": "print(data[\"highlights\"].nunique())\nprint(data[\"highlights\"].unique())",
+      "rewrite-ns": 816431,
+      "overhead-ns": 816431,
+      "exec-ns": 29430884,
+      "total-ns": 30247315,
+      "patts-hit": {},
+      "rewritten": "print(data['highlights'].nunique())\nprint(data['highlights'].unique())\n"
+    },
+    {
+      "raw": "hl = []\ndata[\"highlights\"].apply(lambda x : hl.extend(x[2:-2].split(\"', '\")))\nhl = pd.Series(hl)\nprint(\"Total number of unique highlights = \", hl.nunique())",
+      "rewrite-ns": 1909451,
+      "overhead-ns": 1909451,
+      "exec-ns": 77769184,
+      "total-ns": 79678635,
+      "patts-hit": {},
+      "rewritten": "hl = []\ndata['highlights'].apply(lambda x: hl.extend(x[2:-2].split(\"', '\")))\nhl = pd.Series(hl)\nprint('Total number of unique highlights = ', hl.nunique())\n"
+    },
+    {
+      "raw": "data[[\"aggregate_rating\",\"votes\",\"photo_count\"]].describe().loc[[\"mean\",\"min\",\"max\"]]",
+      "rewrite-ns": 845067,
+      "overhead-ns": 845067,
+      "exec-ns": 12238787,
+      "total-ns": 13083854,
+      "patts-hit": {},
+      "rewritten": "data[['aggregate_rating', 'votes', 'photo_count']].describe().loc[['mean',\n    'min', 'max']]\n"
+    },
+    {
+      "raw": "data[\"opentable_support\"].unique()",
+      "rewrite-ns": 141148,
+      "overhead-ns": 141148,
+      "exec-ns": 922230,
+      "total-ns": 1063378,
+      "patts-hit": {},
+      "rewritten": "data['opentable_support'].unique()\n"
+    },
+    {
+      "raw": "data[\"delivery\"].unique()",
+      "rewrite-ns": 109151,
+      "overhead-ns": 109151,
+      "exec-ns": 828867,
+      "total-ns": 938018,
+      "patts-hit": {},
+      "rewritten": "data['delivery'].unique()\n"
+    },
+    {
+      "raw": "data[\"takeaway\"].unique()",
+      "rewrite-ns": 100465,
+      "overhead-ns": 100465,
+      "exec-ns": 824002,
+      "total-ns": 924467,
+      "patts-hit": {},
+      "rewritten": "data['takeaway'].unique()\n"
+    },
+    {
+      "raw": "outlets = data[\"name\"].value_counts()",
+      "rewrite-ns": 432293,
+      "overhead-ns": 432293,
+      "exec-ns": 10976820,
+      "total-ns": 11409113,
+      "patts-hit": {},
+      "rewritten": "outlets = data['name'].value_counts()\n"
+    },
+    {
+      "raw": "outlets",
+      "rewrite-ns": 45654,
+      "overhead-ns": 45654,
+      "exec-ns": 2271256,
+      "total-ns": 2316910,
+      "patts-hit": {},
+      "rewritten": "outlets\n"
+    },
+    {
+      "raw": "chains = outlets[outlets >= 2]\nsingle = outlets[outlets == 1]",
+      "rewrite-ns": 772234,
+      "overhead-ns": 772234,
+      "exec-ns": 815732,
+      "total-ns": 1587966,
+      "patts-hit": {},
+      "rewritten": "chains = outlets[outlets >= 2]\nsingle = outlets[outlets == 1]\n"
+    },
+    {
+      "raw": "data.shape",
+      "rewrite-ns": 50154,
+      "overhead-ns": 50154,
+      "exec-ns": 422039,
+      "total-ns": 472193,
+      "patts-hit": {},
+      "rewritten": "data.shape\n"
+    },
+    {
+      "raw": "chains",
+      "rewrite-ns": 41011,
+      "overhead-ns": 41011,
+      "exec-ns": 1103789,
+      "total-ns": 1144800,
+      "patts-hit": {},
+      "rewritten": "chains\n"
+    },
+    {
+      "raw": "print(\"Total Restaurants = \", data.shape[0])\nprint(\"Total Restaurants that are part of some chain = \", data.shape[0] - single.shape[0])\nprint(\"Percentage of Restaurants that are part of a chain = \", np.round((data.shape[0] - single.shape[0]) / data.shape[0],2)*100, \"%\")",
+      "rewrite-ns": 2212623,
+      "overhead-ns": 2212623,
+      "exec-ns": 539836,
+      "total-ns": 2752459,
+      "patts-hit": {},
+      "rewritten": "print('Total Restaurants = ', data.shape[0])\nprint('Total Restaurants that are part of some chain = ', data.shape[0] -\n    single.shape[0])\nprint('Percentage of Restaurants that are part of a chain = ', np.round((\n    data.shape[0] - single.shape[0]) / data.shape[0], 2) * 100, '%')\n"
+    },
+    {
+      "raw": "chains.head(10)",
+      "rewrite-ns": 86584,
+      "overhead-ns": 86584,
+      "exec-ns": 705152,
+      "total-ns": 791736,
+      "patts-hit": {},
+      "rewritten": "chains.head(10)\n"
+    },
+    {
+      "raw": "top10_chains = data[\"name\"].value_counts()[:10].sort_values(ascending=True)",
+      "rewrite-ns": 704627,
+      "overhead-ns": 704627,
+      "exec-ns": 9378443,
+      "total-ns": 10083070,
+      "patts-hit": {},
+      "rewritten": "top10_chains = data['name'].value_counts()[:10].sort_values(ascending=True)\n"
+    },
+    {
+      "raw": "height = top10_chains.values\nbars = top10_chains.index\ny_pos = np.arange(len(bars))\n\n# ALEX: remove plotting\n# fig = plt.figure(figsize=[11,7], frameon=False)\n# ax = fig.gca()\n# ax.spines[\"top\"].set_visible(\"#424242\")\n# ax.spines[\"right\"].set_visible(False)\n# ax.spines[\"left\"].set_color(\"#424242\")\n# ax.spines[\"bottom\"].set_color(\"#424242\")\n\n# #colors = [\"green\",\"blue\",\"magenta\",\"cyan\",\"gray\",\"yellow\",\"purple\",\"violet\",\"orange\",\"red\",\"maroon\"]\n# #random.shuffle(colors)\n# colors = [\"#f9cdac\",\"#f2a49f\",\"#ec7c92\",\"#e65586\",\"#bc438b\",\"#933291\",\"#692398\",\"#551c7b\",\"#41155e\",\"#2d0f41\"]\n# plt.barh(y_pos, height, color=colors)\n \n# plt.xticks(color=\"#424242\")\n\n# plt.yticks(y_pos, bars, color=\"#424242\")\n# plt.xlabel(\"Number of outlets in India\")\n\n# for i, v in enumerate(height):\n#     ax.text(v+3, i, str(v), color='#424242')\n# plt.title(\"Top 10 Restaurant chain in India (by number of outlets)\")\n\n\n# plt.show()",
+      "rewrite-ns": 958272,
+      "overhead-ns": 958272,
+      "exec-ns": 292177,
+      "total-ns": 1250449,
+      "patts-hit": {},
+      "rewritten": "height = top10_chains.values\nbars = top10_chains.index\ny_pos = np.arange(len(bars))\n"
+    },
+    {
+      "raw": "outlets = data[\"name\"].value_counts()",
+      "rewrite-ns": 416329,
+      "overhead-ns": 416329,
+      "exec-ns": 8646880,
+      "total-ns": 9063209,
+      "patts-hit": {},
+      "rewritten": "outlets = data['name'].value_counts()\n"
+    },
+    {
+      "raw": "atleast_5_outlets = outlets[outlets > 4]",
+      "rewrite-ns": 410847,
+      "overhead-ns": 410847,
+      "exec-ns": 404650,
+      "total-ns": 815497,
+      "patts-hit": {},
+      "rewritten": "atleast_5_outlets = outlets[outlets > 4]\n"
+    },
+    {
+      "raw": "top10_chains2 = data[data[\"name\"].isin(atleast_5_outlets.index)].groupby(\"name\").mean()[\"aggregate_rating\"].sort_values(ascending=False)[:10].sort_values(ascending=True)",
+      "rewrite-ns": 1365254,
+      "overhead-ns": 1365254,
+      "exec-ns": 8341942,
+      "total-ns": 9707196,
+      "patts-hit": {},
+      "rewritten": "top10_chains2 = data[data['name'].isin(atleast_5_outlets.index)].groupby('name'\n    ).mean()['aggregate_rating'].sort_values(ascending=False)[:10].sort_values(\n    ascending=True)\n"
+    },
+    {
+      "raw": "height = pd.Series(top10_chains2.values).map(lambda x : np.round(x, 2))\nbars = top10_chains2.index\ny_pos = np.arange(len(bars))\n\n# ALEX: remove plotting\n# fig = plt.figure(figsize=[11,7], frameon=False)\n# ax = fig.gca()\n# ax.spines[\"top\"].set_visible(\"#424242\")\n# ax.spines[\"right\"].set_visible(False)\n# ax.spines[\"left\"].set_color(\"#424242\")\n# ax.spines[\"bottom\"].set_color(\"#424242\")\n\n# #colors = [\"green\",\"blue\",\"magenta\",\"cyan\",\"gray\",\"yellow\",\"purple\",\"violet\",\"orange\",\"red\",\"maroon\"]\n# #random.shuffle(colors)\n# colors = ['#fded86', '#fce36b', '#f7c65d', '#f1a84f', '#ec8c41', '#e76f34', '#e25328', '#b04829', '#7e3e2b', '#4c3430']\n# plt.barh(y_pos, height, color=colors)\n\n# plt.xlim(3)\n# plt.xticks(color=\"#424242\")\n# plt.yticks(y_pos, bars, color=\"#424242\")\n# plt.xlabel(\"Number of outlets in India\")\n\n# for i, v in enumerate(height):\n#     ax.text(v + 0.01, i, str(v), color='#424242')\n# plt.title(\"Top 10 Restaurant chain in India (by average Rating)\")\n\n\n# plt.show()",
+      "rewrite-ns": 1456934,
+      "overhead-ns": 1456934,
+      "exec-ns": 615480,
+      "total-ns": 2072414,
+      "patts-hit": {},
+      "rewritten": "height = pd.Series(top10_chains2.values).map(lambda x: np.round(x, 2))\nbars = top10_chains2.index\ny_pos = np.arange(len(bars))\n"
+    },
+    {
+      "raw": "est_count = data.groupby(\"establishment\").count()[\"res_id\"].sort_values(ascending=False)[:5]\n\n# ALEX: remove plotting\n# fig = plt.figure(figsize=[8,5], frameon=False)\n# ax = fig.gca()\n# ax.spines[\"top\"].set_visible(False)\n# ax.spines[\"right\"].set_visible(False)\n# ax.spines[\"left\"].set_color(\"#424242\")\n# ax.spines[\"bottom\"].set_color(\"#424242\")\n\n# #colors = [\"green\",\"blue\",\"magenta\",\"cyan\",\"gray\",\"yellow\",\"purple\",\"violet\",\"orange\",\"red\",\"maroon\"]\n# #random.shuffle(colors)\n# colors = [\"#2d0f41\",'#933291',\"#e65586\",\"#f2a49f\",\"#f9cdac\"]\n# plt.bar(est_count.index, est_count.values, color=colors)\n\n# plt.xticks(range(0, 6), color=\"#424242\")\n# plt.yticks(range(0, 25000, 5000), color=\"#424242\")\n# plt.xlabel(\"Top 5 establishment types\")\n\n# for i, v in enumerate(est_count):\n#     ax.text(i-0.2, v+500, str(v), color='#424242')\n# plt.title(\"Number of restaurants (by establishment type)\")\n\n\n# plt.show()\n_ = est_count.index\n_ = est_count.values",
+      "rewrite-ns": 1232281,
+      "overhead-ns": 1232281,
+      "exec-ns": 61529971,
+      "total-ns": 62762252,
+      "patts-hit": {},
+      "rewritten": "est_count = data.groupby('establishment').count()['res_id'].sort_values(\n    ascending=False)[:5]\n_ = est_count.index\n_ = est_count.values\n"
+    },
+    {
+      "raw": "rating_by_est = data.groupby(\"establishment\").mean()[\"aggregate_rating\"].sort_values(ascending=False)[:10]\nrating_by_est",
+      "rewrite-ns": 894056,
+      "overhead-ns": 894056,
+      "exec-ns": 7821341,
+      "total-ns": 8715397,
+      "patts-hit": {},
+      "rewritten": "rating_by_est = data.groupby('establishment').mean()['aggregate_rating'\n    ].sort_values(ascending=False)[:10]\nrating_by_est\n"
+    },
+    {
+      "raw": "# To check the number of outlets in each of the above establishment type, uncomment to following code\n\n#est_count = data.groupby(\"establishment\").count()[\"name\"].sort_values(ascending=False)\n#rating_by_est_map = est_count.index.isin(rating_by_est.index)\n#est_count = est_count[rating_by_est_map][rating_by_est.index]\n#est_count",
+      "rewrite-ns": 14481,
+      "overhead-ns": 14481,
+      "exec-ns": 71523,
+      "total-ns": 86004,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "data.groupby(\"establishment\").mean()[\"votes\"].sort_values(ascending=False)[:10]",
+      "rewrite-ns": 773293,
+      "overhead-ns": 773293,
+      "exec-ns": 7592283,
+      "total-ns": 8365576,
+      "patts-hit": {},
+      "rewritten": "data.groupby('establishment').mean()['votes'].sort_values(ascending=False)[:10]\n"
+    },
+    {
+      "raw": "data.groupby(\"establishment\").mean()[\"photo_count\"].sort_values(ascending=False)[:10]",
+      "rewrite-ns": 789450,
+      "overhead-ns": 789450,
+      "exec-ns": 7495958,
+      "total-ns": 8285408,
+      "patts-hit": {},
+      "rewritten": "data.groupby('establishment').mean()['photo_count'].sort_values(ascending=False\n    )[:10]\n"
+    },
+    {
+      "raw": "city_counts = data.groupby(\"city\").count()[\"res_id\"].sort_values(ascending=True)[-10:]\n\nheight = pd.Series(city_counts.values)\nbars = city_counts.index\ny_pos = np.arange(len(bars))\n\n# ALEX: remove plotting\n# fig = plt.figure(figsize=[11,7], frameon=False)\n# ax = fig.gca()\n# ax.spines[\"top\"].set_visible(\"#424242\")\n# ax.spines[\"right\"].set_visible(False)\n# ax.spines[\"left\"].set_color(\"#424242\")\n# ax.spines[\"bottom\"].set_color(\"#424242\")\n\n# #colors = [\"green\",\"blue\",\"magenta\",\"cyan\",\"gray\",\"yellow\",\"purple\",\"violet\",\"orange\",\"red\",\"maroon\"]\n# #random.shuffle(colors)\n# colors = ['#dcecc9', '#aadacc', '#78c6d0', '#48b3d3', '#3e94c0', '#3474ac', '#2a5599', '#203686', '#18216b', '#11174b']\n# plt.barh(y_pos, height, color=colors)\n\n# plt.xlim(3)\n# plt.xticks(color=\"#424242\")\n# plt.yticks(y_pos, bars, color=\"#424242\")\n# plt.xlabel(\"Number of outlets\")\n\n# for i, v in enumerate(height):\n#     ax.text(v + 20, i, str(v), color='#424242')\n# plt.title(\"Number of restaurants (by city)\")\n\n\n# plt.show()",
+      "rewrite-ns": 1895862,
+      "overhead-ns": 1895862,
+      "exec-ns": 61618651,
+      "total-ns": 63514513,
+      "patts-hit": {},
+      "rewritten": "city_counts = data.groupby('city').count()['res_id'].sort_values(ascending=True\n    )[-10:]\nheight = pd.Series(city_counts.values)\nbars = city_counts.index\ny_pos = np.arange(len(bars))\n"
+    },
+    {
+      "raw": "rating_by_city = data.groupby(\"city\").mean()[\"aggregate_rating\"].sort_values(ascending=False)[:10]\nrating_by_city",
+      "rewrite-ns": 869065,
+      "overhead-ns": 869065,
+      "exec-ns": 8223437,
+      "total-ns": 9092502,
+      "patts-hit": {},
+      "rewritten": "rating_by_city = data.groupby('city').mean()['aggregate_rating'].sort_values(\n    ascending=False)[:10]\nrating_by_city\n"
+    },
+    {
+      "raw": "# To check the number of outlets in each of the above establishment type\n\n#city_count = data.groupby(\"city\").count()[\"name\"].sort_values(ascending=False)\n#rating_by_city_map = city_count.index.isin(rating_by_city.index)\n#city_count = city_count[rating_by_city_map][rating_by_city.index]\n#city_count",
+      "rewrite-ns": 13886,
+      "overhead-ns": 13886,
+      "exec-ns": 69681,
+      "total-ns": 83567,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "data.groupby(\"city\").mean()[\"votes\"].sort_values(ascending=False)[:10]",
+      "rewrite-ns": 766808,
+      "overhead-ns": 766808,
+      "exec-ns": 8086331,
+      "total-ns": 8853139,
+      "patts-hit": {},
+      "rewritten": "data.groupby('city').mean()['votes'].sort_values(ascending=False)[:10]\n"
+    },
+    {
+      "raw": "data.groupby(\"city\").mean()[\"photo_count\"].sort_values(ascending=False)[:10]",
+      "rewrite-ns": 760155,
+      "overhead-ns": 760155,
+      "exec-ns": 8011309,
+      "total-ns": 8771464,
+      "patts-hit": {},
+      "rewritten": "data.groupby('city').mean()['photo_count'].sort_values(ascending=False)[:10]\n"
+    },
+    {
+      "raw": "print(\"Total number of unique cuisines = \", cuisines.nunique())",
+      "rewrite-ns": 399738,
+      "overhead-ns": 399738,
+      "exec-ns": 4750711,
+      "total-ns": 5150449,
+      "patts-hit": {},
+      "rewritten": "print('Total number of unique cuisines = ', cuisines.nunique())\n"
+    },
+    {
+      "raw": "c_count = cuisines.value_counts()[:5]\n\n# ALEX: remove plotting\n# fig = plt.figure(figsize=[8,5], frameon=False)\n# ax = fig.gca()\n# ax.spines[\"top\"].set_visible(False)\n# ax.spines[\"right\"].set_visible(False)\n# ax.spines[\"left\"].set_color(\"#424242\")\n# ax.spines[\"bottom\"].set_color(\"#424242\")\n\n# #colors = [\"green\",\"blue\",\"magenta\",\"cyan\",\"gray\",\"yellow\",\"purple\",\"violet\",\"orange\",\"red\",\"maroon\"]\n# #random.shuffle(colors)\n# colors = ['#4c3430', '#b04829', '#ec8c41', '#f7c65d','#fded86']\n# plt.bar(c_count.index, c_count.values, color=colors)\n\n# plt.xticks(range(0, 6), color=\"#424242\")\n# plt.yticks(range(0, 30000, 5000), color=\"#424242\")\n# plt.xlabel(\"Top 5 cuisines\")\n\n# for i, v in enumerate(c_count):\n#     ax.text(i-0.2, v+500, str(v), color='#424242')\n# plt.title(\"Number of restaurants (by cuisine type)\")\n\n\n# plt.show()\n_ = c_count.index\n_ = c_count.values",
+      "rewrite-ns": 827465,
+      "overhead-ns": 827465,
+      "exec-ns": 7203151,
+      "total-ns": 8030616,
+      "patts-hit": {},
+      "rewritten": "c_count = cuisines.value_counts()[:5]\n_ = c_count.index\n_ = c_count.values\n"
+    },
+    {
+      "raw": "data[\"cuisines2\"] = data['cuisines'].apply(lambda x : x.split(\", \"))\n\ncuisines_list = cuisines.unique().tolist()\nzeros = np.zeros(shape=(len(cuisines_list),2))\nc_and_r = pd.DataFrame(zeros, index=cuisines_list, columns=[\"Sum\",\"Total\"])",
+      "rewrite-ns": 2192961,
+      "overhead-ns": 2192961,
+      "exec-ns": 26348661,
+      "total-ns": 28541622,
+      "patts-hit": {},
+      "rewritten": "data['cuisines2'] = data['cuisines'].apply(lambda x: x.split(', '))\ncuisines_list = cuisines.unique().tolist()\nzeros = np.zeros(shape=(len(cuisines_list), 2))\nc_and_r = pd.DataFrame(zeros, index=cuisines_list, columns=['Sum', 'Total'])\n"
+    },
+    {
+      "raw": "for i, x in data.iterrows():\n    for j in x[\"cuisines2\"]:\n        c_and_r.loc[j][\"Sum\"] += x[\"aggregate_rating\"]  \n        c_and_r.loc[j][\"Total\"] += 1",
+      "rewrite-ns": 1489716,
+      "overhead-ns": 1489716,
+      "exec-ns": 12299094542,
+      "total-ns": 12300584258,
+      "patts-hit": {},
+      "rewritten": "for i, x in data.iterrows():\n    for j in x['cuisines2']:\n        c_and_r.loc[j]['Sum'] += x['aggregate_rating']\n        c_and_r.loc[j]['Total'] += 1\n"
+    },
+    {
+      "raw": "c_and_r[\"Mean\"] = c_and_r[\"Sum\"] / c_and_r[\"Total\"]\nc_and_r",
+      "rewrite-ns": 832937,
+      "overhead-ns": 832937,
+      "exec-ns": 6854451,
+      "total-ns": 7687388,
+      "patts-hit": {},
+      "rewritten": "c_and_r['Mean'] = c_and_r['Sum'] / c_and_r['Total']\nc_and_r\n"
+    },
+    {
+      "raw": "c_and_r[[\"Mean\",\"Total\"]].sort_values(by=\"Mean\", ascending=False)[:10]",
+      "rewrite-ns": 757232,
+      "overhead-ns": 757232,
+      "exec-ns": 4187300,
+      "total-ns": 4944532,
+      "patts-hit": {},
+      "rewritten": "c_and_r[['Mean', 'Total']].sort_values(by='Mean', ascending=False)[:10]\n"
+    },
+    {
+      "raw": "print(\"Total number of unique cuisines = \", hl.nunique())",
+      "rewrite-ns": 428639,
+      "overhead-ns": 428639,
+      "exec-ns": 24463253,
+      "total-ns": 24891892,
+      "patts-hit": {},
+      "rewritten": "print('Total number of unique cuisines = ', hl.nunique())\n"
+    },
+    {
+      "raw": "h_count = hl.value_counts()[:5]\n\n# ALEX: remove plotting\n# fig = plt.figure(figsize=[10,6], frameon=False)\n# ax = fig.gca()\n# ax.spines[\"top\"].set_visible(False)\n# ax.spines[\"right\"].set_visible(False)\n# ax.spines[\"left\"].set_color(\"#424242\")\n# ax.spines[\"bottom\"].set_color(\"#424242\")\n\n# #colors = [\"green\",\"blue\",\"magenta\",\"cyan\",\"gray\",\"yellow\",\"purple\",\"violet\",\"orange\",\"red\",\"maroon\"]\n# #random.shuffle(colors)\n# colors = ['#11174b', '#2a5599', '#3e94c0', '#78c6d0', '#dcecc9']\n# plt.bar(h_count.index, h_count.values, color=colors)\n\n# plt.xticks(range(0, 6), color=\"#424242\")\n# plt.yticks(range(0, 70000, 10000), color=\"#424242\")\n# plt.xlabel(\"Top 5 highlights\")\n\n# for i, v in enumerate(h_count):\n#     ax.text(i-0.2, v+500, str(v), color='#424242')\n# plt.title(\"Number of restaurants (by highlights)\")\n\n\n# plt.show()\n_ = h_count.index\n_ = h_count.values",
+      "rewrite-ns": 900833,
+      "overhead-ns": 900833,
+      "exec-ns": 28684529,
+      "total-ns": 29585362,
+      "patts-hit": {},
+      "rewritten": "h_count = hl.value_counts()[:5]\n_ = h_count.index\n_ = h_count.values\n"
+    },
+    {
+      "raw": "data[\"highlights\"][0]",
+      "rewrite-ns": 365470,
+      "overhead-ns": 365470,
+      "exec-ns": 2131419,
+      "total-ns": 2496889,
+      "patts-hit": {},
+      "rewritten": "data['highlights'][0]\n"
+    },
+    {
+      "raw": "data[\"highlights2\"] = data['highlights'].apply(lambda x : x[2:-2].split(\"', '\"))\n\nhl_list = hl.unique().tolist()\nzeros = np.zeros(shape=(len(hl_list),2))\nh_and_r = pd.DataFrame(zeros, index=hl_list, columns=[\"Sum\",\"Total\"])",
+      "rewrite-ns": 2458935,
+      "overhead-ns": 2458935,
+      "exec-ns": 112605845,
+      "total-ns": 115064780,
+      "patts-hit": {},
+      "rewritten": "data['highlights2'] = data['highlights'].apply(lambda x: x[2:-2].split(\"', '\"))\nhl_list = hl.unique().tolist()\nzeros = np.zeros(shape=(len(hl_list), 2))\nh_and_r = pd.DataFrame(zeros, index=hl_list, columns=['Sum', 'Total'])\n"
+    },
+    {
+      "raw": "for i, x in data.iterrows():\n    for j in x[\"highlights2\"]:\n        h_and_r.loc[j][\"Sum\"] += x[\"aggregate_rating\"]  \n        h_and_r.loc[j][\"Total\"] += 1",
+      "rewrite-ns": 1541844,
+      "overhead-ns": 1541844,
+      "exec-ns": 41187930062,
+      "total-ns": 41189471906,
+      "patts-hit": {},
+      "rewritten": "for i, x in data.iterrows():\n    for j in x['highlights2']:\n        h_and_r.loc[j]['Sum'] += x['aggregate_rating']\n        h_and_r.loc[j]['Total'] += 1\n"
+    },
+    {
+      "raw": "h_and_r[\"Mean\"] = h_and_r[\"Sum\"] / h_and_r[\"Total\"]\nh_and_r",
+      "rewrite-ns": 819777,
+      "overhead-ns": 819777,
+      "exec-ns": 7014431,
+      "total-ns": 7834208,
+      "patts-hit": {},
+      "rewritten": "h_and_r['Mean'] = h_and_r['Sum'] / h_and_r['Total']\nh_and_r\n"
+    },
+    {
+      "raw": "h_and_r[[\"Mean\",\"Total\"]].sort_values(by=\"Mean\", ascending=False)[:10]",
+      "rewrite-ns": 766757,
+      "overhead-ns": 766757,
+      "exec-ns": 4043249,
+      "total-ns": 4810006,
+      "patts-hit": {},
+      "rewritten": "h_and_r[['Mean', 'Total']].sort_values(by='Mean', ascending=False)[:10]\n"
+    },
+    {
+      "raw": "# https://www.geeksforgeeks.org/generating-word-cloud-python/\n\n# ALEX: remove plotting\n# hl_str = \"\"\n# for i in hl:\n#     hl_str += str(i) + \" \"\n# wordcloud = WordCloud(width = 800, height = 500, \n#                 background_color ='white', \n#                 min_font_size = 10, max_words=30).generate(hl_str) \n                         \n# plt.figure(figsize = (8, 8), facecolor = None) \n# plt.imshow(wordcloud) \n# plt.axis(\"off\") \n# plt.tight_layout(pad = 0) \n  \n# plt.show()",
+      "rewrite-ns": 15766,
+      "overhead-ns": 15766,
+      "exec-ns": 73855,
+      "total-ns": 89621,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.kdeplot(data['aggregate_rating'], shade=True)\n# plt.title(\"Ratings distribution\")\n# plt.show()\n_ = data['aggregate_rating']",
+      "rewrite-ns": 312080,
+      "overhead-ns": 312080,
+      "exec-ns": 246970,
+      "total-ns": 559050,
+      "patts-hit": {},
+      "rewritten": "_ = data['aggregate_rating']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.kdeplot(data['average_cost_for_two'], shade=True)\n# plt.title(\"Average cost for 2 distribution\")\n# plt.show()\n_ = data['average_cost_for_two']",
+      "rewrite-ns": 285213,
+      "overhead-ns": 285213,
+      "exec-ns": 227764,
+      "total-ns": 512977,
+      "patts-hit": {},
+      "rewritten": "_ = data['average_cost_for_two']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.kdeplot(data['average_cost_for_two'], shade=True)\n# plt.xlim([0, 6000])\n# plt.xticks(range(0,6000,500))\n# plt.title(\"Average cost for 2 distribution\")\n# plt.show()\n_ = data['average_cost_for_two']",
+      "rewrite-ns": 293331,
+      "overhead-ns": 293331,
+      "exec-ns": 194279,
+      "total-ns": 487610,
+      "patts-hit": {},
+      "rewritten": "_ = data['average_cost_for_two']\n"
+    },
+    {
+      "raw": "pr_count = data.groupby(\"price_range\").count()[\"name\"]\n\n# ALEX: remove plotting\n# fig = plt.figure(figsize=[8,5], frameon=False)\n# ax = fig.gca()\n# ax.spines[\"top\"].set_visible(False)\n# ax.spines[\"right\"].set_visible(False)\n# ax.spines[\"left\"].set_color(\"#424242\")\n# ax.spines[\"bottom\"].set_color(\"#424242\")\n\n# #colors = [\"green\",\"blue\",\"magenta\",\"cyan\",\"gray\",\"yellow\",\"purple\",\"violet\",\"orange\",\"red\",\"maroon\"]\n# #random.shuffle(colors)\n# colors = [\"#2d0f41\",'#933291',\"#f2a49f\",\"#f9cdac\"]\n# plt.bar(pr_count.index, pr_count.values, color=colors)\n\n# plt.xticks(range(0, 5), color=\"#424242\")\n# plt.yticks(range(0, 40000, 5000), color=\"#424242\")\n# plt.xlabel(\"Price Ranges\")\n\n# for i, v in enumerate(pr_count):\n#     ax.text(i+0.85, v+700, str(v), color='#424242')\n# plt.title(\"Number of restaurants (by price ranges)\")\n\n\n# plt.show()\n_ = pr_count.index\n_ = pr_count.values",
+      "rewrite-ns": 923855,
+      "overhead-ns": 923855,
+      "exec-ns": 87203842,
+      "total-ns": 88127697,
+      "patts-hit": {},
+      "rewritten": "pr_count = data.groupby('price_range').count()['name']\n_ = pr_count.index\n_ = pr_count.values\n"
+    },
+    {
+      "raw": "np.round(data[[\"average_cost_for_two\",\"aggregate_rating\"]].corr()[\"average_cost_for_two\"][1],2)",
+      "rewrite-ns": 867496,
+      "overhead-ns": 867496,
+      "exec-ns": 2572109,
+      "total-ns": 3439605,
+      "patts-hit": {},
+      "rewritten": "np.round(data[['average_cost_for_two', 'aggregate_rating']].corr()[\n    'average_cost_for_two'][1], 2)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.plot(\"average_cost_for_two\",\"aggregate_rating\", data=data, linestyle=\"none\", marker=\"o\")\n# plt.xlim([0,6000])\n# plt.title(\"Relationship between Average cost and Rating\")\n# plt.xlabel(\"Average cost for two\")\n# plt.ylabel(\"Ratings\")\n# plt.show()",
+      "rewrite-ns": 14290,
+      "overhead-ns": 14290,
+      "exec-ns": 72908,
+      "total-ns": 87198,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.plot(\"average_cost_for_two\",\"aggregate_rating\", data=data.sample(1000), linestyle=\"none\", marker=\"o\")\n# plt.xlim([0,3000])\n# plt.show()\n_ = data.sample(1000)",
+      "rewrite-ns": 375495,
+      "overhead-ns": 375495,
+      "exec-ns": 1837331,
+      "total-ns": 2212826,
+      "patts-hit": {},
+      "rewritten": "_ = data.sample(1000)\n"
+    },
+    {
+      "raw": "np.round(data[[\"price_range\",\"aggregate_rating\"]].corr()[\"price_range\"][1],2)",
+      "rewrite-ns": 805910,
+      "overhead-ns": 805910,
+      "exec-ns": 2105770,
+      "total-ns": 2911680,
+      "patts-hit": {},
+      "rewritten": "np.round(data[['price_range', 'aggregate_rating']].corr()['price_range'][1], 2)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(x='price_range', y='aggregate_rating', data=data)\n# plt.ylim(1)\n# plt.title(\"Relationship between Price range and Ratings\")\n# plt.show()",
+      "rewrite-ns": 13019,
+      "overhead-ns": 13019,
+      "exec-ns": 65755,
+      "total-ns": 78774,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "data.to_csv(\"zomato_final.csv\")",
+      "rewrite-ns": 316993,
+      "overhead-ns": 316993,
+      "exec-ns": 866511030,
+      "total-ns": 866828023,
+      "patts-hit": {},
+      "rewritten": "data.to_csv('zomato_final.csv')\n"
+    }
+  ],
+  "total-time-in-sec": 57.228641354,
+  "max-disk-in-mb": 0
+}

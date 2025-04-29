@@ -1,0 +1,134 @@
+{
+  "max-mem-in-mb": 109,
+  "max-mem-in-mb2": 113,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n\nimport numpy as np",
+      "rewrite-ns": 685663,
+      "overhead-ns": 685663,
+      "exec-ns": 390059,
+      "total-ns": 1075722,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n"
+    },
+    {
+      "raw": "Path = './input/diabetes.scaled.csv'\ntrain_df = pd.read_csv(Path)",
+      "rewrite-ns": 749232,
+      "overhead-ns": 749232,
+      "exec-ns": 3196915,
+      "total-ns": 3946147,
+      "patts-hit": {},
+      "rewritten": "Path = './input/diabetes.scaled.csv'\ntrain_df = pd.read_csv(Path)\n"
+    },
+    {
+      "raw": "train_df.head()",
+      "rewrite-ns": 119636,
+      "overhead-ns": 119636,
+      "exec-ns": 10347075,
+      "total-ns": 10466711,
+      "patts-hit": {},
+      "rewritten": "train_df.head()\n"
+    },
+    {
+      "raw": "train_df.info()",
+      "rewrite-ns": 125188,
+      "overhead-ns": 125188,
+      "exec-ns": 4846401,
+      "total-ns": 4971589,
+      "patts-hit": {},
+      "rewritten": "train_df.info()\n"
+    },
+    {
+      "raw": "# ALEX: evaluate lazy computation\nevaluate_lazy(train_df.describe())",
+      "rewrite-ns": 516781,
+      "overhead-ns": 516781,
+      "exec-ns": 24314314,
+      "total-ns": 24831095,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(train_df.describe())\n"
+    },
+    {
+      "raw": "#only iterates through feature columns leaving the label (Outcome)\n#features = train_df.drop('Outcome', axis=1)\n#for cols in features:\n#    train_df[cols] = train_df[cols].replace(0,train_df[cols].mean())\ntrain_df['Glucose'] = train_df['Glucose'].replace(0, train_df['Glucose'].mean())\ntrain_df['BloodPressure'] = train_df['BloodPressure'].replace(0, train_df['BloodPressure'].mean())\ntrain_df['SkinThickness'] = train_df['SkinThickness'].replace(0, train_df['SkinThickness'].mean())\ntrain_df['Insulin'] = train_df['Insulin'].replace(0, train_df['Insulin'].mean())\ntrain_df['BMI'] = train_df['BMI'].replace(0, train_df['BMI'].mean())",
+      "rewrite-ns": 1193337,
+      "overhead-ns": 1193337,
+      "exec-ns": 3576784,
+      "total-ns": 4770121,
+      "patts-hit": {},
+      "rewritten": "train_df['Glucose'] = train_df['Glucose'].replace(0, train_df['Glucose'].mean()\n    )\ntrain_df['BloodPressure'] = train_df['BloodPressure'].replace(0, train_df[\n    'BloodPressure'].mean())\ntrain_df['SkinThickness'] = train_df['SkinThickness'].replace(0, train_df[\n    'SkinThickness'].mean())\ntrain_df['Insulin'] = train_df['Insulin'].replace(0, train_df['Insulin'].mean()\n    )\ntrain_df['BMI'] = train_df['BMI'].replace(0, train_df['BMI'].mean())\n"
+    },
+    {
+      "raw": "# ALEX: evaluate lazy computation\nevaluate_lazy(train_df.describe())",
+      "rewrite-ns": 512555,
+      "overhead-ns": 512555,
+      "exec-ns": 23239116,
+      "total-ns": 23751671,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(train_df.describe())\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# import seaborn as sb\n# import matplotlib.pyplot as plt",
+      "rewrite-ns": 20633,
+      "overhead-ns": 20633,
+      "exec-ns": 107845,
+      "total-ns": 128478,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#Correlation matrix\n# help from: https://www.kaggle.com/zacharywyman/titanic-top-10-beginner-tutorial/data?select=train.csv",
+      "rewrite-ns": 18578,
+      "overhead-ns": 18578,
+      "exec-ns": 95549,
+      "total-ns": 114127,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "corr_matrix = train_df.corr()\n# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize = (10,8))\n# sb.heatmap(corr_matrix, annot = True, fmt='.2g', vmin = -1,\n#             vmax = 1, center = 0, cmap = 'coolwarm')\nevaluate_lazy(corr_matrix)",
+      "rewrite-ns": 733413,
+      "overhead-ns": 733413,
+      "exec-ns": 10107110,
+      "total-ns": 10840523,
+      "patts-hit": {},
+      "rewritten": "corr_matrix = train_df.corr()\nevaluate_lazy(corr_matrix)\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import train_test_split\n# from sklearn.ensemble import RandomForestClassifier\n# from sklearn.model_selection import GridSearchCV\n# from sklearn.metrics import accuracy_score",
+      "rewrite-ns": 21542,
+      "overhead-ns": 21542,
+      "exec-ns": 108643,
+      "total-ns": 130185,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# x_train, x_test, y_train, y_test = train_test_split(train_df.drop('Outcome', axis=1), train_df['Outcome'], \n#                                                   test_size = 0.2)\nevaluate_lazy(train_df.drop('Outcome', axis=1))\nevaluate_lazy(train_df['Outcome'])",
+      "rewrite-ns": 1061297,
+      "overhead-ns": 1061297,
+      "exec-ns": 2159122,
+      "total-ns": 3220419,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(train_df.drop('Outcome', axis=1))\nevaluate_lazy(train_df['Outcome'])\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# print(x_train.shape, y_train.shape)\n# print(x_test.shape, y_test.shape)",
+      "rewrite-ns": 20556,
+      "overhead-ns": 20556,
+      "exec-ns": 107160,
+      "total-ns": 127716,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# model = RandomForestClassifier(n_estimators=250, max_features='auto',\n#                               max_depth = 6, criterion='entropy')\n# model.fit(x_train, y_train)\n# y_pred = model.predict(x_test)\n# print(\"Accuracy score of Random Forest: \", (accuracy_score(y_pred, y_test))*100)",
+      "rewrite-ns": 19536,
+      "overhead-ns": 19536,
+      "exec-ns": 96982,
+      "total-ns": 116518,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 0.088491022,
+  "max-disk-in-mb": 0
+}

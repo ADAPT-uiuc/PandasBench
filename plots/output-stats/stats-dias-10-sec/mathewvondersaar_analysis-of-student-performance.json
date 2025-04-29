@@ -1,0 +1,161 @@
+{
+  "max-mem-in-mb": 1419,
+  "max-mem-in-mb2": 2378,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt #plotting!\n# import seaborn as sns #cute messing with style\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "rewrite-ns": 685762,
+      "overhead-ns": 685762,
+      "exec-ns": 383069,
+      "total-ns": 1068831,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "# ALEX: removed plotting\n# %matplotlib inline\n# sns.set_style('darkgrid')\ndf = pd.read_csv('./input/highereducationstudentsperformanceevaluation/DATA (1).scaled.csv')\ndf.head()",
+      "rewrite-ns": 598899,
+      "overhead-ns": 598899,
+      "exec-ns": 1709731836,
+      "total-ns": 1710330735,
+      "patts-hit": {},
+      "rewritten": "df = pd.read_csv(\n    './input/highereducationstudentsperformanceevaluation/DATA (1).scaled.csv')\ndf.head()\n"
+    },
+    {
+      "raw": "df.shape",
+      "rewrite-ns": 84530,
+      "overhead-ns": 84530,
+      "exec-ns": 566110,
+      "total-ns": 650640,
+      "patts-hit": {},
+      "rewritten": "df.shape\n"
+    },
+    {
+      "raw": "df.info()",
+      "rewrite-ns": 88566,
+      "overhead-ns": 88566,
+      "exec-ns": 183733962,
+      "total-ns": 183822528,
+      "patts-hit": {},
+      "rewritten": "df.info()\n"
+    },
+    {
+      "raw": "# Rename columns\ndf.rename(columns={'1': 'AGE', '7': 'SINGLE','20':'ATTENDENCE','25':'NOTETAKING','30': 'GPA'}, inplace=True)\n\n# Access the renamed columns using loc\npreview_columns = ['AGE', 'SINGLE', 'NOTETAKING','GPA','GRADE']\ndf.loc[:, preview_columns].head()",
+      "rewrite-ns": 1648090,
+      "overhead-ns": 1648090,
+      "exec-ns": 20649771,
+      "total-ns": 22297861,
+      "patts-hit": {},
+      "rewritten": "df.rename(columns={'1': 'AGE', '7': 'SINGLE', '20': 'ATTENDENCE', '25':\n    'NOTETAKING', '30': 'GPA'}, inplace=True)\npreview_columns = ['AGE', 'SINGLE', 'NOTETAKING', 'GPA', 'GRADE']\ndf.loc[:, preview_columns].head()\n"
+    },
+    {
+      "raw": "df_clean = df.copy()\n\n# List of columns to keep\nselected_columns = [\n    'AGE',\n    'SINGLE',\n    'NOTETAKING',\n    'GPA',\n    'GRADE',\n    'ATTENDENCE',\n]\n\n# Get the list of columns that exist in the DataFrame but are not in the selected_columns list\ncolumns_to_remove = [col for col in df_clean.columns if col not in selected_columns]\n\n# Drop the columns that are not in the selected_columns list\ndf_clean.drop(columns=columns_to_remove, inplace=True)\n\n# Display DataFrame info to verify\ndf_clean.info()",
+      "rewrite-ns": 1746498,
+      "overhead-ns": 1746498,
+      "exec-ns": 142489976,
+      "total-ns": 144236474,
+      "patts-hit": {},
+      "rewritten": "df_clean = df.copy()\nselected_columns = ['AGE', 'SINGLE', 'NOTETAKING', 'GPA', 'GRADE', 'ATTENDENCE'\n    ]\ncolumns_to_remove = [col for col in df_clean.columns if col not in\n    selected_columns]\ndf_clean.drop(columns=columns_to_remove, inplace=True)\ndf_clean.info()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(16, 12))\n# sns.heatmap(df_clean.drop('GPA', axis=1).corr(), cmap='YlGnBu', annot=True, fmt='.2f', vmin=0);\n_ = df_clean.drop('GPA', axis=1).corr()",
+      "rewrite-ns": 590107,
+      "overhead-ns": 590107,
+      "exec-ns": 162628526,
+      "total-ns": 163218633,
+      "patts-hit": {},
+      "rewritten": "_ = df_clean.drop('GPA', axis=1).corr()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# df_clean.hist(alpha = 0.7, figsize=(12,10), bins=5);",
+      "rewrite-ns": 23425,
+      "overhead-ns": 23425,
+      "exec-ns": 114119,
+      "total-ns": 137544,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# %matplotlib inline\n# sns.set_style('darkgrid')\ndf = pd.read_csv('./input/highereducationstudentsperformanceevaluation/DATA (1).scaled.csv')\ndf.head()",
+      "rewrite-ns": 504280,
+      "overhead-ns": 504280,
+      "exec-ns": 1405030441,
+      "total-ns": 1405534721,
+      "patts-hit": {},
+      "rewritten": "df = pd.read_csv(\n    './input/highereducationstudentsperformanceevaluation/DATA (1).scaled.csv')\ndf.head()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(16, 12))\n# sns.heatmap(df.drop('30', axis=1).corr(), cmap='YlGnBu', annot=True, fmt='.2f', vmin=0);\n_ = df.drop('30', axis=1).corr()",
+      "rewrite-ns": 591326,
+      "overhead-ns": 591326,
+      "exec-ns": 3638565066,
+      "total-ns": 3639156392,
+      "patts-hit": {},
+      "rewritten": "_ = df.drop('30', axis=1).corr()\n"
+    },
+    {
+      "raw": "df_cut = df.copy()\n#Cutting our data to make it more managable\ncolumns_to_remove = [\n    '3',\n    '9',\n    '10',\n    '14',\n    '15',\n    '16',\n    '21',\n    '23',\n    '24',\n    '28',\n    '5',\n    '6',\n    '7',\n    '20',\n    '22',\n    'COURSE ID',\n]\n# Drop the columns to remove\ndf_cut.drop(columns=columns_to_remove, inplace=True)\n\n# Display DataFrame info to verify\ndf_cut.info()",
+      "rewrite-ns": 1707805,
+      "overhead-ns": 1707805,
+      "exec-ns": 328757756,
+      "total-ns": 330465561,
+      "patts-hit": {},
+      "rewritten": "df_cut = df.copy()\ncolumns_to_remove = ['3', '9', '10', '14', '15', '16', '21', '23', '24',\n    '28', '5', '6', '7', '20', '22', 'COURSE ID']\ndf_cut.drop(columns=columns_to_remove, inplace=True)\ndf_cut.info()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(16, 12))\n# sns.heatmap(df_cut.drop('30', axis=1).corr(), cmap='YlGnBu', annot=True, fmt='.2f', vmin=0);\n_ = df_cut.drop('30', axis=1).corr()",
+      "rewrite-ns": 610959,
+      "overhead-ns": 610959,
+      "exec-ns": 977680430,
+      "total-ns": 978291389,
+      "patts-hit": {},
+      "rewritten": "_ = df_cut.drop('30', axis=1).corr()\n"
+    },
+    {
+      "raw": "# Rename columns\ndf_cut.rename(columns={\n    '1': 'AGE',\n    '2': 'SEX',\n    '4': 'SCHOLSHIP',\n    '7': 'SINGLE',\n    '8': 'SALARY',\n    '11': 'MOTHERS_EDU',\n    '12': 'FATHERS_EDU',\n    '13': 'SIBLNIGS',\n    '17': 'STUDY_HOURS',\n    '18': 'READS_NON_FIC',\n    '19': 'READS_FIC',\n    '25': 'NOTETAKING',\n    '26': 'LISTENS',\n    '27': 'DISCUSSION',\n    '29': 'PAST_GPA',\n    '30': 'GPA',}, inplace=True)",
+      "rewrite-ns": 1662972,
+      "overhead-ns": 1662972,
+      "exec-ns": 1017185,
+      "total-ns": 2680157,
+      "patts-hit": {},
+      "rewritten": "df_cut.rename(columns={'1': 'AGE', '2': 'SEX', '4': 'SCHOLSHIP', '7':\n    'SINGLE', '8': 'SALARY', '11': 'MOTHERS_EDU', '12': 'FATHERS_EDU', '13':\n    'SIBLNIGS', '17': 'STUDY_HOURS', '18': 'READS_NON_FIC', '19':\n    'READS_FIC', '25': 'NOTETAKING', '26': 'LISTENS', '27': 'DISCUSSION',\n    '29': 'PAST_GPA', '30': 'GPA'}, inplace=True)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(16, 12))\n# sns.heatmap(df_cut.drop('PAST_GPA', axis=1).corr(), cmap='YlGnBu', annot=True, fmt='.2f', vmin=0);\n_ = df_cut.drop('PAST_GPA', axis=1).corr()",
+      "rewrite-ns": 574182,
+      "overhead-ns": 574182,
+      "exec-ns": 976904513,
+      "total-ns": 977478695,
+      "patts-hit": {},
+      "rewritten": "_ = df_cut.drop('PAST_GPA', axis=1).corr()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(16, 12))\n# sns.heatmap(df_cut.drop('PAST_GPA', axis=1).corr(), cmap='YlGnBu', annot=True, fmt='.2f', vmin=0);\n_ = df_cut.drop('PAST_GPA', axis=1).corr()",
+      "rewrite-ns": 620183,
+      "overhead-ns": 620183,
+      "exec-ns": 977172482,
+      "total-ns": 977792665,
+      "patts-hit": {},
+      "rewritten": "_ = df_cut.drop('PAST_GPA', axis=1).corr()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# df_cut.hist(alpha = 0.7, figsize=(12,10), bins=5);",
+      "rewrite-ns": 23421,
+      "overhead-ns": 23421,
+      "exec-ns": 120451,
+      "total-ns": 143872,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 13863,
+      "overhead-ns": 13863,
+      "exec-ns": 77666,
+      "total-ns": 91529,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 10.537398227,
+  "max-disk-in-mb": 0
+}

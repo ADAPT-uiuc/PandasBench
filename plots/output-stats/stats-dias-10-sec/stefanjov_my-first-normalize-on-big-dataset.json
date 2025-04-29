@@ -1,0 +1,197 @@
+{
+  "max-mem-in-mb": 2176,
+  "max-mem-in-mb2": 2343,
+  "cells": [
+    {
+      "raw": "# *Normalize first big Dataset*",
+      "rewrite-ns": 11172,
+      "overhead-ns": 11172,
+      "exec-ns": 58094,
+      "total-ns": 69266,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 5GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "rewrite-ns": 531955,
+      "overhead-ns": 531955,
+      "exec-ns": 305821,
+      "total-ns": 837776,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "# import pandas as pd\n# import numpy as np",
+      "rewrite-ns": 12370,
+      "overhead-ns": 12370,
+      "exec-ns": 65881,
+      "total-ns": 78251,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "\ndf = pd.read_csv('./input/Measurement_summary.scaled.csv')",
+      "rewrite-ns": 372012,
+      "overhead-ns": 372012,
+      "exec-ns": 2253806055,
+      "total-ns": 2254178067,
+      "patts-hit": {},
+      "rewritten": "df = pd.read_csv('./input/Measurement_summary.scaled.csv')\n"
+    },
+    {
+      "raw": "df.shape",
+      "rewrite-ns": 107203,
+      "overhead-ns": 107203,
+      "exec-ns": 1227531,
+      "total-ns": 1334734,
+      "patts-hit": {},
+      "rewritten": "df.shape\n"
+    },
+    {
+      "raw": "df.isnull().sum()",
+      "rewrite-ns": 411263,
+      "overhead-ns": 411263,
+      "exec-ns": 439998011,
+      "total-ns": 440409274,
+      "patts-hit": {},
+      "rewritten": "df.isnull().sum()\n"
+    },
+    {
+      "raw": "for x in [\"SO2\",\"NO2\",\"O3\",\"CO\",\"PM10\",\"PM2.5\"]:\n    print(x+\" : \")\n    print(df[x].describe())",
+      "rewrite-ns": 1242589,
+      "overhead-ns": 1242589,
+      "exec-ns": 393548563,
+      "total-ns": 394791152,
+      "patts-hit": {},
+      "rewritten": "for x in ['SO2', 'NO2', 'O3', 'CO', 'PM10', 'PM2.5']:\n    print(x + ' : ')\n    print(df[x].describe())\n"
+    },
+    {
+      "raw": "for x in [\"SO2\",\"NO2\",\"O3\",\"CO\",\"PM10\",\"PM2.5\"]:\n    df=df[df[x]>0]",
+      "rewrite-ns": 963963,
+      "overhead-ns": 963963,
+      "exec-ns": 819187239,
+      "total-ns": 820151202,
+      "patts-hit": {},
+      "rewritten": "for x in ['SO2', 'NO2', 'O3', 'CO', 'PM10', 'PM2.5']:\n    df = df[df[x] > 0]\n"
+    },
+    {
+      "raw": "df.describe()",
+      "rewrite-ns": 128477,
+      "overhead-ns": 128477,
+      "exec-ns": 524275266,
+      "total-ns": 524403743,
+      "patts-hit": {},
+      "rewritten": "df.describe()\n"
+    },
+    {
+      "raw": "df[df[\"Station code\"]==101]",
+      "rewrite-ns": 521441,
+      "overhead-ns": 521441,
+      "exec-ns": 15942101,
+      "total-ns": 16463542,
+      "patts-hit": {},
+      "rewritten": "df[df['Station code'] == 101]\n"
+    },
+    {
+      "raw": "del df[\"Latitude\"]\ndel df[\"Longitude\"]\ndel df[\"Address\"]",
+      "rewrite-ns": 632213,
+      "overhead-ns": 632213,
+      "exec-ns": 612581,
+      "total-ns": 1244794,
+      "patts-hit": {},
+      "rewritten": "del df['Latitude']\ndel df['Longitude']\ndel df['Address']\n"
+    },
+    {
+      "raw": "def normalize_data(x):\n    index=[]\n    \n    for date in x:\n        normalized= date.split(' ')\n        normalized= normalized[0].split('-')+normalized[1].split(':')\n        index.append(normalized)\n        \n    \n    return pd.DataFrame(index,columns=[\"Year\",\"Month\",\"Day\",\"Hour\",\"Min\"])",
+      "rewrite-ns": 2526991,
+      "overhead-ns": 2526991,
+      "exec-ns": 569586,
+      "total-ns": 3096577,
+      "patts-hit": {},
+      "rewritten": "def normalize_data(x):\n    index = []\n    for date in x:\n        normalized = date.split(' ')\n        normalized = normalized[0].split('-') + normalized[1].split(':')\n        index.append(normalized)\n    return pd.DataFrame(index, columns=['Year', 'Month', 'Day', 'Hour', 'Min'])\n"
+    },
+    {
+      "raw": "df_data_normalized=normalize_data(df[\"Measurement date\"])\nprint(f'Normalized date shape {df_data_normalized.shape}.')\nprint(f'Original Df shape {df.shape}.')\n\ndf_normalized=pd.concat([df,df_data_normalized],axis=1)\nprint(f'Final shape {df_normalized.shape}')",
+      "rewrite-ns": 2028377,
+      "overhead-ns": 2028377,
+      "exec-ns": 5174399820,
+      "total-ns": 5176428197,
+      "patts-hit": {},
+      "rewritten": "df_data_normalized = normalize_data(df['Measurement date'])\nprint(f'Normalized date shape {df_data_normalized.shape}.')\nprint(f'Original Df shape {df.shape}.')\ndf_normalized = pd.concat([df, df_data_normalized], axis=1)\nprint(f'Final shape {df_normalized.shape}')\n"
+    },
+    {
+      "raw": "df_normalized",
+      "rewrite-ns": 76319,
+      "overhead-ns": 76319,
+      "exec-ns": 11409571,
+      "total-ns": 11485890,
+      "patts-hit": {},
+      "rewritten": "df_normalized\n"
+    },
+    {
+      "raw": "df_final=df_normalized.dropna()",
+      "rewrite-ns": 387492,
+      "overhead-ns": 387492,
+      "exec-ns": 2317527242,
+      "total-ns": 2317914734,
+      "patts-hit": {},
+      "rewritten": "df_final = df_normalized.dropna()\n"
+    },
+    {
+      "raw": "del df_final['Measurement date']",
+      "rewrite-ns": 363516,
+      "overhead-ns": 363516,
+      "exec-ns": 677440,
+      "total-ns": 1040956,
+      "patts-hit": {},
+      "rewritten": "del df_final['Measurement date']\n"
+    },
+    {
+      "raw": "df_final",
+      "rewrite-ns": 73614,
+      "overhead-ns": 73614,
+      "exec-ns": 11169558,
+      "total-ns": 11243172,
+      "patts-hit": {},
+      "rewritten": "df_final\n"
+    },
+    {
+      "raw": "df_final['Min'].value_counts()\n",
+      "rewrite-ns": 435704,
+      "overhead-ns": 435704,
+      "exec-ns": 163487270,
+      "total-ns": 163922974,
+      "patts-hit": {},
+      "rewritten": "df_final['Min'].value_counts()\n"
+    },
+    {
+      "raw": "del df_final['Min']",
+      "rewrite-ns": 290512,
+      "overhead-ns": 290512,
+      "exec-ns": 459043,
+      "total-ns": 749555,
+      "patts-hit": {},
+      "rewritten": "del df_final['Min']\n"
+    },
+    {
+      "raw": "df_final",
+      "rewrite-ns": 67653,
+      "overhead-ns": 67653,
+      "exec-ns": 10543642,
+      "total-ns": 10611295,
+      "patts-hit": {},
+      "rewritten": "df_final\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 17068,
+      "overhead-ns": 17068,
+      "exec-ns": 93981,
+      "total-ns": 111049,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 12.1505662,
+  "max-disk-in-mb": 0
+}

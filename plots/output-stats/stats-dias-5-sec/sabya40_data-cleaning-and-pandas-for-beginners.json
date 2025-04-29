@@ -1,0 +1,233 @@
+{
+  "max-mem-in-mb": 458,
+  "max-mem-in-mb2": 461,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sns\nimport re\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# %matplotlib inline\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 5GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "rewrite-ns": 806236,
+      "overhead-ns": 806236,
+      "exec-ns": 435095,
+      "total-ns": 1241331,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\nimport re\n"
+    },
+    {
+      "raw": "flipkart_data = pd.read_csv(r\"./input/OnlineOrders_of_a_ecommerce_website.scaled.csv\")",
+      "rewrite-ns": 561798,
+      "overhead-ns": 561798,
+      "exec-ns": 1000305659,
+      "total-ns": 1000867457,
+      "patts-hit": {},
+      "rewritten": "flipkart_data = pd.read_csv(\n    './input/OnlineOrders_of_a_ecommerce_website.scaled.csv')\n"
+    },
+    {
+      "raw": "flipkart_data.head()",
+      "rewrite-ns": 130926,
+      "overhead-ns": 130926,
+      "exec-ns": 7238265,
+      "total-ns": 7369191,
+      "patts-hit": {},
+      "rewritten": "flipkart_data.head()\n"
+    },
+    {
+      "raw": "flipkart_data.rename(columns={'crawl_timestamp': 'Timestamp',\n                              'product_name': 'Product_Name',\n                             'product_category_tree': 'Product_Category_Tree',\n                             'retail_price': 'Retail_Price',\n                             'discounted_price': 'Discounted_Price',\n                             'brand': 'Brand'}, inplace=True)",
+      "rewrite-ns": 984755,
+      "overhead-ns": 984755,
+      "exec-ns": 638838,
+      "total-ns": 1623593,
+      "patts-hit": {},
+      "rewritten": "flipkart_data.rename(columns={'crawl_timestamp': 'Timestamp',\n    'product_name': 'Product_Name', 'product_category_tree':\n    'Product_Category_Tree', 'retail_price': 'Retail_Price',\n    'discounted_price': 'Discounted_Price', 'brand': 'Brand'}, inplace=True)\n"
+    },
+    {
+      "raw": "flipkart_data.head()",
+      "rewrite-ns": 75917,
+      "overhead-ns": 75917,
+      "exec-ns": 5031715,
+      "total-ns": 5107632,
+      "patts-hit": {},
+      "rewritten": "flipkart_data.head()\n"
+    },
+    {
+      "raw": "flipkart_data['Category'] = flipkart_data['Product_Category_Tree'].apply(lambda x: re.split('\\[]*|\\\"|\\>>|\\,', x)[2])",
+      "rewrite-ns": 1028497,
+      "overhead-ns": 1028497,
+      "exec-ns": 1410165011,
+      "total-ns": 1411193508,
+      "patts-hit": {},
+      "rewritten": "flipkart_data['Category'] = flipkart_data['Product_Category_Tree'].apply(lambda\n    x: re.split('\\\\[]*|\"|\\\\>>|\\\\,', x)[2])\n"
+    },
+    {
+      "raw": "flipkart_data.head(5)",
+      "rewrite-ns": 226522,
+      "overhead-ns": 226522,
+      "exec-ns": 6788717,
+      "total-ns": 7015239,
+      "patts-hit": {},
+      "rewritten": "flipkart_data.head(5)\n"
+    },
+    {
+      "raw": "flipkart_data.drop(['Product_Category_Tree'], axis = 1, inplace= True)",
+      "rewrite-ns": 577773,
+      "overhead-ns": 577773,
+      "exec-ns": 28286115,
+      "total-ns": 28863888,
+      "patts-hit": {},
+      "rewritten": "flipkart_data.drop(['Product_Category_Tree'], axis=1, inplace=True)\n"
+    },
+    {
+      "raw": "flipkart_data.head()",
+      "rewrite-ns": 119984,
+      "overhead-ns": 119984,
+      "exec-ns": 5683365,
+      "total-ns": 5803349,
+      "patts-hit": {},
+      "rewritten": "flipkart_data.head()\n"
+    },
+    {
+      "raw": "flipkart_data['Timestamp'] = flipkart_data['Timestamp'].apply(lambda x: x.split('+')[0])",
+      "rewrite-ns": 1010413,
+      "overhead-ns": 1010413,
+      "exec-ns": 176004769,
+      "total-ns": 177015182,
+      "patts-hit": {},
+      "rewritten": "flipkart_data['Timestamp'] = flipkart_data['Timestamp'].apply(lambda x: x.\n    split('+')[0])\n"
+    },
+    {
+      "raw": "flipkart_data.head()",
+      "rewrite-ns": 123102,
+      "overhead-ns": 123102,
+      "exec-ns": 5640938,
+      "total-ns": 5764040,
+      "patts-hit": {},
+      "rewritten": "flipkart_data.head()\n"
+    },
+    {
+      "raw": "# Save the data as csv file\nflipkart_data.to_csv('fkartDataset.csv', index=False)",
+      "rewrite-ns": 445042,
+      "overhead-ns": 445042,
+      "exec-ns": 2109199558,
+      "total-ns": 2109644600,
+      "patts-hit": {},
+      "rewritten": "flipkart_data.to_csv('fkartDataset.csv', index=False)\n"
+    },
+    {
+      "raw": "flkart_data = pd.read_csv('fkartDataset.csv')\nflkart_data.head()",
+      "rewrite-ns": 487868,
+      "overhead-ns": 487868,
+      "exec-ns": 565911795,
+      "total-ns": 566399663,
+      "patts-hit": {},
+      "rewritten": "flkart_data = pd.read_csv('fkartDataset.csv')\nflkart_data.head()\n"
+    },
+    {
+      "raw": "flkart_data.isnull().sum()",
+      "rewrite-ns": 435848,
+      "overhead-ns": 435848,
+      "exec-ns": 243828656,
+      "total-ns": 244264504,
+      "patts-hit": {},
+      "rewritten": "flkart_data.isnull().sum()\n"
+    },
+    {
+      "raw": "#Adding the month column\nflkart_data['Month'] = pd.to_numeric(pd.DatetimeIndex(flkart_data['Timestamp']).month)\nflkart_data.head()",
+      "rewrite-ns": 901936,
+      "overhead-ns": 901936,
+      "exec-ns": 94837977,
+      "total-ns": 95739913,
+      "patts-hit": {},
+      "rewritten": "flkart_data['Month'] = pd.to_numeric(pd.DatetimeIndex(flkart_data[\n    'Timestamp']).month)\nflkart_data.head()\n"
+    },
+    {
+      "raw": "totalsum = flkart_data.groupby('Month').sum()\ntotalsum ",
+      "rewrite-ns": 554053,
+      "overhead-ns": 554053,
+      "exec-ns": 13418099,
+      "total-ns": 13972152,
+      "patts-hit": {},
+      "rewritten": "totalsum = flkart_data.groupby('Month').sum()\ntotalsum\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# months = range(1, 7)\n# plt.bar(months, totalsum['Discounted_Price'])\n# plt.xticks(months)\n# plt.xlabel(\"Months\")\n# plt.ylabel('Sales in INR')\n# plt.show()\n_ = totalsum['Discounted_Price']",
+      "rewrite-ns": 334892,
+      "overhead-ns": 334892,
+      "exec-ns": 298811,
+      "total-ns": 633703,
+      "patts-hit": {},
+      "rewritten": "_ = totalsum['Discounted_Price']\n"
+    },
+    {
+      "raw": "flkart_data['Timestamp'] = pd.to_datetime(flkart_data['Timestamp'])",
+      "rewrite-ns": 581320,
+      "overhead-ns": 581320,
+      "exec-ns": 52397103,
+      "total-ns": 52978423,
+      "patts-hit": {},
+      "rewritten": "flkart_data['Timestamp'] = pd.to_datetime(flkart_data['Timestamp'])\n"
+    },
+    {
+      "raw": "flkart_data['Hour'] = flkart_data['Timestamp'].dt.hour\nflkart_data['Minute'] = flkart_data['Timestamp'].dt.minute",
+      "rewrite-ns": 994028,
+      "overhead-ns": 994028,
+      "exec-ns": 33868383,
+      "total-ns": 34862411,
+      "patts-hit": {},
+      "rewritten": "flkart_data['Hour'] = flkart_data['Timestamp'].dt.hour\nflkart_data['Minute'] = flkart_data['Timestamp'].dt.minute\n"
+    },
+    {
+      "raw": "flkart_data.head()",
+      "rewrite-ns": 101266,
+      "overhead-ns": 101266,
+      "exec-ns": 6995850,
+      "total-ns": 7097116,
+      "patts-hit": {},
+      "rewritten": "flkart_data.head()\n"
+    },
+    {
+      "raw": "hours = [hour for hour, df in flkart_data.groupby('Hour')]\n\n# ALEX: remove plotting\n# plt.plot(hours, flkart_data.groupby(['Hour']).count())\n# plt.xticks(hours)\n# plt.xlabel('Hour')\n# plt.ylabel('Number of Orders')\n# plt.grid()\n# plt.show()\n_ = flkart_data.groupby(['Hour']).count()",
+      "rewrite-ns": 1171558,
+      "overhead-ns": 1171558,
+      "exec-ns": 246326650,
+      "total-ns": 247498208,
+      "patts-hit": {},
+      "rewritten": "hours = [hour for hour, df in flkart_data.groupby('Hour')]\n_ = flkart_data.groupby(['Hour']).count()\n"
+    },
+    {
+      "raw": "# So our target is to look after duplicates rows\ndups_category = flkart_data.pivot_table(index=['Category'], aggfunc='size')",
+      "rewrite-ns": 611162,
+      "overhead-ns": 611162,
+      "exec-ns": 29079257,
+      "total-ns": 29690419,
+      "patts-hit": {},
+      "rewritten": "dups_category = flkart_data.pivot_table(index=['Category'], aggfunc='size')\n"
+    },
+    {
+      "raw": "print(dups_category.nlargest(6))\n\n# ALEX: remove plotting\n# x =list(range(1,7))\n\n# fig, ax = plt.subplots()\n# bar = sns.barplot(data=flkart_data, x=x , y=dups_category.nlargest(6), edgecolor=\"white\")\n# ax.set_xticklabels([\"Clothes\", \"Jewel\", 'Mobile&Accessories', 'Home Decor', 'Footwear', 'Tools&Hardware'], rotation=90)\n# plt.show();\n_ = dups_category.nlargest(6)",
+      "rewrite-ns": 778902,
+      "overhead-ns": 778902,
+      "exec-ns": 1842397,
+      "total-ns": 2621299,
+      "patts-hit": {},
+      "rewritten": "print(dups_category.nlargest(6))\n_ = dups_category.nlargest(6)\n"
+    },
+    {
+      "raw": "# So our target is to look after duplicates rows\ndups_product = flkart_data.pivot_table(index=['Product_Name'], aggfunc='size')\n\nprint(dups_product.nlargest(10))\n# ALEX: remove plotting\n# items = range(10)\n\n# x =list(range(1,11))\n# fig, ax = plt.subplots()\n# bar = sns.barplot(data=flkart_data, x=x , y=dups_category.nlargest(10), edgecolor=\"white\")\n# plt.show();\n_ = dups_category.nlargest(10)\n",
+      "rewrite-ns": 1292268,
+      "overhead-ns": 1292268,
+      "exec-ns": 61710132,
+      "total-ns": 63002400,
+      "patts-hit": {},
+      "rewritten": "dups_product = flkart_data.pivot_table(index=['Product_Name'], aggfunc='size')\nprint(dups_product.nlargest(10))\n_ = dups_category.nlargest(10)\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 15587,
+      "overhead-ns": 15587,
+      "exec-ns": 87064,
+      "total-ns": 102651,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 6.120371872,
+  "max-disk-in-mb": 0
+}

@@ -1,0 +1,1028 @@
+{
+  "max-mem-in-mb": 8836,
+  "max-mem-in-mb2": 13631,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# plt.style.use('fivethirtyeight') \n# %matplotlib inline\n\n\n# import warnings\nimport datetime\nimport calendar\n# ALEX: remove additional imports\n# from datetime import time\n# from dateutil.relativedelta import relativedelta\n\n# # to ignore future warnings\n# warnings.simplefilter(action = 'ignore', category = FutureWarning)\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list the files in the input directory\n\n# ALEX: remove path printing\n# import os\n# print(os.listdir(\"./input\"))\ntrain = pd.read_csv('./input/train.scaled.csv')\ntest = pd.read_csv('./input/test.scaled.csv')\n# Any results you write to the current directory are saved as output.",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 249153802
+    },
+    {
+      "raw": "merchants = pd.read_csv('./input/merchants.scaled.csv')\nhistorical_trans = pd.read_csv('./input/historical_transactions.scaled.csv')\nnew_merchants = pd.read_csv('./input/new_merchant_transactions.scaled.csv')\ndata_dict = pd.read_excel('./input/Data_Dictionary.scaled.xlsx')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 35777515611
+    },
+    {
+      "raw": "train.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 569567
+    },
+    {
+      "raw": "test.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 376736
+    },
+    {
+      "raw": "merchants.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 365553
+    },
+    {
+      "raw": "new_merchants.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 359057
+    },
+    {
+      "raw": "data_dict.head(10)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 372223
+    },
+    {
+      "raw": "historical_trans.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 360293
+    },
+    {
+      "raw": "print('train Data shape: {}'.format(train.shape))\nprint('test Data shape: {}'.format(test.shape))\nprint('merchants data shape: {}'.format(merchants.shape))\nprint('New merchants data shape: {}'.format(new_merchants.shape))\nprint('historical data shape: {}'.format(historical_trans.shape))\nprint('Data dictionary data shape: {}'.format(data_dict.shape))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 683522
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.distplot(train.target.values, kde = False)\n_ = train.target.values",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 524167
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.violinplot(x = \"target\", data=train)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 170279
+    },
+    {
+      "raw": "# Target value outliers\nprint(f'There are: {train[train.target <- 10].target.shape[0]} outliers')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3926842
+    },
+    {
+      "raw": "train.describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 22976234
+    },
+    {
+      "raw": "train.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 40437992
+    },
+    {
+      "raw": "# Lets change the First_active_month column from string to date.\n\ntrain['first_active_month'] = pd.to_datetime(train['first_active_month'])\n\n# Also do this to the test dataset\n\ntest['first_active_month'] = pd.to_datetime(test['first_active_month'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 23558736
+    },
+    {
+      "raw": "train_cat_feats = train.dtypes[train.dtypes == 'object'].index\ntrain_num_feats = train.dtypes[train.dtypes != 'object'].index",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1007755
+    },
+    {
+      "raw": "print('train Categorical features {}'.format(len(train_cat_feats)))\nprint('train Numerical features {}'.format(len(train_num_feats)))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 394499
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.set()\n# sns.pairplot(train, kind='scatter', size = 2, diag_kind='kde')\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 177862
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize = (7,5))\n# plt.scatter(x= train.feature_1, y = train.target)\n# plt.title('Feature_1', size = 15)\n\n# plt.figure(figsize = (7,5))\n# plt.scatter(x = train.feature_2, y = train.target)\n# plt.title('Feature_2')\n\n# plt.figure(figsize = (7,5))\n# plt.scatter(x = train.feature_3, y = train.target)\n# plt.title('Feature_3')\n_ = train.feature_1\n_ = train.target\n_ = train.feature_2\n_ = train.target\n_ = train.feature_3\n_ = train.target",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 667517
+    },
+    {
+      "raw": "train.drop(train[train['target'] < -10].index, inplace = True)\n# train.drop(train[train['feature_2'] < -10].index, inplace = True)\n# train.drop(train[train['feature_3'] < -10].index, inplace = True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 8627675
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize = (7,5))\n# plt.scatter(x= train.feature_1, y = train.target)\n# plt.title('Feature_1', size = 15)\n\n# plt.figure(figsize = (7,5))\n# plt.scatter(x = train.feature_2, y = train.target)\n# plt.title('Feature_2')\n\n# plt.figure(figsize = (7,5))\n# plt.scatter(x = train.feature_3, y = train.target)\n# plt.title('Feature_3')\n_ = train.feature_1\n_ = train.target\n_ = train.feature_2\n_ = train.target\n_ = train.feature_3\n_ = train.target",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 695850
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# correlation = train.corr()\ncorrelation = train.corr(numeric_only=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 10679643
+    },
+    {
+      "raw": "correlation",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 299231
+    },
+    {
+      "raw": "def missing_values(df):\n    total_miss = df.isnull().sum()\n    perc_miss = 100 * total_miss / len(df)\n    table_miss = pd.concat([total_miss, perc_miss], axis = 1)\n    ren_table = table_miss.rename(columns = {0:'Total Miss Values', 1: '% of miss values'})\n    ren_table = ren_table[ren_table.iloc[:,1]!=0].sort_values('% of miss values', ascending = False).round(2)\n    \n    print('You data contains {}'.format(df.shape[1]) + ' columns and has {}'.format(ren_table.shape[0]) + ' colums with missing values' )\n    \n    return ren_table",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 981781
+    },
+    {
+      "raw": "missing_values(train)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 20709071
+    },
+    {
+      "raw": "train = train[train.target > -10]\n# ALEX: remove plotting\n# sns.pairplot(train[['feature_1', 'feature_2', 'feature_3', 'target']])\n_ = train[['feature_1', 'feature_2', 'feature_3', 'target']]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 8502676
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# f, axes = plt.subplots(1,figsize = (12,6))\n# sns.distplot(train.feature_1, ax = axes, kde = False, color = 'green', bins = 10).set_title('Train data')\n# axes.set(ylabel = 'Card Counts')\n# axes.set_xticks(np.arange(1,6,1))\n# plt.show()\n_ = train.feature_1",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 394056
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# f, axes = plt.subplots(1,figsize = (12,6))\n# sns.distplot(train.feature_2, ax = axes, kde = False, color = 'green', bins = 10).set_title('Train data')\n# axes.set(ylabel = 'Card Counts')\n# axes.set_xticks(np.arange(1,6,1))\n# plt.show()\n_ = train.feature_2",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 365058
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# f, axes = plt.subplots(1,figsize = (12,6))\n# sns.distplot(train.feature_3, ax = axes, kde = False, color = 'green', bins = 10).set_title('Train data')\n# axes.set(ylabel = 'Card Counts')\n# axes.set_xticks(np.arange(1,6,1))\n# plt.show()\n_ = train.feature_3",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 351972
+    },
+    {
+      "raw": "# f, axes = plt.subplots(1,figsize = (12,6))\n# sns.distplot(train.first_active_month, ax = axes, color = 'green', kde = False, bins = 10).set_title('Train data')\n# axes.set(ylabel = 'Card Counts')\n# axes.set_xticks(np.arange(1,6,1))\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 185345
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# train.groupby('first_active_month').count()['card_id'].plot(figsize = (15,5), title = 'Count of First Active Month in Train set', color = 'r')\n# plt.show()\ntrain.groupby('first_active_month').count()['card_id']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 20757471
+    },
+    {
+      "raw": "train_cat_feats = train.dtypes[train.dtypes == 'object'].index\ntrain_num_feats = train.dtypes[train.dtypes != 'object'].index\n\nprint('Train categories: {}'.format(len(train_cat_feats)))\nprint('Train Numerical values: {}'.format(len(train_num_feats)))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1169244
+    },
+    {
+      "raw": "for col in train_cat_feats:\n    cols = train[col].value_counts().index.shape[0]\n    print(f'{cols} \\t unique values in \\t {col}')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 51468277
+    },
+    {
+      "raw": "for col in train_num_feats:\n    cols = train[col].value_counts().index.shape[0]\n    print(f'{cols} \\t unique values in \\t {col}')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 20522903
+    },
+    {
+      "raw": "target = train.target\ntarget.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 435806
+    },
+    {
+      "raw": "merchants.describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 148383280
+    },
+    {
+      "raw": "missing_values(merchants)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 152376062
+    },
+    {
+      "raw": "merchants.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 147201741
+    },
+    {
+      "raw": "merchant_cat_feats = merchants.dtypes[merchants.dtypes == 'object'].index\nmerchant_cat_feats",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 709565
+    },
+    {
+      "raw": "merchant_num_feats = merchants.dtypes[merchants.dtypes != 'object'].index\nmerchant_num_feats",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 649019
+    },
+    {
+      "raw": "print('Merchant categorical features {}'.format(len(merchant_cat_feats)))\nprint('Merchant Numerical features {}'.format(len(merchant_num_feats)))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 372926
+    },
+    {
+      "raw": "for col in merchant_cat_feats:\n    cols = merchants[col].value_counts().index.shape[0]\n    print(f'{cols} \\t unique values in \\t {col}')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 124018399
+    },
+    {
+      "raw": "for col in merchant_num_feats:\n    cols = merchants[col].value_counts().index.shape[0]\n    print(f'{cols} \\t unique values in \\t {col}')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 70763354
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 120421
+    },
+    {
+      "raw": "historical_trans.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 392412
+    },
+    {
+      "raw": "historical_trans.describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 6228992743
+    },
+    {
+      "raw": "historical_trans.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3054416
+    },
+    {
+      "raw": "missing_values(historical_trans)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 14832541389
+    },
+    {
+      "raw": "hist_cat_feats = historical_trans.dtypes[historical_trans.dtypes == 'object'].index\nhist_num_feats = historical_trans.dtypes[historical_trans.dtypes != 'object'].index\n\nprint('Historical Transactions categorical features {}'.format(len(hist_cat_feats)))\nprint('Historical Transactions Numerical features {}'.format(len(hist_num_feats)))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1449982
+    },
+    {
+      "raw": "for col in hist_cat_feats:\n    cols = historical_trans[col].value_counts().index.shape[0]\n    print(f'{cols} \\t unique values in \\t {col}')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 21495744965
+    },
+    {
+      "raw": "for col in hist_num_feats:\n    cols = historical_trans[col].value_counts().index.shape[0]\n    print(f'{cols} \\t unique values in \\t {col}')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1514292834
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 148956
+    },
+    {
+      "raw": "new_merchants.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 467938
+    },
+    {
+      "raw": "new_merchants.describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 357790884
+    },
+    {
+      "raw": "new_merchants.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3312922
+    },
+    {
+      "raw": "missing_values(new_merchants)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1040130605
+    },
+    {
+      "raw": "new_merch_cat_feats = new_merchants.dtypes[new_merchants.dtypes == 'object'].index\nnew_merch_num_feats = new_merchants.dtypes[new_merchants.dtypes != 'object'].index\n\nprint('New Merchant categorical features {}'.format(len(new_merch_cat_feats)))\nprint('New Merchant numerical features {}'.format(len(new_merch_num_feats)))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1167514
+    },
+    {
+      "raw": "for col in new_merch_cat_feats:\n    cols = new_merchants[col].value_counts().index.shape[0]\n    print(f'{cols} \\t unique values in \\t {col}')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1460815077
+    },
+    {
+      "raw": "for col in new_merch_num_feats:\n    cols = new_merchants[col].value_counts().index.shape[0]\n    print(f'{cols} \\t unique values in \\t {col}')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 84143404
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 127460
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 113675
+    },
+    {
+      "raw": "print(f'Merchants data shape: {merchants.shape}, new merchants data shape: {new_merchants.shape}')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 380769
+    },
+    {
+      "raw": "print(merchants.columns)\nprint('=='*18)\nprint(new_merchants.columns)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 751238
+    },
+    {
+      "raw": "# Lets merge our datasets\n# But first we need to delete duplicate columns\ntodrop = ['merchant_category_id', 'subsector_id', 'city_id', 'state_id', 'category_2', 'category_1']\n\nfor col in todrop:\n    merchants = merchants.drop(col, axis = 1)\n    \nmerchants_data = pd.merge(merchants, new_merchants, on = 'merchant_id')\nmerchants_data[:5]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1344609246
+    },
+    {
+      "raw": "# Lets merge our merchant data with the training data.\n\ndata = pd.merge(merchants_data, train, on = 'card_id')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 820351594
+    },
+    {
+      "raw": "data.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 337598
+    },
+    {
+      "raw": "data[:5]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 461338
+    },
+    {
+      "raw": "data['purchase_time'] = data['purchase_date'].str.split(' ')\ndata['purchase_date'] = data['purchase_time'].str[0]\ndata['purchase_time'] = data['purchase_time'].str[1]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1888982289
+    },
+    {
+      "raw": "# Let's also do what we have done to the testing dataset\ntest_data = pd.merge(merchants_data, test, on = 'card_id')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 555028859
+    },
+    {
+      "raw": "test_data['purchase_time'] = test_data['purchase_date'].str.split(' ')\ntest_data['purchase_date'] = test_data['purchase_time'].str[0]\ntest_data['purchase_time'] = test_data['purchase_time'].str[1]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1457490164
+    },
+    {
+      "raw": "print(f'Train data shape: {data.shape} Test data shape: {test_data.shape}')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 383949
+    },
+    {
+      "raw": "test_data[:5]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 461605
+    },
+    {
+      "raw": "#We were not suppose to have converted these to date at first But now we fix that so that we can easily manipulate them\ndata['first_active_month'] = data['first_active_month'].astype(str)\ntest_data['first_active_month'] = test_data['first_active_month'].astype(str)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 892147597
+    },
+    {
+      "raw": "data.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1203480449
+    },
+    {
+      "raw": "# The main business with the purchase_date and purchase_time. Lets see if we can't generate more columns out of them\ndef get_weekday(date_string):\n    date = datetime.datetime.strptime(date_string, '%Y-%m-%d')\n    return calendar.day_name[date.weekday()]\n\n# get weekday for date variable\ndata['purchase_weekday'] = data['purchase_date'].apply(lambda x: get_weekday(x))\n\n# for plotting recode to ordered categorical\nday_labels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']\ndata['purchase_weekday'] = pd.Categorical(data['purchase_weekday'], categories = day_labels, \n                                          ordered = True)\n\ndef get_month(date_string, kind = 'month'):\n    if kind == 'month':\n        date = datetime.datetime.strptime(date_string, '%Y-%m-%d')\n    elif kind == 'day':\n        date = datetime.datetime.strptime(date_string, '%Y-%m-%d')\n    return date.strftime(\"%B\")\n\n# Creating new columns and their values\n\ndata['purchase_month'] = data['purchase_date'].apply(lambda x: get_month(x, kind = 'day'))\ndata['first_active_month2'] = data['first_active_month'].apply(lambda x: get_month(x))\ndata['first_active_year'] = data['first_active_month'].str[:4]\n\nmonth_labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',\n                'September', 'October', 'November', 'December']\ndata['purchase_month'] = pd.Categorical(data['purchase_month'], categories = month_labels, \n                                          ordered = True)\ndata['first_active_month2'] = pd.Categorical(data['first_active_month2'], categories = month_labels, \n                                          ordered = True)\n\nyear_labels = ['2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018']\ndata['first_active_year'] = pd.Categorical(data['first_active_year'], categories = year_labels, \n                                          ordered = True)\n\n# get time of the day\ndata['temp'] = data['purchase_time'].str.split(':')\n\ndef get_session(time_list):\n    time_list[0] = int(time_list[0])\n    if time_list[0] > 4 and time_list[0] < 12:\n        return 'Morning'\n    elif time_list[0] >= 12 and time_list[0] < 17:\n        return 'Afternoon'\n    elif time_list[0] >= 17 and time_list[0] < 21:\n        return 'Evening'\n    else:\n        return 'Night'\n    \ndata['purchase_session'] = data['temp'].apply(lambda x: get_session(x))\n\nsession_labels = ['Morning', 'Afternoon', 'Evening', 'Night']\ndata['purchase_session'] = pd.Categorical(data['purchase_session'], categories = session_labels, \n                                          ordered = True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 27443314581
+    },
+    {
+      "raw": "## time of month\n# as categorical variable, thressholds are arbitrary and could be different\ndef get_time_of_month_cat(date):\n    date_temp = date.split('-')\n    if int(date_temp[2]) < 10:\n        time_of_month = 'Beginning'\n    elif int(date_temp[2]) >= 10 and int(date_temp[2]) < 20:\n        time_of_month = 'Middle'\n    else:\n        time_of_month = 'End'\n    return time_of_month\n\ndata['time_of_month_cat'] = data['purchase_date'].apply(lambda x: get_time_of_month_cat(x))\n\ntof_labels = ['Beginning', 'Middle', 'End']\ndata['time_of_month_cat'] = pd.Categorical(data['time_of_month_cat'], categories = tof_labels, \n                                           ordered = True)\n\ndata['time_of_month_num'] = data['purchase_date'].str[8:].astype(int)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 977683495
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# ax = sns.lineplot(x = \"purchase_month\", y = \"target\", \n#                   markers = True, dashes = False, data = data)\n# plt.xticks(rotation = 45)\n# ax.set_title('Target Variable Changes over Purchase Month')\n# ax.set_xlabel('Purchase Month')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 208979
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# ax = sns.lineplot(x = \"first_active_month2\", y = \"target\", \n#                   markers = True, dashes = False, data = data)\n# plt.xticks(rotation = 45)\n# ax.set_title('Target Variable Changes over the First Active Month')\n# ax.set_xlabel('First Active Month')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 194928
+    },
+    {
+      "raw": "print(f'Train data shape: {data.shape} , Test data shape: {test_data.shape}')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 371353
+    },
+    {
+      "raw": "# The main business with the purchase_date and purchase_time. Lets see if we can't generate more columns out of them\ndef get_weekday(date_string):\n    date = datetime.datetime.strptime(date_string, '%Y-%m-%d')\n    return calendar.day_name[date.weekday()]\n\n# get weekday for date variable\ntest_data['purchase_weekday'] = test_data['purchase_date'].apply(lambda x: get_weekday(x))\n\n# for plotting recode to ordered categorical\nday_labels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']\ntest_data['purchase_weekday'] = pd.Categorical(test_data['purchase_weekday'], categories = day_labels, ordered = True)\n\ndef get_month(date_string, kind = 'month'):\n    if kind == 'month':\n        date = datetime.datetime.strptime(date_string, '%Y-%m-%d')\n    elif kind == 'day':\n        date = datetime.datetime.strptime(date_string, '%Y-%m-%d')\n    return date.strftime(\"%B\")\n\ntest_data['purchase_month'] = test_data['purchase_date'].apply(lambda x: get_month(x, kind = 'day'))\ntest_data['first_active_month2'] = test_data['first_active_month'].apply(lambda x: get_month(x))\ntest_data['first_active_year'] = test_data['first_active_month'].str[:4]\n\nmonth_labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',\n                'September', 'October', 'November', 'December']\ntest_data['purchase_month'] = pd.Categorical(test_data['purchase_month'], categories = month_labels, ordered = True)\ntest_data['first_active_month2'] = pd.Categorical(test_data['first_active_month2'], categories = month_labels, ordered = True)\n\nyear_labels = ['2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018']\ntest_data['first_active_year'] = pd.Categorical(test_data['first_active_year'], categories = year_labels, ordered = True)\n\n# get time of the day\ntest_data['temp'] = test_data['purchase_time'].str.split(':')\n\ndef get_session(time_list):\n    time_list[0] = int(time_list[0])\n    if time_list[0] > 4 and time_list[0] < 12:\n        return 'Morning'\n    elif time_list[0] >= 12 and time_list[0] < 17:\n        return 'Afternoon'\n    elif time_list[0] >= 17 and time_list[0] < 21:\n        return 'Evening'\n    else:\n        return 'Night'\n    \ntest_data['purchase_session'] = test_data['temp'].apply(lambda x: get_session(x))\n\nsession_labels = ['Morning', 'Afternoon', 'Evening', 'Night']\ntest_data['purchase_session'] = pd.Categorical(test_data['purchase_session'], categories = session_labels, ordered = True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 17228710935
+    },
+    {
+      "raw": "## time of month\n# as categorical variable, thressholds are arbitrary and could be different\ndef get_time_of_month_cat(date):\n    date_temp = date.split('-')\n    if int(date_temp[2]) < 10:\n        time_of_month = 'Beginning'\n    elif int(date_temp[2]) >= 10 and int(date_temp[2]) < 20:\n        time_of_month = 'Middle'\n    else:\n        time_of_month = 'End'\n    return time_of_month\n\ntest_data['time_of_month_cat'] = test_data['purchase_date'].apply(lambda x: get_time_of_month_cat(x))\n\ntof_labels = ['Beginning', 'Middle', 'End']\ntest_data['time_of_month_cat'] = pd.Categorical(test_data['time_of_month_cat'], categories = tof_labels, ordered = True)\n\ntest_data['time_of_month_num'] = test_data['purchase_date'].str[8:].astype(int)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 637407880
+    },
+    {
+      "raw": "# Now the shape should be the same in terms of columns except that Train data will have one extra column because of the target value\nprint(f'Train data shape: {data.shape} , Test data shape: {test_data.shape}')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 339389
+    },
+    {
+      "raw": "def get_end_of_month(date):\n    date_temp = date.split('-')\n    if int(date_temp[2]) >= 25:\n        end_of_month = 'Y'\n    else:\n        end_of_month = 'N'\n    return end_of_month\ndata['end_of_month'] = data['purchase_date'].apply(lambda x: get_end_of_month(x))\ntest_data['end_of_month'] = test_data['purchase_date'].apply(lambda x: get_end_of_month(x))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 749517174
+    },
+    {
+      "raw": "print(f'Train data shape: {data.shape} , Test data shape: {test_data.shape}')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 379819
+    },
+    {
+      "raw": "data[:5]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 502828
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 117315
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# correlation_data = data.corr()\ncorrelation_data = data.corr(numeric_only=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1786315467
+    },
+    {
+      "raw": "correlation_data",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 302538
+    },
+    {
+      "raw": "print(correlation_data['target'].sort_values(ascending = False))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1452806
+    },
+    {
+      "raw": "data_cat_feats = data.dtypes[data.dtypes == 'object'].index\ndata_num_feats = data.dtypes[data.dtypes != 'object'].index\n\nprint(f'Data categrical: {len(data_cat_feats)}')\nprint(f'Data Numerical: {len(data_num_feats)}')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1347082
+    },
+    {
+      "raw": "# for col in data_cat_feats:\n#     cols = data[col].value_counts().index.shape[0]\n#     print(f'{cols} \\t unique values in \\t {col}')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 182554
+    },
+    {
+      "raw": "# for col in data_num_feats:\n#     cols = data[col].value_counts().index.shape[0]\n#     print(f'{cols} \\t unique values in \\t {col}')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 180011
+    },
+    {
+      "raw": "missing_values(data.select_dtypes(['object']))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1839817518
+    },
+    {
+      "raw": "missing_values(data.select_dtypes(include = [np.number]))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 190261759
+    },
+    {
+      "raw": "missing_values(data)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1375252091
+    },
+    {
+      "raw": "data['category_3'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 33216878
+    },
+    {
+      "raw": "data['category_3'] = data['category_3'].fillna(data['category_3'].mode()[0])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 74826890
+    },
+    {
+      "raw": "missing_values(data.select_dtypes(['object']))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1790931336
+    },
+    {
+      "raw": "data['category_3'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 33344536
+    },
+    {
+      "raw": "cols = ['category_2', 'avg_sales_lag3', 'avg_sales_lag6', 'avg_sales_lag12']\n\nfor col in cols:\n    data[col] = data[col].fillna(data[col].mean())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 31834149
+    },
+    {
+      "raw": "missing_values(data)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1381920369
+    },
+    {
+      "raw": "missing_values(test_data.select_dtypes(['object']))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1093490993
+    },
+    {
+      "raw": "test_data['category_3'] = test_data['category_3'].fillna(test_data['category_3'].mode()[0])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 46445938
+    },
+    {
+      "raw": "missing_values(test_data)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 858083509
+    },
+    {
+      "raw": "cols = ['category_2', 'avg_sales_lag3', 'avg_sales_lag6', 'avg_sales_lag12']\n\nfor col in cols:\n    test_data[col] = test_data[col].fillna(test_data[col].mean())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 19836150
+    },
+    {
+      "raw": "missing_values(test_data)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 860544223
+    },
+    {
+      "raw": "# Lets change the First_active_month column from string to date.\n\ndata['first_active_month'] = pd.to_datetime(data['first_active_month'])\n\n# Also do this to the test dataset\n\ntest_data['first_active_month'] = pd.to_datetime(test_data['first_active_month'])\n\ndata['purchase_date'] = pd.to_datetime(data['purchase_date'])\ntest_data['purchase_date'] = pd.to_datetime(test_data['purchase_date'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 428048636
+    },
+    {
+      "raw": "data['purchase_time'] = pd.to_timedelta(data['purchase_time'])\ntest_data['purchase_time'] = pd.to_timedelta(test_data['purchase_time'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1061116874
+    },
+    {
+      "raw": "data[:5]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 545220
+    },
+    {
+      "raw": "test_data[:5]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 502621
+    },
+    {
+      "raw": "print(f'train: {data.shape}, Test: {test_data.shape}')\n\ncols = ['merchant_id', 'card_id', 'temp']\n\nfor col in cols:\n    data.drop([col], axis = 1, inplace = True)\n    test_data.drop([col], axis = 1, inplace = True)\n    \nprint(f'train: {data.shape}, test: {test_data.shape}')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 834623973
+    },
+    {
+      "raw": "catcols = data.select_dtypes(['object'])\n\nfor col in catcols:\n    print(col)\n    print(data[col].value_counts())\n    print('==' * 20)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 313473892
+    },
+    {
+      "raw": "data['most_recent_sales_range'] = data['most_recent_sales_range'].map({'A':0, 'B':1, 'C':2, 'D':3, 'E':4})\ndata['most_recent_purchases_range'] = data['most_recent_purchases_range'].map({'A':0, 'B':1, 'C':2, 'D':3, 'E':4})\ndata['category_4'] = data['category_4'].map({'Y':1, 'N':0})\ndata['authorized_flag'] = data['authorized_flag'].map({'Y':0})\ndata['category_1'] = data['category_1'].map({'Y':1, 'N':0})\ndata['category_3'] = data['category_3'].map({'A':0, 'B':1, 'C':2})\ndata['end_of_month'] = data['end_of_month'].map({'Y':1, 'N':0})\n\n\ntest_data['most_recent_sales_range'] = test_data['most_recent_sales_range'].map({'A':0, 'B':1, 'C':2, 'D':3, 'E':4})\ntest_data['most_recent_purchases_range'] = test_data['most_recent_purchases_range'].map({'A':0, 'B':1, 'C':2, 'D':3, 'E':4})\ntest_data['category_4'] = test_data['category_4'].map({'Y':1, 'N':0})\ntest_data['authorized_flag'] = test_data['authorized_flag'].map({'Y':0})\ntest_data['category_1'] = test_data['category_1'].map({'Y':1, 'N':0})\ntest_data['category_3'] = test_data['category_3'].map({'A':0, 'B':1, 'C':2})\ntest_data['end_of_month'] = test_data['end_of_month'].map({'Y':1, 'N':0})",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 286644986
+    },
+    {
+      "raw": "catcols = data.select_dtypes(['object'])\n\nfor col in catcols:\n    print(col)\n    print(data[col].value_counts())\n    print('==' * 20)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 13329970
+    },
+    {
+      "raw": "data[:5]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 514210
+    },
+    {
+      "raw": "data.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 51821003
+    },
+    {
+      "raw": "data_app = pd.get_dummies(data)\ntest_app = pd.get_dummies(test_data)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 748871948
+    },
+    {
+      "raw": "data_app[:5]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 541443
+    },
+    {
+      "raw": "missing_values(test_app)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 40507008
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 131662
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 116979
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 113048
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 108053
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 111494
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 111194
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 109294
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 109551
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 107129
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 104578
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 108263
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 103050
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 106605
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from xgboost import XGBRegressor",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 179695
+    },
+    {
+      "raw": "y = data_app.target\nX = data_app.drop(['target'], axis = 1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 121320802
+    },
+    {
+      "raw": "X.shape, test_app.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 336752
+    },
+    {
+      "raw": "y[:5]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 24619818
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# xgb = XGBRegressor()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 175965
+    },
+    {
+      "raw": "X['purchase_date'] = X['purchase_date'].astype(int)\nX['first_active_month'] = X['first_active_month'].astype(int)\nX['purchase_time'] = X['purchase_time'].astype(int)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 9856132
+    },
+    {
+      "raw": "test_app['purchase_date'] = test_app['purchase_date'].astype(int)\ntest_app['first_active_month'] = test_app['first_active_month'].astype(int)\ntest_app['purchase_time'] = test_app['purchase_time'].astype(int)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5020718
+    },
+    {
+      "raw": "# xgb_model = xgb.fit(X,y)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 213032
+    },
+    {
+      "raw": "# test, X = test.align(X, join = 'inner', axis = 1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 202740
+    },
+    {
+      "raw": "test, X = test.align(X, join = 'left', axis = 0)\nX, test_app = X.align(test_app, join = 'left', axis = 0)\nX, y = X.align(y, join = 'left', axis = 0)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 88821090
+    },
+    {
+      "raw": "test.shape, X.shape, test_app.shape, y.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 376022
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 120044
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.linear_model import Lasso",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 173597
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# lassoreg = Lasso(alpha = 1.0, normalize = True, max_iter=1e5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 165425
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# model_lasso = lassoreg.fit(X,y)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 164909
+    },
+    {
+      "raw": "# ALEX:  remove ML code\n# pred_lasso = model_lasso.predict(test_app)\npred_lasso = y",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 261275
+    },
+    {
+      "raw": "test['card_id'].shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 387265
+    },
+    {
+      "raw": "pred_lasso.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 273336
+    },
+    {
+      "raw": "# pred_lasso, test['card_id'] = pred_lasso.align(test['card_id'], join = 'inner', axis = 1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 203124
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 113330
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 113838
+    },
+    {
+      "raw": "sub_lasso = pd.DataFrame({'card_id': test['card_id'], 'target': pred_lasso})\nsub_lasso.to_csv('Lasso_submission.csv', index = False)\nsub_lasso.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 165362718
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# import lightgbm as lgb",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 200722
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# params = {\n#         \"objective\" : \"regression\",\n#         \"metric\" : \"rmse\",\n#         \"num_leaves\" : 30,\n#         \"min_child_weight\" : 50,\n#         \"learning_rate\" : 0.05,\n#         \"bagging_fraction\" : 0.7,\n#         \"feature_fraction\" : 0.7,\n#         \"bagging_seed\" : 2018,\n#         \"verbosity\" : -1\n#     }",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 217610
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# train_set = lgb.Dataset(X, label = y.values)\n_ = y.values",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 523524
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# val_set = lgb.Dataset(X)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 175982
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# lgb_model = lgb.train(params, train_set,valid_sets= val_set, early_stopping_rounds=1000,verbose_eval=1000, num_boost_round=1000)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 175611
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# lgb_pred = lgb_model.predict(test_app)\nlgb_pred = y.values",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 274199
+    },
+    {
+      "raw": "lgb_pred",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 315599
+    },
+    {
+      "raw": "sub_lgb = pd.DataFrame({'card_id':test['card_id'], 'target': lgb_pred})\nsub_lgb.to_csv('lgb_submission.csv', index = False)\nsub_lgb.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 164677873
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# import xgboost as xgb",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 206332
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# dtrain = xgb.DMatrix(X, label = y.values)\n# dtest = xgb.DMatrix(test_app)\n_ = y.values",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 286504
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# xgb_params = {'learning_rate':0.001, \n#               'n_estimators':1000,\n#               'max_depth':4,\n#               'min_child_weight':6,\n#               'gamma':0,\n#               'subsample':0.8,\n#               'colsample_bytree':0.8,\n#               'objective':'binary:logistic',\n#               'nthread':4,\n#               'scale_pos_weight':1,\n#               'seed':27,\n#               'silent':1\n#               }",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 226473
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# xgb_model = xgb.train(params = {'silent':1, 'learning_rate':0.1, 'n_estimators':1000, 'min_child_weight':5},dtrain=dtrain, verbose_eval = False, num_boost_round=100)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 171832
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# xgb_pred = xgb_model.predict(dtest)\nxgb_pred = y.values",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 266305
+    },
+    {
+      "raw": "xgb_pred",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 257268
+    },
+    {
+      "raw": "xgb_sub = pd.DataFrame({'card_id':test['card_id'], 'target':xgb_pred})\nxgb_sub.to_csv('xgb_submission.csv', index = False)\nxgb_sub.tail(20)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 165567449
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 120396
+    }
+  ],
+  "total-time-in-sec": 155.096336407,
+  "max-disk-in-mb": 0
+}

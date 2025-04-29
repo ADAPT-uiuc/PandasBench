@@ -1,0 +1,134 @@
+{
+  "max-mem-in-mb": 1033,
+  "max-mem-in-mb2": 1836,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list the files in the input directory\n\n# ALEX: remove path printing\n# from subprocess import check_output\n# print(check_output([\"ls\", \"../input\"]).decode(\"utf8\"))\n\n# Any results you write to the current directory are saved as output.\n# ALEX: make notebook work with runner\nfrom IPython.display import display",
+      "rewrite-ns": 806239,
+      "overhead-ns": 806239,
+      "exec-ns": 488510,
+      "total-ns": 1294749,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\nfrom IPython.display import display\n"
+    },
+    {
+      "raw": "trainData = pd.read_csv(\"./input/train.scaled.csv\")\ntestData = pd.read_csv(\"./input/test.scaled.csv\")",
+      "rewrite-ns": 923835,
+      "overhead-ns": 923835,
+      "exec-ns": 5320983118,
+      "total-ns": 5321906953,
+      "patts-hit": {},
+      "rewritten": "trainData = pd.read_csv('./input/train.scaled.csv')\ntestData = pd.read_csv('./input/test.scaled.csv')\n"
+    },
+    {
+      "raw": "trainData.Sex = trainData.Sex.astype('category')\ntestData.Sex = testData.Sex.astype('category')\ntrainData['IsMale'] = trainData.Sex.cat.codes\ntestData['IsMale'] = testData.Sex.cat.codes",
+      "rewrite-ns": 1794028,
+      "overhead-ns": 1794028,
+      "exec-ns": 489269859,
+      "total-ns": 491063887,
+      "patts-hit": {},
+      "rewritten": "trainData.Sex = trainData.Sex.astype('category')\ntestData.Sex = testData.Sex.astype('category')\ntrainData['IsMale'] = trainData.Sex.cat.codes\ntestData['IsMale'] = testData.Sex.cat.codes\n"
+    },
+    {
+      "raw": "trainData.head(n=20)",
+      "rewrite-ns": 153223,
+      "overhead-ns": 153223,
+      "exec-ns": 11448666,
+      "total-ns": 11601889,
+      "patts-hit": {},
+      "rewritten": "trainData.head(n=20)\n"
+    },
+    {
+      "raw": "display(trainData.describe().round(2))\ndisplay(trainData.describe(include=[\"O\"]))",
+      "rewrite-ns": 988828,
+      "overhead-ns": 988828,
+      "exec-ns": 2426547813,
+      "total-ns": 2427536641,
+      "patts-hit": {},
+      "rewritten": "display(trainData.describe().round(2))\ndisplay(trainData.describe(include=['O']))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# trainData.Sex.value_counts(normalize=True).plot(kind=\"bar\", title=\"Sex\")\n# plt.show()\n# trainData.Pclass.value_counts().plot(kind=\"barh\", title=\"Pclass\")\n# plt.show()\n# trainData.Fare.plot(kind=\"density\", title=\"Fare\", xlim=(0,800))\n# plt.show()\ntrainData.Sex.value_counts(normalize=True)\ntrainData.Pclass.value_counts()\ntrainData.Fare",
+      "rewrite-ns": 760496,
+      "overhead-ns": 760496,
+      "exec-ns": 43442592,
+      "total-ns": 44203088,
+      "patts-hit": {},
+      "rewritten": "trainData.Sex.value_counts(normalize=True)\ntrainData.Pclass.value_counts()\ntrainData.Fare\n"
+    },
+    {
+      "raw": "trainData.groupby([\"Sex\", \"Survived\"])[\"Survived\"].count()",
+      "rewrite-ns": 675070,
+      "overhead-ns": 675070,
+      "exec-ns": 151671502,
+      "total-ns": 152346572,
+      "patts-hit": {},
+      "rewritten": "trainData.groupby(['Sex', 'Survived'])['Survived'].count()\n"
+    },
+    {
+      "raw": "trainData[[\"PassengerId\",\"Survived\", \"Pclass\", \"Age\", \"SibSp\", \"Parch\", \"Fare\", \"IsMale\"]].corrwith(trainData.Survived).round(4) * 100",
+      "rewrite-ns": 1129382,
+      "overhead-ns": 1136671,
+      "exec-ns": 690173433,
+      "total-ns": 691302815,
+      "patts-hit": {},
+      "rewritten": "trainData[['PassengerId', 'Survived', 'Pclass', 'Age', 'SibSp', 'Parch',\n    'Fare', 'IsMale']].corrwith(trainData.Survived).round(4) * 100\n"
+    },
+    {
+      "raw": "testFeatures = [\"IsMale\", \"Pclass\", \"Fare\"]\n# ALEX: make notebook run\n# X = trainData[testFeatures].fillna(0).as_matrix()\n# Y = trainData[\"Survived\"].fillna(0).as_matrix()\nX = trainData[testFeatures].fillna(0).to_numpy()\nY = trainData[\"Survived\"].fillna(0).to_numpy()",
+      "rewrite-ns": 1468948,
+      "overhead-ns": 1468948,
+      "exec-ns": 103997064,
+      "total-ns": 105466012,
+      "patts-hit": {},
+      "rewritten": "testFeatures = ['IsMale', 'Pclass', 'Fare']\nX = trainData[testFeatures].fillna(0).to_numpy()\nY = trainData['Survived'].fillna(0).to_numpy()\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn import tree\n# dtree = tree.DecisionTreeClassifier(max_depth=3)\n# dtree.fit(X, Y) #ALL OF THE MAGIC HAPPENS RIGHT HERE LADIES AND GENTLEMEN AND OTHERS",
+      "rewrite-ns": 23634,
+      "overhead-ns": 23634,
+      "exec-ns": 110331,
+      "total-ns": 133965,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# import graphviz\n# dot_data = tree.export_graphviz(dtree, out_file=None, feature_names=testFeatures)\n# graph = graphviz.Source(dot_data)\n# graph",
+      "rewrite-ns": 14617,
+      "overhead-ns": 14617,
+      "exec-ns": 75113,
+      "total-ns": 89730,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code, make notebook run\n# testData[\"Survived\"] = dtree.predict(testData[testFeatures].fillna(0).as_matrix())\ntestData[\"Survived\"] = testData[testFeatures].fillna(0).to_numpy()[:,1]",
+      "rewrite-ns": 914676,
+      "overhead-ns": 914676,
+      "exec-ns": 53280988,
+      "total-ns": 54195664,
+      "patts-hit": {},
+      "rewritten": "testData['Survived'] = testData[testFeatures].fillna(0).to_numpy()[:, 1]\n"
+    },
+    {
+      "raw": "predictions = testData[[\"PassengerId\", \"Survived\"]]\npredictions.to_csv(\"dtree_predictions.csv\", index=False)\n# ALEX: remove path printing\n# print(check_output([\"ls\", \".\"]).decode(\"utf8\"))",
+      "rewrite-ns": 824174,
+      "overhead-ns": 824174,
+      "exec-ns": 2280376992,
+      "total-ns": 2281201166,
+      "patts-hit": {},
+      "rewritten": "predictions = testData[['PassengerId', 'Survived']]\npredictions.to_csv('dtree_predictions.csv', index=False)\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 37780,
+      "overhead-ns": 37780,
+      "exec-ns": 230176,
+      "total-ns": 267956,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 11.582611087,
+  "max-disk-in-mb": 0
+}

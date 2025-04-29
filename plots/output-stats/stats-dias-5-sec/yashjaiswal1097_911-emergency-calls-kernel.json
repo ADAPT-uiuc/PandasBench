@@ -1,0 +1,269 @@
+{
+  "max-mem-in-mb": 375,
+  "max-mem-in-mb2": 429,
+  "cells": [
+    {
+      "raw": "\nimport numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# %matplotlib inline\ndf=pd.read_csv('./input/911.scaled.csv')\ndf.info()\n",
+      "rewrite-ns": 1158871,
+      "overhead-ns": 1158871,
+      "exec-ns": 1630936818,
+      "total-ns": 1632095689,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\ndf = pd.read_csv('./input/911.scaled.csv')\ndf.info()\n"
+    },
+    {
+      "raw": "df.head()",
+      "rewrite-ns": 138059,
+      "overhead-ns": 138059,
+      "exec-ns": 8315039,
+      "total-ns": 8453098,
+      "patts-hit": {},
+      "rewritten": "df.head()\n"
+    },
+    {
+      "raw": "df['zip'].value_counts().head(5)",
+      "rewrite-ns": 556454,
+      "overhead-ns": 556454,
+      "exec-ns": 6206869,
+      "total-ns": 6763323,
+      "patts-hit": {},
+      "rewritten": "df['zip'].value_counts().head(5)\n"
+    },
+    {
+      "raw": "df['twp'].value_counts().head(5)",
+      "rewrite-ns": 526640,
+      "overhead-ns": 526640,
+      "exec-ns": 23287485,
+      "total-ns": 23814125,
+      "patts-hit": {},
+      "rewritten": "df['twp'].value_counts().head(5)\n"
+    },
+    {
+      "raw": "evaluate_lazy(df['title'].nunique())",
+      "rewrite-ns": 460201,
+      "overhead-ns": 460201,
+      "exec-ns": 26428211,
+      "total-ns": 26888412,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(df['title'].nunique())\n"
+    },
+    {
+      "raw": "df['Reason']=df['title'].apply(lambda title:title.split(':')[0])",
+      "rewrite-ns": 1508946,
+      "overhead-ns": 1508946,
+      "exec-ns": 141762426,
+      "total-ns": 143271372,
+      "patts-hit": {},
+      "rewritten": "df['Reason'] = df['title'].apply(lambda title: title.split(':')[0])\n"
+    },
+    {
+      "raw": "evaluate_lazy(df['Reason'].value_counts(5))",
+      "rewrite-ns": 578853,
+      "overhead-ns": 578853,
+      "exec-ns": 32437625,
+      "total-ns": 33016478,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(df['Reason'].value_counts(5))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# import seaborn as sns\n# sns.countplot(x='Reason',data=df,palette='viridis')",
+      "rewrite-ns": 19753,
+      "overhead-ns": 19753,
+      "exec-ns": 97963,
+      "total-ns": 117716,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "df['timeStamp']=pd.to_datetime(df['timeStamp'])",
+      "rewrite-ns": 610480,
+      "overhead-ns": 610480,
+      "exec-ns": 114124566,
+      "total-ns": 114735046,
+      "patts-hit": {},
+      "rewritten": "df['timeStamp'] = pd.to_datetime(df['timeStamp'])\n"
+    },
+    {
+      "raw": "df.head()",
+      "rewrite-ns": 122384,
+      "overhead-ns": 122384,
+      "exec-ns": 7785272,
+      "total-ns": 7907656,
+      "patts-hit": {},
+      "rewritten": "df.head()\n"
+    },
+    {
+      "raw": "df['hour']=df['timeStamp'].apply(lambda time:time.hour)\ndf['month']=df['timeStamp'].apply(lambda time:time.month)\ndf['day of week']=df['timeStamp'].apply(lambda time:time.dayofweek)\n",
+      "rewrite-ns": 2057994,
+      "overhead-ns": 2057994,
+      "exec-ns": 2048615641,
+      "total-ns": 2050673635,
+      "patts-hit": {},
+      "rewritten": "df['hour'] = df['timeStamp'].apply(lambda time: time.hour)\ndf['month'] = df['timeStamp'].apply(lambda time: time.month)\ndf['day of week'] = df['timeStamp'].apply(lambda time: time.dayofweek)\n"
+    },
+    {
+      "raw": "evaluate_lazy(df['day of week'])\n",
+      "rewrite-ns": 431630,
+      "overhead-ns": 431630,
+      "exec-ns": 1393489,
+      "total-ns": 1825119,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(df['day of week'])\n"
+    },
+    {
+      "raw": "df.head()",
+      "rewrite-ns": 99645,
+      "overhead-ns": 99645,
+      "exec-ns": 8495444,
+      "total-ns": 8595089,
+      "patts-hit": {},
+      "rewritten": "df.head()\n"
+    },
+    {
+      "raw": "dmap={0:'Mon',1:'Tue',2:'Wed',3:'Thu',4:'Fri',5:'Sat',6:'Sun'}",
+      "rewrite-ns": 748696,
+      "overhead-ns": 748696,
+      "exec-ns": 331194,
+      "total-ns": 1079890,
+      "patts-hit": {},
+      "rewritten": "dmap = {(0): 'Mon', (1): 'Tue', (2): 'Wed', (3): 'Thu', (4): 'Fri', (5):\n    'Sat', (6): 'Sun'}\n"
+    },
+    {
+      "raw": "df['day of week']=df['day of week'].map(dmap)\nevaluate_lazy(df['day of week'])",
+      "rewrite-ns": 851438,
+      "overhead-ns": 851438,
+      "exec-ns": 9237449,
+      "total-ns": 10088887,
+      "patts-hit": {},
+      "rewritten": "df['day of week'] = df['day of week'].map(dmap)\nevaluate_lazy(df['day of week'])\n"
+    },
+    {
+      "raw": "df.head()",
+      "rewrite-ns": 78887,
+      "overhead-ns": 78887,
+      "exec-ns": 8112810,
+      "total-ns": 8191697,
+      "patts-hit": {},
+      "rewritten": "df.head()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(x='day of week',data=df,palette='viridis',hue='Reason')\n# plt.legend(bbox_to_anchor=(1.05,1),loc=2)",
+      "rewrite-ns": 14494,
+      "overhead-ns": 14494,
+      "exec-ns": 77993,
+      "total-ns": 92487,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(x='month',data=df,palette='viridis',hue='Reason')\n# plt.legend(bbox_to_anchor=(1.05,1),loc=2)",
+      "rewrite-ns": 11775,
+      "overhead-ns": 11775,
+      "exec-ns": 62437,
+      "total-ns": 74212,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "byMonth=df.groupby('month').count()",
+      "rewrite-ns": 476562,
+      "overhead-ns": 476562,
+      "exec-ns": 333472784,
+      "total-ns": 333949346,
+      "patts-hit": {},
+      "rewritten": "byMonth = df.groupby('month').count()\n"
+    },
+    {
+      "raw": "byMonth.head()",
+      "rewrite-ns": 119870,
+      "overhead-ns": 119870,
+      "exec-ns": 7185812,
+      "total-ns": 7305682,
+      "patts-hit": {},
+      "rewritten": "byMonth.head()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# byMonth['lat'].plot()\nevaluate_lazy(byMonth['lat'])",
+      "rewrite-ns": 379669,
+      "overhead-ns": 379669,
+      "exec-ns": 829165,
+      "total-ns": 1208834,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(byMonth['lat'])\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.lmplot(x='month',y='twp',data=byMonth.reset_index())\nevaluate_lazy(byMonth.reset_index())",
+      "rewrite-ns": 370306,
+      "overhead-ns": 370306,
+      "exec-ns": 7331078,
+      "total-ns": 7701384,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(byMonth.reset_index())\n"
+    },
+    {
+      "raw": "df['date']=df['timeStamp'].apply(lambda t:t.date())\nevaluate_lazy(df['date'])",
+      "rewrite-ns": 1095554,
+      "overhead-ns": 1095554,
+      "exec-ns": 643513554,
+      "total-ns": 644609108,
+      "patts-hit": {},
+      "rewritten": "df['date'] = df['timeStamp'].apply(lambda t: t.date())\nevaluate_lazy(df['date'])\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# df.groupby('date').count()['lat'].plot()\n# plt.tight_layout()\nevaluate_lazy(df.groupby('date').count()['lat'])",
+      "rewrite-ns": 647932,
+      "overhead-ns": 647932,
+      "exec-ns": 359699506,
+      "total-ns": 360347438,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(df.groupby('date').count()['lat'])\n"
+    },
+    {
+      "raw": "dayHour=df.groupby(by=['day of week','hour']).count()['Reason'].unstack()",
+      "rewrite-ns": 866224,
+      "overhead-ns": 866224,
+      "exec-ns": 348192293,
+      "total-ns": 349058517,
+      "patts-hit": {},
+      "rewritten": "dayHour = df.groupby(by=['day of week', 'hour']).count()['Reason'].unstack()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.heatmap(dayHour,cmap='viridis')",
+      "rewrite-ns": 25926,
+      "overhead-ns": 25926,
+      "exec-ns": 112632,
+      "total-ns": 138558,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.clustermap(dayHour,cmap='viridis')",
+      "rewrite-ns": 14623,
+      "overhead-ns": 14623,
+      "exec-ns": 79401,
+      "total-ns": 94024,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "dayMonth=df.groupby(by=['day of week','month']).count()['Reason'].unstack()\n# ALEX: remove plotting\n# sns.clustermap(dayMonth,cmap='viridis')",
+      "rewrite-ns": 827210,
+      "overhead-ns": 827210,
+      "exec-ns": 348000954,
+      "total-ns": 348828164,
+      "patts-hit": {},
+      "rewritten": "dayMonth = df.groupby(by=['day of week', 'month']).count()['Reason'].unstack()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.heatmap(dayMonth,cmap='viridis')",
+      "rewrite-ns": 25510,
+      "overhead-ns": 25510,
+      "exec-ns": 120231,
+      "total-ns": 145741,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 6.131070727,
+  "max-disk-in-mb": 0
+}

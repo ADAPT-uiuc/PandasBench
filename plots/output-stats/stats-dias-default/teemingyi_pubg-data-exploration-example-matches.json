@@ -1,0 +1,122 @@
+{
+  "max-mem-in-mb": 2392,
+  "max-mem-in-mb2": 4482,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list the files in the input directory\n\n# ALEX: remove path printing\n# import os\n# print(os.listdir(\"./input\"))\n\n# Any results you write to the current directory are saved as output.",
+      "rewrite-ns": 691326,
+      "overhead-ns": 691326,
+      "exec-ns": 414364,
+      "total-ns": 1105690,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "data = pd.read_csv('./input/train_V2.scaled.csv')\n\ndata.loc[:5,]",
+      "rewrite-ns": 1007890,
+      "overhead-ns": 1007890,
+      "exec-ns": 8845409111,
+      "total-ns": 8846417001,
+      "patts-hit": {},
+      "rewritten": "data = pd.read_csv('./input/train_V2.scaled.csv')\ndata.loc[:5,]\n"
+    },
+    {
+      "raw": "data_solo_example = data.loc[data.matchId == data.loc[data.matchType=='solo','matchId'].iloc[0],:].sort_values(by='winPlacePerc',ascending=False)\nprint(data_solo_example)\n\nprint('This example has {} players.'.format(len(data_solo_example.Id)))\nprint('This example has {} groups.'.format(len(data_solo_example.groupId.unique())))\n",
+      "rewrite-ns": 2314767,
+      "overhead-ns": 2314767,
+      "exec-ns": 351010412,
+      "total-ns": 353325179,
+      "patts-hit": {
+        "LenUnique": 1
+      },
+      "rewritten": "data_solo_example = data.loc[data.matchId == data.loc[data.matchType ==\n    'solo', 'matchId'].iloc[0], :].sort_values(by='winPlacePerc', ascending\n    =False)\nprint(data_solo_example)\nprint('This example has {} players.'.format(len(data_solo_example.Id)))\nprint('This example has {} groups.'.format(dias.rewriter.len_unique(series=\n    data_solo_example.groupId)))\n"
+    },
+    {
+      "raw": "[x-data_solo_example.winPlacePerc.iloc[i+1] for i, x in enumerate(data_solo_example.winPlacePerc) if i < len(data_solo_example.winPlacePerc)-1]",
+      "rewrite-ns": 1515939,
+      "overhead-ns": 1515939,
+      "exec-ns": 2490899,
+      "total-ns": 4006838,
+      "patts-hit": {},
+      "rewritten": "[(x - data_solo_example.winPlacePerc.iloc[i + 1]) for i, x in enumerate(\n    data_solo_example.winPlacePerc) if i < len(data_solo_example.\n    winPlacePerc) - 1]\n"
+    },
+    {
+      "raw": "data_solo_example.loc[data_solo_example.groupId.isin(\n    list(data_solo_example.groupId.value_counts().loc[data_solo_example.groupId.value_counts()>1].index\n        ))]",
+      "rewrite-ns": 1286385,
+      "overhead-ns": 1286385,
+      "exec-ns": 16777409,
+      "total-ns": 18063794,
+      "patts-hit": {},
+      "rewritten": "data_solo_example.loc[data_solo_example.groupId.isin(list(data_solo_example\n    .groupId.value_counts().loc[data_solo_example.groupId.value_counts() > \n    1].index))]\n"
+    },
+    {
+      "raw": "data_duo_example = data.loc[data.matchId == data.loc[data.matchType=='duo','matchId'].iloc[0],:].sort_values(by='winPlacePerc',ascending=False)\nprint(data_duo_example)\n\nprint('This example has {} players.'.format(len(data_duo_example.Id)))\nprint('This example has {} groups.'.format(len(data_duo_example.groupId.unique())))\n",
+      "rewrite-ns": 2196638,
+      "overhead-ns": 2196638,
+      "exec-ns": 354983496,
+      "total-ns": 357180134,
+      "patts-hit": {
+        "LenUnique": 1
+      },
+      "rewritten": "data_duo_example = data.loc[data.matchId == data.loc[data.matchType ==\n    'duo', 'matchId'].iloc[0], :].sort_values(by='winPlacePerc', ascending=\n    False)\nprint(data_duo_example)\nprint('This example has {} players.'.format(len(data_duo_example.Id)))\nprint('This example has {} groups.'.format(dias.rewriter.len_unique(series=\n    data_duo_example.groupId)))\n"
+    },
+    {
+      "raw": "data_duo_example.maxPlace",
+      "rewrite-ns": 77787,
+      "overhead-ns": 77787,
+      "exec-ns": 1173159,
+      "total-ns": 1250946,
+      "patts-hit": {},
+      "rewritten": "data_duo_example.maxPlace\n"
+    },
+    {
+      "raw": "data_duo_example.loc[data_duo_example.groupId.isin(\n    list(data_duo_example.groupId.value_counts().loc[data_duo_example.groupId.value_counts()>2].index\n        ))]",
+      "rewrite-ns": 1295677,
+      "overhead-ns": 1295677,
+      "exec-ns": 18916176,
+      "total-ns": 20211853,
+      "patts-hit": {},
+      "rewritten": "data_duo_example.loc[data_duo_example.groupId.isin(list(data_duo_example.\n    groupId.value_counts().loc[data_duo_example.groupId.value_counts() > 2]\n    .index))]\n"
+    },
+    {
+      "raw": "data_squad_example = data.loc[data.matchId == data.loc[data.matchType=='squad','matchId'].iloc[0],:].sort_values(by='winPlacePerc',ascending=False)\nprint(data_squad_example)\n\nprint('This example has {} players.'.format(len(data_squad_example.Id)))\nprint('This example has {} groups.'.format(len(data_squad_example.groupId.unique())))\n",
+      "rewrite-ns": 2216904,
+      "overhead-ns": 2216904,
+      "exec-ns": 366104198,
+      "total-ns": 368321102,
+      "patts-hit": {
+        "LenUnique": 1
+      },
+      "rewritten": "data_squad_example = data.loc[data.matchId == data.loc[data.matchType ==\n    'squad', 'matchId'].iloc[0], :].sort_values(by='winPlacePerc',\n    ascending=False)\nprint(data_squad_example)\nprint('This example has {} players.'.format(len(data_squad_example.Id)))\nprint('This example has {} groups.'.format(dias.rewriter.len_unique(series=\n    data_squad_example.groupId)))\n"
+    },
+    {
+      "raw": "data_squad_example.maxPlace",
+      "rewrite-ns": 75504,
+      "overhead-ns": 75504,
+      "exec-ns": 1109212,
+      "total-ns": 1184716,
+      "patts-hit": {},
+      "rewritten": "data_squad_example.maxPlace\n"
+    },
+    {
+      "raw": "data_squad_example.loc[data_squad_example.groupId.isin(\n    list(data_squad_example.groupId.value_counts().loc[data_squad_example.groupId.value_counts()>4].index\n        ))]",
+      "rewrite-ns": 1256974,
+      "overhead-ns": 1256974,
+      "exec-ns": 17528571,
+      "total-ns": 18785545,
+      "patts-hit": {},
+      "rewritten": "data_squad_example.loc[data_squad_example.groupId.isin(list(\n    data_squad_example.groupId.value_counts().loc[data_squad_example.\n    groupId.value_counts() > 4].index))]\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 16138,
+      "overhead-ns": 16138,
+      "exec-ns": 86988,
+      "total-ns": 103126,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 9.989955924,
+  "max-disk-in-mb": 0
+}

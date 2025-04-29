@@ -1,0 +1,170 @@
+{
+  "max-mem-in-mb": 460,
+  "max-mem-in-mb2": 815,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 315981
+    },
+    {
+      "raw": "df = pd.read_csv(\"./input/shopping_trends_updated.scaled.csv\")\ndf.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1594451042
+    },
+    {
+      "raw": "df.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 389752
+    },
+    {
+      "raw": "df.columns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 235476
+    },
+    {
+      "raw": "df.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1428328428
+    },
+    {
+      "raw": "evaluate_lazy(df.isnull().sum())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1400774908
+    },
+    {
+      "raw": "evaluate_lazy(df.duplicated().sum())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 649509809
+    },
+    {
+      "raw": "evaluate_lazy(df.describe())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 147366155
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# import plotly.express as px\n\n# %matplotlib inline",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 212052
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig = px.histogram(df, x=\"Age\", nbins= 20, marginal=\"rug\",text_auto = True)\n# fig.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 178908
+    },
+    {
+      "raw": "gender_counts = df['Gender'].value_counts()\n# ALEX: remove plotting\n# fig = px.pie(data_frame=df, names=gender_counts.index, values=gender_counts.values)\n# fig.update_traces(textposition='inside', textinfo='percent+label')\n# fig.show()\n_ = gender_counts.index\n_ = gender_counts.values",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 48198916
+    },
+    {
+      "raw": "category_data = df['Category'].value_counts()\n# ALEX: remove plotting\n# fig = px.pie(data_frame=df, names=category_data.index, values=category_data.values)\n# fig.update_traces(textposition='inside', textinfo='percent+label')\n# fig.show()\n_ = category_data.index\n_ = category_data.values\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 48414998
+    },
+    {
+      "raw": "df.columns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 212517
+    },
+    {
+      "raw": "sold_items = df['Item Purchased'].value_counts().sort_values(ascending = False)\n\n# ALEX: remove plotting\n# fig = px.bar(sold_items, x = sold_items.index, y = sold_items.values, \n#              title=\"Highest selling Items\", labels={\"y\":\"Quantity\"})\n# fig.show()\n_ = sold_items.index\n_ = sold_items.values\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 49386089
+    },
+    {
+      "raw": "var = df.groupby(['Item Purchased', 'Gender']).size().reset_index(name='Customer Count')\nsorted_var = var.sort_values(by='Item Purchased', ascending=False)\n\n# ALEX: remove plotting\n# fig = px.bar(sorted_var, \n#              x='Item Purchased', \n#              y='Customer Count', \n#              color='Gender',\n#              title='Most Purchased Items by Gender',\n#              labels={'Customer Count': 'Count of Customers'})\n\n# fig.update_traces(hovertemplate='Item=%{x}<br>Count of Customers=%{y}', \n#                   texttemplate='%{y}', \n#                   textposition='inside')\n\n# fig.update_layout(yaxis_title='Count of Customers')\n\n# fig.show()\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 93126038
+    },
+    {
+      "raw": "var = df.groupby('Category')['Purchase Amount (USD)'].sum().reset_index().sort_values(by='Purchase Amount (USD)',ascending=False)\n\n# ALEX: remove plotting\n# fig = px.bar(var, x='Category', y = 'Purchase Amount (USD)')\n\n# fig.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 45174452
+    },
+    {
+      "raw": "var = df.groupby('Location')['Purchase Amount (USD)'].sum().reset_index().sort_values(by='Purchase Amount (USD)',ascending=False).head(10)\n\n# ALEX: remove plotting\n# fig = px.bar(var, x='Location', y = 'Purchase Amount (USD)')\n\n# fig.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 54202356
+    },
+    {
+      "raw": "size_count = df['Size'].value_counts()\n\n# ALEX: remove plotting\n# fig = px.bar(size_count, x=size_count.index, y=size_count.values, labels = {'y':'Number of Occurances'})\n# fig.show()\n_ = size_count.index\n_ = size_count.values",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 39180706
+    },
+    {
+      "raw": "color_count = df['Color'].value_counts().head(10)\n\n# ALEX: remove plotting\n# fig = px.bar(color_count, x = color_count.index, y = color_count.values, labels = {'y':'Number of Occurances'})\n# fig.show()\n_ = color_count.index\n_ = color_count.values",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 48404425
+    },
+    {
+      "raw": "df.columns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 231757
+    },
+    {
+      "raw": "\nseason_data = df['Season'].value_counts()\n# ALEX: remove plotting\n# fig = px.pie(data_frame=df, names=season_data.index, values=season_data.values)\n# fig.update_traces(textposition='inside', textinfo='percent+label')\n# fig.show()\n_ = season_data.index\n_ = season_data.values\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 47898928
+    },
+    {
+      "raw": "subs_count = df['Subscription Status'].value_counts()\n\n# ALEX: remove plotting\n# fig = px.bar(subs_count, x = subs_count.index, y = subs_count.values, labels = {'y':'Number of Customers'})\n# fig.show()\n_ = subs_count.index\n_ = subs_count.values",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 48131290
+    },
+    {
+      "raw": "shipping_count = df['Shipping Type'].value_counts()\n\n# ALEX: remove plotting\n# fig = px.bar(shipping_count, x = shipping_count.index, y = shipping_count.values, labels = {'y':'Shipped packages'})\n# fig.show()\n_ = shipping_count.index\n_ = shipping_count.values",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 47535704
+    },
+    {
+      "raw": "disc_count = df['Discount Applied'].value_counts()\n\n# ALEX: remove plotting\n# fig = px.bar(disc_count, x = disc_count.index, y = disc_count.values, labels = {'y':'Number of customers'})\n# fig.show()\n_ = disc_count.index\n_ = disc_count.values",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 47453851
+    },
+    {
+      "raw": "df.columns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 200195
+    },
+    {
+      "raw": "evaluate_lazy(df['Promo Code Used'].value_counts())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 47255219
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 68191
+    }
+  ],
+  "total-time-in-sec": 5.886838143,
+  "max-disk-in-mb": 0
+}

@@ -1,0 +1,176 @@
+{
+  "max-mem-in-mb": 947,
+  "max-mem-in-mb2": 185,
+  "cells": [
+    {
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# %matplotlib inline",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3389478139
+    },
+    {
+      "raw": "df = pd.read_csv('./input/OnlineRetail.scaled.csv', encoding = \"ISO-8859-1\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2753439200
+    },
+    {
+      "raw": "df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1290370
+    },
+    {
+      "raw": "df=df[['CustomerID', 'InvoiceNo', 'StockCode','Quantity', 'UnitPrice','Description', 'InvoiceDate','Country']]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 10228903
+    },
+    {
+      "raw": "df.head()\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4286799
+    },
+    {
+      "raw": "df.shape\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 508527
+    },
+    {
+      "raw": "df.isnull().sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 18099256
+    },
+    {
+      "raw": "df['Country'].unique()\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 43528281
+    },
+    {
+      "raw": "TotalAmount = df['Quantity'] * df['UnitPrice']\n\ndf.insert(loc=5, column = 'TotalAmount', value=TotalAmount) ",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 10973936
+    },
+    {
+      "raw": "df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1151250
+    },
+    {
+      "raw": "new_df = df[['CustomerID', 'InvoiceNo', 'StockCode', 'Quantity','TotalAmount', 'InvoiceDate', 'Country']]\nnew_df2 = df.copy()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2151773
+    },
+    {
+      "raw": "new_df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1043398
+    },
+    {
+      "raw": "new_df2.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1271612
+    },
+    {
+      "raw": "country_price = new_df.groupby('Country')['Quantity'].sum().sort_values(ascending = False)\ncountry_price",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 108859263
+    },
+    {
+      "raw": "country_totalAmount = new_df.groupby('Country')['TotalAmount'].sum().sort_values(ascending=False)\ncountry_totalAmount",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 115633791
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# country_price[:5].plot(kind='bar')\ncountry_price[:5]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1337120
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# country_price[33:].plot(kind='bar')\ncountry_price[33:]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 877355
+    },
+    {
+      "raw": "new_df['Year'] = pd.DatetimeIndex(new_df['InvoiceDate']).year\nnew_df.head()\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2791250213
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# new_df.groupby('Year')['TotalAmount'].sum().plot(kind='bar')\nnew_df.groupby('Year')['TotalAmount'].sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1591311870
+    },
+    {
+      "raw": "new_df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1856770
+    },
+    {
+      "raw": "new_df['Mon'] = pd.DatetimeIndex(new_df['InvoiceDate']).month\nnew_df['month'] = pd.DatetimeIndex(new_df['InvoiceDate']).month_name\n# ALEX: remove plotting\n# new_df.groupby(['Mon', 'Year'])['TotalAmount'].sum().plot(kind='bar', title = 'Sales Moth Wise') \nnew_df.groupby(['Mon', 'Year'])['TotalAmount'].sum()\n\n\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5016266002
+    },
+    {
+      "raw": "new_df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1039802
+    },
+    {
+      "raw": "new_df=new_df.dropna()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 62919637
+    },
+    {
+      "raw": "new_df.isnull().sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 40060163
+    },
+    {
+      "raw": "cus_id =  pd.DataFrame(new_df.groupby('Country')['CustomerID'].count().sort_values(ascending = False))\n# ALEX: remove plotting\n# cus_id[:5].plot(kind='bar', title='Country with most customers')\ncus_id[:5]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1533090013
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# cus_id[-5:].plot(kind='bar', title='Least customers for country')\ncus_id[-5:]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 857318
+    },
+    {
+      "raw": "new_df2 = new_df2.dropna() \nnew_df2.isnull().sum()\nnew_df2.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 138257890
+    },
+    {
+      "raw": "avg_sales = new_df2.groupby(['StockCode','Description'])['Quantity', 'TotalAmount'].mean().sort_values(by='Quantity', ascending = False)\navg_sales",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1609999539
+    }
+  ],
+  "total-time-in-sec": 19.25106819,
+  "max-disk-in-mb": 0
+}

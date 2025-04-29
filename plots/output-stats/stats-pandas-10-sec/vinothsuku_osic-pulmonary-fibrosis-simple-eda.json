@@ -1,0 +1,110 @@
+{
+  "max-mem-in-mb": 853,
+  "max-mem-in-mb2": 2197,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import plotly.express as px\n# import plotly as plty\n# import seaborn as sns\n# import plotly.graph_objs as go\n# from plotly.offline import iplot\n# from plotly.subplots import make_subplots\n# import plotly.io as pio\n# import os\n# %matplotlib inline\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 406750
+    },
+    {
+      "raw": "path = './input/'",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 293586
+    },
+    {
+      "raw": "df_train = pd.read_csv(f'{path}train.scaled.csv')\ndf_test = pd.read_csv(f'{path}test.scaled.csv')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5624909081
+    },
+    {
+      "raw": "df_train.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3582322
+    },
+    {
+      "raw": "df_train.describe(include='all').T",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3301393884
+    },
+    {
+      "raw": "df_train.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 384496
+    },
+    {
+      "raw": "df_tmp = df_train.groupby(['Patient', 'Sex'])['SmokingStatus'].unique().reset_index()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1883880677
+    },
+    {
+      "raw": "df_tmp",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 450368
+    },
+    {
+      "raw": "df_tmp['SmokingStatus'] = df_tmp['SmokingStatus'].str[0]\ndf_tmp['Sex'] = df_tmp['Sex'].str[0]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1089480
+    },
+    {
+      "raw": "df_tmp['SmokingStatus'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 595796
+    },
+    {
+      "raw": "df_tmp['Sex'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 555242
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(1,2, figsize = (20,6), sharex=True)\n# sns.countplot(x='SmokingStatus',data=df_tmp,ax=ax[0])\n# sns.countplot(x='SmokingStatus',hue='Sex', data=df_tmp,ax=ax[1])\n# ax[0].title.set_text('Smoking Status')\n# ax[1].title.set_text('Smoking Status Vs Sex')\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 123657
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 60848
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 59720
+    },
+    {
+      "raw": "df_test.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 12796923
+    },
+    {
+      "raw": "df_test",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 173480
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 63030
+    }
+  ],
+  "total-time-in-sec": 10.83081934,
+  "max-disk-in-mb": 0
+}

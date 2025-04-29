@@ -1,0 +1,164 @@
+{
+  "max-mem-in-mb": 3410,
+  "max-mem-in-mb2": 4470,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path search\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 439016
+    },
+    {
+      "raw": "# importing the necessary libraries for EDA on Airline Dataset | Kaggle Dataset\n\n# import pandas as pd \n# import numpy as np\n# ALEX: remove plotting\n# import plotly.express as px\n# import seaborn as sns\n# import matplotlib.pyplot as plt",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 223406
+    },
+    {
+      "raw": "# loading the dataset and showing first 5 rows of the dataset\n\ndf = pd.read_csv(\"./input/Airline Dataset.scaled.csv\")\ndf.head(5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 13859807026
+    },
+    {
+      "raw": "df['Age_rank'] = df['Age'].rank()\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 747348650
+    },
+    {
+      "raw": "df3 = df\ndf3 = df3[['First Name','Last Name','Age','Nationality','Age_rank']]\ndf3",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 132770422
+    },
+    {
+      "raw": "df['max_rank'] = df['Age'].rank(method='max')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 771624112
+    },
+    {
+      "raw": "# Getting the info on the dataset\ndf.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3803318
+    },
+    {
+      "raw": "# To 5 Airports with highest value counts \n\n\ntop_5_airport_df = df['Airport Name'].value_counts().head(5)\ntop_5_airport_df = pd.DataFrame({'Airport Name': top_5_airport_df.index, 'Count': top_5_airport_df.values})\ntop_5_airport_df = top_5_airport_df.sort_values(by='Count', ascending=True)\n\n# ALEX: remove plotting\n# fig = px.bar(top_5_airport_df, x='Count', y='Airport Name', title='Top 5 Airport with highest Value count' )\n# fig.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 512715629
+    },
+    {
+      "raw": "#  Top 20 Country with count of Visitors \n\ndf['Country Name'].value_counts().head(20)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 262102300
+    },
+    {
+      "raw": "# Vizualizing the previous cell \n\ntop_20_countries_df =  df['Country Name'].value_counts().head(20)\ntop_20_countries_df = pd.DataFrame({'Country Name': top_20_countries_df.index, 'Count': top_20_countries_df.values})\ntop_20_countries_df = top_20_countries_df.sort_values(by='Count', ascending=True)\n\n# ALEX: remove plotting\n# fig = px.bar(top_20_countries_df, x='Count', y='Country Name', title='Top 20 Countries' )\n# fig.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 264997056
+    },
+    {
+      "raw": "# Ratio between Male Travellers and Female Travellers\n\nTravl_Ratio =  df['Gender'].value_counts()\nTravl_Ratio = pd.DataFrame({'Gender': Travl_Ratio.index, 'Count': Travl_Ratio.values})\n\n# Plotting a Donut Chart that represents the travelers ratio \n\n# ALEX: remove plotting\n# fig2 = px.pie(Travl_Ratio, values='Count', names='Gender', hole=0.5)\n# fig2.update_layout(title=\"Traveller's Ratio Male vs Female \")\n# fig2.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 266650490
+    },
+    {
+      "raw": "# Total number of Pilots per country \n\nPilot_df = df[['Country Name', 'Pilot Name']]\npilot_pivot = pd.pivot_table(Pilot_df, index=['Country Name'], aggfunc='count')\npilot_pivot.rename(columns={'Pilot Name':'Pilot Count'}, inplace=True)\npilot_pivot = pilot_pivot.reset_index()\npilot_pivot.sort_values(by='Pilot Count', ascending=False, inplace=True)\npilot_pivot.head(10)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1012478408
+    },
+    {
+      "raw": "# Bar Plot for Pilot Count per Country  \n\n# ALEX: remove plotting\n# fig3 = px.bar(pilot_pivot.head(10), x='Pilot Count', y='Country Name', title='Pilot Count by Country')\n# fig3.show()\n_ = pilot_pivot.head(10)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 343323
+    },
+    {
+      "raw": "df.head(5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 298784
+    },
+    {
+      "raw": "# Shoes the Count of travellers per Flight Status by Country for the entire duration in the dataset\n\nFlight_status_df = df[['Country Name','Flight Status']]\nFlight_status_df['FTE'] = 1\n\n# Creating a Pivot table by Country with Count of Travellers per Flight Status  \nFlight_status_pivot = pd.pivot_table(Flight_status_df, index=['Country Name'], columns=['Flight Status'], values = ['FTE'], aggfunc='count')\nFlight_status_pivot = Flight_status_pivot.reset_index()\nFlight_status_pivot.head(11)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 732123833
+    },
+    {
+      "raw": "# Removing the Spaces on the column names and replacing it with (-) \n# Refrencing the dataframe to another variable (df2)\n\ndf.columns = df.columns.str.replace(' ', '_')\ndf2 = df\ndf2\n\n# Quering on the data based on Airport Country Code (United States) \nUS_data = df2.query('Airport_Country_Code == \"US\"')\n\n\nUS_data",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 505227514
+    },
+    {
+      "raw": "#  The Departure Date is an Object, converting it into Date-time format and extracting Quarter, month and Week \n\nUS_data['Date'] = pd.to_datetime(US_data['Departure_Date']) \n\n# Extract quarter, month, week\n\nUS_data['Quarter'] = US_data['Date'].dt.quarter\nUS_data['Month'] = US_data['Date'].dt.month\nUS_data['Week'] = US_data['Date'].dt.isocalendar().week\nUS_data\n\n#  So Now we have a data_set that only has values for United States for further EDA",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 588506473
+    },
+    {
+      "raw": "#  Creating a Customer Column based on Departure and Arrival Airport \nUS_data['Route'] = US_data['Airport_Name'].str.cat(US_data['Arrival_Airport'], sep=' -to- ')\n\nUS_Flight_Route = US_data['Route'].value_counts()\nUS_Flight_Route = pd.DataFrame({'Route': US_Flight_Route.index, 'Count': US_Flight_Route.values})\nTop_20_US_Flight_Route = US_Flight_Route.head(20)\n\n# Plotting a Donut Chart that represents the travelers ratio \n\n# ALEX: remove plotting\n# fig5 = px.bar(Top_20_US_Flight_Route, y='Route', x='Count')\n# fig5.update_layout(title=\"Ratio of USA Visitors\")\n# fig5.show()\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 500913601
+    },
+    {
+      "raw": "Top_20_US_Flight_Route",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 285117
+    },
+    {
+      "raw": "# Figuring out the total number of flight per month \n\n\nfiltered_df = df[['Airport_Name','Departure_Date','Arrival_Airport','Pilot_Name']]\nfiltered_df1 = pd.DataFrame(filtered_df)\nfiltered_df1_no_duplicates = filtered_df1.drop_duplicates()\nfiltered_df1_no_duplicates['Date'] = pd.to_datetime(filtered_df1_no_duplicates['Departure_Date']) \n\n# Extracting month\nfiltered_df1_no_duplicates['Month'] = filtered_df1_no_duplicates['Date'].dt.month\nfiltered_df1_no_duplicates",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1946940999
+    },
+    {
+      "raw": "# Table for Total number of flight per month (This included all flight status)\n\nfiltered_df1_no_duplicates\nTotal_flights = filtered_df1_no_duplicates['Month'].value_counts()\nTotal_flights = Total_flights.reset_index()\nTotal_flights.sort_values(by='index', ascending=True, inplace=True)\nTotal_flights",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1733310
+    },
+    {
+      "raw": "# Histogram representation of the flights \n\n# ALEX: remove plotting\n# fig6 = px.bar(Total_flights, x='index',y='Month', title='MOM Flights')\n# fig6.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 153464
+    },
+    {
+      "raw": "#  Getting the Average number of flights per month \n\nAverage_Flight = np.mean(Total_flights['Month'])\nAverage_Flight",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 442643
+    },
+    {
+      "raw": "# Ratio of Visitors per Nations/Country of Origin\n\nVisitors_per_nations = df['Nationality'].value_counts()\nVisitors_per_nations.head()\nVisitors_per_nations_1 = Visitors_per_nations.head(20).reset_index()\nVisitors_per_nations_1.sort_values(by='Nationality', ascending=False, inplace=True)\nVisitors_per_nations_1.head(5)\n# ALEX: remove plotting\n# fig7 = px.pie(Visitors_per_nations_1, values='Nationality', names='index', hole=0.5, title='Nationality Ratio (TOP 20)')\n# fig7.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 261829637
+    },
+    {
+      "raw": "FL_state = df[['Departure_Date','Flight_Status']]\nFL_state['Date']  = pd.to_datetime(FL_state['Departure_Date'])\nFL_state['Month'] = FL_state['Date'].dt.month\nFL_state",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 954744951
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 116275
+    }
+  ],
+  "total-time-in-sec": 23.328619757,
+  "max-disk-in-mb": 0
+}

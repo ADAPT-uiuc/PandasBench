@@ -1,0 +1,206 @@
+{
+  "max-mem-in-mb": 114,
+  "max-mem-in-mb2": 118,
+  "cells": [
+    {
+      "raw": "# There are lot of dataset's on kaggle. To make a difference i need to create a creative dataset, this made me to think out of the box and finally got crazy idea.\n# I create a dataset on kaggle datasets, which sounds wow right!\n# Main mottto is to share knowledge by pratical projection. Below i created a good stuff, please have a look at it.\n\n\n#Loading libraries\n# linear algebra\nimport numpy as np \n# data processing\n# import pandas as pd \nexec(os.environ['IREWR_IMPORTS'])\n#data visuvalisation\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n\n#Path to access file\n# ALEX: remove path printing\n# import os\n# print(os.listdir(\"./input\"))",
+      "rewrite-ns": 687602,
+      "overhead-ns": 687602,
+      "exec-ns": 394866,
+      "total-ns": 1082468,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "#Reading the file\nkaggle_df = pd.read_csv('./input/KaggelMostVotes.scaled.csv')\n\n#To get count of rows |& columns\nkaggle_rows,kaggle_cols = kaggle_df.shape[0],kaggle_df.shape[1]\n# (1960, 15)\n\n#Getting all columns\nkaggle_df.columns",
+      "rewrite-ns": 1410443,
+      "overhead-ns": 1410443,
+      "exec-ns": 20370085,
+      "total-ns": 21780528,
+      "patts-hit": {},
+      "rewritten": "kaggle_df = pd.read_csv('./input/KaggelMostVotes.scaled.csv')\nkaggle_rows, kaggle_cols = kaggle_df.shape[0], kaggle_df.shape[1]\nkaggle_df.columns\n"
+    },
+    {
+      "raw": "#Getting the information\nkaggle_df.info()",
+      "rewrite-ns": 121128,
+      "overhead-ns": 121128,
+      "exec-ns": 8047303,
+      "total-ns": 8168431,
+      "patts-hit": {},
+      "rewritten": "kaggle_df.info()\n"
+    },
+    {
+      "raw": "#Remove Dublicates - it will remove duplicate row \nkaggle_df.drop_duplicates()\n# To remove by colomn kaggle_df.drop_duplicates(subset='col_name')\n# right now there are no duplicates - check it by len(kaggle_df)",
+      "rewrite-ns": 387896,
+      "overhead-ns": 387896,
+      "exec-ns": 19804495,
+      "total-ns": 20192391,
+      "patts-hit": {},
+      "rewritten": "kaggle_df.drop_duplicates()\n"
+    },
+    {
+      "raw": "#checking the NAN or null data & cleaning it\n# kaggle_df.isnull()  Feel free to use this also\nkaggle_df.isnull().sum()",
+      "rewrite-ns": 518251,
+      "overhead-ns": 518251,
+      "exec-ns": 4235099,
+      "total-ns": 4753350,
+      "patts-hit": {},
+      "rewritten": "kaggle_df.isnull().sum()\n"
+    },
+    {
+      "raw": "#Right now there is no null (or) NAN data nut below show how to replace it by relevent data \n\n#you can  count the number of unique values from character variables by -  kaggle_df.Discussions.value_counts(sort=True)\n\n#For Discussion\nkaggle_df.Discussions.fillna('0',inplace=True)\n\n#For Views\nkaggle_df.Views.fillna('0',inplace=True)\n\n#Now you can cross check the data \nkaggle_df.isnull().sum()",
+      "rewrite-ns": 1493776,
+      "overhead-ns": 1493776,
+      "exec-ns": 4905338,
+      "total-ns": 6399114,
+      "patts-hit": {},
+      "rewritten": "kaggle_df.Discussions.fillna('0', inplace=True)\nkaggle_df.Views.fillna('0', inplace=True)\nkaggle_df.isnull().sum()\n"
+    },
+    {
+      "raw": "# If you see the dat some of the columns are in correct datatype like Kernels,Discussions,views\nkaggle_df.info()",
+      "rewrite-ns": 114749,
+      "overhead-ns": 114749,
+      "exec-ns": 6644654,
+      "total-ns": 6759403,
+      "patts-hit": {},
+      "rewritten": "kaggle_df.info()\n"
+    },
+    {
+      "raw": "#You change the datatype of columns \n\n#Changing Version column to number datatype\n  \n# you can  change NAN value by pass the value in fillna function  \nkaggle_df['Version'] = kaggle_df['Version'].astype(int).fillna(0)\n\n# #Changing Views column to number datatype\nkaggle_df['Discussions'] = kaggle_df['Discussions'].astype(float).fillna(0)\n\n#You can change it to float as\n# kaggle_df['Views'] = kaggle_df['Views'].astype(float).fillna(0)\n\nkaggle_df.info()\n#Below th dataype of  Version, Discussions is changed",
+      "rewrite-ns": 1838176,
+      "overhead-ns": 1838176,
+      "exec-ns": 8104691,
+      "total-ns": 9942867,
+      "patts-hit": {},
+      "rewritten": "kaggle_df['Version'] = kaggle_df['Version'].astype(int).fillna(0)\nkaggle_df['Discussions'] = kaggle_df['Discussions'].astype(float).fillna(0)\nkaggle_df.info()\n"
+    },
+    {
+      "raw": "# To simply sort by column \nkaggle_df.Version.sort_values()\n#SNO version Number - below results are just displaying the verions in sorted way",
+      "rewrite-ns": 456357,
+      "overhead-ns": 456357,
+      "exec-ns": 1678539,
+      "total-ns": 2134896,
+      "patts-hit": {},
+      "rewritten": "kaggle_df.Version.sort_values()\n"
+    },
+    {
+      "raw": "#You can also group by coloumns\nkaggle_df.groupby('FileType').count()",
+      "rewrite-ns": 574049,
+      "overhead-ns": 574049,
+      "exec-ns": 14226547,
+      "total-ns": 14800596,
+      "patts-hit": {},
+      "rewritten": "kaggle_df.groupby('FileType').count()\n"
+    },
+    {
+      "raw": "#Here we see how to by count by certain range \nversion_length = [1,5,10,25,50,75,100,500,1000]\nkaggle_version_ranges = pd.cut(kaggle_df.Version, version_length)\npd.value_counts(kaggle_version_ranges)\n#Below result is showing the count of how many versions are bewtten - 1 to 5, 5 to 10, 10 to 25, 25 to 50 and so on....",
+      "rewrite-ns": 1652333,
+      "overhead-ns": 1652333,
+      "exec-ns": 3864523,
+      "total-ns": 5516856,
+      "patts-hit": {},
+      "rewritten": "version_length = [1, 5, 10, 25, 50, 75, 100, 500, 1000]\nkaggle_version_ranges = pd.cut(kaggle_df.Version, version_length)\npd.value_counts(kaggle_version_ranges)\n"
+    },
+    {
+      "raw": "# \"correlation\" refers to a mutual relationship or association between quantities\n# Correlation can help in predicting one quantity from another\n# ALEX: make notebook run\n# kaggle_df.corr()\nkaggle_df.select_dtypes(include='number').corr()",
+      "rewrite-ns": 620608,
+      "overhead-ns": 620608,
+      "exec-ns": 5159112,
+      "total-ns": 5779720,
+      "patts-hit": {},
+      "rewritten": "kaggle_df.select_dtypes(include='number').corr()\n"
+    },
+    {
+      "raw": "#crosstab display the each elemnt from one  column and count how many time it occuried in second coloumn\nkaggle_crosstab = pd.crosstab(kaggle_df['Updated on'],kaggle_df.FileType,margins=True)\nkaggle_crosstab\n# To display in percentage\n# kaggle_crosstab = pd.crosstab(kaggle_df['Updated on'],kaggle_df.FileType,margins=True)/kaggle_df.shape[0]\n# kaggle_crosstab\n\n# For Total count \n# kaggle_crosstab.max() ",
+      "rewrite-ns": 957698,
+      "overhead-ns": 961592,
+      "exec-ns": 30195382,
+      "total-ns": 31153080,
+      "patts-hit": {},
+      "rewritten": "kaggle_crosstab = pd.crosstab(kaggle_df['Updated on'], kaggle_df.FileType,\n    margins=True)\nkaggle_crosstab\n"
+    },
+    {
+      "raw": "# Total crosstab list\nkaggle_crosstab.max()",
+      "rewrite-ns": 389447,
+      "overhead-ns": 389447,
+      "exec-ns": 1349575,
+      "total-ns": 1739022,
+      "patts-hit": {},
+      "rewritten": "kaggle_crosstab.max()\n"
+    },
+    {
+      "raw": "#list all columns where Discussions is greater than Version\nkaggle_df.query('Discussions > Version')\n\n#using AND condition\nkaggle_df.query('500 < Votes & Discussions > Version')\n\n#using OR condition\nkaggle_df.query('Version < Discussions | 500 < Votes ')",
+      "rewrite-ns": 1074434,
+      "overhead-ns": 1074434,
+      "exec-ns": 19153836,
+      "total-ns": 20228270,
+      "patts-hit": {},
+      "rewritten": "kaggle_df.query('Discussions > Version')\nkaggle_df.query('500 < Votes & Discussions > Version')\nkaggle_df.query('Version < Discussions | 500 < Votes ')\n"
+    },
+    {
+      "raw": "kaggle_df.index.values",
+      "rewrite-ns": 360141,
+      "overhead-ns": 360141,
+      "exec-ns": 788178,
+      "total-ns": 1148319,
+      "patts-hit": {},
+      "rewritten": "kaggle_df.index.values\n"
+    },
+    {
+      "raw": "#Here we are going how the data changes from versions and votes\n\n# to get indes of dataframe \nkaggle_SNO= kaggle_df.index.values\n# kaggle_df.index.values\n# ALEX: remove plotting\n# kaggle_fig, kaggle_axes = plt.subplots(nrows=2,ncols=1,figsize=(22, 16),) \n\n# #NOTE\n# # lw -linewidth; ls - linestyle\n# # For more styling https://matplotlib.org/examples/lines_bars_and_markers/line_styles_reference.html\n\n# #For the first plot\n# kaggle_axes[0].plot(kaggle_SNO[:101],kaggle_df['Version'][:101],color='blue',lw=3,ls=':',marker='o',markersize=10,markerfacecolor='blue')\n# kaggle_axes[0].set_xlabel('Dataset Version')\n# kaggle_axes[0].set_ylabel('Datasets SNO ')\n# kaggle_axes[0].set_title('SNO VS VERSIONS')\n\n# #For the first plot\n# kaggle_axes[1].plot(kaggle_SNO[:101],kaggle_df['Votes'][:101],color='blue',lw=3,ls=':',marker='o',markersize=10,markerfacecolor='blue')\n# kaggle_axes[1].set_xlabel('Dataset Votes')\n# kaggle_axes[1].set_ylabel('Datasets SNO ')\n# kaggle_axes[1].set_title('SNO VS Votes')\n\n# #Finaly display\n# plt.show()\n_ = kaggle_SNO[:101]\n_ = kaggle_df['Version'][:101]\n",
+      "rewrite-ns": 1289087,
+      "overhead-ns": 1289087,
+      "exec-ns": 550759,
+      "total-ns": 1839846,
+      "patts-hit": {},
+      "rewritten": "kaggle_SNO = kaggle_df.index.values\n_ = kaggle_SNO[:101]\n_ = kaggle_df['Version'][:101]\n"
+    },
+    {
+      "raw": "#Represeting version ranges in pie chart\nversion_length = [1,3,5,10,20,50,500]\nkaggle_version_ranges = pd.cut(kaggle_df.Version, version_length)\nkaggle_version_cluster=  pd.value_counts(kaggle_version_ranges)\n\n#Getting indexs\nkaggle_pie_labels = kaggle_version_cluster.index.values\n#Getting data\nkaggle_pie_data = kaggle_version_cluster.values\n\n#  = \n# slices_hours = [4, 8]\n# activities = ['Sleep', 'Work']\n# ALEX: remove plotting\n# plt.pie(kaggle_pie_data, labels=kaggle_pie_labels,startangle=90, autopct='%.1f%%',radius=3)\n\n# #For more colors and styling \n# plt.show()\n",
+      "rewrite-ns": 2303816,
+      "overhead-ns": 2303816,
+      "exec-ns": 2506911,
+      "total-ns": 4810727,
+      "patts-hit": {},
+      "rewritten": "version_length = [1, 3, 5, 10, 20, 50, 500]\nkaggle_version_ranges = pd.cut(kaggle_df.Version, version_length)\nkaggle_version_cluster = pd.value_counts(kaggle_version_ranges)\nkaggle_pie_labels = kaggle_version_cluster.index.values\nkaggle_pie_data = kaggle_version_cluster.values\n"
+    },
+    {
+      "raw": "#Heatmap to show the correlation\n# ALEX: remove plotting\n# f,ax = plt.subplots(figsize=(18, 18))\n# # ALEX: make notebook run\n# # sns.heatmap(kaggle_df.corr())\n# sns.heatmap(kaggle_df.select_dtypes(include='number').corr())\n# plt.show()\n_ = kaggle_df.select_dtypes(include='number').corr()",
+      "rewrite-ns": 697065,
+      "overhead-ns": 697065,
+      "exec-ns": 845843,
+      "total-ns": 1542908,
+      "patts-hit": {},
+      "rewritten": "_ = kaggle_df.select_dtypes(include='number').corr()\n"
+    },
+    {
+      "raw": "#Display plot by number of count\n# ALEX: remove plotting\n# sns.countplot(x='Version',data=kaggle_df.tail(20))\n_ = kaggle_df.tail(20)",
+      "rewrite-ns": 508389,
+      "overhead-ns": 508389,
+      "exec-ns": 368901,
+      "total-ns": 877290,
+      "patts-hit": {},
+      "rewritten": "_ = kaggle_df.tail(20)\n"
+    },
+    {
+      "raw": "#Display plot by number of count and classify with filetype\n# sns.countplot(x='Version',data=kaggle_df.tail(20),hue='FileType')\n_ = kaggle_df.tail(20)",
+      "rewrite-ns": 492936,
+      "overhead-ns": 492936,
+      "exec-ns": 374785,
+      "total-ns": 867721,
+      "patts-hit": {},
+      "rewritten": "_ = kaggle_df.tail(20)\n"
+    },
+    {
+      "raw": "# Thank you for reading...",
+      "rewrite-ns": 19523,
+      "overhead-ns": 19523,
+      "exec-ns": 100183,
+      "total-ns": 119706,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 0.171637509,
+  "max-disk-in-mb": 0
+}

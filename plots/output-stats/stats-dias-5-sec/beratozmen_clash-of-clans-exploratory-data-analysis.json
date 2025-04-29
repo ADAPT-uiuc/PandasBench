@@ -1,0 +1,179 @@
+{
+  "max-mem-in-mb": 828,
+  "max-mem-in-mb2": 1238,
+  "cells": [
+    {
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt",
+      "rewrite-ns": 491138,
+      "overhead-ns": 491138,
+      "exec-ns": 266355,
+      "total-ns": 757493,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "df = pd.read_csv('./input/coc_clans_dataset.scaled.csv', index_col = 0)",
+      "rewrite-ns": 451379,
+      "overhead-ns": 451379,
+      "exec-ns": 4033229041,
+      "total-ns": 4033680420,
+      "patts-hit": {},
+      "rewritten": "df = pd.read_csv('./input/coc_clans_dataset.scaled.csv', index_col=0)\n"
+    },
+    {
+      "raw": "df.head()",
+      "rewrite-ns": 171879,
+      "overhead-ns": 171879,
+      "exec-ns": 15430021,
+      "total-ns": 15601900,
+      "patts-hit": {},
+      "rewritten": "df.head()\n"
+    },
+    {
+      "raw": "df.info()",
+      "rewrite-ns": 91866,
+      "overhead-ns": 91866,
+      "exec-ns": 701725943,
+      "total-ns": 701817809,
+      "patts-hit": {},
+      "rewritten": "df.info()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,5))\n# sns.heatmap(df.isnull(),yticklabels=False,cbar=False,cmap='viridis')\n_ = df.isnull()",
+      "rewrite-ns": 363714,
+      "overhead-ns": 363714,
+      "exec-ns": 668001207,
+      "total-ns": 668364921,
+      "patts-hit": {},
+      "rewritten": "_ = df.isnull()\n"
+    },
+    {
+      "raw": "missing_count = df['clan_location'].isnull().sum()\n\nnon_missing_count = len(df) - missing_count\n\n# ALEX: remove plotting\n# labels = ['Missing Data', 'Non-Missing Data']\n# sizes = [missing_count, non_missing_count]\n# colors = ['lightcoral', 'lightgreen']\n# explode = (0.1, 0)  # Explode the \"Missing Data\" slice for emphasis\n\n# plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', startangle=140)\n# plt.title('Missing Data in \"clan_location\" Column')\n# plt.axis('equal')  # Equal aspect ratio ensures the pie chart is circular\n\n# plt.show()",
+      "rewrite-ns": 965905,
+      "overhead-ns": 965905,
+      "exec-ns": 27734808,
+      "total-ns": 28700713,
+      "patts-hit": {},
+      "rewritten": "missing_count = df['clan_location'].isnull().sum()\nnon_missing_count = len(df) - missing_count\n"
+    },
+    {
+      "raw": "df['clan_location'].unique(), df['clan_location'].value_counts()",
+      "rewrite-ns": 717757,
+      "overhead-ns": 717757,
+      "exec-ns": 64541980,
+      "total-ns": 65259737,
+      "patts-hit": {},
+      "rewritten": "df['clan_location'].unique(), df['clan_location'].value_counts()\n"
+    },
+    {
+      "raw": "count = (df['clan_location'] == 'T\u00fcrkiye').sum()\ncount",
+      "rewrite-ns": 580734,
+      "overhead-ns": 580734,
+      "exec-ns": 33142277,
+      "total-ns": 33723011,
+      "patts-hit": {},
+      "rewritten": "count = (df['clan_location'] == 'T\u00fcrkiye').sum()\ncount\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.set(style=\"darkgrid\")\n# plt.figure(figsize=(20, 6))\n\n# sns.countplot(data=df, x='clan_location', order=df['clan_location'].value_counts().head(20).index)\n# plt.xticks(rotation=45)  #for better readability\n# plt.title('Count of Clan Locations')\n# plt.xlabel('Clan Location')\n# plt.ylabel('Count')\n\n# plt.show()\n_ = df['clan_location'].value_counts().head(20).index",
+      "rewrite-ns": 632345,
+      "overhead-ns": 632345,
+      "exec-ns": 33621968,
+      "total-ns": 34254313,
+      "patts-hit": {},
+      "rewritten": "_ = df['clan_location'].value_counts().head(20).index\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.set(style=\"whitegrid\")\n# plt.figure(figsize=(5, 7))\n\n# sns.countplot(data=df, x='isFamilyFriendly', palette=\"pastel\")\n\n# plt.title('Family-Friendly vs. Not Family-Friendly Clans')\n# plt.xlabel('Is Family-Friendly')\n# plt.ylabel('Count')\n\n# # Annotate the bars with counts\n# ax = plt.gca()\n# for p in ax.patches:\n#     ax.annotate(f'{p.get_height()}', (p.get_x() + p.get_width() / 2., p.get_height()), ha='center', va='bottom')\n\n# plt.show()",
+      "rewrite-ns": 14628,
+      "overhead-ns": 14628,
+      "exec-ns": 70268,
+      "total-ns": 84896,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "df['clan_level'].value_counts()",
+      "rewrite-ns": 377413,
+      "overhead-ns": 377413,
+      "exec-ns": 4652727,
+      "total-ns": 5030140,
+      "patts-hit": {},
+      "rewritten": "df['clan_level'].value_counts()\n"
+    },
+    {
+      "raw": "bins = [0, 6, 12, 18, 24, 30, 36]  # Group levels 1-6, 7-12, 13-18, and so on\n\n# Group the clan levels and create a new column to represent the groups\ndf['clan_level_group'] = pd.cut(df['clan_level'], bins=bins, labels=['1-6', '7-12', '13-18', '19-24', '25-30', '31-36'])\n\n# ALEX: remove plotting\n# sns.set(style=\"whitegrid\")\n# plt.figure(figsize=(15, 6))\n\n# # Create a countplot to visualize the grouped clan levels\n# sns.countplot(data=df, x='clan_level_group', palette=\"pastel\", order=['1-6', '7-12', '13-18', '19-24', '25-30', '31-36'])\n\n# plt.title('Count of Clans in Grouped Clan Levels')\n# plt.xlabel('Clan Level Group')\n# plt.ylabel('Count')\n\n# plt.show()",
+      "rewrite-ns": 1389143,
+      "overhead-ns": 1389143,
+      "exec-ns": 12353271,
+      "total-ns": 13742414,
+      "patts-hit": {},
+      "rewritten": "bins = [0, 6, 12, 18, 24, 30, 36]\ndf['clan_level_group'] = pd.cut(df['clan_level'], bins=bins, labels=['1-6',\n    '7-12', '13-18', '19-24', '25-30', '31-36'])\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.set(style=\"whitegrid\")\n# plt.figure(figsize=(15, 15))\n# sns.lmplot(data=df, x='clan_level', y='war_wins', palette=\"pastel\")\n\n# plt.title('Correlation between Clan Level and War Wins')\n# plt.xlabel('Clan Level')\n# plt.ylabel('War Wins')\n\n# plt.show()",
+      "rewrite-ns": 17407,
+      "overhead-ns": 17407,
+      "exec-ns": 86929,
+      "total-ns": 104336,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "df['capital_league'].value_counts()",
+      "rewrite-ns": 416489,
+      "overhead-ns": 416489,
+      "exec-ns": 38824266,
+      "total-ns": 39240755,
+      "patts-hit": {},
+      "rewritten": "df['capital_league'].value_counts()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.set(style=\"whitegrid\")\n# plt.figure(figsize=(20, 6))\n\n# sns.countplot(data=df, x='capital_league', palette=\"pastel\", order=df['capital_league'].value_counts().index)\n\n# plt.title('Distribution of Clans in Leagues')\n# plt.xlabel('Capital League')\n# plt.ylabel('Count')\n\n# plt.xticks(rotation=45)\n\n# plt.show()\n_ = df['capital_league'].value_counts().index",
+      "rewrite-ns": 502667,
+      "overhead-ns": 502667,
+      "exec-ns": 38053966,
+      "total-ns": 38556633,
+      "patts-hit": {},
+      "rewritten": "_ = df['capital_league'].value_counts().index\n"
+    },
+    {
+      "raw": "df_ranked = df[df['capital_league'] != 'Unranked']\n# ALEX: remove plotting\n# sns.set(style=\"whitegrid\")\n# plt.figure(figsize=(20, 6))\n\n# sns.countplot(data=df_ranked, x='capital_league', palette=\"pastel\", order=df_ranked['capital_league'].value_counts().index)\n\n# plt.title('Distribution of Clans in Ranked Leagues (Excluding \"unranked\")')\n# plt.xlabel('Capital League')\n# plt.ylabel('Count')\n\n# plt.xticks(rotation=45)\n\n# plt.show()\n_ = df_ranked['capital_league'].value_counts().index",
+      "rewrite-ns": 918083,
+      "overhead-ns": 918083,
+      "exec-ns": 55827980,
+      "total-ns": 56746063,
+      "patts-hit": {},
+      "rewritten": "df_ranked = df[df['capital_league'] != 'Unranked']\n_ = df_ranked['capital_league'].value_counts().index\n"
+    },
+    {
+      "raw": "df.info()",
+      "rewrite-ns": 106006,
+      "overhead-ns": 106006,
+      "exec-ns": 684435907,
+      "total-ns": 684541913,
+      "patts-hit": {},
+      "rewritten": "df.info()\n"
+    },
+    {
+      "raw": "selected_columns = ['clan_level', 'clan_points', 'clan_builder_base_points', 'clan_versus_points',\n                    'required_trophies', 'war_win_streak', 'war_wins', 'war_ties', 'war_losses',\n                    'num_members', 'required_builder_base_trophies','required_versus_trophies', \n                    'required_townhall_level', 'clan_capital_hall_level','clan_capital_points', \n                    'mean_member_level', 'mean_member_trophies',\n                    ]\n\ncorrelation_matrix = df[selected_columns].corr()\n\n# ALEX: remove plotting\n# plt.figure(figsize=(20, 20))\n\n# # Create a heatmap\n# sns.heatmap(correlation_matrix, annot=True, fmt=\".2f\", cmap='coolwarm', linewidths=0.5, square=True)\n\n# plt.title('Correlation Map of Selected Columns')\n# plt.show()",
+      "rewrite-ns": 1306248,
+      "overhead-ns": 1306248,
+      "exec-ns": 752839539,
+      "total-ns": 754145787,
+      "patts-hit": {},
+      "rewritten": "selected_columns = ['clan_level', 'clan_points', 'clan_builder_base_points',\n    'clan_versus_points', 'required_trophies', 'war_win_streak', 'war_wins',\n    'war_ties', 'war_losses', 'num_members',\n    'required_builder_base_trophies', 'required_versus_trophies',\n    'required_townhall_level', 'clan_capital_hall_level',\n    'clan_capital_points', 'mean_member_level', 'mean_member_trophies']\ncorrelation_matrix = df[selected_columns].corr()\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 21482,
+      "overhead-ns": 21482,
+      "exec-ns": 114016,
+      "total-ns": 135498,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 7.174488752,
+  "max-disk-in-mb": 0
+}

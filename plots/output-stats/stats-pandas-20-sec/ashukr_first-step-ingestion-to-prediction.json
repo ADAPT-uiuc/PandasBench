@@ -1,0 +1,236 @@
+{
+  "max-mem-in-mb": 5170,
+  "max-mem-in-mb2": 8194,
+  "cells": [
+    {
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting, ML code\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# from sklearn.tree import DecisionTreeRegressor\n# from sklearn.model_selection import train_test_split\n# from sklearn.linear_model import LinearRegression\n# from sklearn.metrics import mean_squared_error\n# from sklearn.preprocessing import scale\n# from math import sqrt",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 399167
+    },
+    {
+      "raw": "train_data = pd.read_csv(\"./input/train.scaled.csv\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 15227760558
+    },
+    {
+      "raw": "train_data.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 677906
+    },
+    {
+      "raw": "train_data.head().transpose()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1043508
+    },
+    {
+      "raw": "train_data.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 306659
+    },
+    {
+      "raw": "train_data.columns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 257124
+    },
+    {
+      "raw": "# the numerical features related to the space in the building\nspace_feat_num=['LotArea','MasVnrArea','BsmtFinSF1','BsmtFinSF2','BsmtUnfSF','GarageYrBlt','GarageCars','GarageArea','WoodDeckSF','OpenPorchSF','EnclosedPorch','3SsnPorch','ScreenPorch','PoolArea','SalePrice']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 407446
+    },
+    {
+      "raw": "#the data about space of the building\ntrain_data_num_space = train_data[space_feat_num]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 95582207
+    },
+    {
+      "raw": "#the numerical feature about the neighbourhood of the building\nneighbourhood_feat_num = [\"LotFrontage\",'SalePrice']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 313842
+    },
+    {
+      "raw": "#the data about neighbourhood of the building\ntrain_data_num_neighbourhood = train_data[neighbourhood_feat_num]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 7809313
+    },
+    {
+      "raw": "train_data.columns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 297370
+    },
+    {
+      "raw": "#the numerical features of the building\nbuilding_feat_num = ['OverallQual','OverallCond','YearBuilt','YearRemodAdd','TotalBsmtSF','1stFlrSF','2ndFlrSF','LowQualFinSF','GrLivArea','BsmtFullBath','BsmtHalfBath','FullBath','HalfBath','BedroomAbvGr',\n                     'KitchenAbvGr','TotRmsAbvGrd','Fireplaces','MiscVal','MoSold','YrSold','SalePrice']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 448378
+    },
+    {
+      "raw": "#data about the building\ntrain_data_num_building = train_data[building_feat_num]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 141350824
+    },
+    {
+      "raw": "total = train_data_num_space.isnull().sum().sort_values(ascending=False)\n#percentage of null in a given feature and arranging them in ascending order \npercent = (train_data_num_space.isnull().sum()/train_data_num_space.isnull().count()).sort_values(ascending=False)\n#creating a dataframe to visualize the number of missing values and the percentage of the missing values\nmissing_data = pd.concat([total, percent], axis=1, keys=['Total', 'Percent'])\n# printing the head values\nmissing_data.head(20)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 109716176
+    },
+    {
+      "raw": "#saleprice correlation matrix\ncorrmat = train_data_num_space.corr()\nk = 15 #number of variables for heatmap\n# ALEX: remove plotting\n# f, ax = plt.subplots(figsize=(12, 9))\ncols = corrmat.nlargest(k, 'SalePrice')['SalePrice'].index\ncm = np.corrcoef(train_data_num_space[cols].values.T)\n# ALEX: remove plotting\n# sns.set(font_scale=1.25)\n# hm = sns.heatmap(cm, cbar=True, annot=True, square=True, fmt='.2f', annot_kws={'size': 10}, yticklabels=cols.values, xticklabels=cols.values)\n# plt.show()\n_ = cols.values\n_ = cols.values\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2183502873
+    },
+    {
+      "raw": "#total number of samples with the given features\ntotal = train_data_num_building.isnull().sum().sort_values(ascending=False)\n#percentage of null in a given feature and arranging them in ascending order \npercent = (train_data_num_building.isnull().sum()/train_data_num_building.isnull().count()).sort_values(ascending=False)\n#creating a dataframe to visualize the number of missing values and the percentage of the missing values\nmissing_data = pd.concat([total, percent], axis=1, keys=['Total', 'Percent'])\n# printing the head values\nmissing_data.head(20)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 140851055
+    },
+    {
+      "raw": "# great there is\n# now we will look at the correlation\ncorrmat = train_data_num_building.corr()\nk = 15 #number of variables for heatmap\n# ALEX: remove plotting\n# f, ax = plt.subplots(figsize=(12, 9))\ncols = corrmat.nlargest(k, 'SalePrice')['SalePrice'].index\ncm = np.corrcoef(train_data_num_building[cols].values.T)\n# ALEX: remove plotting\n# sns.set(font_scale=1.25)\n# hm = sns.heatmap(cm, cbar=True, annot=True, square=True, fmt='.2f', annot_kws={'size': 10}, yticklabels=cols.values, xticklabels=cols.values)\n# plt.show()\n_ = cols.values\n_ = cols.values\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3739932940
+    },
+    {
+      "raw": "#data cleaning\n# total number of null values\ntotal = train_data_num_neighbourhood.isnull().sum().sort_values(ascending=False)\n#percentage of null in a given feature and arranging them in ascending order \npercent = (train_data_num_neighbourhood.isnull().sum()/train_data_num_neighbourhood.isnull().count()).sort_values(ascending=False)\n#creating a dataframe to visualize the number of missing values and the percentage of the missing values\nmissing_data = pd.concat([total, percent], axis=1, keys=['Total', 'Percent'])\n# printing the head values\nmissing_data.head(20)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 26964594
+    },
+    {
+      "raw": "# great there is no null value\n# now we will look at the correlation\ncorrmat = train_data_num_neighbourhood.corr()\nk = 15 #number of variables for heatmap\n# ALEX: remove plotting\n# f, ax = plt.subplots(figsize=(12, 9))\ncols = corrmat.nlargest(k, 'SalePrice')['SalePrice'].index\ncm = np.corrcoef(train_data_num_neighbourhood[cols].values.T)\n# ALEX: remove plotting\n# sns.set(font_scale=1.25)\n# hm = sns.heatmap(cm, cbar=True, annot=True, square=True, fmt='.2f', annot_kws={'size': 10}, yticklabels=cols.values, xticklabels=cols.values)\n# plt.show()\n_ = cols.values\n_ = cols.values\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 97728391
+    },
+    {
+      "raw": "selected_features = ['OpenPorchSF','BsmtFinSF1','GarageArea','GrLivArea','OverallQual','TotalBsmtSF','FullBath','SalePrice']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 382086
+    },
+    {
+      "raw": "selected_train_data = train_data[selected_features]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 54075479
+    },
+    {
+      "raw": "#scatterplot\n# ALEX: remove plotting\n# sns.set()\ncols = ['SalePrice', 'OverallQual', 'GrLivArea', 'GarageArea', 'TotalBsmtSF', 'FullBath', 'OpenPorchSF','BsmtFinSF1']\n# ALEX: remove plotting\n# sns.pairplot(selected_train_data[cols], size = 2.5)\n# plt.show();\n_ = selected_train_data[cols]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 54844419
+    },
+    {
+      "raw": "selected_train_data.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 398322
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# Scaled_selected_train_data  = scale(selected_train_data)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 178030
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# Scaled_selected_train_data[:5,:]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 159079
+    },
+    {
+      "raw": "X = selected_train_data[['OpenPorchSF','BsmtFinSF1','GarageArea','GrLivArea','OverallQual','TotalBsmtSF','FullBath']]\n# ALEX: remove ML code\n# X=scale(X)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 46194277
+    },
+    {
+      "raw": "Y=selected_train_data['SalePrice']\nY.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 467197
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.33, random_state=324)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 167296
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# regressor = LinearRegression(normalize=False)\n# regressor.fit(X_train, y_train)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 160500
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# y_prediction = regressor.predict(X_test)\n# y_prediction",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 158333
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# RMSE = sqrt(mean_squared_error(y_true = y_test, y_pred = y_prediction))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 154289
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# print(RMSE)\n# y_test.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 156476
+    },
+    {
+      "raw": "\n# ALEX: remove ML code\n# regressor = DecisionTreeRegressor()\n# regressor.fit(X_train, y_train)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 153334
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# y_prediction = regressor.predict(X_test)\n# y_prediction",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 150876
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# RMSE = sqrt(mean_squared_error(y_true = y_test, y_pred = y_prediction))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 146179
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# RMSE",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 143675
+    },
+    {
+      "raw": "selected_train_data.columns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 269835
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 102639
+    }
+  ],
+  "total-time-in-sec": 21.933812652,
+  "max-disk-in-mb": 0
+}

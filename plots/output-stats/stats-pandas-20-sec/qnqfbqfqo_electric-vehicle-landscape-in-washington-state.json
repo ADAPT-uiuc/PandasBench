@@ -1,0 +1,56 @@
+{
+  "max-mem-in-mb": 3088,
+  "max-mem-in-mb2": 5600,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 304548
+    },
+    {
+      "raw": "# import pandas as pd\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\ndf = pd.read_csv('./input/Electric_Vehicle_Population_Data.scaled.csv')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 18132028644
+    },
+    {
+      "raw": "# Display the first few rows of the dataset\nprint(df.head())\n\n# Get information about the dataset\nprint(df.info())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 15586501
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# df['Model Year'].hist()\n# plt.xlabel('Model Year')\n# plt.ylabel('Count')\n# plt.title('Distribution of Model Year')\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 155021
+    },
+    {
+      "raw": "avg_range = df['Electric Range'].mean()\nmedian_price = df['Base MSRP'].median()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 83666396
+    },
+    {
+      "raw": "ev_2020 = df[df['Model Year'] == 2020]\nprint(evaluate_lazy(ev_2020))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 208664617
+    },
+    {
+      "raw": "groupby_make = df.groupby('Make')['Electric Range'].mean()\nprint (evaluate_lazy(groupby_make))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 420790529
+    },
+    {
+      "raw": "# Select only numeric columns from the DataFrame\nnumeric_df = df.select_dtypes(include=['float64', 'int64'])\n\n# Create a correlation heatmap for the numeric columns\n# ALEX: remove plotting\n# sns.heatmap(numeric_df.corr(), annot=True, cmap='coolwarm')\n# plt.title('Correlation Heatmap')\n# plt.show()\nevaluate_lazy(numeric_df.corr())\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1535984748
+    }
+  ],
+  "total-time-in-sec": 20.397181004,
+  "max-disk-in-mb": 0
+}

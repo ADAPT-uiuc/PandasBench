@@ -1,0 +1,212 @@
+{
+  "max-mem-in-mb": 8919,
+  "max-mem-in-mb2": 655,
+  "cells": [
+    {
+      "raw": "#imports \n\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting, ML code\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n\n# from sklearn.linear_model import LogisticRegression\n# from sklearn.svm import SVC, LinearSVC\n# from sklearn.ensemble import RandomForestClassifier\n# from sklearn.neighbors import KNeighborsClassifier\n# from sklearn.naive_bayes import GaussianNB",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3273364221
+    },
+    {
+      "raw": "food_df = pd.read_csv(\"./input/en.openfoodfacts.org.products.scaled.tsv\", delimiter='\\t');\n#food_df = pd.read_csv(\"FoodFacts.csv\")\n\nfood_df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 13770695163
+    },
+    {
+      "raw": "food_df.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1351753785
+    },
+    {
+      "raw": "#split train/validate/test set\n\ntrain, validate, test = np.split(food_df.sample(frac=1), [int(.6*len(food_df)), int(.8*len(food_df))])\nprint(\"Train: %s\\nTest: %s\\nValidate: %s\" % (train.shape, test.shape, validate.shape))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1114786979
+    },
+    {
+      "raw": "#still working on this so I wanted to practice with a small dataset\ndf = validate\na, b = np.split(df.sample(frac=1), [int(.1*len(df))])\na.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 155298481
+    },
+    {
+      "raw": "a.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1829440
+    },
+    {
+      "raw": "#clean data\n#remove from entry data that has empty values in the energy\na = a[~pd.isnull(a['energy_100g'])]\na.drop([\"code\", \"url\", \"creator\", \"created_t\", \"created_datetime\", \"last_modified_t\", \"last_modified_datetime\"], axis=1)\na.describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 7130175357
+    },
+    {
+      "raw": "## analyze data \n# which features are available in the dataset? \nprint(a.columns.values)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 794351
+    },
+    {
+      "raw": "a.describe(exclude=['O'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 125247982
+    },
+    {
+      "raw": "#analyze data, get foods with only grades a, b, c, d, e\n#get only their carb/protein/fat as preliminary analysis\n\nonly_a = a.loc[a['nutrition_grade_fr'] == 'a']\nonly_b = a.loc[a['nutrition_grade_fr'] == 'b']\nonly_c = a.loc[a['nutrition_grade_fr'] == 'c']\nonly_d = a.loc[a['nutrition_grade_fr'] == 'd']\nonly_e = a.loc[a['nutrition_grade_fr'] == 'e']\n\nmac_only_a = only_a[['carbohydrates_100g', 'proteins_100g', 'fat_100g']]\nmac_only_b = only_b[['carbohydrates_100g', 'proteins_100g', 'fat_100g']]\nmac_only_c = only_c[['carbohydrates_100g', 'proteins_100g', 'fat_100g']]\nmac_only_d = only_d[['carbohydrates_100g', 'proteins_100g', 'fat_100g']]\nmac_only_e = only_e[['carbohydrates_100g', 'proteins_100g', 'fat_100g']]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 8572817739
+    },
+    {
+      "raw": "mac_only_a.describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 8424313
+    },
+    {
+      "raw": "# ALEX: remove plotting, get notebook to run\n# order = sorted(a.nutrition_grade_fr.unique()[1:])\n# ax = sns.boxplot(x=\"nutrition_grade_fr\", y=\"fat_100g\", data=a, order=order)\n_ = a.nutrition_grade_fr.unique()[1:]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 50041824
+    },
+    {
+      "raw": "#order = sorted(a.nutrition_grade_fr.unique()[1:])\n# ALEX: remove plotting\n# order = [\"a\", \"b\", \"c\", \"d\", \"e\"]\n# ax = sns.boxplot(x=\"nutrition_grade_fr\", y=\"sugars_100g\", data=a, order=order)\n# sns.plt.title('Sugar vs Grade')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 351286
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# ax = sns.boxplot(x=\"nutrition_grade_fr\", y=\"sugars_100g\", data=a, order=order)\n# sns.plt.title('Fat vs Grade')\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 346497
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# ax = sns.boxplot(x=\"nutrition_grade_fr\", y=\"proteins_100g\", data=a, order=order)\n# sns.plt.title('Protein vs Grade')\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 376904
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 235256
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 231831
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 230462
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 229369
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 230764
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 149528
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 141152
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 143256
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 148686
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 141954
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 143742
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 141303
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 145884
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 140577
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 142335
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 141781
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 142874
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 145004
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 140614
+    }
+  ],
+  "total-time-in-sec": 35.559470694,
+  "max-disk-in-mb": 0
+}

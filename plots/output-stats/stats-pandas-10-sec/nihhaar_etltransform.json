@@ -1,0 +1,74 @@
+{
+  "max-mem-in-mb": 1932,
+  "max-mem-in-mb2": 3358,
+  "cells": [
+    {
+      "raw": "import os\nimport numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n\n# ALEX: remove path printing\n# print(os.listdir(\"./input\"))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 278626
+    },
+    {
+      "raw": "csv_file = \"./input/books.scaled.csv\"\ndf = pd.read_csv(csv_file, error_bad_lines=False)\ndf.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 9591486643
+    },
+    {
+      "raw": "df.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 395221
+    },
+    {
+      "raw": "df.dtypes",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 459299
+    },
+    {
+      "raw": "rating_df = df.groupby(['authors'])['average_rating'].mean().reset_index().round(3)\nrating_df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 535452703
+    },
+    {
+      "raw": "rating_df.sort_values(['average_rating', 'authors'], ascending=[False, True]).reset_index(drop=True).head(10)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5656924
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# pd.cut(df['# num_pages'], [-1, 100, 200, 300]).head()\npd.cut(df['  num_pages'], [-1, 100, 200, 300]).head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 125398285
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# range_df = df.groupby(pd.cut(df['# num_pages'], [-1, 100, 200, 300]))\nrange_df = df.groupby(pd.cut(df['  num_pages'], [-1, 100, 200, 300]))\nrange_df = range_df[['ratings_count']]\nrange_df.sum().reset_index()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 182101098
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# df.groupby(['authors'])['# num_pages'].max().reset_index()\ndf.groupby(['authors'])['  num_pages'].max().reset_index()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 524874010
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# avg_df = df.groupby(['authors'])['# num_pages'].mean().reset_index()\n# avg_df['# num_pages'] = avg_df['# num_pages'].astype('int64')\navg_df = df.groupby(['authors'])['  num_pages'].mean().reset_index()\navg_df['  num_pages'] = avg_df['  num_pages'].astype('int64')\navg_df",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 542787741
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 183699
+    }
+  ],
+  "total-time-in-sec": 11.509074249,
+  "max-disk-in-mb": 0
+}

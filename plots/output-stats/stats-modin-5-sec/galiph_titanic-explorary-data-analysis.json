@@ -1,0 +1,146 @@
+{
+  "max-mem-in-mb": 1121,
+  "max-mem-in-mb2": 247,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3389351518
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.metrics import accuracy_score, classification_report, confusion_matrix\n# from sklearn.linear_model import LogisticRegression\n# from sklearn.model_selection import train_test_split\n# from sklearn.preprocessing import StandardScaler\n# from sklearn.neighbors import KNeighborsClassifier\n# from sklearn.pipeline import Pipeline\n# from sklearn.svm import SVC",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 387692
+    },
+    {
+      "raw": "titanic = pd.read_csv('./input/train.scaled.csv')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2883758164
+    },
+    {
+      "raw": "titanic[['Age']].describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 18542675
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.heatmap(titanic.isnull(),yticklabels=False,cbar=False,cmap='viridis')\n# plt.show()\n_ = titanic.isnull()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5948180
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(x='Survived',data=titanic,palette='RdBu_r');",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 306912
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(x='Survived',hue='Sex',data=titanic,palette='RdBu_r');",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 307231
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(x='Survived',hue='Pclass',data=titanic,palette='viridis');",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 293817
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(x='Pclass',hue='Survived',data=titanic,palette='viridis');",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 273340
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# titanic[titanic.Survived == 0].hist(\"Age\", bins=20)\n# plt.show()\ntitanic[titanic.Survived == 0]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 10507159
+    },
+    {
+      "raw": "titanic.Age = titanic.groupby('Pclass').Age.transform(lambda x: x.fillna(np.round(x.mean())))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1724372139
+    },
+    {
+      "raw": "# Extract titles from name\ntitanic['Title']=0\nfor i in titanic:\n    titanic['Title']=titanic['Name'].str.extract('([A-Za-z]+)\\.', expand=False)  # Use REGEX to define a search pattern",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5426281657
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15,5))\n# sns.barplot(x=titanic['Title'], y=titanic['Age']);\n# plt.show()\n_ = titanic['Title']\n_ = titanic['Age']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3915757
+    },
+    {
+      "raw": "titanic_melted = pd.melt(titanic[['Survived', 'Age']], \"Survived\", var_name=\"Ages\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 45227909
+    },
+    {
+      "raw": "titanic_melted.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2002813
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.swarmplot(x = 'Ages', y=\"value\", hue=\"Survived\", data=titanic_melted)\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 339004
+    },
+    {
+      "raw": "df = titanic.drop(['Name', 'Ticket', 'Cabin'], axis=1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2955299
+    },
+    {
+      "raw": "sex_conv = lambda x : 1 if x=='male' else 0 \ndf['Is_male'] = df['Sex'].apply(sex_conv)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 40466588
+    },
+    {
+      "raw": "df['Age'] =pd.cut(df['Age'], bins=[1, 12, 50, 200], labels=['Child','Adult','Elder'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 78592953
+    },
+    {
+      "raw": "embarked_new = pd.get_dummies(df['Embarked'])\ntrain = pd.concat([df[['PassengerId','Survived','Pclass','Sex', \n                       'Age', 'SibSp', 'Parch', 'Fare','Embarked','Is_male']], embarked_new], axis=1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 132749320
+    },
+    {
+      "raw": "# Family size feature\ndf['FamilySize'] = df['SibSp'] + df['Parch']\ndf.drop('SibSp',axis=1,inplace=True)\ndf.drop('Parch',axis=1,inplace=True)\ndf.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 18838562
+    },
+    {
+      "raw": "titanic = pd.read_csv('./input/train.scaled.csv')\ndf = titanic.drop(['Ticket', 'Cabin'], axis=1)\n\n#Converting Sex\nsex_conv = lambda x : 1 if x=='male' else 0 \ndf['Is_male'] = df['Sex'].apply(sex_conv)\n\n# Adding \"Title\" column\ndf['Title']=0\nfor i in df:\n    df['Title']=df['Name'].str.extract('([A-Za-z]+)\\.', expand=False)  \n\n# Imputing Age  \ndf['Age'] = df.groupby('Title')['Age'].transform(lambda x: x.fillna(np.round(x.mean())))\n\n# Converting Age\ndf['Age'] =pd.cut(df['Age'], bins=[1, 12, 50, 200], labels=['Child','Adult','Elder'])\n\n# Adding Family column\ndf['FamilySize'] = df['SibSp'] + df['Parch']\ndf.drop('SibSp',axis=1,inplace=True)\ndf.drop('Parch',axis=1,inplace=True)\n\n#Binilen limanlar\u0131 grupland\u0131rma\nembarked_new = pd.get_dummies(df['Embarked'])\n\ntrain = pd.concat([df[['Survived','Pclass', \n                       'FamilySize','Fare',\n                       'Is_male', 'Age']], embarked_new], axis=1)\n\nX = train[['Is_male','Pclass', 'Age', \"FamilySize\"]]\ny = train['Survived']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 6260020660
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 361147
+    }
+  ],
+  "total-time-in-sec": 20.045800496,
+  "max-disk-in-mb": 0
+}

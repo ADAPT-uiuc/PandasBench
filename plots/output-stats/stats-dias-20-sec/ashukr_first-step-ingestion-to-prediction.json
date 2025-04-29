@@ -1,0 +1,350 @@
+{
+  "max-mem-in-mb": 5174,
+  "max-mem-in-mb2": 8198,
+  "cells": [
+    {
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting, ML code\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# from sklearn.tree import DecisionTreeRegressor\n# from sklearn.model_selection import train_test_split\n# from sklearn.linear_model import LinearRegression\n# from sklearn.metrics import mean_squared_error\n# from sklearn.preprocessing import scale\n# from math import sqrt",
+      "rewrite-ns": 685169,
+      "overhead-ns": 685169,
+      "exec-ns": 397642,
+      "total-ns": 1082811,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "train_data = pd.read_csv(\"./input/train.scaled.csv\")",
+      "rewrite-ns": 507519,
+      "overhead-ns": 507519,
+      "exec-ns": 15402147453,
+      "total-ns": 15402654972,
+      "patts-hit": {},
+      "rewritten": "train_data = pd.read_csv('./input/train.scaled.csv')\n"
+    },
+    {
+      "raw": "train_data.head()",
+      "rewrite-ns": 220145,
+      "overhead-ns": 220145,
+      "exec-ns": 40107373,
+      "total-ns": 40327518,
+      "patts-hit": {},
+      "rewritten": "train_data.head()\n"
+    },
+    {
+      "raw": "train_data.head().transpose()",
+      "rewrite-ns": 422131,
+      "overhead-ns": 422131,
+      "exec-ns": 5013086,
+      "total-ns": 5435217,
+      "patts-hit": {},
+      "rewritten": "train_data.head().transpose()\n"
+    },
+    {
+      "raw": "train_data.shape",
+      "rewrite-ns": 72063,
+      "overhead-ns": 72063,
+      "exec-ns": 513889,
+      "total-ns": 585952,
+      "patts-hit": {},
+      "rewritten": "train_data.shape\n"
+    },
+    {
+      "raw": "train_data.columns",
+      "rewrite-ns": 64690,
+      "overhead-ns": 64690,
+      "exec-ns": 801331,
+      "total-ns": 866021,
+      "patts-hit": {},
+      "rewritten": "train_data.columns\n"
+    },
+    {
+      "raw": "# the numerical features related to the space in the building\nspace_feat_num=['LotArea','MasVnrArea','BsmtFinSF1','BsmtFinSF2','BsmtUnfSF','GarageYrBlt','GarageCars','GarageArea','WoodDeckSF','OpenPorchSF','EnclosedPorch','3SsnPorch','ScreenPorch','PoolArea','SalePrice']",
+      "rewrite-ns": 843337,
+      "overhead-ns": 843337,
+      "exec-ns": 334579,
+      "total-ns": 1177916,
+      "patts-hit": {},
+      "rewritten": "space_feat_num = ['LotArea', 'MasVnrArea', 'BsmtFinSF1', 'BsmtFinSF2',\n    'BsmtUnfSF', 'GarageYrBlt', 'GarageCars', 'GarageArea', 'WoodDeckSF',\n    'OpenPorchSF', 'EnclosedPorch', '3SsnPorch', 'ScreenPorch', 'PoolArea',\n    'SalePrice']\n"
+    },
+    {
+      "raw": "#the data about space of the building\ntrain_data_num_space = train_data[space_feat_num]",
+      "rewrite-ns": 335213,
+      "overhead-ns": 335213,
+      "exec-ns": 96521948,
+      "total-ns": 96857161,
+      "patts-hit": {},
+      "rewritten": "train_data_num_space = train_data[space_feat_num]\n"
+    },
+    {
+      "raw": "#the numerical feature about the neighbourhood of the building\nneighbourhood_feat_num = [\"LotFrontage\",'SalePrice']",
+      "rewrite-ns": 358825,
+      "overhead-ns": 358825,
+      "exec-ns": 311983,
+      "total-ns": 670808,
+      "patts-hit": {},
+      "rewritten": "neighbourhood_feat_num = ['LotFrontage', 'SalePrice']\n"
+    },
+    {
+      "raw": "#the data about neighbourhood of the building\ntrain_data_num_neighbourhood = train_data[neighbourhood_feat_num]",
+      "rewrite-ns": 339174,
+      "overhead-ns": 339174,
+      "exec-ns": 7857394,
+      "total-ns": 8196568,
+      "patts-hit": {},
+      "rewritten": "train_data_num_neighbourhood = train_data[neighbourhood_feat_num]\n"
+    },
+    {
+      "raw": "train_data.columns",
+      "rewrite-ns": 87260,
+      "overhead-ns": 87260,
+      "exec-ns": 933592,
+      "total-ns": 1020852,
+      "patts-hit": {},
+      "rewritten": "train_data.columns\n"
+    },
+    {
+      "raw": "#the numerical features of the building\nbuilding_feat_num = ['OverallQual','OverallCond','YearBuilt','YearRemodAdd','TotalBsmtSF','1stFlrSF','2ndFlrSF','LowQualFinSF','GrLivArea','BsmtFullBath','BsmtHalfBath','FullBath','HalfBath','BedroomAbvGr',\n                     'KitchenAbvGr','TotRmsAbvGrd','Fireplaces','MiscVal','MoSold','YrSold','SalePrice']",
+      "rewrite-ns": 1057439,
+      "overhead-ns": 1057439,
+      "exec-ns": 420666,
+      "total-ns": 1478105,
+      "patts-hit": {},
+      "rewritten": "building_feat_num = ['OverallQual', 'OverallCond', 'YearBuilt',\n    'YearRemodAdd', 'TotalBsmtSF', '1stFlrSF', '2ndFlrSF', 'LowQualFinSF',\n    'GrLivArea', 'BsmtFullBath', 'BsmtHalfBath', 'FullBath', 'HalfBath',\n    'BedroomAbvGr', 'KitchenAbvGr', 'TotRmsAbvGrd', 'Fireplaces', 'MiscVal',\n    'MoSold', 'YrSold', 'SalePrice']\n"
+    },
+    {
+      "raw": "#data about the building\ntrain_data_num_building = train_data[building_feat_num]",
+      "rewrite-ns": 344490,
+      "overhead-ns": 344490,
+      "exec-ns": 141922783,
+      "total-ns": 142267273,
+      "patts-hit": {},
+      "rewritten": "train_data_num_building = train_data[building_feat_num]\n"
+    },
+    {
+      "raw": "total = train_data_num_space.isnull().sum().sort_values(ascending=False)\n#percentage of null in a given feature and arranging them in ascending order \npercent = (train_data_num_space.isnull().sum()/train_data_num_space.isnull().count()).sort_values(ascending=False)\n#creating a dataframe to visualize the number of missing values and the percentage of the missing values\nmissing_data = pd.concat([total, percent], axis=1, keys=['Total', 'Percent'])\n# printing the head values\nmissing_data.head(20)",
+      "rewrite-ns": 2265378,
+      "overhead-ns": 2265378,
+      "exec-ns": 105087500,
+      "total-ns": 107352878,
+      "patts-hit": {},
+      "rewritten": "total = train_data_num_space.isnull().sum().sort_values(ascending=False)\npercent = (train_data_num_space.isnull().sum() / train_data_num_space.\n    isnull().count()).sort_values(ascending=False)\nmissing_data = pd.concat([total, percent], axis=1, keys=['Total', 'Percent'])\nmissing_data.head(20)\n"
+    },
+    {
+      "raw": "#saleprice correlation matrix\ncorrmat = train_data_num_space.corr()\nk = 15 #number of variables for heatmap\n# ALEX: remove plotting\n# f, ax = plt.subplots(figsize=(12, 9))\ncols = corrmat.nlargest(k, 'SalePrice')['SalePrice'].index\ncm = np.corrcoef(train_data_num_space[cols].values.T)\n# ALEX: remove plotting\n# sns.set(font_scale=1.25)\n# hm = sns.heatmap(cm, cbar=True, annot=True, square=True, fmt='.2f', annot_kws={'size': 10}, yticklabels=cols.values, xticklabels=cols.values)\n# plt.show()\n_ = cols.values\n_ = cols.values\n",
+      "rewrite-ns": 1908467,
+      "overhead-ns": 1908467,
+      "exec-ns": 2187431225,
+      "total-ns": 2189339692,
+      "patts-hit": {},
+      "rewritten": "corrmat = train_data_num_space.corr()\nk = 15\ncols = corrmat.nlargest(k, 'SalePrice')['SalePrice'].index\ncm = np.corrcoef(train_data_num_space[cols].values.T)\n_ = cols.values\n_ = cols.values\n"
+    },
+    {
+      "raw": "#total number of samples with the given features\ntotal = train_data_num_building.isnull().sum().sort_values(ascending=False)\n#percentage of null in a given feature and arranging them in ascending order \npercent = (train_data_num_building.isnull().sum()/train_data_num_building.isnull().count()).sort_values(ascending=False)\n#creating a dataframe to visualize the number of missing values and the percentage of the missing values\nmissing_data = pd.concat([total, percent], axis=1, keys=['Total', 'Percent'])\n# printing the head values\nmissing_data.head(20)",
+      "rewrite-ns": 2239847,
+      "overhead-ns": 2239847,
+      "exec-ns": 121214404,
+      "total-ns": 123454251,
+      "patts-hit": {},
+      "rewritten": "total = train_data_num_building.isnull().sum().sort_values(ascending=False)\npercent = (train_data_num_building.isnull().sum() / train_data_num_building\n    .isnull().count()).sort_values(ascending=False)\nmissing_data = pd.concat([total, percent], axis=1, keys=['Total', 'Percent'])\nmissing_data.head(20)\n"
+    },
+    {
+      "raw": "# great there is\n# now we will look at the correlation\ncorrmat = train_data_num_building.corr()\nk = 15 #number of variables for heatmap\n# ALEX: remove plotting\n# f, ax = plt.subplots(figsize=(12, 9))\ncols = corrmat.nlargest(k, 'SalePrice')['SalePrice'].index\ncm = np.corrcoef(train_data_num_building[cols].values.T)\n# ALEX: remove plotting\n# sns.set(font_scale=1.25)\n# hm = sns.heatmap(cm, cbar=True, annot=True, square=True, fmt='.2f', annot_kws={'size': 10}, yticklabels=cols.values, xticklabels=cols.values)\n# plt.show()\n_ = cols.values\n_ = cols.values\n",
+      "rewrite-ns": 1897347,
+      "overhead-ns": 1897347,
+      "exec-ns": 3760884810,
+      "total-ns": 3762782157,
+      "patts-hit": {},
+      "rewritten": "corrmat = train_data_num_building.corr()\nk = 15\ncols = corrmat.nlargest(k, 'SalePrice')['SalePrice'].index\ncm = np.corrcoef(train_data_num_building[cols].values.T)\n_ = cols.values\n_ = cols.values\n"
+    },
+    {
+      "raw": "#data cleaning\n# total number of null values\ntotal = train_data_num_neighbourhood.isnull().sum().sort_values(ascending=False)\n#percentage of null in a given feature and arranging them in ascending order \npercent = (train_data_num_neighbourhood.isnull().sum()/train_data_num_neighbourhood.isnull().count()).sort_values(ascending=False)\n#creating a dataframe to visualize the number of missing values and the percentage of the missing values\nmissing_data = pd.concat([total, percent], axis=1, keys=['Total', 'Percent'])\n# printing the head values\nmissing_data.head(20)",
+      "rewrite-ns": 2212713,
+      "overhead-ns": 2212713,
+      "exec-ns": 28963330,
+      "total-ns": 31176043,
+      "patts-hit": {},
+      "rewritten": "total = train_data_num_neighbourhood.isnull().sum().sort_values(ascending=False\n    )\npercent = (train_data_num_neighbourhood.isnull().sum() /\n    train_data_num_neighbourhood.isnull().count()).sort_values(ascending=False)\nmissing_data = pd.concat([total, percent], axis=1, keys=['Total', 'Percent'])\nmissing_data.head(20)\n"
+    },
+    {
+      "raw": "# great there is no null value\n# now we will look at the correlation\ncorrmat = train_data_num_neighbourhood.corr()\nk = 15 #number of variables for heatmap\n# ALEX: remove plotting\n# f, ax = plt.subplots(figsize=(12, 9))\ncols = corrmat.nlargest(k, 'SalePrice')['SalePrice'].index\ncm = np.corrcoef(train_data_num_neighbourhood[cols].values.T)\n# ALEX: remove plotting\n# sns.set(font_scale=1.25)\n# hm = sns.heatmap(cm, cbar=True, annot=True, square=True, fmt='.2f', annot_kws={'size': 10}, yticklabels=cols.values, xticklabels=cols.values)\n# plt.show()\n_ = cols.values\n_ = cols.values\n",
+      "rewrite-ns": 1877989,
+      "overhead-ns": 1877989,
+      "exec-ns": 105374947,
+      "total-ns": 107252936,
+      "patts-hit": {},
+      "rewritten": "corrmat = train_data_num_neighbourhood.corr()\nk = 15\ncols = corrmat.nlargest(k, 'SalePrice')['SalePrice'].index\ncm = np.corrcoef(train_data_num_neighbourhood[cols].values.T)\n_ = cols.values\n_ = cols.values\n"
+    },
+    {
+      "raw": "selected_features = ['OpenPorchSF','BsmtFinSF1','GarageArea','GrLivArea','OverallQual','TotalBsmtSF','FullBath','SalePrice']",
+      "rewrite-ns": 577399,
+      "overhead-ns": 577399,
+      "exec-ns": 316842,
+      "total-ns": 894241,
+      "patts-hit": {},
+      "rewritten": "selected_features = ['OpenPorchSF', 'BsmtFinSF1', 'GarageArea', 'GrLivArea',\n    'OverallQual', 'TotalBsmtSF', 'FullBath', 'SalePrice']\n"
+    },
+    {
+      "raw": "selected_train_data = train_data[selected_features]",
+      "rewrite-ns": 338987,
+      "overhead-ns": 338987,
+      "exec-ns": 53540588,
+      "total-ns": 53879575,
+      "patts-hit": {},
+      "rewritten": "selected_train_data = train_data[selected_features]\n"
+    },
+    {
+      "raw": "#scatterplot\n# ALEX: remove plotting\n# sns.set()\ncols = ['SalePrice', 'OverallQual', 'GrLivArea', 'GarageArea', 'TotalBsmtSF', 'FullBath', 'OpenPorchSF','BsmtFinSF1']\n# ALEX: remove plotting\n# sns.pairplot(selected_train_data[cols], size = 2.5)\n# plt.show();\n_ = selected_train_data[cols]",
+      "rewrite-ns": 822149,
+      "overhead-ns": 822149,
+      "exec-ns": 54902688,
+      "total-ns": 55724837,
+      "patts-hit": {},
+      "rewritten": "cols = ['SalePrice', 'OverallQual', 'GrLivArea', 'GarageArea',\n    'TotalBsmtSF', 'FullBath', 'OpenPorchSF', 'BsmtFinSF1']\n_ = selected_train_data[cols]\n"
+    },
+    {
+      "raw": "selected_train_data.head()",
+      "rewrite-ns": 128992,
+      "overhead-ns": 128992,
+      "exec-ns": 5570837,
+      "total-ns": 5699829,
+      "patts-hit": {},
+      "rewritten": "selected_train_data.head()\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# Scaled_selected_train_data  = scale(selected_train_data)",
+      "rewrite-ns": 22495,
+      "overhead-ns": 22495,
+      "exec-ns": 98511,
+      "total-ns": 121006,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# Scaled_selected_train_data[:5,:]",
+      "rewrite-ns": 19967,
+      "overhead-ns": 19967,
+      "exec-ns": 92203,
+      "total-ns": 112170,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "X = selected_train_data[['OpenPorchSF','BsmtFinSF1','GarageArea','GrLivArea','OverallQual','TotalBsmtSF','FullBath']]\n# ALEX: remove ML code\n# X=scale(X)",
+      "rewrite-ns": 636911,
+      "overhead-ns": 636911,
+      "exec-ns": 46235664,
+      "total-ns": 46872575,
+      "patts-hit": {},
+      "rewritten": "X = selected_train_data[['OpenPorchSF', 'BsmtFinSF1', 'GarageArea',\n    'GrLivArea', 'OverallQual', 'TotalBsmtSF', 'FullBath']]\n"
+    },
+    {
+      "raw": "Y=selected_train_data['SalePrice']\nY.head()",
+      "rewrite-ns": 420741,
+      "overhead-ns": 420741,
+      "exec-ns": 985929,
+      "total-ns": 1406670,
+      "patts-hit": {},
+      "rewritten": "Y = selected_train_data['SalePrice']\nY.head()\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.33, random_state=324)",
+      "rewrite-ns": 21242,
+      "overhead-ns": 21242,
+      "exec-ns": 98328,
+      "total-ns": 119570,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# regressor = LinearRegression(normalize=False)\n# regressor.fit(X_train, y_train)",
+      "rewrite-ns": 17664,
+      "overhead-ns": 17664,
+      "exec-ns": 92197,
+      "total-ns": 109861,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# y_prediction = regressor.predict(X_test)\n# y_prediction",
+      "rewrite-ns": 18552,
+      "overhead-ns": 18552,
+      "exec-ns": 86751,
+      "total-ns": 105303,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# RMSE = sqrt(mean_squared_error(y_true = y_test, y_pred = y_prediction))",
+      "rewrite-ns": 17743,
+      "overhead-ns": 17743,
+      "exec-ns": 85967,
+      "total-ns": 103710,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# print(RMSE)\n# y_test.shape",
+      "rewrite-ns": 17923,
+      "overhead-ns": 17923,
+      "exec-ns": 85731,
+      "total-ns": 103654,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "\n# ALEX: remove ML code\n# regressor = DecisionTreeRegressor()\n# regressor.fit(X_train, y_train)",
+      "rewrite-ns": 18060,
+      "overhead-ns": 18060,
+      "exec-ns": 83938,
+      "total-ns": 101998,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# y_prediction = regressor.predict(X_test)\n# y_prediction",
+      "rewrite-ns": 19245,
+      "overhead-ns": 19245,
+      "exec-ns": 90298,
+      "total-ns": 109543,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# RMSE = sqrt(mean_squared_error(y_true = y_test, y_pred = y_prediction))",
+      "rewrite-ns": 17893,
+      "overhead-ns": 17893,
+      "exec-ns": 87385,
+      "total-ns": 105278,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# RMSE",
+      "rewrite-ns": 17109,
+      "overhead-ns": 17109,
+      "exec-ns": 84179,
+      "total-ns": 101288,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "selected_train_data.columns",
+      "rewrite-ns": 80474,
+      "overhead-ns": 80474,
+      "exec-ns": 703207,
+      "total-ns": 783681,
+      "patts-hit": {},
+      "rewritten": "selected_train_data.columns\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 20021,
+      "overhead-ns": 20021,
+      "exec-ns": 95874,
+      "total-ns": 115895,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 22.190549815,
+  "max-disk-in-mb": 0
+}

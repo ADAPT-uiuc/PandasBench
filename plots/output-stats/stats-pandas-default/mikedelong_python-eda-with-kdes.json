@@ -1,0 +1,56 @@
+{
+  "max-mem-in-mb": 151,
+  "max-mem-in-mb2": 171,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\ndf = pd.read_csv(filepath_or_buffer='./input/Airline Dataset.scaled.csv', parse_dates=['Departure Date'])\ndf.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 328068421
+    },
+    {
+      "raw": "df.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 136586751
+    },
+    {
+      "raw": "df.nunique()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 73343342
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# from seaborn import kdeplot\n# kdeplot(data=df, x='Age', hue='Gender')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 196688
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# from matplotlib.pyplot import subplots\n# _, ax = subplots(figsize=(12, 12), ncols=2, nrows=2,  )\ncolumns = [key for key, value in df.nunique().to_dict().items() if value < 10]\nfor index, column in enumerate(columns):\n    df[column].value_counts() # .plot(ax=ax.ravel()[index], kind='bar', legend=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 69717628
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# kdeplot(data=df, x='Passenger ID', hue='Flight Status')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 138106
+    },
+    {
+      "raw": "df['Departure Date'].dt.year.value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5303646
+    },
+    {
+      "raw": "df['Last Name'].value_counts().nlargest(n=10)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 17525886
+    }
+  ],
+  "total-time-in-sec": 0.630880468,
+  "max-disk-in-mb": 0
+}

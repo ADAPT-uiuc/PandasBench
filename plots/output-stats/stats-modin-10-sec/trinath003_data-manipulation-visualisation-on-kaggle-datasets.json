@@ -1,0 +1,140 @@
+{
+  "max-mem-in-mb": 1520,
+  "max-mem-in-mb2": 452,
+  "cells": [
+    {
+      "raw": "# There are lot of dataset's on kaggle. To make a difference i need to create a creative dataset, this made me to think out of the box and finally got crazy idea.\n# I create a dataset on kaggle datasets, which sounds wow right!\n# Main mottto is to share knowledge by pratical projection. Below i created a good stuff, please have a look at it.\n\n\n#Loading libraries\n# linear algebra\nimport numpy as np \n# data processing\n# import pandas as pd \nexec(os.environ['IREWR_IMPORTS'])\n#data visuvalisation\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n\n#Path to access file\n# ALEX: remove path printing\n# import os\n# print(os.listdir(\"./input\"))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3264035459
+    },
+    {
+      "raw": "#Reading the file\nkaggle_df = pd.read_csv('./input/KaggelMostVotes.scaled.csv')\n\n#To get count of rows |& columns\nkaggle_rows,kaggle_cols = kaggle_df.shape[0],kaggle_df.shape[1]\n# (1960, 15)\n\n#Getting all columns\nkaggle_df.columns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4107247161
+    },
+    {
+      "raw": "#Getting the information\nkaggle_df.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 680997101
+    },
+    {
+      "raw": "#Remove Dublicates - it will remove duplicate row \nkaggle_df.drop_duplicates()\n# To remove by colomn kaggle_df.drop_duplicates(subset='col_name')\n# right now there are no duplicates - check it by len(kaggle_df)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 8591983701
+    },
+    {
+      "raw": "#checking the NAN or null data & cleaning it\n# kaggle_df.isnull()  Feel free to use this also\nkaggle_df.isnull().sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 8950691
+    },
+    {
+      "raw": "#Right now there is no null (or) NAN data nut below show how to replace it by relevent data \n\n#you can  count the number of unique values from character variables by -  kaggle_df.Discussions.value_counts(sort=True)\n\n#For Discussion\nkaggle_df.Discussions.fillna('0',inplace=True)\n\n#For Views\nkaggle_df.Views.fillna('0',inplace=True)\n\n#Now you can cross check the data \nkaggle_df.isnull().sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 23970593
+    },
+    {
+      "raw": "# If you see the dat some of the columns are in correct datatype like Kernels,Discussions,views\nkaggle_df.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1615199072
+    },
+    {
+      "raw": "#You change the datatype of columns \n\n#Changing Version column to number datatype\n  \n# you can  change NAN value by pass the value in fillna function  \nkaggle_df['Version'] = kaggle_df['Version'].astype(int).fillna(0)\n\n# #Changing Views column to number datatype\nkaggle_df['Discussions'] = kaggle_df['Discussions'].astype(float).fillna(0)\n\n#You can change it to float as\n# kaggle_df['Views'] = kaggle_df['Views'].astype(float).fillna(0)\n\nkaggle_df.info()\n#Below th dataype of  Version, Discussions is changed",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1244688918
+    },
+    {
+      "raw": "# To simply sort by column \nkaggle_df.Version.sort_values()\n#SNO version Number - below results are just displaying the verions in sorted way",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 192478916
+    },
+    {
+      "raw": "#You can also group by coloumns\nkaggle_df.groupby('FileType').count()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 987443508
+    },
+    {
+      "raw": "#Here we see how to by count by certain range \nversion_length = [1,5,10,25,50,75,100,500,1000]\nkaggle_version_ranges = pd.cut(kaggle_df.Version, version_length)\npd.value_counts(kaggle_version_ranges)\n#Below result is showing the count of how many versions are bewtten - 1 to 5, 5 to 10, 10 to 25, 25 to 50 and so on....",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 136751358
+    },
+    {
+      "raw": "# \"correlation\" refers to a mutual relationship or association between quantities\n# Correlation can help in predicting one quantity from another\n# ALEX: make notebook run\n# kaggle_df.corr()\nkaggle_df.select_dtypes(include='number').corr()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 399052655
+    },
+    {
+      "raw": "#crosstab display the each elemnt from one  column and count how many time it occuried in second coloumn\nkaggle_crosstab = pd.crosstab(kaggle_df['Updated on'],kaggle_df.FileType,margins=True)\nkaggle_crosstab\n# To display in percentage\n# kaggle_crosstab = pd.crosstab(kaggle_df['Updated on'],kaggle_df.FileType,margins=True)/kaggle_df.shape[0]\n# kaggle_crosstab\n\n# For Total count \n# kaggle_crosstab.max() ",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2479186311
+    },
+    {
+      "raw": "# Total crosstab list\nkaggle_crosstab.max()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 8869678
+    },
+    {
+      "raw": "#list all columns where Discussions is greater than Version\nkaggle_df.query('Discussions > Version')\n\n#using AND condition\nkaggle_df.query('500 < Votes & Discussions > Version')\n\n#using OR condition\nkaggle_df.query('Version < Discussions | 500 < Votes ')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 17671204
+    },
+    {
+      "raw": "kaggle_df.index.values",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 772520
+    },
+    {
+      "raw": "#Here we are going how the data changes from versions and votes\n\n# to get indes of dataframe \nkaggle_SNO= kaggle_df.index.values\n# kaggle_df.index.values\n# ALEX: remove plotting\n# kaggle_fig, kaggle_axes = plt.subplots(nrows=2,ncols=1,figsize=(22, 16),) \n\n# #NOTE\n# # lw -linewidth; ls - linestyle\n# # For more styling https://matplotlib.org/examples/lines_bars_and_markers/line_styles_reference.html\n\n# #For the first plot\n# kaggle_axes[0].plot(kaggle_SNO[:101],kaggle_df['Version'][:101],color='blue',lw=3,ls=':',marker='o',markersize=10,markerfacecolor='blue')\n# kaggle_axes[0].set_xlabel('Dataset Version')\n# kaggle_axes[0].set_ylabel('Datasets SNO ')\n# kaggle_axes[0].set_title('SNO VS VERSIONS')\n\n# #For the first plot\n# kaggle_axes[1].plot(kaggle_SNO[:101],kaggle_df['Votes'][:101],color='blue',lw=3,ls=':',marker='o',markersize=10,markerfacecolor='blue')\n# kaggle_axes[1].set_xlabel('Dataset Votes')\n# kaggle_axes[1].set_ylabel('Datasets SNO ')\n# kaggle_axes[1].set_title('SNO VS Votes')\n\n# #Finaly display\n# plt.show()\n_ = kaggle_SNO[:101]\n_ = kaggle_df['Version'][:101]\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2898344
+    },
+    {
+      "raw": "#Represeting version ranges in pie chart\nversion_length = [1,3,5,10,20,50,500]\nkaggle_version_ranges = pd.cut(kaggle_df.Version, version_length)\nkaggle_version_cluster=  pd.value_counts(kaggle_version_ranges)\n\n#Getting indexs\nkaggle_pie_labels = kaggle_version_cluster.index.values\n#Getting data\nkaggle_pie_data = kaggle_version_cluster.values\n\n#  = \n# slices_hours = [4, 8]\n# activities = ['Sleep', 'Work']\n# ALEX: remove plotting\n# plt.pie(kaggle_pie_data, labels=kaggle_pie_labels,startangle=90, autopct='%.1f%%',radius=3)\n\n# #For more colors and styling \n# plt.show()\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 542544853
+    },
+    {
+      "raw": "#Heatmap to show the correlation\n# ALEX: remove plotting\n# f,ax = plt.subplots(figsize=(18, 18))\n# # ALEX: make notebook run\n# # sns.heatmap(kaggle_df.corr())\n# sns.heatmap(kaggle_df.select_dtypes(include='number').corr())\n# plt.show()\n_ = kaggle_df.select_dtypes(include='number').corr()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 314237690
+    },
+    {
+      "raw": "#Display plot by number of count\n# ALEX: remove plotting\n# sns.countplot(x='Version',data=kaggle_df.tail(20))\n_ = kaggle_df.tail(20)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1241364
+    },
+    {
+      "raw": "#Display plot by number of count and classify with filetype\n# sns.countplot(x='Version',data=kaggle_df.tail(20),hue='FileType')\n_ = kaggle_df.tail(20)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2015302
+    },
+    {
+      "raw": "# Thank you for reading...",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 296553
+    }
+  ],
+  "total-time-in-sec": 24.622532952,
+  "max-disk-in-mb": 0
+}

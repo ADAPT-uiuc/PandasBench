@@ -1,0 +1,182 @@
+{
+  "max-mem-in-mb": 110,
+  "max-mem-in-mb2": 113,
+  "cells": [
+    {
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\npd.set_option('display.max_columns', 50)\n\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n\n# import warnings\n# warnings.filterwarnings('ignore')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 490376
+    },
+    {
+      "raw": "bigg_boss = pd.read_csv('./input/Bigg_Boss_India.scaled.csv', encoding = \"ISO-8859-1\")\nnRow, nCol = bigg_boss.shape\nprint(f'There are {nRow} rows and {nCol} columns')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 10564751
+    },
+    {
+      "raw": "bigg_boss.head(5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 440023
+    },
+    {
+      "raw": "bigg_boss.tail(10).T",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 997537
+    },
+    {
+      "raw": "bigg_boss.sample(10)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 838554
+    },
+    {
+      "raw": "bigg_boss.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 8956031
+    },
+    {
+      "raw": "bigg_boss.describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 28692764
+    },
+    {
+      "raw": "# Unique values in each column\nfor col in bigg_boss.columns:\n    print(\"Number of unique values in\", col,\"-\", bigg_boss[col].nunique())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3097778
+    },
+    {
+      "raw": "# Number of seasons in all Indian languages\nprint(bigg_boss.groupby('Language')['Season Number'].nunique().sum())\n\n# 35 seasons happened (including current seasons)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1214636
+    },
+    {
+      "raw": "# Number of seasons in each Indian language\nprint(bigg_boss.groupby('Language')['Season Number'].nunique().nlargest(10))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1843087
+    },
+    {
+      "raw": "# Total number of Bigg Boss housemates\n# ALEX: remove plotting\n# fig = plt.figure(figsize=(10,4))\n# ax = sns.countplot(x='Language', data=bigg_boss)\n# ax.set_title('Bigg Boss Series - Indian Language')\n# for t in ax.patches:\n#     if (np.isnan(float(t.get_height()))):\n#         ax.annotate(0, (t.get_x(), 0))\n#     else:\n#         ax.annotate(str(format(int(t.get_height()), ',d')), (t.get_x(), t.get_height()*1.01))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 218024
+    },
+    {
+      "raw": "# Number of normal entries and wild card entries\nprint(bigg_boss['Wild Card'].value_counts(), \"\\n\")\nprint(round(bigg_boss['Wild Card'].value_counts(normalize=True)*100))\n# ALEX: remove plotting\n# sns.countplot(x='Wild Card', data=bigg_boss)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2436919
+    },
+    {
+      "raw": "# Common people has many professions, so clubbing them into one category\n# ALEX: make notebook run\n# bigg_boss.loc[bigg_boss['Profession'].str.contains('Commoner'),'Profession']='Commoner'\nbigg_boss.loc[bigg_boss['Profession'].str.contains('Commoner', na=False),'Profession']='Commoner'",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1514568
+    },
+    {
+      "raw": "# Participant's Profession\nprint(bigg_boss['Profession'].value_counts())\n# ALEX: remove plotting\n# fig = plt.figure(figsize=(25,8))\n# sns.countplot(x='Profession', data=bigg_boss)\n# plt.xticks(rotation=90)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1513408
+    },
+    {
+      "raw": "# Broadcastor\n# ALEX: remove plotting\n# fig = plt.figure(figsize=(20,5))\n# ax = sns.countplot(x='Broadcasted By', data=bigg_boss, palette='RdBu')\n# ax.set_title('Bigg Boss Series - Indian Broadcastor & Total Number of Housemates')\n# for t in ax.patches:\n#     if (np.isnan(float(t.get_height()))):\n#         ax.annotate(0, (t.get_x(), 0))\n#     else:\n#         ax.annotate(str(format(int(t.get_height()), ',d')), (t.get_x(), t.get_height()*1.01))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 217638
+    },
+    {
+      "raw": "bigg_boss.groupby('Host Name')['Season Number'].nunique().nlargest(25)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1586023
+    },
+    {
+      "raw": "# Housemate's Gender\nprint(bigg_boss['Gender'].value_counts())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1072341
+    },
+    {
+      "raw": "# Maximum TRP of Bigg Boss Hindi/India seasons\nprint(\"Maximum TRP\",bigg_boss['Average TRP'].max(), \"\\n\")\nprint(bigg_boss.loc[bigg_boss['Average TRP']==bigg_boss['Average TRP'].max()][[\"Language\",\"Season Number\"]].head(1).to_string(index=False))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3057392
+    },
+    {
+      "raw": "# Longest season of Bigg Boss Hindi/India seasons\nprint(\"Longest season\",bigg_boss['Season Length'].max(), \"days \\n\")\nprint(bigg_boss.loc[bigg_boss['Season Length']==bigg_boss['Season Length'].max()][[\"Language\",\"Season Number\"]].head(1).to_string(index=False))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2492654
+    },
+    {
+      "raw": "# All BB Winners\nbigg_boss.loc[bigg_boss.Winner==1]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 814944
+    },
+    {
+      "raw": "# Profession of BB Season Winners\nbigg_boss.loc[bigg_boss.Winner==1,'Profession'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1031140
+    },
+    {
+      "raw": "# Gender of Season title Winners\nprint(bigg_boss.loc[bigg_boss.Winner==1,'Gender'].value_counts(),'\\n')\n\n# In percentage\nprint(round(bigg_boss.loc[bigg_boss.Winner==1,'Gender'].value_counts(normalize=True)*100))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2783372
+    },
+    {
+      "raw": "# Entry type of the Season Winners\nbigg_boss.loc[bigg_boss.Winner==1,'Wild Card'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1070780
+    },
+    {
+      "raw": "# No re-entered contestant won Bigg Boss title\n# ALEX: make notebook run\n# bigg_boss.loc[bigg_boss.Winner==1,'Number of re-entries'].value_counts()\nbigg_boss.loc[bigg_boss.Winner==1,'Number of Re-entries'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1013181
+    },
+    {
+      "raw": "# Number of eliminations or evictions faced by the Bigg Boss competition winners\nbigg_boss.loc[bigg_boss.Winner==1,'Number of Evictions Faced'].value_counts().sort_index()\n\n# Number of eliminations faced - Number of Winners",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1236797
+    },
+    {
+      "raw": "# Bigg Boss winners Number of times elected as Captain\n# ALEX: make notebook run\n# bigg_boss.loc[bigg_boss.Winner==1,'Number of times elected as Captain'].value_counts().sort_index()\nbigg_boss.loc[bigg_boss.Winner==1,'Number of Times Elected as Captain'].value_counts().sort_index()\n\n# Number of times elected as Captain   - Number of winners",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1187972
+    },
+    {
+      "raw": "# ALEX: remove pandas profiling\n# import pandas_profiling\n# pandas_profiling.ProfileReport(bigg_boss)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 177656
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 105035
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 99767
+    }
+  ],
+  "total-time-in-sec": 0.080765148,
+  "max-disk-in-mb": 0
+}

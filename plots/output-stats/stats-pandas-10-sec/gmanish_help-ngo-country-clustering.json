@@ -1,0 +1,392 @@
+{
+  "max-mem-in-mb": 3719,
+  "max-mem-in-mb2": 3723,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 5GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 434220
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# import pandas as pd\n# import numpy as np\n\n# import seaborn as sns\n# import matplotlib.pyplot as plt\n\npd.set_option('display.max_columns', 500)\npd.set_option('display.max_colwidth', None)\n\n# For scaling the data\n# ALEX: remove ML code\n# from sklearn.preprocessing import StandardScaler\n\n# # To perform K-means clustering\n# from sklearn.cluster import KMeans\n\n\n# #To perform hierarchical clustering\n# from scipy.cluster.hierarchy import linkage\n# from scipy.cluster.hierarchy import dendrogram\n# from scipy.cluster.hierarchy import cut_tree",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 518946
+    },
+    {
+      "raw": "data_dict = pd.read_csv('./input/data-dictionary.scaled.csv')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 235181958
+    },
+    {
+      "raw": "data_dict",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 441279
+    },
+    {
+      "raw": "countries = pd.read_csv('./input/Country-data.scaled.csv')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3497495547
+    },
+    {
+      "raw": "countries.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 501200
+    },
+    {
+      "raw": "countries.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 240382
+    },
+    {
+      "raw": "# features = ['exports', 'health', 'imports']\n# for feature in features:\n#     countries[feature] = countries[feature]*countries['gdpp']/100\ncountries[['exports', 'health', 'imports']]= \\\n                                countries[['exports', 'health', 'imports']].multiply(countries[\"gdpp\"]/100, axis=\"index\")\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 412903270
+    },
+    {
+      "raw": "countries.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 379989
+    },
+    {
+      "raw": "countries.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3345114
+    },
+    {
+      "raw": "#checking for duplicates\ncountries.duplicated(subset = ['country'], keep = False).sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 175564706
+    },
+    {
+      "raw": "# Checking for null values in the column\ncountries.isnull().sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 693052544
+    },
+    {
+      "raw": "countries.describe(percentiles=[.25,.5,.75,.90,.95,.99])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2454496031
+    },
+    {
+      "raw": "features = countries.columns\nfeatures",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 302606
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig = plt.figure(figsize=(15,25))\nfor plot, feature in enumerate(features[1:]):\n# ALEX: remove plotting\n#     fig.add_subplot(5,3,plot+1)\n#     sns.boxplot(x=countries[feature], data=countries)\n    _ = countries[feature]\n                 ",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 382549
+    },
+    {
+      "raw": "#Caluclating the quantile1 and quantile3 for gdpp and removing the upper outliers\nQ1 = countries.gdpp.quantile(0.05)\nQ3 = countries.gdpp.quantile(0.95)\n\ncountries[(countries.gdpp > Q3)]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 409087065
+    },
+    {
+      "raw": "countries = countries[(countries.gdpp <= Q3)]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 290511747
+    },
+    {
+      "raw": "countries.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 307544
+    },
+    {
+      "raw": "countries.head(5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 310084
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig = plt.figure(figsize=(20,35))\n# sns.pairplot(countries,diag_kind='kde',corner=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 117972
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize = (15,5))\nchild_mort_top10 = countries[['country','child_mort']].sort_values('child_mort', ascending = False).head(10)\n# ALEX: remove plotting\n# ax=sns.barplot(x='country', y='child_mort', data= child_mort_top10)\n\n# for p in ax.patches:\n#     ax.annotate(str(p.get_height()), (p.get_x() * 1.05 , p.get_height() * 1.01))\n# ax.set(xlabel = '', ylabel= 'Child Mortality Rate')\n# plt.xticks(rotation=45)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1031086568
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize = (15,5))\nhealth = countries[['country','health']].sort_values('health', ascending = True).head(10)\n# ALEX: remove plotting\n# ax = sns.barplot(x='country', y='health', data= health)\n# ax.set(xlabel = '', ylabel= 'Health')\n# plt.xticks(rotation=90)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1020912712
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize = (15,5))\nincome_lowets_10 = countries[['country','income']].sort_values('income', ascending = True).head(10)\n# ALEX: remove plotting\n# axes = sns.barplot(x='country', y='income', data= income_lowets_10)\n# axes.set(xlabel = '', ylabel= 'Per Capita Income')\n# plt.xticks(rotation=90)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 937296840
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize = (15,5))\nhigh_inflation = countries[['country','inflation']].sort_values('inflation', ascending = False).head(10)\n# ALEX: remove plotting\n# ax = sns.barplot(x='country', y='inflation', data= high_inflation)\n# ax.set(xlabel = '', ylabel= 'Inflation')\n# plt.xticks(rotation=90)\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1036201309
+    },
+    {
+      "raw": "#Find the Hopkins statistic score\n# ALEX: remove ML code\n# from sklearn.neighbors import NearestNeighbors\n# from random import sample\n# from numpy.random import uniform\n# import numpy as np\n# from math import isnan\n \ndef hopkins(X):\n    d = X.shape[1]\n    #d = len(vars) # columns\n    n = len(X) # rows\n# ALEX: remove ML code\n#     m = int(0.1 * n) \n#     nbrs = NearestNeighbors(n_neighbors=1).fit(X.values)\n \n#     rand_X = sample(range(0, n, 1), m)\n \n#     ujd = []\n#     wjd = []\n#     for j in range(0, m):\n#         u_dist, _ = nbrs.kneighbors(uniform(np.amin(X,axis=0),np.amax(X,axis=0),d).reshape(1, -1), 2, return_distance=True)\n#         ujd.append(u_dist[0][1])\n#         w_dist, _ = nbrs.kneighbors(X.iloc[rand_X[j]].values.reshape(1, -1), 2, return_distance=True)\n#         wjd.append(w_dist[0][1])\n \n#     H = sum(ujd) / (sum(ujd) + sum(wjd))\n#     if isnan(H):\n#         print(ujd, wjd)\n#         H = 0\n \n#     return H\n    _ = X.values",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 683627
+    },
+    {
+      "raw": "hopkins(countries.drop('country', axis = 1))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 273311476
+    },
+    {
+      "raw": "features = countries.columns\n# ALEX: remove ML code\n# standard_scaler = StandardScaler()\n# countries_scaled= standard_scaler.fit_transform(countries.drop('country', axis=1))\ncountries_scaled= countries.drop('country', axis=1)\ncountries_scaled",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 136293511
+    },
+    {
+      "raw": "country_norm = pd.DataFrame(countries_scaled)\ncountry_norm.columns = features[1:]\ncountry_norm.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 553144
+    },
+    {
+      "raw": "# ALEX: remove ML code, plotting\n# from sklearn.metrics import silhouette_score\n# ss = []\n# for k in range(2, 15):\n#     kmean = KMeans(n_clusters = k).fit(country_norm)\n#     ss.append([k, silhouette_score(country_norm, kmean.labels_)])\n# temp = pd.DataFrame(ss)    \n# plt.plot(temp[0], temp[1])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 164282
+    },
+    {
+      "raw": "# sum of squared distances\n# ALEX: remove ML code, plotting\n# ssd = []\n# for num_clusters in list(range(1,21)):\n#     model_clus = KMeans(n_clusters = num_clusters, max_iter=50)\n#     model_clus.fit(country_norm)\n#     ssd.append(model_clus.inertia_)\n\n    \n# fig, ax = plt.subplots()\n# ax.plot(range(1,21),ssd, marker = '+',color = 'red' , ls = '--', markeredgecolor = 'blue', markersize = '10')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 144016
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# kmeans_clus4 = KMeans(n_clusters=4, max_iter=50, random_state= 50)\n# kmeans_clus4.fit(country_norm)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 106537
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# kmeans_clus4.labels_",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 98091
+    },
+    {
+      "raw": "#Finding the labels and converting it to series so that it can be appended to the `original countries` easily.\n# ALEX: remove ML code\n# labels_kmeans = pd.Series(kmeans_clus4.labels_, index=countries.index)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 102108
+    },
+    {
+      "raw": "#Adding the labels to countries dataset\ncountries_kmeans = countries.copy()\n# ALEX: remove ML code\n# countries_kmeans['Labels'] = labels_kmeans\ncountries_kmeans.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 166363867
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# countries_kmeans['Labels'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 167919
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# axes = sns.scatterplot(x='gdpp',y='child_mort',hue='Labels',legend='full',data=countries_kmeans, palette=['green','orange','brown','red'])\n# axes.set(xlabel = 'GDPP', ylabel= 'Child Mortality Rate')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 127428
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# axes = sns.scatterplot(x='gdpp',y='income',hue='Labels',legend='full',data=countries_kmeans, palette=['green','orange','brown','red'])\n# axes.set(xlabel = 'GDPP', ylabel= 'Income')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 108169
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# axes= sns.scatterplot(x='income',y='child_mort',hue='Labels',legend='full',data=countries_kmeans, palette=['green','orange','brown','red'])\n# axes.set(xlabel = 'Child Mortality Rate', ylabel= 'Income')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 108380
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# child_mort_mean =pd.DataFrame(countries_kmeans.groupby([\"Labels\"]).child_mort.mean())\n# exports_mean=pd.DataFrame(countries_kmeans.groupby([\"Labels\"]).exports.mean())\n# health_mean =pd.DataFrame(countries_kmeans.groupby([\"Labels\"]).health.mean())\n# imports_mean =pd.DataFrame(countries_kmeans.groupby([\"Labels\"]).imports.mean())\n# income_mean =pd.DataFrame(countries_kmeans.groupby([\"Labels\"]).income.mean())\n# inflat_mean =pd.DataFrame(countries_kmeans.groupby([\"Labels\"]).inflation.mean())\n# life_expec_mean =pd.DataFrame(countries_kmeans.groupby([\"Labels\"]).life_expec.mean())\n# total_fer_mean =pd.DataFrame(countries_kmeans.groupby([\"Labels\"]).total_fer.mean())\n# gdpp_mean =pd.DataFrame(countries_kmeans.groupby([\"Labels\"]).gdpp.mean())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 145282
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# cluster_analysis_df = pd.concat([pd.Series([0,1,2,3]),child_mort_mean,exports_mean,health_mean,imports_mean,income_mean,inflat_mean,life_expec_mean,\n#                                  total_fer_mean,gdpp_mean], axis=1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 104335
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# cluster_analysis_df.columns = [\"Labels\",\"child_mort_mean\",\"exports_mean\",\"health_mean\",\"imports_mean\",\"income_mean\",\"inflation_mean\",\"life_expec_mean\",\"total_fer_mean\",\"gdpp_mean\"]\n# cluster_analysis_df",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 101922
+    },
+    {
+      "raw": "# ALEX: remove ML code, plotting\n# features = cluster_analysis_df.columns\n# fig = plt.figure(figsize=(18,15))\n# for plot, feature in enumerate(features[1:]):\n#     fig.add_subplot(3,3,plot+1)\n#     sns.barplot(cluster_analysis_df.Labels, cluster_analysis_df[feature])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 111431
+    },
+    {
+      "raw": "#Binning the clusters to get the top 5 countries sorted in order exaplined above\n# ALEX: remove ML code\n# clustered_kmeans=countries[countries_kmeans['Labels']==1]\n# clustered_kmeans.sort_values(['gdpp','income','child_mort','health','inflation','life_expec','total_fer','imports','exports'], \n#                       ascending=[True,True,False,True,False,True,False,False,True]).head(10)\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 109763
+    },
+    {
+      "raw": "country_norm.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 231398
+    },
+    {
+      "raw": "country_norm.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 273198
+    },
+    {
+      "raw": "countries_hrcl  = country_norm.copy()\n# ALEX: remove plotting\n# fig = plt.figure(figsize = (25,8))\n# mergings = linkage(countries_hrcl, method = \"single\", metric='euclidean')\n# dendrogram(mergings)\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 134222639
+    },
+    {
+      "raw": "# HC with complete method\n# ALEX: remove plotting\n# fig = plt.figure(figsize = (25, 8))\n# mergings = linkage(countries_hrcl, method = \"complete\", metric='euclidean')\n# dendrogram(mergings)\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 183202
+    },
+    {
+      "raw": "countries",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 210102
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# clusterCut = cut_tree(mergings, n_clusters = 4).reshape(-1,)\n# clusterCut",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 110870
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 66993
+    },
+    {
+      "raw": "countries_hrcl_cluster = countries.copy()\ncountries_hrcl_cluster.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 166370319
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# countries_hrcl_cluster['Labels'] = pd.Series(clusterCut, index=countries.index)\ncountries_hrcl_cluster.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 320429
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# countries_hrcl_cluster['Labels'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 126196
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# axes = sns.scatterplot(x='gdpp', y='child_mort', hue='Labels',legend='full',data=countries_hrcl_cluster, palette=['green','orange','brown','red'])\n# axes.set(xlabel = 'GDPP', ylabel= 'Child Mortality Rate')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 111144
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# axes = sns.scatterplot(x='gdpp',y='income',hue='Labels',legend='full',data=countries_hrcl_cluster, palette=['green','orange','brown','red'])\n# axes.set(xlabel = 'GDPP', ylabel= 'Income')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 102925
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# axes= sns.scatterplot(x='income',y='child_mort',hue='Labels',legend='full',data=countries_hrcl_cluster, palette=['green','orange','brown','red'])\n# axes.set(xlabel = 'Child Mortality Rate', ylabel= 'Income')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 103567
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# child_mort_mean =pd.DataFrame(countries_hrcl_cluster.groupby([\"Labels\"]).child_mort.mean())\n# exports_mean=pd.DataFrame(countries_hrcl_cluster.groupby([\"Labels\"]).exports.mean())\n# health_mean =pd.DataFrame(countries_hrcl_cluster.groupby([\"Labels\"]).health.mean())\n# imports_mean =pd.DataFrame(countries_hrcl_cluster.groupby([\"Labels\"]).imports.mean())\n# income_mean =pd.DataFrame(countries_hrcl_cluster.groupby([\"Labels\"]).income.mean())\n# inflat_mean =pd.DataFrame(countries_hrcl_cluster.groupby([\"Labels\"]).inflation.mean())\n# life_expec_mean =pd.DataFrame(countries_hrcl_cluster.groupby([\"Labels\"]).life_expec.mean())\n# total_fer_mean =pd.DataFrame(countries_hrcl_cluster.groupby([\"Labels\"]).total_fer.mean())\n# gdpp_mean =pd.DataFrame(countries_hrcl_cluster.groupby([\"Labels\"]).gdpp.mean())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 140743
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# hrcl_cluster_analysis_df = pd.concat([pd.Series([0,1,2,3]),child_mort_mean,exports_mean,health_mean,imports_mean,income_mean,inflat_mean,life_expec_mean,\n#                                  total_fer_mean,gdpp_mean], axis=1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 100810
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# hrcl_cluster_analysis_df.columns = [\"Labels\",\"child_mort_mean\",\"exports_mean\",\"health_mean\",\"imports_mean\",\"income_mean\",\"inflation_mean\",\"life_expec_mean\",\"total_fer_mean\",\"gdpp_mean\"]\n# hrcl_cluster_analysis_df",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 98338
+    },
+    {
+      "raw": "# ALEX: remove ML code, plotting\n# features = hrcl_cluster_analysis_df.columns\n# fig = plt.figure(figsize=(18,15))\n# for plot, feature in enumerate(features[1:]):\n#     fig.add_subplot(3,3,plot+1)\n#     sns.barplot(hrcl_cluster_analysis_df.Labels, hrcl_cluster_analysis_df[feature])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 109993
+    },
+    {
+      "raw": "#Binning the clusters to get the top 5 countries sorted in order exaplined above\n# ALEX: remove ML code\n# clustered_hrcl=countries[countries_hrcl_cluster['Labels']==0]\n# clustered_hrcl.sort_values(['gdpp','income','child_mort','health','inflation','life_expec','total_fer','imports','exports'], \n#                       ascending=[True,True,False,True,False,True,False,False,True]).head(10)\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 112312
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 64974
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 60723
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 59685
+    }
+  ],
+  "total-time-in-sec": 13.08315803,
+  "max-disk-in-mb": 0
+}

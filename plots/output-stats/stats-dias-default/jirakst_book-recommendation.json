@@ -1,0 +1,808 @@
+{
+  "max-mem-in-mb": 1409,
+  "max-mem-in-mb2": 1964,
+  "cells": [
+    {
+      "raw": "# Basic\nimport numpy as np \n# import pandas as pd \nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt \n\n# # System\n# import warnings\n# import os\n# warnings.filterwarnings(\"ignore\")\n# %matplotlib inline\n\n# ALEX: remove path printing\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))",
+      "rewrite-ns": 691302,
+      "overhead-ns": 691302,
+      "exec-ns": 408098,
+      "total-ns": 1099400,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "users = pd.read_csv('./input/BX-Users.scaled.csv', error_bad_lines=False, delimiter=';', encoding = 'ISO-8859-1') #encoding = \"latin-1\"",
+      "rewrite-ns": 816769,
+      "overhead-ns": 816769,
+      "exec-ns": 170703879,
+      "total-ns": 171520648,
+      "patts-hit": {},
+      "rewritten": "users = pd.read_csv('./input/BX-Users.scaled.csv', error_bad_lines=False,\n    delimiter=';', encoding='ISO-8859-1')\n"
+    },
+    {
+      "raw": "books = pd.read_csv('./input/BX-Books.scaled.csv', error_bad_lines=False, delimiter=';', encoding = 'ISO-8859-1') #encoding = \"latin-1",
+      "rewrite-ns": 991491,
+      "overhead-ns": 991491,
+      "exec-ns": 959733764,
+      "total-ns": 960725255,
+      "patts-hit": {},
+      "rewritten": "books = pd.read_csv('./input/BX-Books.scaled.csv', error_bad_lines=False,\n    delimiter=';', encoding='ISO-8859-1')\n"
+    },
+    {
+      "raw": "ratings = pd.read_csv('./input/BX-Book-Ratings.scaled.csv', error_bad_lines=False, delimiter=';', encoding = 'ISO-8859-1')",
+      "rewrite-ns": 678407,
+      "overhead-ns": 678407,
+      "exec-ns": 363496756,
+      "total-ns": 364175163,
+      "patts-hit": {},
+      "rewritten": "ratings = pd.read_csv('./input/BX-Book-Ratings.scaled.csv', error_bad_lines\n    =False, delimiter=';', encoding='ISO-8859-1')\n"
+    },
+    {
+      "raw": "users.shape",
+      "rewrite-ns": 102924,
+      "overhead-ns": 102924,
+      "exec-ns": 1147581,
+      "total-ns": 1250505,
+      "patts-hit": {},
+      "rewritten": "users.shape\n"
+    },
+    {
+      "raw": "books.shape",
+      "rewrite-ns": 55252,
+      "overhead-ns": 55252,
+      "exec-ns": 489976,
+      "total-ns": 545228,
+      "patts-hit": {},
+      "rewritten": "books.shape\n"
+    },
+    {
+      "raw": "ratings.shape",
+      "rewrite-ns": 53051,
+      "overhead-ns": 53051,
+      "exec-ns": 430797,
+      "total-ns": 483848,
+      "patts-hit": {},
+      "rewritten": "ratings.shape\n"
+    },
+    {
+      "raw": "users.columns",
+      "rewrite-ns": 46175,
+      "overhead-ns": 46175,
+      "exec-ns": 562860,
+      "total-ns": 609035,
+      "patts-hit": {},
+      "rewritten": "users.columns\n"
+    },
+    {
+      "raw": "ratings.columns",
+      "rewrite-ns": 47883,
+      "overhead-ns": 47883,
+      "exec-ns": 508100,
+      "total-ns": 555983,
+      "patts-hit": {},
+      "rewritten": "ratings.columns\n"
+    },
+    {
+      "raw": "books.columns",
+      "rewrite-ns": 47989,
+      "overhead-ns": 47989,
+      "exec-ns": 521101,
+      "total-ns": 569090,
+      "patts-hit": {},
+      "rewritten": "books.columns\n"
+    },
+    {
+      "raw": "data = pd.merge(ratings, users, on='User-ID', how='inner')",
+      "rewrite-ns": 596540,
+      "overhead-ns": 596540,
+      "exec-ns": 138386987,
+      "total-ns": 138983527,
+      "patts-hit": {},
+      "rewritten": "data = pd.merge(ratings, users, on='User-ID', how='inner')\n"
+    },
+    {
+      "raw": "data = pd.merge(data, books, on='ISBN', how='inner')",
+      "rewrite-ns": 646759,
+      "overhead-ns": 646759,
+      "exec-ns": 552144231,
+      "total-ns": 552790990,
+      "patts-hit": {},
+      "rewritten": "data = pd.merge(data, books, on='ISBN', how='inner')\n"
+    },
+    {
+      "raw": "# Check\ndata.columns",
+      "rewrite-ns": 94150,
+      "overhead-ns": 94150,
+      "exec-ns": 790941,
+      "total-ns": 885091,
+      "patts-hit": {},
+      "rewritten": "data.columns\n"
+    },
+    {
+      "raw": "#data.rename(columns={'Book-Rating':'BookRating', 'User-ID':'UserID'},inplace=True)",
+      "rewrite-ns": 14397,
+      "overhead-ns": 14397,
+      "exec-ns": 86464,
+      "total-ns": 100861,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# Drop (TODO: image analysis?)\n'''to_drop = ['Image-URL-S', 'Image-URL-M', 'Image-URL-L']\n\ndata = data.drop(to_drop, axis=1, inplace=False)'''",
+      "rewrite-ns": 191078,
+      "overhead-ns": 191078,
+      "exec-ns": 580888,
+      "total-ns": 771966,
+      "patts-hit": {},
+      "rewritten": "\"\"\"to_drop = ['Image-URL-S', 'Image-URL-M', 'Image-URL-L']\n\ndata = data.drop(to_drop, axis=1, inplace=False)\"\"\"\n"
+    },
+    {
+      "raw": "data.shape",
+      "rewrite-ns": 54034,
+      "overhead-ns": 54034,
+      "exec-ns": 457027,
+      "total-ns": 511061,
+      "patts-hit": {},
+      "rewritten": "data.shape\n"
+    },
+    {
+      "raw": "print('Size of the dataset is: ', data.memory_usage().sum() / 1024**2, ' MB')",
+      "rewrite-ns": 767381,
+      "overhead-ns": 767381,
+      "exec-ns": 1330311,
+      "total-ns": 2097692,
+      "patts-hit": {},
+      "rewritten": "print('Size of the dataset is: ', data.memory_usage().sum() / 1024 ** 2, ' MB')\n"
+    },
+    {
+      "raw": "# TODO: EDA in Power BI",
+      "rewrite-ns": 11714,
+      "overhead-ns": 11714,
+      "exec-ns": 68988,
+      "total-ns": 80702,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "data.shape",
+      "rewrite-ns": 50380,
+      "overhead-ns": 50380,
+      "exec-ns": 437890,
+      "total-ns": 488270,
+      "patts-hit": {},
+      "rewritten": "data.shape\n"
+    },
+    {
+      "raw": "data.head(5)",
+      "rewrite-ns": 97431,
+      "overhead-ns": 97431,
+      "exec-ns": 9452391,
+      "total-ns": 9549822,
+      "patts-hit": {},
+      "rewritten": "data.head(5)\n"
+    },
+    {
+      "raw": "data.info()",
+      "rewrite-ns": 80259,
+      "overhead-ns": 80259,
+      "exec-ns": 848744167,
+      "total-ns": 848824426,
+      "patts-hit": {},
+      "rewritten": "data.info()\n"
+    },
+    {
+      "raw": "print('Number of books: ', data['ISBN'].nunique())",
+      "rewrite-ns": 624795,
+      "overhead-ns": 624795,
+      "exec-ns": 76761353,
+      "total-ns": 77386148,
+      "patts-hit": {},
+      "rewritten": "print('Number of books: ', data['ISBN'].nunique())\n"
+    },
+    {
+      "raw": "print('Number of users: ',data['User-ID'].nunique())",
+      "rewrite-ns": 574600,
+      "overhead-ns": 574600,
+      "exec-ns": 7697300,
+      "total-ns": 8271900,
+      "patts-hit": {},
+      "rewritten": "print('Number of users: ', data['User-ID'].nunique())\n"
+    },
+    {
+      "raw": "print('Missing data [%]')\nround(data.isnull().sum() / len(data) * 100, 4)",
+      "rewrite-ns": 960629,
+      "overhead-ns": 960629,
+      "exec-ns": 842397282,
+      "total-ns": 843357911,
+      "patts-hit": {},
+      "rewritten": "print('Missing data [%]')\nround(data.isnull().sum() / len(data) * 100, 4)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.distplot(data['Age'].dropna(), kde=False)\n_ = data['Age'].dropna()",
+      "rewrite-ns": 509070,
+      "overhead-ns": 509070,
+      "exec-ns": 9517639,
+      "total-ns": 10026709,
+      "patts-hit": {},
+      "rewritten": "_ = data['Age'].dropna()\n"
+    },
+    {
+      "raw": "print('Number of outliers: ', sum(data['Age'] > 100))",
+      "rewrite-ns": 636323,
+      "overhead-ns": 636323,
+      "exec-ns": 46533296,
+      "total-ns": 47169619,
+      "patts-hit": {},
+      "rewritten": "print('Number of outliers: ', sum(data['Age'] > 100))\n"
+    },
+    {
+      "raw": "# data['Book-Rating'] = data['Book-Rating'].replace(0, None)\ndata['Book-Rating'] = data['Book-Rating'].replace([0], None)",
+      "rewrite-ns": 244237,
+      "overhead-ns": 244237,
+      "exec-ns": 17199889,
+      "total-ns": 17444126,
+      "patts-hit": {},
+      "rewritten": "data['Book-Rating'] = data['Book-Rating'].replace([0], None)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(x='Book-Rating', data=data)",
+      "rewrite-ns": 16504,
+      "overhead-ns": 16504,
+      "exec-ns": 91776,
+      "total-ns": 108280,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "print('Average book rating: ', round(data['Book-Rating'].mean(), 2))",
+      "rewrite-ns": 666379,
+      "overhead-ns": 666379,
+      "exec-ns": 48253928,
+      "total-ns": 48920307,
+      "patts-hit": {},
+      "rewritten": "print('Average book rating: ', round(data['Book-Rating'].mean(), 2))\n"
+    },
+    {
+      "raw": "# Publication by Year\nyear = pd.to_numeric(data['Year-Of-Publication'], 'coerce').fillna(2099, downcast = 'infer')\n# ALEX: remove plotting\n# sns.distplot(year, kde=False, hist_kws={\"range\": [1945,2020]})",
+      "rewrite-ns": 783214,
+      "overhead-ns": 783214,
+      "exec-ns": 197940613,
+      "total-ns": 198723827,
+      "patts-hit": {},
+      "rewritten": "year = pd.to_numeric(data['Year-Of-Publication'], 'coerce').fillna(2099,\n    downcast='infer')\n"
+    },
+    {
+      "raw": "country = data['Location'].apply(lambda row: str(row).split(',')[-1])\ndata.groupby(country)['Book-Rating'].count().sort_values(ascending=False).head(10)",
+      "rewrite-ns": 1375783,
+      "overhead-ns": 1375783,
+      "exec-ns": 361359976,
+      "total-ns": 362735759,
+      "patts-hit": {
+        "SortHead": 1
+      },
+      "rewritten": "country = data['Location'].apply(lambda row: str(row).split(',')[-1])\ndias.rewriter.sort_head(called_on=data.groupby(country)['Book-Rating'].\n    count(), by=None, n=10, asc=False, orig=lambda _DIAS_x: _DIAS_x.\n    sort_values(ascending=False).head(10))\n"
+    },
+    {
+      "raw": "# Cast to numeric\ndata['Year-Of-Publication'] = pd.to_numeric(data['Year-Of-Publication'], 'coerce').fillna(2099, downcast = 'infer')",
+      "rewrite-ns": 908661,
+      "overhead-ns": 908661,
+      "exec-ns": 233847658,
+      "total-ns": 234756319,
+      "patts-hit": {},
+      "rewritten": "data['Year-Of-Publication'] = pd.to_numeric(data['Year-Of-Publication'],\n    'coerce').fillna(2099, downcast='infer')\n"
+    },
+    {
+      "raw": "data['Book-Rating'] = data['Book-Rating'].replace(0, None)",
+      "rewrite-ns": 272202,
+      "overhead-ns": 272202,
+      "exec-ns": 21711113,
+      "total-ns": 21983315,
+      "patts-hit": {},
+      "rewritten": "data['Book-Rating'] = data['Book-Rating'].replace(0, None)\n"
+    },
+    {
+      "raw": "data['Age'] = np.where(data['Age']>90, None, data['Age'])",
+      "rewrite-ns": 892541,
+      "overhead-ns": 892541,
+      "exec-ns": 26406295,
+      "total-ns": 27298836,
+      "patts-hit": {},
+      "rewritten": "data['Age'] = np.where(data['Age'] > 90, None, data['Age'])\n"
+    },
+    {
+      "raw": "# Categorical feautes\ndata[['Book-Author', 'Publisher']] = data[['Book-Author', 'Publisher']].fillna('Unknown')",
+      "rewrite-ns": 806828,
+      "overhead-ns": 806828,
+      "exec-ns": 601343387,
+      "total-ns": 602150215,
+      "patts-hit": {},
+      "rewritten": "data[['Book-Author', 'Publisher']] = data[['Book-Author', 'Publisher']].fillna(\n    'Unknown')\n"
+    },
+    {
+      "raw": "# Check cat features\ndata[['Book-Author', 'Publisher']].isnull().sum()",
+      "rewrite-ns": 636026,
+      "overhead-ns": 636026,
+      "exec-ns": 394938154,
+      "total-ns": 395574180,
+      "patts-hit": {},
+      "rewritten": "data[['Book-Author', 'Publisher']].isnull().sum()\n"
+    },
+    {
+      "raw": "# Age\nmedian = data[\"Age\"].median()\nstd = data[\"Age\"].std()\nis_null = data[\"Age\"].isnull().sum()\nrand_age = np.random.randint(median - std, median + std, size = is_null)\nage_slice = data[\"Age\"].copy()\nage_slice[pd.isnull(age_slice)] = rand_age\ndata[\"Age\"] = age_slice\ndata[\"Age\"] = data[\"Age\"].astype(int)",
+      "rewrite-ns": 3473073,
+      "overhead-ns": 3473073,
+      "exec-ns": 422446462,
+      "total-ns": 425919535,
+      "patts-hit": {},
+      "rewritten": "median = data['Age'].median()\nstd = data['Age'].std()\nis_null = data['Age'].isnull().sum()\nrand_age = np.random.randint(median - std, median + std, size=is_null)\nage_slice = data['Age'].copy()\nage_slice[pd.isnull(age_slice)] = rand_age\ndata['Age'] = age_slice\ndata['Age'] = data['Age'].astype(int)\n"
+    },
+    {
+      "raw": "# Check Age\ndata['Age'].isnull().sum()",
+      "rewrite-ns": 533585,
+      "overhead-ns": 533585,
+      "exec-ns": 1519565,
+      "total-ns": 2053150,
+      "patts-hit": {},
+      "rewritten": "data['Age'].isnull().sum()\n"
+    },
+    {
+      "raw": "data['Country'] = data['Location'].apply(lambda row: str(row).split(',')[-1])",
+      "rewrite-ns": 1071594,
+      "overhead-ns": 1071594,
+      "exec-ns": 324851911,
+      "total-ns": 325923505,
+      "patts-hit": {},
+      "rewritten": "data['Country'] = data['Location'].apply(lambda row: str(row).split(',')[-1])\n"
+    },
+    {
+      "raw": "# Drop irelevant\ndata = data.drop('Location', axis=1)",
+      "rewrite-ns": 509134,
+      "overhead-ns": 509134,
+      "exec-ns": 120685568,
+      "total-ns": 121194702,
+      "patts-hit": {},
+      "rewritten": "data = data.drop('Location', axis=1)\n"
+    },
+    {
+      "raw": "data['Country'].head()",
+      "rewrite-ns": 436033,
+      "overhead-ns": 436033,
+      "exec-ns": 1220810,
+      "total-ns": 1656843,
+      "patts-hit": {},
+      "rewritten": "data['Country'].head()\n"
+    },
+    {
+      "raw": "#TODO: country/language analysis (Babel lib?)",
+      "rewrite-ns": 15456,
+      "overhead-ns": 15456,
+      "exec-ns": 84451,
+      "total-ns": 99907,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#en_list = ['usa', 'canada', 'united kingdom', 'australia']",
+      "rewrite-ns": 12187,
+      "overhead-ns": 12187,
+      "exec-ns": 72366,
+      "total-ns": 84553,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#data[data['Country'].isin(en_list)]",
+      "rewrite-ns": 11228,
+      "overhead-ns": 11228,
+      "exec-ns": 65697,
+      "total-ns": 76925,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "df = data",
+      "rewrite-ns": 219598,
+      "overhead-ns": 219598,
+      "exec-ns": 197781,
+      "total-ns": 417379,
+      "patts-hit": {},
+      "rewritten": "df = data\n"
+    },
+    {
+      "raw": "# Relevant score\ndf = df[df['Book-Rating'] >= 6]",
+      "rewrite-ns": 521768,
+      "overhead-ns": 521768,
+      "exec-ns": 253621063,
+      "total-ns": 254142831,
+      "patts-hit": {},
+      "rewritten": "df = df[df['Book-Rating'] >= 6]\n"
+    },
+    {
+      "raw": "# Check\ndf.groupby('ISBN')['User-ID'].count().describe()",
+      "rewrite-ns": 670962,
+      "overhead-ns": 670962,
+      "exec-ns": 114167951,
+      "total-ns": 114838913,
+      "patts-hit": {},
+      "rewritten": "df.groupby('ISBN')['User-ID'].count().describe()\n"
+    },
+    {
+      "raw": "df = df.groupby('ISBN').filter(lambda x: len(x) >= 5)",
+      "rewrite-ns": 869580,
+      "overhead-ns": 869580,
+      "exec-ns": 1555381431,
+      "total-ns": 1556251011,
+      "patts-hit": {},
+      "rewritten": "df = df.groupby('ISBN').filter(lambda x: len(x) >= 5)\n"
+    },
+    {
+      "raw": "df.groupby('User-ID')['ISBN'].count().describe()",
+      "rewrite-ns": 670975,
+      "overhead-ns": 670975,
+      "exec-ns": 18835920,
+      "total-ns": 19506895,
+      "patts-hit": {},
+      "rewritten": "df.groupby('User-ID')['ISBN'].count().describe()\n"
+    },
+    {
+      "raw": "df = df.groupby('User-ID').filter(lambda x: len(x) >= 5)",
+      "rewrite-ns": 848851,
+      "overhead-ns": 848851,
+      "exec-ns": 510967301,
+      "total-ns": 511816152,
+      "patts-hit": {},
+      "rewritten": "df = df.groupby('User-ID').filter(lambda x: len(x) >= 5)\n"
+    },
+    {
+      "raw": "df.shape",
+      "rewrite-ns": 86993,
+      "overhead-ns": 86993,
+      "exec-ns": 5526713,
+      "total-ns": 5613706,
+      "patts-hit": {},
+      "rewritten": "df.shape\n"
+    },
+    {
+      "raw": "df_p = df.pivot_table(index='ISBN', columns='User-ID', values='Book-Rating')",
+      "rewrite-ns": 584359,
+      "overhead-ns": 584359,
+      "exec-ns": 7835602135,
+      "total-ns": 7836186494,
+      "patts-hit": {},
+      "rewritten": "df_p = df.pivot_table(index='ISBN', columns='User-ID', values='Book-Rating')\n"
+    },
+    {
+      "raw": "# Select users who liked LOTR\nlotr = df_p.loc['0345339703'] # Lord of the Rings Part 1\nlike_lotr = lotr[lotr == 10].to_frame().reset_index()\nusers = like_lotr['User-ID'].to_frame()",
+      "rewrite-ns": 1502495,
+      "overhead-ns": 1502495,
+      "exec-ns": 5294450,
+      "total-ns": 6796945,
+      "patts-hit": {},
+      "rewritten": "lotr = df_p.loc['0345339703']\nlike_lotr = lotr[lotr == 10].to_frame().reset_index()\nusers = like_lotr['User-ID'].to_frame()\n"
+    },
+    {
+      "raw": "# Trim original dataset\nliked = pd.merge(users, df, on='User-ID', how='inner')",
+      "rewrite-ns": 605682,
+      "overhead-ns": 605682,
+      "exec-ns": 35513946,
+      "total-ns": 36119628,
+      "patts-hit": {},
+      "rewritten": "liked = pd.merge(users, df, on='User-ID', how='inner')\n"
+    },
+    {
+      "raw": "rating_count = liked.groupby('ISBN')['Book-Rating'].count().to_frame()",
+      "rewrite-ns": 701290,
+      "overhead-ns": 701290,
+      "exec-ns": 1622388,
+      "total-ns": 2323678,
+      "patts-hit": {},
+      "rewritten": "rating_count = liked.groupby('ISBN')['Book-Rating'].count().to_frame()\n"
+    },
+    {
+      "raw": "rating_mean = liked.groupby('ISBN')['Book-Rating'].mean().to_frame()",
+      "rewrite-ns": 794594,
+      "overhead-ns": 794594,
+      "exec-ns": 85246413,
+      "total-ns": 86041007,
+      "patts-hit": {},
+      "rewritten": "rating_mean = liked.groupby('ISBN')['Book-Rating'].mean().to_frame()\n"
+    },
+    {
+      "raw": "rating_count.rename(columns={'Book-Rating':'Rating-Count'}, inplace=True)",
+      "rewrite-ns": 507349,
+      "overhead-ns": 507349,
+      "exec-ns": 600895,
+      "total-ns": 1108244,
+      "patts-hit": {},
+      "rewritten": "rating_count.rename(columns={'Book-Rating': 'Rating-Count'}, inplace=True)\n"
+    },
+    {
+      "raw": "rating_mean.rename(columns={'Book-Rating':'Rating-Mean'}, inplace=True)",
+      "rewrite-ns": 468155,
+      "overhead-ns": 468155,
+      "exec-ns": 509171,
+      "total-ns": 977326,
+      "patts-hit": {},
+      "rewritten": "rating_mean.rename(columns={'Book-Rating': 'Rating-Mean'}, inplace=True)\n"
+    },
+    {
+      "raw": "liked = pd.merge(liked, rating_count, on='ISBN', how='inner')",
+      "rewrite-ns": 528327,
+      "overhead-ns": 528327,
+      "exec-ns": 1993652,
+      "total-ns": 2521979,
+      "patts-hit": {},
+      "rewritten": "liked = pd.merge(liked, rating_count, on='ISBN', how='inner')\n"
+    },
+    {
+      "raw": "liked = pd.merge(liked, rating_mean, on='ISBN', how='inner')",
+      "rewrite-ns": 564989,
+      "overhead-ns": 564989,
+      "exec-ns": 1915730,
+      "total-ns": 2480719,
+      "patts-hit": {},
+      "rewritten": "liked = pd.merge(liked, rating_mean, on='ISBN', how='inner')\n"
+    },
+    {
+      "raw": "liked['Rating-Mean'] = liked['Rating-Mean'].round(2)",
+      "rewrite-ns": 548747,
+      "overhead-ns": 548747,
+      "exec-ns": 457124,
+      "total-ns": 1005871,
+      "patts-hit": {},
+      "rewritten": "liked['Rating-Mean'] = liked['Rating-Mean'].round(2)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# liked['Rating-Count'].hist()\nliked['Rating-Count']",
+      "rewrite-ns": 241236,
+      "overhead-ns": 241236,
+      "exec-ns": 1233782,
+      "total-ns": 1475018,
+      "patts-hit": {},
+      "rewritten": "liked['Rating-Count']\n"
+    },
+    {
+      "raw": "C = liked['Rating-Mean'].mean()\nC",
+      "rewrite-ns": 444207,
+      "overhead-ns": 444207,
+      "exec-ns": 636343,
+      "total-ns": 1080550,
+      "patts-hit": {},
+      "rewritten": "C = liked['Rating-Mean'].mean()\nC\n"
+    },
+    {
+      "raw": "m = rating_count.quantile(.995)[0] # .9\nm",
+      "rewrite-ns": 465768,
+      "overhead-ns": 465768,
+      "exec-ns": 1037971,
+      "total-ns": 1503739,
+      "patts-hit": {},
+      "rewritten": "m = rating_count.quantile(0.995)[0]\nm\n"
+    },
+    {
+      "raw": "# IMDB formula; source: http://trailerpark.weebly.com/imdb-rating.html?source=post_page---------------------------\ndef weighted_rating(x, m=m, C=C):\n    v = x['Rating-Count']\n    R = x['Rating-Mean']\n\n    return (v/(v+m) * R) + (m/(m+v) * C)",
+      "rewrite-ns": 1597130,
+      "overhead-ns": 1597130,
+      "exec-ns": 380890,
+      "total-ns": 1978020,
+      "patts-hit": {},
+      "rewritten": "def weighted_rating(x, m=m, C=C):\n    v = x['Rating-Count']\n    R = x['Rating-Mean']\n    return v / (v + m) * R + m / (m + v) * C\n"
+    },
+    {
+      "raw": "# Create relevant sub-dataset\nliked_q = liked.copy().loc[liked['Rating-Count'] >= m]\nliked_q.shape",
+      "rewrite-ns": 708923,
+      "overhead-ns": 708923,
+      "exec-ns": 1393684,
+      "total-ns": 2102607,
+      "patts-hit": {},
+      "rewritten": "liked_q = liked.copy().loc[liked['Rating-Count'] >= m]\nliked_q.shape\n"
+    },
+    {
+      "raw": "liked_q['Score'] = liked_q.apply(weighted_rating, axis=1)",
+      "rewrite-ns": 543906,
+      "overhead-ns": 1242079,
+      "exec-ns": 1730095,
+      "total-ns": 2274001,
+      "patts-hit": {
+        "HasOnlyMath": 1
+      },
+      "rewritten": "liked_q['Score'] = liked_q.apply(weighted_rating, axis=1)\n"
+    },
+    {
+      "raw": "top_r = liked_q[['Book-Title', 'Rating-Mean']]",
+      "rewrite-ns": 397193,
+      "overhead-ns": 397193,
+      "exec-ns": 733214,
+      "total-ns": 1130407,
+      "patts-hit": {},
+      "rewritten": "top_r = liked_q[['Book-Title', 'Rating-Mean']]\n"
+    },
+    {
+      "raw": "top_r = top_r.groupby(['Book-Title'])['Rating-Mean'].mean().to_frame()",
+      "rewrite-ns": 690899,
+      "overhead-ns": 690899,
+      "exec-ns": 848708,
+      "total-ns": 1539607,
+      "patts-hit": {},
+      "rewritten": "top_r = top_r.groupby(['Book-Title'])['Rating-Mean'].mean().to_frame()\n"
+    },
+    {
+      "raw": "top_r.sort_values(by='Rating-Mean', ascending=False).head(10)",
+      "rewrite-ns": 326169,
+      "overhead-ns": 326169,
+      "exec-ns": 3684026,
+      "total-ns": 4010195,
+      "patts-hit": {
+        "SortHead": 1
+      },
+      "rewritten": "dias.rewriter.sort_head(called_on=top_r, by='Rating-Mean', n=10, asc=False,\n    orig=lambda _DIAS_x: _DIAS_x.sort_values(by='Rating-Mean', ascending=\n    False).head(10))\n"
+    },
+    {
+      "raw": "top_p = liked[['Book-Title', 'Rating-Count']]",
+      "rewrite-ns": 387539,
+      "overhead-ns": 387539,
+      "exec-ns": 979059,
+      "total-ns": 1366598,
+      "patts-hit": {},
+      "rewritten": "top_p = liked[['Book-Title', 'Rating-Count']]\n"
+    },
+    {
+      "raw": "top_p = top_p.groupby(['Book-Title'])['Rating-Count'].mean().to_frame()",
+      "rewrite-ns": 675693,
+      "overhead-ns": 675693,
+      "exec-ns": 1440133,
+      "total-ns": 2115826,
+      "patts-hit": {},
+      "rewritten": "top_p = top_p.groupby(['Book-Title'])['Rating-Count'].mean().to_frame()\n"
+    },
+    {
+      "raw": "top_p.sort_values(by='Rating-Count', ascending=False).head(10)#.plot(kind='barh')",
+      "rewrite-ns": 310404,
+      "overhead-ns": 310404,
+      "exec-ns": 3280429,
+      "total-ns": 3590833,
+      "patts-hit": {
+        "SortHead": 1
+      },
+      "rewritten": "dias.rewriter.sort_head(called_on=top_p, by='Rating-Count', n=10, asc=False,\n    orig=lambda _DIAS_x: _DIAS_x.sort_values(by='Rating-Count', ascending=\n    False).head(10))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# from tqdm import tqdm\n# from gensim.models import Word2Vec \nimport random",
+      "rewrite-ns": 121773,
+      "overhead-ns": 121773,
+      "exec-ns": 181583,
+      "total-ns": 303356,
+      "patts-hit": {},
+      "rewritten": "import random\n"
+    },
+    {
+      "raw": "users = df[\"User-ID\"].unique().tolist()\nlen(users)",
+      "rewrite-ns": 539171,
+      "overhead-ns": 539171,
+      "exec-ns": 1292895,
+      "total-ns": 1832066,
+      "patts-hit": {},
+      "rewritten": "users = df['User-ID'].unique().tolist()\nlen(users)\n"
+    },
+    {
+      "raw": "# shuffle users ID's\nrandom.shuffle(users)\n\n# extract 90% of customer ID's\nusers_train = [users[i] for i in range(round(0.9*len(users)))]\n\n# split data into train and validation set\ntrain_df = df[df['User-ID'].isin(users_train)]\nvalidation_df = df[~df['User-ID'].isin(users_train)]",
+      "rewrite-ns": 2098393,
+      "overhead-ns": 2098393,
+      "exec-ns": 17083001,
+      "total-ns": 19181394,
+      "patts-hit": {},
+      "rewritten": "random.shuffle(users)\nusers_train = [users[i] for i in range(round(0.9 * len(users)))]\ntrain_df = df[df['User-ID'].isin(users_train)]\nvalidation_df = df[~df['User-ID'].isin(users_train)]\n"
+    },
+    {
+      "raw": "# list to capture purchase history of the customers\nreads_train = []\n\n# populate the list with the product codes\n# ALEX: remove extra display code\n# for i in tqdm(users_train):\nfor i in users_train:\n    temp = train_df[train_df[\"User-ID\"] == i][\"ISBN\"].tolist()\n    reads_train.append(temp)",
+      "rewrite-ns": 1277358,
+      "overhead-ns": 1277358,
+      "exec-ns": 1309770599,
+      "total-ns": 1311047957,
+      "patts-hit": {},
+      "rewritten": "reads_train = []\nfor i in users_train:\n    temp = train_df[train_df['User-ID'] == i]['ISBN'].tolist()\n    reads_train.append(temp)\n"
+    },
+    {
+      "raw": "# list to capture purchase history of the customers\nreads_val = []\n\n# populate the list with the product codes\n# ALEX: remove extra display code\n# for i in tqdm(validation_df['User-ID'].unique()):\nfor i in validation_df['User-ID'].unique():\n    temp = validation_df[validation_df[\"User-ID\"] == i][\"ISBN\"].tolist()\n    reads_val.append(temp)",
+      "rewrite-ns": 1536630,
+      "overhead-ns": 1536630,
+      "exec-ns": 106814851,
+      "total-ns": 108351481,
+      "patts-hit": {},
+      "rewritten": "reads_val = []\nfor i in validation_df['User-ID'].unique():\n    temp = validation_df[validation_df['User-ID'] == i]['ISBN'].tolist()\n    reads_val.append(temp)\n"
+    },
+    {
+      "raw": "# train word2vec model\n# ALEX: remove ML code\n# model = Word2Vec(window = 10, sg = 1, hs = 0,\n#                  negative = 10, # for negative sampling\n#                  alpha=0.03, min_alpha=0.0007,\n#                  seed = 14)\n\n# model.build_vocab(reads_train, progress_per=200)\n\n# model.train(reads_train, total_examples = model.corpus_count, \n#             epochs=10, report_delay=1)",
+      "rewrite-ns": 18185,
+      "overhead-ns": 18185,
+      "exec-ns": 107316,
+      "total-ns": 125501,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# model.init_sims(replace=True)",
+      "rewrite-ns": 12674,
+      "overhead-ns": 12674,
+      "exec-ns": 75607,
+      "total-ns": 88281,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# print(model)",
+      "rewrite-ns": 10684,
+      "overhead-ns": 10684,
+      "exec-ns": 65633,
+      "total-ns": 76317,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# extract all vectors\n# ALEX: remove ML code\n# X = model[model.wv.vocab]\n\n# X.shape",
+      "rewrite-ns": 10481,
+      "overhead-ns": 10481,
+      "exec-ns": 58491,
+      "total-ns": 68972,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code, plotting\n# import umap\n\n# cluster_embedding = umap.UMAP(n_neighbors=30, min_dist=0.0,\n#                               n_components=2, random_state=42).fit_transform(X)\n\n# plt.figure(figsize=(10,9))\n# plt.scatter(cluster_embedding[:, 0], cluster_embedding[:, 1], s=3, cmap='Spectral')",
+      "rewrite-ns": 12022,
+      "overhead-ns": 12022,
+      "exec-ns": 57765,
+      "total-ns": 69787,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "books = train_df[[\"ISBN\", \"Book-Title\"]]\n\n# remove duplicates\nbooks.drop_duplicates(inplace=True, subset='ISBN', keep=\"last\")\n\n# create product-ID and product-description dictionary\nbooks_dict = books.groupby('ISBN')['Book-Title'].apply(list).to_dict()",
+      "rewrite-ns": 1462258,
+      "overhead-ns": 1462258,
+      "exec-ns": 192371862,
+      "total-ns": 193834120,
+      "patts-hit": {},
+      "rewritten": "books = train_df[['ISBN', 'Book-Title']]\nbooks.drop_duplicates(inplace=True, subset='ISBN', keep='last')\nbooks_dict = books.groupby('ISBN')['Book-Title'].apply(list).to_dict()\n"
+    },
+    {
+      "raw": "# Find LOTR\ndf[df['Book-Title'].str.contains('Lord of the Rings')].sample()",
+      "rewrite-ns": 692760,
+      "overhead-ns": 692760,
+      "exec-ns": 32337533,
+      "total-ns": 33030293,
+      "patts-hit": {},
+      "rewritten": "df[df['Book-Title'].str.contains('Lord of the Rings')].sample()\n"
+    },
+    {
+      "raw": "# Check\nbooks_dict['0345339703']",
+      "rewrite-ns": 274765,
+      "overhead-ns": 274765,
+      "exec-ns": 497402,
+      "total-ns": 772167,
+      "patts-hit": {},
+      "rewritten": "books_dict['0345339703']\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# def similar_books(v, n = 15):\n    \n#     # extract most similar products for the input vector\n#     ms = model.similar_by_vector(v, topn= n+1)[1:]\n    \n#     # extract name and similarity score of the similar products\n#     new_ms = []\n#     for j in ms:\n#         pair = (books_dict[j[0]][0], j[1])\n#         new_ms.append(pair)\n        \n#     return new_ms ",
+      "rewrite-ns": 14619,
+      "overhead-ns": 14619,
+      "exec-ns": 73660,
+      "total-ns": 88279,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# Recommend\n# ALEX: remove ML code\n# similar_books(model['0345339703'])",
+      "rewrite-ns": 12530,
+      "overhead-ns": 12530,
+      "exec-ns": 66674,
+      "total-ns": 79204,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 18.960800488,
+  "max-disk-in-mb": 0
+}

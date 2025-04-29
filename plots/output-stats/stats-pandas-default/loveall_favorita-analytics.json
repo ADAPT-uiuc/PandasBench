@@ -1,0 +1,146 @@
+{
+  "max-mem-in-mb": 5946,
+  "max-mem-in-mb2": 7392,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\nimport matplotlib.pyplot as plt\n\n# ALEX: remove ML code\n# import xgboost as xgb\n\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list the files in the input directory\n\n# ALEX: remove path printing\n# from subprocess import check_output\n# print(check_output([\"ls\", \"./input\"]).decode(\"utf8\"))\n\n# Any results you write to the current directory are saved as output.",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 557738701
+    },
+    {
+      "raw": "#Since training data is huge, so I am planning to read few millions of rows from the csv file.\ntrain = pd.read_csv(\"./input/train.csv\", nrows=nrows, parse_dates=['date'],index_col='id')\n\n#print the last 10 rows of the data, this will help us to think what we can dow with the data.\ntrain.tail(5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 8085828103
+    },
+    {
+      "raw": "items = pd.read_csv(\"./input/items.scaled.csv\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2569886
+    },
+    {
+      "raw": "train_items = pd.merge(train, items, how='inner')\ntrain_items.tail(5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4210841497
+    },
+    {
+      "raw": "#Lets find out most popular item ordered by people across the 6 millions rows we have read.\n#We will group by item_nbr and add the unit sales.\ndf = train_items['unit_sales'].groupby(train_items['item_nbr']).sum()\n#In order to find top 10 popular items we will sort the numpy array and pick the top 10 from\n#the list.\ndf = df.sort_values()\ndf_highest = df.nlargest(n=10)\n\n#Plot the highest list of items.\n# ALEX: remove plotting\n# df_highest.plot(kind='bar',figsize = (10,10),  title = \"Top 10 items sold across all stores\")\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 376164394
+    },
+    {
+      "raw": "#Next we find lowest/less demand product. We use nsmallest to find the bottom 10 items,\n#probably it doesn;t matter even if we stock them.\ndf_lowest = df.nsmallest(n=10)\n# ALEX: remove plotting\n# df_lowest.plot(kind='bar',figsize = (10,10),  title = \"Bottom 10 items sold\")\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1037870
+    },
+    {
+      "raw": "#Next we could find out popular items in a given year. This will be useful to find out \n#if there were any new items introduced in the recent times.\n#In order to do that we need to covert the date field into python date format and then\n# extract various fields from it.\n\ntrain_items['date'] = pd.to_datetime(train_items['date'], format='%Y-%m-%d')\ntrain_items['day_item_purchased'] = train_items['date'].dt.day\ntrain_items['month_item_purchased'] =train_items['date'].dt.month\ntrain_items['quarter_item_purchased'] = train_items['date'].dt.quarter\ntrain_items['year_item_purchased'] = train_items['date'].dt.year",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3022318275
+    },
+    {
+      "raw": "train_items.drop('date', axis=1, inplace=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1587139338
+    },
+    {
+      "raw": "#Lets print out new training dataset\nprint (train_items.tail(2))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 8273354
+    },
+    {
+      "raw": "df_year = train_items.groupby(['quarter_item_purchased', 'item_nbr'])['unit_sales'].sum()\ndf_year = df_year.sort_values()\ndf_year_highest = df_year.nlargest(n=10)\n#Plot the highest list of items.\n# ALEX: remove plotting\n# df_year_highest.plot(kind='bar',figsize = (10,10),  title = \"Top items sold Quarterly\")\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1046336993
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(9,10))\ndf_items = train_items.groupby(['family'])['unit_sales'].sum()\ndf_items = df_items.sort_values()\ndf_items_highest = df_items.nlargest(n=10)\n# ALEX: remove plotting\n# plt.pie(df_items_highest, labels=df_items_highest.index,shadow=False,autopct='%1.1f%%')\n# plt.tight_layout()\n# plt.show()\n_ = df_items_highest.index\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1020346369
+    },
+    {
+      "raw": "grocery_info = train_items.loc[train_items['family'] == 'GROCERY I']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4138099644
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,12))\n# #print (grocery_info.tail(2))\n# plt.plot(grocery_info['day_item_purchased'],grocery_info['unit_sales'])\n# plt.show()\n_ = grocery_info['day_item_purchased']\n_ = grocery_info['unit_sales']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 471079
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(9,10))\ndf_items = train_items.groupby(['family','perishable'])['unit_sales'].sum()\ndf_items = df_items.sort_values()\ndf_items_perish_highest = df_items.nlargest(n=10)\n# ALEX: remove plotting\n# plt.pie(df_items_perish_highest, labels=df_items_perish_highest.index,shadow=False,autopct='%1.1f%%')\n# plt.tight_layout()\n# plt.show()\n_ = df_items_perish_highest.index",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1607471062
+    },
+    {
+      "raw": "transaction = pd.read_csv(\"./input/transactions.scaled.csv\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 15252791
+    },
+    {
+      "raw": "transaction['date'] = pd.to_datetime(transaction['date'], format='%Y-%m-%d')\ntransaction['day_item_purchased'] = transaction['date'].dt.day\ntransaction['month_item_purchased'] =transaction['date'].dt.month\ntransaction['quarter_item_purchased'] = transaction['date'].dt.quarter\ntransaction['year_item_purchased'] = transaction['date'].dt.year\nprint (transaction.tail(2))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 20130540
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(25,25))\n# plt.plot(transaction['date'],transaction['transactions'])\n# plt.show()\n_ = transaction['date']\n_ = transaction['transactions']\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 363470
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(8,12))\ntrans_day = transaction['transactions'].groupby(transaction['year_item_purchased']).sum()\n# ALEX: remove plotting\n# trans_day.plot(kind='bar')\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1585860
+    },
+    {
+      "raw": "stores = pd.read_csv(\"./input/stores.scaled.csv\")\nprint (stores.head())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4764321
+    },
+    {
+      "raw": "#Lets find out number of cities in each state, which in nothing but finding out number of stores in each\n#in each state.\ndf = stores['city'].groupby(stores['state']).count()\n# ALEX: remove plotting\n# df.plot(kind='bar', figsize = (12,8), yticks=np.arange(min(df), max(df)+1, 1.0), title = \"Number of cities in each state\")\n# plt.show()\n_ = min(df)\n_ = max(df)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 888832
+    },
+    {
+      "raw": "#Looks like onpromotion field is always NaN, if so we will get rid of that columns \n#from the training data\nprint(train['onpromotion'].notnull().any())\ntrain_new=train.drop('onpromotion',axis=1)\nprint(train_new.tail(5))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 799766791
+    },
+    {
+      "raw": "oils = pd.read_csv(\"./input/oil.scaled.csv\")\noils['date'] = pd.to_datetime(oils['date'], format='%Y-%m-%d')\noils['day_item_purchased'] = oils['date'].dt.day\noils['month_item_purchased'] =oils['date'].dt.month\noils['quarter_item_purchased'] = oils['date'].dt.quarter\noils['year_item_purchased'] = oils['date'].dt.year",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4263094
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(25,25))\n# #trans_day = transaction['transactions'].groupby(transaction['year_item_purchased']).sum()\n# plt.plot(oils['date'],oils['dcoilwtico'])\n# #trans_day.plot(kind='bar')\n# plt.show()\n_ = oils['date']\n_ = oils['dcoilwtico']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 390314
+    }
+  ],
+  "total-time-in-sec": 26.512042578,
+  "max-disk-in-mb": 0
+}

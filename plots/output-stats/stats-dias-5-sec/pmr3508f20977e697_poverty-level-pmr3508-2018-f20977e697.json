@@ -1,0 +1,635 @@
+{
+  "max-mem-in-mb": 480,
+  "max-mem-in-mb2": 602,
+  "cells": [
+    {
+      "raw": "from datetime import date\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import matplotlib.pyplot as graphic\n\n# from math import sqrt, factorial, log, ceil\n# from sklearn.neighbors import KNeighborsClassifier\n# from sklearn.model_selection import cross_val_score\n\n# from sklearn.model_selection import train_test_split\n# from sklearn.preprocessing import LabelEncoder\n\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# import random \n# import warnings\n# import operator\n# warnings.filterwarnings(\"ignore\")",
+      "rewrite-ns": 812322,
+      "overhead-ns": 812322,
+      "exec-ns": 469720,
+      "total-ns": 1282042,
+      "patts-hit": {},
+      "rewritten": "from datetime import date\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n"
+    },
+    {
+      "raw": "train = pd.read_csv('./input/train.scaled.csv')\ntest = pd.read_csv('./input/test.scaled.csv')",
+      "rewrite-ns": 939550,
+      "overhead-ns": 939550,
+      "exec-ns": 672914205,
+      "total-ns": 673853755,
+      "patts-hit": {},
+      "rewritten": "train = pd.read_csv('./input/train.scaled.csv')\ntest = pd.read_csv('./input/test.scaled.csv')\n"
+    },
+    {
+      "raw": "target_name = 'Target'\nprint (\"Tamanho train: \", train.shape)\nprint (\"Tamanho test: \", test.shape)",
+      "rewrite-ns": 854710,
+      "overhead-ns": 854710,
+      "exec-ns": 387610,
+      "total-ns": 1242320,
+      "patts-hit": {},
+      "rewritten": "target_name = 'Target'\nprint('Tamanho train: ', train.shape)\nprint('Tamanho test: ', test.shape)\n"
+    },
+    {
+      "raw": "train.describe()",
+      "rewrite-ns": 95433,
+      "overhead-ns": 95433,
+      "exec-ns": 240773626,
+      "total-ns": 240869059,
+      "patts-hit": {},
+      "rewritten": "train.describe()\n"
+    },
+    {
+      "raw": "from collections import OrderedDict\n\n# ALEX: remove plotting\n# plt.figure(figsize = (15, 12))\n# plt.style.use('fivethirtyeight')\n\ncolors = OrderedDict({1: 'red', 2: 'orange', 3: 'yellow', 4: 'green'})\npoverty_mapping = OrderedDict({1: 'extreme', 2: 'moderate', 3: 'vulnerable', 4: 'non vulnerable'})\n\nfor i, col in enumerate(train.select_dtypes('float')):\n# ALEX: remove plotting\n#     ax = plt.subplot(4, 2, i + 1)\n    for poverty_level, color in colors.items():\n# ALEX: remove plotting\n#         sns.kdeplot(train.loc[train['Target'] == poverty_level, col].dropna(), \n#                     ax = ax, color = color, label = poverty_mapping[poverty_level])\n        _ = train.loc[train['Target'] == poverty_level, col].dropna()\n\n# ALEX: remove plotting\n#     plt.title(f'{col.capitalize()} Distribution'); plt.xlabel(f'{col}'); plt.ylabel('Density')\n    _ = col.capitalize()\n\n# ALEX: remove plotting\n# plt.subplots_adjust(top = 2)",
+      "rewrite-ns": 3008669,
+      "overhead-ns": 3008669,
+      "exec-ns": 11302577,
+      "total-ns": 14311246,
+      "patts-hit": {},
+      "rewritten": "from collections import OrderedDict\ncolors = OrderedDict({(1): 'red', (2): 'orange', (3): 'yellow', (4): 'green'})\npoverty_mapping = OrderedDict({(1): 'extreme', (2): 'moderate', (3):\n    'vulnerable', (4): 'non vulnerable'})\nfor i, col in enumerate(train.select_dtypes('float')):\n    for poverty_level, color in colors.items():\n        _ = train.loc[train['Target'] == poverty_level, col].dropna()\n    _ = col.capitalize()\n"
+    },
+    {
+      "raw": "train.select_dtypes('object').head()",
+      "rewrite-ns": 443966,
+      "overhead-ns": 443966,
+      "exec-ns": 4328933,
+      "total-ns": 4772899,
+      "patts-hit": {},
+      "rewritten": "train.select_dtypes('object').head()\n"
+    },
+    {
+      "raw": "mapping = {\"yes\": 1, \"no\": 0}\n\nfor df in [train, test]:\n    df['dependency'] = df['dependency'].replace(mapping).astype(np.float64)\n    df['edjefa'] = df['edjefa'].replace(mapping).astype(np.float64)\n    df['edjefe'] = df['edjefe'].replace(mapping).astype(np.float64)\n\ntrain[['dependency', 'edjefa', 'edjefe']].describe()",
+      "rewrite-ns": 3056621,
+      "overhead-ns": 3056621,
+      "exec-ns": 52569876,
+      "total-ns": 55626497,
+      "patts-hit": {},
+      "rewritten": "mapping = {'yes': 1, 'no': 0}\nfor df in [train, test]:\n    df['dependency'] = df['dependency'].replace(mapping).astype(np.float64)\n    df['edjefa'] = df['edjefa'].replace(mapping).astype(np.float64)\n    df['edjefe'] = df['edjefe'].replace(mapping).astype(np.float64)\ntrain[['dependency', 'edjefa', 'edjefe']].describe()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize = (8, 8))\n\nfor i, col in enumerate(['dependency', 'edjefa', 'edjefe']):\n# ALEX: remove plotting\n#     ax = plt.subplot(3, 1, i + 1)\n \n    for poverty_level, color in colors.items():\n        \n# ALEX: remove plotting\n#         sns.kdeplot(train.loc[train['Target'] == poverty_level, col].dropna(), \n#                     ax = ax, color = color, label = poverty_mapping[poverty_level])\n        _ = train.loc[train['Target'] == poverty_level, col].dropna()\n        \n# ALEX: remove plotting\n#     plt.title(f'{col.capitalize()} Distribution'); plt.xlabel(f'{col}'); plt.ylabel('Density')\n\n# plt.subplots_adjust(top = 2)",
+      "rewrite-ns": 1611678,
+      "overhead-ns": 1611678,
+      "exec-ns": 4366986,
+      "total-ns": 5978664,
+      "patts-hit": {},
+      "rewritten": "for i, col in enumerate(['dependency', 'edjefa', 'edjefe']):\n    for poverty_level, color in colors.items():\n        _ = train.loc[train['Target'] == poverty_level, col].dropna()\n"
+    },
+    {
+      "raw": "test['Target'] = np.nan\ndata = train.append(test, ignore_index = True)",
+      "rewrite-ns": 756494,
+      "overhead-ns": 756494,
+      "exec-ns": 40649916,
+      "total-ns": 41406410,
+      "patts-hit": {},
+      "rewritten": "test['Target'] = np.nan\ndata = train.append(test, ignore_index=True)\n"
+    },
+    {
+      "raw": "all_equal = train.groupby('idhogar')['Target'].apply(lambda x: x.nunique() == 1)\n\nnot_equal = all_equal[all_equal != True]",
+      "rewrite-ns": 1371034,
+      "overhead-ns": 1371034,
+      "exec-ns": 119230837,
+      "total-ns": 120601871,
+      "patts-hit": {},
+      "rewritten": "all_equal = train.groupby('idhogar')['Target'].apply(lambda x: x.nunique() == 1\n    )\nnot_equal = all_equal[all_equal != True]\n"
+    },
+    {
+      "raw": "households_leader = train.groupby('idhogar')['parentesco1'].sum()\nhouseholds_no_head = train.loc[train['idhogar'].isin(households_leader[households_leader == 0].index), :]\nhouseholds_no_head_equal = households_no_head.groupby('idhogar')['Target'].apply(lambda x: x.nunique() == 1)",
+      "rewrite-ns": 2396458,
+      "overhead-ns": 2396458,
+      "exec-ns": 5700541,
+      "total-ns": 8096999,
+      "patts-hit": {},
+      "rewritten": "households_leader = train.groupby('idhogar')['parentesco1'].sum()\nhouseholds_no_head = train.loc[train['idhogar'].isin(households_leader[\n    households_leader == 0].index), :]\nhouseholds_no_head_equal = households_no_head.groupby('idhogar')['Target'\n    ].apply(lambda x: x.nunique() == 1)\n"
+    },
+    {
+      "raw": "for household in not_equal.index:\n# ALEX: make notebook run with input scaling\n#     true_target = int(train[(train['idhogar'] == household) & (train['parentesco1'] == 1.0)]['Target'])\n    true_target = int(train[(train['idhogar'] == household) & (train['parentesco1'] == 1.0)].iloc[0]['Target'])\n    train.loc[train['idhogar'] == household, 'Target'] = true_target\n    \nall_equal = train.groupby('idhogar')['Target'].apply(lambda x: x.nunique() == 1)\nnot_equal = all_equal[all_equal != True]",
+      "rewrite-ns": 3026248,
+      "overhead-ns": 3026248,
+      "exec-ns": 353734120,
+      "total-ns": 356760368,
+      "patts-hit": {},
+      "rewritten": "for household in not_equal.index:\n    true_target = int(train[(train['idhogar'] == household) & (train[\n        'parentesco1'] == 1.0)].iloc[0]['Target'])\n    train.loc[train['idhogar'] == household, 'Target'] = true_target\nall_equal = train.groupby('idhogar')['Target'].apply(lambda x: x.nunique() == 1\n    )\nnot_equal = all_equal[all_equal != True]\n"
+    },
+    {
+      "raw": "print('\\n Missing Values')\nmissing = pd.DataFrame(data.isnull().sum()).rename(columns = {0: 'total'})\nmissing['percent'] = missing['total'] / len(data)\nmissing.sort_values('percent', ascending = False).head(10).drop('Target')",
+      "rewrite-ns": 1705304,
+      "overhead-ns": 1705304,
+      "exec-ns": 35921121,
+      "total-ns": 37626425,
+      "patts-hit": {
+        "SortHead": 1
+      },
+      "rewritten": "print('\\n Missing Values')\nmissing = pd.DataFrame(data.isnull().sum()).rename(columns={(0): 'total'})\nmissing['percent'] = missing['total'] / len(data)\ndias.rewriter.sort_head(called_on=missing, by='percent', n=10, asc=False,\n    orig=lambda _DIAS_x: _DIAS_x.sort_values('percent', ascending=False).\n    head(10)).drop('Target')\n"
+    },
+    {
+      "raw": "def plot_value_counts(df, col, heads_only = False):\n    if heads_only:\n        df = df.loc[df['parentesco1'] == 1].copy()\n        \n# ALEX: remove plotting\n#     plt.figure(figsize = (8, 6))\n#     df[col].value_counts().sort_index().plot.bar(color = 'blue',\n#                                                  edgecolor = 'k',\n#                                                  linewidth = 2)\n#     plt.xlabel(f'{col}'); plt.title(f'{col} Value Counts'); plt.ylabel('Count')\n#     plt.show();\n    df[col].value_counts().sort_index()",
+      "rewrite-ns": 1324013,
+      "overhead-ns": 1324013,
+      "exec-ns": 403711,
+      "total-ns": 1727724,
+      "patts-hit": {},
+      "rewritten": "def plot_value_counts(df, col, heads_only=False):\n    if heads_only:\n        df = df.loc[df['parentesco1'] == 1].copy()\n    df[col].value_counts().sort_index()\n"
+    },
+    {
+      "raw": "data['v18q1'] = data['v18q1'].fillna(0)",
+      "rewrite-ns": 366958,
+      "overhead-ns": 366958,
+      "exec-ns": 922467,
+      "total-ns": 1289425,
+      "patts-hit": {
+        "IsInplaceUpdate": 1
+      },
+      "rewritten": "_DIAS_ser = data['v18q1']\nif type(_DIAS_ser) != pd.Series:\n    data['v18q1'] = data['v18q1'].fillna(0)\nelse:\n    data['v18q1'].fillna(0, inplace=True)\n"
+    },
+    {
+      "raw": "own_variables = [x for x in data if x.startswith('tipo')]\n# ALEX: remove plotting\n# data.loc[data['v2a1'].isnull(), own_variables].sum().plot.bar(figsize = (8, 6),\n#                                                                         color = 'blue',\n#                                                               edgecolor = 'k', linewidth = 2);\n# plt.xticks([0, 1, 2, 3, 4],\n#            ['Owns and Paid Off', 'Owns and Paying', 'Rented', 'Precarious', 'Other'],\n#           rotation = 60)\n# plt.title('Home Ownership Status for Households Missing Rent Payments', size = 18);\ndata.loc[data['v2a1'].isnull(), own_variables].sum()",
+      "rewrite-ns": 1223462,
+      "overhead-ns": 1223462,
+      "exec-ns": 98916690,
+      "total-ns": 100140152,
+      "patts-hit": {},
+      "rewritten": "own_variables = [x for x in data if x.startswith('tipo')]\ndata.loc[data['v2a1'].isnull(), own_variables].sum()\n"
+    },
+    {
+      "raw": "data.loc[(data['tipovivi1'] == 1), 'v2a1'] = 0\ndata['v2a1-missing'] = data['v2a1'].isnull()\ndata['v2a1-missing'].value_counts()",
+      "rewrite-ns": 1434398,
+      "overhead-ns": 1434398,
+      "exec-ns": 2901046,
+      "total-ns": 4335444,
+      "patts-hit": {},
+      "rewritten": "data.loc[data['tipovivi1'] == 1, 'v2a1'] = 0\ndata['v2a1-missing'] = data['v2a1'].isnull()\ndata['v2a1-missing'].value_counts()\n"
+    },
+    {
+      "raw": "data.loc[((data['age'] > 19) | (data['age'] < 7)) & (data['rez_esc'].isnull()), 'rez_esc'] = 0\ndata['rez_esc-missing'] = data['rez_esc'].isnull()\ndata.loc[data['rez_esc'] > 5, 'rez_esc'] = 5",
+      "rewrite-ns": 2264607,
+      "overhead-ns": 2264607,
+      "exec-ns": 2585584,
+      "total-ns": 4850191,
+      "patts-hit": {},
+      "rewritten": "data.loc[((data['age'] > 19) | (data['age'] < 7)) & data['rez_esc'].isnull(\n    ), 'rez_esc'] = 0\ndata['rez_esc-missing'] = data['rez_esc'].isnull()\ndata.loc[data['rez_esc'] > 5, 'rez_esc'] = 5\n"
+    },
+    {
+      "raw": "id_ = ['Id', 'idhogar', 'Target']\nind_bool = ['v18q', 'dis', 'male', 'female', 'estadocivil1', 'estadocivil2', 'estadocivil3', \n            'estadocivil4', 'estadocivil5', 'estadocivil6', 'estadocivil7', \n            'parentesco1', 'parentesco2',  'parentesco3', 'parentesco4', 'parentesco5', \n            'parentesco6', 'parentesco7', 'parentesco8',  'parentesco9', 'parentesco10', \n            'parentesco11', 'parentesco12', 'instlevel1', 'instlevel2', 'instlevel3', \n            'instlevel4', 'instlevel5', 'instlevel6', 'instlevel7', 'instlevel8', \n            'instlevel9', 'mobilephone', 'rez_esc-missing']\nind_ordered = ['rez_esc', 'escolari', 'age']\nhh_bool = ['hacdor', 'hacapo', 'v14a', 'refrig', 'paredblolad', 'paredzocalo', \n           'paredpreb','pisocemento', 'pareddes', 'paredmad',\n           'paredzinc', 'paredfibras', 'paredother', 'pisomoscer', 'pisoother', \n           'pisonatur', 'pisonotiene', 'pisomadera',\n           'techozinc', 'techoentrepiso', 'techocane', 'techootro', 'cielorazo', \n           'abastaguadentro', 'abastaguafuera', 'abastaguano',\n            'public', 'planpri', 'noelec', 'coopele', 'sanitario1', \n           'sanitario2', 'sanitario3', 'sanitario5',   'sanitario6',\n           'energcocinar1', 'energcocinar2', 'energcocinar3', 'energcocinar4', \n           'elimbasu1', 'elimbasu2', 'elimbasu3', 'elimbasu4', \n           'elimbasu5', 'elimbasu6', 'epared1', 'epared2', 'epared3',\n           'etecho1', 'etecho2', 'etecho3', 'eviv1', 'eviv2', 'eviv3', \n           'tipovivi1', 'tipovivi2', 'tipovivi3', 'tipovivi4', 'tipovivi5', \n           'computer', 'television', 'lugar1', 'lugar2', 'lugar3',\n           'lugar4', 'lugar5', 'lugar6', 'area1', 'area2', 'v2a1-missing']\nhh_ordered = [ 'rooms', 'r4h1', 'r4h2', 'r4h3', 'r4m1','r4m2','r4m3', 'r4t1',  'r4t2', \n              'r4t3', 'v18q1', 'tamhog','tamviv','hhsize','hogar_nin',\n              'hogar_adul','hogar_mayor','hogar_total',  'bedrooms', 'qmobilephone']\nhh_cont = ['v2a1', 'dependency', 'edjefe', 'edjefa', 'meaneduc', 'overcrowding']\nsqr_ = ['SQBescolari', 'SQBage', 'SQBhogar_total', 'SQBedjefe', \n        'SQBhogar_nin', 'SQBovercrowding', 'SQBdependency', 'SQBmeaned', 'agesq']",
+      "rewrite-ns": 6151156,
+      "overhead-ns": 6151156,
+      "exec-ns": 1466122,
+      "total-ns": 7617278,
+      "patts-hit": {},
+      "rewritten": "id_ = ['Id', 'idhogar', 'Target']\nind_bool = ['v18q', 'dis', 'male', 'female', 'estadocivil1', 'estadocivil2',\n    'estadocivil3', 'estadocivil4', 'estadocivil5', 'estadocivil6',\n    'estadocivil7', 'parentesco1', 'parentesco2', 'parentesco3',\n    'parentesco4', 'parentesco5', 'parentesco6', 'parentesco7',\n    'parentesco8', 'parentesco9', 'parentesco10', 'parentesco11',\n    'parentesco12', 'instlevel1', 'instlevel2', 'instlevel3', 'instlevel4',\n    'instlevel5', 'instlevel6', 'instlevel7', 'instlevel8', 'instlevel9',\n    'mobilephone', 'rez_esc-missing']\nind_ordered = ['rez_esc', 'escolari', 'age']\nhh_bool = ['hacdor', 'hacapo', 'v14a', 'refrig', 'paredblolad',\n    'paredzocalo', 'paredpreb', 'pisocemento', 'pareddes', 'paredmad',\n    'paredzinc', 'paredfibras', 'paredother', 'pisomoscer', 'pisoother',\n    'pisonatur', 'pisonotiene', 'pisomadera', 'techozinc', 'techoentrepiso',\n    'techocane', 'techootro', 'cielorazo', 'abastaguadentro',\n    'abastaguafuera', 'abastaguano', 'public', 'planpri', 'noelec',\n    'coopele', 'sanitario1', 'sanitario2', 'sanitario3', 'sanitario5',\n    'sanitario6', 'energcocinar1', 'energcocinar2', 'energcocinar3',\n    'energcocinar4', 'elimbasu1', 'elimbasu2', 'elimbasu3', 'elimbasu4',\n    'elimbasu5', 'elimbasu6', 'epared1', 'epared2', 'epared3', 'etecho1',\n    'etecho2', 'etecho3', 'eviv1', 'eviv2', 'eviv3', 'tipovivi1',\n    'tipovivi2', 'tipovivi3', 'tipovivi4', 'tipovivi5', 'computer',\n    'television', 'lugar1', 'lugar2', 'lugar3', 'lugar4', 'lugar5',\n    'lugar6', 'area1', 'area2', 'v2a1-missing']\nhh_ordered = ['rooms', 'r4h1', 'r4h2', 'r4h3', 'r4m1', 'r4m2', 'r4m3',\n    'r4t1', 'r4t2', 'r4t3', 'v18q1', 'tamhog', 'tamviv', 'hhsize',\n    'hogar_nin', 'hogar_adul', 'hogar_mayor', 'hogar_total', 'bedrooms',\n    'qmobilephone']\nhh_cont = ['v2a1', 'dependency', 'edjefe', 'edjefa', 'meaneduc', 'overcrowding'\n    ]\nsqr_ = ['SQBescolari', 'SQBage', 'SQBhogar_total', 'SQBedjefe',\n    'SQBhogar_nin', 'SQBovercrowding', 'SQBdependency', 'SQBmeaned', 'agesq']\n"
+    },
+    {
+      "raw": "data = data.drop(columns = sqr_)",
+      "rewrite-ns": 394363,
+      "overhead-ns": 394363,
+      "exec-ns": 28205067,
+      "total-ns": 28599430,
+      "patts-hit": {},
+      "rewritten": "data = data.drop(columns=sqr_)\n"
+    },
+    {
+      "raw": "heads = data.loc[data['parentesco1'] == 1, :]\nheads = heads[id_ + hh_bool + hh_cont + hh_ordered]\nheads = heads.drop(columns = ['tamhog', 'hogar_total', 'r4t3'])",
+      "rewrite-ns": 1735069,
+      "overhead-ns": 1735069,
+      "exec-ns": 20759857,
+      "total-ns": 22494926,
+      "patts-hit": {},
+      "rewritten": "heads = data.loc[data['parentesco1'] == 1, :]\nheads = heads[id_ + hh_bool + hh_cont + hh_ordered]\nheads = heads.drop(columns=['tamhog', 'hogar_total', 'r4t3'])\n"
+    },
+    {
+      "raw": "elec = []\nfor i, row in heads.iterrows():\n    if row['noelec'] == 1:\n        elec.append(0)\n    elif row['coopele'] == 1:\n        elec.append(1)\n    elif row['public'] == 1:\n        elec.append(2)\n    elif row['planpri'] == 1:\n        elec.append(3)\n    else:\n        elec.append(np.nan)\n        \nheads['elec'] = elec\nheads['elec-missing'] = heads['elec'].isnull()\nheads = heads.drop(columns = ['noelec', 'coopele', 'public', 'planpri'])",
+      "rewrite-ns": 3882162,
+      "overhead-ns": 3882162,
+      "exec-ns": 1026271972,
+      "total-ns": 1030154134,
+      "patts-hit": {},
+      "rewritten": "elec = []\nfor i, row in heads.iterrows():\n    if row['noelec'] == 1:\n        elec.append(0)\n    elif row['coopele'] == 1:\n        elec.append(1)\n    elif row['public'] == 1:\n        elec.append(2)\n    elif row['planpri'] == 1:\n        elec.append(3)\n    else:\n        elec.append(np.nan)\nheads['elec'] = elec\nheads['elec-missing'] = heads['elec'].isnull()\nheads = heads.drop(columns=['noelec', 'coopele', 'public', 'planpri'])\n"
+    },
+    {
+      "raw": "water = []\nfor i, row in heads.iterrows():\n    if row['abastaguano'] == 1:\n        water.append(0)\n    elif row['abastaguafuera'] == 1:\n        water.append(1)\n    elif row['abastaguadentro'] == 1:\n        water.append(2)\n    else:\n        water.append(np.nan)\n        \nheads['water'] = water\nheads['water-missing'] = heads['water'].isnull()\nheads = heads.drop(columns = ['abastaguano', 'abastaguafuera', 'abastaguadentro'])",
+      "rewrite-ns": 3486108,
+      "overhead-ns": 3486108,
+      "exec-ns": 1059886241,
+      "total-ns": 1063372349,
+      "patts-hit": {},
+      "rewritten": "water = []\nfor i, row in heads.iterrows():\n    if row['abastaguano'] == 1:\n        water.append(0)\n    elif row['abastaguafuera'] == 1:\n        water.append(1)\n    elif row['abastaguadentro'] == 1:\n        water.append(2)\n    else:\n        water.append(np.nan)\nheads['water'] = water\nheads['water-missing'] = heads['water'].isnull()\nheads = heads.drop(columns=['abastaguano', 'abastaguafuera', 'abastaguadentro']\n    )\n"
+    },
+    {
+      "raw": "sanit = []\nfor i, row in heads.iterrows():\n    if row['sanitario1'] == 1:\n        sanit.append(0)\n    elif row['v14a'] == 0:\n        sanit.append(0)\n    elif row['sanitario2'] == 1:\n        sanit.append(3)\n    elif row['sanitario3'] == 1:\n        sanit.append(2)\n    elif row['sanitario5'] == 1:\n        sanit.append(1)\n    elif row['sanitario6'] == 1:\n        sanit.append(2)\n    else:\n        sanit.append(np.nan)\n        \nheads['sanit'] = sanit\nheads['sanit-missing'] = heads['sanit'].isnull()\nheads = heads.drop(columns = ['sanitario1', 'sanitario2', 'sanitario3', 'sanitario5', 'sanitario6', 'v14a'])",
+      "rewrite-ns": 5139259,
+      "overhead-ns": 5139259,
+      "exec-ns": 1097025505,
+      "total-ns": 1102164764,
+      "patts-hit": {},
+      "rewritten": "sanit = []\nfor i, row in heads.iterrows():\n    if row['sanitario1'] == 1:\n        sanit.append(0)\n    elif row['v14a'] == 0:\n        sanit.append(0)\n    elif row['sanitario2'] == 1:\n        sanit.append(3)\n    elif row['sanitario3'] == 1:\n        sanit.append(2)\n    elif row['sanitario5'] == 1:\n        sanit.append(1)\n    elif row['sanitario6'] == 1:\n        sanit.append(2)\n    else:\n        sanit.append(np.nan)\nheads['sanit'] = sanit\nheads['sanit-missing'] = heads['sanit'].isnull()\nheads = heads.drop(columns=['sanitario1', 'sanitario2', 'sanitario3',\n    'sanitario5', 'sanitario6', 'v14a'])\n"
+    },
+    {
+      "raw": "cozinhar = []\nfor i, row in heads.iterrows():\n    if row['energcocinar1'] == 1:\n        cozinhar.append(0)\n    elif row['energcocinar2'] == 1:\n        cozinhar.append(2)\n    elif row['energcocinar3'] == 1:\n        cozinhar.append(2)\n    elif row['energcocinar4'] == 1:\n        cozinhar.append(1)\n    else:\n        cozinhar.append(np.nan)\n        \nheads['cozinhar'] = cozinhar\nheads['cozinhar-missing'] = heads['cozinhar'].isnull()\nheads = heads.drop(columns = ['energcocinar1', 'energcocinar2', 'energcocinar3', 'energcocinar4'])",
+      "rewrite-ns": 3865335,
+      "overhead-ns": 3865335,
+      "exec-ns": 1014204837,
+      "total-ns": 1018070172,
+      "patts-hit": {},
+      "rewritten": "cozinhar = []\nfor i, row in heads.iterrows():\n    if row['energcocinar1'] == 1:\n        cozinhar.append(0)\n    elif row['energcocinar2'] == 1:\n        cozinhar.append(2)\n    elif row['energcocinar3'] == 1:\n        cozinhar.append(2)\n    elif row['energcocinar4'] == 1:\n        cozinhar.append(1)\n    else:\n        cozinhar.append(np.nan)\nheads['cozinhar'] = cozinhar\nheads['cozinhar-missing'] = heads['cozinhar'].isnull()\nheads = heads.drop(columns=['energcocinar1', 'energcocinar2',\n    'energcocinar3', 'energcocinar4'])\n"
+    },
+    {
+      "raw": "heads = heads.drop(columns = ['area2', 'elimbasu1', 'elimbasu2', 'elimbasu3', 'elimbasu4', 'elimbasu5', 'elimbasu6'])",
+      "rewrite-ns": 732586,
+      "overhead-ns": 732586,
+      "exec-ns": 3574776,
+      "total-ns": 4307362,
+      "patts-hit": {},
+      "rewritten": "heads = heads.drop(columns=['area2', 'elimbasu1', 'elimbasu2', 'elimbasu3',\n    'elimbasu4', 'elimbasu5', 'elimbasu6'])\n"
+    },
+    {
+      "raw": "heads['walls'] = np.argmax(np.array(heads[['epared1', 'epared2', 'epared3']]), axis = 1)\nheads = heads.drop(columns = ['epared1', 'epared2', 'epared3'])\n\nheads['roof'] = np.argmax(np.array(heads[['etecho1', 'etecho2', 'etecho3']]), axis = 1)\nheads = heads.drop(columns = ['etecho1', 'etecho2', 'etecho3'])\n\nheads['floor'] = np.argmax(np.array(heads[['eviv1', 'eviv2', 'eviv3']]), axis = 1)\nheads = heads.drop(columns = ['eviv1', 'eviv2', 'eviv3'])\n",
+      "rewrite-ns": 3818591,
+      "overhead-ns": 3818591,
+      "exec-ns": 22036801,
+      "total-ns": 25855392,
+      "patts-hit": {},
+      "rewritten": "heads['walls'] = np.argmax(np.array(heads[['epared1', 'epared2', 'epared3']\n    ]), axis=1)\nheads = heads.drop(columns=['epared1', 'epared2', 'epared3'])\nheads['roof'] = np.argmax(np.array(heads[['etecho1', 'etecho2', 'etecho3']]\n    ), axis=1)\nheads = heads.drop(columns=['etecho1', 'etecho2', 'etecho3'])\nheads['floor'] = np.argmax(np.array(heads[['eviv1', 'eviv2', 'eviv3']]), axis=1\n    )\nheads = heads.drop(columns=['eviv1', 'eviv2', 'eviv3'])\n"
+    },
+    {
+      "raw": "heads['walls+roof+floor'] = heads['walls'] + heads['roof'] + heads['floor']\ncounts = pd.DataFrame(heads.groupby(['walls+roof+floor'])['Target'].value_counts(normalize = True)).rename(columns = {'Target': 'Normalized Count'}).reset_index()\ncounts.head()",
+      "rewrite-ns": 1947027,
+      "overhead-ns": 1947027,
+      "exec-ns": 9383509,
+      "total-ns": 11330536,
+      "patts-hit": {},
+      "rewritten": "heads['walls+roof+floor'] = heads['walls'] + heads['roof'] + heads['floor']\ncounts = pd.DataFrame(heads.groupby(['walls+roof+floor'])['Target'].\n    value_counts(normalize=True)).rename(columns={'Target': 'Normalized Count'}\n    ).reset_index()\ncounts.head()\n"
+    },
+    {
+      "raw": "heads['rooms-per-capita'] = heads['rooms'] / heads['tamviv']\nheads['rent-per-capita'] = heads['v2a1'] / heads['tamviv']\nheads['electronics-per-capita'] = (heads['v18q1'] + heads['qmobilephone']) / heads['tamviv']",
+      "rewrite-ns": 1783226,
+      "overhead-ns": 1783226,
+      "exec-ns": 1799771,
+      "total-ns": 3582997,
+      "patts-hit": {},
+      "rewritten": "heads['rooms-per-capita'] = heads['rooms'] / heads['tamviv']\nheads['rent-per-capita'] = heads['v2a1'] / heads['tamviv']\nheads['electronics-per-capita'] = (heads['v18q1'] + heads['qmobilephone']\n    ) / heads['tamviv']\n"
+    },
+    {
+      "raw": "ind = data[id_ + ind_bool + ind_ordered]",
+      "rewrite-ns": 522464,
+      "overhead-ns": 522464,
+      "exec-ns": 5628691,
+      "total-ns": 6151155,
+      "patts-hit": {},
+      "rewritten": "ind = data[id_ + ind_bool + ind_ordered]\n"
+    },
+    {
+      "raw": "ind[[c for c in ind if c.startswith('instl')]].head()",
+      "rewrite-ns": 743322,
+      "overhead-ns": 743322,
+      "exec-ns": 7575525,
+      "total-ns": 8318847,
+      "patts-hit": {},
+      "rewritten": "ind[[c for c in ind if c.startswith('instl')]].head()\n"
+    },
+    {
+      "raw": "ind['inst'] = np.argmax(np.array(ind[[c for c in ind if c.startswith('instl')]]), axis = 1)",
+      "rewrite-ns": 1167457,
+      "overhead-ns": 1167457,
+      "exec-ns": 5509507,
+      "total-ns": 6676964,
+      "patts-hit": {},
+      "rewritten": "ind['inst'] = np.argmax(np.array(ind[[c for c in ind if c.startswith(\n    'instl')]]), axis=1)\n"
+    },
+    {
+      "raw": "ind = ind.drop(columns = [c for c in ind if c.startswith('instlevel')])\nind['inst/age'] = ind['inst'] / ind['age']\nind['escolari/age'] = ind['escolari'] / ind['age']\nind['tech'] = ind['v18q'] + ind['mobilephone']\nind['tech'].describe()",
+      "rewrite-ns": 2522388,
+      "overhead-ns": 2522388,
+      "exec-ns": 11816326,
+      "total-ns": 14338714,
+      "patts-hit": {},
+      "rewritten": "ind = ind.drop(columns=[c for c in ind if c.startswith('instlevel')])\nind['inst/age'] = ind['inst'] / ind['age']\nind['escolari/age'] = ind['escolari'] / ind['age']\nind['tech'] = ind['v18q'] + ind['mobilephone']\nind['tech'].describe()\n"
+    },
+    {
+      "raw": "def combine_features(data, cols=[], name=''):\n    df = data.copy()\n    for i, col in enumerate(cols):\n        print(i + 1, col)\n    df[cols] = df[cols].multiply([i for i in range(1, len(cols) + 1)], axis=1)\n    df[name] = df[cols].sum(axis=1)\n    df.drop(cols, axis=1, inplace=True)\n    return df",
+      "rewrite-ns": 3230173,
+      "overhead-ns": 3230173,
+      "exec-ns": 742005,
+      "total-ns": 3972178,
+      "patts-hit": {},
+      "rewritten": "def combine_features(data, cols=[], name=''):\n    df = data.copy()\n    for i, col in enumerate(cols):\n        print(i + 1, col)\n    df[cols] = df[cols].multiply([i for i in range(1, len(cols) + 1)], axis=1)\n    df[name] = df[cols].sum(axis=1)\n    df.drop(cols, axis=1, inplace=True)\n    return df\n"
+    },
+    {
+      "raw": "heads = combine_features(heads, cols=[col for col in heads.columns if col.startswith('lugar')], name='region')\nprint('Region count by target.');\n# ALEX: remove plotting\n# sns.factorplot(\"region\", col=\"Target\", col_wrap=4, data=heads, kind=\"count\");",
+      "rewrite-ns": 926305,
+      "overhead-ns": 926305,
+      "exec-ns": 25202347,
+      "total-ns": 26128652,
+      "patts-hit": {},
+      "rewritten": "heads = combine_features(heads, cols=[col for col in heads.columns if col.\n    startswith('lugar')], name='region')\nprint('Region count by target.')\n"
+    },
+    {
+      "raw": "heads = combine_features(heads, cols=[col for col in heads.columns if col.startswith('tipovivi')], name='home_own')\nprint('Home ownership type count by target.');\n# ALEX: remove plotting\n# sns.factorplot(\"home_own\", col=\"Target\", col_wrap=4, data=heads, kind=\"count\");",
+      "rewrite-ns": 992612,
+      "overhead-ns": 992612,
+      "exec-ns": 19198493,
+      "total-ns": 20191105,
+      "patts-hit": {},
+      "rewritten": "heads = combine_features(heads, cols=[col for col in heads.columns if col.\n    startswith('tipovivi')], name='home_own')\nprint('Home ownership type count by target.')\n"
+    },
+    {
+      "raw": "heads = heads.drop(columns = ['paredblolad', 'paredzocalo', 'paredpreb', 'pareddes', 'paredmad', 'paredzinc', 'paredfibras',\n                             'paredother', 'pisomoscer', 'pisocemento', 'pisoother', 'pisonatur', 'pisomadera', 'techozinc',\n                             'techoentrepiso', 'techocane', 'techootro', 'hogar_nin', 'hogar_mayor', 'hogar_adul',\n                             'dependency', 'edjefe', 'edjefa', 'meaneduc', 'r4h1', 'r4h2', 'r4h3', 'r4m1',\n                             'r4m2', 'r4m3', 'r4t1', 'r4t2', 'walls', 'roof', 'floor', 'rooms', 'v2a1', 'qmobilephone',\n                             'v18q1', 'hacapo', 'cielorazo', 'bedrooms', 'pisonotiene', 'hacdor'])",
+      "rewrite-ns": 1995976,
+      "overhead-ns": 1995976,
+      "exec-ns": 2298244,
+      "total-ns": 4294220,
+      "patts-hit": {},
+      "rewritten": "heads = heads.drop(columns=['paredblolad', 'paredzocalo', 'paredpreb',\n    'pareddes', 'paredmad', 'paredzinc', 'paredfibras', 'paredother',\n    'pisomoscer', 'pisocemento', 'pisoother', 'pisonatur', 'pisomadera',\n    'techozinc', 'techoentrepiso', 'techocane', 'techootro', 'hogar_nin',\n    'hogar_mayor', 'hogar_adul', 'dependency', 'edjefe', 'edjefa',\n    'meaneduc', 'r4h1', 'r4h2', 'r4h3', 'r4m1', 'r4m2', 'r4m3', 'r4t1',\n    'r4t2', 'walls', 'roof', 'floor', 'rooms', 'v2a1', 'qmobilephone',\n    'v18q1', 'hacapo', 'cielorazo', 'bedrooms', 'pisonotiene', 'hacdor'])\n"
+    },
+    {
+      "raw": "ind = ind.drop(columns = ['estadocivil1', 'estadocivil2', 'estadocivil3', 'estadocivil4', 'estadocivil5', 'estadocivil6',\n                              'estadocivil7', 'parentesco1', 'parentesco2',  'parentesco3', 'parentesco4', 'parentesco5', \n                              'parentesco6', 'parentesco7', 'parentesco8',  'parentesco9', 'parentesco10', 'parentesco11',\n                              'parentesco12', 'mobilephone', 'escolari', 'inst', 'age', 'v18q', 'male'])",
+      "rewrite-ns": 1293263,
+      "overhead-ns": 1293263,
+      "exec-ns": 3674858,
+      "total-ns": 4968121,
+      "patts-hit": {},
+      "rewritten": "ind = ind.drop(columns=['estadocivil1', 'estadocivil2', 'estadocivil3',\n    'estadocivil4', 'estadocivil5', 'estadocivil6', 'estadocivil7',\n    'parentesco1', 'parentesco2', 'parentesco3', 'parentesco4',\n    'parentesco5', 'parentesco6', 'parentesco7', 'parentesco8',\n    'parentesco9', 'parentesco10', 'parentesco11', 'parentesco12',\n    'mobilephone', 'escolari', 'inst', 'age', 'v18q', 'male'])\n"
+    },
+    {
+      "raw": "final = heads.merge(ind, on = id_ , how = 'left')\nprint('Final features shape: ', final.shape)",
+      "rewrite-ns": 814098,
+      "overhead-ns": 814098,
+      "exec-ns": 38562070,
+      "total-ns": 39376168,
+      "patts-hit": {},
+      "rewritten": "final = heads.merge(ind, on=id_, how='left')\nprint('Final features shape: ', final.shape)\n"
+    },
+    {
+      "raw": "print('\\n Missing Values')\nmissing = pd.DataFrame(final.isnull().sum()).rename(columns = {0: 'total'})\nmissing['percent'] = missing['total'] / len(final)\nmissing.sort_values('percent', ascending = False).head(10).drop('Target')",
+      "rewrite-ns": 1769652,
+      "overhead-ns": 1769652,
+      "exec-ns": 23819881,
+      "total-ns": 25589533,
+      "patts-hit": {
+        "SortHead": 1
+      },
+      "rewritten": "print('\\n Missing Values')\nmissing = pd.DataFrame(final.isnull().sum()).rename(columns={(0): 'total'})\nmissing['percent'] = missing['total'] / len(final)\ndias.rewriter.sort_head(called_on=missing, by='percent', n=10, asc=False,\n    orig=lambda _DIAS_x: _DIAS_x.sort_values('percent', ascending=False).\n    head(10)).drop('Target')\n"
+    },
+    {
+      "raw": "final = final[final['elec-missing'] != True]\nfinal = final[final['rez_esc-missing'] != True]\nfinal = final[final['cozinhar-missing'] != True]\nfinal = final[final['water-missing'] != True]\nfinal = final[final['sanit-missing'] != True]\nfinal = final[final['v2a1-missing'] != True]",
+      "rewrite-ns": 2541082,
+      "overhead-ns": 2541082,
+      "exec-ns": 36031482,
+      "total-ns": 38572564,
+      "patts-hit": {},
+      "rewritten": "final = final[final['elec-missing'] != True]\nfinal = final[final['rez_esc-missing'] != True]\nfinal = final[final['cozinhar-missing'] != True]\nfinal = final[final['water-missing'] != True]\nfinal = final[final['sanit-missing'] != True]\nfinal = final[final['v2a1-missing'] != True]\n"
+    },
+    {
+      "raw": "print('Final features shape: ', final.shape)",
+      "rewrite-ns": 412223,
+      "overhead-ns": 412223,
+      "exec-ns": 308099,
+      "total-ns": 720322,
+      "patts-hit": {},
+      "rewritten": "print('Final features shape: ', final.shape)\n"
+    },
+    {
+      "raw": "final = final.drop(columns = ['sanit-missing', 'cozinhar-missing', 'water-missing', 'elec-missing', 'v2a1-missing',\n                              'rez_esc-missing'])",
+      "rewrite-ns": 669985,
+      "overhead-ns": 669985,
+      "exec-ns": 3633770,
+      "total-ns": 4303755,
+      "patts-hit": {},
+      "rewritten": "final = final.drop(columns=['sanit-missing', 'cozinhar-missing',\n    'water-missing', 'elec-missing', 'v2a1-missing', 'rez_esc-missing'])\n"
+    },
+    {
+      "raw": "print('Final features shape: ', final.shape)",
+      "rewrite-ns": 377625,
+      "overhead-ns": 377625,
+      "exec-ns": 269874,
+      "total-ns": 647499,
+      "patts-hit": {},
+      "rewritten": "print('Final features shape: ', final.shape)\n"
+    },
+    {
+      "raw": "train_labels = np.array(list(final[final['Target'].notnull()]['Target'].astype(np.uint8)))\n\nSPLIT = final[final['Target'].notnull()].drop(columns = ['Id', 'idhogar'])\nFINALtest = final[final['Target'].isnull()]\nsubmission_base = FINALtest[['Id', 'idhogar']].copy()\nFINALtest = FINALtest.drop(columns = ['Id', 'idhogar', 'Target' ])",
+      "rewrite-ns": 3121710,
+      "overhead-ns": 3121710,
+      "exec-ns": 12835318,
+      "total-ns": 15957028,
+      "patts-hit": {},
+      "rewritten": "train_labels = np.array(list(final[final['Target'].notnull()]['Target'].\n    astype(np.uint8)))\nSPLIT = final[final['Target'].notnull()].drop(columns=['Id', 'idhogar'])\nFINALtest = final[final['Target'].isnull()]\nsubmission_base = FINALtest[['Id', 'idhogar']].copy()\nFINALtest = FINALtest.drop(columns=['Id', 'idhogar', 'Target'])\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# train, test = train_test_split(SPLIT, test_size=0.2)",
+      "rewrite-ns": 18887,
+      "overhead-ns": 18887,
+      "exec-ns": 100342,
+      "total-ns": 119229,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "neighbors = [3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35]\nXtrain = train\nYtrain = train.Target\nXtest = test\nYtest = test.Target",
+      "rewrite-ns": 1466191,
+      "overhead-ns": 1466191,
+      "exec-ns": 559846,
+      "total-ns": 2026037,
+      "patts-hit": {},
+      "rewritten": "neighbors = [3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35]\nXtrain = train\nYtrain = train.Target\nXtest = test\nYtest = test.Target\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# print('With CV = 3:')\n# cv_scores = []\n\n# for k in neighbors:\n#     knn = KNeighborsClassifier(n_neighbors=k)\n#     scores = cross_val_score(knn, Xtrain, Ytrain, cv=3, scoring='accuracy')\n#     cv_scores.append(scores.mean())\n    \n    \n# MSE = [1 - x for x in cv_scores]\n# optimal_k = neighbors[MSE.index(min(MSE))]\n# print(\"The optimal number of neighbors is %d\" % optimal_k)",
+      "rewrite-ns": 14633,
+      "overhead-ns": 14633,
+      "exec-ns": 73362,
+      "total-ns": 87995,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.plot(neighbors, MSE)\n# plt.xlabel('Number of Neighbors K')\n# plt.ylabel('Misclassification Error')\n# plt.show()",
+      "rewrite-ns": 11743,
+      "overhead-ns": 11743,
+      "exec-ns": 66358,
+      "total-ns": 78101,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# print('With CV = 5:')\n# cv_scores = []\n\n# for k in neighbors:\n#     knn = KNeighborsClassifier(n_neighbors=k)\n#     scores = cross_val_score(knn, Xtrain, Ytrain, cv=5, scoring='accuracy')\n#     cv_scores.append(scores.mean())\n    \n    \n# MSE = [1 - x for x in cv_scores]\n# optimal_k = neighbors[MSE.index(min(MSE))]\n# print(\"The optimal number of neighbors is %d\" % optimal_k)",
+      "rewrite-ns": 12257,
+      "overhead-ns": 12257,
+      "exec-ns": 59549,
+      "total-ns": 71806,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.plot(neighbors, MSE)\n# plt.xlabel('Number of Neighbors K')\n# plt.ylabel('Misclassification Error')\n# plt.show()",
+      "rewrite-ns": 10098,
+      "overhead-ns": 10098,
+      "exec-ns": 56679,
+      "total-ns": 66777,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# print('With CV = 10:')\n# cv_scores = []\n\n# for k in neighbors:\n#     knn = KNeighborsClassifier(n_neighbors=k)\n#     scores = cross_val_score(knn, Xtrain, Ytrain, cv=10, scoring='accuracy')\n#     cv_scores.append(scores.mean())\n    \n    \n# MSE = [1 - x for x in cv_scores]\n# optimal_k = neighbors[MSE.index(min(MSE))]\n# print(\"The optimal number of neighbors is %d\" % optimal_k)",
+      "rewrite-ns": 11173,
+      "overhead-ns": 11173,
+      "exec-ns": 53126,
+      "total-ns": 64299,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.plot(neighbors, MSE)\n# plt.xlabel('Number of Neighbors K')\n# plt.ylabel('Misclassification Error')\n# plt.show()",
+      "rewrite-ns": 9725,
+      "overhead-ns": 9725,
+      "exec-ns": 53228,
+      "total-ns": 62953,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# print('With CV = 15:')\n# cv_scores = []\n\n# for k in neighbors:\n#     knn = KNeighborsClassifier(n_neighbors=k)\n#     scores = cross_val_score(knn, Xtrain, Ytrain, cv=15, scoring='accuracy')\n#     cv_scores.append(scores.mean())\n    \n    \n# MSE = [1 - x for x in cv_scores]\n# optimal_k = neighbors[MSE.index(min(MSE))]\n# print(\"The optimal number of neighbors is %d\" % optimal_k)",
+      "rewrite-ns": 10928,
+      "overhead-ns": 10928,
+      "exec-ns": 52930,
+      "total-ns": 63858,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.plot(neighbors, MSE)\n# plt.xlabel('Number of Neighbors K')\n# plt.ylabel('Misclassification Error')\n# plt.show()",
+      "rewrite-ns": 9696,
+      "overhead-ns": 9696,
+      "exec-ns": 51828,
+      "total-ns": 61524,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# print('With CV = 20:')\n# cv_scores = []\n\n# for k in neighbors:\n#     knn = KNeighborsClassifier(n_neighbors=k)\n#     scores = cross_val_score(knn, Xtrain, Ytrain, cv=20, scoring='accuracy')\n#     cv_scores.append(scores.mean())\n    \n    \n# MSE = [1 - x for x in cv_scores]\n# optimal_k = neighbors[MSE.index(min(MSE))]\n# print(\"The optimal number of neighbors is %d\" % optimal_k)",
+      "rewrite-ns": 11024,
+      "overhead-ns": 11024,
+      "exec-ns": 51535,
+      "total-ns": 62559,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.plot(neighbors, MSE)\n# plt.xlabel('Number of Neighbors K')\n# plt.ylabel('Misclassification Error')\n# plt.show()",
+      "rewrite-ns": 9775,
+      "overhead-ns": 9775,
+      "exec-ns": 51661,
+      "total-ns": 61436,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# knn = KNeighborsClassifier(n_neighbors=7)",
+      "rewrite-ns": 9297,
+      "overhead-ns": 9297,
+      "exec-ns": 53902,
+      "total-ns": 63199,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# knn.fit(Xtrain,Ytrain)",
+      "rewrite-ns": 9468,
+      "overhead-ns": 9468,
+      "exec-ns": 53190,
+      "total-ns": 62658,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# scores = cross_val_score(knn, Xtrain, Ytrain, cv=10)\n# scores",
+      "rewrite-ns": 9372,
+      "overhead-ns": 9372,
+      "exec-ns": 52334,
+      "total-ns": 61706,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# YtestPred = knn.predict(Xtest)",
+      "rewrite-ns": 9247,
+      "overhead-ns": 9247,
+      "exec-ns": 51699,
+      "total-ns": 60946,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.metrics import accuracy_score\n# accuracy_score(Ytest,YtestPred)",
+      "rewrite-ns": 9653,
+      "overhead-ns": 9653,
+      "exec-ns": 52323,
+      "total-ns": 61976,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "FINALtest.insert(0,'Target',0.0)",
+      "rewrite-ns": 410402,
+      "overhead-ns": 410402,
+      "exec-ns": 561074,
+      "total-ns": 971476,
+      "patts-hit": {},
+      "rewritten": "FINALtest.insert(0, 'Target', 0.0)\n"
+    },
+    {
+      "raw": "FINALtest.dtypes",
+      "rewrite-ns": 57519,
+      "overhead-ns": 57519,
+      "exec-ns": 1162839,
+      "total-ns": 1220358,
+      "patts-hit": {},
+      "rewritten": "FINALtest.dtypes\n"
+    },
+    {
+      "raw": "XFINALtest = FINALtest\n# ALEX: remove ML code\n# YFINALtestPred = knn.predict(XFINALtest)",
+      "rewrite-ns": 208069,
+      "overhead-ns": 208069,
+      "exec-ns": 180046,
+      "total-ns": 388115,
+      "patts-hit": {},
+      "rewritten": "XFINALtest = FINALtest\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# YFINALtestPred",
+      "rewrite-ns": 11339,
+      "overhead-ns": 11339,
+      "exec-ns": 63023,
+      "total-ns": 74362,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "pred = pd.DataFrame(submission_base)\n# ALEX: remove ML code\n# pred[\"Target\"] = YFINALtestPred",
+      "rewrite-ns": 368697,
+      "overhead-ns": 368697,
+      "exec-ns": 205018,
+      "total-ns": 573715,
+      "patts-hit": {},
+      "rewritten": "pred = pd.DataFrame(submission_base)\n"
+    },
+    {
+      "raw": "pred.to_csv(\"prediction.csv\", index=False)",
+      "rewrite-ns": 374347,
+      "overhead-ns": 374347,
+      "exec-ns": 58348608,
+      "total-ns": 58722955,
+      "patts-hit": {},
+      "rewritten": "pred.to_csv('prediction.csv', index=False)\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 12072,
+      "overhead-ns": 12072,
+      "exec-ns": 70055,
+      "total-ns": 82127,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 6.277697823,
+  "max-disk-in-mb": 0
+}

@@ -1,0 +1,253 @@
+{
+  "max-mem-in-mb": 1330,
+  "max-mem-in-mb2": 3710,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "rewrite-ns": 509337,
+      "overhead-ns": 509337,
+      "exec-ns": 322243,
+      "total-ns": 831580,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "df = pd.read_csv(\"./input/shopping_trends_updated.scaled.csv\")\ndf.head()",
+      "rewrite-ns": 410524,
+      "overhead-ns": 410524,
+      "exec-ns": 8032211266,
+      "total-ns": 8032621790,
+      "patts-hit": {},
+      "rewritten": "df = pd.read_csv('./input/shopping_trends_updated.scaled.csv')\ndf.head()\n"
+    },
+    {
+      "raw": "df.shape",
+      "rewrite-ns": 105765,
+      "overhead-ns": 105765,
+      "exec-ns": 587121,
+      "total-ns": 692886,
+      "patts-hit": {},
+      "rewritten": "df.shape\n"
+    },
+    {
+      "raw": "df.columns",
+      "rewrite-ns": 60604,
+      "overhead-ns": 60604,
+      "exec-ns": 606851,
+      "total-ns": 667455,
+      "patts-hit": {},
+      "rewritten": "df.columns\n"
+    },
+    {
+      "raw": "df.info()",
+      "rewrite-ns": 93334,
+      "overhead-ns": 93334,
+      "exec-ns": 3964545,
+      "total-ns": 4057879,
+      "patts-hit": {},
+      "rewritten": "df.info()\n"
+    },
+    {
+      "raw": "evaluate_lazy(df.isnull().sum())",
+      "rewrite-ns": 480274,
+      "overhead-ns": 480274,
+      "exec-ns": 7091230495,
+      "total-ns": 7091710769,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(df.isnull().sum())\n"
+    },
+    {
+      "raw": "evaluate_lazy(df.duplicated().sum())",
+      "rewrite-ns": 570218,
+      "overhead-ns": 570218,
+      "exec-ns": 3917931392,
+      "total-ns": 3918501610,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(df.duplicated().sum())\n"
+    },
+    {
+      "raw": "evaluate_lazy(df.describe())",
+      "rewrite-ns": 437338,
+      "overhead-ns": 437338,
+      "exec-ns": 808106304,
+      "total-ns": 808543642,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(df.describe())\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# import plotly.express as px\n\n# %matplotlib inline",
+      "rewrite-ns": 28258,
+      "overhead-ns": 28258,
+      "exec-ns": 110479,
+      "total-ns": 138737,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig = px.histogram(df, x=\"Age\", nbins= 20, marginal=\"rug\",text_auto = True)\n# fig.show()",
+      "rewrite-ns": 15997,
+      "overhead-ns": 15997,
+      "exec-ns": 77716,
+      "total-ns": 93713,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "gender_counts = df['Gender'].value_counts()\n# ALEX: remove plotting\n# fig = px.pie(data_frame=df, names=gender_counts.index, values=gender_counts.values)\n# fig.update_traces(textposition='inside', textinfo='percent+label')\n# fig.show()\n_ = gender_counts.index\n_ = gender_counts.values",
+      "rewrite-ns": 956503,
+      "overhead-ns": 956503,
+      "exec-ns": 253070543,
+      "total-ns": 254027046,
+      "patts-hit": {},
+      "rewritten": "gender_counts = df['Gender'].value_counts()\n_ = gender_counts.index\n_ = gender_counts.values\n"
+    },
+    {
+      "raw": "category_data = df['Category'].value_counts()\n# ALEX: remove plotting\n# fig = px.pie(data_frame=df, names=category_data.index, values=category_data.values)\n# fig.update_traces(textposition='inside', textinfo='percent+label')\n# fig.show()\n_ = category_data.index\n_ = category_data.values\n",
+      "rewrite-ns": 874703,
+      "overhead-ns": 874703,
+      "exec-ns": 253091932,
+      "total-ns": 253966635,
+      "patts-hit": {},
+      "rewritten": "category_data = df['Category'].value_counts()\n_ = category_data.index\n_ = category_data.values\n"
+    },
+    {
+      "raw": "df.columns",
+      "rewrite-ns": 72841,
+      "overhead-ns": 72841,
+      "exec-ns": 720017,
+      "total-ns": 792858,
+      "patts-hit": {},
+      "rewritten": "df.columns\n"
+    },
+    {
+      "raw": "sold_items = df['Item Purchased'].value_counts().sort_values(ascending = False)\n\n# ALEX: remove plotting\n# fig = px.bar(sold_items, x = sold_items.index, y = sold_items.values, \n#              title=\"Highest selling Items\", labels={\"y\":\"Quantity\"})\n# fig.show()\n_ = sold_items.index\n_ = sold_items.values\n",
+      "rewrite-ns": 1134568,
+      "overhead-ns": 1134568,
+      "exec-ns": 254157631,
+      "total-ns": 255292199,
+      "patts-hit": {},
+      "rewritten": "sold_items = df['Item Purchased'].value_counts().sort_values(ascending=False)\n_ = sold_items.index\n_ = sold_items.values\n"
+    },
+    {
+      "raw": "var = df.groupby(['Item Purchased', 'Gender']).size().reset_index(name='Customer Count')\nsorted_var = var.sort_values(by='Item Purchased', ascending=False)\n\n# ALEX: remove plotting\n# fig = px.bar(sorted_var, \n#              x='Item Purchased', \n#              y='Customer Count', \n#              color='Gender',\n#              title='Most Purchased Items by Gender',\n#              labels={'Customer Count': 'Count of Customers'})\n\n# fig.update_traces(hovertemplate='Item=%{x}<br>Count of Customers=%{y}', \n#                   texttemplate='%{y}', \n#                   textposition='inside')\n\n# fig.update_layout(yaxis_title='Count of Customers')\n\n# fig.show()\n",
+      "rewrite-ns": 1233647,
+      "overhead-ns": 1233647,
+      "exec-ns": 539883902,
+      "total-ns": 541117549,
+      "patts-hit": {},
+      "rewritten": "var = df.groupby(['Item Purchased', 'Gender']).size().reset_index(name=\n    'Customer Count')\nsorted_var = var.sort_values(by='Item Purchased', ascending=False)\n"
+    },
+    {
+      "raw": "var = df.groupby('Category')['Purchase Amount (USD)'].sum().reset_index().sort_values(by='Purchase Amount (USD)',ascending=False)\n\n# ALEX: remove plotting\n# fig = px.bar(var, x='Category', y = 'Purchase Amount (USD)')\n\n# fig.show()",
+      "rewrite-ns": 1040164,
+      "overhead-ns": 1040164,
+      "exec-ns": 239465764,
+      "total-ns": 240505928,
+      "patts-hit": {},
+      "rewritten": "var = df.groupby('Category')['Purchase Amount (USD)'].sum().reset_index(\n    ).sort_values(by='Purchase Amount (USD)', ascending=False)\n"
+    },
+    {
+      "raw": "var = df.groupby('Location')['Purchase Amount (USD)'].sum().reset_index().sort_values(by='Purchase Amount (USD)',ascending=False).head(10)\n\n# ALEX: remove plotting\n# fig = px.bar(var, x='Location', y = 'Purchase Amount (USD)')\n\n# fig.show()",
+      "rewrite-ns": 486602,
+      "overhead-ns": 486602,
+      "exec-ns": 274625089,
+      "total-ns": 275111691,
+      "patts-hit": {
+        "SortHead": 1
+      },
+      "rewritten": "var = dias.rewriter.sort_head(called_on=df.groupby('Location')[\n    'Purchase Amount (USD)'].sum().reset_index(), by=\n    'Purchase Amount (USD)', n=10, asc=False, orig=lambda _DIAS_x: _DIAS_x.\n    sort_values(by='Purchase Amount (USD)', ascending=False).head(10))\n"
+    },
+    {
+      "raw": "size_count = df['Size'].value_counts()\n\n# ALEX: remove plotting\n# fig = px.bar(size_count, x=size_count.index, y=size_count.values, labels = {'y':'Number of Occurances'})\n# fig.show()\n_ = size_count.index\n_ = size_count.values",
+      "rewrite-ns": 903236,
+      "overhead-ns": 903236,
+      "exec-ns": 205290692,
+      "total-ns": 206193928,
+      "patts-hit": {},
+      "rewritten": "size_count = df['Size'].value_counts()\n_ = size_count.index\n_ = size_count.values\n"
+    },
+    {
+      "raw": "color_count = df['Color'].value_counts().head(10)\n\n# ALEX: remove plotting\n# fig = px.bar(color_count, x = color_count.index, y = color_count.values, labels = {'y':'Number of Occurances'})\n# fig.show()\n_ = color_count.index\n_ = color_count.values",
+      "rewrite-ns": 1034365,
+      "overhead-ns": 1034365,
+      "exec-ns": 253805704,
+      "total-ns": 254840069,
+      "patts-hit": {},
+      "rewritten": "color_count = df['Color'].value_counts().head(10)\n_ = color_count.index\n_ = color_count.values\n"
+    },
+    {
+      "raw": "df.columns",
+      "rewrite-ns": 76800,
+      "overhead-ns": 76800,
+      "exec-ns": 890512,
+      "total-ns": 967312,
+      "patts-hit": {},
+      "rewritten": "df.columns\n"
+    },
+    {
+      "raw": "\nseason_data = df['Season'].value_counts()\n# ALEX: remove plotting\n# fig = px.pie(data_frame=df, names=season_data.index, values=season_data.values)\n# fig.update_traces(textposition='inside', textinfo='percent+label')\n# fig.show()\n_ = season_data.index\n_ = season_data.values\n",
+      "rewrite-ns": 879937,
+      "overhead-ns": 879937,
+      "exec-ns": 254129376,
+      "total-ns": 255009313,
+      "patts-hit": {},
+      "rewritten": "season_data = df['Season'].value_counts()\n_ = season_data.index\n_ = season_data.values\n"
+    },
+    {
+      "raw": "subs_count = df['Subscription Status'].value_counts()\n\n# ALEX: remove plotting\n# fig = px.bar(subs_count, x = subs_count.index, y = subs_count.values, labels = {'y':'Number of Customers'})\n# fig.show()\n_ = subs_count.index\n_ = subs_count.values",
+      "rewrite-ns": 904739,
+      "overhead-ns": 904739,
+      "exec-ns": 253896219,
+      "total-ns": 254800958,
+      "patts-hit": {},
+      "rewritten": "subs_count = df['Subscription Status'].value_counts()\n_ = subs_count.index\n_ = subs_count.values\n"
+    },
+    {
+      "raw": "shipping_count = df['Shipping Type'].value_counts()\n\n# ALEX: remove plotting\n# fig = px.bar(shipping_count, x = shipping_count.index, y = shipping_count.values, labels = {'y':'Shipped packages'})\n# fig.show()\n_ = shipping_count.index\n_ = shipping_count.values",
+      "rewrite-ns": 964349,
+      "overhead-ns": 964349,
+      "exec-ns": 252476634,
+      "total-ns": 253440983,
+      "patts-hit": {},
+      "rewritten": "shipping_count = df['Shipping Type'].value_counts()\n_ = shipping_count.index\n_ = shipping_count.values\n"
+    },
+    {
+      "raw": "disc_count = df['Discount Applied'].value_counts()\n\n# ALEX: remove plotting\n# fig = px.bar(disc_count, x = disc_count.index, y = disc_count.values, labels = {'y':'Number of customers'})\n# fig.show()\n_ = disc_count.index\n_ = disc_count.values",
+      "rewrite-ns": 871759,
+      "overhead-ns": 871759,
+      "exec-ns": 252659352,
+      "total-ns": 253531111,
+      "patts-hit": {},
+      "rewritten": "disc_count = df['Discount Applied'].value_counts()\n_ = disc_count.index\n_ = disc_count.values\n"
+    },
+    {
+      "raw": "df.columns",
+      "rewrite-ns": 70900,
+      "overhead-ns": 70900,
+      "exec-ns": 790117,
+      "total-ns": 861017,
+      "patts-hit": {},
+      "rewritten": "df.columns\n"
+    },
+    {
+      "raw": "evaluate_lazy(df['Promo Code Used'].value_counts())",
+      "rewrite-ns": 501219,
+      "overhead-ns": 501219,
+      "exec-ns": 252978198,
+      "total-ns": 253479417,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(df['Promo Code Used'].value_counts())\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 15226,
+      "overhead-ns": 15226,
+      "exec-ns": 82902,
+      "total-ns": 98128,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 23.411896203,
+  "max-disk-in-mb": 0
+}

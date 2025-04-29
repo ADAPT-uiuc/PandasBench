@@ -1,0 +1,107 @@
+{
+  "max-mem-in-mb": 111,
+  "max-mem-in-mb2": 115,
+  "cells": [
+    {
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting, ML code\n# import statsmodels.api as sm\n# import seaborn as sns\n# from statsmodels.tsa.seasonal import seasonal_decompose\n# from statsmodels.tsa.stattools import adfuller\n# from statsmodels.graphics.tsaplots import plot_acf,plot_pacf\n# from pandas.plotting import autocorrelation_plot\n# from statsmodels.tsa.arima_model import ARIMA\n# from pandas.tseries.offsets import DateOffset\n\n# import matplotlib.pyplot as plt\n# %matplotlib inline\n\n# Suppress warnings \nimport warnings\nwarnings.filterwarnings('ignore')",
+      "rewrite-ns": 1136540,
+      "overhead-ns": 1136540,
+      "exec-ns": 513774,
+      "total-ns": 1650314,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\nimport warnings\nwarnings.filterwarnings('ignore')\n"
+    },
+    {
+      "raw": "df = pd.read_csv('./input/covid-19 sp.scaled.csv')\ndf.head()",
+      "rewrite-ns": 587255,
+      "overhead-ns": 587255,
+      "exec-ns": 8932439,
+      "total-ns": 9519694,
+      "patts-hit": {},
+      "rewritten": "df = pd.read_csv('./input/covid-19 sp.scaled.csv')\ndf.head()\n"
+    },
+    {
+      "raw": "df.columns = ['Date', 'Val',\"\",\"\"]\ndf.head()",
+      "rewrite-ns": 653933,
+      "overhead-ns": 653933,
+      "exec-ns": 5287664,
+      "total-ns": 5941597,
+      "patts-hit": {},
+      "rewritten": "df.columns = ['Date', 'Val', '', '']\ndf.head()\n"
+    },
+    {
+      "raw": "df.info()\ndf.isnull().sum()",
+      "rewrite-ns": 566561,
+      "overhead-ns": 566561,
+      "exec-ns": 6303456,
+      "total-ns": 6870017,
+      "patts-hit": {},
+      "rewritten": "df.info()\ndf.isnull().sum()\n"
+    },
+    {
+      "raw": "df['Date'] = pd.to_datetime(df['Date'])",
+      "rewrite-ns": 777524,
+      "overhead-ns": 777524,
+      "exec-ns": 1942539,
+      "total-ns": 2720063,
+      "patts-hit": {},
+      "rewritten": "df['Date'] = pd.to_datetime(df['Date'])\n"
+    },
+    {
+      "raw": "df.set_index ('Date', inplace = True)\ndf.index",
+      "rewrite-ns": 591003,
+      "overhead-ns": 591003,
+      "exec-ns": 1703879,
+      "total-ns": 2294882,
+      "patts-hit": {},
+      "rewritten": "df.set_index('Date', inplace=True)\ndf.index\n"
+    },
+    {
+      "raw": "df_new = df['1998-01-01':]\ndf_new.tail()",
+      "rewrite-ns": 541478,
+      "overhead-ns": 541478,
+      "exec-ns": 6138458,
+      "total-ns": 6679936,
+      "patts-hit": {},
+      "rewritten": "df_new = df['1998-01-01':]\ndf_new.tail()\n"
+    },
+    {
+      "raw": "df_new.describe().transpose()",
+      "rewrite-ns": 529140,
+      "overhead-ns": 529140,
+      "exec-ns": 13599528,
+      "total-ns": 14128668,
+      "patts-hit": {},
+      "rewritten": "df_new.describe().transpose()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# df_new.boxplot('Val', rot = 80, fontsize = '12',grid = True);",
+      "rewrite-ns": 22185,
+      "overhead-ns": 22185,
+      "exec-ns": 111370,
+      "total-ns": 133555,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "time_series = df_new['Val']\ntype(time_series)",
+      "rewrite-ns": 487108,
+      "overhead-ns": 487108,
+      "exec-ns": 853397,
+      "total-ns": 1340505,
+      "patts-hit": {},
+      "rewritten": "time_series = df_new['Val']\ntype(time_series)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# time_series.rolling(12).mean().plot(label = '12 Months Rolling Mean', figsize = (16,10))\n# time_series.rolling(12).std().plot(label = '12 Months Rolling Std')\n# time_series.plot()\n# plt.legend();\ntime_series.rolling(12).mean()\ntime_series.rolling(12).std()",
+      "rewrite-ns": 1029783,
+      "overhead-ns": 1029783,
+      "exec-ns": 2101342,
+      "total-ns": 3131125,
+      "patts-hit": {},
+      "rewritten": "time_series.rolling(12).mean()\ntime_series.rolling(12).std()\n"
+    }
+  ],
+  "total-time-in-sec": 0.054410356,
+  "max-disk-in-mb": 0
+}

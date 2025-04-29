@@ -1,0 +1,116 @@
+{
+  "max-mem-in-mb": 1384,
+  "max-mem-in-mb2": 1924,
+  "cells": [
+    {
+      "raw": "# import os\nimport numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n\n# ALEX: remove plotting\n# import seaborn as sns\n# import plotly.express as px \n# import matplotlib.pyplot as plt\n# %matplotlib inline\n\n# from sklearn.cluster import KMeans\n# from sklearn.preprocessing import StandardScaler\n# from sklearn.pipeline import Pipeline\n# from sklearn.manifold import TSNE\n# from sklearn.decomposition import PCA\n# from sklearn.metrics import euclidean_distances\n# from scipy.spatial.distance import cdist\n\n# import warnings\n# warnings.filterwarnings(\"ignore\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 433097
+    },
+    {
+      "raw": "data = pd.read_csv(\"./input/data.scaled.csv\")\ngenre_data = pd.read_csv('./input/data_by_genres.scaled.csv')\nyear_data = pd.read_csv('./input/data_by_year.scaled.csv')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5435161022
+    },
+    {
+      "raw": "print(data.info())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3978328
+    },
+    {
+      "raw": "print(genre_data.info())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 7478766
+    },
+    {
+      "raw": "print(year_data.info())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3222222
+    },
+    {
+      "raw": "# ALEX: remove non-pandas code\n# from yellowbrick.target import FeatureCorrelation\n\n# feature_names = ['acousticness', 'danceability', 'energy', 'instrumentalness',\n#        'liveness', 'loudness', 'speechiness', 'tempo', 'valence','duration_ms','explicit','key','mode','year']\n\n# X, y = data[feature_names], data['popularity']\n\n# # Create a list of the feature names\n# features = np.array(feature_names)\n\n# # Instantiate the visualizer\n# visualizer = FeatureCorrelation(labels=features)\n\n# plt.rcParams['figure.figsize']=(20,20)\n# visualizer.fit(X, y)     # Fit the data to the visualizer\n# visualizer.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 187078
+    },
+    {
+      "raw": "def get_decade(year):\n    period_start = int(year/10) * 10\n    decade = '{}s'.format(period_start)\n    return decade\n\ndata['decade'] = data['year'].apply(get_decade)\n\n# ALEX: remove plotting\n# sns.set(rc={'figure.figsize':(11 ,6)})\n# sns.countplot(data['decade'])\nevaluate_lazy(data['decade'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 882158635
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sound_features = ['acousticness', 'danceability', 'energy', 'instrumentalness', 'liveness', 'valence']\n# fig = px.line(year_data, x='year', y=sound_features)\n# fig.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 192039
+    },
+    {
+      "raw": "top10_genres = genre_data.nlargest(10, 'popularity')\n\n# ALEX: remove plotting\n# fig = px.bar(top10_genres, x='genres', y=['valence', 'energy', 'danceability', 'acousticness'], barmode='group')\n# fig.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3206119
+    },
+    {
+      "raw": "# ALEX: remove ML\n# from sklearn.cluster import KMeans\n# from sklearn.preprocessing import StandardScaler\n# from sklearn.pipeline import Pipeline\n\n# cluster_pipeline = Pipeline([('scaler', StandardScaler()), ('kmeans', KMeans(n_clusters=10, n_jobs=-1))])\n# X = genre_data.select_dtypes(np.number)\n# cluster_pipeline.fit(X)\n# genre_data['cluster'] = cluster_pipeline.predict(X)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 163968
+    },
+    {
+      "raw": "# Visualizing the Clusters with t-SNE\n\n# ALEX: remove plotting\n# from sklearn.manifold import TSNE\n\n# tsne_pipeline = Pipeline([('scaler', StandardScaler()), ('tsne', TSNE(n_components=2, verbose=1))])\n# genre_embedding = tsne_pipeline.fit_transform(X)\n# ALEX: won't work\n# projection = pd.DataFrame(columns=['x', 'y'], data=genre_embedding)\n# projection['genres'] = genre_data['genres']\n# projection['cluster'] = genre_data['cluster']\n\n# ALEX: remove plotting\n# fig = px.scatter(\n#     projection, x='x', y='y', color='cluster', hover_data=['x', 'y', 'genres'])\n# fig.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 169767
+    },
+    {
+      "raw": "# ALEX: remove ML\n# song_cluster_pipeline = Pipeline([('scaler', StandardScaler()), \n#                                   ('kmeans', KMeans(n_clusters=20, \n#                                    verbose=False, n_jobs=4))\n#                                  ], verbose=False)\n\n# X = data.select_dtypes(np.number)\n# number_cols = list(X.columns)\n# song_cluster_pipeline.fit(X)\n# song_cluster_labels = song_cluster_pipeline.predict(X)\n# data['cluster_label'] = song_cluster_labels ## ALEX: fake data could go here ##",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 151479
+    },
+    {
+      "raw": "# Visualizing the Clusters with PCA\n\n# ALEX: remove ML\n# from sklearn.decomposition import PCA\n\n# pca_pipeline = Pipeline([('scaler', StandardScaler()), ('PCA', PCA(n_components=2))])\n# song_embedding = pca_pipeline.fit_transform(X)\n# ALEX: won't work\n# projection = pd.DataFrame(columns=['x', 'y'], data=song_embedding)\n# projection['title'] = data['name']\n# projection['cluster'] = data['cluster_label']\n\n# ALEX: remove plotting\n# fig = px.scatter(\n#     projection, x='x', y='y', color='cluster', hover_data=['x', 'y', 'title'])\n# fig.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 158842
+    },
+    {
+      "raw": "# !pip install spotipy",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 160236
+    },
+    {
+      "raw": "# ALEX: remove internet connections\n# import spotipy\n# from spotipy.oauth2 import SpotifyClientCredentials\n# from collections import defaultdict\n\n# sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=os.environ[\"SPOTIFY_CLIENT_ID\"],\n#                                                            client_secret=os.environ[\"SPOTIFY_CLIENT_SECRET\"]))\n\n# def find_song(name, year):\n#     song_data = defaultdict()\n#     results = sp.search(q= 'track: {} year: {}'.format(name,year), limit=1)\n#     if results['tracks']['items'] == []:\n#         return None\n\n#     results = results['tracks']['items'][0]\n#     track_id = results['id']\n#     audio_features = sp.audio_features(track_id)[0]\n\n#     song_data['name'] = [name]\n#     song_data['year'] = [year]\n#     song_data['explicit'] = [int(results['explicit'])]\n#     song_data['duration_ms'] = [results['duration_ms']]\n#     song_data['popularity'] = [results['popularity']]\n\n#     for key, value in audio_features.items():\n#         song_data[key] = value\n\n#     return pd.DataFrame(song_data)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 204696
+    },
+    {
+      "raw": "# ALEX: won't work due to previous commenting out\n# from collections import defaultdict\n# from sklearn.metrics import euclidean_distances\n# from scipy.spatial.distance import cdist\n# import difflib\n\n# number_cols = ['valence', 'year', 'acousticness', 'danceability', 'duration_ms', 'energy', 'explicit',\n#  'instrumentalness', 'key', 'liveness', 'loudness', 'mode', 'popularity', 'speechiness', 'tempo']\n\n\n# def get_song_data(song, spotify_data):\n    \n#     try:\n#         song_data = spotify_data[(spotify_data['name'] == song['name']) \n#                                 & (spotify_data['year'] == song['year'])].iloc[0]\n#         return song_data\n    \n#     except IndexError:\n#         return find_song(song['name'], song['year'])\n        \n\n# def get_mean_vector(song_list, spotify_data):\n    \n#     song_vectors = []\n    \n#     for song in song_list:\n#         song_data = get_song_data(song, spotify_data)\n#         if song_data is None:\n#             print('Warning: {} does not exist in Spotify or in database'.format(song['name']))\n#             continue\n#         song_vector = song_data[number_cols].values\n#         song_vectors.append(song_vector)  \n    \n#     song_matrix = np.array(list(song_vectors))\n#     return np.mean(song_matrix, axis=0)\n\n\n# def flatten_dict_list(dict_list):\n    \n#     flattened_dict = defaultdict()\n#     for key in dict_list[0].keys():\n#         flattened_dict[key] = []\n    \n#     for dictionary in dict_list:\n#         for key, value in dictionary.items():\n#             flattened_dict[key].append(value)\n            \n#     return flattened_dict\n\n\n# def recommend_songs( song_list, spotify_data, n_songs=10):\n    \n#     metadata_cols = ['name', 'year', 'artists']\n#     song_dict = flatten_dict_list(song_list)\n    \n#     song_center = get_mean_vector(song_list, spotify_data)\n#     scaler = song_cluster_pipeline.steps[0][1]\n#     scaled_data = scaler.transform(spotify_data[number_cols])\n#     scaled_song_center = scaler.transform(song_center.reshape(1, -1))\n#     distances = cdist(scaled_song_center, scaled_data, 'cosine')\n#     index = list(np.argsort(distances)[:, :n_songs][0])\n    \n#     rec_songs = spotify_data.iloc[index]\n#     rec_songs = rec_songs[~rec_songs['name'].isin(song_dict['name'])]\n#     return rec_songs[metadata_cols].to_dict(orient='records')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 353118
+    },
+    {
+      "raw": "# ALEX: won't work due to previous commenting out\n# recommend_songs([{'name': 'Come As You Are', 'year':1991},\n#                 {'name': 'Smells Like Teen Spirit', 'year': 1991},\n#                 {'name': 'Lithium', 'year': 1992},\n#                 {'name': 'All Apologies', 'year': 1993},\n#                 {'name': 'Stay Away', 'year': 1993}],  data)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 124670
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 66499
+    }
+  ],
+  "total-time-in-sec": 6.337570581,
+  "max-disk-in-mb": 0
+}

@@ -1,0 +1,116 @@
+{
+  "max-mem-in-mb": 121,
+  "max-mem-in-mb2": 129,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n\n# ALEX: remove plotting code\n# pd.plotting.register_matplotlib_converters()\n# import matplotlib.pyplot as plt\n# %matplotlib inline\n# import seaborn as sns",
+      "rewrite-ns": 495770,
+      "overhead-ns": 495770,
+      "exec-ns": 259646,
+      "total-ns": 755416,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n"
+    },
+    {
+      "raw": "data =  pd.read_csv('./input/used_cars_Pakistan.scaled.csv',index_col=0)\ndata",
+      "rewrite-ns": 463932,
+      "overhead-ns": 463932,
+      "exec-ns": 59470680,
+      "total-ns": 59934612,
+      "patts-hit": {},
+      "rewritten": "data = pd.read_csv('./input/used_cars_Pakistan.scaled.csv', index_col=0)\ndata\n"
+    },
+    {
+      "raw": "data.make.value_counts().head(10)",
+      "rewrite-ns": 480013,
+      "overhead-ns": 480013,
+      "exec-ns": 3795320,
+      "total-ns": 4275333,
+      "patts-hit": {},
+      "rewritten": "data.make.value_counts().head(10)\n"
+    },
+    {
+      "raw": "data.model.value_counts().head(10)",
+      "rewrite-ns": 476595,
+      "overhead-ns": 476595,
+      "exec-ns": 3720788,
+      "total-ns": 4197383,
+      "patts-hit": {},
+      "rewritten": "data.model.value_counts().head(10)\n"
+    },
+    {
+      "raw": "data.city.value_counts().head(10)",
+      "rewrite-ns": 463472,
+      "overhead-ns": 463472,
+      "exec-ns": 3670710,
+      "total-ns": 4134182,
+      "patts-hit": {},
+      "rewritten": "data.city.value_counts().head(10)\n"
+    },
+    {
+      "raw": "data.year.value_counts().head(10)",
+      "rewrite-ns": 464019,
+      "overhead-ns": 464019,
+      "exec-ns": 1298321,
+      "total-ns": 1762340,
+      "patts-hit": {},
+      "rewritten": "data.year.value_counts().head(10)\n"
+    },
+    {
+      "raw": "data.Engine_displacement.value_counts().head(5)",
+      "rewrite-ns": 447533,
+      "overhead-ns": 447533,
+      "exec-ns": 1791437,
+      "total-ns": 2238970,
+      "patts-hit": {},
+      "rewritten": "data.Engine_displacement.value_counts().head(5)\n"
+    },
+    {
+      "raw": "data.Battery.value_counts().head()",
+      "rewrite-ns": 410254,
+      "overhead-ns": 410254,
+      "exec-ns": 1269316,
+      "total-ns": 1679570,
+      "patts-hit": {},
+      "rewritten": "data.Battery.value_counts().head()\n"
+    },
+    {
+      "raw": "100*(len(data)-data.Battery.isnull().sum())/len(data)",
+      "rewrite-ns": 915793,
+      "overhead-ns": 915793,
+      "exec-ns": 767776,
+      "total-ns": 1683569,
+      "patts-hit": {},
+      "rewritten": "100 * (len(data) - data.Battery.isnull().sum()) / len(data)\n"
+    },
+    {
+      "raw": "data.Price_Rs.mean()",
+      "rewrite-ns": 314410,
+      "overhead-ns": 314410,
+      "exec-ns": 604837,
+      "total-ns": 919247,
+      "patts-hit": {},
+      "rewritten": "data.Price_Rs.mean()\n"
+    },
+    {
+      "raw": "data.Price_Rs.median()",
+      "rewrite-ns": 299093,
+      "overhead-ns": 299093,
+      "exec-ns": 1790372,
+      "total-ns": 2089465,
+      "patts-hit": {},
+      "rewritten": "data.Price_Rs.median()\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 10787,
+      "overhead-ns": 10787,
+      "exec-ns": 63881,
+      "total-ns": 74668,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 0.083744755,
+  "max-disk-in-mb": 0
+}

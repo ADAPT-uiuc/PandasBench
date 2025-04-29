@@ -1,0 +1,230 @@
+{
+  "max-mem-in-mb": 2878,
+  "max-mem-in-mb2": 4111,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 362704
+    },
+    {
+      "raw": "df = pd.read_csv('./input/annex1.scaled.csv')\ndf.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3778729
+    },
+    {
+      "raw": "df1 = pd.read_csv('./input/annex2.scaled.csv')\ndf1.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2508632604
+    },
+    {
+      "raw": "# Join the both DataFrames\n\nmerge = pd.merge(df, df1, on ='Item Code')\nmerge.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2313465249
+    },
+    {
+      "raw": "# Rename Columns\nmerge =merge.rename(columns={'Quantity Sold (kilo)':'Quantity Sold', 'Unit Selling Price (RMB/kg)':'Unit Selling Price','Discount (Yes/No)':'Discount'})",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2307241585
+    },
+    {
+      "raw": "#Change datatype of date column.\n\nmerge['Date']=pd.to_datetime(merge['Date'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1400252543
+    },
+    {
+      "raw": "evaluate_lazy(merge.isnull().sum())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5918594645
+    },
+    {
+      "raw": "Category_count=merge['Category Name'].value_counts()\nevaluate_lazy(Category_count)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 380230215
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(8,6))\n# colors = ['blue', 'green', 'red', 'purple', 'orange', 'yellow']\n# plt.bar(Category_count.index, Category_count.values, color = colors)\n# plt.title(\"Category wise Order Count\")\n# plt.xticks(rotation=90)\n# plt.show()\nCategory_count.index\nCategory_count.values",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 314838
+    },
+    {
+      "raw": "top_10_products =merge['Item Name'].value_counts()[:10]\nevaluate_lazy(top_10_products)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 380160637
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,6))\n# colors = ['red', 'green', 'blue', 'yellow', 'purple', 'orange', 'pink', 'teal', 'brown', 'gray']\n\n# plt.bar(top_10_products.index, top_10_products.values, color = colors)\n# plt.title(\"Top 10 Products by its Order count\")\n# plt.xticks(rotation=90)\n# plt.show()\ntop_10_products.index\ntop_10_products.values",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 295018
+    },
+    {
+      "raw": "# Creating sales column\n\nmerge['Sales']= merge['Unit Selling Price'] * merge['Quantity Sold']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 62606470
+    },
+    {
+      "raw": "Item_sales = merge.groupby('Item Name',as_index=False)['Sales'].sum().sort_values(by='Sales',ascending=False).head(10)\nevaluate_lazy(Item_sales)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 821222374
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,8))\n# ab=sns.barplot(x='Item Name',y='Sales',data=Item_sales)\n# ab.bar_label(ab.containers[0])\n# plt.title('Top 10 Products by its Sales')\n# plt.xlabel('Product Name')\n# plt.ylabel('Sales')\n# plt.xticks(rotation=90)\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 213893
+    },
+    {
+      "raw": "#Add year column in dataframe\nmerge['Year'] = merge['Date'].dt.year",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 361643827
+    },
+    {
+      "raw": "Year_wise_sales=merge.groupby('Year')['Sales'].sum()\nevaluate_lazy(Year_wise_sales)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 197911452
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(6,6))\n# plt.pie(Year_wise_sales,autopct ='%.2f%%',labels =Year_wise_sales.index)\n# plt.title('Year Wise Sales')\n# plt.show()\nevaluate_lazy(Year_wise_sales.index)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 299193
+    },
+    {
+      "raw": "Sale_Or_Return =merge['Sale or Return'].value_counts()\nSale_Or_Return= pd.DataFrame(Sale_Or_Return)\nevaluate_lazy(Sale_Or_Return)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 498500489
+    },
+    {
+      "raw": "Discount =merge['Discount'].value_counts()\nDiscount = pd.DataFrame(Discount)\nevaluate_lazy(Discount)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 498730620
+    },
+    {
+      "raw": "merge.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 432823
+    },
+    {
+      "raw": "merge = merge.drop(['Date'],axis=1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 888269266
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.preprocessing import LabelEncoder\n# le =LabelEncoder()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 187559
+    },
+    {
+      "raw": "#Store all categorical columns\ncategorical_columns = merge.select_dtypes(include=['object']).columns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 607293566
+    },
+    {
+      "raw": "# Converting all categorical columns into numeric\nfor col in categorical_columns:\n# ALEX: remove ML code\n#     merge[col] = le.fit_transform(merge[col])\n    merge[col] = merge[col]\n    \nmerge.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1779863964
+    },
+    {
+      "raw": "# Define x variables (independents variable)\nx= merge.drop(['Sale or Return'],axis=1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 666804010
+    },
+    {
+      "raw": "# Define y variable (dependent variable)\ny = merge['Sale or Return']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 377958
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import train_test_split",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 159734
+    },
+    {
+      "raw": "# Split data into train and test datasets\n# ALEX: remove ML code\n# x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 126653
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# len(x_train)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 113639
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# len(x_test)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 107139
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.ensemble import RandomForestClassifier\n# model =RandomForestClassifier()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 113406
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# model.fit(x_train,y_train)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 108387
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# model.predict(x_test)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 107963
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import cross_val_score",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 109695
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# score =cross_val_score(RandomForestClassifier(),x,y)\n# score",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 109683
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# score.mean()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 102595
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 85499
+    }
+  ],
+  "total-time-in-sec": 21.598930624,
+  "max-disk-in-mb": 0
+}

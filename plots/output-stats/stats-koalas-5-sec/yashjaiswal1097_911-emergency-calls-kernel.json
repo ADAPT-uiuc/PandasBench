@@ -1,0 +1,182 @@
+{
+  "max-mem-in-mb": 3152,
+  "max-mem-in-mb2": 161,
+  "cells": [
+    {
+      "raw": "\nimport numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# %matplotlib inline\ndf=pd.read_csv('./input/911.scaled.csv')\ndf.info()\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 11233299845
+    },
+    {
+      "raw": "df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 37146858
+    },
+    {
+      "raw": "df['zip'].value_counts().head(5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 107504978
+    },
+    {
+      "raw": "df['twp'].value_counts().head(5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 90211872
+    },
+    {
+      "raw": "evaluate_lazy(df['title'].nunique())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 881581900
+    },
+    {
+      "raw": "df['Reason']=df['title'].apply(lambda title:title.split(':')[0])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 842913084
+    },
+    {
+      "raw": "evaluate_lazy(df['Reason'].value_counts(5))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3275719686
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# import seaborn as sns\n# sns.countplot(x='Reason',data=df,palette='viridis')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 257970
+    },
+    {
+      "raw": "df['timeStamp']=pd.to_datetime(df['timeStamp'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 36828486
+    },
+    {
+      "raw": "df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 32398034
+    },
+    {
+      "raw": "df['hour']=df['timeStamp'].apply(lambda time:time.hour)\ndf['month']=df['timeStamp'].apply(lambda time:time.month)\ndf['day of week']=df['timeStamp'].apply(lambda time:time.dayofweek)\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2827225024
+    },
+    {
+      "raw": "evaluate_lazy(df['day of week'])\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 737391
+    },
+    {
+      "raw": "df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 45177588
+    },
+    {
+      "raw": "dmap={0:'Mon',1:'Tue',2:'Wed',3:'Thu',4:'Fri',5:'Sat',6:'Sun'}",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 604934
+    },
+    {
+      "raw": "df['day of week']=df['day of week'].map(dmap)\nevaluate_lazy(df['day of week'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 81278930
+    },
+    {
+      "raw": "df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 43412353
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(x='day of week',data=df,palette='viridis',hue='Reason')\n# plt.legend(bbox_to_anchor=(1.05,1),loc=2)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 275127
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(x='month',data=df,palette='viridis',hue='Reason')\n# plt.legend(bbox_to_anchor=(1.05,1),loc=2)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 240868
+    },
+    {
+      "raw": "byMonth=df.groupby('month').count()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 162580992
+    },
+    {
+      "raw": "byMonth.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 42383059
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# byMonth['lat'].plot()\nevaluate_lazy(byMonth['lat'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 627317
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.lmplot(x='month',y='twp',data=byMonth.reset_index())\nevaluate_lazy(byMonth.reset_index())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 130600742
+    },
+    {
+      "raw": "df['date']=df['timeStamp'].apply(lambda t:t.date())\nevaluate_lazy(df['date'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 938269950
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# df.groupby('date').count()['lat'].plot()\n# plt.tight_layout()\nevaluate_lazy(df.groupby('date').count()['lat'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 143564588
+    },
+    {
+      "raw": "dayHour=df.groupby(by=['day of week','hour']).count()['Reason'].unstack()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 7967206158
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.heatmap(dayHour,cmap='viridis')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 267002
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.clustermap(dayHour,cmap='viridis')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 236699
+    },
+    {
+      "raw": "dayMonth=df.groupby(by=['day of week','month']).count()['Reason'].unstack()\n# ALEX: remove plotting\n# sns.clustermap(dayMonth,cmap='viridis')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2058672622
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.heatmap(dayMonth,cmap='viridis')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 375039
+    }
+  ],
+  "total-time-in-sec": 30.981599096,
+  "max-disk-in-mb": 0
+}

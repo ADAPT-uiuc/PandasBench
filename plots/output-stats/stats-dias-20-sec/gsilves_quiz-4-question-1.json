@@ -1,0 +1,107 @@
+{
+  "max-mem-in-mb": 3893,
+  "max-mem-in-mb2": 5483,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# Any results you write to the current directory are saved as output.",
+      "rewrite-ns": 507605,
+      "overhead-ns": 507605,
+      "exec-ns": 265076,
+      "total-ns": 772681,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "NFL = pd.read_csv('./input/nfl_offense_cleaned.scaled.csv')",
+      "rewrite-ns": 368320,
+      "overhead-ns": 368320,
+      "exec-ns": 9731697491,
+      "total-ns": 9732065811,
+      "patts-hit": {},
+      "rewritten": "NFL = pd.read_csv('./input/nfl_offense_cleaned.scaled.csv')\n"
+    },
+    {
+      "raw": "NFL.head()",
+      "rewrite-ns": 185565,
+      "overhead-ns": 185565,
+      "exec-ns": 13616205,
+      "total-ns": 13801770,
+      "patts-hit": {},
+      "rewritten": "NFL.head()\n"
+    },
+    {
+      "raw": "NFL.shape",
+      "rewrite-ns": 65980,
+      "overhead-ns": 65980,
+      "exec-ns": 497120,
+      "total-ns": 563100,
+      "patts-hit": {},
+      "rewritten": "NFL.shape\n"
+    },
+    {
+      "raw": "evaluate_lazy(NFL.sort_values('YDS', ascending=False).iloc[:5])",
+      "rewrite-ns": 702954,
+      "overhead-ns": 702954,
+      "exec-ns": 2468781896,
+      "total-ns": 2469484850,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(NFL.sort_values('YDS', ascending=False).iloc[:5])\n"
+    },
+    {
+      "raw": "NFL.loc[NFL.COMP.idxmax()].PLAYER",
+      "rewrite-ns": 571013,
+      "overhead-ns": 571013,
+      "exec-ns": 27935960,
+      "total-ns": 28506973,
+      "patts-hit": {},
+      "rewritten": "NFL.loc[NFL.COMP.idxmax()].PLAYER\n"
+    },
+    {
+      "raw": "evaluate_lazy(NFL.groupby(\"LONG\").max())",
+      "rewrite-ns": 573644,
+      "overhead-ns": 573644,
+      "exec-ns": 5260538678,
+      "total-ns": 5261112322,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(NFL.groupby('LONG').max())\n"
+    },
+    {
+      "raw": "evaluate_lazy(NFL.query('RATE > 158.2').loc[:, ['PLAYER']])",
+      "rewrite-ns": 810964,
+      "overhead-ns": 810964,
+      "exec-ns": 243304668,
+      "total-ns": 244115632,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(NFL.query('RATE > 158.2').loc[:, ['PLAYER']])\n"
+    },
+    {
+      "raw": "evaluate_lazy(NFL.mean().round(2))",
+      "rewrite-ns": 594434,
+      "overhead-ns": 594434,
+      "exec-ns": 5556176354,
+      "total-ns": 5556770788,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(NFL.mean().round(2))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# NFL.ATT.plot.hist()\nNFL.ATT",
+      "rewrite-ns": 85483,
+      "overhead-ns": 85483,
+      "exec-ns": 1555898,
+      "total-ns": 1641381,
+      "patts-hit": {},
+      "rewritten": "NFL.ATT\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# NFL.POS.value_counts().plot.pie()\nNFL.POS.value_counts()",
+      "rewrite-ns": 366253,
+      "overhead-ns": 366253,
+      "exec-ns": 415911496,
+      "total-ns": 416277749,
+      "patts-hit": {},
+      "rewritten": "NFL.POS.value_counts()\n"
+    }
+  ],
+  "total-time-in-sec": 23.725113057,
+  "max-disk-in-mb": 0
+}

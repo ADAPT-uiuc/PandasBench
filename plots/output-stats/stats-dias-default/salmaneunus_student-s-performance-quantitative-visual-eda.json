@@ -1,0 +1,395 @@
+{
+  "max-mem-in-mb": 110,
+  "max-mem-in-mb2": 113,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nsp = pd.read_csv(\"./input/StudentsPerformance.scaled.csv\")\nsp",
+      "rewrite-ns": 1027338,
+      "overhead-ns": 1027338,
+      "exec-ns": 14246098,
+      "total-ns": 15273436,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\nsp = pd.read_csv('./input/StudentsPerformance.scaled.csv')\nsp\n"
+    },
+    {
+      "raw": "sp.head()",
+      "rewrite-ns": 126561,
+      "overhead-ns": 126561,
+      "exec-ns": 7731531,
+      "total-ns": 7858092,
+      "patts-hit": {},
+      "rewritten": "sp.head()\n"
+    },
+    {
+      "raw": "sp.describe()",
+      "rewrite-ns": 120326,
+      "overhead-ns": 120326,
+      "exec-ns": 10337178,
+      "total-ns": 10457504,
+      "patts-hit": {},
+      "rewritten": "sp.describe()\n"
+    },
+    {
+      "raw": "print(sp)",
+      "rewrite-ns": 101694,
+      "overhead-ns": 101694,
+      "exec-ns": 8369300,
+      "total-ns": 8470994,
+      "patts-hit": {},
+      "rewritten": "print(sp)\n"
+    },
+    {
+      "raw": "# ALEX: remove non Pandas code\n# import datetime\n\n# x = datetime.datetime.now()",
+      "rewrite-ns": 20682,
+      "overhead-ns": 20682,
+      "exec-ns": 106747,
+      "total-ns": 127429,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove non Pandas code\n# x",
+      "rewrite-ns": 18202,
+      "overhead-ns": 18202,
+      "exec-ns": 96514,
+      "total-ns": 114716,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "sp.columns",
+      "rewrite-ns": 77789,
+      "overhead-ns": 77789,
+      "exec-ns": 803208,
+      "total-ns": 880997,
+      "patts-hit": {},
+      "rewritten": "sp.columns\n"
+    },
+    {
+      "raw": "sp.iloc[0:,6].dtype",
+      "rewrite-ns": 700889,
+      "overhead-ns": 700889,
+      "exec-ns": 857534,
+      "total-ns": 1558423,
+      "patts-hit": {},
+      "rewritten": "sp.iloc[0:, 6].dtype\n"
+    },
+    {
+      "raw": "scores = sp[\"math score\"]\nprint(scores)\nscores.head()",
+      "rewrite-ns": 543250,
+      "overhead-ns": 543250,
+      "exec-ns": 1706957,
+      "total-ns": 2250207,
+      "patts-hit": {},
+      "rewritten": "scores = sp['math score']\nprint(scores)\nscores.head()\n"
+    },
+    {
+      "raw": "scores.max()",
+      "rewrite-ns": 392422,
+      "overhead-ns": 392422,
+      "exec-ns": 728053,
+      "total-ns": 1120475,
+      "patts-hit": {},
+      "rewritten": "scores.max()\n"
+    },
+    {
+      "raw": "sp.dtypes",
+      "rewrite-ns": 76163,
+      "overhead-ns": 76163,
+      "exec-ns": 1187457,
+      "total-ns": 1263620,
+      "patts-hit": {},
+      "rewritten": "sp.dtypes\n"
+    },
+    {
+      "raw": "scores.head(10)",
+      "rewrite-ns": 135416,
+      "overhead-ns": 135416,
+      "exec-ns": 1668771,
+      "total-ns": 1804187,
+      "patts-hit": {},
+      "rewritten": "scores.head(10)\n"
+    },
+    {
+      "raw": "sp.info()",
+      "rewrite-ns": 112573,
+      "overhead-ns": 112573,
+      "exec-ns": 5174784,
+      "total-ns": 5287357,
+      "patts-hit": {},
+      "rewritten": "sp.info()\n"
+    },
+    {
+      "raw": "All_scores = sp[[\"gender\",\"reading score\",\"math score\",\"writing score\"]]\nAll_scores",
+      "rewrite-ns": 698617,
+      "overhead-ns": 698617,
+      "exec-ns": 6307516,
+      "total-ns": 7006133,
+      "patts-hit": {},
+      "rewritten": "All_scores = sp[['gender', 'reading score', 'math score', 'writing score']]\nAll_scores\n"
+    },
+    {
+      "raw": "All_scores.shape",
+      "rewrite-ns": 78584,
+      "overhead-ns": 78584,
+      "exec-ns": 642951,
+      "total-ns": 721535,
+      "patts-hit": {},
+      "rewritten": "All_scores.shape\n"
+    },
+    {
+      "raw": "math_passed = [sp[\"math score\"]>=50]\nmath_passed",
+      "rewrite-ns": 692517,
+      "overhead-ns": 692517,
+      "exec-ns": 1600211,
+      "total-ns": 2292728,
+      "patts-hit": {},
+      "rewritten": "math_passed = [sp['math score'] >= 50]\nmath_passed\n"
+    },
+    {
+      "raw": "math_passed_genderwise = All_scores[All_scores[\"math score\"]>=50]\nmath_passed_genderwise",
+      "rewrite-ns": 742480,
+      "overhead-ns": 742480,
+      "exec-ns": 6060875,
+      "total-ns": 6803355,
+      "patts-hit": {},
+      "rewritten": "math_passed_genderwise = All_scores[All_scores['math score'] >= 50]\nmath_passed_genderwise\n"
+    },
+    {
+      "raw": "failed = sp[\"math score\"]<50\nfailed",
+      "rewrite-ns": 610608,
+      "overhead-ns": 610608,
+      "exec-ns": 1584545,
+      "total-ns": 2195153,
+      "patts-hit": {},
+      "rewritten": "failed = sp['math score'] < 50\nfailed\n"
+    },
+    {
+      "raw": "#Students who passed(>=50) in writing score, actually completed the test preparation course\ncourse_completed = sp.loc[sp[\"writing score\"]>=50,\"test preparation course\"]\ncourse_completed\ncourse_completed",
+      "rewrite-ns": 985391,
+      "overhead-ns": 985391,
+      "exec-ns": 1868637,
+      "total-ns": 2854028,
+      "patts-hit": {},
+      "rewritten": "course_completed = sp.loc[sp['writing score'] >= 50, 'test preparation course']\ncourse_completed\ncourse_completed\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# All_scores.plot()",
+      "rewrite-ns": 20101,
+      "overhead-ns": 20101,
+      "exec-ns": 105631,
+      "total-ns": 125732,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# All_scores[\"math score\"].plot()\nAll_scores[\"math score\"]",
+      "rewrite-ns": 371832,
+      "overhead-ns": 371832,
+      "exec-ns": 1319391,
+      "total-ns": 1691223,
+      "patts-hit": {},
+      "rewritten": "All_scores['math score']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# All_scores.plot.scatter(x=\"reading score\",y=\"writing score\",alpha=0.5)",
+      "rewrite-ns": 20111,
+      "overhead-ns": 20111,
+      "exec-ns": 104980,
+      "total-ns": 125091,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sp.plot.box()",
+      "rewrite-ns": 17783,
+      "overhead-ns": 17783,
+      "exec-ns": 95522,
+      "total-ns": 113305,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# axs = sp.plot.area(figsize=(20,16),subplots = True)",
+      "rewrite-ns": 17708,
+      "overhead-ns": 17708,
+      "exec-ns": 92213,
+      "total-ns": 109921,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# fig, axs = plt.subplots(figsize=(20,16));\n\n# sp.plot.area(ax=axs);\n\n# axs.set_ylabel(\"Scores for different Subjects\");\n\n# fig.savefig(\"Scores.png\")",
+      "rewrite-ns": 18396,
+      "overhead-ns": 18396,
+      "exec-ns": 89439,
+      "total-ns": 107835,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#Mean of math scores\nsp[\"math score\"].mean()",
+      "rewrite-ns": 540328,
+      "overhead-ns": 540328,
+      "exec-ns": 770914,
+      "total-ns": 1311242,
+      "patts-hit": {},
+      "rewritten": "sp['math score'].mean()\n"
+    },
+    {
+      "raw": "sp[\"writing score\"].mean()",
+      "rewrite-ns": 510238,
+      "overhead-ns": 510238,
+      "exec-ns": 744731,
+      "total-ns": 1254969,
+      "patts-hit": {},
+      "rewritten": "sp['writing score'].mean()\n"
+    },
+    {
+      "raw": "sp[\"reading score\"].mean()",
+      "rewrite-ns": 522313,
+      "overhead-ns": 522313,
+      "exec-ns": 748818,
+      "total-ns": 1271131,
+      "patts-hit": {},
+      "rewritten": "sp['reading score'].mean()\n"
+    },
+    {
+      "raw": "sp[[\"math score\",\"reading score\",\"writing score\"]].describe()",
+      "rewrite-ns": 695939,
+      "overhead-ns": 695939,
+      "exec-ns": 10422382,
+      "total-ns": 11118321,
+      "patts-hit": {},
+      "rewritten": "sp[['math score', 'reading score', 'writing score']].describe()\n"
+    },
+    {
+      "raw": "sp.agg({'math score': ['min','mean','max', 'median', 'skew'],\n             'writing score': ['min', 'max', 'median', 'mean','skew']})",
+      "rewrite-ns": 1232345,
+      "overhead-ns": 1232345,
+      "exec-ns": 6915109,
+      "total-ns": 8147454,
+      "patts-hit": {},
+      "rewritten": "sp.agg({'math score': ['min', 'mean', 'max', 'median', 'skew'],\n    'writing score': ['min', 'max', 'median', 'mean', 'skew']})\n"
+    },
+    {
+      "raw": "#Average math score for male and female comparison\nsp[[\"gender\",\"math score\"]].groupby(\"gender\").mean()",
+      "rewrite-ns": 850603,
+      "overhead-ns": 850603,
+      "exec-ns": 4554790,
+      "total-ns": 5405393,
+      "patts-hit": {},
+      "rewritten": "sp[['gender', 'math score']].groupby('gender').mean()\n"
+    },
+    {
+      "raw": "sp[[\"test preparation course\",\"math score\",\"reading score\",\"writing score\"]].groupby(\"test preparation course\").mean()\n",
+      "rewrite-ns": 957990,
+      "overhead-ns": 957990,
+      "exec-ns": 5729691,
+      "total-ns": 6687681,
+      "patts-hit": {},
+      "rewritten": "sp[['test preparation course', 'math score', 'reading score', 'writing score']\n    ].groupby('test preparation course').mean()\n"
+    },
+    {
+      "raw": "a = sp[[\"race/ethnicity\",\"math score\",\"reading score\",\"writing score\"]].groupby(\"race/ethnicity\").mean()\na",
+      "rewrite-ns": 1046230,
+      "overhead-ns": 1046230,
+      "exec-ns": 5974893,
+      "total-ns": 7021123,
+      "patts-hit": {},
+      "rewritten": "a = sp[['race/ethnicity', 'math score', 'reading score', 'writing score']\n    ].groupby('race/ethnicity').mean()\na\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# a.plot()",
+      "rewrite-ns": 20302,
+      "overhead-ns": 20302,
+      "exec-ns": 107630,
+      "total-ns": 127932,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "b = sp[[\"parental level of education\",\"math score\",\"reading score\",\"writing score\"]].groupby(\"parental level of education\").mean()\nb",
+      "rewrite-ns": 1053635,
+      "overhead-ns": 1053635,
+      "exec-ns": 6027459,
+      "total-ns": 7081094,
+      "patts-hit": {},
+      "rewritten": "b = sp[['parental level of education', 'math score', 'reading score',\n    'writing score']].groupby('parental level of education').mean()\nb\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# b.plot(figsize=(20,16))",
+      "rewrite-ns": 20213,
+      "overhead-ns": 20213,
+      "exec-ns": 107933,
+      "total-ns": 128146,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "c = sp[[\"lunch\",\"math score\",\"reading score\",\"writing score\"]].groupby(\"lunch\").mean()\nc",
+      "rewrite-ns": 1057920,
+      "overhead-ns": 1057920,
+      "exec-ns": 5773931,
+      "total-ns": 6831851,
+      "patts-hit": {},
+      "rewritten": "c = sp[['lunch', 'math score', 'reading score', 'writing score']].groupby(\n    'lunch').mean()\nc\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# c.plot()",
+      "rewrite-ns": 19620,
+      "overhead-ns": 19620,
+      "exec-ns": 108174,
+      "total-ns": 127794,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "sp[\"gender\"].value_counts()",
+      "rewrite-ns": 525764,
+      "overhead-ns": 525764,
+      "exec-ns": 1406385,
+      "total-ns": 1932149,
+      "patts-hit": {},
+      "rewritten": "sp['gender'].value_counts()\n"
+    },
+    {
+      "raw": "sp[\"parental level of education\"].value_counts()",
+      "rewrite-ns": 524443,
+      "overhead-ns": 524443,
+      "exec-ns": 1537483,
+      "total-ns": 2061926,
+      "patts-hit": {},
+      "rewritten": "sp['parental level of education'].value_counts()\n"
+    },
+    {
+      "raw": "sp[\"test preparation course\"].value_counts()",
+      "rewrite-ns": 523353,
+      "overhead-ns": 523353,
+      "exec-ns": 1390536,
+      "total-ns": 1913889,
+      "patts-hit": {},
+      "rewritten": "sp['test preparation course'].value_counts()\n"
+    },
+    {
+      "raw": "sp[\"lunch\"].value_counts()",
+      "rewrite-ns": 515614,
+      "overhead-ns": 515614,
+      "exec-ns": 1382717,
+      "total-ns": 1898331,
+      "patts-hit": {},
+      "rewritten": "sp['lunch'].value_counts()\n"
+    },
+    {
+      "raw": "sp[\"race/ethnicity\"].value_counts()",
+      "rewrite-ns": 523131,
+      "overhead-ns": 523131,
+      "exec-ns": 1411948,
+      "total-ns": 1935079,
+      "patts-hit": {},
+      "rewritten": "sp['race/ethnicity'].value_counts()\n"
+    }
+  ],
+  "total-time-in-sec": 0.146868981,
+  "max-disk-in-mb": 0
+}

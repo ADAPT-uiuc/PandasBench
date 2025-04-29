@@ -1,0 +1,152 @@
+{
+  "max-mem-in-mb": 154,
+  "max-mem-in-mb2": 159,
+  "cells": [
+    {
+      "raw": "# ALEX: remove IPython commands\n# %env JOBLIB_TEMP_FOLDER=/tmp\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# ALEX: remove ML code\n# import xgboost as xgb # XGBoost package\n# #from sklearn.model_selection import GridSearchCV\n\n# import matplotlib.pyplot as plt # Matplotlib\n# %matplotlib inline\n\n# from datetime import datetime\nfrom dateutil import tz\n\n# ALEX: remove extra dependency\n# from geopy import distance",
+      "rewrite-ns": 804905,
+      "overhead-ns": 804905,
+      "exec-ns": 449516,
+      "total-ns": 1254421,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\nfrom dateutil import tz\n"
+    },
+    {
+      "raw": "# Let's load 700_000 rows and exclude the first column\ntrain = pd.read_csv(\"./input/train.csv\", parse_dates=['pickup_datetime'], usecols=range(1,8), nrows=nrows)\ntest = pd.read_csv(\"./input/test.scaled.csv\", parse_dates=['pickup_datetime'])",
+      "rewrite-ns": 1671854,
+      "overhead-ns": 1671854,
+      "exec-ns": 6771426873,
+      "total-ns": 6773098727,
+      "patts-hit": {},
+      "rewritten": "train = pd.read_csv('./input/train.csv', parse_dates=['pickup_datetime'],\n    usecols=range(1, 8), nrows=nrows)\ntest = pd.read_csv('./input/test.scaled.csv', parse_dates=['pickup_datetime'])\n"
+    },
+    {
+      "raw": "print(\"Train shape: {}\".format(train.shape))\ntrain.describe()",
+      "rewrite-ns": 529937,
+      "overhead-ns": 529937,
+      "exec-ns": 28146201,
+      "total-ns": 28676138,
+      "patts-hit": {},
+      "rewritten": "print('Train shape: {}'.format(train.shape))\ntrain.describe()\n"
+    },
+    {
+      "raw": "#Drop rows with null values\ntrain = train.dropna(how = 'any', axis = 'rows')\n\n#Free rides, negative fares and passenger count filtering\ntrain = train[train.eval('(fare_amount > 0) & (passenger_count <= 6)')]",
+      "rewrite-ns": 885393,
+      "overhead-ns": 885393,
+      "exec-ns": 5533698,
+      "total-ns": 6419091,
+      "patts-hit": {},
+      "rewritten": "train = train.dropna(how='any', axis='rows')\ntrain = train[train.eval('(fare_amount > 0) & (passenger_count <= 6)')]\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# train.iloc[:100000].plot.scatter('pickup_longitude', 'pickup_latitude')\n# train.iloc[:100000].plot.scatter('dropoff_longitude', 'dropoff_latitude')\ntrain.iloc[:100000]\ntrain.iloc[:100000]",
+      "rewrite-ns": 627796,
+      "overhead-ns": 627796,
+      "exec-ns": 7722295,
+      "total-ns": 8350091,
+      "patts-hit": {},
+      "rewritten": "train.iloc[:100000]\ntrain.iloc[:100000]\n"
+    },
+    {
+      "raw": "# Coordinates filtering\ntrain = train[(train.pickup_longitude >= -77) &\n              (train.pickup_longitude <= -70) &\n              (train.dropoff_longitude >= -77) &\n              (train.dropoff_longitude <= 70) &\n              (train.pickup_latitude >= 35) &\n              (train.pickup_latitude <= 45) &\n              (train.dropoff_latitude >= 35) &\n              (train.dropoff_latitude <= 45)\n             ]",
+      "rewrite-ns": 2420733,
+      "overhead-ns": 2420733,
+      "exec-ns": 3331993,
+      "total-ns": 5752726,
+      "patts-hit": {},
+      "rewritten": "train = train[(train.pickup_longitude >= -77) & (train.pickup_longitude <= \n    -70) & (train.dropoff_longitude >= -77) & (train.dropoff_longitude <= \n    70) & (train.pickup_latitude >= 35) & (train.pickup_latitude <= 45) & (\n    train.dropoff_latitude >= 35) & (train.dropoff_latitude <= 45)]\n"
+    },
+    {
+      "raw": "# train.pickup_datetime = train.pickup_datetime.dt.tz_localize('UTC')\ntrain.pickup_datetime = train.pickup_datetime.dt.tz_convert(tz.gettz('America/New_York'))\n\n# Fares may change every year\ntrain['year'] = train.pickup_datetime.dt.year\n\n# Different fares during weekdays and weekends\ntrain['dayofweek'] = train.pickup_datetime.dt.dayofweek\n\n# Different fares during public holidays\ntrain['dayofyear'] = train.pickup_datetime.dt.dayofyear\n\n# Different fares in peak periods and off-peak periods\ntrain['hourofday'] = train.pickup_datetime.dt.hour\n\ntrain = train.drop('pickup_datetime', axis=1)",
+      "rewrite-ns": 2573801,
+      "overhead-ns": 2573801,
+      "exec-ns": 35022658,
+      "total-ns": 37596459,
+      "patts-hit": {},
+      "rewritten": "train.pickup_datetime = train.pickup_datetime.dt.tz_convert(tz.gettz(\n    'America/New_York'))\ntrain['year'] = train.pickup_datetime.dt.year\ntrain['dayofweek'] = train.pickup_datetime.dt.dayofweek\ntrain['dayofyear'] = train.pickup_datetime.dt.dayofyear\ntrain['hourofday'] = train.pickup_datetime.dt.hour\ntrain = train.drop('pickup_datetime', axis=1)\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\ndef distance(*args):\n    return 100\n\n# Computes the distance (in miles) between the pickup and the dropoff locations\ntrain['distance'] = train.apply(\n# ALEX: make notebook run\n#     lambda x: distance.distance((x.pickup_latitude, x.pickup_longitude), (x.dropoff_latitude, x.dropoff_longitude)).miles,\n    lambda x: distance((x.pickup_latitude, x.pickup_longitude), (x.dropoff_latitude, x.dropoff_longitude)),\n    axis = 1)\n\ntrain = train[train.eval('(distance > 0) & (distance < 150)')]\nfare_distance_ratio = (train.fare_amount/train.distance)\nfare_distance_ratio.describe()\n\n# ALEX: remove plotting\n# (fare_distance_ratio[fare_distance_ratio < 45]).hist()\n(fare_distance_ratio[fare_distance_ratio < 45])\n\n# Drop incoherent fares\ntrain = train[fare_distance_ratio < 45]\ndel fare_distance_ratio",
+      "rewrite-ns": 3022476,
+      "overhead-ns": 3436808,
+      "exec-ns": 1590602854,
+      "total-ns": 1593625330,
+      "patts-hit": {},
+      "rewritten": "def distance(*args):\n    return 100\ntrain['distance'] = train.apply(lambda x: distance((x.pickup_latitude, x.\n    pickup_longitude), (x.dropoff_latitude, x.dropoff_longitude)), axis=1)\ntrain = train[train.eval('(distance > 0) & (distance < 150)')]\nfare_distance_ratio = train.fare_amount / train.distance\nfare_distance_ratio.describe()\nfare_distance_ratio[fare_distance_ratio < 45]\ntrain = train[fare_distance_ratio < 45]\ndel fare_distance_ratio\n"
+    },
+    {
+      "raw": "# Coordinates of the 3 airpots of NYC\nairports = {'jfk': [40.6441666, -73.7822222],\n            'laguardia': [40.7747222, -73.8719444],\n            'newark': [40.6897222, -74.175]}\n\n# Computes the distance between the pickup location and the airport\n# ALEX: make notebook run\n# pickup = train.apply(lambda x: distance.distance((x.pickup_latitude, x.pickup_longitude), (airports.get('jfk'))).miles, axis=1)\n# # Computes the distance between the dropoff location and the airport\n# dropoff = train.apply(lambda x: distance.distance((x.dropoff_latitude, x.dropoff_longitude), (airports.get('jfk'))).miles, axis=1)\npickup = train.apply(lambda x: distance((x.pickup_latitude, x.pickup_longitude), (airports.get('jfk'))), axis=1)\ndropoff = train.apply(lambda x: distance((x.dropoff_latitude, x.dropoff_longitude), (airports.get('jfk'))), axis=1)\n# Selects the shortest distance\ntrain['to_jfk'] = pd.concat((pickup, dropoff), axis=1).min(axis=1)\n\n# ALEX: make notebook run\n# pickup = train.apply(lambda x: distance.distance((x.pickup_latitude, x.pickup_longitude), (airports.get('laguardia'))).miles, axis=1)\n# dropoff = train.apply(lambda x: distance.distance((x.dropoff_latitude, x.dropoff_longitude), (airports.get('laguardia'))).miles, axis=1)\npickup = train.apply(lambda x: distance((x.pickup_latitude, x.pickup_longitude), (airports.get('laguardia'))), axis=1)\ndropoff = train.apply(lambda x: distance((x.dropoff_latitude, x.dropoff_longitude), (airports.get('laguardia'))), axis=1)\ntrain['to_laguardia'] = pd.concat((pickup, dropoff), axis=1).min(axis=1)\n\n# ALEX: make notebook run\n# pickup = train.apply(lambda x: distance.distance((x.pickup_latitude, x.pickup_longitude), (airports.get('newark'))).miles, axis=1)\n# dropoff = train.apply(lambda x: distance.distance((x.dropoff_latitude, x.dropoff_longitude), (airports.get('newark'))).miles, axis=1)\npickup = train.apply(lambda x: distance((x.pickup_latitude, x.pickup_longitude), (airports.get('newark'))), axis=1)\ndropoff = train.apply(lambda x: distance((x.dropoff_latitude, x.dropoff_longitude), (airports.get('newark'))), axis=1)\ntrain['to_newark'] = pd.concat((pickup, dropoff), axis=1).min(axis=1)\n\ndel pickup, dropoff",
+      "rewrite-ns": 8973319,
+      "overhead-ns": 9185974,
+      "exec-ns": 5265725206,
+      "total-ns": 5274698525,
+      "patts-hit": {},
+      "rewritten": "airports = {'jfk': [40.6441666, -73.7822222], 'laguardia': [40.7747222, -\n    73.8719444], 'newark': [40.6897222, -74.175]}\npickup = train.apply(lambda x: distance((x.pickup_latitude, x.\n    pickup_longitude), airports.get('jfk')), axis=1)\ndropoff = train.apply(lambda x: distance((x.dropoff_latitude, x.\n    dropoff_longitude), airports.get('jfk')), axis=1)\ntrain['to_jfk'] = pd.concat((pickup, dropoff), axis=1).min(axis=1)\npickup = train.apply(lambda x: distance((x.pickup_latitude, x.\n    pickup_longitude), airports.get('laguardia')), axis=1)\ndropoff = train.apply(lambda x: distance((x.dropoff_latitude, x.\n    dropoff_longitude), airports.get('laguardia')), axis=1)\ntrain['to_laguardia'] = pd.concat((pickup, dropoff), axis=1).min(axis=1)\npickup = train.apply(lambda x: distance((x.pickup_latitude, x.\n    pickup_longitude), airports.get('newark')), axis=1)\ndropoff = train.apply(lambda x: distance((x.dropoff_latitude, x.\n    dropoff_longitude), airports.get('newark')), axis=1)\ntrain['to_newark'] = pd.concat((pickup, dropoff), axis=1).min(axis=1)\ndel pickup, dropoff\n"
+    },
+    {
+      "raw": "y = train.fare_amount\ntrain = train.drop('fare_amount', axis=1)\n#train = train.drop('passenger_count', axis=1)",
+      "rewrite-ns": 802679,
+      "overhead-ns": 802679,
+      "exec-ns": 2587557,
+      "total-ns": 3390236,
+      "patts-hit": {},
+      "rewritten": "y = train.fare_amount\ntrain = train.drop('fare_amount', axis=1)\n"
+    },
+    {
+      "raw": "# Grid of parameters for XGBoost training\n#param_grid = {'n_estimators': [3000],\n#              'max_depth': [7, 8, 9],\n#              'learning_rate': [0.01, 0.1],\n#              'subsample': [0.8, 0.9, 1],\n#              'colsample_bytree': [0.8, 0.9, 1],\n#              'gamma': [0, 1e-5, 1e-4, 1e-3],\n#              'reg_alpha': [1e-4]\n#              }\n\n\n#xgb_grid_search = GridSearchCV(xgb.XGBRegressor(eval_metric='rmse'),\n#                               param_grid=param_grid,\n#                               cv=3,\n#                               n_jobs=-1,\n#                               verbose=0)\n\n#xgb_grid_search.fit(train, y)\n#print(\"Best estimator: {}\".format(xgb_grid_search.best_params_))\n#print(\"Best score: {}\".format(xgb_grid_search.best_score_))\n\n# The best parameters given by the grid search\n# ALEX: remove ML code\n# xgb_param = {'eval_metric': 'rmse',\n#             'n_estimators': 3000,\n#             'max_depth': 9,\n#             'learning_rate': 0.1,\n#             'subsample': 0.9,\n#             'colsample_bytree': 0.8,\n#             'gamma': 1e-4,\n#             'reg_alpha': 1e-4,\n#             'verbose': 0,\n#             'n_jobs': -1\n#             }\n\n# xgb_model = xgb.XGBRegressor(**xgb_param)\n# xgb_model.fit(train, y)\n# xgb.plot_importance(xgb_model)",
+      "rewrite-ns": 20708,
+      "overhead-ns": 20708,
+      "exec-ns": 99919,
+      "total-ns": 120627,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# Processing\ntest_key = test['key']\ntest = test.drop('key', axis=1)\n#test = test.drop('passenger_count', axis=1)",
+      "rewrite-ns": 703571,
+      "overhead-ns": 703571,
+      "exec-ns": 802825,
+      "total-ns": 1506396,
+      "patts-hit": {},
+      "rewritten": "test_key = test['key']\ntest = test.drop('key', axis=1)\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# test.pickup_datetime = test.pickup_datetime.dt.tz_localize('UTC')\ntest.pickup_datetime = test.pickup_datetime.dt.tz_convert(tz.gettz('America/New_York'))\n\ntest['year'] = test.pickup_datetime.dt.year\ntest['dayofweek'] = test.pickup_datetime.dt.dayofweek\ntest['dayofyear'] = test.pickup_datetime.dt.dayofyear\ntest['hourofday'] = test.pickup_datetime.dt.hour\ntest = test.drop('pickup_datetime', axis=1)\n\n\n# ALEX: make notebook run\n# test['distance'] = test.apply(lambda x: distance.distance((x.pickup_latitude, x.pickup_longitude), (x.dropoff_latitude, x.dropoff_longitude)).miles, axis = 1)\n\n# pickup = test.apply(lambda x: distance.distance((x.pickup_latitude, x.pickup_longitude), (airports.get('jfk'))).miles, axis=1)\n# dropoff = test.apply(lambda x: distance.distance((x.dropoff_latitude, x.dropoff_longitude), (airports.get('jfk'))).miles, axis=1)\ntest['distance'] = test.apply(lambda x: distance((x.pickup_latitude, x.pickup_longitude), (x.dropoff_latitude, x.dropoff_longitude)), axis = 1)\npickup = test.apply(lambda x: distance((x.pickup_latitude, x.pickup_longitude), (airports.get('jfk'))), axis=1)\ndropoff = test.apply(lambda x: distance((x.dropoff_latitude, x.dropoff_longitude), (airports.get('jfk'))), axis=1)\ntest['to_jfk'] = pd.concat((pickup, dropoff), axis = 1).min(axis=1)\n# ALEX: make notebook run\n# pickup = test.apply(lambda x: distance.distance((x.pickup_latitude, x.pickup_longitude), (airports.get('laguardia'))).miles, axis=1)\n# dropoff = test.apply(lambda x: distance.distance((x.dropoff_latitude, x.dropoff_longitude), (airports.get('laguardia'))).miles, axis=1)\npickup = test.apply(lambda x: distance((x.pickup_latitude, x.pickup_longitude), (airports.get('laguardia'))), axis=1)\ndropoff = test.apply(lambda x: distance((x.dropoff_latitude, x.dropoff_longitude), (airports.get('laguardia'))), axis=1)\ntest['to_laguardia'] = pd.concat((pickup, dropoff), axis = 1).min(axis=1)\n# ALEX: make notebook run\n# pickup = test.apply(lambda x: distance.distance((x.pickup_latitude, x.pickup_longitude), (airports.get('newark'))).miles, axis=1)\n# dropoff = test.apply(lambda x: distance.distance((x.dropoff_latitude, x.dropoff_longitude), (airports.get('newark'))).miles, axis=1)\npickup = test.apply(lambda x: distance((x.pickup_latitude, x.pickup_longitude), (airports.get('newark'))), axis=1)\ndropoff = test.apply(lambda x: distance((x.dropoff_latitude, x.dropoff_longitude), (airports.get('newark'))), axis=1)\ntest['to_newark'] = pd.concat((pickup, dropoff), axis = 1).min(axis=1)\ndel pickup, dropoff",
+      "rewrite-ns": 12026076,
+      "overhead-ns": 12195654,
+      "exec-ns": 110247140,
+      "total-ns": 122273216,
+      "patts-hit": {},
+      "rewritten": "test.pickup_datetime = test.pickup_datetime.dt.tz_convert(tz.gettz(\n    'America/New_York'))\ntest['year'] = test.pickup_datetime.dt.year\ntest['dayofweek'] = test.pickup_datetime.dt.dayofweek\ntest['dayofyear'] = test.pickup_datetime.dt.dayofyear\ntest['hourofday'] = test.pickup_datetime.dt.hour\ntest = test.drop('pickup_datetime', axis=1)\ntest['distance'] = test.apply(lambda x: distance((x.pickup_latitude, x.\n    pickup_longitude), (x.dropoff_latitude, x.dropoff_longitude)), axis=1)\npickup = test.apply(lambda x: distance((x.pickup_latitude, x.\n    pickup_longitude), airports.get('jfk')), axis=1)\ndropoff = test.apply(lambda x: distance((x.dropoff_latitude, x.\n    dropoff_longitude), airports.get('jfk')), axis=1)\ntest['to_jfk'] = pd.concat((pickup, dropoff), axis=1).min(axis=1)\npickup = test.apply(lambda x: distance((x.pickup_latitude, x.\n    pickup_longitude), airports.get('laguardia')), axis=1)\ndropoff = test.apply(lambda x: distance((x.dropoff_latitude, x.\n    dropoff_longitude), airports.get('laguardia')), axis=1)\ntest['to_laguardia'] = pd.concat((pickup, dropoff), axis=1).min(axis=1)\npickup = test.apply(lambda x: distance((x.pickup_latitude, x.\n    pickup_longitude), airports.get('newark')), axis=1)\ndropoff = test.apply(lambda x: distance((x.dropoff_latitude, x.\n    dropoff_longitude), airports.get('newark')), axis=1)\ntest['to_newark'] = pd.concat((pickup, dropoff), axis=1).min(axis=1)\ndel pickup, dropoff\n"
+    },
+    {
+      "raw": "# ALEX; remove ML code\n# xgb_predict = xgb_model.predict(test)",
+      "rewrite-ns": 12465,
+      "overhead-ns": 12465,
+      "exec-ns": 72082,
+      "total-ns": 84547,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# xgb_submission = pd.DataFrame({ 'key': test_key,\n#                                'fare_amount': xgb_predict })\nxgb_submission = pd.DataFrame({ 'key': test_key,\n                               'fare_amount': test_key })\nxgb_submission.to_csv(\"xgb_submission.csv\", index=False)",
+      "rewrite-ns": 854770,
+      "overhead-ns": 854770,
+      "exec-ns": 3740826,
+      "total-ns": 4595596,
+      "patts-hit": {},
+      "rewritten": "xgb_submission = pd.DataFrame({'key': test_key, 'fare_amount': test_key})\nxgb_submission.to_csv('xgb_submission.csv', index=False)\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 12063,
+      "overhead-ns": 12063,
+      "exec-ns": 73738,
+      "total-ns": 85801,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 13.861527927,
+  "max-disk-in-mb": 0
+}

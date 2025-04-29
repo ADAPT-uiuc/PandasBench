@@ -1,0 +1,260 @@
+{
+  "max-mem-in-mb": 142,
+  "max-mem-in-mb2": 146,
+  "cells": [
+    {
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# %matplotlib inline",
+      "rewrite-ns": 696285,
+      "overhead-ns": 696285,
+      "exec-ns": 400179,
+      "total-ns": 1096464,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "df = pd.read_csv('./input/OnlineRetail.scaled.csv', encoding = \"ISO-8859-1\")",
+      "rewrite-ns": 611414,
+      "overhead-ns": 611414,
+      "exec-ns": 89626752,
+      "total-ns": 90238166,
+      "patts-hit": {},
+      "rewritten": "df = pd.read_csv('./input/OnlineRetail.scaled.csv', encoding='ISO-8859-1')\n"
+    },
+    {
+      "raw": "df.head()",
+      "rewrite-ns": 144445,
+      "overhead-ns": 144445,
+      "exec-ns": 11210512,
+      "total-ns": 11354957,
+      "patts-hit": {},
+      "rewritten": "df.head()\n"
+    },
+    {
+      "raw": "df=df[['CustomerID', 'InvoiceNo', 'StockCode','Quantity', 'UnitPrice','Description', 'InvoiceDate','Country']]",
+      "rewrite-ns": 918794,
+      "overhead-ns": 918794,
+      "exec-ns": 3940420,
+      "total-ns": 4859214,
+      "patts-hit": {},
+      "rewritten": "df = df[['CustomerID', 'InvoiceNo', 'StockCode', 'Quantity', 'UnitPrice',\n    'Description', 'InvoiceDate', 'Country']]\n"
+    },
+    {
+      "raw": "df.head()\n",
+      "rewrite-ns": 125595,
+      "overhead-ns": 125595,
+      "exec-ns": 8423361,
+      "total-ns": 8548956,
+      "patts-hit": {},
+      "rewritten": "df.head()\n"
+    },
+    {
+      "raw": "df.shape\n",
+      "rewrite-ns": 94196,
+      "overhead-ns": 94196,
+      "exec-ns": 675798,
+      "total-ns": 769994,
+      "patts-hit": {},
+      "rewritten": "df.shape\n"
+    },
+    {
+      "raw": "df.isnull().sum()",
+      "rewrite-ns": 539779,
+      "overhead-ns": 539779,
+      "exec-ns": 46146295,
+      "total-ns": 46686074,
+      "patts-hit": {},
+      "rewritten": "df.isnull().sum()\n"
+    },
+    {
+      "raw": "df['Country'].unique()\n",
+      "rewrite-ns": 179898,
+      "overhead-ns": 179898,
+      "exec-ns": 3956800,
+      "total-ns": 4136698,
+      "patts-hit": {},
+      "rewritten": "df['Country'].unique()\n"
+    },
+    {
+      "raw": "TotalAmount = df['Quantity'] * df['UnitPrice']\n\ndf.insert(loc=5, column = 'TotalAmount', value=TotalAmount) ",
+      "rewrite-ns": 1299723,
+      "overhead-ns": 1299723,
+      "exec-ns": 1515743,
+      "total-ns": 2815466,
+      "patts-hit": {},
+      "rewritten": "TotalAmount = df['Quantity'] * df['UnitPrice']\ndf.insert(loc=5, column='TotalAmount', value=TotalAmount)\n"
+    },
+    {
+      "raw": "df.head()",
+      "rewrite-ns": 113230,
+      "overhead-ns": 113230,
+      "exec-ns": 9002256,
+      "total-ns": 9115486,
+      "patts-hit": {},
+      "rewritten": "df.head()\n"
+    },
+    {
+      "raw": "new_df = df[['CustomerID', 'InvoiceNo', 'StockCode', 'Quantity','TotalAmount', 'InvoiceDate', 'Country']]\nnew_df2 = df.copy()",
+      "rewrite-ns": 1198657,
+      "overhead-ns": 1198657,
+      "exec-ns": 10364262,
+      "total-ns": 11562919,
+      "patts-hit": {},
+      "rewritten": "new_df = df[['CustomerID', 'InvoiceNo', 'StockCode', 'Quantity',\n    'TotalAmount', 'InvoiceDate', 'Country']]\nnew_df2 = df.copy()\n"
+    },
+    {
+      "raw": "new_df.head()",
+      "rewrite-ns": 120630,
+      "overhead-ns": 120630,
+      "exec-ns": 8844379,
+      "total-ns": 8965009,
+      "patts-hit": {},
+      "rewritten": "new_df.head()\n"
+    },
+    {
+      "raw": "new_df2.head()",
+      "rewrite-ns": 122426,
+      "overhead-ns": 122426,
+      "exec-ns": 8965773,
+      "total-ns": 9088199,
+      "patts-hit": {},
+      "rewritten": "new_df2.head()\n"
+    },
+    {
+      "raw": "country_price = new_df.groupby('Country')['Quantity'].sum().sort_values(ascending = False)\ncountry_price",
+      "rewrite-ns": 1088426,
+      "overhead-ns": 1088426,
+      "exec-ns": 7069370,
+      "total-ns": 8157796,
+      "patts-hit": {},
+      "rewritten": "country_price = new_df.groupby('Country')['Quantity'].sum().sort_values(\n    ascending=False)\ncountry_price\n"
+    },
+    {
+      "raw": "country_totalAmount = new_df.groupby('Country')['TotalAmount'].sum().sort_values(ascending=False)\ncountry_totalAmount",
+      "rewrite-ns": 1068538,
+      "overhead-ns": 1068538,
+      "exec-ns": 7051769,
+      "total-ns": 8120307,
+      "patts-hit": {},
+      "rewritten": "country_totalAmount = new_df.groupby('Country')['TotalAmount'].sum(\n    ).sort_values(ascending=False)\ncountry_totalAmount\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# country_price[:5].plot(kind='bar')\ncountry_price[:5]",
+      "rewrite-ns": 411111,
+      "overhead-ns": 411111,
+      "exec-ns": 1135723,
+      "total-ns": 1546834,
+      "patts-hit": {},
+      "rewritten": "country_price[:5]\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# country_price[33:].plot(kind='bar')\ncountry_price[33:]",
+      "rewrite-ns": 405545,
+      "overhead-ns": 405545,
+      "exec-ns": 900673,
+      "total-ns": 1306218,
+      "patts-hit": {},
+      "rewritten": "country_price[33:]\n"
+    },
+    {
+      "raw": "new_df['Year'] = pd.DatetimeIndex(new_df['InvoiceDate']).year\nnew_df.head()\n",
+      "rewrite-ns": 885593,
+      "overhead-ns": 885593,
+      "exec-ns": 4075475426,
+      "total-ns": 4076361019,
+      "patts-hit": {},
+      "rewritten": "new_df['Year'] = pd.DatetimeIndex(new_df['InvoiceDate']).year\nnew_df.head()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# new_df.groupby('Year')['TotalAmount'].sum().plot(kind='bar')\nnew_df.groupby('Year')['TotalAmount'].sum()",
+      "rewrite-ns": 585782,
+      "overhead-ns": 585782,
+      "exec-ns": 2758512,
+      "total-ns": 3344294,
+      "patts-hit": {},
+      "rewritten": "new_df.groupby('Year')['TotalAmount'].sum()\n"
+    },
+    {
+      "raw": "new_df.head()",
+      "rewrite-ns": 80729,
+      "overhead-ns": 80729,
+      "exec-ns": 5868298,
+      "total-ns": 5949027,
+      "patts-hit": {},
+      "rewritten": "new_df.head()\n"
+    },
+    {
+      "raw": "new_df['Mon'] = pd.DatetimeIndex(new_df['InvoiceDate']).month\nnew_df['month'] = pd.DatetimeIndex(new_df['InvoiceDate']).month_name\n# ALEX: remove plotting\n# new_df.groupby(['Mon', 'Year'])['TotalAmount'].sum().plot(kind='bar', title = 'Sales Moth Wise') \nnew_df.groupby(['Mon', 'Year'])['TotalAmount'].sum()\n\n\n",
+      "rewrite-ns": 1666076,
+      "overhead-ns": 1666076,
+      "exec-ns": 8100540490,
+      "total-ns": 8102206566,
+      "patts-hit": {},
+      "rewritten": "new_df['Mon'] = pd.DatetimeIndex(new_df['InvoiceDate']).month\nnew_df['month'] = pd.DatetimeIndex(new_df['InvoiceDate']).month_name\nnew_df.groupby(['Mon', 'Year'])['TotalAmount'].sum()\n"
+    },
+    {
+      "raw": "new_df.head()",
+      "rewrite-ns": 165525,
+      "overhead-ns": 165525,
+      "exec-ns": 10077994,
+      "total-ns": 10243519,
+      "patts-hit": {},
+      "rewritten": "new_df.head()\n"
+    },
+    {
+      "raw": "new_df=new_df.dropna()",
+      "rewrite-ns": 363839,
+      "overhead-ns": 363839,
+      "exec-ns": 42052890,
+      "total-ns": 42416729,
+      "patts-hit": {},
+      "rewritten": "new_df = new_df.dropna()\n"
+    },
+    {
+      "raw": "new_df.isnull().sum()",
+      "rewrite-ns": 381448,
+      "overhead-ns": 381448,
+      "exec-ns": 21386644,
+      "total-ns": 21768092,
+      "patts-hit": {},
+      "rewritten": "new_df.isnull().sum()\n"
+    },
+    {
+      "raw": "cus_id =  pd.DataFrame(new_df.groupby('Country')['CustomerID'].count().sort_values(ascending = False))\n# ALEX: remove plotting\n# cus_id[:5].plot(kind='bar', title='Country with most customers')\ncus_id[:5]",
+      "rewrite-ns": 1174799,
+      "overhead-ns": 1174799,
+      "exec-ns": 4425232,
+      "total-ns": 5600031,
+      "patts-hit": {},
+      "rewritten": "cus_id = pd.DataFrame(new_df.groupby('Country')['CustomerID'].count().\n    sort_values(ascending=False))\ncus_id[:5]\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# cus_id[-5:].plot(kind='bar', title='Least customers for country')\ncus_id[-5:]",
+      "rewrite-ns": 361051,
+      "overhead-ns": 361051,
+      "exec-ns": 2688273,
+      "total-ns": 3049324,
+      "patts-hit": {},
+      "rewritten": "cus_id[-5:]\n"
+    },
+    {
+      "raw": "new_df2 = new_df2.dropna() \nnew_df2.isnull().sum()\nnew_df2.head()",
+      "rewrite-ns": 658668,
+      "overhead-ns": 658668,
+      "exec-ns": 63798077,
+      "total-ns": 64456745,
+      "patts-hit": {},
+      "rewritten": "new_df2 = new_df2.dropna()\nnew_df2.isnull().sum()\nnew_df2.head()\n"
+    },
+    {
+      "raw": "avg_sales = new_df2.groupby(['StockCode','Description'])['Quantity', 'TotalAmount'].mean().sort_values(by='Quantity', ascending = False)\navg_sales",
+      "rewrite-ns": 1051601,
+      "overhead-ns": 1051601,
+      "exec-ns": 14088917,
+      "total-ns": 15140518,
+      "patts-hit": {},
+      "rewritten": "avg_sales = new_df2.groupby(['StockCode', 'Description'])['Quantity',\n    'TotalAmount'].mean().sort_values(by='Quantity', ascending=False)\navg_sales\n"
+    }
+  ],
+  "total-time-in-sec": 12.578904621,
+  "max-disk-in-mb": 0
+}

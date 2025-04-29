@@ -1,0 +1,98 @@
+{
+  "max-mem-in-mb": 276,
+  "max-mem-in-mb2": 515,
+  "cells": [
+    {
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n\n# %matplotlib inline\n\n# plt.rcParams['figure.figsize'] = (10, 6)\n# plt.style.use('ggplot')",
+      "rewrite-ns": 700135,
+      "overhead-ns": 700135,
+      "exec-ns": 385943,
+      "total-ns": 1086078,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "battles = pd.read_csv('./input/battles.scaled.csv')\n\n'''\nthere is an error on the data\non the Battle of Castle Black, it was Mance Rayder the attacker, not Stannis Baratheon\n'''\n# ALEX: make notebook run\n# battles.set_value(27, 'attacker_king', 'Mance Rayder')\n# battles.set_value(27, 'defender_king', 'Stannis Baratheon')\nbattles.at[27, 'attacker_king'] = 'Mance Rayder'\nbattles.at[27, 'defender_king'] = 'Stannis Baratheon'\n\nprint(battles.info())",
+      "rewrite-ns": 2121542,
+      "overhead-ns": 2121542,
+      "exec-ns": 1947480649,
+      "total-ns": 1949602191,
+      "patts-hit": {},
+      "rewritten": "battles = pd.read_csv('./input/battles.scaled.csv')\n\"\"\"\nthere is an error on the data\non the Battle of Castle Black, it was Mance Rayder the attacker, not Stannis Baratheon\n\"\"\"\nbattles.at[27, 'attacker_king'] = 'Mance Rayder'\nbattles.at[27, 'defender_king'] = 'Stannis Baratheon'\nprint(battles.info())\n"
+    },
+    {
+      "raw": "battles.head(5)",
+      "rewrite-ns": 195468,
+      "overhead-ns": 195468,
+      "exec-ns": 16307283,
+      "total-ns": 16502751,
+      "patts-hit": {},
+      "rewritten": "battles.head(5)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# battles.groupby(['attacker_king', 'defender_king']).count()['name'].plot(kind = 'barh')\nbattles.groupby(['attacker_king', 'defender_king']).count()['name']",
+      "rewrite-ns": 628072,
+      "overhead-ns": 628072,
+      "exec-ns": 706465088,
+      "total-ns": 707093160,
+      "patts-hit": {},
+      "rewritten": "battles.groupby(['attacker_king', 'defender_king']).count()['name']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# battles.groupby(['attacker_king','attacker_outcome']).count()['name'].unstack().plot(kind = 'barh')\nbattles.groupby(['attacker_king','attacker_outcome']).count()['name'].unstack()",
+      "rewrite-ns": 807094,
+      "overhead-ns": 807094,
+      "exec-ns": 708365121,
+      "total-ns": 709172215,
+      "patts-hit": {},
+      "rewritten": "battles.groupby(['attacker_king', 'attacker_outcome']).count()['name'].unstack(\n    )\n"
+    },
+    {
+      "raw": "def commander_battles(attack, defend):\n    namesdict = {}\n    for i in range(len(attack.index)):\n        for name in attack.index[i].split(', '):\n            if name in namesdict:\n# ALEX: make notebook run\n#                 namesdict[name] = namesdict[name] + attack.ix[i]\n                namesdict[name] = namesdict[name] + attack.iloc[i]\n            else:\n# ALEX: make notebook run\n#                 namesdict[name] = attack.ix[i]\n                namesdict[name] = attack.iloc[i]\n    for i in range(len(defend.index)):\n        for name in defend.index[i].split(', '):\n            if name in namesdict:\n# ALEX: make notebook run\n#                 namesdict[name] = namesdict[name] + defend.ix[i]\n                namesdict[name] = namesdict[name] + defend.iloc[i]\n            else:\n# ALEX: make notebook run\n#                 namesdict[name] = defend.ix[i]\n                namesdict[name] = defend.iloc[i]\n    return namesdict\n\ncommander_exp = commander_battles(battles.groupby('attacker_commander').count()['name'], battles.groupby('defender_commander').count()['name'])\ncommander_exp = pd.DataFrame.from_dict(commander_exp, 'index')\ncommander_exp.rename(columns = {0:'num_battles'}, inplace = True)\n# ALEX: remove plotting\n# commander_exp.sort_values('num_battles').tail(15).plot(kind = 'barh')\ncommander_exp.sort_values('num_battles').tail(15)",
+      "rewrite-ns": 6686678,
+      "overhead-ns": 6686678,
+      "exec-ns": 1447460901,
+      "total-ns": 1454147579,
+      "patts-hit": {},
+      "rewritten": "def commander_battles(attack, defend):\n    namesdict = {}\n    for i in range(len(attack.index)):\n        for name in attack.index[i].split(', '):\n            if name in namesdict:\n                namesdict[name] = namesdict[name] + attack.iloc[i]\n            else:\n                namesdict[name] = attack.iloc[i]\n    for i in range(len(defend.index)):\n        for name in defend.index[i].split(', '):\n            if name in namesdict:\n                namesdict[name] = namesdict[name] + defend.iloc[i]\n            else:\n                namesdict[name] = defend.iloc[i]\n    return namesdict\ncommander_exp = commander_battles(battles.groupby('attacker_commander').\n    count()['name'], battles.groupby('defender_commander').count()['name'])\ncommander_exp = pd.DataFrame.from_dict(commander_exp, 'index')\ncommander_exp.rename(columns={(0): 'num_battles'}, inplace=True)\ncommander_exp.sort_values('num_battles').tail(15)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# battles.groupby(['attacker_king', 'battle_type']).count()['name'].unstack().plot(kind = 'barh')\nbattles.groupby(['attacker_king', 'battle_type']).count()['name'].unstack()",
+      "rewrite-ns": 786849,
+      "overhead-ns": 786849,
+      "exec-ns": 709680554,
+      "total-ns": 710467403,
+      "patts-hit": {},
+      "rewritten": "battles.groupby(['attacker_king', 'battle_type']).count()['name'].unstack()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# ax = battles[battles['attacker_outcome'] == 'win'].plot(kind = 'scatter', y = 'attacker_size', x = 'defender_size', label = 'win', s=100)\n# battles[battles['attacker_outcome'] == 'loss'].plot(kind = 'scatter', y = 'attacker_size', x = 'defender_size', label = 'loss', color = 'r', s=100, ax = ax)\nbattles[battles['attacker_outcome'] == 'win']\nbattles[battles['attacker_outcome'] == 'loss']",
+      "rewrite-ns": 884810,
+      "overhead-ns": 884810,
+      "exec-ns": 142331117,
+      "total-ns": 143215927,
+      "patts-hit": {},
+      "rewritten": "battles[battles['attacker_outcome'] == 'win']\nbattles[battles['attacker_outcome'] == 'loss']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# battles.groupby(['region']).count()['name'].sort_values().plot(kind = 'barh')\nbattles.groupby(['region']).count()['name'].sort_values()",
+      "rewrite-ns": 710055,
+      "overhead-ns": 710055,
+      "exec-ns": 712630501,
+      "total-ns": 713340556,
+      "patts-hit": {},
+      "rewritten": "battles.groupby(['region']).count()['name'].sort_values()\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 20329,
+      "overhead-ns": 20329,
+      "exec-ns": 108247,
+      "total-ns": 128576,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 6.404756436,
+  "max-disk-in-mb": 0
+}

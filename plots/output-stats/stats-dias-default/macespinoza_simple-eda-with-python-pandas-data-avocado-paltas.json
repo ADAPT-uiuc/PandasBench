@@ -1,0 +1,476 @@
+{
+  "max-mem-in-mb": 125,
+  "max-mem-in-mb2": 128,
+  "cells": [
+    {
+      "raw": "import numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting, ML code, path printing\n# import seaborn as sns \n\n# from sklearn.metrics import mean_absolute_error\n# from sklearn.preprocessing import LabelEncoder\n\n# import plotly\n# from plotly.offline import init_notebook_mode, iplot\n# import plotly.graph_objs as go\n# init_notebook_mode(connected=True)\n# import matplotlib.pyplot as plt\n# import pylab as pl\n# sns.set(font_scale = 0.7)\n# import os\n# print(os.listdir(\"./input\"))\n",
+      "rewrite-ns": 690451,
+      "overhead-ns": 690451,
+      "exec-ns": 383673,
+      "total-ns": 1074124,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "#Cargamos el data set mediante Python y Pandas mediante read_csv\n#Tener en cuenta indicadar el separador como recomendacion con delimiter se recomienda\n#En caso tengamos un campo donde se guarden los ID unico podemos caolocar elnumero de columna en index_col para usarlo de indexacion\ndata = pd.read_csv(\"./input/avocado.scaled.csv\",delimiter=\",\",index_col=0)\n\n#Visualizamos el volumen de filas y columnas de nuestros datos\ndata.shape",
+      "rewrite-ns": 746484,
+      "overhead-ns": 746484,
+      "exec-ns": 33181866,
+      "total-ns": 33928350,
+      "patts-hit": {},
+      "rewritten": "data = pd.read_csv('./input/avocado.scaled.csv', delimiter=',', index_col=0)\ndata.shape\n"
+    },
+    {
+      "raw": "#Podemos mediante el comando info identificar los tipos de campos 123\ndata.info()",
+      "rewrite-ns": 125375,
+      "overhead-ns": 125375,
+      "exec-ns": 11804283,
+      "total-ns": 11929658,
+      "patts-hit": {},
+      "rewritten": "data.info()\n"
+    },
+    {
+      "raw": "#Vamos a ver un peque\u00f1o resumen de los datos\ndata.head(5)",
+      "rewrite-ns": 147075,
+      "overhead-ns": 147075,
+      "exec-ns": 14343570,
+      "total-ns": 14490645,
+      "patts-hit": {},
+      "rewritten": "data.head(5)\n"
+    },
+    {
+      "raw": "#Vamos a validar que se cumple ambos formulas\n#Todo aquel registro que no cumpla con la regla pasara a ser una inconsistencia la cual descartaremos.\ndataIncorrecta = data[((data['4046'] + data['4225'] + data['4770'] + data['Total Bags']) != data['Total Volume'] ) | ((data['Small Bags'] + data['Large Bags'] + data['XLarge Bags']) != data['Total Bags'] )]\ndataCorrecta =  data[((data['4046'] + data['4225'] + data['4770'] + data['Total Bags']) == data['Total Volume'] ) & ((data['Small Bags'] + data['Large Bags'] + data['XLarge Bags']) == data['Total Bags'] )]\n\ndataIncorrecta.reset_index(inplace = True)\ndataCorrecta.reset_index(inplace = True)\n\nprint(\"Data Total\",data.shape)\nprint(\"Data Incorrecta\",dataIncorrecta.shape)\nprint(\"Data Correcta\",dataCorrecta.shape)",
+      "rewrite-ns": 7068159,
+      "overhead-ns": 7068159,
+      "exec-ns": 5541891,
+      "total-ns": 12610050,
+      "patts-hit": {},
+      "rewritten": "dataIncorrecta = data[(data['4046'] + data['4225'] + data['4770'] + data[\n    'Total Bags'] != data['Total Volume']) | (data['Small Bags'] + data[\n    'Large Bags'] + data['XLarge Bags'] != data['Total Bags'])]\ndataCorrecta = data[(data['4046'] + data['4225'] + data['4770'] + data[\n    'Total Bags'] == data['Total Volume']) & (data['Small Bags'] + data[\n    'Large Bags'] + data['XLarge Bags'] == data['Total Bags'])]\ndataIncorrecta.reset_index(inplace=True)\ndataCorrecta.reset_index(inplace=True)\nprint('Data Total', data.shape)\nprint('Data Incorrecta', dataIncorrecta.shape)\nprint('Data Correcta', dataCorrecta.shape)\n"
+    },
+    {
+      "raw": "#Analizamos valores perdidos en caso de que existan\ndataCorrecta.isnull().sum()",
+      "rewrite-ns": 520831,
+      "overhead-ns": 520831,
+      "exec-ns": 5337476,
+      "total-ns": 5858307,
+      "patts-hit": {},
+      "rewritten": "dataCorrecta.isnull().sum()\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 19716,
+      "overhead-ns": 19716,
+      "exec-ns": 104500,
+      "total-ns": 124216,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "import itertools\n# ALEX: remove plotting\n# plt.subplots(figsize=(28,20))\ntime_spent=['Small Bags','Large Bags','XLarge Bags','XLarge Bags']\nlength=len(time_spent)\nfor i,j in itertools.zip_longest(time_spent,range(length)):\n# ALEX: remove plotting\n#     plt.subplot((length/2),2,j+1)\n#     plt.subplots_adjust(wspace=0.2,hspace=0.5)\n#     dataCorrecta[i].hist(bins=18,edgecolor='black')\n#     plt.axvline(dataCorrecta[i].mean(),linestyle='dashed',color='r')\n#     plt.title(i,size=20)\n#     plt.xlabel('Tama\u00f1o de la bolsa')\n#     plt.ylabel('cantidad de bolsas')\n    dataCorrecta[i]\n    _ = dataCorrecta[i].mean()\n# ALEX: remove plotting\n# plt.show()",
+      "rewrite-ns": 2433587,
+      "overhead-ns": 2433587,
+      "exec-ns": 1225180,
+      "total-ns": 3658767,
+      "patts-hit": {},
+      "rewritten": "import itertools\ntime_spent = ['Small Bags', 'Large Bags', 'XLarge Bags', 'XLarge Bags']\nlength = len(time_spent)\nfor i, j in itertools.zip_longest(time_spent, range(length)):\n    dataCorrecta[i]\n    _ = dataCorrecta[i].mean()\n"
+    },
+    {
+      "raw": "dataCorrecta =dataCorrecta[(dataCorrecta['Small Bags']<300000.0) & (dataCorrecta['Large Bags']<150000.0) & (dataCorrecta['XLarge Bags']<10000.0)]\ndataCorrecta.shape",
+      "rewrite-ns": 1567003,
+      "overhead-ns": 1567003,
+      "exec-ns": 2567686,
+      "total-ns": 4134689,
+      "patts-hit": {},
+      "rewritten": "dataCorrecta = dataCorrecta[(dataCorrecta['Small Bags'] < 300000.0) & (\n    dataCorrecta['Large Bags'] < 150000.0) & (dataCorrecta['XLarge Bags'] <\n    10000.0)]\ndataCorrecta.shape\n"
+    },
+    {
+      "raw": "import itertools\n# ALEX: remove plotting\n# plt.subplots(figsize=(25,16))\ntime_spent=['Small Bags','Large Bags','XLarge Bags','XLarge Bags']\nlength=len(time_spent)\nfor i,j in itertools.zip_longest(time_spent,range(length)):\n# ALEX: remove plotting\n#     plt.subplot((length/2),2,j+1)\n#     plt.subplots_adjust(wspace=0.2,hspace=0.5)\n#     dataCorrecta[i].hist(bins=18,edgecolor='black')\n#     plt.axvline(dataCorrecta[i].mean(),linestyle='dashed',color='r')\n#     plt.title(i,size=20)\n#     plt.xlabel('Tama\u00f1o de la bolsa')\n#     plt.ylabel('cantidad de bolsas')\n    dataCorrecta[i]\n    _ = dataCorrecta[i].mean()\n# ALEX: remove plotting\n# plt.show()",
+      "rewrite-ns": 2500851,
+      "overhead-ns": 2500851,
+      "exec-ns": 1185519,
+      "total-ns": 3686370,
+      "patts-hit": {},
+      "rewritten": "import itertools\ntime_spent = ['Small Bags', 'Large Bags', 'XLarge Bags', 'XLarge Bags']\nlength = len(time_spent)\nfor i, j in itertools.zip_longest(time_spent, range(length)):\n    dataCorrecta[i]\n    _ = dataCorrecta[i].mean()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# pl.figure(figsize=(12,5))\n# pl.title(\"Distribution Price\")\n# ax = sns.distplot(dataCorrecta[\"AveragePrice\"], color = 'g')\n_ = dataCorrecta[\"AveragePrice\"]",
+      "rewrite-ns": 419468,
+      "overhead-ns": 419468,
+      "exec-ns": 365392,
+      "total-ns": 784860,
+      "patts-hit": {},
+      "rewritten": "_ = dataCorrecta['AveragePrice']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(y=\"type\", x=\"AveragePrice\", data=dataCorrecta, palette = 'Set3')",
+      "rewrite-ns": 20562,
+      "overhead-ns": 20562,
+      "exec-ns": 103994,
+      "total-ns": 124556,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "conventional = dataCorrecta[dataCorrecta.type==\"conventional\"]\norganic = dataCorrecta[dataCorrecta.type==\"organic\"]\n\ngroupBy1_price = conventional.groupby('Date').mean()\n# ALEX: remove plotting\n# scatter1 = go.Scatter(x=groupBy1_price.AveragePrice.index, y=groupBy1_price.AveragePrice, name=\"Conventional\")\n_ = groupBy1_price.AveragePrice.index\n_ = groupBy1_price.AveragePrice\n\ngroupBy2_price = organic.groupby('Date').mean()\n# ALEX: remove plotting\n# scatter2 = go.Scatter(x=groupBy2_price.AveragePrice.index, y=groupBy2_price.AveragePrice, name=\"Organic\")\n_ = groupBy2_price.AveragePrice.index\n_ = groupBy2_price.AveragePrice\n\n# ALEX: remove plotting\n# data = [scatter1, scatter2]\n# layout=go.Layout(title=\"Time Series Plot for Mean Daily Price of Conventional and Organic Avocados\", xaxis={'title':'Date'}, yaxis={'title':'Prices'})\n# figure=go.Figure(data=data,layout=layout)\n# iplot(figure)",
+      "rewrite-ns": 3862230,
+      "overhead-ns": 3862230,
+      "exec-ns": 6573911,
+      "total-ns": 10436141,
+      "patts-hit": {},
+      "rewritten": "conventional = dataCorrecta[dataCorrecta.type == 'conventional']\norganic = dataCorrecta[dataCorrecta.type == 'organic']\ngroupBy1_price = conventional.groupby('Date').mean()\n_ = groupBy1_price.AveragePrice.index\n_ = groupBy1_price.AveragePrice\ngroupBy2_price = organic.groupby('Date').mean()\n_ = groupBy2_price.AveragePrice.index\n_ = groupBy2_price.AveragePrice\n"
+    },
+    {
+      "raw": "#dataCorrecta['Date2']=pd.to_datetime(dataCorrecta['Date'], format=\"%Y/%m/%d\")\ndataCorrecta['Date'] =dataCorrecta['Date'].astype('datetime64[ns]')\n\n",
+      "rewrite-ns": 768222,
+      "overhead-ns": 768222,
+      "exec-ns": 3065227,
+      "total-ns": 3833449,
+      "patts-hit": {},
+      "rewritten": "dataCorrecta['Date'] = dataCorrecta['Date'].astype('datetime64[ns]')\n"
+    },
+    {
+      "raw": "#Tenemos que analizar los datos categoricos no numericos, para transformarlos en numericos, o ver si son utiles\ndataCorrecta['type'].value_counts()",
+      "rewrite-ns": 523603,
+      "overhead-ns": 523603,
+      "exec-ns": 1762956,
+      "total-ns": 2286559,
+      "patts-hit": {},
+      "rewritten": "dataCorrecta['type'].value_counts()\n"
+    },
+    {
+      "raw": "dataCorrecta.head()",
+      "rewrite-ns": 111168,
+      "overhead-ns": 111168,
+      "exec-ns": 12744751,
+      "total-ns": 12855919,
+      "patts-hit": {},
+      "rewritten": "dataCorrecta.head()\n"
+    },
+    {
+      "raw": "dataCorrecta['year'].value_counts()",
+      "rewrite-ns": 511831,
+      "overhead-ns": 511831,
+      "exec-ns": 1404274,
+      "total-ns": 1916105,
+      "patts-hit": {},
+      "rewritten": "dataCorrecta['year'].value_counts()\n"
+    },
+    {
+      "raw": "dataCorrecta['region'].value_counts()",
+      "rewrite-ns": 496461,
+      "overhead-ns": 496461,
+      "exec-ns": 2101580,
+      "total-ns": 2598041,
+      "patts-hit": {},
+      "rewritten": "dataCorrecta['region'].value_counts()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(1, 1, figsize=(10,6))\n# sns.boxplot(x='year',y='AveragePrice',data=dataCorrecta,color='red')",
+      "rewrite-ns": 20305,
+      "overhead-ns": 20305,
+      "exec-ns": 105964,
+      "total-ns": 126269,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#Analizamos el comportamiento de los procesio por region de las paltas organicos\nmask = dataCorrecta['type']=='organic'\n# ALEX: remove plotting\n# g = sns.factorplot('AveragePrice','region',data=dataCorrecta[mask],\n#                    hue='year',\n#                    height=13,\n#                    aspect=0.8,\n#                    palette='magma',\n#                    join=False,\n#               )\n_ = dataCorrecta[mask]",
+      "rewrite-ns": 880536,
+      "overhead-ns": 880536,
+      "exec-ns": 1783527,
+      "total-ns": 2664063,
+      "patts-hit": {},
+      "rewritten": "mask = dataCorrecta['type'] == 'organic'\n_ = dataCorrecta[mask]\n"
+    },
+    {
+      "raw": "#Analizamos el comportamiento de los procesio por region de las paltas convencionales\nmask = dataCorrecta['type']=='conventional'\n# ALEX: remove plotting\n# g = sns.factorplot('AveragePrice','region',data=dataCorrecta[mask],\n#                    hue='year',\n#                    height=13,\n#                    aspect=0.8,\n#                    palette='magma',\n#                    join=False,\n#               )\n_ = dataCorrecta[mask]",
+      "rewrite-ns": 876901,
+      "overhead-ns": 876901,
+      "exec-ns": 1579045,
+      "total-ns": 2455946,
+      "patts-hit": {},
+      "rewritten": "mask = dataCorrecta['type'] == 'conventional'\n_ = dataCorrecta[mask]\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# label = LabelEncoder()\n# dicts = {}\n\n# label.fit(dataCorrecta.type.drop_duplicates()) \n# dicts['type'] = list(label.classes_)\n# dataCorrecta.type = label.transform(dataCorrecta.type) ",
+      "rewrite-ns": 21973,
+      "overhead-ns": 21973,
+      "exec-ns": 103761,
+      "total-ns": 125734,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "dataCorrecta['type'].value_counts()",
+      "rewrite-ns": 505277,
+      "overhead-ns": 505277,
+      "exec-ns": 1710762,
+      "total-ns": 2216039,
+      "patts-hit": {},
+      "rewritten": "dataCorrecta['type'].value_counts()\n"
+    },
+    {
+      "raw": "#Realizamos una tabla de correlacion, para conocer el nivel de relacion entre los campos y entre nuestro target\ncols = ['AveragePrice','Total Volume','4046','4225','4770','Total Bags','Small Bags','Large Bags','XLarge Bags','year','type']\n# ALEX: remove plotting\n# sns.set(font_scale = 1.5)\ncorr = dataCorrecta[cols].corr('spearman')\n# ALEX: remove plotting\n# plt.figure(figsize = ( 14 , 14 )) \n# sns.heatmap(corr,annot=True,fmt='.2f',cmap=\"YlGnBu\");",
+      "rewrite-ns": 1377751,
+      "overhead-ns": 1377751,
+      "exec-ns": 10695132,
+      "total-ns": 12072883,
+      "patts-hit": {},
+      "rewritten": "cols = ['AveragePrice', 'Total Volume', '4046', '4225', '4770',\n    'Total Bags', 'Small Bags', 'Large Bags', 'XLarge Bags', 'year', 'type']\ncorr = dataCorrecta[cols].corr('spearman')\n"
+    },
+    {
+      "raw": "#Creamos las variables ficticias para region\nregion_dummi =pd.get_dummies(dataCorrecta['region'], prefix='reg')\nregion_dummi.head()",
+      "rewrite-ns": 785019,
+      "overhead-ns": 785019,
+      "exec-ns": 33344597,
+      "total-ns": 34129616,
+      "patts-hit": {},
+      "rewritten": "region_dummi = pd.get_dummies(dataCorrecta['region'], prefix='reg')\nregion_dummi.head()\n"
+    },
+    {
+      "raw": "#Agregamos los datos fictios a la data original\ndata_nueva = pd.concat([dataCorrecta, region_dummi], axis=1)\ndata_nueva.head() ",
+      "rewrite-ns": 812393,
+      "overhead-ns": 812393,
+      "exec-ns": 40651044,
+      "total-ns": 41463437,
+      "patts-hit": {},
+      "rewritten": "data_nueva = pd.concat([dataCorrecta, region_dummi], axis=1)\ndata_nueva.head()\n"
+    },
+    {
+      "raw": "#eliminamos las columna region\ndata_nueva = data_nueva.drop('region', 1)\ndata_nueva = data_nueva.drop('index', 1)",
+      "rewrite-ns": 1000265,
+      "overhead-ns": 1000265,
+      "exec-ns": 4193941,
+      "total-ns": 5194206,
+      "patts-hit": {},
+      "rewritten": "data_nueva = data_nueva.drop('region', 1)\ndata_nueva = data_nueva.drop('index', 1)\n"
+    },
+    {
+      "raw": "#corr = data_nueva.corr('spearman') \n#plt.figure(figsize = ( 35 , 20 )) \n#sns.heatmap(corr,annot=True,fmt='.2f',cmap=\"YlGnBu\");",
+      "rewrite-ns": 21523,
+      "overhead-ns": 21523,
+      "exec-ns": 107116,
+      "total-ns": 128639,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "data_train = pd.DataFrame(index=data_nueva.index)\ntarger_train = pd.DataFrame(index=data_nueva.index)\ndata_train = data_nueva\ntarger_train = data_nueva['AveragePrice']",
+      "rewrite-ns": 1643181,
+      "overhead-ns": 1643181,
+      "exec-ns": 870606,
+      "total-ns": 2513787,
+      "patts-hit": {},
+      "rewritten": "data_train = pd.DataFrame(index=data_nueva.index)\ntarger_train = pd.DataFrame(index=data_nueva.index)\ndata_train = data_nueva\ntarger_train = data_nueva['AveragePrice']\n"
+    },
+    {
+      "raw": "data_train['monthy'] = data_train['Date'].astype('datetime64[ns]').apply(lambda ts: ts.month)",
+      "rewrite-ns": 1204477,
+      "overhead-ns": 1204477,
+      "exec-ns": 10164936,
+      "total-ns": 11369413,
+      "patts-hit": {},
+      "rewritten": "data_train['monthy'] = data_train['Date'].astype('datetime64[ns]').apply(lambda\n    ts: ts.month)\n"
+    },
+    {
+      "raw": "dummi_month =pd.get_dummies(data_train['monthy'], prefix='month')\ndata_train = pd.concat([data_train, dummi_month], axis=1)",
+      "rewrite-ns": 1362009,
+      "overhead-ns": 1362009,
+      "exec-ns": 2267941,
+      "total-ns": 3629950,
+      "patts-hit": {},
+      "rewritten": "dummi_month = pd.get_dummies(data_train['monthy'], prefix='month')\ndata_train = pd.concat([data_train, dummi_month], axis=1)\n"
+    },
+    {
+      "raw": "data_train = data_train.drop(['monthy'],axis=1)\n#data_train = data_train.drop(['Date'],axis=1)",
+      "rewrite-ns": 672565,
+      "overhead-ns": 672565,
+      "exec-ns": 2443985,
+      "total-ns": 3116550,
+      "patts-hit": {},
+      "rewritten": "data_train = data_train.drop(['monthy'], axis=1)\n"
+    },
+    {
+      "raw": "data_train.head(5)",
+      "rewrite-ns": 132913,
+      "overhead-ns": 132913,
+      "exec-ns": 44436501,
+      "total-ns": 44569414,
+      "patts-hit": {},
+      "rewritten": "data_train.head(5)\n"
+    },
+    {
+      "raw": "data_train['year'].value_counts()",
+      "rewrite-ns": 517618,
+      "overhead-ns": 517618,
+      "exec-ns": 1398844,
+      "total-ns": 1916462,
+      "patts-hit": {},
+      "rewritten": "data_train['year'].value_counts()\n"
+    },
+    {
+      "raw": "region_dummi_fecha =pd.get_dummies(data_train['year'], prefix='year')",
+      "rewrite-ns": 723933,
+      "overhead-ns": 723933,
+      "exec-ns": 1086962,
+      "total-ns": 1810895,
+      "patts-hit": {},
+      "rewritten": "region_dummi_fecha = pd.get_dummies(data_train['year'], prefix='year')\n"
+    },
+    {
+      "raw": "data_train = pd.concat([data_train, region_dummi_fecha], axis=1)",
+      "rewrite-ns": 753699,
+      "overhead-ns": 753699,
+      "exec-ns": 1091078,
+      "total-ns": 1844777,
+      "patts-hit": {},
+      "rewritten": "data_train = pd.concat([data_train, region_dummi_fecha], axis=1)\n"
+    },
+    {
+      "raw": "data_train.head(5)",
+      "rewrite-ns": 136104,
+      "overhead-ns": 136104,
+      "exec-ns": 47026173,
+      "total-ns": 47162277,
+      "patts-hit": {},
+      "rewritten": "data_train.head(5)\n"
+    },
+    {
+      "raw": "data_train = data_train.drop(['year'],axis=1)\ndata_train = data_train.drop(['Date'], axis=1)\ndata_train = data_train.drop(['AveragePrice'],axis=1)",
+      "rewrite-ns": 1753078,
+      "overhead-ns": 1753078,
+      "exec-ns": 4488011,
+      "total-ns": 6241089,
+      "patts-hit": {},
+      "rewritten": "data_train = data_train.drop(['year'], axis=1)\ndata_train = data_train.drop(['Date'], axis=1)\ndata_train = data_train.drop(['AveragePrice'], axis=1)\n"
+    },
+    {
+      "raw": "\ndata_train.head(5)",
+      "rewrite-ns": 138462,
+      "overhead-ns": 138462,
+      "exec-ns": 44646722,
+      "total-ns": 44785184,
+      "patts-hit": {},
+      "rewritten": "data_train.head(5)\n"
+    },
+    {
+      "raw": "targer_train.mean()",
+      "rewrite-ns": 378644,
+      "overhead-ns": 378644,
+      "exec-ns": 777602,
+      "total-ns": 1156246,
+      "patts-hit": {},
+      "rewritten": "targer_train.mean()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# %config InlineBackend.figure_format = 'svg'\n# sns.set(font_scale = 1)\n# sns.distplot(targer_train);",
+      "rewrite-ns": 19839,
+      "overhead-ns": 19839,
+      "exec-ns": 103038,
+      "total-ns": 122877,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.set(font_scale = 1)\n# sns.distplot(np.log1p(targer_train));\n_ = np.log1p(targer_train)",
+      "rewrite-ns": 501666,
+      "overhead-ns": 501666,
+      "exec-ns": 532294,
+      "total-ns": 1033960,
+      "patts-hit": {},
+      "rewritten": "_ = np.log1p(targer_train)\n"
+    },
+    {
+      "raw": "data_train.head()",
+      "rewrite-ns": 107418,
+      "overhead-ns": 107418,
+      "exec-ns": 44340135,
+      "total-ns": 44447553,
+      "patts-hit": {},
+      "rewritten": "data_train.head()\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import train_test_split\n# X_train,X_test,y_train,y_test = train_test_split(data_train,targer_train,test_size=0.2)\n# print(X_train.shape,y_train.shape)\n# print(X_test.shape,y_test.shape)",
+      "rewrite-ns": 22738,
+      "overhead-ns": 22738,
+      "exec-ns": 106984,
+      "total-ns": 129722,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#Probamos con un modelo simple Ridge\n# ALEX: remove ML code\n# from sklearn.linear_model import Ridge\n# ridge = Ridge(random_state=17)\n# ridge.fit(X_train, y_train);\n# ridge_pred = ridge.predict(X_test)",
+      "rewrite-ns": 19779,
+      "overhead-ns": 19779,
+      "exec-ns": 96188,
+      "total-ns": 115967,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.set(font_scale = 1)\n# plt.hist(y_test, bins=50, alpha=.5, color='red', label='true', range=(0,4));\n# plt.hist(ridge_pred, bins=50, alpha=.5, color='green', label='pred', range=(0,4));\n# plt.legend();",
+      "rewrite-ns": 19234,
+      "overhead-ns": 19234,
+      "exec-ns": 92197,
+      "total-ns": 111431,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# mean_absolute_error(y_test, ridge_pred)",
+      "rewrite-ns": 17761,
+      "overhead-ns": 17761,
+      "exec-ns": 89631,
+      "total-ns": 107392,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import train_test_split\n# from sklearn.metrics import accuracy_score\n# from sklearn.tree import DecisionTreeRegressor\n# from sklearn.ensemble import RandomForestRegressor\n# from sklearn.neighbors import KNeighborsRegressor\n# from sklearn.svm import SVR\n# from sklearn.ensemble import AdaBoostRegressor\n# from sklearn.ensemble import GradientBoostingRegressor\n# from xgboost import XGBRegressor\n# from catboost import CatBoostRegressor\n# from sklearn.linear_model import Lasso,Ridge,BayesianRidge,ElasticNet,HuberRegressor,LinearRegression,LogisticRegression,SGDRegressor\n# from sklearn.metrics import mean_squared_error\n# import numpy as np\n# import warnings\n# warnings.filterwarnings(\"ignore\")\n\n# # print X_train.shape, X_test.shape\n\n# classifiers = [['DecisionTree :',DecisionTreeRegressor()],\n#                ['RandomForest :',RandomForestRegressor()],\n#                ['KNeighbours :', KNeighborsRegressor(n_neighbors = 2)],\n#                ['SVM :', SVR()],\n#                ['AdaBoostClassifier :', AdaBoostRegressor()],\n#                ['GradientBoostingClassifier: ', GradientBoostingRegressor()],\n#                ['Xgboost: ', XGBRegressor()],\n#                ['CatBoost: ', CatBoostRegressor(logging_level='Silent')],\n#                ['Lasso: ', Lasso()],\n#                ['Ridge: ', Ridge(random_state=17)],\n#                ['BayesianRidge: ', BayesianRidge()],\n#                ['ElasticNet: ', ElasticNet()],\n#                ['HuberRegressor: ', HuberRegressor()]]\n\n# print(\"Accuracy Results...\")\n\n\n# for name,classifier in classifiers:\n#     classifier = classifier\n#     classifier.fit(X_train, y_train)\n#     predictions = classifier.predict(X_test)\n#     print(name, (np.sqrt(mean_squared_error(y_test, predictions))))",
+      "rewrite-ns": 29337,
+      "overhead-ns": 29337,
+      "exec-ns": 88497,
+      "total-ns": 117834,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# classifier = RandomForestRegressor()\n# classifier.fit(X_train, y_train)\n# predictions = classifier.predict(X_test)\n",
+      "rewrite-ns": 17673,
+      "overhead-ns": 17673,
+      "exec-ns": 88385,
+      "total-ns": 106058,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# mean_absolute_error(y_test, predictions)",
+      "rewrite-ns": 17521,
+      "overhead-ns": 17521,
+      "exec-ns": 88665,
+      "total-ns": 106186,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# sns.set(font_scale = 1)\n# data = pd.DataFrame({'Y Test':y_test , 'Pred':predictions},columns=['Y Test','Pred'])\n# sns.lmplot(x='Y Test',y='Pred',data=data,palette='rainbow')\n# data.head()",
+      "rewrite-ns": 19005,
+      "overhead-ns": 19005,
+      "exec-ns": 91136,
+      "total-ns": 110141,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 17292,
+      "overhead-ns": 17292,
+      "exec-ns": 88793,
+      "total-ns": 106085,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 0.443638888,
+  "max-disk-in-mb": 0
+}

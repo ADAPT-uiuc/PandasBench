@@ -1,0 +1,773 @@
+{
+  "max-mem-in-mb": 127,
+  "max-mem-in-mb2": 131,
+  "cells": [
+    {
+      "raw": "# Import the necessary libraries\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\nfrom datetime import datetime\n#import zipfile\n#import kaggle",
+      "rewrite-ns": 796811,
+      "overhead-ns": 796811,
+      "exec-ns": 439600,
+      "total-ns": 1236411,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\nfrom datetime import datetime\n"
+    },
+    {
+      "raw": "# Uncomment the import to extract the file from Kaggle with your key\n#!kaggle datasets download -d rashikrahmanpritom/data-science-job-posting-on-glassdoor",
+      "rewrite-ns": 23231,
+      "overhead-ns": 23231,
+      "exec-ns": 116239,
+      "total-ns": 139470,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# Extract the files from the ZIP file\n#zip_name = 'data-science-job-posting-on-glassdoor.zip'\n#with zipfile.ZipFile(zip_name,'r') as file:\n#    file.extractall()",
+      "rewrite-ns": 21255,
+      "overhead-ns": 21255,
+      "exec-ns": 104262,
+      "total-ns": 125517,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# Read the .csv file as a pandas dataframe\njob_data = pd.read_csv(\"./input/Uncleaned_DS_jobs.scaled.csv\")",
+      "rewrite-ns": 556011,
+      "overhead-ns": 556011,
+      "exec-ns": 34254172,
+      "total-ns": 34810183,
+      "patts-hit": {},
+      "rewritten": "job_data = pd.read_csv('./input/Uncleaned_DS_jobs.scaled.csv')\n"
+    },
+    {
+      "raw": "# Explore the data\njob_data.info()",
+      "rewrite-ns": 128538,
+      "overhead-ns": 128538,
+      "exec-ns": 6751083,
+      "total-ns": 6879621,
+      "patts-hit": {},
+      "rewritten": "job_data.info()\n"
+    },
+    {
+      "raw": "job_data.shape",
+      "rewrite-ns": 86999,
+      "overhead-ns": 86999,
+      "exec-ns": 1280987,
+      "total-ns": 1367986,
+      "patts-hit": {},
+      "rewritten": "job_data.shape\n"
+    },
+    {
+      "raw": "# Check the information structure\njob_data.head()",
+      "rewrite-ns": 121571,
+      "overhead-ns": 121571,
+      "exec-ns": 14427001,
+      "total-ns": 14548572,
+      "patts-hit": {},
+      "rewritten": "job_data.head()\n"
+    },
+    {
+      "raw": "# Drop the index column\njob_data.drop('index',axis=1,inplace=True)",
+      "rewrite-ns": 669227,
+      "overhead-ns": 669227,
+      "exec-ns": 1062776,
+      "total-ns": 1732003,
+      "patts-hit": {},
+      "rewritten": "job_data.drop('index', axis=1, inplace=True)\n"
+    },
+    {
+      "raw": "# Check for duplicates\njob_data[job_data.duplicated()].shape\njob_data[job_data.duplicated()]",
+      "rewrite-ns": 988799,
+      "overhead-ns": 988799,
+      "exec-ns": 27917166,
+      "total-ns": 28905965,
+      "patts-hit": {},
+      "rewritten": "job_data[job_data.duplicated()].shape\njob_data[job_data.duplicated()]\n"
+    },
+    {
+      "raw": "# Drop duplicates\njob_data.drop_duplicates(inplace=True)",
+      "rewrite-ns": 534671,
+      "overhead-ns": 534671,
+      "exec-ns": 7345008,
+      "total-ns": 7879679,
+      "patts-hit": {},
+      "rewritten": "job_data.drop_duplicates(inplace=True)\n"
+    },
+    {
+      "raw": "# Check the shape again\njob_data.shape",
+      "rewrite-ns": 83494,
+      "overhead-ns": 83494,
+      "exec-ns": 656367,
+      "total-ns": 739861,
+      "patts-hit": {},
+      "rewritten": "job_data.shape\n"
+    },
+    {
+      "raw": "# Set appropiate column names in the form of lowercase words separated by '_'\njob_data.rename(columns= lambda header: header.lower().replace(\" \",\"_\"), inplace= True)",
+      "rewrite-ns": 1187835,
+      "overhead-ns": 1187835,
+      "exec-ns": 678831,
+      "total-ns": 1866666,
+      "patts-hit": {},
+      "rewritten": "job_data.rename(columns=lambda header: header.lower().replace(' ', '_'),\n    inplace=True)\n"
+    },
+    {
+      "raw": "# Inspect the Job title column\njob_data[\"job_title\"][:150]",
+      "rewrite-ns": 528900,
+      "overhead-ns": 528900,
+      "exec-ns": 1844706,
+      "total-ns": 2373606,
+      "patts-hit": {},
+      "rewritten": "job_data['job_title'][:150]\n"
+    },
+    {
+      "raw": "# Make the replacement\njob_data[\"job_title\"]=job_data.loc[:,\"job_title\"].str.replace(\"(Sr.)\",\"sr.\")",
+      "rewrite-ns": 1124286,
+      "overhead-ns": 1124286,
+      "exec-ns": 1463926,
+      "total-ns": 2588212,
+      "patts-hit": {},
+      "rewritten": "job_data['job_title'] = job_data.loc[:, 'job_title'].str.replace('(Sr.)', 'sr.'\n    )\n"
+    },
+    {
+      "raw": "# Delete the rest of the instances using a regex\njob_data[\"job_title\"]=job_data.loc[:,\"job_title\"].str.extract('([^()]+)')",
+      "rewrite-ns": 1017277,
+      "overhead-ns": 1017277,
+      "exec-ns": 2095556,
+      "total-ns": 3112833,
+      "patts-hit": {},
+      "rewritten": "job_data['job_title'] = job_data.loc[:, 'job_title'].str.extract('([^()]+)')\n"
+    },
+    {
+      "raw": "#Replace the special characters with an empty value by defining a regex pattern\njob_data['job_title'] = job_data['job_title'].str.replace(r'[^a-zA-Z0-9-,/\\s]','',regex=True)",
+      "rewrite-ns": 1006494,
+      "overhead-ns": 1006494,
+      "exec-ns": 1388850,
+      "total-ns": 2395344,
+      "patts-hit": {},
+      "rewritten": "job_data['job_title'] = job_data['job_title'].str.replace('[^a-zA-Z0-9-,/\\\\s]',\n    '', regex=True)\n"
+    },
+    {
+      "raw": "#Inspect the salary estimate column\njob_data['salary_estimate'][100:200]",
+      "rewrite-ns": 579767,
+      "overhead-ns": 579767,
+      "exec-ns": 1735467,
+      "total-ns": 2315234,
+      "patts-hit": {},
+      "rewritten": "job_data['salary_estimate'][100:200]\n"
+    },
+    {
+      "raw": "# Define a function to extract the salary limits\ndef extract_values(text):\n    extracted_integer = ''\n    modified_string = ''\n    \n    for i in range(len(text)):\n        if i+1 < len(text):\n            if text[i].isdigit():\n                extracted_integer += text[i]\n                if not text[i+1].isdigit():\n                    break\n        if i == len(text) - 1 and text[i].isdigit():\n            extracted_integer += text[i]\n    \n    if extracted_integer:\n        modified_string = text[:text.find(extracted_integer)] + text[text.find(extracted_integer) + len(extracted_integer):]\n        extracted_integer = int(extracted_integer)\n    \n    return extracted_integer, modified_string",
+      "rewrite-ns": 6234755,
+      "overhead-ns": 6234755,
+      "exec-ns": 1198302,
+      "total-ns": 7433057,
+      "patts-hit": {},
+      "rewritten": "def extract_values(text):\n    extracted_integer = ''\n    modified_string = ''\n    for i in range(len(text)):\n        if i + 1 < len(text):\n            if text[i].isdigit():\n                extracted_integer += text[i]\n                if not text[i + 1].isdigit():\n                    break\n        if i == len(text) - 1 and text[i].isdigit():\n            extracted_integer += text[i]\n    if extracted_integer:\n        modified_string = text[:text.find(extracted_integer)] + text[text.\n            find(extracted_integer) + len(extracted_integer):]\n        extracted_integer = int(extracted_integer)\n    return extracted_integer, modified_string\n"
+    },
+    {
+      "raw": "#Obtain the minimum salary in the range\njob_data['min_salary_K$'], job_data['salary_estimate'] = zip(*job_data['salary_estimate'].apply(extract_values))",
+      "rewrite-ns": 1271492,
+      "overhead-ns": 1271492,
+      "exec-ns": 2872895,
+      "total-ns": 4144387,
+      "patts-hit": {},
+      "rewritten": "job_data['min_salary_K$'], job_data['salary_estimate'] = zip(*job_data[\n    'salary_estimate'].apply(extract_values))\n"
+    },
+    {
+      "raw": "#Obtain the maximum salary in the range\njob_data['max_salary_K$'], job_data['salary_estimate'] = zip(*job_data['salary_estimate'].apply(extract_values))",
+      "rewrite-ns": 1234259,
+      "overhead-ns": 1234259,
+      "exec-ns": 3240606,
+      "total-ns": 4474865,
+      "patts-hit": {},
+      "rewritten": "job_data['max_salary_K$'], job_data['salary_estimate'] = zip(*job_data[\n    'salary_estimate'].apply(extract_values))\n"
+    },
+    {
+      "raw": "#Drop the old salary range column\njob_data.drop('salary_estimate', axis=1, inplace=True)",
+      "rewrite-ns": 622450,
+      "overhead-ns": 622450,
+      "exec-ns": 1150494,
+      "total-ns": 1772944,
+      "patts-hit": {},
+      "rewritten": "job_data.drop('salary_estimate', axis=1, inplace=True)\n"
+    },
+    {
+      "raw": "#Let's obtain the average of these ranges\njob_data['avg_salary_estimate'] = (np.round((job_data['min_salary_K$'] + job_data['max_salary_K$'])/2,decimals=0)).astype(int)\njob_data.head()",
+      "rewrite-ns": 1524375,
+      "overhead-ns": 1524375,
+      "exec-ns": 13615321,
+      "total-ns": 15139696,
+      "patts-hit": {},
+      "rewritten": "job_data['avg_salary_estimate'] = np.round((job_data['min_salary_K$'] +\n    job_data['max_salary_K$']) / 2, decimals=0).astype(int)\njob_data.head()\n"
+    },
+    {
+      "raw": "#Inspect the job description column\njob_data['job_description'][:150]",
+      "rewrite-ns": 525809,
+      "overhead-ns": 525809,
+      "exec-ns": 1830616,
+      "total-ns": 2356425,
+      "patts-hit": {},
+      "rewritten": "job_data['job_description'][:150]\n"
+    },
+    {
+      "raw": "job_data.loc[:,\"job_description\"]\njob_data.loc[job_data.loc[:,\"job_description\"]==\"-1\"]",
+      "rewrite-ns": 1303421,
+      "overhead-ns": 1303421,
+      "exec-ns": 2292707,
+      "total-ns": 3596128,
+      "patts-hit": {},
+      "rewritten": "job_data.loc[:, 'job_description']\njob_data.loc[job_data.loc[:, 'job_description'] == '-1']\n"
+    },
+    {
+      "raw": "#Inspect the rating column\njob_data['rating'][:150]",
+      "rewrite-ns": 521186,
+      "overhead-ns": 521186,
+      "exec-ns": 1989147,
+      "total-ns": 2510333,
+      "patts-hit": {},
+      "rewritten": "job_data['rating'][:150]\n"
+    },
+    {
+      "raw": "job_data['rating'].unique()",
+      "rewrite-ns": 171094,
+      "overhead-ns": 171094,
+      "exec-ns": 1180124,
+      "total-ns": 1351218,
+      "patts-hit": {},
+      "rewritten": "job_data['rating'].unique()\n"
+    },
+    {
+      "raw": "# Replace rating mising values with NaN across the entire column\njob_data['rating'].replace(-1.0,np.nan,inplace=True)",
+      "rewrite-ns": 875274,
+      "overhead-ns": 875274,
+      "exec-ns": 796405,
+      "total-ns": 1671679,
+      "patts-hit": {},
+      "rewritten": "job_data['rating'].replace(-1.0, np.nan, inplace=True)\n"
+    },
+    {
+      "raw": "job_data['rating'].unique()",
+      "rewrite-ns": 161801,
+      "overhead-ns": 161801,
+      "exec-ns": 1134444,
+      "total-ns": 1296245,
+      "patts-hit": {},
+      "rewritten": "job_data['rating'].unique()\n"
+    },
+    {
+      "raw": "# Inspect the company name column\njob_data['company_name'][:10]",
+      "rewrite-ns": 521244,
+      "overhead-ns": 521244,
+      "exec-ns": 1384187,
+      "total-ns": 1905431,
+      "patts-hit": {},
+      "rewritten": "job_data['company_name'][:10]\n"
+    },
+    {
+      "raw": "job_data['company_name'] = job_data.loc[:,'company_name'].str.replace(r\"\\n\\d+(\\.\\d+)?\",'',regex=True)\njob_data.loc[:,\"company_name\"][:10]",
+      "rewrite-ns": 1760565,
+      "overhead-ns": 1760565,
+      "exec-ns": 2844210,
+      "total-ns": 4604775,
+      "patts-hit": {},
+      "rewritten": "job_data['company_name'] = job_data.loc[:, 'company_name'].str.replace(\n    '\\\\n\\\\d+(\\\\.\\\\d+)?', '', regex=True)\njob_data.loc[:, 'company_name'][:10]\n"
+    },
+    {
+      "raw": "# Inspect the location column\njob_data['location'][:10]",
+      "rewrite-ns": 536139,
+      "overhead-ns": 536139,
+      "exec-ns": 1365393,
+      "total-ns": 1901532,
+      "patts-hit": {},
+      "rewritten": "job_data['location'][:10]\n"
+    },
+    {
+      "raw": "# Check the counts of each unique location state\njob_data.loc[:,\"location\"].apply(lambda x: x.split(\",\")[-1]).value_counts()",
+      "rewrite-ns": 1535102,
+      "overhead-ns": 1535102,
+      "exec-ns": 2394420,
+      "total-ns": 3929522,
+      "patts-hit": {},
+      "rewritten": "job_data.loc[:, 'location'].apply(lambda x: x.split(',')[-1]).value_counts()\n"
+    },
+    {
+      "raw": "# Create the state column\njob_data['location_state'] = job_data['location'].apply(lambda x: x.split(',')[-1].strip())",
+      "rewrite-ns": 1462664,
+      "overhead-ns": 1462664,
+      "exec-ns": 1253906,
+      "total-ns": 2716570,
+      "patts-hit": {},
+      "rewritten": "job_data['location_state'] = job_data['location'].apply(lambda x: x.split(\n    ',')[-1].strip())\n"
+    },
+    {
+      "raw": "# Replace the inconsistencies with their correct state abbreviation\ndef clean_location(jobs):\n    return (\n        jobs.loc[:, \"location_state\"]\n        .replace(\"California\",\"CA\")\n        .replace(\"Texas\",\"TX\")\n        .replace(\"Utah\",\"UT\")\n        .replace(\"New Jersey\",\"NJ\")\n        .replace(\"Remote\",\"n/a\")\n        .replace(\"United States\",\"n/a\")\n    )\n\njob_data = job_data.assign(\n    location_state = clean_location\n)",
+      "rewrite-ns": 2504460,
+      "overhead-ns": 2504460,
+      "exec-ns": 2244879,
+      "total-ns": 4749339,
+      "patts-hit": {},
+      "rewritten": "def clean_location(jobs):\n    return jobs.loc[:, 'location_state'].replace('California', 'CA').replace(\n        'Texas', 'TX').replace('Utah', 'UT').replace('New Jersey', 'NJ'\n        ).replace('Remote', 'n/a').replace('United States', 'n/a')\njob_data = job_data.assign(location_state=clean_location)\n"
+    },
+    {
+      "raw": "job_data[\"location_state\"].value_counts()",
+      "rewrite-ns": 519769,
+      "overhead-ns": 519769,
+      "exec-ns": 1796669,
+      "total-ns": 2316438,
+      "patts-hit": {},
+      "rewritten": "job_data['location_state'].value_counts()\n"
+    },
+    {
+      "raw": "# Check if the location of the job and the HQ are in the place\njob_data['same_state'] = (job_data['location'] == job_data['headquarters']).astype(int)",
+      "rewrite-ns": 1049801,
+      "overhead-ns": 1049801,
+      "exec-ns": 1085856,
+      "total-ns": 2135657,
+      "patts-hit": {},
+      "rewritten": "job_data['same_state'] = (job_data['location'] == job_data['headquarters']\n    ).astype(int)\n"
+    },
+    {
+      "raw": "job_data.head()",
+      "rewrite-ns": 117075,
+      "overhead-ns": 117075,
+      "exec-ns": 13766524,
+      "total-ns": 13883599,
+      "patts-hit": {},
+      "rewritten": "job_data.head()\n"
+    },
+    {
+      "raw": "# Inspect the headquarters column\njob_data['headquarters'].value_counts()",
+      "rewrite-ns": 522868,
+      "overhead-ns": 522868,
+      "exec-ns": 1971653,
+      "total-ns": 2494521,
+      "patts-hit": {},
+      "rewritten": "job_data['headquarters'].value_counts()\n"
+    },
+    {
+      "raw": "job_data['headquarters'] = job_data['headquarters'].apply(lambda x: x.replace('-1','n/a'))\njob_data[\"headquarters\"].value_counts()",
+      "rewrite-ns": 1596458,
+      "overhead-ns": 1596458,
+      "exec-ns": 2698878,
+      "total-ns": 4295336,
+      "patts-hit": {},
+      "rewritten": "job_data['headquarters'] = job_data['headquarters'].apply(lambda x: x.\n    replace('-1', 'n/a'))\njob_data['headquarters'].value_counts()\n"
+    },
+    {
+      "raw": "# Inspect the size column\nprint(job_data['size'][:100])\njob_data['size'].unique()",
+      "rewrite-ns": 761565,
+      "overhead-ns": 761565,
+      "exec-ns": 1955475,
+      "total-ns": 2717040,
+      "patts-hit": {},
+      "rewritten": "print(job_data['size'][:100])\njob_data['size'].unique()\n"
+    },
+    {
+      "raw": "# Handle the missing values correctly\ndef size_cleaning(jobs):\n    return (\n        jobs.loc[:, \"size\"]\n        .replace(\"-1\",\"n/a\")\n        .replace(\"Unknown\",\"n/a\")\n    )\n\njob_data = job_data.assign(\n    size = size_cleaning\n)",
+      "rewrite-ns": 1622559,
+      "overhead-ns": 1622559,
+      "exec-ns": 1710971,
+      "total-ns": 3333530,
+      "patts-hit": {},
+      "rewritten": "def size_cleaning(jobs):\n    return jobs.loc[:, 'size'].replace('-1', 'n/a').replace('Unknown', 'n/a')\njob_data = job_data.assign(size=size_cleaning)\n"
+    },
+    {
+      "raw": "job_data['size'].unique()",
+      "rewrite-ns": 167056,
+      "overhead-ns": 167056,
+      "exec-ns": 946900,
+      "total-ns": 1113956,
+      "patts-hit": {},
+      "rewritten": "job_data['size'].unique()\n"
+    },
+    {
+      "raw": "# Inspect the founded column\njob_data['founded'][:100]",
+      "rewrite-ns": 519310,
+      "overhead-ns": 519310,
+      "exec-ns": 1602883,
+      "total-ns": 2122193,
+      "patts-hit": {},
+      "rewritten": "job_data['founded'][:100]\n"
+    },
+    {
+      "raw": "#Clean the missing values\njob_data['founded'].replace(-1,np.nan,inplace=True)\njob_data['founded'].unique()",
+      "rewrite-ns": 956194,
+      "overhead-ns": 956194,
+      "exec-ns": 2224728,
+      "total-ns": 3180922,
+      "patts-hit": {},
+      "rewritten": "job_data['founded'].replace(-1, np.nan, inplace=True)\njob_data['founded'].unique()\n"
+    },
+    {
+      "raw": "# obtain the years the company has been in the market and drop the founed column\ncurrent_year = datetime.now().year\njob_data['years_in_market'] = current_year - job_data['founded']\njob_data.drop('founded',axis=1,inplace=True)\njob_data.head()",
+      "rewrite-ns": 1650689,
+      "overhead-ns": 1650689,
+      "exec-ns": 15669326,
+      "total-ns": 17320015,
+      "patts-hit": {},
+      "rewritten": "current_year = datetime.now().year\njob_data['years_in_market'] = current_year - job_data['founded']\njob_data.drop('founded', axis=1, inplace=True)\njob_data.head()\n"
+    },
+    {
+      "raw": "# Inspect the Type of ownership column\njob_data['type_of_ownership'][:100]",
+      "rewrite-ns": 530099,
+      "overhead-ns": 530099,
+      "exec-ns": 1711574,
+      "total-ns": 2241673,
+      "patts-hit": {},
+      "rewritten": "job_data['type_of_ownership'][:100]\n"
+    },
+    {
+      "raw": "job_data['type_of_ownership'].unique()",
+      "rewrite-ns": 168644,
+      "overhead-ns": 168644,
+      "exec-ns": 910660,
+      "total-ns": 1079304,
+      "patts-hit": {},
+      "rewritten": "job_data['type_of_ownership'].unique()\n"
+    },
+    {
+      "raw": "def ownership(jobs):\n    return (\n        jobs.loc[:, \"type_of_ownership\"]\n        .replace(\"Nonprofit Organization\",\"Nonprofit\")\n        .replace(\"-1\",\"n/a\")\n        .replace(\"Unknown\",\"n/a\")\n        .replace(\"Company - Public\",\"Public\")\n        .replace(\"Company - Private\",\"Private\")\n        .replace(\"Other Organization\",\"Other\")   \n    )\n\njob_data = job_data.assign(\n    type_of_ownership = ownership\n)",
+      "rewrite-ns": 2520284,
+      "overhead-ns": 2520284,
+      "exec-ns": 2265727,
+      "total-ns": 4786011,
+      "patts-hit": {},
+      "rewritten": "def ownership(jobs):\n    return jobs.loc[:, 'type_of_ownership'].replace('Nonprofit Organization',\n        'Nonprofit').replace('-1', 'n/a').replace('Unknown', 'n/a').replace(\n        'Company - Public', 'Public').replace('Company - Private', 'Private'\n        ).replace('Other Organization', 'Other')\njob_data = job_data.assign(type_of_ownership=ownership)\n"
+    },
+    {
+      "raw": "job_data['type_of_ownership'].unique()",
+      "rewrite-ns": 165751,
+      "overhead-ns": 165751,
+      "exec-ns": 969375,
+      "total-ns": 1135126,
+      "patts-hit": {},
+      "rewritten": "job_data['type_of_ownership'].unique()\n"
+    },
+    {
+      "raw": "# Inspect the industry column\njob_data['industry'].value_counts()",
+      "rewrite-ns": 518539,
+      "overhead-ns": 518539,
+      "exec-ns": 1938725,
+      "total-ns": 2457264,
+      "patts-hit": {},
+      "rewritten": "job_data['industry'].value_counts()\n"
+    },
+    {
+      "raw": "job_data[\"industry\"] = job_data[\"industry\"].apply(lambda x: x.replace(\"-1\",\"n/a\"))\njob_data['industry'].unique()",
+      "rewrite-ns": 1279772,
+      "overhead-ns": 1279772,
+      "exec-ns": 1889526,
+      "total-ns": 3169298,
+      "patts-hit": {},
+      "rewritten": "job_data['industry'] = job_data['industry'].apply(lambda x: x.replace('-1',\n    'n/a'))\njob_data['industry'].unique()\n"
+    },
+    {
+      "raw": "# Inspect the sector column\njob_data['sector'].value_counts()",
+      "rewrite-ns": 516620,
+      "overhead-ns": 516620,
+      "exec-ns": 1648529,
+      "total-ns": 2165149,
+      "patts-hit": {},
+      "rewritten": "job_data['sector'].value_counts()\n"
+    },
+    {
+      "raw": "job_data['sector'] = job_data['sector'].apply(lambda x: x.replace(\"-1\",\"n/a\"))\njob_data['sector'].unique()",
+      "rewrite-ns": 1239159,
+      "overhead-ns": 1239159,
+      "exec-ns": 1739753,
+      "total-ns": 2978912,
+      "patts-hit": {},
+      "rewritten": "job_data['sector'] = job_data['sector'].apply(lambda x: x.replace('-1', 'n/a'))\njob_data['sector'].unique()\n"
+    },
+    {
+      "raw": "# Inspect the revenue column\njob_data['revenue'].value_counts()",
+      "rewrite-ns": 518309,
+      "overhead-ns": 518309,
+      "exec-ns": 1572044,
+      "total-ns": 2090353,
+      "patts-hit": {},
+      "rewritten": "job_data['revenue'].value_counts()\n"
+    },
+    {
+      "raw": "def revenue_cleanup(jobs):\n    return (\n        jobs.loc[:, \"revenue\"]\n        .replace(\"-1\",\"n/a\")\n        .replace(\"Unknown / Non-Applicable\",\"n/a\")\n    )\n\njob_data = job_data.assign(\n    revenue = revenue_cleanup\n)",
+      "rewrite-ns": 1763557,
+      "overhead-ns": 1763557,
+      "exec-ns": 1625661,
+      "total-ns": 3389218,
+      "patts-hit": {},
+      "rewritten": "def revenue_cleanup(jobs):\n    return jobs.loc[:, 'revenue'].replace('-1', 'n/a').replace(\n        'Unknown / Non-Applicable', 'n/a')\njob_data = job_data.assign(revenue=revenue_cleanup)\n"
+    },
+    {
+      "raw": "job_data['revenue']=job_data.loc[:,'revenue'].str.extract('([^()]+)')\njob_data['revenue'].value_counts()",
+      "rewrite-ns": 1386882,
+      "overhead-ns": 1386882,
+      "exec-ns": 3137160,
+      "total-ns": 4524042,
+      "patts-hit": {},
+      "rewritten": "job_data['revenue'] = job_data.loc[:, 'revenue'].str.extract('([^()]+)')\njob_data['revenue'].value_counts()\n"
+    },
+    {
+      "raw": "# Finally inspect the competitors column\njob_data['competitors'].value_counts()\n",
+      "rewrite-ns": 518165,
+      "overhead-ns": 518165,
+      "exec-ns": 1952781,
+      "total-ns": 2470946,
+      "patts-hit": {},
+      "rewritten": "job_data['competitors'].value_counts()\n"
+    },
+    {
+      "raw": "np.round((488/659)*100,decimals=2)",
+      "rewrite-ns": 791857,
+      "overhead-ns": 791857,
+      "exec-ns": 749088,
+      "total-ns": 1540945,
+      "patts-hit": {},
+      "rewritten": "np.round(488 / 659 * 100, decimals=2)\n"
+    },
+    {
+      "raw": "#The percentage is too high so we drop this column\njob_data.drop('competitors',axis=1,inplace=True)",
+      "rewrite-ns": 627938,
+      "overhead-ns": 627938,
+      "exec-ns": 1059873,
+      "total-ns": 1687811,
+      "patts-hit": {},
+      "rewritten": "job_data.drop('competitors', axis=1, inplace=True)\n"
+    },
+    {
+      "raw": "job_data.head()",
+      "rewrite-ns": 122092,
+      "overhead-ns": 122092,
+      "exec-ns": 13635357,
+      "total-ns": 13757449,
+      "patts-hit": {},
+      "rewritten": "job_data.head()\n"
+    },
+    {
+      "raw": "# Check if we have any '-1' as missing values\njob_data[job_data.eq('-1').any(axis = 1)]",
+      "rewrite-ns": 818670,
+      "overhead-ns": 818670,
+      "exec-ns": 2575572,
+      "total-ns": 3394242,
+      "patts-hit": {},
+      "rewritten": "job_data[job_data.eq('-1').any(axis=1)]\n"
+    },
+    {
+      "raw": "# Check if we have a numerical missing value in any column \njob_data[job_data.eq(-1).any(axis = 1)]",
+      "rewrite-ns": 875111,
+      "overhead-ns": 875111,
+      "exec-ns": 2334129,
+      "total-ns": 3209240,
+      "patts-hit": {},
+      "rewritten": "job_data[job_data.eq(-1).any(axis=1)]\n"
+    },
+    {
+      "raw": "# Define a simplification function\n\ndef role_defining(title): \n    if any(keyword in title.lower() for keyword in ['data scientist', 'data science']):\n        return 'Data Scientist'\n    elif any(keyword in title.lower() for keyword in ['data analyst', 'analyst']):\n        return 'Data Analyst'\n    elif 'data engineer' in title.lower():\n        return 'Data Engineer'\n    elif any(keyword in title.lower() for keyword in ['machine learning', 'ai']):\n        return 'Machine Learning Engineer'\n    else:\n        return 'Other'",
+      "rewrite-ns": 3634019,
+      "overhead-ns": 3634019,
+      "exec-ns": 948874,
+      "total-ns": 4582893,
+      "patts-hit": {},
+      "rewritten": "def role_defining(title):\n    if any(keyword in title.lower() for keyword in ['data scientist',\n        'data science']):\n        return 'Data Scientist'\n    elif any(keyword in title.lower() for keyword in ['data analyst',\n        'analyst']):\n        return 'Data Analyst'\n    elif 'data engineer' in title.lower():\n        return 'Data Engineer'\n    elif any(keyword in title.lower() for keyword in ['machine learning', 'ai']\n        ):\n        return 'Machine Learning Engineer'\n    else:\n        return 'Other'\n"
+    },
+    {
+      "raw": "# Apply the function to the new column\njob_data['job_role']= job_data['job_title'].apply(role_defining)\njob_data['job_role'].value_counts()",
+      "rewrite-ns": 1169395,
+      "overhead-ns": 1169395,
+      "exec-ns": 2908840,
+      "total-ns": 4078235,
+      "patts-hit": {},
+      "rewritten": "job_data['job_role'] = job_data['job_title'].apply(role_defining)\njob_data['job_role'].value_counts()\n"
+    },
+    {
+      "raw": "def seniority_defining(title,description):\n    if any(keyword in title.lower() for keyword in ['jr.','jr','junior']) or any(keyword in description.lower() for keyword in ['jr.','jr','junior']):\n        return 'Jr'\n    elif any(keyword in title.lower() for keyword in ['sr.','sr','vp','senior']) or any(keyword in description.lower() for keyword in ['sr.','sr','vp','senior']):\n        return 'Sr'\n    else:\n        return 'Mid-Level'\n    \n\njob_data['job_seniority'] = job_data.apply(lambda row: seniority_defining(row['job_title'], row['job_description']), axis=1)\njob_data['job_seniority'].value_counts()",
+      "rewrite-ns": 5931775,
+      "overhead-ns": 6473612,
+      "exec-ns": 64738187,
+      "total-ns": 70669962,
+      "patts-hit": {},
+      "rewritten": "def seniority_defining(title, description):\n    if any(keyword in title.lower() for keyword in ['jr.', 'jr', 'junior']\n        ) or any(keyword in description.lower() for keyword in ['jr.', 'jr',\n        'junior']):\n        return 'Jr'\n    elif any(keyword in title.lower() for keyword in ['sr.', 'sr', 'vp',\n        'senior']) or any(keyword in description.lower() for keyword in [\n        'sr.', 'sr', 'vp', 'senior']):\n        return 'Sr'\n    else:\n        return 'Mid-Level'\njob_data['job_seniority'] = job_data.apply(lambda row: seniority_defining(\n    row['job_title'], row['job_description']), axis=1)\njob_data['job_seniority'].value_counts()\n"
+    },
+    {
+      "raw": "job_data.head()",
+      "rewrite-ns": 88338,
+      "overhead-ns": 88338,
+      "exec-ns": 10674768,
+      "total-ns": 10763106,
+      "patts-hit": {},
+      "rewritten": "job_data.head()\n"
+    },
+    {
+      "raw": "# Create dummy columns for each of the skill considered.\njob_data['excel'] = job_data.apply(lambda x: 1 if 'excel' in x.job_description.lower() else 0, axis=1)\njob_data['sql'] = job_data.apply(lambda x: 1 if 'sql' in x.job_description.lower() else 0, axis=1)\njob_data['python'] = job_data.apply(lambda x: 1 if 'python' in x.job_description.lower() else 0, axis=1)\njob_data['power_bi'] = job_data.apply(lambda x: 1 if 'power bi' in x.job_description.lower() else 0, axis=1)\njob_data['tableau'] = job_data.apply(lambda x: 1 if 'tableau' in x.job_description.lower() else 0, axis=1)\njob_data['scikit'] = job_data.apply(lambda x: 1 if 'scikit' in x.job_description.lower() else 0, axis=1)\njob_data['spark'] = job_data.apply(lambda x: 1 if 'spark' in x.job_description.lower() else 0, axis=1)",
+      "rewrite-ns": 6901002,
+      "overhead-ns": 7066392,
+      "exec-ns": 96310858,
+      "total-ns": 103211860,
+      "patts-hit": {},
+      "rewritten": "job_data['excel'] = job_data.apply(lambda x: 1 if 'excel' in x.\n    job_description.lower() else 0, axis=1)\njob_data['sql'] = job_data.apply(lambda x: 1 if 'sql' in x.job_description.\n    lower() else 0, axis=1)\njob_data['python'] = job_data.apply(lambda x: 1 if 'python' in x.\n    job_description.lower() else 0, axis=1)\njob_data['power_bi'] = job_data.apply(lambda x: 1 if 'power bi' in x.\n    job_description.lower() else 0, axis=1)\njob_data['tableau'] = job_data.apply(lambda x: 1 if 'tableau' in x.\n    job_description.lower() else 0, axis=1)\njob_data['scikit'] = job_data.apply(lambda x: 1 if 'scikit' in x.\n    job_description.lower() else 0, axis=1)\njob_data['spark'] = job_data.apply(lambda x: 1 if 'spark' in x.\n    job_description.lower() else 0, axis=1)\n"
+    },
+    {
+      "raw": "print(job_data['excel'].value_counts())\nprint(job_data['sql'].value_counts())\nprint(job_data['python'].value_counts())\nprint(job_data['power_bi'].value_counts())\nprint(job_data['tableau'].value_counts())\nprint(job_data['scikit'].value_counts())\nprint(job_data['spark'].value_counts())",
+      "rewrite-ns": 2568079,
+      "overhead-ns": 2568079,
+      "exec-ns": 3053497,
+      "total-ns": 5621576,
+      "patts-hit": {},
+      "rewritten": "print(job_data['excel'].value_counts())\nprint(job_data['sql'].value_counts())\nprint(job_data['python'].value_counts())\nprint(job_data['power_bi'].value_counts())\nprint(job_data['tableau'].value_counts())\nprint(job_data['scikit'].value_counts())\nprint(job_data['spark'].value_counts())\n"
+    },
+    {
+      "raw": "job_data.head()",
+      "rewrite-ns": 77184,
+      "overhead-ns": 77184,
+      "exec-ns": 13017369,
+      "total-ns": 13094553,
+      "patts-hit": {},
+      "rewritten": "job_data.head()\n"
+    },
+    {
+      "raw": "job_data.to_csv('Cleaned_Job_Data.csv',index= False)\njob_data.to_excel('Cleaned_Job_Data.xlsx',index=False)",
+      "rewrite-ns": 694329,
+      "overhead-ns": 694329,
+      "exec-ns": 461325831,
+      "total-ns": 462020160,
+      "patts-hit": {},
+      "rewritten": "job_data.to_csv('Cleaned_Job_Data.csv', index=False)\njob_data.to_excel('Cleaned_Job_Data.xlsx', index=False)\n"
+    },
+    {
+      "raw": "# Include the necessary packages fro analysisi and visualization\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# %matplotlib inline",
+      "rewrite-ns": 19412,
+      "overhead-ns": 19412,
+      "exec-ns": 86273,
+      "total-ns": 105685,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# Obtain the basic statistics of the data frame\njob_data.describe()",
+      "rewrite-ns": 94359,
+      "overhead-ns": 94359,
+      "exec-ns": 23245816,
+      "total-ns": 23340175,
+      "patts-hit": {},
+      "rewritten": "job_data.describe()\n"
+    },
+    {
+      "raw": "#Obtain the relationships between columns\n# ALEX: remove plotting\n# sns.pairplot(job_data)",
+      "rewrite-ns": 13948,
+      "overhead-ns": 13948,
+      "exec-ns": 71892,
+      "total-ns": 85840,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "industry_salary = [\n    round(job_data.loc[job_data[\"industry\"]==\"Biotech & Pharmaceuticals\",\"avg_salary_estimate\"].mean(), 2),\n    round(job_data.loc[job_data[\"industry\"]==\"IT Services\",\"avg_salary_estimate\"].mean(), 2),\n    round(job_data.loc[job_data[\"industry\"]==\"Computer Hardware & Software\",\"avg_salary_estimate\"].mean(), 2),\n    round(job_data.loc[job_data[\"industry\"]==\"Aerospace & Defense\",\"avg_salary_estimate\"].mean(), 2),\n    round(job_data.loc[job_data[\"industry\"]==\"Enterprise Software & Network Solutions\",\"avg_salary_estimate\"].mean(), 2)\n]\n\ntop_paying_industries = [\n    \"Biotech & Pharmaceuticals\",\n    \"IT Services\",\n    \"Computer Hardware & Software\",\n    \"Aerospace & Defense\",\n    \"Enterprise Software & Network Solutions\"\n]\n\n# ALEX: remove plotting\n# plt.bar(top_paying_industries, industry_salary)\n# plt.ylim(110, 140)\n# plt.xlabel(\"Job Industry\")\n# plt.ylabel(\"Average Salary\")\n\n# # Rotate the x-axis labels by 70 degrees\n# plt.xticks(rotation=70)\n\n# plt.show()",
+      "rewrite-ns": 4029934,
+      "overhead-ns": 4029934,
+      "exec-ns": 2003963,
+      "total-ns": 6033897,
+      "patts-hit": {},
+      "rewritten": "industry_salary = [round(job_data.loc[job_data['industry'] ==\n    'Biotech & Pharmaceuticals', 'avg_salary_estimate'].mean(), 2), round(\n    job_data.loc[job_data['industry'] == 'IT Services',\n    'avg_salary_estimate'].mean(), 2), round(job_data.loc[job_data[\n    'industry'] == 'Computer Hardware & Software', 'avg_salary_estimate'].\n    mean(), 2), round(job_data.loc[job_data['industry'] ==\n    'Aerospace & Defense', 'avg_salary_estimate'].mean(), 2), round(\n    job_data.loc[job_data['industry'] ==\n    'Enterprise Software & Network Solutions', 'avg_salary_estimate'].mean(\n    ), 2)]\ntop_paying_industries = ['Biotech & Pharmaceuticals', 'IT Services',\n    'Computer Hardware & Software', 'Aerospace & Defense',\n    'Enterprise Software & Network Solutions']\n"
+    },
+    {
+      "raw": "# Let's start by analyzing the average salary for job postings\n# ALEX: remove plotting\n# sns.boxplot(x=job_data['avg_salary_estimate'])\n_ = job_data['avg_salary_estimate']",
+      "rewrite-ns": 303163,
+      "overhead-ns": 303163,
+      "exec-ns": 211834,
+      "total-ns": 514997,
+      "patts-hit": {},
+      "rewritten": "_ = job_data['avg_salary_estimate']\n"
+    },
+    {
+      "raw": "# We can define a new data frame to fit in better inside the avg. salary range\ndf = job_data[(job_data.avg_salary_estimate > 50) & (job_data.avg_salary_estimate < 200)] ",
+      "rewrite-ns": 748895,
+      "overhead-ns": 748895,
+      "exec-ns": 813542,
+      "total-ns": 1562437,
+      "patts-hit": {},
+      "rewritten": "df = job_data[(job_data.avg_salary_estimate > 50) & (job_data.\n    avg_salary_estimate < 200)]\n"
+    },
+    {
+      "raw": "df.shape",
+      "rewrite-ns": 51951,
+      "overhead-ns": 51951,
+      "exec-ns": 438632,
+      "total-ns": 490583,
+      "patts-hit": {},
+      "rewritten": "df.shape\n"
+    },
+    {
+      "raw": "# Make a comparison between the years the company has been in the market and the avg. salary.\n# ALEX: remove plotting\n# sns.lmplot(x='years_in_market',y='avg_salary_estimate',data=df)\n",
+      "rewrite-ns": 12821,
+      "overhead-ns": 12821,
+      "exec-ns": 64294,
+      "total-ns": 77115,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# Generate a heatmap based on the numerical columns of the dataframe\n# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(10,10)) \nmatrix = np.triu(df.select_dtypes(include=[np.number]).corr())\n# ALEX: remove plotting\n# sns.heatmap(df.select_dtypes(include=[np.number]).corr(),annot=True, fmt='.1g', vmin=-1, vmax=1, center= 0,  ax=ax)\n_ = df.select_dtypes(include=[np.number]).corr()",
+      "rewrite-ns": 1255482,
+      "overhead-ns": 1255482,
+      "exec-ns": 1340952,
+      "total-ns": 2596434,
+      "patts-hit": {},
+      "rewritten": "matrix = np.triu(df.select_dtypes(include=[np.number]).corr())\n_ = df.select_dtypes(include=[np.number]).corr()\n"
+    },
+    {
+      "raw": "# Check the sector values\n# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(10,10)) \n# chart = sns.barplot(x=df.sector.value_counts().index, y=df.sector.value_counts())\n# _= chart.set_xticklabels(chart.get_xticklabels(), rotation=75)\n_ = df.sector.value_counts().index\n_ = df.sector.value_counts()",
+      "rewrite-ns": 698966,
+      "overhead-ns": 698966,
+      "exec-ns": 819737,
+      "total-ns": 1518703,
+      "patts-hit": {},
+      "rewritten": "_ = df.sector.value_counts().index\n_ = df.sector.value_counts()\n"
+    },
+    {
+      "raw": "# Set a simpler name\ndf.rename(columns={'avg_salary_estimate':'avg_salary'}, inplace= True)",
+      "rewrite-ns": 490814,
+      "overhead-ns": 490814,
+      "exec-ns": 570881,
+      "total-ns": 1061695,
+      "patts-hit": {},
+      "rewritten": "df.rename(columns={'avg_salary_estimate': 'avg_salary'}, inplace=True)\n"
+    },
+    {
+      "raw": "# Obtain the avg. salary for each type of role\npd.pivot_table(df,index='job_role', values='avg_salary')",
+      "rewrite-ns": 448323,
+      "overhead-ns": 448323,
+      "exec-ns": 4538846,
+      "total-ns": 4987169,
+      "patts-hit": {},
+      "rewritten": "pd.pivot_table(df, index='job_role', values='avg_salary')\n"
+    },
+    {
+      "raw": "# Obtain the avg. salary based on the seniority of the roles\npd.pivot_table(df, index=['job_role','job_seniority'], values='avg_salary').sort_values('avg_salary', ascending =False)",
+      "rewrite-ns": 769841,
+      "overhead-ns": 769841,
+      "exec-ns": 5965628,
+      "total-ns": 6735469,
+      "patts-hit": {},
+      "rewritten": "pd.pivot_table(df, index=['job_role', 'job_seniority'], values='avg_salary'\n    ).sort_values('avg_salary', ascending=False)\n"
+    },
+    {
+      "raw": "df.head()",
+      "rewrite-ns": 81535,
+      "overhead-ns": 81535,
+      "exec-ns": 13032828,
+      "total-ns": 13114363,
+      "patts-hit": {},
+      "rewritten": "df.head()\n"
+    },
+    {
+      "raw": "\n# Define a custom aggregation function to get the percentage of descriptions that include certain skill.\ndef ones_percentage(x):\n    return round((sum(1 for value in x if value == 1)/len(x))*100,2)\n\n# Create the pivot table with the custom aggregation function\npivot_table = pd.pivot_table(df, index='job_role', values=['excel', 'sql', 'python', 'power_bi', 'tableau', 'scikit', 'spark'], aggfunc=ones_percentage)\n\nprint(pivot_table)",
+      "rewrite-ns": 1925927,
+      "overhead-ns": 1925927,
+      "exec-ns": 15113514,
+      "total-ns": 17039441,
+      "patts-hit": {},
+      "rewritten": "def ones_percentage(x):\n    return round(sum(1 for value in x if value == 1) / len(x) * 100, 2)\npivot_table = pd.pivot_table(df, index='job_role', values=['excel', 'sql',\n    'python', 'power_bi', 'tableau', 'scikit', 'spark'], aggfunc=\n    ones_percentage)\nprint(pivot_table)\n"
+    }
+  ],
+  "total-time-in-sec": 1.042867847,
+  "max-disk-in-mb": 0
+}

@@ -1,0 +1,172 @@
+{
+  "max-mem-in-mb": 112,
+  "max-mem-in-mb2": 116,
+  "cells": [
+    {
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove profiling\n# import pandas_profiling as pp\n# from pandas_profiling import ProfileReport",
+      "rewrite-ns": 695800,
+      "overhead-ns": 695800,
+      "exec-ns": 409408,
+      "total-ns": 1105208,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "# ALEX: remove profiling\n# pp.__version__",
+      "rewrite-ns": 20667,
+      "overhead-ns": 20667,
+      "exec-ns": 112997,
+      "total-ns": 133664,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "traindf = pd.read_csv('./input/train.scaled.csv').set_index('PassengerId')\ntestdf = pd.read_csv('./input/test.scaled.csv').set_index('PassengerId')",
+      "rewrite-ns": 1266146,
+      "overhead-ns": 1266146,
+      "exec-ns": 8400048,
+      "total-ns": 9666194,
+      "patts-hit": {},
+      "rewritten": "traindf = pd.read_csv('./input/train.scaled.csv').set_index('PassengerId')\ntestdf = pd.read_csv('./input/test.scaled.csv').set_index('PassengerId')\n"
+    },
+    {
+      "raw": "traindf.head(3)",
+      "rewrite-ns": 147881,
+      "overhead-ns": 147881,
+      "exec-ns": 11780583,
+      "total-ns": 11928464,
+      "patts-hit": {},
+      "rewritten": "traindf.head(3)\n"
+    },
+    {
+      "raw": "testdf.head(3)",
+      "rewrite-ns": 145367,
+      "overhead-ns": 145367,
+      "exec-ns": 9178937,
+      "total-ns": 9324304,
+      "patts-hit": {},
+      "rewritten": "testdf.head(3)\n"
+    },
+    {
+      "raw": "df = pd.concat([traindf, testdf], axis=0, sort=False)\ndf",
+      "rewrite-ns": 904672,
+      "overhead-ns": 904672,
+      "exec-ns": 14594044,
+      "total-ns": 15498716,
+      "patts-hit": {},
+      "rewritten": "df = pd.concat([traindf, testdf], axis=0, sort=False)\ndf\n"
+    },
+    {
+      "raw": "# Thanks to: \n# https://www.kaggle.com/mauricef/titanic\n# https://www.kaggle.com/vbmokin/titanic-top-3-one-line-of-the-prediction-code\n\ndf['Title'] = df.Name.str.split(',').str[1].str.split('.').str[0].str.strip()\ndf['IsWomanOrBoy'] = ((df.Title == 'Master') | (df.Sex == 'female'))\ndf['LastName'] = df.Name.str.split(',').str[0]\n\n# Use transform on the 'Survived' column directly for 'WomanOrBoyCount'\ndf['WomanOrBoyCount'] = df.groupby('LastName')['Survived'].transform(lambda s: s[df.IsWomanOrBoy].fillna(0).count())\ndf['WomanOrBoyCount'] = np.where(df.IsWomanOrBoy, df.WomanOrBoyCount - 1, df.WomanOrBoyCount)\n\n# Use transform on the 'Survived' column directly for 'FamilySurvivedCount'\ndf['FamilySurvivedCount'] = df.groupby('LastName')['Survived'].transform(lambda s: s[df.IsWomanOrBoy].fillna(0).sum())\ndf['FamilySurvivedCount'] = np.where(df.IsWomanOrBoy, df.FamilySurvivedCount - df.Survived.fillna(0), df.FamilySurvivedCount)\n\n# Calculate 'WomanOrBoySurvived'\ndf['WomanOrBoySurvived'] = df['FamilySurvivedCount'] / df['WomanOrBoyCount'].replace(0, np.nan)\ndf.WomanOrBoyCount = df.WomanOrBoyCount.replace(np.nan, 0)\ndf['Alone'] = (df.WomanOrBoyCount == 0)\n\n#Thanks to: https://www.kaggle.com/kpacocha/top-6-titanic-machine-learning-from-disaster\n#\"Title\" improvement\ndf['Title'] = df['Title'].replace('Ms','Miss')\ndf['Title'] = df['Title'].replace('Mlle','Miss')\ndf['Title'] = df['Title'].replace('Mme','Mrs')\n# Embarked\ndf['Embarked'] = df['Embarked'].fillna('S')\n\n# Thanks to https://www.kaggle.com/erinsweet/simpledetect\n# Fare\nmed_fare = df.groupby(['Pclass', 'Parch', 'SibSp'])['Fare'].median().loc[3, 0, 0]\ndf['Fare'] = df['Fare'].fillna(med_fare)\n\n# Create a function to fill missing values in 'Age'\ndef fill_age_na(group):\n    return group.fillna(group.median())\n\n# Apply the function to fill missing values in 'Age'\ndf['Age'] = df.groupby(['Sex', 'Pclass', 'Title'])['Age'].transform(fill_age_na)\n\n# Family_Size\ndf['Family_Size'] = df['SibSp'] + df['Parch'] + 1\n\n#Thanks to https://www.kaggle.com/kpacocha/top-6-titanic-machine-learning-from-disaster\n# Cabin, Deck\ndf['Deck'] = df['Cabin'].apply(lambda s: s[0] if pd.notnull(s) else 'M')\ndf.loc[(df['Deck'] == 'T'), 'Deck'] = 'A'\n\ndf.WomanOrBoySurvived = df.WomanOrBoySurvived.fillna(0)\ndf.WomanOrBoyCount = df.WomanOrBoyCount.fillna(0)\ndf.FamilySurvivedCount = df.FamilySurvivedCount.fillna(0)\ndf.Alone = df.Alone.fillna(0)",
+      "rewrite-ns": 19539935,
+      "overhead-ns": 19539935,
+      "exec-ns": 597452032,
+      "total-ns": 616991967,
+      "patts-hit": {
+        "IsInplaceUpdate": 1
+      },
+      "rewritten": "df['Title'] = df.Name.str.split(',').str[1].str.split('.').str[0].str.strip()\ndf['IsWomanOrBoy'] = (df.Title == 'Master') | (df.Sex == 'female')\ndf['LastName'] = df.Name.str.split(',').str[0]\ndf['WomanOrBoyCount'] = df.groupby('LastName')['Survived'].transform(lambda\n    s: s[df.IsWomanOrBoy].fillna(0).count())\ndf['WomanOrBoyCount'] = np.where(df.IsWomanOrBoy, df.WomanOrBoyCount - 1,\n    df.WomanOrBoyCount)\ndf['FamilySurvivedCount'] = df.groupby('LastName')['Survived'].transform(lambda\n    s: s[df.IsWomanOrBoy].fillna(0).sum())\ndf['FamilySurvivedCount'] = np.where(df.IsWomanOrBoy, df.\n    FamilySurvivedCount - df.Survived.fillna(0), df.FamilySurvivedCount)\ndf['WomanOrBoySurvived'] = df['FamilySurvivedCount'] / df['WomanOrBoyCount'\n    ].replace(0, np.nan)\ndf.WomanOrBoyCount = df.WomanOrBoyCount.replace(np.nan, 0)\ndf['Alone'] = df.WomanOrBoyCount == 0\ndf['Title'] = df['Title'].replace('Ms', 'Miss')\ndf['Title'] = df['Title'].replace('Mlle', 'Miss')\ndf['Title'] = df['Title'].replace('Mme', 'Mrs')\n_DIAS_ser = df['Embarked']\nif type(_DIAS_ser) != pd.Series:\n    df['Embarked'] = df['Embarked'].fillna('S')\nelse:\n    df['Embarked'].fillna('S', inplace=True)\nmed_fare = df.groupby(['Pclass', 'Parch', 'SibSp'])['Fare'].median().loc[3,\n    0, 0]\n_DIAS_ser = df['Fare']\nif type(_DIAS_ser) != pd.Series:\n    df['Fare'] = df['Fare'].fillna(med_fare)\nelse:\n    df['Fare'].fillna(med_fare, inplace=True)\ndef fill_age_na(group):\n    return group.fillna(group.median())\ndf['Age'] = df.groupby(['Sex', 'Pclass', 'Title'])['Age'].transform(fill_age_na\n    )\ndf['Family_Size'] = df['SibSp'] + df['Parch'] + 1\ndf['Deck'] = df['Cabin'].apply(lambda s: s[0] if pd.notnull(s) else 'M')\ndf.loc[df['Deck'] == 'T', 'Deck'] = 'A'\ndf.WomanOrBoySurvived = df.WomanOrBoySurvived.fillna(0)\ndf.WomanOrBoyCount = df.WomanOrBoyCount.fillna(0)\ndf.FamilySurvivedCount = df.FamilySurvivedCount.fillna(0)\ndf.Alone = df.Alone.fillna(0)\n"
+    },
+    {
+      "raw": "df",
+      "rewrite-ns": 77257,
+      "overhead-ns": 77257,
+      "exec-ns": 18155344,
+      "total-ns": 18232601,
+      "patts-hit": {},
+      "rewritten": "df\n"
+    },
+    {
+      "raw": "train_x, test_x = df.loc[traindf.index], df.loc[testdf.index]\ntest_x = test_x.drop('Survived', axis=1)",
+      "rewrite-ns": 1605293,
+      "overhead-ns": 1605293,
+      "exec-ns": 2554000,
+      "total-ns": 4159293,
+      "patts-hit": {},
+      "rewritten": "train_x, test_x = df.loc[traindf.index], df.loc[testdf.index]\ntest_x = test_x.drop('Survived', axis=1)\n"
+    },
+    {
+      "raw": "train_x.head(3)",
+      "rewrite-ns": 147488,
+      "overhead-ns": 147488,
+      "exec-ns": 15077669,
+      "total-ns": 15225157,
+      "patts-hit": {},
+      "rewritten": "train_x.head(3)\n"
+    },
+    {
+      "raw": "test_x.head(3)",
+      "rewrite-ns": 142536,
+      "overhead-ns": 142536,
+      "exec-ns": 14189348,
+      "total-ns": 14331884,
+      "patts-hit": {},
+      "rewritten": "test_x.head(3)\n"
+    },
+    {
+      "raw": "train_x.describe()",
+      "rewrite-ns": 121638,
+      "overhead-ns": 121638,
+      "exec-ns": 26292150,
+      "total-ns": 26413788,
+      "patts-hit": {},
+      "rewritten": "train_x.describe()\n"
+    },
+    {
+      "raw": "test_x.describe()",
+      "rewrite-ns": 121606,
+      "overhead-ns": 121606,
+      "exec-ns": 23119780,
+      "total-ns": 23241386,
+      "patts-hit": {},
+      "rewritten": "test_x.describe()\n"
+    },
+    {
+      "raw": "# ALEX: remove profiling\n# ProfileReport(train_x, title='Pandas Profiling Report for training dataset', html={'style':{'full_width':True}})",
+      "rewrite-ns": 23410,
+      "overhead-ns": 23410,
+      "exec-ns": 115801,
+      "total-ns": 139211,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# %%time\n# profile = train_x.profile_report(title='Pandas Profiling Report for training dataset')\n# profile.to_file(output_file=\"train_profile.html\")",
+      "rewrite-ns": 20746,
+      "overhead-ns": 20746,
+      "exec-ns": 103902,
+      "total-ns": 124648,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove profiling\n# %%time\n# profile = ProfileReport(train_x, title='Pandas Profiling Report for training dataset', minimal=True)\n# profile.to_file(output_file=\"train_short_profile.html\")",
+      "rewrite-ns": 19115,
+      "overhead-ns": 19115,
+      "exec-ns": 97749,
+      "total-ns": 116864,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove profiling\n# ProfileReport(test_x, title='Pandas Profiling Report for test dataset')",
+      "rewrite-ns": 18696,
+      "overhead-ns": 18696,
+      "exec-ns": 93143,
+      "total-ns": 111839,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# The one line of the code for prediction\ntest_x = pd.concat([test_x.WomanOrBoySurvived.fillna(0), test_x.Alone, \\\n                    test_x.Sex.replace({'male': 0, 'female': 1})], axis=1)\npd.DataFrame({'Survived': (((test_x.WomanOrBoySurvived <= 0.2381) & (test_x.Sex > 0.5) & (test_x.Alone > 0.5)) | \\\n                        ((test_x.WomanOrBoySurvived > 0.2381) & \\\n                       ~((test_x.WomanOrBoySurvived > 0.55) & (test_x.WomanOrBoySurvived <= 0.633)))).astype(int)}, index=testdf.index).reset_index().to_csv('submission.csv', index=False)",
+      "rewrite-ns": 4712913,
+      "overhead-ns": 4712913,
+      "exec-ns": 5691482,
+      "total-ns": 10404395,
+      "patts-hit": {},
+      "rewritten": "test_x = pd.concat([test_x.WomanOrBoySurvived.fillna(0), test_x.Alone,\n    test_x.Sex.replace({'male': 0, 'female': 1})], axis=1)\npd.DataFrame({'Survived': ((test_x.WomanOrBoySurvived <= 0.2381) & (test_x.\n    Sex > 0.5) & (test_x.Alone > 0.5) | (test_x.WomanOrBoySurvived > 0.2381\n    ) & ~((test_x.WomanOrBoySurvived > 0.55) & (test_x.WomanOrBoySurvived <=\n    0.633))).astype(int)}, index=testdf.index).reset_index().to_csv(\n    'submission.csv', index=False)\n"
+    }
+  ],
+  "total-time-in-sec": 0.777149583,
+  "max-disk-in-mb": 0
+}

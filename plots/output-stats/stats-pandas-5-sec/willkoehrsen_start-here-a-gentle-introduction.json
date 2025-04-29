@@ -1,0 +1,380 @@
+{
+  "max-mem-in-mb": 397,
+  "max-mem-in-mb2": 675,
+  "cells": [
+    {
+      "raw": "# numpy and pandas for data manipulation\nimport numpy as np\n# import pandas as pd \nexec(os.environ['IREWR_IMPORTS'])\n\n# sklearn preprocessing for dealing with categorical variables\n# ALEX: remove ML code, plotting\n# from sklearn.preprocessing import LabelEncoder\n\n# # File system manangement\n# import os\n\n# # Suppress warnings \n# import warnings\n# warnings.filterwarnings('ignore')\n\n# # matplotlib and seaborn for plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 304720
+    },
+    {
+      "raw": "# List files available\n# ALEX: remove path printing\n# print(os.listdir(\"./input/\"))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 116150
+    },
+    {
+      "raw": "# Training data\napp_train = pd.read_csv('./input/application_train.scaled.csv')\nprint('Training data shape: ', app_train.shape)\napp_train.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 251196182
+    },
+    {
+      "raw": "# Testing data features\napp_test = pd.read_csv('./input/application_test.scaled.csv')\nprint('Testing data shape: ', app_test.shape)\napp_test.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 39737504
+    },
+    {
+      "raw": "app_train['TARGET'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 934885
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# app_train['TARGET'].astype(int).plot.hist();\napp_train['TARGET'].astype(int)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 349411
+    },
+    {
+      "raw": "# Function to calculate missing values by column# Funct \ndef missing_values_table(df):\n        # Total missing values\n        mis_val = df.isnull().sum()\n        \n        # Percentage of missing values\n        mis_val_percent = 100 * df.isnull().sum() / len(df)\n        \n        # Make a table with the results\n        mis_val_table = pd.concat([mis_val, mis_val_percent], axis=1)\n        \n        # Rename the columns\n        mis_val_table_ren_columns = mis_val_table.rename(\n        columns = {0 : 'Missing Values', 1 : '% of Total Values'})\n        \n        # Sort the table by percentage of missing descending\n        mis_val_table_ren_columns = mis_val_table_ren_columns[\n            mis_val_table_ren_columns.iloc[:,1] != 0].sort_values(\n        '% of Total Values', ascending=False).round(1)\n        \n        # Print some summary information\n        print (\"Your selected dataframe has \" + str(df.shape[1]) + \" columns.\\n\"      \n            \"There are \" + str(mis_val_table_ren_columns.shape[0]) +\n              \" columns that have missing values.\")\n        \n        # Return the dataframe with missing information\n        return mis_val_table_ren_columns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 942755
+    },
+    {
+      "raw": "# Missing values statistics\nmissing_values = missing_values_table(app_train)\nmissing_values.head(20)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 106109874
+    },
+    {
+      "raw": "# Number of each type of column\napp_train.dtypes.value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 567193
+    },
+    {
+      "raw": "# Number of unique classes in each object column\napp_train.select_dtypes('object').apply(pd.Series.nunique, axis = 0)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 19157149
+    },
+    {
+      "raw": "# Create a label encoder object\n# ALEX: remove ML code\n# le = LabelEncoder()\nle_count = 0\n\n# Iterate through the columns\nfor col in app_train:\n    if app_train[col].dtype == 'object':\n        # If 2 or fewer unique categories\n        if len(list(app_train[col].unique())) <= 2:\n            # Train on the training data\n# ALEX: remove ML code\n#             le.fit(app_train[col])\n            # Transform both training and testing data\n# ALEX: remove ML code\n#             app_train[col] = le.transform(app_train[col])\n#             app_test[col] = le.transform(app_test[col])\n            _ = app_train[col]\n            app_train[col] = app_train[col]\n            app_train[col] = app_train[col]\n            \n            # Keep track of how many columns were label encoded\n            le_count += 1\n            \nprint('%d columns were label encoded.' % le_count)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 26342288
+    },
+    {
+      "raw": "# one-hot encoding of categorical variables\napp_train = pd.get_dummies(app_train)\napp_test = pd.get_dummies(app_test)\n\nprint('Training Features shape: ', app_train.shape)\nprint('Testing Features shape: ', app_test.shape)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 77022274
+    },
+    {
+      "raw": "train_labels = app_train['TARGET']\n\n# Align the training and testing data, keep only columns present in both dataframes\napp_train, app_test = app_train.align(app_test, join = 'inner', axis = 1)\n\n# Add the target back in\napp_train['TARGET'] = train_labels\n\nprint('Training Features shape: ', app_train.shape)\nprint('Testing Features shape: ', app_test.shape)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 8559656
+    },
+    {
+      "raw": "(app_train['DAYS_BIRTH'] / -365).describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3053672
+    },
+    {
+      "raw": "app_train['DAYS_EMPLOYED'].describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2112768
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# app_train['DAYS_EMPLOYED'].plot.hist(title = 'Days Employment Histogram');\n# plt.xlabel('Days Employment');\napp_train['DAYS_EMPLOYED']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 199653
+    },
+    {
+      "raw": "anom = app_train[app_train['DAYS_EMPLOYED'] == 365243]\nnon_anom = app_train[app_train['DAYS_EMPLOYED'] != 365243]\nprint('The non-anomalies default on %0.2f%% of loans' % (100 * non_anom['TARGET'].mean()))\nprint('The anomalies default on %0.2f%% of loans' % (100 * anom['TARGET'].mean()))\nprint('There are %d anomalous days of employment' % len(anom))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 34347391
+    },
+    {
+      "raw": "# Create an anomalous flag column\napp_train['DAYS_EMPLOYED_ANOM'] = app_train[\"DAYS_EMPLOYED\"] == 365243\n\n# Replace the anomalous values with nan\napp_train['DAYS_EMPLOYED'].replace({365243: np.nan}, inplace = True)\n\n# ALEX: remove plotting\n# app_train['DAYS_EMPLOYED'].plot.hist(title = 'Days Employment Histogram');\n# plt.xlabel('Days Employment');\napp_train['DAYS_EMPLOYED']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2821123
+    },
+    {
+      "raw": "app_test['DAYS_EMPLOYED_ANOM'] = app_test[\"DAYS_EMPLOYED\"] == 365243\napp_test[\"DAYS_EMPLOYED\"].replace({365243: np.nan}, inplace = True)\n\nprint('There are %d anomalies in the test data out of %d entries' % (app_test[\"DAYS_EMPLOYED_ANOM\"].sum(), len(app_test)))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1424677
+    },
+    {
+      "raw": "# Find correlations with the target and sort\ncorrelations = app_train.corr()['TARGET'].sort_values()\n\n# Display correlations\nprint('Most Positive Correlations:\\n', correlations.tail(15))\nprint('\\nMost Negative Correlations:\\n', correlations.head(15))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4670522243
+    },
+    {
+      "raw": "# Find the correlation of the positive days since birth and target\napp_train['DAYS_BIRTH'] = abs(app_train['DAYS_BIRTH'])\napp_train['DAYS_BIRTH'].corr(app_train['TARGET'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3680615
+    },
+    {
+      "raw": "# Set the style of plots\n# ALEX: remove plotting\n# plt.style.use('fivethirtyeight')\n\n# # Plot the distribution of ages in years\n# plt.hist(app_train['DAYS_BIRTH'] / 365, edgecolor = 'k', bins = 25)\n# plt.title('Age of Client'); plt.xlabel('Age (years)'); plt.ylabel('Count');\n_ = app_train['DAYS_BIRTH'] / 365",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1253409
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize = (10, 8))\n\n# # KDE plot of loans that were repaid on time\n# sns.kdeplot(app_train.loc[app_train['TARGET'] == 0, 'DAYS_BIRTH'] / 365, label = 'target == 0')\n\n# # KDE plot of loans which were not repaid on time\n# sns.kdeplot(app_train.loc[app_train['TARGET'] == 1, 'DAYS_BIRTH'] / 365, label = 'target == 1')\n\n# # Labeling of plot\n# plt.xlabel('Age (years)'); plt.ylabel('Density'); plt.title('Distribution of Ages');\n_ = app_train.loc[app_train['TARGET'] == 0, 'DAYS_BIRTH'] / 365\n_ = app_train.loc[app_train['TARGET'] == 1, 'DAYS_BIRTH'] / 365",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1600600
+    },
+    {
+      "raw": "# Age information into a separate dataframe\nage_data = app_train[['TARGET', 'DAYS_BIRTH']]\nage_data['YEARS_BIRTH'] = age_data['DAYS_BIRTH'] / 365\n\n# Bin the age data\nage_data['YEARS_BINNED'] = pd.cut(age_data['YEARS_BIRTH'], bins = np.linspace(20, 70, num = 11))\nage_data.head(10)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 18153575
+    },
+    {
+      "raw": "# Group by the bin and calculate averages\nage_groups  = age_data.groupby('YEARS_BINNED').mean()\nage_groups",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1808666
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize = (8, 8))\n\n# # Graph the age bins and the average of the target as a bar plot\n# plt.bar(age_groups.index.astype(str), 100 * age_groups['TARGET'])\n\n# # Plot labeling\n# plt.xticks(rotation = 75); plt.xlabel('Age Group (years)'); plt.ylabel('Failure to Repay (%)')\n# plt.title('Failure to Repay by Age Group');\n_ = age_groups.index.astype(str)\n_ = 100 * age_groups['TARGET']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 742921
+    },
+    {
+      "raw": "# Extract the EXT_SOURCE variables and show correlations\next_data = app_train[['TARGET', 'EXT_SOURCE_1', 'EXT_SOURCE_2', 'EXT_SOURCE_3', 'DAYS_BIRTH']]\next_data_corrs = ext_data.corr()\next_data_corrs",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4625229
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize = (8, 6))\n\n# # Heatmap of correlations\n# sns.heatmap(ext_data_corrs, cmap = plt.cm.RdYlBu_r, vmin = -0.25, annot = True, vmax = 0.6)\n# plt.title('Correlation Heatmap');",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 127274
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize = (10, 12))\n\n# iterate through the sources\nfor i, source in enumerate(['EXT_SOURCE_1', 'EXT_SOURCE_2', 'EXT_SOURCE_3']):\n    \n    # create a new subplot for each source\n# ALEX: remove plotting\n#     plt.subplot(3, 1, i + 1)\n#     # plot repaid loans\n#     sns.kdeplot(app_train.loc[app_train['TARGET'] == 0, source], label = 'target == 0')\n#     # plot loans that were not repaid\n#     sns.kdeplot(app_train.loc[app_train['TARGET'] == 1, source], label = 'target == 1')\n    \n#     # Label the plots\n#     plt.title('Distribution of %s by Target Value' % source)\n#     plt.xlabel('%s' % source); plt.ylabel('Density');\n    _ = app_train.loc[app_train['TARGET'] == 0, source]\n    _ = app_train.loc[app_train['TARGET'] == 1, source]\n    \n# ALEX: remove plotting\n# plt.tight_layout(h_pad = 2.5)\n    ",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2741269
+    },
+    {
+      "raw": "# Copy the data for plotting\nplot_data = ext_data.drop(columns = ['DAYS_BIRTH']).copy()\n\n# Add in the age of the client in years\nplot_data['YEARS_BIRTH'] = age_data['YEARS_BIRTH']\n\n# Drop na values and limit to first 100000 rows\nplot_data = plot_data.dropna().loc[:100000, :]\n\n# Function to calculate correlation coefficient between two columns\ndef corr_func(x, y, **kwargs):\n    r = np.corrcoef(x, y)[0][1]\n# ALEX: remove plotting\n#     ax = plt.gca()\n#     ax.annotate(\"r = {:.2f}\".format(r),\n#                 xy=(.2, .8), xycoords=ax.transAxes,\n#                 size = 20)\n    _ = \"r = {:.2f}\".format(r)\n\n# Create the pairgrid object\n# ALEX: remove plotting\n# grid = sns.PairGrid(data = plot_data, size = 3, diag_sharey=False,\n#                     hue = 'TARGET', \n#                     vars = [x for x in list(plot_data.columns) if x != 'TARGET'])\n\n# # Upper is a scatter plot\n# grid.map_upper(plt.scatter, alpha = 0.2)\n\n# # Diagonal is a histogram\n# grid.map_diag(sns.kdeplot)\n\n# # Bottom is density plot\n# grid.map_lower(sns.kdeplot, cmap = plt.cm.OrRd_r);\n\n# plt.suptitle('Ext Source and Age Features Pairs Plot', size = 32, y = 1.05);\n_ = [x for x in list(plot_data.columns) if x != 'TARGET']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3704906
+    },
+    {
+      "raw": "# Make a new dataframe for polynomial features\npoly_features = app_train[['EXT_SOURCE_1', 'EXT_SOURCE_2', 'EXT_SOURCE_3', 'DAYS_BIRTH', 'TARGET']]\npoly_features_test = app_test[['EXT_SOURCE_1', 'EXT_SOURCE_2', 'EXT_SOURCE_3', 'DAYS_BIRTH']]\n\n# imputer for handling missing values\n# ALEX: remove ML code\n# from sklearn.preprocessing import Imputer\n# imputer = Imputer(strategy = 'median')\n\npoly_target = poly_features['TARGET']\n\npoly_features = poly_features.drop(columns = ['TARGET'])\n\n# ALEX: remove ML code\n# # Need to impute missing values\n# poly_features = imputer.fit_transform(poly_features)\n# poly_features_test = imputer.transform(poly_features_test)\n\n# from sklearn.preprocessing import PolynomialFeatures\n                                  \n# # Create the polynomial object with specified degree\n# poly_transformer = PolynomialFeatures(degree = 3)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4282949
+    },
+    {
+      "raw": "# Train the polynomial features\n# ALEX: remove ML code\n# poly_transformer.fit(poly_features)\n\n# # Transform the features\n# poly_features = poly_transformer.transform(poly_features)\n# poly_features_test = poly_transformer.transform(poly_features_test)\nprint('Polynomial Features shape: ', poly_features.shape)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 229723
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# poly_transformer.get_feature_names(input_features = ['EXT_SOURCE_1', 'EXT_SOURCE_2', 'EXT_SOURCE_3', 'DAYS_BIRTH'])[:15]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 105118
+    },
+    {
+      "raw": "# Create a dataframe of the features\n# ALEX: remove ML code\n# poly_features = pd.DataFrame(poly_features, \n#                              columns = poly_transformer.get_feature_names(['EXT_SOURCE_1', 'EXT_SOURCE_2', \n#                                                                            'EXT_SOURCE_3', 'DAYS_BIRTH']))\npoly_features = pd.DataFrame(poly_features)\n\n# Add in the target\npoly_features['TARGET'] = poly_target\n\n# Find the correlations with the target\npoly_corrs = poly_features.corr()['TARGET'].sort_values()\n\n# Display most negative and most positive\nprint(poly_corrs.head(10))\nprint(poly_corrs.tail(5))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5052786
+    },
+    {
+      "raw": "# Put test features into dataframe\n# ALEX: remove ML code\n# poly_features_test = pd.DataFrame(poly_features_test, \n#                                   columns = poly_transformer.get_feature_names(['EXT_SOURCE_1', 'EXT_SOURCE_2', \n#                                                                                 'EXT_SOURCE_3', 'DAYS_BIRTH']))\npoly_features_test = pd.DataFrame(poly_features_test)\n\n# Merge polynomial features into training dataframe\npoly_features['SK_ID_CURR'] = app_train['SK_ID_CURR']\napp_train_poly = app_train.merge(poly_features, on = 'SK_ID_CURR', how = 'left')\n\n# Merge polnomial features into testing dataframe\npoly_features_test['SK_ID_CURR'] = app_test['SK_ID_CURR']\napp_test_poly = app_test.merge(poly_features_test, on = 'SK_ID_CURR', how = 'left')\n\n# Align the dataframes\napp_train_poly, app_test_poly = app_train_poly.align(app_test_poly, join = 'inner', axis = 1)\n\n# Print out the new shapes\nprint('Training data with polynomial features shape: ', app_train_poly.shape)\nprint('Testing data with polynomial features shape:  ', app_test_poly.shape)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 53332779
+    },
+    {
+      "raw": "app_train_domain = app_train.copy()\napp_test_domain = app_test.copy()\n\napp_train_domain['CREDIT_INCOME_PERCENT'] = app_train_domain['AMT_CREDIT'] / app_train_domain['AMT_INCOME_TOTAL']\napp_train_domain['ANNUITY_INCOME_PERCENT'] = app_train_domain['AMT_ANNUITY'] / app_train_domain['AMT_INCOME_TOTAL']\napp_train_domain['CREDIT_TERM'] = app_train_domain['AMT_ANNUITY'] / app_train_domain['AMT_CREDIT']\napp_train_domain['DAYS_EMPLOYED_PERCENT'] = app_train_domain['DAYS_EMPLOYED'] / app_train_domain['DAYS_BIRTH']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 9847899
+    },
+    {
+      "raw": "app_test_domain['CREDIT_INCOME_PERCENT'] = app_test_domain['AMT_CREDIT'] / app_test_domain['AMT_INCOME_TOTAL']\napp_test_domain['ANNUITY_INCOME_PERCENT'] = app_test_domain['AMT_ANNUITY'] / app_test_domain['AMT_INCOME_TOTAL']\napp_test_domain['CREDIT_TERM'] = app_test_domain['AMT_ANNUITY'] / app_test_domain['AMT_CREDIT']\napp_test_domain['DAYS_EMPLOYED_PERCENT'] = app_test_domain['DAYS_EMPLOYED'] / app_test_domain['DAYS_BIRTH']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1731593
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize = (12, 20))\n# iterate through the new features\nfor i, feature in enumerate(['CREDIT_INCOME_PERCENT', 'ANNUITY_INCOME_PERCENT', 'CREDIT_TERM', 'DAYS_EMPLOYED_PERCENT']):\n    \n    # create a new subplot for each source\n# ALEX: remove plotting\n#     plt.subplot(4, 1, i + 1)\n#     # plot repaid loans\n#     sns.kdeplot(app_train_domain.loc[app_train_domain['TARGET'] == 0, feature], label = 'target == 0')\n#     # plot loans that were not repaid\n#     sns.kdeplot(app_train_domain.loc[app_train_domain['TARGET'] == 1, feature], label = 'target == 1')\n    \n#     # Label the plots\n#     plt.title('Distribution of %s by Target Value' % feature)\n#     plt.xlabel('%s' % feature); plt.ylabel('Density');\n    _ = app_train_domain.loc[app_train_domain['TARGET'] == 0, feature]\n    _ = app_train_domain.loc[app_train_domain['TARGET'] == 1, feature]\n    \n# ALEX: remove plotting\n# plt.tight_layout(h_pad = 2.5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3351051
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# from sklearn.preprocessing import MinMaxScaler, Imputer\n\n# Drop the target from the training data\nif 'TARGET' in app_train:\n    train = app_train.drop(columns = ['TARGET'])\nelse:\n    train = app_train.copy()\n    \n# Feature names\nfeatures = list(train.columns)\n\n# Copy of the testing data\ntest = app_test.copy()\n\n# Median imputation of missing values\n# ALEX: remove ML code\n# imputer = Imputer(strategy = 'median')\n\n# # Scale each feature to 0-1\n# scaler = MinMaxScaler(feature_range = (0, 1))\n\n# # Fit on the training data\n# imputer.fit(train)\n\n# # Transform both training and testing data\n# train = imputer.transform(train)\n# test = imputer.transform(app_test)\n\n# # Repeat with the scaler\n# scaler.fit(train)\n# train = scaler.transform(train)\n# test = scaler.transform(test)\n\nprint('Training data shape: ', train.shape)\nprint('Testing data shape: ', test.shape)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 13110644
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.linear_model import LogisticRegression\n\n# # Make the model with the specified regularization parameter\n# log_reg = LogisticRegression(C = 0.0001)\n\n# # Train on the training data\n# log_reg.fit(train, train_labels)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 179105
+    },
+    {
+      "raw": "# Make predictions\n# Make sure to select the second column only\n# ALEX: remove ML code\n# log_reg_pred = log_reg.predict_proba(test)[:, 1]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 131648
+    },
+    {
+      "raw": "# Submission dataframe\nsubmit = app_test[['SK_ID_CURR']]\n# ALEX: remove ML code\n# submit['TARGET'] = log_reg_pred\n\nsubmit.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 788158
+    },
+    {
+      "raw": "# Save the submission to a csv file\nsubmit.to_csv('log_reg_baseline.csv', index = False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5222859
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.ensemble import RandomForestClassifier\n\n# # Make the random forest classifier\n# random_forest = RandomForestClassifier(n_estimators = 100, random_state = 50, verbose = 1, n_jobs = -1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 124256
+    },
+    {
+      "raw": "# Train on the training data\n# ALEX: remove ML code\n# random_forest.fit(train, train_labels)\n\n# # Extract feature importances\n# feature_importance_values = random_forest.feature_importances_\n# feature_importances = pd.DataFrame({'feature': features, 'importance': feature_importance_values})\n\n# # Make predictions on the test data\n# predictions = random_forest.predict_proba(test)[:, 1]\nfeature_importances = pd.DataFrame({'feature': features})",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 469549
+    },
+    {
+      "raw": "# Make a submission dataframe\nsubmit = app_test[['SK_ID_CURR']]\n# ALEX: remove ML code\n# submit['TARGET'] = predictions\n\n# Save the submission dataframe\nsubmit.to_csv('random_forest_baseline.csv', index = False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5022814
+    },
+    {
+      "raw": "poly_features_names = list(app_train_poly.columns)\n\n# Impute the polynomial features\n# ALEX: remove ML code\n# imputer = Imputer(strategy = 'median')\n\n# poly_features = imputer.fit_transform(app_train_poly)\n# poly_features_test = imputer.transform(app_test_poly)\n\n# # Scale the polynomial features\n# scaler = MinMaxScaler(feature_range = (0, 1))\n\n# poly_features = scaler.fit_transform(poly_features)\n# poly_features_test = scaler.transform(poly_features_test)\n\n# random_forest_poly = RandomForestClassifier(n_estimators = 100, random_state = 50, verbose = 1, n_jobs = -1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 269603
+    },
+    {
+      "raw": "# Train on the training data\n# ALEX: remove ML code\n# random_forest_poly.fit(poly_features, train_labels)\n\n# # Make predictions on the test data\n# predictions = random_forest_poly.predict_proba(poly_features_test)[:, 1]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 118597
+    },
+    {
+      "raw": "# Make a submission dataframe\nsubmit = app_test[['SK_ID_CURR']]\n# ALEX: remove ML code\n# submit['TARGET'] = predictions\n\n# Save the submission dataframe\nsubmit.to_csv('random_forest_baseline_engineered.csv', index = False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4794453
+    },
+    {
+      "raw": "app_train_domain = app_train_domain.drop(columns = 'TARGET')\n\ndomain_features_names = list(app_train_domain.columns)\n\n# Impute the domainnomial features\n# ALEX: remove ML code\n# imputer = Imputer(strategy = 'median')\n\n# domain_features = imputer.fit_transform(app_train_domain)\n# domain_features_test = imputer.transform(app_test_domain)\n\n# # Scale the domainnomial features\n# scaler = MinMaxScaler(feature_range = (0, 1))\n\n# domain_features = scaler.fit_transform(domain_features)\n# domain_features_test = scaler.transform(domain_features_test)\n\n# random_forest_domain = RandomForestClassifier(n_estimators = 100, random_state = 50, verbose = 1, n_jobs = -1)\n\n# # Train on the training data\n# random_forest_domain.fit(domain_features, train_labels)\n\n# # Extract feature importances\n# feature_importance_values_domain = random_forest_domain.feature_importances_\n# feature_importances_domain = pd.DataFrame({'feature': domain_features_names, 'importance': feature_importance_values_domain})\n\n# # Make predictions on the test data\n# predictions = random_forest_domain.predict_proba(domain_features_test)[:, 1]\nfeature_importances_domain = pd.DataFrame({'feature': domain_features_names})",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 13867014
+    },
+    {
+      "raw": "# Make a submission dataframe\nsubmit = app_test[['SK_ID_CURR']]\n# ALEX: remove ML code\n# submit['TARGET'] = predictions\n\n# Save the submission dataframe\nsubmit.to_csv('random_forest_baseline_domain.csv', index = False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5122317
+    },
+    {
+      "raw": "def plot_feature_importances(df):\n    \"\"\"\n    Plot importances returned by a model. This can work with any measure of\n    feature importance provided that higher importance is better. \n    \n    Args:\n        df (dataframe): feature importances. Must have the features in a column\n        called `features` and the importances in a column called `importance\n        \n    Returns:\n        shows a plot of the 15 most importance features\n        \n        df (dataframe): feature importances sorted by importance (highest to lowest) \n        with a column for normalized importance\n        \"\"\"\n    \n    # Sort features according to importance\n# ALEX: remove ML code\n#     df = df.sort_values('importance', ascending = False).reset_index()\n    \n#     # Normalize the feature importances to add up to one\n#     df['importance_normalized'] = df['importance'] / df['importance'].sum()\n\n#     # Make a horizontal bar chart of feature importances\n#     plt.figure(figsize = (10, 6))\n#     ax = plt.subplot()\n    \n#     # Need to reverse the index to plot most important on top\n#     ax.barh(list(reversed(list(df.index[:15]))), \n#             df['importance_normalized'].head(15), \n#             align = 'center', edgecolor = 'k')\n    \n#     # Set the yticks and labels\n#     ax.set_yticks(list(reversed(list(df.index[:15]))))\n#     ax.set_yticklabels(df['feature'].head(15))\n    \n#     # Plot labeling\n#     plt.xlabel('Normalized Importance'); plt.title('Feature Importances')\n#     plt.show()\n    _ = list(reversed(list(df.index[:15])))\n    _ = list(reversed(list(df.index[:15])))\n    _ = df['feature'].head(15)\n    \n    return df",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 789999
+    },
+    {
+      "raw": "# Show the feature importances for the default features\nfeature_importances_sorted = plot_feature_importances(feature_importances)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 336722
+    },
+    {
+      "raw": "feature_importances_domain_sorted = plot_feature_importances(feature_importances_domain)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 330890
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import KFold\n# from sklearn.metrics import roc_auc_score\n# import lightgbm as lgb\n# import gc\n\ndef model(features, test_features, encoding = 'ohe', n_folds = 5):\n    \n    \"\"\"Train and test a light gradient boosting model using\n    cross validation. \n    \n    Parameters\n    --------\n        features (pd.DataFrame): \n            dataframe of training features to use \n            for training a model. Must include the TARGET column.\n        test_features (pd.DataFrame): \n            dataframe of testing features to use\n            for making predictions with the model. \n        encoding (str, default = 'ohe'): \n            method for encoding categorical variables. Either 'ohe' for one-hot encoding or 'le' for integer label encoding\n            n_folds (int, default = 5): number of folds to use for cross validation\n        \n    Return\n    --------\n        submission (pd.DataFrame): \n            dataframe with `SK_ID_CURR` and `TARGET` probabilities\n            predicted by the model.\n        feature_importances (pd.DataFrame): \n            dataframe with the feature importances from the model.\n        valid_metrics (pd.DataFrame): \n            dataframe with training and validation metrics (ROC AUC) for each fold and overall.\n        \n    \"\"\"\n    \n    # Extract the ids\n    train_ids = features['SK_ID_CURR']\n    test_ids = test_features['SK_ID_CURR']\n    \n    # Extract the labels for training\n    labels = features['TARGET']\n    \n    # Remove the ids and target\n    features = features.drop(columns = ['SK_ID_CURR', 'TARGET'])\n    test_features = test_features.drop(columns = ['SK_ID_CURR'])\n    \n    \n    # One Hot Encoding\n    if encoding == 'ohe':\n        features = pd.get_dummies(features)\n        test_features = pd.get_dummies(test_features)\n        \n        # Align the dataframes by the columns\n        features, test_features = features.align(test_features, join = 'inner', axis = 1)\n        \n        # No categorical indices to record\n        cat_indices = 'auto'\n    \n    # Integer label encoding\n    elif encoding == 'le':\n        \n        # Create a label encoder\n# ALEX: remove ML code\n#         label_encoder = LabelEncoder()\n        \n        # List for storing categorical indices\n        cat_indices = []\n        \n        # Iterate through each column\n        for i, col in enumerate(features):\n            if features[col].dtype == 'object':\n                # Map the categorical features to integers\n# ALEX: remove ML code\n#                 features[col] = label_encoder.fit_transform(np.array(features[col].astype(str)).reshape((-1,)))\n#                 test_features[col] = label_encoder.transform(np.array(test_features[col].astype(str)).reshape((-1,)))\n                features[col] = np.array(features[col].astype(str)).reshape((-1,))\n                test_features[col] = np.array(test_features[col].astype(str)).reshape((-1,))\n\n                # Record the categorical indices\n                cat_indices.append(i)\n    \n    # Catch error if label encoding scheme is not valid\n    else:\n        raise ValueError(\"Encoding must be either 'ohe' or 'le'\")\n        \n    print('Training Data Shape: ', features.shape)\n    print('Testing Data Shape: ', test_features.shape)\n    \n    # Extract feature names\n    feature_names = list(features.columns)\n    \n    # Convert to np arrays\n    features = np.array(features)\n    test_features = np.array(test_features)\n    \n    # Create the kfold object\n# ALEX: remove ML code\n#     k_fold = KFold(n_splits = n_folds, shuffle = True, random_state = 50)\n    \n    # Empty array for feature importances\n    feature_importance_values = np.zeros(len(feature_names))\n    \n    # Empty array for test predictions\n    test_predictions = np.zeros(test_features.shape[0])\n    \n    # Empty array for out of fold validation predictions\n    out_of_fold = np.zeros(features.shape[0])\n    \n    # Lists for recording validation and training scores\n    valid_scores = []\n    train_scores = []\n    \n    # Iterate through each fold\n# ALEX: remove ML code\n#     for train_indices, valid_indices in k_fold.split(features):\n        \n#         # Training data for the fold\n#         train_features, train_labels = features[train_indices], labels[train_indices]\n#         # Validation data for the fold\n#         valid_features, valid_labels = features[valid_indices], labels[valid_indices]\n        \n#         # Create the model\n#         model = lgb.LGBMClassifier(n_estimators=10000, objective = 'binary', \n#                                    class_weight = 'balanced', learning_rate = 0.05, \n#                                    reg_alpha = 0.1, reg_lambda = 0.1, \n#                                    subsample = 0.8, n_jobs = -1, random_state = 50)\n        \n#         # Train the model\n#         model.fit(train_features, train_labels, eval_metric = 'auc',\n#                   eval_set = [(valid_features, valid_labels), (train_features, train_labels)],\n#                   eval_names = ['valid', 'train'], categorical_feature = cat_indices,\n#                   early_stopping_rounds = 100, verbose = 200)\n        \n#         # Record the best iteration\n#         best_iteration = model.best_iteration_\n        \n#         # Record the feature importances\n#         feature_importance_values += model.feature_importances_ / k_fold.n_splits\n        \n#         # Make predictions\n#         test_predictions += model.predict_proba(test_features, num_iteration = best_iteration)[:, 1] / k_fold.n_splits\n        \n#         # Record the out of fold predictions\n#         out_of_fold[valid_indices] = model.predict_proba(valid_features, num_iteration = best_iteration)[:, 1]\n        \n#         # Record the best score\n#         valid_score = model.best_score_['valid']['auc']\n#         train_score = model.best_score_['train']['auc']\n        \n#         valid_scores.append(valid_score)\n#         train_scores.append(train_score)\n        \n#         # Clean up memory\n#         gc.enable()\n#         del model, train_features, valid_features\n#         gc.collect()\n        \n    # Make the submission dataframe\n    submission = pd.DataFrame({'SK_ID_CURR': test_ids, 'TARGET': test_predictions})\n    \n    # Make the feature importance dataframe\n    feature_importances = pd.DataFrame({'feature': feature_names, 'importance': feature_importance_values})\n    \n    # Overall validation score\n# ALEX: remove ML code\n#     valid_auc = roc_auc_score(labels, out_of_fold)\n    \n    # Add the overall scores to the metrics\n# ALEX: remove ML code\n#     valid_scores.append(valid_auc)\n    train_scores.append(np.mean(train_scores))\n    \n    # Needed for creating dataframe of validation scores\n    fold_names = list(range(n_folds))\n    fold_names.append('overall')\n    \n    # Dataframe of validation scores\n# ALEX: remove ML code\n#     metrics = pd.DataFrame({'fold': fold_names,\n#                             'train': train_scores,\n#                             'valid': valid_scores}) \n    metrics = pd.DataFrame({'fold': [],\n                            'train': [],\n                            'valid': []})\n    \n    return submission, feature_importances, metrics",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2672227
+    },
+    {
+      "raw": "submission, fi, metrics = model(app_train, app_test)\nprint('Baseline metrics')\nprint(metrics)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 338354066
+    },
+    {
+      "raw": "fi_sorted = plot_feature_importances(fi)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 487091
+    },
+    {
+      "raw": "submission.to_csv('baseline_lgb.csv', index = False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 6191698
+    },
+    {
+      "raw": "app_train_domain['TARGET'] = train_labels\n\n# Test the domain knolwedge features\nsubmission_domain, fi_domain, metrics_domain = model(app_train_domain, app_test_domain)\nprint('Baseline with domain knowledge features metrics')\nprint(metrics_domain)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 351909647
+    },
+    {
+      "raw": "fi_sorted = plot_feature_importances(fi_domain)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 495055
+    },
+    {
+      "raw": "submission_domain.to_csv('baseline_lgb_domain_features.csv', index = False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 6209603
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 74990
+    }
+  ],
+  "total-time-in-sec": 6.119266935,
+  "max-disk-in-mb": 0
+}

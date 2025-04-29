@@ -1,0 +1,188 @@
+{
+  "max-mem-in-mb": 1258,
+  "max-mem-in-mb2": 1666,
+  "cells": [
+    {
+      "raw": "# ALEX: remove path printing\n# import os\n\n# def list_all_files_in(dirpath):\n#     for dirname, _, filenames in os.walk(dirpath):\n#         for filename in filenames:\n#             print(os.path.join(dirname, filename))\n\n# list_all_files_in('./input')",
+      "rewrite-ns": 11755,
+      "overhead-ns": 11755,
+      "exec-ns": 57578,
+      "total-ns": 69333,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# Imports\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import implicit # implicit feedback recommendation library\n# import matplotlib.pyplot as plt # visualization\n# import seaborn as sns # wrapper to plt for ease of use\nimport time # timing\n# ALEX: remove ML code\n# import scipy.sparse as sparse # sparse matrix support\n# import pickle # Python object serialization\n\n# from zipfile import ZipFile # ZIP file I/O\n# from IPython.display import display # dataframe rendering, etc.\n# from pathlib import Path\n\n# color = sns.color_palette()\n# sns.set_style('white')\n# %matplotlib inline",
+      "rewrite-ns": 591381,
+      "overhead-ns": 591381,
+      "exec-ns": 327731,
+      "total-ns": 919112,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\nimport time\n"
+    },
+    {
+      "raw": "# ALEX: data already unzipped\n# ds_dir = './input'\n\n# with ZipFile(os.path.join(ds_dir,\"aisles.csv.zip\"), 'r') as zipObj:\n#     zipObj.extractall()\n# with ZipFile(os.path.join(ds_dir,\"departments.csv.zip\"), 'r') as zipObj:\n#     zipObj.extractall()\n# with ZipFile(os.path.join(ds_dir,\"order_products__prior.csv.zip\"), 'r') as zipObj:\n#     zipObj.extractall()\n# with ZipFile(os.path.join(ds_dir,\"order_products__train.csv.zip\"), 'r') as zipObj:\n#     zipObj.extractall()\n# with ZipFile(os.path.join(ds_dir,\"orders.csv.zip\"), 'r') as zipObj:\n#     zipObj.extractall()\n# with ZipFile(os.path.join(ds_dir,\"products.csv.zip\"), 'r') as zipObj:\n#     zipObj.extractall()\n# with ZipFile(os.path.join(ds_dir,\"sample_submission.csv.zip\"), 'r') as zipObj:\n#     zipObj.extractall()",
+      "rewrite-ns": 14211,
+      "overhead-ns": 14211,
+      "exec-ns": 64542,
+      "total-ns": 78753,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "order_products_prior_df = pd.read_csv('./input/order_products__prior.scaled.csv')\norder_products_train_df = pd.read_csv('./input/order_products__train.scaled.csv')\norders_df               = pd.read_csv('./input/orders.scaled.csv')\nproducts_df             = pd.read_csv('./input/products.scaled.csv')",
+      "rewrite-ns": 1233572,
+      "overhead-ns": 1233572,
+      "exec-ns": 1216969006,
+      "total-ns": 1218202578,
+      "patts-hit": {},
+      "rewritten": "order_products_prior_df = pd.read_csv(\n    './input/order_products__prior.scaled.csv')\norder_products_train_df = pd.read_csv(\n    './input/order_products__train.scaled.csv')\norders_df = pd.read_csv('./input/orders.scaled.csv')\nproducts_df = pd.read_csv('./input/products.scaled.csv')\n"
+    },
+    {
+      "raw": "# Merge orders and products\norder_products_full_df = pd.concat([order_products_prior_df, order_products_train_df])\nmerged_order_products_df = pd.merge(order_products_full_df, products_df, on='product_id', how='left')",
+      "rewrite-ns": 1074604,
+      "overhead-ns": 1074604,
+      "exec-ns": 872606545,
+      "total-ns": 873681149,
+      "patts-hit": {},
+      "rewritten": "order_products_full_df = pd.concat([order_products_prior_df,\n    order_products_train_df])\nmerged_order_products_df = pd.merge(order_products_full_df, products_df, on\n    ='product_id', how='left')\n"
+    },
+    {
+      "raw": "def get_user_products_df(path, orders_df, order_products_df):\n    '''\n    Generates a dataframe of users and their product purchases, and writes it to disk at the given path\n    '''\n    start = time.time()\n    print('Creating user-product dataframe... ', end='')\n    \n    # Consider any \"prior\" orders and remove all columns except `user_id` from `df_orders`\n    order_user_df = orders_df[['order_id', 'user_id']]\n    \n    # Remove all columns except order_id and user_id from orders_df and merge the above on `order_id` and remove `order_id`\n    merged_df = pd.merge(order_products_df, order_user_df, on='order_id').drop('order_id',axis=1)\n    reordered_user_products_df = merged_df.groupby(['user_id', 'product_id']).reordered.sum()\n    user_products_df = pd.merge(merged_df, reordered_user_products_df, how='left', on=['user_id', 'product_id']).drop(['reordered_x', 'add_to_cart_order'], axis=1)\n    \n    # Write to disk\n    user_products_df.to_csv(path, index_label=False)\n    \n    print(f'Completed in {round(time.time() - start, 2)}s')\n\n# Build dataframe of users and their product purchases (Needed for building the utility matrix)\n\n# ALEX: make code always run\n# REBUILD_MATRIX_DF_FULL = False\nmatrix_df_full_path = 'user_products_full.csv'\n# ALEX: make code always run\n# if REBUILD_MATRIX_DF_FULL or not Path(matrix_df_full_path).is_file():\n#     get_user_products_df(matrix_df_full_path, orders_df, order_products_full_df)\nget_user_products_df(matrix_df_full_path, orders_df, order_products_full_df)\n\nuser_products_df = pd.read_csv(matrix_df_full_path)\nuser_products_df['user_id'] = user_products_df['user_id'].astype('category')\nuser_products_df['product_id'] = user_products_df['product_id'].astype('category')",
+      "rewrite-ns": 5948923,
+      "overhead-ns": 5948923,
+      "exec-ns": 2959142957,
+      "total-ns": 2965091880,
+      "patts-hit": {},
+      "rewritten": "def get_user_products_df(path, orders_df, order_products_df):\n    \"\"\"\n    Generates a dataframe of users and their product purchases, and writes it to disk at the given path\n    \"\"\"\n    start = time.time()\n    print('Creating user-product dataframe... ', end='')\n    order_user_df = orders_df[['order_id', 'user_id']]\n    merged_df = pd.merge(order_products_df, order_user_df, on='order_id').drop(\n        'order_id', axis=1)\n    reordered_user_products_df = merged_df.groupby(['user_id', 'product_id']\n        ).reordered.sum()\n    user_products_df = pd.merge(merged_df, reordered_user_products_df, how=\n        'left', on=['user_id', 'product_id']).drop(['reordered_x',\n        'add_to_cart_order'], axis=1)\n    user_products_df.to_csv(path, index_label=False)\n    print(f'Completed in {round(time.time() - start, 2)}s')\nmatrix_df_full_path = 'user_products_full.csv'\nget_user_products_df(matrix_df_full_path, orders_df, order_products_full_df)\nuser_products_df = pd.read_csv(matrix_df_full_path)\nuser_products_df['user_id'] = user_products_df['user_id'].astype('category')\nuser_products_df['product_id'] = user_products_df['product_id'].astype(\n    'category')\n"
+    },
+    {
+      "raw": "def build_product_user_matrix_full(path, user_products_df):\n    '''\n    Generates a utility matrix representing purchase history of users, and writes it to disk.\n    Rows and columns represent products and users respectively.\n    '''\n# ALEX: remove ML code\n#     start = time.time()\n#     print('Creating product-user matrix... ', end='')\n    \n#     product_user_matrix = sparse.coo_matrix((user_products_df['reordered_y'],\n#                                             (user_products_df['product_id'].cat.codes.copy(),\n#                                              user_products_df['user_id'].cat.codes.copy())))\n#     sparse.save_npz(path, product_user_matrix)\n    \n#     print(f'Completed in {round(time.time() - start, 2)}s')\n    _ = (user_products_df['reordered_y'],\n                                            (user_products_df['product_id'].cat.codes.copy(),\n                                             user_products_df['user_id'].cat.codes.copy()))\n\n# ALEX: make code always run\n# REBUILD_MATRIX_FULL = False\nmatrix_full_path = 'product_user_matrix.npz'\n# ALEX: make code always run\n# if REBUILD_MATRIX_FULL or not Path(matrix_full_path).is_file():\n#     build_product_user_matrix_full(matrix_full_path, user_products_df)\nbuild_product_user_matrix_full(matrix_full_path, user_products_df)\n\n# ALEX: remove ML code\n# product_user_matrix_full = sparse.load_npz(matrix_full_path).tocsr()",
+      "rewrite-ns": 2710752,
+      "overhead-ns": 2710752,
+      "exec-ns": 4141976,
+      "total-ns": 6852728,
+      "patts-hit": {},
+      "rewritten": "def build_product_user_matrix_full(path, user_products_df):\n    \"\"\"\n    Generates a utility matrix representing purchase history of users, and writes it to disk.\n    Rows and columns represent products and users respectively.\n    \"\"\"\n    _ = user_products_df['reordered_y'], (user_products_df['product_id'].\n        cat.codes.copy(), user_products_df['user_id'].cat.codes.copy())\nmatrix_full_path = 'product_user_matrix.npz'\nbuild_product_user_matrix_full(matrix_full_path, user_products_df)\n"
+    },
+    {
+      "raw": "# How sparse is the utility matrix?\n# ALEX: remove ML code\n# def sparsity(matrix):\n#     '''\n#     Given a matrix, returns its sparsity\n#     '''\n#     total_size = matrix.shape[0] * matrix.shape[1]\n#     actual_size = matrix.size\n#     sparsity = (1 - (actual_size / total_size)) * 100\n#     return sparsity\n\n# sparsity(product_user_matrix_full)",
+      "rewrite-ns": 31784,
+      "overhead-ns": 31784,
+      "exec-ns": 145848,
+      "total-ns": 177632,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# def confidence_matrix(product_user_matrix, alpha):\n#     '''\n#     Given a utility matrix, returns the given matrix converted to a confidence matrix\n#     (refer to http://yifanhu.net/PUB/cf.pdf for more details)\n#     '''\n#     return (product_user_matrix * alpha).astype('double')\n\n# def build_lmf(product_user_matrix, **kwargs):\n#     '''\n#     Given the utility matrix and model parameters,\n#     builds models and writes it to disk at a given path\n#     '''\n#     start = time.time()\n    \n#     # Build model\n#     print(f'Building LMF model... ', end='')\n#     model = implicit.lmf.LogisticMatrixFactorization()\n#     model.approximate_similar_items = False\n    \n#     model.fit(product_user_matrix)\n    \n#     # Save model to disk\n#     with open(kwargs['path'], 'wb+') as f:\n#         pickle.dump(model, f, pickle.HIGHEST_PROTOCOL)\n    \n#     print(f'Completed in {round(time.time() - start, 2)}s')\n\n# # Specify model params and build it\n# lmf_params = {'random_state': 0}\n# lmf_params['path'] = f'imf_benchmark_lmf.pkl'\n\n# REBUILD_MODEL = True\n# if REBUILD_MODEL or not Path(lmf_params['path']).exists():\n#     build_lmf(product_user_matrix_full, **lmf_params)\n# with open(lmf_params['path'], 'rb') as f:\n#     lmf_model = pickle.load(f)",
+      "rewrite-ns": 28681,
+      "overhead-ns": 28681,
+      "exec-ns": 115639,
+      "total-ns": 144320,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# Since the utility matrix is 0-indexed, the below dict is required to convert between `ids` and `indices`.\n# For example, `product_id` 1 in the dataset is represented by the `0`th row of the utility matrix.\n\n# Maps user_id: user index\nu_dict = {uid : i for i, uid in enumerate(user_products_df['user_id'].cat.categories)}\n\n# Maps product_index: product id\np_dict = dict(enumerate(user_products_df['product_id'].cat.categories))",
+      "rewrite-ns": 1964436,
+      "overhead-ns": 1964436,
+      "exec-ns": 10895811,
+      "total-ns": 12860247,
+      "patts-hit": {},
+      "rewritten": "u_dict = {uid: i for i, uid in enumerate(user_products_df['user_id'].cat.\n    categories)}\np_dict = dict(enumerate(user_products_df['product_id'].cat.categories))\n"
+    },
+    {
+      "raw": "orders_test_df = orders_df[orders_df.eval_set == 'test'][['user_id']]\nrelation_df = user_products_df[['user_id', 'product_id']]\nrelation_df.drop_duplicates(inplace=True)",
+      "rewrite-ns": 1713698,
+      "overhead-ns": 1713698,
+      "exec-ns": 145198851,
+      "total-ns": 146912549,
+      "patts-hit": {},
+      "rewritten": "orders_test_df = orders_df[orders_df.eval_set == 'test'][['user_id']]\nrelation_df = user_products_df[['user_id', 'product_id']]\nrelation_df.drop_duplicates(inplace=True)\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# sparse_user_product_matrix = product_user_matrix_full.T.tocsr()\n# N_REC = 100",
+      "rewrite-ns": 34524,
+      "overhead-ns": 34524,
+      "exec-ns": 166786,
+      "total-ns": 201310,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "def assign_recommendations(row):\n    # print(f'Progress: {round((row.name + 1) * 100 / end, 2)}%...', end='\\r', flush=True)\n# ALEX: remove ML code\n#     return [(pid, score, rank) for rank, (pid, score) in enumerate(lmf_model.recommend(u_dict[row.user_id], sparse_user_product_matrix, N=N_REC), start=1)]\n    return row.user_id",
+      "rewrite-ns": 531405,
+      "overhead-ns": 531405,
+      "exec-ns": 406396,
+      "total-ns": 937801,
+      "patts-hit": {},
+      "rewritten": "def assign_recommendations(row):\n    return row.user_id\n"
+    },
+    {
+      "raw": "results_df = orders_test_df.reset_index(drop='index')\nprint('Recommending items... ', end='')\nstart = time.time()\nresults_df['products'] = results_df.apply(assign_recommendations, axis=1)\nprint(f'Completed in {round(time.time() - start, 2)}s')",
+      "rewrite-ns": 2702674,
+      "overhead-ns": 3317488,
+      "exec-ns": 167617580,
+      "total-ns": 170320254,
+      "patts-hit": {},
+      "rewritten": "results_df = orders_test_df.reset_index(drop='index')\nprint('Recommending items... ', end='')\nstart = time.time()\nresults_df['products'] = results_df.apply(assign_recommendations, axis=1)\nprint(f'Completed in {round(time.time() - start, 2)}s')\n"
+    },
+    {
+      "raw": "results_df_new = results_df.explode('products').reset_index(drop='index').rename(columns={'products': 'product_id'})\n# ALEX: remove ML code\n# results_df_new[['product_id', 'score', 'rank']] = pd.DataFrame(results_df_new['product_id'].tolist(), index=results_df_new.index)\nresults_df_new['product_id'] = results_df_new['product_id'].map(p_dict)\nhasil = pd.merge(results_df_new, relation_df, how='inner', left_on=['user_id','product_id'], right_on=['user_id','product_id'])\nhasil",
+      "rewrite-ns": 2793435,
+      "overhead-ns": 2793435,
+      "exec-ns": 263231290,
+      "total-ns": 266024725,
+      "patts-hit": {},
+      "rewritten": "results_df_new = results_df.explode('products').reset_index(drop='index'\n    ).rename(columns={'products': 'product_id'})\nresults_df_new['product_id'] = results_df_new['product_id'].map(p_dict)\nhasil = pd.merge(results_df_new, relation_df, how='inner', left_on=[\n    'user_id', 'product_id'], right_on=['user_id', 'product_id'])\nhasil\n"
+    },
+    {
+      "raw": "def clean_prediction(row):\n    data = row.products\n    data = str(\"\".join(str(data))[1:-1].replace(',',' '))\n    return data",
+      "rewrite-ns": 1354748,
+      "overhead-ns": 1354748,
+      "exec-ns": 433695,
+      "total-ns": 1788443,
+      "patts-hit": {},
+      "rewritten": "def clean_prediction(row):\n    data = row.products\n    data = str(''.join(str(data))[1:-1].replace(',', ' '))\n    return data\n"
+    },
+    {
+      "raw": "r_hasil = hasil.groupby('user_id')['product_id'].apply(list).reset_index(name='products')\nr_hasil['products'] = r_hasil.apply(clean_prediction, axis=1)\nr_hasil",
+      "rewrite-ns": 1283678,
+      "overhead-ns": 1582476,
+      "exec-ns": 4605444,
+      "total-ns": 5889122,
+      "patts-hit": {},
+      "rewritten": "r_hasil = hasil.groupby('user_id')['product_id'].apply(list).reset_index(name\n    ='products')\nr_hasil['products'] = r_hasil.apply(clean_prediction, axis=1)\nr_hasil\n"
+    },
+    {
+      "raw": "submission_df = orders_df[orders_df.eval_set == 'test']\nsubmission_df = submission_df[['order_id','user_id']]\n\nsub_hasil = pd.merge(submission_df, r_hasil, how='outer', on='user_id').sort_values('user_id')\nsub_hasil.fillna('None', inplace=True)\nsub_hasil.drop('user_id', axis=1, inplace=True)\nsub_hasil.to_csv('submission.csv', index=False)\nsub_hasil",
+      "rewrite-ns": 2356928,
+      "overhead-ns": 2356928,
+      "exec-ns": 49443614,
+      "total-ns": 51800542,
+      "patts-hit": {},
+      "rewritten": "submission_df = orders_df[orders_df.eval_set == 'test']\nsubmission_df = submission_df[['order_id', 'user_id']]\nsub_hasil = pd.merge(submission_df, r_hasil, how='outer', on='user_id'\n    ).sort_values('user_id')\nsub_hasil.fillna('None', inplace=True)\nsub_hasil.drop('user_id', axis=1, inplace=True)\nsub_hasil.to_csv('submission.csv', index=False)\nsub_hasil\n"
+    },
+    {
+      "raw": "sub_hasil[sub_hasil['products'] != 'None']",
+      "rewrite-ns": 453399,
+      "overhead-ns": 453399,
+      "exec-ns": 3213871,
+      "total-ns": 3667270,
+      "patts-hit": {},
+      "rewritten": "sub_hasil[sub_hasil['products'] != 'None']\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 12426,
+      "overhead-ns": 12426,
+      "exec-ns": 70062,
+      "total-ns": 82488,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 5.725702236,
+  "max-disk-in-mb": 0
+}

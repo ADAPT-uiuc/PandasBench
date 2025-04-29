@@ -1,0 +1,478 @@
+{
+  "max-mem-in-mb": 8003,
+  "max-mem-in-mb2": 8842,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove ML code, plotting\n# from sklearn.preprocessing import LabelEncoder\n# from sklearn.model_selection import train_test_split\n# from sklearn.ensemble import RandomForestClassifier\n# import matplotlib.pyplot as plt\n# %matplotlib inline\n# import seaborn as sns\n# plt.style.use('bmh')\n# plt.style.use('ggplot')\n# plt.rcParams['figure.figsize'] = 20, 10",
+      "rewrite-ns": 693586,
+      "overhead-ns": 693586,
+      "exec-ns": 390022,
+      "total-ns": 1083608,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n"
+    },
+    {
+      "raw": "def nullremove(df):\n    for i in range(0,len(df.columns)):\n        print(i)\n    ",
+      "rewrite-ns": 1095729,
+      "overhead-ns": 1095729,
+      "exec-ns": 459468,
+      "total-ns": 1555197,
+      "patts-hit": {},
+      "rewritten": "def nullremove(df):\n    for i in range(0, len(df.columns)):\n        print(i)\n"
+    },
+    {
+      "raw": "def descr(df):\n    print(df.describe().round())",
+      "rewrite-ns": 773152,
+      "overhead-ns": 773152,
+      "exec-ns": 347990,
+      "total-ns": 1121142,
+      "patts-hit": {},
+      "rewritten": "def descr(df):\n    print(df.describe().round())\n"
+    },
+    {
+      "raw": "app=pd.read_csv(\"./input/application_train.scaled.csv\")",
+      "rewrite-ns": 514306,
+      "overhead-ns": 514306,
+      "exec-ns": 12260006634,
+      "total-ns": 12260520940,
+      "patts-hit": {},
+      "rewritten": "app = pd.read_csv('./input/application_train.scaled.csv')\n"
+    },
+    {
+      "raw": "print(app.shape)",
+      "rewrite-ns": 474727,
+      "overhead-ns": 474727,
+      "exec-ns": 541450,
+      "total-ns": 1016177,
+      "patts-hit": {},
+      "rewritten": "print(app.shape)\n"
+    },
+    {
+      "raw": "application=app.copy()\nprint(application.shape)",
+      "rewrite-ns": 637715,
+      "overhead-ns": 637715,
+      "exec-ns": 545663945,
+      "total-ns": 546301660,
+      "patts-hit": {},
+      "rewritten": "application = app.copy()\nprint(application.shape)\n"
+    },
+    {
+      "raw": "application_object=application.select_dtypes(\"object\")\nprint(application_object.shape)\nprint(application_object.columns)",
+      "rewrite-ns": 945830,
+      "overhead-ns": 945830,
+      "exec-ns": 146576296,
+      "total-ns": 147522126,
+      "patts-hit": {},
+      "rewritten": "application_object = application.select_dtypes('object')\nprint(application_object.shape)\nprint(application_object.columns)\n"
+    },
+    {
+      "raw": "application_object_columns=application_object.columns.tolist()\napplication_columns=application.columns.tolist()\nprint(len(application_object_columns))\nprint(len(application_columns))",
+      "rewrite-ns": 1306829,
+      "overhead-ns": 1306829,
+      "exec-ns": 439839,
+      "total-ns": 1746668,
+      "patts-hit": {},
+      "rewritten": "application_object_columns = application_object.columns.tolist()\napplication_columns = application.columns.tolist()\nprint(len(application_object_columns))\nprint(len(application_columns))\n"
+    },
+    {
+      "raw": "app_if = list(set(application_columns) - set(application_object_columns))\nprint(len(app_if))",
+      "rewrite-ns": 948733,
+      "overhead-ns": 948733,
+      "exec-ns": 338535,
+      "total-ns": 1287268,
+      "patts-hit": {},
+      "rewritten": "app_if = list(set(application_columns) - set(application_object_columns))\nprint(len(app_if))\n"
+    },
+    {
+      "raw": "app_df=application[app_if]\n\nprint(app_df.shape)",
+      "rewrite-ns": 598989,
+      "overhead-ns": 598989,
+      "exec-ns": 408838723,
+      "total-ns": 409437712,
+      "patts-hit": {},
+      "rewritten": "app_df = application[app_if]\nprint(app_df.shape)\n"
+    },
+    {
+      "raw": "app_df.dtypes",
+      "rewrite-ns": 85196,
+      "overhead-ns": 85196,
+      "exec-ns": 2536345,
+      "total-ns": 2621541,
+      "patts-hit": {},
+      "rewritten": "app_df.dtypes\n"
+    },
+    {
+      "raw": "def nullremove(df,percentage):\n   # print(len(df))\n    wantedcolumnlist=[]\n    columnlist=df.columns.tolist()\n    #print(len(columnlist))\n    for i in range(len(columnlist)):\n        columnname=columnlist[i]\n        nan_rows = df[columnname].isnull().sum()\n     #   print(i,nan_rows)\n        nullcount=(nan_rows/len(df))*100\n        #print(nullcount)\n        if nullcount>percentage:\n            print(columnname) \n        else:\n            wantedcolumnlist.append(columnname)    \n        \n    df=df[wantedcolumnlist]\n    return df\n    ",
+      "rewrite-ns": 3118979,
+      "overhead-ns": 3118979,
+      "exec-ns": 705513,
+      "total-ns": 3824492,
+      "patts-hit": {},
+      "rewritten": "def nullremove(df, percentage):\n    wantedcolumnlist = []\n    columnlist = df.columns.tolist()\n    for i in range(len(columnlist)):\n        columnname = columnlist[i]\n        nan_rows = df[columnname].isnull().sum()\n        nullcount = nan_rows / len(df) * 100\n        if nullcount > percentage:\n            print(columnname)\n        else:\n            wantedcolumnlist.append(columnname)\n    df = df[wantedcolumnlist]\n    return df\n"
+    },
+    {
+      "raw": "#app_df=nullremove(app_df,80)",
+      "rewrite-ns": 14502,
+      "overhead-ns": 14502,
+      "exec-ns": 87146,
+      "total-ns": 101648,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "app_df.isna().sum()",
+      "rewrite-ns": 401985,
+      "overhead-ns": 401985,
+      "exec-ns": 201799085,
+      "total-ns": 202201070,
+      "patts-hit": {},
+      "rewritten": "app_df.isna().sum()\n"
+    },
+    {
+      "raw": "app_df['DAYDIFF']=abs(app_df['DAYS_BIRTH'])-abs(app_df['DAYS_EMPLOYED'])\n",
+      "rewrite-ns": 839004,
+      "overhead-ns": 839004,
+      "exec-ns": 12099639,
+      "total-ns": 12938643,
+      "patts-hit": {},
+      "rewritten": "app_df['DAYDIFF'] = abs(app_df['DAYS_BIRTH']) - abs(app_df['DAYS_EMPLOYED'])\n"
+    },
+    {
+      "raw": "app_df=app_df[app_df['DAYDIFF']>0]\n",
+      "rewrite-ns": 573703,
+      "overhead-ns": 573703,
+      "exec-ns": 743214744,
+      "total-ns": 743788447,
+      "patts-hit": {},
+      "rewritten": "app_df = app_df[app_df['DAYDIFF'] > 0]\n"
+    },
+    {
+      "raw": "print(app_df.shape)",
+      "rewrite-ns": 373531,
+      "overhead-ns": 373531,
+      "exec-ns": 316720,
+      "total-ns": 690251,
+      "patts-hit": {},
+      "rewritten": "print(app_df.shape)\n"
+    },
+    {
+      "raw": "def meansep(df):\n    highermean=pd.DataFrame()\n    lowermean=pd.DataFrame()\n    columns=df.columns.tolist()\n    for i in range(len(columns)):\n        mean=df[columns[i]].mean()\n        if mean>10:\n            highermean[columns[i]]=df[columns[i]]\n        else:\n            if columns[i]=='DAYS_BIRTH' or columns[i]=='DAYS_EMPLOYED' or columns[i]=='TARGET':\n                highermean[columns[i]]=df[columns[i]]\n            else:\n                lowermean[columns[i]]=df[columns[i]]\n    return highermean,lowermean",
+      "rewrite-ns": 5314161,
+      "overhead-ns": 5314161,
+      "exec-ns": 884254,
+      "total-ns": 6198415,
+      "patts-hit": {},
+      "rewritten": "def meansep(df):\n    highermean = pd.DataFrame()\n    lowermean = pd.DataFrame()\n    columns = df.columns.tolist()\n    for i in range(len(columns)):\n        mean = df[columns[i]].mean()\n        if mean > 10:\n            highermean[columns[i]] = df[columns[i]]\n        elif columns[i] == 'DAYS_BIRTH' or columns[i\n            ] == 'DAYS_EMPLOYED' or columns[i] == 'TARGET':\n            highermean[columns[i]] = df[columns[i]]\n        else:\n            lowermean[columns[i]] = df[columns[i]]\n    return highermean, lowermean\n"
+    },
+    {
+      "raw": "app_dff=app_df.copy()",
+      "rewrite-ns": 323748,
+      "overhead-ns": 323748,
+      "exec-ns": 330903808,
+      "total-ns": 331227556,
+      "patts-hit": {},
+      "rewritten": "app_dff = app_df.copy()\n"
+    },
+    {
+      "raw": "app_dff.isna().sum()",
+      "rewrite-ns": 417539,
+      "overhead-ns": 417539,
+      "exec-ns": 146258645,
+      "total-ns": 146676184,
+      "patts-hit": {},
+      "rewritten": "app_dff.isna().sum()\n"
+    },
+    {
+      "raw": "app_dff=nullremove(app_dff,50)",
+      "rewrite-ns": 398464,
+      "overhead-ns": 398464,
+      "exec-ns": 375799464,
+      "total-ns": 376197928,
+      "patts-hit": {},
+      "rewritten": "app_dff = nullremove(app_dff, 50)\n"
+    },
+    {
+      "raw": "hdf,ldf=meansep(app_dff)\nprint(hdf.shape,ldf.shape)",
+      "rewrite-ns": 812278,
+      "overhead-ns": 812278,
+      "exec-ns": 542617708,
+      "total-ns": 543429986,
+      "patts-hit": {},
+      "rewritten": "hdf, ldf = meansep(app_dff)\nprint(hdf.shape, ldf.shape)\n"
+    },
+    {
+      "raw": "hdf.isna().sum()",
+      "rewrite-ns": 420008,
+      "overhead-ns": 420008,
+      "exec-ns": 14475471,
+      "total-ns": 14895479,
+      "patts-hit": {},
+      "rewritten": "hdf.isna().sum()\n"
+    },
+    {
+      "raw": "hdf.dtypes",
+      "rewrite-ns": 75925,
+      "overhead-ns": 75925,
+      "exec-ns": 1121816,
+      "total-ns": 1197741,
+      "patts-hit": {},
+      "rewritten": "hdf.dtypes\n"
+    },
+    {
+      "raw": "hdf['AMT_ANNUITY']=hdf['AMT_ANNUITY'].fillna(hdf['AMT_ANNUITY'].mean())\nhdf['AMT_GOODS_PRICE']=hdf['AMT_GOODS_PRICE'].fillna(hdf['AMT_GOODS_PRICE'].mean())",
+      "rewrite-ns": 845105,
+      "overhead-ns": 845105,
+      "exec-ns": 12802647,
+      "total-ns": 13647752,
+      "patts-hit": {
+        "IsInplaceUpdate": 1
+      },
+      "rewritten": "_DIAS_ser = hdf['AMT_ANNUITY']\nif type(_DIAS_ser) != pd.Series:\n    hdf['AMT_ANNUITY'] = hdf['AMT_ANNUITY'].fillna(hdf['AMT_ANNUITY'].mean())\nelse:\n    hdf['AMT_ANNUITY'].fillna(hdf['AMT_ANNUITY'].mean(), inplace=True)\n_DIAS_ser = hdf['AMT_GOODS_PRICE']\nif type(_DIAS_ser) != pd.Series:\n    hdf['AMT_GOODS_PRICE'] = hdf['AMT_GOODS_PRICE'].fillna(hdf[\n        'AMT_GOODS_PRICE'].mean())\nelse:\n    hdf['AMT_GOODS_PRICE'].fillna(hdf['AMT_GOODS_PRICE'].mean(), inplace=True)\n"
+    },
+    {
+      "raw": "descr(hdf)",
+      "rewrite-ns": 292882,
+      "overhead-ns": 292882,
+      "exec-ns": 400512435,
+      "total-ns": 400805317,
+      "patts-hit": {},
+      "rewritten": "descr(hdf)\n"
+    },
+    {
+      "raw": "hdf=hdf[hdf['AMT_INCOME_TOTAL']<=2000000]\nhdf=hdf[hdf['AMT_CREDIT']<=900000]\nhdf=hdf[hdf['AMT_GOODS_PRICE']<=900000]\nhdf=hdf[hdf['AMT_ANNUITY']<=35000]",
+      "rewrite-ns": 1793961,
+      "overhead-ns": 1793961,
+      "exec-ns": 124591669,
+      "total-ns": 126385630,
+      "patts-hit": {},
+      "rewritten": "hdf = hdf[hdf['AMT_INCOME_TOTAL'] <= 2000000]\nhdf = hdf[hdf['AMT_CREDIT'] <= 900000]\nhdf = hdf[hdf['AMT_GOODS_PRICE'] <= 900000]\nhdf = hdf[hdf['AMT_ANNUITY'] <= 35000]\n"
+    },
+    {
+      "raw": "hdf[hdf['DAYS_EMPLOYED']==-17912]",
+      "rewrite-ns": 582817,
+      "overhead-ns": 582817,
+      "exec-ns": 8585794,
+      "total-ns": 9168611,
+      "patts-hit": {},
+      "rewritten": "hdf[hdf['DAYS_EMPLOYED'] == -17912]\n"
+    },
+    {
+      "raw": "application[application['AMT_CREDIT']==4050000.0]",
+      "rewrite-ns": 489422,
+      "overhead-ns": 489422,
+      "exec-ns": 61569470,
+      "total-ns": 62058892,
+      "patts-hit": {},
+      "rewritten": "application[application['AMT_CREDIT'] == 4050000.0]\n"
+    },
+    {
+      "raw": "hdf.columns.tolist()",
+      "rewrite-ns": 348615,
+      "overhead-ns": 348615,
+      "exec-ns": 624780,
+      "total-ns": 973395,
+      "patts-hit": {},
+      "rewritten": "hdf.columns.tolist()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# hdf[['AMT_GOODS_PRICE',\n#   'AMT_INCOME_TOTAL',\n#  'AMT_ANNUITY',\n#  'DAYS_EMPLOYED',\n#   'DAYS_BIRTH',\n#   'AMT_CREDIT',\n#  'DAYDIFF']].hist(figsize=(16, 10), bins=50, xlabelsize=8, ylabelsize=8);\nhdf[['AMT_GOODS_PRICE',\n  'AMT_INCOME_TOTAL',\n 'AMT_ANNUITY',\n 'DAYS_EMPLOYED',\n  'DAYS_BIRTH',\n  'AMT_CREDIT',\n 'DAYDIFF']]",
+      "rewrite-ns": 539469,
+      "overhead-ns": 539469,
+      "exec-ns": 16126387,
+      "total-ns": 16665856,
+      "patts-hit": {},
+      "rewritten": "hdf[['AMT_GOODS_PRICE', 'AMT_INCOME_TOTAL', 'AMT_ANNUITY', 'DAYS_EMPLOYED',\n    'DAYS_BIRTH', 'AMT_CREDIT', 'DAYDIFF']]\n"
+    },
+    {
+      "raw": "correlation = hdf[['AMT_GOODS_PRICE',\n  'AMT_INCOME_TOTAL',\n 'AMT_ANNUITY',\n 'DAYS_EMPLOYED',\n  'DAYS_BIRTH',\n  'AMT_CREDIT',\n 'DAYDIFF']].corr()\n# ALEX: remove plotting\n# plt.figure(figsize=(7,7))\n# flatui = [\"#9b59b6\", \"#3498db\", \"#95a5a6\", \"#e74c3c\", \"#34495e\", \"#2ecc71\"]\n# sns.heatmap(correlation, vmax=1, square=True,annot=True,cmap=flatui)\n# plt.title('Correlation between different fearures')",
+      "rewrite-ns": 755750,
+      "overhead-ns": 755750,
+      "exec-ns": 148005953,
+      "total-ns": 148761703,
+      "patts-hit": {},
+      "rewritten": "correlation = hdf[['AMT_GOODS_PRICE', 'AMT_INCOME_TOTAL', 'AMT_ANNUITY',\n    'DAYS_EMPLOYED', 'DAYS_BIRTH', 'AMT_CREDIT', 'DAYDIFF']].corr()\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.preprocessing import Normalizer\n# normalized_application = Normalizer().fit_transform(hdf[['AMT_GOODS_PRICE','AMT_INCOME_TOTAL','AMT_ANNUITY','AMT_CREDIT','DAYDIFF']])\n#print (normalized_application)\nnormalized_application = hdf[['AMT_GOODS_PRICE','AMT_INCOME_TOTAL','AMT_ANNUITY','AMT_CREDIT','DAYDIFF']]\ncorrelation=pd.DataFrame(normalized_application).corr()\ncorrelation.columns=['AMT_GOODS_PRICE','AMT_INCOME_TOTAL','AMT_ANNUITY','AMT_CREDIT','DAYDIFF']\n# ALEX: remove plotting\n# plt.figure(figsize=(8,8))\n# flatui = [\"#9b59b6\", \"#3498db\", \"#95a5a6\", \"#e74c3c\", \"#34495e\", \"#2ecc71\"]\n# sns.heatmap(correlation, vmax=1, square=True,annot=True,cmap=flatui)\n# plt.title('Correlation between different fearures')",
+      "rewrite-ns": 1403573,
+      "overhead-ns": 1403573,
+      "exec-ns": 80376676,
+      "total-ns": 81780249,
+      "patts-hit": {},
+      "rewritten": "normalized_application = hdf[['AMT_GOODS_PRICE', 'AMT_INCOME_TOTAL',\n    'AMT_ANNUITY', 'AMT_CREDIT', 'DAYDIFF']]\ncorrelation = pd.DataFrame(normalized_application).corr()\ncorrelation.columns = ['AMT_GOODS_PRICE', 'AMT_INCOME_TOTAL', 'AMT_ANNUITY',\n    'AMT_CREDIT', 'DAYDIFF']\n"
+    },
+    {
+      "raw": "from numpy import log",
+      "rewrite-ns": 179878,
+      "overhead-ns": 179878,
+      "exec-ns": 302398,
+      "total-ns": 482276,
+      "patts-hit": {},
+      "rewritten": "from numpy import log\n"
+    },
+    {
+      "raw": "hdf.head(2)",
+      "rewrite-ns": 139231,
+      "overhead-ns": 139231,
+      "exec-ns": 7020489,
+      "total-ns": 7159720,
+      "patts-hit": {},
+      "rewritten": "hdf.head(2)\n"
+    },
+    {
+      "raw": "hd=hdf.copy()\nhd['AMT_INCOME_TOTAL_log']=log(hdf['AMT_INCOME_TOTAL'])\n\n\n\n\n",
+      "rewrite-ns": 784828,
+      "overhead-ns": 784828,
+      "exec-ns": 10893914,
+      "total-ns": 11678742,
+      "patts-hit": {},
+      "rewritten": "hd = hdf.copy()\nhd['AMT_INCOME_TOTAL_log'] = log(hdf['AMT_INCOME_TOTAL'])\n"
+    },
+    {
+      "raw": "hd.head(2)",
+      "rewrite-ns": 126263,
+      "overhead-ns": 126263,
+      "exec-ns": 7376405,
+      "total-ns": 7502668,
+      "patts-hit": {},
+      "rewritten": "hd.head(2)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# hd[['AMT_GOODS_PRICE',\n#   'AMT_INCOME_TOTAL_log',\n#  'AMT_ANNUITY',\n#   'AMT_CREDIT',\n#  'DAYDIFF']].hist(figsize=(16, 10), bins=50, xlabelsize=8, ylabelsize=8);\nhd[['AMT_GOODS_PRICE',\n  'AMT_INCOME_TOTAL_log',\n 'AMT_ANNUITY',\n  'AMT_CREDIT',\n 'DAYDIFF']]",
+      "rewrite-ns": 498421,
+      "overhead-ns": 498421,
+      "exec-ns": 26650499,
+      "total-ns": 27148920,
+      "patts-hit": {},
+      "rewritten": "hd[['AMT_GOODS_PRICE', 'AMT_INCOME_TOTAL_log', 'AMT_ANNUITY', 'AMT_CREDIT',\n    'DAYDIFF']]\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.preprocessing import Normalizer\n# normalized_application = Normalizer().fit_transform(hd[['AMT_GOODS_PRICE',\n#   'AMT_INCOME_TOTAL_log',\n#  'AMT_ANNUITY',\n#   'AMT_CREDIT',\n#  'DAYDIFF']])\nnormalized_application = hd[['AMT_GOODS_PRICE',\n  'AMT_INCOME_TOTAL_log',\n 'AMT_ANNUITY',\n  'AMT_CREDIT',\n 'DAYDIFF']]\n#print (normalized_application)\ncorrelation=pd.DataFrame(normalized_application).corr()\ncorrelation.columns=['AMT_GOODS_PRICE',\n  'AMT_INCOME_TOTAL_log',\n 'AMT_ANNUITY',\n  'AMT_CREDIT',\n 'DAYDIFF']\n# ALEX: remove plotting\n# plt.figure(figsize=(8,8))\n# flatui = [\"#9b59b6\", \"#3498db\", \"#95a5a6\", \"#e74c3c\", \"#34495e\", \"#2ecc71\"]\n# sns.heatmap(correlation, vmax=1, square=True,annot=True,cmap=flatui)\n# plt.title('Correlation between different fearures')",
+      "rewrite-ns": 1375866,
+      "overhead-ns": 1375866,
+      "exec-ns": 84903204,
+      "total-ns": 86279070,
+      "patts-hit": {},
+      "rewritten": "normalized_application = hd[['AMT_GOODS_PRICE', 'AMT_INCOME_TOTAL_log',\n    'AMT_ANNUITY', 'AMT_CREDIT', 'DAYDIFF']]\ncorrelation = pd.DataFrame(normalized_application).corr()\ncorrelation.columns = ['AMT_GOODS_PRICE', 'AMT_INCOME_TOTAL_log',\n    'AMT_ANNUITY', 'AMT_CREDIT', 'DAYDIFF']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.scatter(hd['AMT_ANNUITY'],hd['AMT_CREDIT'])\n# plt.xlabel(\"amt annuity\")\n# plt.ylabel(\"amt credit\")\n_ = hd['AMT_ANNUITY']\n_ = hd['AMT_CREDIT']",
+      "rewrite-ns": 589216,
+      "overhead-ns": 589216,
+      "exec-ns": 408133,
+      "total-ns": 997349,
+      "patts-hit": {},
+      "rewritten": "_ = hd['AMT_ANNUITY']\n_ = hd['AMT_CREDIT']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.scatter(hd['AMT_GOODS_PRICE'],hd['DAYDIFF'])\n# plt.xlabel(\"amt good\")\n# plt.ylabel(\"amt credit\")\n_ = hd['AMT_GOODS_PRICE']\n_ = hd['DAYDIFF']",
+      "rewrite-ns": 576099,
+      "overhead-ns": 576099,
+      "exec-ns": 372478,
+      "total-ns": 948577,
+      "patts-hit": {},
+      "rewritten": "_ = hd['AMT_GOODS_PRICE']\n_ = hd['DAYDIFF']\n"
+    },
+    {
+      "raw": "hd.dtypes",
+      "rewrite-ns": 69764,
+      "overhead-ns": 69764,
+      "exec-ns": 1171598,
+      "total-ns": 1241362,
+      "patts-hit": {},
+      "rewritten": "hd.dtypes\n"
+    },
+    {
+      "raw": "hd.columns.tolist()",
+      "rewrite-ns": 353416,
+      "overhead-ns": 353416,
+      "exec-ns": 634917,
+      "total-ns": 988333,
+      "patts-hit": {},
+      "rewritten": "hd.columns.tolist()\n"
+    },
+    {
+      "raw": "hd=hd[['SK_ID_CURR',\n 'AMT_GOODS_PRICE',\n 'DAYS_EMPLOYED',\n 'TARGET',\n 'AMT_CREDIT',\n 'DAYS_BIRTH',\n 'AMT_ANNUITY',\n 'HOUR_APPR_PROCESS_START',\n 'DAYDIFF',\n 'AMT_INCOME_TOTAL_log']]\n\nhd.to_csv(\"tt.csv\",index=False)",
+      "rewrite-ns": 1046724,
+      "overhead-ns": 1046724,
+      "exec-ns": 3544834155,
+      "total-ns": 3545880879,
+      "patts-hit": {},
+      "rewritten": "hd = hd[['SK_ID_CURR', 'AMT_GOODS_PRICE', 'DAYS_EMPLOYED', 'TARGET',\n    'AMT_CREDIT', 'DAYS_BIRTH', 'AMT_ANNUITY', 'HOUR_APPR_PROCESS_START',\n    'DAYDIFF', 'AMT_INCOME_TOTAL_log']]\nhd.to_csv('tt.csv', index=False)\n"
+    },
+    {
+      "raw": "hd.shape",
+      "rewrite-ns": 99940,
+      "overhead-ns": 99940,
+      "exec-ns": 750820,
+      "total-ns": 850760,
+      "patts-hit": {},
+      "rewritten": "hd.shape\n"
+    },
+    {
+      "raw": "hd.isna().sum()",
+      "rewrite-ns": 531448,
+      "overhead-ns": 531448,
+      "exec-ns": 13782823,
+      "total-ns": 14314271,
+      "patts-hit": {},
+      "rewritten": "hd.isna().sum()\n"
+    },
+    {
+      "raw": "ldf.isna().sum()",
+      "rewrite-ns": 538537,
+      "overhead-ns": 538537,
+      "exec-ns": 136497203,
+      "total-ns": 137035740,
+      "patts-hit": {},
+      "rewritten": "ldf.isna().sum()\n"
+    },
+    {
+      "raw": "appobj=application[application_object_columns]",
+      "rewrite-ns": 494512,
+      "overhead-ns": 494512,
+      "exec-ns": 230874999,
+      "total-ns": 231369511,
+      "patts-hit": {},
+      "rewritten": "appobj = application[application_object_columns]\n"
+    },
+    {
+      "raw": "appobj.head(2)",
+      "rewrite-ns": 221187,
+      "overhead-ns": 221187,
+      "exec-ns": 12887567,
+      "total-ns": 13108754,
+      "patts-hit": {},
+      "rewritten": "appobj.head(2)\n"
+    },
+    {
+      "raw": "appobj.isna().sum()",
+      "rewrite-ns": 580905,
+      "overhead-ns": 580905,
+      "exec-ns": 2511077756,
+      "total-ns": 2511658661,
+      "patts-hit": {},
+      "rewritten": "appobj.isna().sum()\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 18944,
+      "overhead-ns": 18944,
+      "exec-ns": 108014,
+      "total-ns": 126958,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 17840,
+      "overhead-ns": 17840,
+      "exec-ns": 98628,
+      "total-ns": 116468,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 23.216718303,
+  "max-disk-in-mb": 0
+}

@@ -1,0 +1,188 @@
+{
+  "max-mem-in-mb": 5418,
+  "max-mem-in-mb2": 5489,
+  "cells": [
+    {
+      "raw": "#################################### AllState Claims Severity ############################################################\n\n# Below is function to encode categorical variables with high cardinality into numeric values such that they can \n# used in modeling exercises. The technique has been inspired from Owen Zhang's method of dealing with categorical variables\n# with high cardinality\n\n\n# Reading in training and test data\n\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import matplotlib as plt\n# %pylab inline\ndf_train = pd.read_csv(\"./input/train.scaled.csv\", index_col='id')\ndf_test = pd.read_csv(\"./input/test.scaled.csv\", index_col='id')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 11006891991
+    },
+    {
+      "raw": "# Getting all continuous features into a separate dataset\n\ncontfeatures = df_train.select_dtypes(include=[\"float64\"])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 35107239
+    },
+    {
+      "raw": "# Getting all categorical features into a separate dataset\ncatfeatures = df_train.select_dtypes(include=[\"object\"])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 699853955
+    },
+    {
+      "raw": "catfeatures_list = list(catfeatures)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 405018
+    },
+    {
+      "raw": "# We can possibly feed categorical variables with less or eq 10 levels direclty into our model.\n# But, cat variables with >10 levels have to be feature engineered so that their effects can be included into the model\ncatvarbs_10 = list((df_train[catfeatures_list].apply(pd.Series.nunique)>10))\n\ncatvarlist = []\nfor (i, v) in zip(catfeatures_list, catvarbs_10):\n    if(v):\n        catvarlist.append(i)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3516092058
+    },
+    {
+      "raw": "print(catvarlist)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 327902
+    },
+    {
+      "raw": "# WE append 'loss' variable to the cat varb dataset to compute means and variance\n\ncatvarlist.append('loss')\ndf_cat_encod = df_train[catvarlist]\ndf_cat_encod.head(5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 99437954
+    },
+    {
+      "raw": "#before running our function to encode, we need to ensure that the list of char variables which we pass to the function\n#does not the 'loss' variable in it\n\ncatvarlist.remove('loss')\ncatvarlist\ntarget=['loss']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 359456
+    },
+    {
+      "raw": "df_cat_encod.head(5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 324510
+    },
+    {
+      "raw": "# We define a function which will flatten a multi index column names which are created after aggregation of data\n# This will be useful after creating mean & standard dev of categorical variable levels\n\n\ndef flattenHierarchicalCol(col,sep = ','):\n    if not type(col) is tuple:\n        return col\n    else:\n        new_col = ''\n        for leveli,level in enumerate(col):\n            if not level == '':\n                if not leveli == 0:\n                    new_col += sep\n                new_col += level\n        return new_col",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 639588
+    },
+    {
+      "raw": "# The function below computes the mean and std dev of the target variable across each level of each categorical variable\n# identified and creates two separate features. This can instead be used as a continuous feature in any models we build\n# We add the std dev too so as to introduce some random variation/noise into the data\ndef cat_encoding(list, dataframe, target):\n    for i in range(len(list)):\n# ALEX: make notebook run\n#         group_df = dataframe.groupby([list[i]], as_index=False).agg({target:{\"mean\"+list[i]:'mean', \n#                                                                     \"stdev\"+list[i]:'std'}})\n        group_df = dataframe.groupby([list[i]], as_index=False).agg(_mean=(target, 'mean'), \n                                                                    _stdev=(target, 'std'))\n        group_df.rename(columns={'_mean': 'mean' + list[i], '_stdev': 'stdev' + list[i]})\n        dataframe = pd.merge(dataframe, group_df, on=list[i], how='left')\n    \n    dataframe.columns = dataframe.columns.map(flattenHierarchicalCol)\n    return dataframe",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 836143
+    },
+    {
+      "raw": "cat_encoded = cat_encoding(catvarlist,df_cat_encod,target[0])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 6849675708
+    },
+    {
+      "raw": "cat_encoded.head(5)\n\n# Mean and std dev of all categorical variables identified have been computed and returned as a separate dataset which can be joined\n# to our original training set. The same mean & std dev values can be used to transform the same variables in the test set",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 575025
+    },
+    {
+      "raw": "names = cat_encoded.columns\nnames",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 274640
+    },
+    {
+      "raw": "del cat_encoded['loss']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 673621
+    },
+    {
+      "raw": "# Removing the word 'loss' from the left of the newly created columns\n\ncat_encoded.rename(columns = lambda x: x.replace('loss,',''), inplace=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 625848
+    },
+    {
+      "raw": "cat_encoded.columns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 214679
+    },
+    {
+      "raw": "# Taking the same categorical variables we encoded in train set from test set\n\ncat_encod_test = df_test[catvarlist]\ncat_encod_test.head(5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 51326385
+    },
+    {
+      "raw": "cat_encod_test = cat_encod_test.reset_index()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 75433913
+    },
+    {
+      "raw": "del cat_encod_test['id']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 515362
+    },
+    {
+      "raw": "cat_encoded.head(5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 336492
+    },
+    {
+      "raw": "cat_encoded2 = cat_encoded",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 210452
+    },
+    {
+      "raw": "cat_encoded2 = cat_encoded2.drop(cat_encoded2[catvarlist],axis=1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 365284844
+    },
+    {
+      "raw": "cat_encoded2.head(5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 422430
+    },
+    {
+      "raw": "onlystdev = cat_encoded2.filter(like='stdev', axis=1)\nonlystdev.head(5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 39267030
+    },
+    {
+      "raw": "stdev_names  = onlystdev.columns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 304862
+    },
+    {
+      "raw": "onlymean = cat_encoded2.filter(like='mean', axis=1)\nmean_names = onlymean.columns\nmean_names",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 39034035
+    },
+    {
+      "raw": "stdev_names.sort\nmean_names.sort",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 302015
+    },
+    {
+      "raw": "# Getting a dictionary based on training set encoding and mapping the same encoding to our test dataset\n\n\nfor i in range(len(catvarlist)):\n    mydict = dict(zip(cat_encoded[catvarlist[i]], cat_encoded[mean_names[i]]))\n    cat_encod_test[mean_names[i]] = cat_encod_test[catvarlist[i]].map(mydict)\n    mydict2 = dict(zip(cat_encoded[catvarlist[i]], cat_encoded[stdev_names[i]]))\n    cat_encod_test[stdev_names[i]] = cat_encod_test[catvarlist[i]].map(mydict2)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1784578198
+    },
+    {
+      "raw": "cat_encod_test.head(5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 406700
+    }
+  ],
+  "total-time-in-sec": 24.569738053,
+  "max-disk-in-mb": 0
+}

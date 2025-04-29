@@ -1,0 +1,224 @@
+{
+  "max-mem-in-mb": 9802,
+  "max-mem-in-mb2": 9949,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# from matplotlib import pyplot as plt\n# import seaborn as sns\n# import missingno as msno\nimport datetime\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 5GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 484159
+    },
+    {
+      "raw": "# CALISACAGIM DATASET\ntrain_transaction=pd.read_csv('./input/train_transaction.scaled.csv')\ntest_transaction=pd.read_csv('./input/test_transaction.scaled.csv')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 19069032556
+    },
+    {
+      "raw": "# test_transaction setinde isFraud sutunu bulunmadigindan concat oncesi yeni ekliyoruz ve 2 degerini dolduruyoruz\ntest_transaction['isFraud']=2\n# train_transaction ve test_transaction setlerini concat ediyoruz\ntransaction=pd.concat([train_transaction, test_transaction], ignore_index=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1351560129
+    },
+    {
+      "raw": "transaction['D1'].head(40)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 725182
+    },
+    {
+      "raw": "# Column ve Degerlerine genel bakis\nfor col, values in transaction.iteritems():\n    num_uniques = values.nunique()\n    print ('{name}: {num_unique}'.format(name=col, num_unique=num_uniques))\n    print (values.unique())\n    print ('\\n')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 6509968006
+    },
+    {
+      "raw": "# NE KADAR ROW-COLINM OLDUGU\n\nprint(f'Train Transaction has {transaction.shape[0]} rows and {transaction.shape[1]} columns.')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 353567
+    },
+    {
+      "raw": "#COLUMN ISIMLER\ntransaction.columns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 238219
+    },
+    {
+      "raw": "# BENIM KISIM OLAN COLUMNLARI BASKA BIR VARIABLE ATIYORUZ ve CALISMAMIZDA COPYASINI KULLANIYORUZ\ntransaction_mycolumns=transaction.iloc[:,0:55]\nmy_transaction=transaction_mycolumns.copy()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 604636389
+    },
+    {
+      "raw": "my_transaction.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1313571831
+    },
+    {
+      "raw": "my_transaction.info(memory_usage='deep')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2353092520
+    },
+    {
+      "raw": "my_transaction.describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1395458114
+    },
+    {
+      "raw": "# kololasyonu anlam ifade eden kisimlari gozlemleyelim\na=my_transaction.corr().abs()<1\nb=my_transaction.corr().abs()>0.5\nmy_transaction.corr().abs()[a&b]\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 10567345889
+    },
+    {
+      "raw": "# NE KADAR COLUMNDA MISSING VALUE OLDUGU\nprint(f'There are {my_transaction.isnull().any().sum()} columns in my_train transaction dataset with missing values.')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1257889823
+    },
+    {
+      "raw": "# Eksik verileri oransal bar ile gorsellestirme\n# ALEX: remove plotting\n# msno.bar(train_Mytransaction);",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 189318
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# msno.matrix(my_transaction);",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 167234
+    },
+    {
+      "raw": "# degiskenler arasindaki yokluk koralasyonu  -1 demek- birinde null varsa digerinde de null her durumda var\n# ALEX: remove plotting\n# msno.heatmap(my_transaction);",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 168640
+    },
+    {
+      "raw": "emails = {'gmail': 'google', 'att.net': 'att', 'twc.com': 'spectrum', \n          'scranton.edu': 'other', 'optonline.net': 'other', 'hotmail.co.uk': 'microsoft',\n          'comcast.net': 'other', 'yahoo.com.mx': 'yahoo', 'yahoo.fr': 'yahoo',\n          'yahoo.es': 'yahoo', 'charter.net': 'spectrum', 'live.com': 'microsoft', \n          'aim.com': 'aol', 'hotmail.de': 'microsoft', 'centurylink.net': 'centurylink',\n          'gmail.com': 'google', 'me.com': 'apple', 'earthlink.net': 'other', 'gmx.de': 'other',\n          'web.de': 'other', 'cfl.rr.com': 'other', 'hotmail.com': 'microsoft', \n          'protonmail.com': 'other', 'hotmail.fr': 'microsoft', 'windstream.net': 'other', \n          'outlook.es': 'microsoft', 'yahoo.co.jp': 'yahoo', 'yahoo.de': 'yahoo',\n          'servicios-ta.com': 'other', 'netzero.net': 'other', 'suddenlink.net': 'other',\n          'roadrunner.com': 'other', 'sc.rr.com': 'other', 'live.fr': 'microsoft',\n          'verizon.net': 'yahoo', 'msn.com': 'microsoft', 'q.com': 'centurylink', \n          'prodigy.net.mx': 'att', 'frontier.com': 'yahoo', 'anonymous.com': 'other', \n          'rocketmail.com': 'yahoo', 'sbcglobal.net': 'att', 'frontiernet.net': 'yahoo', \n          'ymail.com': 'yahoo', 'outlook.com': 'microsoft', 'mail.com': 'other', \n          'bellsouth.net': 'other', 'embarqmail.com': 'centurylink', 'cableone.net': 'other', \n          'hotmail.es': 'microsoft', 'mac.com': 'apple', 'yahoo.co.uk': 'yahoo', 'netzero.com': 'other', \n          'yahoo.com': 'yahoo', 'live.com.mx': 'microsoft', 'ptd.net': 'other', 'cox.net': 'other',\n          'aol.com': 'aol', 'juno.com': 'other', 'icloud.com': 'apple'}\n\nus_emails = ['gmail', 'net', 'edu']\n\n# https://www.kaggle.com/c/ieee-fraud-detection/discussion/100499#latest-579654\nfor c in ['P_emaildomain', 'R_emaildomain']:\n    my_transaction[c + '_bin'] = my_transaction[c].map(emails)\n    my_transaction[c + '_suffix'] = my_transaction[c].map(lambda x: str(x).split('.')[-1])\n    my_transaction[c + '_suffix'] = my_transaction[c + '_suffix'].map(lambda x: x if str(x) not in us_emails else 'us')\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1036309285
+    },
+    {
+      "raw": "for column_name in ['P_emaildomain', 'R_emaildomain']:\n    my_transaction.drop(column_name, axis=1, inplace=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 438957214
+    },
+    {
+      "raw": "object_columns_name=my_transaction.select_dtypes(include='object').columns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 333208972
+    },
+    {
+      "raw": "object_columns_name",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 283031
+    },
+    {
+      "raw": "for kategorik_sutun in object_columns_name:\n    modun_stringdegeri=my_transaction[kategorik_sutun].mode()[0]\n    my_transaction[kategorik_sutun].fillna(modun_stringdegeri,inplace=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1082027515
+    },
+    {
+      "raw": "# Kategorik degerlerin eksik degerlerini doldurma yontemlerinden Frekansi kullanacagiz\ndef frekans(data,columns,n_label=\"NONE\"):\n    \n    for col in columns:\n        #data[col].fillna(n_label,inplace=True)\n        fq_encode = data[col].value_counts(dropna=False).to_dict()   \n        data[col+\"_Fr\"] = data[col].map(fq_encode)\n        data=data.drop(col,axis=1)\n    return data",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 673653
+    },
+    {
+      "raw": "my_transaction = frekans(my_transaction,object_columns_name)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3409551647
+    },
+    {
+      "raw": "my_transaction.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 414571
+    },
+    {
+      "raw": "my_transaction.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 75304163
+    },
+    {
+      "raw": "# Preprocess date column\nSTART_DATE = '2017-12-01'\nmy_transaction = my_transaction.rename(columns={'TransactionDT': 'TransactionDate'})\nstartdate = datetime.datetime.strptime(START_DATE, '%Y-%m-%d')\nmy_transaction['TransactionDate'] = my_transaction['TransactionDate'].apply(lambda x: (startdate + datetime.timedelta(seconds = x)))\n\n\nprint(my_transaction['TransactionDate'].head())\nprint(my_transaction['TransactionDate'].tail())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 934098761
+    },
+    {
+      "raw": "my_transaction.columns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 286861
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# import seaborn as sns\nmy_transaction_TransactionAmt_Fraud=my_transaction[['isFraud','TransactionAmt']]\n# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(5,5))\n# sns.heatmap(my_transaction_TransactionAmt_Fraud.corr(), ax=ax,linewidths=.5,annot=True)\n# plt.show()\n_ = my_transaction_TransactionAmt_Fraud.corr()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 20567501
+    },
+    {
+      "raw": "# boxplot\n# ALEX: remove plotting\n# sns.boxplot(x=my_transaction['TransactionAmt']);\n_ = my_transaction['TransactionAmt']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 347577
+    },
+    {
+      "raw": "# boxplot da esik deger atama\nQ1=my_transaction['TransactionAmt'].quantile(0.25)\nQ3=my_transaction['TransactionAmt'].quantile(0.75)\nIQR=Q3-Q1\nmy_TransactionAmt_Alt_Sinir = Q1-2.5*IQR\nmy_TransactionAmt_Ust_Sinir = Q3 + 2.5*IQR",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 30256027
+    },
+    {
+      "raw": "Q1, Q3 , IQR,my_TransactionAmt_Alt_Sinir,my_TransactionAmt_Ust_Sinir",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 299890
+    },
+    {
+      "raw": "# boxplot ile belirlenen aykiri degerlere erismek\naykiri_TF=(my_transaction['TransactionAmt']<my_TransactionAmt_Alt_Sinir)|(my_transaction['TransactionAmt']>my_TransactionAmt_Ust_Sinir)\nmy_transaction[aykiri_TF].index",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 30490675
+    },
+    {
+      "raw": "# baskilama ile ust deger sonrasi degerlere ust degeri, alt deger sonrasina ise alt degeri atama\ndef AykiriDegeriBaskila(deger):\n    \n    if deger > my_TransactionAmt_Ust_Sinir:\n       \n        deger=my_TransactionAmt_Ust_Sinir\n    elif deger < my_TransactionAmt_Alt_Sinir:\n       \n        deger=-my_TransactionAmt_Alt_Sinir\n    \n    return deger\n\nmy_transaction['TransactionAmt'] = my_transaction['TransactionAmt'].apply(lambda x: AykiriDegeriBaskila(x))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 313791006
+    },
+    {
+      "raw": "my_transaction.card1.describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 22631766
+    },
+    {
+      "raw": "# ALEX: make notebook run\ndf = my_transaction\n\ndf_train, df_test = df[df['isFraud'] != 'test'], df[df['isFraud'] == 2].drop('isFraud', axis=1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 441537722
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 127289
+    }
+  ],
+  "total-time-in-sec": 52.596046702,
+  "max-disk-in-mb": 0
+}

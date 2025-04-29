@@ -1,0 +1,586 @@
+{
+  "max-mem-in-mb": 798,
+  "max-mem-in-mb2": 994,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns",
+      "rewrite-ns": 694213,
+      "overhead-ns": 694213,
+      "exec-ns": 409699,
+      "total-ns": 1103912,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n"
+    },
+    {
+      "raw": "df = pd.read_csv('./input/kc_house_data.scaled.csv')",
+      "rewrite-ns": 517853,
+      "overhead-ns": 517853,
+      "exec-ns": 1407732893,
+      "total-ns": 1408250746,
+      "patts-hit": {},
+      "rewritten": "df = pd.read_csv('./input/kc_house_data.scaled.csv')\n"
+    },
+    {
+      "raw": "evaluate_lazy(df.isnull().sum())",
+      "rewrite-ns": 607930,
+      "overhead-ns": 607930,
+      "exec-ns": 118115588,
+      "total-ns": 118723518,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(df.isnull().sum())\n"
+    },
+    {
+      "raw": "evaluate_lazy(df.describe().transpose())",
+      "rewrite-ns": 506889,
+      "overhead-ns": 506889,
+      "exec-ns": 542760650,
+      "total-ns": 543267539,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(df.describe().transpose())\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.distplot(df['price'])\nevaluate_lazy(df['price'])",
+      "rewrite-ns": 401816,
+      "overhead-ns": 401816,
+      "exec-ns": 1422491,
+      "total-ns": 1824307,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(df['price'])\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(df['bedrooms'])\nevaluate_lazy(df['bedrooms'])",
+      "rewrite-ns": 371977,
+      "overhead-ns": 371977,
+      "exec-ns": 1006485,
+      "total-ns": 1378462,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(df['bedrooms'])\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='price',y='sqft_living',data=df)",
+      "rewrite-ns": 12588,
+      "overhead-ns": 12588,
+      "exec-ns": 69903,
+      "total-ns": 82491,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(x='bedrooms',y='price',data=df)",
+      "rewrite-ns": 10845,
+      "overhead-ns": 10845,
+      "exec-ns": 62123,
+      "total-ns": 72968,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='price',y='long',data=df)",
+      "rewrite-ns": 11156,
+      "overhead-ns": 11156,
+      "exec-ns": 60670,
+      "total-ns": 71826,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='price',y='lat',data=df)",
+      "rewrite-ns": 10357,
+      "overhead-ns": 10357,
+      "exec-ns": 56455,
+      "total-ns": 66812,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='long',y='lat',data=df,hue='price')",
+      "rewrite-ns": 10193,
+      "overhead-ns": 10193,
+      "exec-ns": 57854,
+      "total-ns": 68047,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "df.sort_values('price',ascending=False).head(20)",
+      "rewrite-ns": 331293,
+      "overhead-ns": 331293,
+      "exec-ns": 79172812,
+      "total-ns": 79504105,
+      "patts-hit": {
+        "SortHead": 1
+      },
+      "rewritten": "dias.rewriter.sort_head(called_on=df, by='price', n=20, asc=False, orig=lambda\n    _DIAS_x: _DIAS_x.sort_values('price', ascending=False).head(20))\n"
+    },
+    {
+      "raw": "len(df)*(0.01)",
+      "rewrite-ns": 409186,
+      "overhead-ns": 409186,
+      "exec-ns": 535767,
+      "total-ns": 944953,
+      "patts-hit": {},
+      "rewritten": "len(df) * 0.01\n"
+    },
+    {
+      "raw": "non_top_1_perc = df.sort_values('price',ascending=False).iloc[216:]",
+      "rewrite-ns": 638609,
+      "overhead-ns": 638609,
+      "exec-ns": 239238170,
+      "total-ns": 239876779,
+      "patts-hit": {},
+      "rewritten": "non_top_1_perc = df.sort_values('price', ascending=False).iloc[216:]\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='long',y='lat',\n#                 data=non_top_1_perc,hue='price',\n#                 palette='RdYlGn',edgecolor=None,alpha=0.2)",
+      "rewrite-ns": 32608,
+      "overhead-ns": 32608,
+      "exec-ns": 126527,
+      "total-ns": 159135,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(x='waterfront',y='price',data=df)",
+      "rewrite-ns": 15435,
+      "overhead-ns": 15435,
+      "exec-ns": 89390,
+      "total-ns": 104825,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "df.head()",
+      "rewrite-ns": 154264,
+      "overhead-ns": 154264,
+      "exec-ns": 12422787,
+      "total-ns": 12577051,
+      "patts-hit": {},
+      "rewritten": "df.head()\n"
+    },
+    {
+      "raw": "df.info()",
+      "rewrite-ns": 94727,
+      "overhead-ns": 94727,
+      "exec-ns": 121605822,
+      "total-ns": 121700549,
+      "patts-hit": {},
+      "rewritten": "df.info()\n"
+    },
+    {
+      "raw": "df = df.drop('id',axis=1)",
+      "rewrite-ns": 515480,
+      "overhead-ns": 515480,
+      "exec-ns": 54922572,
+      "total-ns": 55438052,
+      "patts-hit": {},
+      "rewritten": "df = df.drop('id', axis=1)\n"
+    },
+    {
+      "raw": "df.head()",
+      "rewrite-ns": 120287,
+      "overhead-ns": 120287,
+      "exec-ns": 11609181,
+      "total-ns": 11729468,
+      "patts-hit": {},
+      "rewritten": "df.head()\n"
+    },
+    {
+      "raw": "df['date'] = pd.to_datetime(df['date'])",
+      "rewrite-ns": 602901,
+      "overhead-ns": 602901,
+      "exec-ns": 82640782,
+      "total-ns": 83243683,
+      "patts-hit": {},
+      "rewritten": "df['date'] = pd.to_datetime(df['date'])\n"
+    },
+    {
+      "raw": "df['month'] = df['date'].apply(lambda date:date.month)",
+      "rewrite-ns": 809267,
+      "overhead-ns": 809267,
+      "exec-ns": 1329625545,
+      "total-ns": 1330434812,
+      "patts-hit": {},
+      "rewritten": "df['month'] = df['date'].apply(lambda date: date.month)\n"
+    },
+    {
+      "raw": "df['year'] = df['date'].apply(lambda date:date.year)",
+      "rewrite-ns": 827896,
+      "overhead-ns": 827896,
+      "exec-ns": 1303002372,
+      "total-ns": 1303830268,
+      "patts-hit": {},
+      "rewritten": "df['year'] = df['date'].apply(lambda date: date.year)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(x='year',y='price',data=df)",
+      "rewrite-ns": 22118,
+      "overhead-ns": 22118,
+      "exec-ns": 113870,
+      "total-ns": 135988,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(x='month',y='price',data=df)",
+      "rewrite-ns": 13307,
+      "overhead-ns": 13307,
+      "exec-ns": 78648,
+      "total-ns": 91955,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# df.groupby('month').mean()['price'].plot()\nevaluate_lazy(df.groupby('month').mean()['price'])",
+      "rewrite-ns": 640470,
+      "overhead-ns": 640470,
+      "exec-ns": 97201045,
+      "total-ns": 97841515,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(df.groupby('month').mean()['price'])\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# df.groupby('year').mean()['price'].plot()\nevaluate_lazy(df.groupby('year').mean()['price'])",
+      "rewrite-ns": 656202,
+      "overhead-ns": 656202,
+      "exec-ns": 114492613,
+      "total-ns": 115148815,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(df.groupby('year').mean()['price'])\n"
+    },
+    {
+      "raw": "df = df.drop('date',axis=1)",
+      "rewrite-ns": 511768,
+      "overhead-ns": 511768,
+      "exec-ns": 53061461,
+      "total-ns": 53573229,
+      "patts-hit": {},
+      "rewritten": "df = df.drop('date', axis=1)\n"
+    },
+    {
+      "raw": "df.columns",
+      "rewrite-ns": 83117,
+      "overhead-ns": 83117,
+      "exec-ns": 2514359,
+      "total-ns": 2597476,
+      "patts-hit": {},
+      "rewritten": "df.columns\n"
+    },
+    {
+      "raw": "# https://i.pinimg.com/originals/4a/ab/31/4aab31ce95d5b8474fd2cc063f334178.jpg\n# May be worth considering to remove this or feature engineer categories from it\nevaluate_lazy(df['zipcode'].value_counts())",
+      "rewrite-ns": 504939,
+      "overhead-ns": 504939,
+      "exec-ns": 5899792,
+      "total-ns": 6404731,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(df['zipcode'].value_counts())\n"
+    },
+    {
+      "raw": "df = df.drop('zipcode',axis=1)",
+      "rewrite-ns": 467404,
+      "overhead-ns": 467404,
+      "exec-ns": 50670888,
+      "total-ns": 51138292,
+      "patts-hit": {},
+      "rewritten": "df = df.drop('zipcode', axis=1)\n"
+    },
+    {
+      "raw": "df.head()",
+      "rewrite-ns": 114408,
+      "overhead-ns": 114408,
+      "exec-ns": 11385782,
+      "total-ns": 11500190,
+      "patts-hit": {},
+      "rewritten": "df.head()\n"
+    },
+    {
+      "raw": "# could make sense due to scaling, higher should correlate to more value\nevaluate_lazy(df['yr_renovated'].value_counts())",
+      "rewrite-ns": 490450,
+      "overhead-ns": 490450,
+      "exec-ns": 5480059,
+      "total-ns": 5970509,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(df['yr_renovated'].value_counts())\n"
+    },
+    {
+      "raw": "evaluate_lazy(df['sqft_basement'].value_counts())",
+      "rewrite-ns": 462945,
+      "overhead-ns": 462945,
+      "exec-ns": 5615534,
+      "total-ns": 6078479,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(df['sqft_basement'].value_counts())\n"
+    },
+    {
+      "raw": "X = df.drop('price',axis=1)\ny = df['price']",
+      "rewrite-ns": 688649,
+      "overhead-ns": 688649,
+      "exec-ns": 42941880,
+      "total-ns": 43630529,
+      "patts-hit": {},
+      "rewritten": "X = df.drop('price', axis=1)\ny = df['price']\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import train_test_split",
+      "rewrite-ns": 22170,
+      "overhead-ns": 22170,
+      "exec-ns": 109105,
+      "total-ns": 131275,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.3,random_state=101)",
+      "rewrite-ns": 13557,
+      "overhead-ns": 13557,
+      "exec-ns": 78846,
+      "total-ns": 92403,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.preprocessing import MinMaxScaler",
+      "rewrite-ns": 10369,
+      "overhead-ns": 10369,
+      "exec-ns": 62658,
+      "total-ns": 73027,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# scaler = MinMaxScaler()",
+      "rewrite-ns": 9793,
+      "overhead-ns": 9793,
+      "exec-ns": 60178,
+      "total-ns": 69971,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_train= scaler.fit_transform(X_train)",
+      "rewrite-ns": 9810,
+      "overhead-ns": 9810,
+      "exec-ns": 59235,
+      "total-ns": 69045,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_test = scaler.transform(X_test)",
+      "rewrite-ns": 9547,
+      "overhead-ns": 9547,
+      "exec-ns": 57934,
+      "total-ns": 67481,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_train.shape",
+      "rewrite-ns": 9245,
+      "overhead-ns": 9245,
+      "exec-ns": 55037,
+      "total-ns": 64282,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_test.shape",
+      "rewrite-ns": 9074,
+      "overhead-ns": 9074,
+      "exec-ns": 54769,
+      "total-ns": 63843,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from tensorflow.keras.models import Sequential\n# from tensorflow.keras.layers import Dense, Activation\n# from tensorflow.keras.optimizers import Adam",
+      "rewrite-ns": 9986,
+      "overhead-ns": 9986,
+      "exec-ns": 52900,
+      "total-ns": 62886,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# model = Sequential()\n\n# model.add(Dense(19,activation='relu'))\n# model.add(Dense(19,activation='relu'))\n# model.add(Dense(19,activation='relu'))\n# model.add(Dense(19,activation='relu'))\n# model.add(Dense(1))\n\n# model.compile(optimizer='adam',loss='mse')",
+      "rewrite-ns": 10237,
+      "overhead-ns": 10237,
+      "exec-ns": 52978,
+      "total-ns": 63215,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# model.fit(x=X_train,y=y_train.values,\n#           validation_data=(X_test,y_test.values),\n#           batch_size=128,epochs=400)",
+      "rewrite-ns": 9380,
+      "overhead-ns": 9380,
+      "exec-ns": 52562,
+      "total-ns": 61942,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# losses = pd.DataFrame(model.history.history)",
+      "rewrite-ns": 9004,
+      "overhead-ns": 9004,
+      "exec-ns": 52609,
+      "total-ns": 61613,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# losses.plot()",
+      "rewrite-ns": 9132,
+      "overhead-ns": 9132,
+      "exec-ns": 51825,
+      "total-ns": 60957,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.metrics import mean_squared_error,mean_absolute_error,explained_variance_score",
+      "rewrite-ns": 9092,
+      "overhead-ns": 9092,
+      "exec-ns": 51789,
+      "total-ns": 60881,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_test",
+      "rewrite-ns": 8920,
+      "overhead-ns": 8920,
+      "exec-ns": 51732,
+      "total-ns": 60652,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# predictions = model.predict(X_test)",
+      "rewrite-ns": 8898,
+      "overhead-ns": 8898,
+      "exec-ns": 52245,
+      "total-ns": 61143,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# mean_absolute_error(y_test,predictions)",
+      "rewrite-ns": 8894,
+      "overhead-ns": 8894,
+      "exec-ns": 51496,
+      "total-ns": 60390,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# np.sqrt(mean_squared_error(y_test,predictions))",
+      "rewrite-ns": 8945,
+      "overhead-ns": 8945,
+      "exec-ns": 51838,
+      "total-ns": 60783,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# explained_variance_score(y_test,predictions)",
+      "rewrite-ns": 9045,
+      "overhead-ns": 9045,
+      "exec-ns": 51766,
+      "total-ns": 60811,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "evaluate_lazy(df['price'].mean())",
+      "rewrite-ns": 514007,
+      "overhead-ns": 514007,
+      "exec-ns": 2722577,
+      "total-ns": 3236584,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(df['price'].mean())\n"
+    },
+    {
+      "raw": "evaluate_lazy(df['price'].median())",
+      "rewrite-ns": 470732,
+      "overhead-ns": 470732,
+      "exec-ns": 19793972,
+      "total-ns": 20264704,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(df['price'].median())\n"
+    },
+    {
+      "raw": "# Our predictions\n# ALEX: remove plotting\n# plt.scatter(y_test,predictions)\n\n# # Perfect predictions\n# plt.plot(y_test,y_test,'r')",
+      "rewrite-ns": 16733,
+      "overhead-ns": 16733,
+      "exec-ns": 82832,
+      "total-ns": 99565,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "single_house = df.drop('price',axis=1).iloc[0]",
+      "rewrite-ns": 623436,
+      "overhead-ns": 623436,
+      "exec-ns": 48606636,
+      "total-ns": 49230072,
+      "patts-hit": {},
+      "rewritten": "single_house = df.drop('price', axis=1).iloc[0]\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# single_house = scaler.transform(single_house.values.reshape(-1, 19))\nsingle_house.values.reshape(-1, 19)",
+      "rewrite-ns": 542096,
+      "overhead-ns": 542096,
+      "exec-ns": 911222,
+      "total-ns": 1453318,
+      "patts-hit": {},
+      "rewritten": "single_house.values.reshape(-1, 19)\n"
+    },
+    {
+      "raw": "evaluate_lazy(single_house)",
+      "rewrite-ns": 277992,
+      "overhead-ns": 277992,
+      "exec-ns": 1182875,
+      "total-ns": 1460867,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(single_house)\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# model.predict(single_house)",
+      "rewrite-ns": 12603,
+      "overhead-ns": 12603,
+      "exec-ns": 71992,
+      "total-ns": 84595,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "evaluate_lazy(df.iloc[0])",
+      "rewrite-ns": 409957,
+      "overhead-ns": 409957,
+      "exec-ns": 1183785,
+      "total-ns": 1593742,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(df.iloc[0])\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 11907,
+      "overhead-ns": 11907,
+      "exec-ns": 66680,
+      "total-ns": 78587,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 10396,
+      "overhead-ns": 10396,
+      "exec-ns": 60173,
+      "total-ns": 70569,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 5.787445219,
+  "max-disk-in-mb": 0
+}

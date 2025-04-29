@@ -1,0 +1,80 @@
+{
+  "max-mem-in-mb": 735,
+  "max-mem-in-mb2": 1394,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "rewrite-ns": 695788,
+      "overhead-ns": 695788,
+      "exec-ns": 411658,
+      "total-ns": 1107446,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "# import pandas as pd\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\ndf = pd.read_csv('./input/Electric_Vehicle_Population_Data.scaled.csv')",
+      "rewrite-ns": 529735,
+      "overhead-ns": 529735,
+      "exec-ns": 4541441390,
+      "total-ns": 4541971125,
+      "patts-hit": {},
+      "rewritten": "df = pd.read_csv('./input/Electric_Vehicle_Population_Data.scaled.csv')\n"
+    },
+    {
+      "raw": "# Display the first few rows of the dataset\nprint(df.head())\n\n# Get information about the dataset\nprint(df.info())",
+      "rewrite-ns": 797838,
+      "overhead-ns": 797838,
+      "exec-ns": 15108247,
+      "total-ns": 15906085,
+      "patts-hit": {},
+      "rewritten": "print(df.head())\nprint(df.info())\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# df['Model Year'].hist()\n# plt.xlabel('Model Year')\n# plt.ylabel('Count')\n# plt.title('Distribution of Model Year')\n# plt.show()",
+      "rewrite-ns": 17126,
+      "overhead-ns": 17126,
+      "exec-ns": 91089,
+      "total-ns": 108215,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "avg_range = df['Electric Range'].mean()\nmedian_price = df['Base MSRP'].median()",
+      "rewrite-ns": 839735,
+      "overhead-ns": 839735,
+      "exec-ns": 20211154,
+      "total-ns": 21050889,
+      "patts-hit": {},
+      "rewritten": "avg_range = df['Electric Range'].mean()\nmedian_price = df['Base MSRP'].median()\n"
+    },
+    {
+      "raw": "ev_2020 = df[df['Model Year'] == 2020]\nprint(evaluate_lazy(ev_2020))",
+      "rewrite-ns": 1628278,
+      "overhead-ns": 1628278,
+      "exec-ns": 54204442,
+      "total-ns": 55832720,
+      "patts-hit": {},
+      "rewritten": "ev_2020 = df[df['Model Year'] == 2020]\nprint(evaluate_lazy(ev_2020))\n"
+    },
+    {
+      "raw": "groupby_make = df.groupby('Make')['Electric Range'].mean()\nprint (evaluate_lazy(groupby_make))",
+      "rewrite-ns": 918585,
+      "overhead-ns": 918585,
+      "exec-ns": 114500361,
+      "total-ns": 115418946,
+      "patts-hit": {},
+      "rewritten": "groupby_make = df.groupby('Make')['Electric Range'].mean()\nprint(evaluate_lazy(groupby_make))\n"
+    },
+    {
+      "raw": "# Select only numeric columns from the DataFrame\nnumeric_df = df.select_dtypes(include=['float64', 'int64'])\n\n# Create a correlation heatmap for the numeric columns\n# ALEX: remove plotting\n# sns.heatmap(numeric_df.corr(), annot=True, cmap='coolwarm')\n# plt.title('Correlation Heatmap')\n# plt.show()\nevaluate_lazy(numeric_df.corr())\n",
+      "rewrite-ns": 885874,
+      "overhead-ns": 885874,
+      "exec-ns": 405361691,
+      "total-ns": 406247565,
+      "patts-hit": {},
+      "rewritten": "numeric_df = df.select_dtypes(include=['float64', 'int64'])\nevaluate_lazy(numeric_df.corr())\n"
+    }
+  ],
+  "total-time-in-sec": 5.157642991,
+  "max-disk-in-mb": 0
+}

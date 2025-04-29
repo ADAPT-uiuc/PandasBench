@@ -1,0 +1,86 @@
+{
+  "max-mem-in-mb": 124,
+  "max-mem-in-mb2": 128,
+  "cells": [
+    {
+      "raw": "# modules we'll use\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import seaborn as sns\n# import datetime\n\n# read in our data\nearthquakes = pd.read_csv(\"./input/earthquake-database.scaled.csv\")\nlandslides = pd.read_csv(\"./input/catalog.scaled.csv\")\nvolcanos = pd.read_csv(\"./input/volcanic-eruptions-database.scaled.csv\")\n\n# set seed for reproducibility\nnp.random.seed(0)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 54419418
+    },
+    {
+      "raw": "# print the first few rows of the date column\nprint(landslides['date'].head())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 633238
+    },
+    {
+      "raw": "# check the data type of our date column\nlandslides['date'].dtype",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 213032
+    },
+    {
+      "raw": "# Your turn! Check the data type of the Date column in the earthquakes dataframe\n# (note the capital 'D' in date!)\nprint(\"Data Type of Date column in Earthquakes data:\",earthquakes['Date'].dtype)\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 280352
+    },
+    {
+      "raw": "# create a new column, date_parsed, with the parsed dates\nlandslides['date_parsed'] = pd.to_datetime(landslides['date'], format = \"%m/%d/%y\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3818547
+    },
+    {
+      "raw": "# print the first few rows\nlandslides['date_parsed'].head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 324560
+    },
+    {
+      "raw": "# Your turn! Create a new column, date_parsed, in the earthquakes\n# dataset that has correctly parsed dates in it. (Don't forget to \n# double-check that the dtype is correct!)\n# ALEX: make notebook run\n# earthquakes['Date']=pd.to_datetime(earthquakes['Date'],infer_datetime_format=True)\nearthquakes['Date']=pd.to_datetime(earthquakes['Date'],infer_datetime_format=True,utc=True)\nprint(earthquakes['Date'].dtype)\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 15759542
+    },
+    {
+      "raw": "# try to get the day of the month from the date column\n# ALEX: the first of the two lines below was added to get the notebook to run\nlandslides['date'] = pd.to_datetime(landslides['date'], infer_datetime_format=True)\nday_of_month_landslides = landslides['date'].dt.day",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 66724789
+    },
+    {
+      "raw": "# get the day of the month from the date_parsed column\nday_of_month_landslides = landslides['date_parsed'].dt.day",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 471537
+    },
+    {
+      "raw": "# Your turn! get the day of the month from the date_parsed column\nday_of_month_earthquakes=earthquakes['Date'].dt.day\nprint(day_of_month_earthquakes[:10])\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1260800
+    },
+    {
+      "raw": "# remove na's\nday_of_month_landslides = day_of_month_landslides.dropna()\n\n# plot the day of the month\n# ALEX: remove plotting\n# sns.distplot(day_of_month_landslides, kde=False, bins=31)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 308289
+    },
+    {
+      "raw": "# Your turn! Plot the days of the month from your\n# earthquake dataset and make sure they make sense.\n# remove na's\nday_of_month_earthquakes = day_of_month_earthquakes.dropna()\n\n# plot the day of the month\n# ALEX: remove plotting\n# sns.distplot(day_of_month_earthquakes, kde=False, bins=31)\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 260799
+    },
+    {
+      "raw": "volcanos['Last Known Eruption'].sample(5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 437798
+    }
+  ],
+  "total-time-in-sec": 0.144912701,
+  "max-disk-in-mb": 0
+}

@@ -1,0 +1,116 @@
+{
+  "max-mem-in-mb": 2135,
+  "max-mem-in-mb2": 2213,
+  "cells": [
+    {
+      "raw": "import numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))",
+      "rewrite-ns": 693148,
+      "overhead-ns": 693148,
+      "exec-ns": 411313,
+      "total-ns": 1104461,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "df_summary = pd.read_csv('./input/Measurement_summary.scaled.csv')\ndf_item = pd.read_csv('./input/Measurement_item_info.scaled.csv')\ndf_station = pd.read_csv('./input/Measurement_station_info.scaled.csv')",
+      "rewrite-ns": 1308724,
+      "overhead-ns": 1308724,
+      "exec-ns": 4422702260,
+      "total-ns": 4424010984,
+      "patts-hit": {},
+      "rewritten": "df_summary = pd.read_csv('./input/Measurement_summary.scaled.csv')\ndf_item = pd.read_csv('./input/Measurement_item_info.scaled.csv')\ndf_station = pd.read_csv('./input/Measurement_station_info.scaled.csv')\n"
+    },
+    {
+      "raw": "df_summary.head()",
+      "rewrite-ns": 157326,
+      "overhead-ns": 157326,
+      "exec-ns": 10559756,
+      "total-ns": 10717082,
+      "patts-hit": {},
+      "rewritten": "df_summary.head()\n"
+    },
+    {
+      "raw": "date_time = df_summary['Measurement date'].str.split(\" \", n=1, expand=True)\ndate_time.head()",
+      "rewrite-ns": 739639,
+      "overhead-ns": 739639,
+      "exec-ns": 6024870799,
+      "total-ns": 6025610438,
+      "patts-hit": {},
+      "rewritten": "date_time = df_summary['Measurement date'].str.split(' ', n=1, expand=True)\ndate_time.head()\n"
+    },
+    {
+      "raw": "df_summary['date'] = date_time[0]\ndf_summary['time'] = date_time[1]\ndf_summary = df_summary.drop(['Measurement date'], axis=1)\ndf_summary.head()",
+      "rewrite-ns": 1268046,
+      "overhead-ns": 1268046,
+      "exec-ns": 491326354,
+      "total-ns": 492594400,
+      "patts-hit": {},
+      "rewritten": "df_summary['date'] = date_time[0]\ndf_summary['time'] = date_time[1]\ndf_summary = df_summary.drop(['Measurement date'], axis=1)\ndf_summary.head()\n"
+    },
+    {
+      "raw": "df_seoul = df_summary.groupby(['date'], as_index=False).agg({'SO2':'mean', 'NO2':'mean', 'O3':'mean', 'CO':'mean', 'PM10':'mean', 'PM2.5':'mean'})\ndf_seoul.head()",
+      "rewrite-ns": 1203314,
+      "overhead-ns": 1203314,
+      "exec-ns": 482127091,
+      "total-ns": 483330405,
+      "patts-hit": {},
+      "rewritten": "df_seoul = df_summary.groupby(['date'], as_index=False).agg({'SO2': 'mean',\n    'NO2': 'mean', 'O3': 'mean', 'CO': 'mean', 'PM10': 'mean', 'PM2.5': 'mean'}\n    )\ndf_seoul.head()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# df_seoul.plot(x='date')",
+      "rewrite-ns": 20702,
+      "overhead-ns": 20702,
+      "exec-ns": 149199,
+      "total-ns": 169901,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "corr = df_seoul.corr()\n# ALEX: remove plotting\n# f, ax = plt.subplots(figsize=(11, 9))\n# cmap = sns.diverging_palette(220, 10, as_cmap=True)\n# sns.heatmap(corr, cmap=cmap, vmax=1, center=0,\n#             square=True, linewidths=.5, cbar_kws={\"shrink\": .5})",
+      "rewrite-ns": 397123,
+      "overhead-ns": 397123,
+      "exec-ns": 790835,
+      "total-ns": 1187958,
+      "patts-hit": {},
+      "rewritten": "corr = df_seoul.corr()\n"
+    },
+    {
+      "raw": "df_seoul['PM10_class'] = -1\ndf_seoul.head()",
+      "rewrite-ns": 460174,
+      "overhead-ns": 460174,
+      "exec-ns": 6626530,
+      "total-ns": 7086704,
+      "patts-hit": {},
+      "rewritten": "df_seoul['PM10_class'] = -1\ndf_seoul.head()\n"
+    },
+    {
+      "raw": "for (idx, row) in df_seoul.iterrows():\n    pm10 = row[5]\n    _class = -1\n    if pm10 < 0:\n        continue\n    elif pm10 < 30:\n        _class = 0\n    elif pm10 < 80:\n        _class = 1\n    elif pm10 < 150:\n        _class = 2\n    else:\n        _class = 3\n    df_seoul.loc[idx, 'PM10_class'] = _class\ndf_seoul.head()",
+      "rewrite-ns": 2506527,
+      "overhead-ns": 2506527,
+      "exec-ns": 105183753,
+      "total-ns": 107690280,
+      "patts-hit": {},
+      "rewritten": "for idx, row in df_seoul.iterrows():\n    pm10 = row[5]\n    _class = -1\n    if pm10 < 0:\n        continue\n    elif pm10 < 30:\n        _class = 0\n    elif pm10 < 80:\n        _class = 1\n    elif pm10 < 150:\n        _class = 2\n    else:\n        _class = 3\n    df_seoul.loc[idx, 'PM10_class'] = _class\ndf_seoul.head()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# df_seoul['PM10_class'].value_counts().plot(kind=\"bar\")\ndf_seoul['PM10_class'].value_counts()",
+      "rewrite-ns": 409960,
+      "overhead-ns": 409960,
+      "exec-ns": 1134165,
+      "total-ns": 1544125,
+      "patts-hit": {},
+      "rewritten": "df_seoul['PM10_class'].value_counts()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.jointplot(x=df_seoul[\"CO\"], y=df_seoul[\"NO2\"], kind='kde', xlim=(0,1),ylim=(0,0.13), color='g')\n# plt.show()\n_ = df_seoul[\"CO\"]\n_ = df_seoul[\"NO2\"]",
+      "rewrite-ns": 568367,
+      "overhead-ns": 568367,
+      "exec-ns": 315628,
+      "total-ns": 883995,
+      "patts-hit": {},
+      "rewritten": "_ = df_seoul['CO']\n_ = df_seoul['NO2']\n"
+    }
+  ],
+  "total-time-in-sec": 11.555930733,
+  "max-disk-in-mb": 0
+}

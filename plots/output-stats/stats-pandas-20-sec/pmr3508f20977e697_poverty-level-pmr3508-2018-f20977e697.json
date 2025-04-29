@@ -1,0 +1,422 @@
+{
+  "max-mem-in-mb": 1854,
+  "max-mem-in-mb2": 2155,
+  "cells": [
+    {
+      "raw": "from datetime import date\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import matplotlib.pyplot as graphic\n\n# from math import sqrt, factorial, log, ceil\n# from sklearn.neighbors import KNeighborsClassifier\n# from sklearn.model_selection import cross_val_score\n\n# from sklearn.model_selection import train_test_split\n# from sklearn.preprocessing import LabelEncoder\n\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# import random \n# import warnings\n# import operator\n# warnings.filterwarnings(\"ignore\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 494722
+    },
+    {
+      "raw": "train = pd.read_csv('./input/train.scaled.csv')\ntest = pd.read_csv('./input/test.scaled.csv')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2145165364
+    },
+    {
+      "raw": "target_name = 'Target'\nprint (\"Tamanho train: \", train.shape)\nprint (\"Tamanho test: \", test.shape)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 475264
+    },
+    {
+      "raw": "train.describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 344454823
+    },
+    {
+      "raw": "from collections import OrderedDict\n\n# ALEX: remove plotting\n# plt.figure(figsize = (15, 12))\n# plt.style.use('fivethirtyeight')\n\ncolors = OrderedDict({1: 'red', 2: 'orange', 3: 'yellow', 4: 'green'})\npoverty_mapping = OrderedDict({1: 'extreme', 2: 'moderate', 3: 'vulnerable', 4: 'non vulnerable'})\n\nfor i, col in enumerate(train.select_dtypes('float')):\n# ALEX: remove plotting\n#     ax = plt.subplot(4, 2, i + 1)\n    for poverty_level, color in colors.items():\n# ALEX: remove plotting\n#         sns.kdeplot(train.loc[train['Target'] == poverty_level, col].dropna(), \n#                     ax = ax, color = color, label = poverty_mapping[poverty_level])\n        _ = train.loc[train['Target'] == poverty_level, col].dropna()\n\n# ALEX: remove plotting\n#     plt.title(f'{col.capitalize()} Distribution'); plt.xlabel(f'{col}'); plt.ylabel('Density')\n    _ = col.capitalize()\n\n# ALEX: remove plotting\n# plt.subplots_adjust(top = 2)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 23816653
+    },
+    {
+      "raw": "train.select_dtypes('object').head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5453511
+    },
+    {
+      "raw": "mapping = {\"yes\": 1, \"no\": 0}\n\nfor df in [train, test]:\n    df['dependency'] = df['dependency'].replace(mapping).astype(np.float64)\n    df['edjefa'] = df['edjefa'].replace(mapping).astype(np.float64)\n    df['edjefe'] = df['edjefe'].replace(mapping).astype(np.float64)\n\ntrain[['dependency', 'edjefa', 'edjefe']].describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 180139891
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize = (8, 8))\n\nfor i, col in enumerate(['dependency', 'edjefa', 'edjefe']):\n# ALEX: remove plotting\n#     ax = plt.subplot(3, 1, i + 1)\n \n    for poverty_level, color in colors.items():\n        \n# ALEX: remove plotting\n#         sns.kdeplot(train.loc[train['Target'] == poverty_level, col].dropna(), \n#                     ax = ax, color = color, label = poverty_mapping[poverty_level])\n        _ = train.loc[train['Target'] == poverty_level, col].dropna()\n        \n# ALEX: remove plotting\n#     plt.title(f'{col.capitalize()} Distribution'); plt.xlabel(f'{col}'); plt.ylabel('Density')\n\n# plt.subplots_adjust(top = 2)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 8576543
+    },
+    {
+      "raw": "test['Target'] = np.nan\ndata = train.append(test, ignore_index = True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 161013542
+    },
+    {
+      "raw": "all_equal = train.groupby('idhogar')['Target'].apply(lambda x: x.nunique() == 1)\n\nnot_equal = all_equal[all_equal != True]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 117626538
+    },
+    {
+      "raw": "households_leader = train.groupby('idhogar')['parentesco1'].sum()\nhouseholds_no_head = train.loc[train['idhogar'].isin(households_leader[households_leader == 0].index), :]\nhouseholds_no_head_equal = households_no_head.groupby('idhogar')['Target'].apply(lambda x: x.nunique() == 1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 11270781
+    },
+    {
+      "raw": "for household in not_equal.index:\n# ALEX: make notebook run with input scaling\n#     true_target = int(train[(train['idhogar'] == household) & (train['parentesco1'] == 1.0)]['Target'])\n    true_target = int(train[(train['idhogar'] == household) & (train['parentesco1'] == 1.0)].iloc[0]['Target'])\n    train.loc[train['idhogar'] == household, 'Target'] = true_target\n    \nall_equal = train.groupby('idhogar')['Target'].apply(lambda x: x.nunique() == 1)\nnot_equal = all_equal[all_equal != True]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 885283160
+    },
+    {
+      "raw": "print('\\n Missing Values')\nmissing = pd.DataFrame(data.isnull().sum()).rename(columns = {0: 'total'})\nmissing['percent'] = missing['total'] / len(data)\nmissing.sort_values('percent', ascending = False).head(10).drop('Target')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 100423576
+    },
+    {
+      "raw": "def plot_value_counts(df, col, heads_only = False):\n    if heads_only:\n        df = df.loc[df['parentesco1'] == 1].copy()\n        \n# ALEX: remove plotting\n#     plt.figure(figsize = (8, 6))\n#     df[col].value_counts().sort_index().plot.bar(color = 'blue',\n#                                                  edgecolor = 'k',\n#                                                  linewidth = 2)\n#     plt.xlabel(f'{col}'); plt.title(f'{col} Value Counts'); plt.ylabel('Count')\n#     plt.show();\n    df[col].value_counts().sort_index()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 505176
+    },
+    {
+      "raw": "data['v18q1'] = data['v18q1'].fillna(0)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2068081
+    },
+    {
+      "raw": "own_variables = [x for x in data if x.startswith('tipo')]\n# ALEX: remove plotting\n# data.loc[data['v2a1'].isnull(), own_variables].sum().plot.bar(figsize = (8, 6),\n#                                                                         color = 'blue',\n#                                                               edgecolor = 'k', linewidth = 2);\n# plt.xticks([0, 1, 2, 3, 4],\n#            ['Owns and Paid Off', 'Owns and Paying', 'Rented', 'Precarious', 'Other'],\n#           rotation = 60)\n# plt.title('Home Ownership Status for Households Missing Rent Payments', size = 18);\ndata.loc[data['v2a1'].isnull(), own_variables].sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 344854239
+    },
+    {
+      "raw": "data.loc[(data['tipovivi1'] == 1), 'v2a1'] = 0\ndata['v2a1-missing'] = data['v2a1'].isnull()\ndata['v2a1-missing'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4522316
+    },
+    {
+      "raw": "data.loc[((data['age'] > 19) | (data['age'] < 7)) & (data['rez_esc'].isnull()), 'rez_esc'] = 0\ndata['rez_esc-missing'] = data['rez_esc'].isnull()\ndata.loc[data['rez_esc'] > 5, 'rez_esc'] = 5",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5152390
+    },
+    {
+      "raw": "id_ = ['Id', 'idhogar', 'Target']\nind_bool = ['v18q', 'dis', 'male', 'female', 'estadocivil1', 'estadocivil2', 'estadocivil3', \n            'estadocivil4', 'estadocivil5', 'estadocivil6', 'estadocivil7', \n            'parentesco1', 'parentesco2',  'parentesco3', 'parentesco4', 'parentesco5', \n            'parentesco6', 'parentesco7', 'parentesco8',  'parentesco9', 'parentesco10', \n            'parentesco11', 'parentesco12', 'instlevel1', 'instlevel2', 'instlevel3', \n            'instlevel4', 'instlevel5', 'instlevel6', 'instlevel7', 'instlevel8', \n            'instlevel9', 'mobilephone', 'rez_esc-missing']\nind_ordered = ['rez_esc', 'escolari', 'age']\nhh_bool = ['hacdor', 'hacapo', 'v14a', 'refrig', 'paredblolad', 'paredzocalo', \n           'paredpreb','pisocemento', 'pareddes', 'paredmad',\n           'paredzinc', 'paredfibras', 'paredother', 'pisomoscer', 'pisoother', \n           'pisonatur', 'pisonotiene', 'pisomadera',\n           'techozinc', 'techoentrepiso', 'techocane', 'techootro', 'cielorazo', \n           'abastaguadentro', 'abastaguafuera', 'abastaguano',\n            'public', 'planpri', 'noelec', 'coopele', 'sanitario1', \n           'sanitario2', 'sanitario3', 'sanitario5',   'sanitario6',\n           'energcocinar1', 'energcocinar2', 'energcocinar3', 'energcocinar4', \n           'elimbasu1', 'elimbasu2', 'elimbasu3', 'elimbasu4', \n           'elimbasu5', 'elimbasu6', 'epared1', 'epared2', 'epared3',\n           'etecho1', 'etecho2', 'etecho3', 'eviv1', 'eviv2', 'eviv3', \n           'tipovivi1', 'tipovivi2', 'tipovivi3', 'tipovivi4', 'tipovivi5', \n           'computer', 'television', 'lugar1', 'lugar2', 'lugar3',\n           'lugar4', 'lugar5', 'lugar6', 'area1', 'area2', 'v2a1-missing']\nhh_ordered = [ 'rooms', 'r4h1', 'r4h2', 'r4h3', 'r4m1','r4m2','r4m3', 'r4t1',  'r4t2', \n              'r4t3', 'v18q1', 'tamhog','tamviv','hhsize','hogar_nin',\n              'hogar_adul','hogar_mayor','hogar_total',  'bedrooms', 'qmobilephone']\nhh_cont = ['v2a1', 'dependency', 'edjefe', 'edjefa', 'meaneduc', 'overcrowding']\nsqr_ = ['SQBescolari', 'SQBage', 'SQBhogar_total', 'SQBedjefe', \n        'SQBhogar_nin', 'SQBovercrowding', 'SQBdependency', 'SQBmeaned', 'agesq']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1584120
+    },
+    {
+      "raw": "data = data.drop(columns = sqr_)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 109190794
+    },
+    {
+      "raw": "heads = data.loc[data['parentesco1'] == 1, :]\nheads = heads[id_ + hh_bool + hh_cont + hh_ordered]\nheads = heads.drop(columns = ['tamhog', 'hogar_total', 'r4t3'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 78912618
+    },
+    {
+      "raw": "elec = []\nfor i, row in heads.iterrows():\n    if row['noelec'] == 1:\n        elec.append(0)\n    elif row['coopele'] == 1:\n        elec.append(1)\n    elif row['public'] == 1:\n        elec.append(2)\n    elif row['planpri'] == 1:\n        elec.append(3)\n    else:\n        elec.append(np.nan)\n        \nheads['elec'] = elec\nheads['elec-missing'] = heads['elec'].isnull()\nheads = heads.drop(columns = ['noelec', 'coopele', 'public', 'planpri'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3875468183
+    },
+    {
+      "raw": "water = []\nfor i, row in heads.iterrows():\n    if row['abastaguano'] == 1:\n        water.append(0)\n    elif row['abastaguafuera'] == 1:\n        water.append(1)\n    elif row['abastaguadentro'] == 1:\n        water.append(2)\n    else:\n        water.append(np.nan)\n        \nheads['water'] = water\nheads['water-missing'] = heads['water'].isnull()\nheads = heads.drop(columns = ['abastaguano', 'abastaguafuera', 'abastaguadentro'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3956645972
+    },
+    {
+      "raw": "sanit = []\nfor i, row in heads.iterrows():\n    if row['sanitario1'] == 1:\n        sanit.append(0)\n    elif row['v14a'] == 0:\n        sanit.append(0)\n    elif row['sanitario2'] == 1:\n        sanit.append(3)\n    elif row['sanitario3'] == 1:\n        sanit.append(2)\n    elif row['sanitario5'] == 1:\n        sanit.append(1)\n    elif row['sanitario6'] == 1:\n        sanit.append(2)\n    else:\n        sanit.append(np.nan)\n        \nheads['sanit'] = sanit\nheads['sanit-missing'] = heads['sanit'].isnull()\nheads = heads.drop(columns = ['sanitario1', 'sanitario2', 'sanitario3', 'sanitario5', 'sanitario6', 'v14a'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4196886574
+    },
+    {
+      "raw": "cozinhar = []\nfor i, row in heads.iterrows():\n    if row['energcocinar1'] == 1:\n        cozinhar.append(0)\n    elif row['energcocinar2'] == 1:\n        cozinhar.append(2)\n    elif row['energcocinar3'] == 1:\n        cozinhar.append(2)\n    elif row['energcocinar4'] == 1:\n        cozinhar.append(1)\n    else:\n        cozinhar.append(np.nan)\n        \nheads['cozinhar'] = cozinhar\nheads['cozinhar-missing'] = heads['cozinhar'].isnull()\nheads = heads.drop(columns = ['energcocinar1', 'energcocinar2', 'energcocinar3', 'energcocinar4'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3897873560
+    },
+    {
+      "raw": "heads = heads.drop(columns = ['area2', 'elimbasu1', 'elimbasu2', 'elimbasu3', 'elimbasu4', 'elimbasu5', 'elimbasu6'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 14543807
+    },
+    {
+      "raw": "heads['walls'] = np.argmax(np.array(heads[['epared1', 'epared2', 'epared3']]), axis = 1)\nheads = heads.drop(columns = ['epared1', 'epared2', 'epared3'])\n\nheads['roof'] = np.argmax(np.array(heads[['etecho1', 'etecho2', 'etecho3']]), axis = 1)\nheads = heads.drop(columns = ['etecho1', 'etecho2', 'etecho3'])\n\nheads['floor'] = np.argmax(np.array(heads[['eviv1', 'eviv2', 'eviv3']]), axis = 1)\nheads = heads.drop(columns = ['eviv1', 'eviv2', 'eviv3'])\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 91337173
+    },
+    {
+      "raw": "heads['walls+roof+floor'] = heads['walls'] + heads['roof'] + heads['floor']\ncounts = pd.DataFrame(heads.groupby(['walls+roof+floor'])['Target'].value_counts(normalize = True)).rename(columns = {'Target': 'Normalized Count'}).reset_index()\ncounts.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 14624388
+    },
+    {
+      "raw": "heads['rooms-per-capita'] = heads['rooms'] / heads['tamviv']\nheads['rent-per-capita'] = heads['v2a1'] / heads['tamviv']\nheads['electronics-per-capita'] = (heads['v18q1'] + heads['qmobilephone']) / heads['tamviv']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2698538
+    },
+    {
+      "raw": "ind = data[id_ + ind_bool + ind_ordered]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 24342960
+    },
+    {
+      "raw": "ind[[c for c in ind if c.startswith('instl')]].head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 7508013
+    },
+    {
+      "raw": "ind['inst'] = np.argmax(np.array(ind[[c for c in ind if c.startswith('instl')]]), axis = 1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 19184787
+    },
+    {
+      "raw": "ind = ind.drop(columns = [c for c in ind if c.startswith('instlevel')])\nind['inst/age'] = ind['inst'] / ind['age']\nind['escolari/age'] = ind['escolari'] / ind['age']\nind['tech'] = ind['v18q'] + ind['mobilephone']\nind['tech'].describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 37979098
+    },
+    {
+      "raw": "def combine_features(data, cols=[], name=''):\n    df = data.copy()\n    for i, col in enumerate(cols):\n        print(i + 1, col)\n    df[cols] = df[cols].multiply([i for i in range(1, len(cols) + 1)], axis=1)\n    df[name] = df[cols].sum(axis=1)\n    df.drop(cols, axis=1, inplace=True)\n    return df",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 828730
+    },
+    {
+      "raw": "heads = combine_features(heads, cols=[col for col in heads.columns if col.startswith('lugar')], name='region')\nprint('Region count by target.');\n# ALEX: remove plotting\n# sns.factorplot(\"region\", col=\"Target\", col_wrap=4, data=heads, kind=\"count\");",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 93786375
+    },
+    {
+      "raw": "heads = combine_features(heads, cols=[col for col in heads.columns if col.startswith('tipovivi')], name='home_own')\nprint('Home ownership type count by target.');\n# ALEX: remove plotting\n# sns.factorplot(\"home_own\", col=\"Target\", col_wrap=4, data=heads, kind=\"count\");",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 74820651
+    },
+    {
+      "raw": "heads = heads.drop(columns = ['paredblolad', 'paredzocalo', 'paredpreb', 'pareddes', 'paredmad', 'paredzinc', 'paredfibras',\n                             'paredother', 'pisomoscer', 'pisocemento', 'pisoother', 'pisonatur', 'pisomadera', 'techozinc',\n                             'techoentrepiso', 'techocane', 'techootro', 'hogar_nin', 'hogar_mayor', 'hogar_adul',\n                             'dependency', 'edjefe', 'edjefa', 'meaneduc', 'r4h1', 'r4h2', 'r4h3', 'r4m1',\n                             'r4m2', 'r4m3', 'r4t1', 'r4t2', 'walls', 'roof', 'floor', 'rooms', 'v2a1', 'qmobilephone',\n                             'v18q1', 'hacapo', 'cielorazo', 'bedrooms', 'pisonotiene', 'hacdor'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 6785228
+    },
+    {
+      "raw": "ind = ind.drop(columns = ['estadocivil1', 'estadocivil2', 'estadocivil3', 'estadocivil4', 'estadocivil5', 'estadocivil6',\n                              'estadocivil7', 'parentesco1', 'parentesco2',  'parentesco3', 'parentesco4', 'parentesco5', \n                              'parentesco6', 'parentesco7', 'parentesco8',  'parentesco9', 'parentesco10', 'parentesco11',\n                              'parentesco12', 'mobilephone', 'escolari', 'inst', 'age', 'v18q', 'male'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 13012470
+    },
+    {
+      "raw": "final = heads.merge(ind, on = id_ , how = 'left')\nprint('Final features shape: ', final.shape)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 317660710
+    },
+    {
+      "raw": "print('\\n Missing Values')\nmissing = pd.DataFrame(final.isnull().sum()).rename(columns = {0: 'total'})\nmissing['percent'] = missing['total'] / len(final)\nmissing.sort_values('percent', ascending = False).head(10).drop('Target')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 270316726
+    },
+    {
+      "raw": "final = final[final['elec-missing'] != True]\nfinal = final[final['rez_esc-missing'] != True]\nfinal = final[final['cozinhar-missing'] != True]\nfinal = final[final['water-missing'] != True]\nfinal = final[final['sanit-missing'] != True]\nfinal = final[final['v2a1-missing'] != True]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 746246812
+    },
+    {
+      "raw": "print('Final features shape: ', final.shape)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 486970
+    },
+    {
+      "raw": "final = final.drop(columns = ['sanit-missing', 'cozinhar-missing', 'water-missing', 'elec-missing', 'v2a1-missing',\n                              'rez_esc-missing'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 72453389
+    },
+    {
+      "raw": "print('Final features shape: ', final.shape)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 362256
+    },
+    {
+      "raw": "train_labels = np.array(list(final[final['Target'].notnull()]['Target'].astype(np.uint8)))\n\nSPLIT = final[final['Target'].notnull()].drop(columns = ['Id', 'idhogar'])\nFINALtest = final[final['Target'].isnull()]\nsubmission_base = FINALtest[['Id', 'idhogar']].copy()\nFINALtest = FINALtest.drop(columns = ['Id', 'idhogar', 'Target' ])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 212412481
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# train, test = train_test_split(SPLIT, test_size=0.2)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 203068
+    },
+    {
+      "raw": "neighbors = [3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35]\nXtrain = train\nYtrain = train.Target\nXtest = test\nYtest = test.Target",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 664028
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# print('With CV = 3:')\n# cv_scores = []\n\n# for k in neighbors:\n#     knn = KNeighborsClassifier(n_neighbors=k)\n#     scores = cross_val_score(knn, Xtrain, Ytrain, cv=3, scoring='accuracy')\n#     cv_scores.append(scores.mean())\n    \n    \n# MSE = [1 - x for x in cv_scores]\n# optimal_k = neighbors[MSE.index(min(MSE))]\n# print(\"The optimal number of neighbors is %d\" % optimal_k)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 178703
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.plot(neighbors, MSE)\n# plt.xlabel('Number of Neighbors K')\n# plt.ylabel('Misclassification Error')\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 131213
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# print('With CV = 5:')\n# cv_scores = []\n\n# for k in neighbors:\n#     knn = KNeighborsClassifier(n_neighbors=k)\n#     scores = cross_val_score(knn, Xtrain, Ytrain, cv=5, scoring='accuracy')\n#     cv_scores.append(scores.mean())\n    \n    \n# MSE = [1 - x for x in cv_scores]\n# optimal_k = neighbors[MSE.index(min(MSE))]\n# print(\"The optimal number of neighbors is %d\" % optimal_k)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 161927
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.plot(neighbors, MSE)\n# plt.xlabel('Number of Neighbors K')\n# plt.ylabel('Misclassification Error')\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 125210
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# print('With CV = 10:')\n# cv_scores = []\n\n# for k in neighbors:\n#     knn = KNeighborsClassifier(n_neighbors=k)\n#     scores = cross_val_score(knn, Xtrain, Ytrain, cv=10, scoring='accuracy')\n#     cv_scores.append(scores.mean())\n    \n    \n# MSE = [1 - x for x in cv_scores]\n# optimal_k = neighbors[MSE.index(min(MSE))]\n# print(\"The optimal number of neighbors is %d\" % optimal_k)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 157292
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.plot(neighbors, MSE)\n# plt.xlabel('Number of Neighbors K')\n# plt.ylabel('Misclassification Error')\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 122157
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# print('With CV = 15:')\n# cv_scores = []\n\n# for k in neighbors:\n#     knn = KNeighborsClassifier(n_neighbors=k)\n#     scores = cross_val_score(knn, Xtrain, Ytrain, cv=15, scoring='accuracy')\n#     cv_scores.append(scores.mean())\n    \n    \n# MSE = [1 - x for x in cv_scores]\n# optimal_k = neighbors[MSE.index(min(MSE))]\n# print(\"The optimal number of neighbors is %d\" % optimal_k)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 152109
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.plot(neighbors, MSE)\n# plt.xlabel('Number of Neighbors K')\n# plt.ylabel('Misclassification Error')\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 117146
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# print('With CV = 20:')\n# cv_scores = []\n\n# for k in neighbors:\n#     knn = KNeighborsClassifier(n_neighbors=k)\n#     scores = cross_val_score(knn, Xtrain, Ytrain, cv=20, scoring='accuracy')\n#     cv_scores.append(scores.mean())\n    \n    \n# MSE = [1 - x for x in cv_scores]\n# optimal_k = neighbors[MSE.index(min(MSE))]\n# print(\"The optimal number of neighbors is %d\" % optimal_k)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 144603
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.plot(neighbors, MSE)\n# plt.xlabel('Number of Neighbors K')\n# plt.ylabel('Misclassification Error')\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 118424
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# knn = KNeighborsClassifier(n_neighbors=7)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 101458
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# knn.fit(Xtrain,Ytrain)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 99450
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# scores = cross_val_score(knn, Xtrain, Ytrain, cv=10)\n# scores",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 108180
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# YtestPred = knn.predict(Xtest)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 104714
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.metrics import accuracy_score\n# accuracy_score(Ytest,YtestPred)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 104956
+    },
+    {
+      "raw": "FINALtest.insert(0,'Target',0.0)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1265153
+    },
+    {
+      "raw": "FINALtest.dtypes",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 328938
+    },
+    {
+      "raw": "XFINALtest = FINALtest\n# ALEX: remove ML code\n# YFINALtestPred = knn.predict(XFINALtest)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 177322
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# YFINALtestPred",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 100510
+    },
+    {
+      "raw": "pred = pd.DataFrame(submission_base)\n# ALEX: remove ML code\n# pred[\"Target\"] = YFINALtestPred",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 202537
+    },
+    {
+      "raw": "pred.to_csv(\"prediction.csv\", index=False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 925194069
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 147506
+    }
+  ],
+  "total-time-in-sec": 23.409460626,
+  "max-disk-in-mb": 0
+}

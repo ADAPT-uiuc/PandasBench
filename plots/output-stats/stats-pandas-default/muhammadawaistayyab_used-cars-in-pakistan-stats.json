@@ -1,0 +1,80 @@
+{
+  "max-mem-in-mb": 120,
+  "max-mem-in-mb2": 128,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n\n# ALEX: remove plotting code\n# pd.plotting.register_matplotlib_converters()\n# import matplotlib.pyplot as plt\n# %matplotlib inline\n# import seaborn as sns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 271619
+    },
+    {
+      "raw": "data =  pd.read_csv('./input/used_cars_Pakistan.scaled.csv',index_col=0)\ndata",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 50608675
+    },
+    {
+      "raw": "data.make.value_counts().head(10)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3229276
+    },
+    {
+      "raw": "data.model.value_counts().head(10)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3176038
+    },
+    {
+      "raw": "data.city.value_counts().head(10)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3116599
+    },
+    {
+      "raw": "data.year.value_counts().head(10)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 821205
+    },
+    {
+      "raw": "data.Engine_displacement.value_counts().head(5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1170755
+    },
+    {
+      "raw": "data.Battery.value_counts().head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 689590
+    },
+    {
+      "raw": "100*(len(data)-data.Battery.isnull().sum())/len(data)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 567333
+    },
+    {
+      "raw": "data.Price_Rs.mean()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 406578
+    },
+    {
+      "raw": "data.Price_Rs.median()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1576341
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 69143
+    }
+  ],
+  "total-time-in-sec": 0.065703152,
+  "max-disk-in-mb": 0
+}

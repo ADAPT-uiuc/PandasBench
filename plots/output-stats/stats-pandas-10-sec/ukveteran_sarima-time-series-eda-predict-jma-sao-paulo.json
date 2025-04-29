@@ -1,0 +1,74 @@
+{
+  "max-mem-in-mb": 907,
+  "max-mem-in-mb2": 2067,
+  "cells": [
+    {
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting, ML code\n# import statsmodels.api as sm\n# import seaborn as sns\n# from statsmodels.tsa.seasonal import seasonal_decompose\n# from statsmodels.tsa.stattools import adfuller\n# from statsmodels.graphics.tsaplots import plot_acf,plot_pacf\n# from pandas.plotting import autocorrelation_plot\n# from statsmodels.tsa.arima_model import ARIMA\n# from pandas.tseries.offsets import DateOffset\n\n# import matplotlib.pyplot as plt\n# %matplotlib inline\n\n# Suppress warnings \nimport warnings\nwarnings.filterwarnings('ignore')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 523985
+    },
+    {
+      "raw": "df = pd.read_csv('./input/covid-19 sp.scaled.csv')\ndf.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4023396399
+    },
+    {
+      "raw": "df.columns = ['Date', 'Val',\"\",\"\"]\ndf.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 634520
+    },
+    {
+      "raw": "df.info()\ndf.isnull().sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2116382515
+    },
+    {
+      "raw": "df['Date'] = pd.to_datetime(df['Date'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1670947343
+    },
+    {
+      "raw": "df.set_index ('Date', inplace = True)\ndf.index",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 983891
+    },
+    {
+      "raw": "df_new = df['1998-01-01':]\ndf_new.tail()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 152233211
+    },
+    {
+      "raw": "df_new.describe().transpose()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1932397257
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# df_new.boxplot('Val', rot = 80, fontsize = '12',grid = True);",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 185212
+    },
+    {
+      "raw": "time_series = df_new['Val']\ntype(time_series)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 487892
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# time_series.rolling(12).mean().plot(label = '12 Months Rolling Mean', figsize = (16,10))\n# time_series.rolling(12).std().plot(label = '12 Months Rolling Std')\n# time_series.plot()\n# plt.legend();\ntime_series.rolling(12).mean()\ntime_series.rolling(12).std()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1336270116
+    }
+  ],
+  "total-time-in-sec": 11.234442341,
+  "max-disk-in-mb": 0
+}

@@ -1,0 +1,255 @@
+{
+  "max-mem-in-mb": 1111,
+  "max-mem-in-mb2": 1387,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pylab as plt\n# import matplotlib.patches as patches\n\n# plt.style.use('seaborn')\n# color_pal = [x['color'] for x in plt.rcParams['axes.prop_cycle']]\npd.set_option('display.max_columns', 100) # So we can see more columns\n\n# Read in the training data\ntrain = pd.read_csv('./input/train.scaled.csv', low_memory=False)",
+      "rewrite-ns": 1571376,
+      "overhead-ns": 1571376,
+      "exec-ns": 3940604471,
+      "total-ns": 3942175847,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\npd.set_option('display.max_columns', 100)\ntrain = pd.read_csv('./input/train.scaled.csv', low_memory=False)\n"
+    },
+    {
+      "raw": "# https://stackoverflow.com/questions/30228069/how-to-display-the-value-of-the-bar-on-each-bar-with-pyplot-barh\n# ALEX: remove plotting\n# def label_bars(ax, bars, text_format, **kwargs):\n#     \"\"\"\n#     Attaches a label on every bar of a regular or horizontal bar chart\n#     \"\"\"\n#     ys = [bar.get_y() for bar in bars]\n#     y_is_constant = all(y == ys[0] for y in ys)  # -> regular bar chart, since all all bars start on the same y level (0)\n\n#     if y_is_constant:\n#         _label_bar(ax, bars, text_format, **kwargs)\n#     else:\n#         _label_barh(ax, bars, text_format, **kwargs)\n\n\n# def _label_bar(ax, bars, text_format, **kwargs):\n#     \"\"\"\n#     Attach a text label to each bar displaying its y value\n#     \"\"\"\n#     max_y_value = ax.get_ylim()[1]\n#     inside_distance = max_y_value * 0.05\n#     outside_distance = max_y_value * 0.01\n\n#     for bar in bars:\n#         text = text_format.format(bar.get_height())\n#         text_x = bar.get_x() + bar.get_width() / 2\n\n#         is_inside = bar.get_height() >= max_y_value * 0.15\n#         if is_inside:\n#             color = \"white\"\n#             text_y = bar.get_height() - inside_distance\n#         else:\n#             color = \"black\"\n#             text_y = bar.get_height() + outside_distance\n\n#         ax.text(text_x, text_y, text, ha='center', va='bottom', color=color, **kwargs)\n\n\n# def _label_barh(ax, bars, text_format, **kwargs):\n#     \"\"\"\n#     Attach a text label to each bar displaying its y value\n#     Note: label always outside. otherwise it's too hard to control as numbers can be very long\n#     \"\"\"\n#     max_x_value = ax.get_xlim()[1]\n#     distance = max_x_value * 0.0025\n\n#     for bar in bars:\n#         text = text_format.format(bar.get_width())\n\n#         text_x = bar.get_width() + distance\n#         text_y = bar.get_y() + bar.get_height() / 2\n\n#         ax.text(text_x, text_y, text, va='center', **kwargs)",
+      "rewrite-ns": 37699,
+      "overhead-ns": 37699,
+      "exec-ns": 132464,
+      "total-ns": 170163,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# train.groupby('PlayId').first()['Yards'] \\\n#     .plot(kind='hist',\n#           figsize=(15, 5),\n#           bins=50,\n#           title='Distribution of Yards Gained (Target)')\n# plt.show()\ntrain.groupby('PlayId').first()['Yards']",
+      "rewrite-ns": 566892,
+      "overhead-ns": 566892,
+      "exec-ns": 476084478,
+      "total-ns": 476651370,
+      "patts-hit": {},
+      "rewritten": "train.groupby('PlayId').first()['Yards']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, axes = plt.subplots(4, 1, figsize=(15, 8), sharex=True)\n# n = 0\nfor i, d in train.groupby('Down'):\n# ALEX: remove plotting\n#     d['Yards'].plot(kind='hist',\n#                     bins=30,\n#                    color=color_pal[n],\n#                    ax=axes[n],\n#                    title=f'Yards Gained on down {i}')\n#     n+=1\n    d['Yards']",
+      "rewrite-ns": 779341,
+      "overhead-ns": 779341,
+      "exec-ns": 167958423,
+      "total-ns": 168737764,
+      "patts-hit": {},
+      "rewritten": "for i, d in train.groupby('Down'):\n    d['Yards']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(20, 5))\n# sns.violinplot(x='Distance-to-Gain',\n#                y='Yards',\n#                data=train.rename(columns={'Distance':'Distance-to-Gain'}),\n#                ax=ax)\n# plt.ylim(-10, 20)\n# plt.title('Yards vs Distance-to-Gain')\n# plt.show()\n_ = train.rename(columns={'Distance':'Distance-to-Gain'})",
+      "rewrite-ns": 565639,
+      "overhead-ns": 565639,
+      "exec-ns": 130269909,
+      "total-ns": 130835548,
+      "patts-hit": {},
+      "rewritten": "_ = train.rename(columns={'Distance': 'Distance-to-Gain'})\n"
+    },
+    {
+      "raw": "print('Unique game data provided: {}'.format(train['GameId'].nunique()))\nprint('Unique play data provided: {}'.format(train['PlayId'].nunique()))",
+      "rewrite-ns": 1193100,
+      "overhead-ns": 1193100,
+      "exec-ns": 6641415,
+      "total-ns": 7834515,
+      "patts-hit": {},
+      "rewritten": "print('Unique game data provided: {}'.format(train['GameId'].nunique()))\nprint('Unique play data provided: {}'.format(train['PlayId'].nunique()))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# train.groupby('GameId')['PlayId'] \\\n#     .nunique() \\\n#     .plot(kind='hist', figsize=(15, 5),\n#          title='Distribution of Plays per GameId',\n#          bins=50)\n# plt.show()\ntrain.groupby('GameId')['PlayId'] \\\n     .nunique()",
+      "rewrite-ns": 529731,
+      "overhead-ns": 529731,
+      "exec-ns": 15312958,
+      "total-ns": 15842689,
+      "patts-hit": {},
+      "rewritten": "train.groupby('GameId')['PlayId'].nunique()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 5))\n# sns.boxplot(data=train.groupby('PlayId').first()[['Distance','Down']],\n#             x='Down', y='Distance', ax=ax1)\n# ax1.set_title('Distance-to-Gain by Down')\n# sns.boxplot(data=train.groupby('PlayId').first()[['Yards','Down']],\n#             x='Down', y='Yards', ax=ax2)\n# ax2.set_title('Yards Gained by Down')\n# plt.show()\n_ = train.groupby('PlayId').first()[['Distance','Down']]\n_ = train.groupby('PlayId').first()[['Yards','Down']]",
+      "rewrite-ns": 1246659,
+      "overhead-ns": 1246659,
+      "exec-ns": 988123945,
+      "total-ns": 989370604,
+      "patts-hit": {},
+      "rewritten": "_ = train.groupby('PlayId').first()[['Distance', 'Down']]\n_ = train.groupby('PlayId').first()[['Yards', 'Down']]\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# train['Distance'].plot(kind='hist',\n#                        title='Distribution of Distance to Go',\n#                        figsize=(15, 5),\n#                        bins=30,\n#                        color=color_pal[2])\n# plt.show()\n_ = train['Distance']",
+      "rewrite-ns": 372763,
+      "overhead-ns": 372763,
+      "exec-ns": 359342,
+      "total-ns": 732105,
+      "patts-hit": {},
+      "rewritten": "_ = train['Distance']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(16, 4))\n# train['S'].plot(kind='hist', ax=ax1,\n#                 title='Distribution of Speed',\n#                 bins=20,\n#                 color=color_pal[0])\n# train['A'].plot(kind='hist',\n#                 ax=ax2,\n#                 title='Distribution of Acceleration',\n#                 bins=20,\n#                 color=color_pal[1])\n# train['Dis'].plot(kind='hist',\n#                   ax=ax3,\n#                   title='Distribution of Distance',\n#                   bins=20,\n#                   color=color_pal[2])\n# plt.show()\ntrain['S']\ntrain['A']\ntrain['Dis']",
+      "rewrite-ns": 640707,
+      "overhead-ns": 640707,
+      "exec-ns": 1761480,
+      "total-ns": 2402187,
+      "patts-hit": {},
+      "rewritten": "train['S']\ntrain['A']\ntrain['Dis']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(16, 4))\n# train.query(\"NflIdRusher == NflId\")['S'] \\\n#     .plot(kind='hist',\n#           ax=ax1,\n#           title='Distribution of Speed (Ball Carrier Only)',\n#           bins=20,\n#           color=color_pal[0])\n# train.query(\"NflIdRusher == NflId\")['A'] \\\n#     .plot(kind='hist',\n#           ax=ax2,\n#           title='Distribution of Acceleration (Ball Carrier Only)',\n#           bins=20,\n#           color=color_pal[1])\n# train.query(\"NflIdRusher == NflId\")['Dis'] \\\n#     .plot(kind='hist',\n#           ax=ax3,\n#           title='Distribution of Distance (Ball Carrier Only)',\n#           bins=20,\n#           color=color_pal[2])\n# plt.show()\ntrain.query(\"NflIdRusher == NflId\")['S']\ntrain.query(\"NflIdRusher == NflId\")['A']\ntrain.query(\"NflIdRusher == NflId\")['Dis']",
+      "rewrite-ns": 1056917,
+      "overhead-ns": 1056917,
+      "exec-ns": 71581055,
+      "total-ns": 72637972,
+      "patts-hit": {},
+      "rewritten": "train.query('NflIdRusher == NflId')['S']\ntrain.query('NflIdRusher == NflId')['A']\ntrain.query('NflIdRusher == NflId')['Dis']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# import warnings\n# warnings.filterwarnings(\"ignore\", category=RuntimeWarning)\n\n# sns.pairplot(train.query(\"NflIdRusher == NflId\").sample(1000)[['S','Dis','A','Yards','DefensePersonnel']],\n#             hue='DefensePersonnel')\n# plt.suptitle('Speed, Acceleration, Distance traveled, and Yards Gained for Rushers')\n# plt.show()\n_ = train.query(\"NflIdRusher == NflId\").sample(1000)[['S','Dis','A','Yards','DefensePersonnel']]",
+      "rewrite-ns": 886033,
+      "overhead-ns": 886033,
+      "exec-ns": 24484265,
+      "total-ns": 25370298,
+      "patts-hit": {},
+      "rewritten": "_ = train.query('NflIdRusher == NflId').sample(1000)[['S', 'Dis', 'A',\n    'Yards', 'DefensePersonnel']]\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(1, 2, figsize=(20, 8))\n# train.groupby('PlayId') \\\n#     .first() \\\n#     .groupby('OffensePersonnel') \\\n#     .count()['GameId'] \\\n#     .sort_values(ascending=False) \\\n#     .head(15) \\\n#     .sort_values() \\\n#     .plot(kind='barh',\n#          title='Offense Personnel # of Plays',\n#          ax=ax[0])\n# train.groupby('PlayId') \\\n#     .first() \\\n#     .groupby('DefensePersonnel') \\\n#     .count()['GameId'] \\\n#     .sort_values(ascending=False) \\\n#     .head(15) \\\n#     .sort_values() \\\n#     .plot(kind='barh',\n#          title='Defense Personnel # of Plays',\n#          ax=ax[1])\n# plt.show()\ntrain.groupby('PlayId') \\\n    .first() \\\n    .groupby('OffensePersonnel') \\\n    .count()['GameId'] \\\n    .sort_values(ascending=False) \\\n    .head(15) \\\n    .sort_values()\ntrain.groupby('PlayId') \\\n    .first() \\\n    .groupby('DefensePersonnel') \\\n    .count()['GameId'] \\\n    .sort_values(ascending=False) \\\n    .head(15) \\\n    .sort_values()",
+      "rewrite-ns": 893832,
+      "overhead-ns": 893832,
+      "exec-ns": 1071768333,
+      "total-ns": 1072662165,
+      "patts-hit": {
+        "SortHead": 1
+      },
+      "rewritten": "dias.rewriter.sort_head(called_on=train.groupby('PlayId').first().groupby(\n    'OffensePersonnel').count()['GameId'], by=None, n=15, asc=False, orig=\n    lambda _DIAS_x: _DIAS_x.sort_values(ascending=False).head(15)).sort_values(\n    )\ndias.rewriter.sort_head(called_on=train.groupby('PlayId').first().groupby(\n    'DefensePersonnel').count()['GameId'], by=None, n=15, asc=False, orig=\n    lambda _DIAS_x: _DIAS_x.sort_values(ascending=False).head(15)).sort_values(\n    )\n"
+    },
+    {
+      "raw": "top_10_defenses = train.groupby('DefensePersonnel')['GameId'] \\\n    .count() \\\n    .sort_values(ascending=False).index[:10] \\\n    .tolist()",
+      "rewrite-ns": 1089286,
+      "overhead-ns": 1089286,
+      "exec-ns": 25789968,
+      "total-ns": 26879254,
+      "patts-hit": {},
+      "rewritten": "top_10_defenses = train.groupby('DefensePersonnel')['GameId'].count(\n    ).sort_values(ascending=False).index[:10].tolist()\n"
+    },
+    {
+      "raw": "train_play = train.groupby('PlayId').first()\ntrain_top10_def = train_play.loc[train_play['DefensePersonnel'].isin(top_10_defenses)]\n\n# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15, 5))\n# sns.violinplot(x='DefensePersonnel',\n#                y='Yards',\n#                data=train_top10_def,\n#                ax=ax)\n# plt.ylim(-10, 20)\n# plt.title('Yards vs Defensive Personnel')\n# plt.show()",
+      "rewrite-ns": 1087647,
+      "overhead-ns": 1087647,
+      "exec-ns": 481594628,
+      "total-ns": 482682275,
+      "patts-hit": {},
+      "rewritten": "train_play = train.groupby('PlayId').first()\ntrain_top10_def = train_play.loc[train_play['DefensePersonnel'].isin(\n    top_10_defenses)]\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15, 5))\n# ax.set_ylim(-10, 60)\n# ax.set_title('Yards vs Quarter')\n# sns.boxenplot(x='Quarter',\n#             y='Yards',\n#             data=train.sample(5000),\n#             ax=ax)\n# plt.show()\n_ = train.sample(5000)",
+      "rewrite-ns": 432718,
+      "overhead-ns": 432718,
+      "exec-ns": 13987537,
+      "total-ns": 14420255,
+      "patts-hit": {},
+      "rewritten": "_ = train.sample(5000)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15, 5))\n# ax.set_ylim(-10, 60)\n# sns.boxenplot(x='DefendersInTheBox',\n#                y='Yards',\n#                data=train.query('DefendersInTheBox > 2'),\n#                ax=ax)\n# plt.title('Yards vs Defenders in the Box')\n# plt.show()\n_ = train.query('DefendersInTheBox > 2')",
+      "rewrite-ns": 418357,
+      "overhead-ns": 418357,
+      "exec-ns": 161666764,
+      "total-ns": 162085121,
+      "patts-hit": {},
+      "rewritten": "_ = train.query('DefendersInTheBox > 2')\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, axes = plt.subplots(3, 2, constrained_layout=True, figsize=(15 , 10))\n# #fig.tight_layout()\n# ax_idx = 0\n# ax_idx2 = 0\nfor i in range(4, 10):\n# ALEX: remove plotting\n#     this_ax = axes[ax_idx2][ax_idx]\n#     #print(ax_idx, ax_idx2)\n#     sns.distplot(train.query('DefendersInTheBox == @i')['Yards'],\n#                 ax=this_ax,\n#                 color=color_pal[ax_idx2])\n#     this_ax.set_title(f'{i} Defenders in the box')\n#     this_ax.set_xlim(-10, 20)\n#     ax_idx += 1\n#     if ax_idx == 2:\n#         ax_idx = 0\n#         ax_idx2 += 1\n    _ = train.query('DefendersInTheBox == @i')['Yards']\n# ALEX: remove plotting\n# plt.show()",
+      "rewrite-ns": 797068,
+      "overhead-ns": 797068,
+      "exec-ns": 241190793,
+      "total-ns": 241987861,
+      "patts-hit": {},
+      "rewritten": "for i in range(4, 10):\n    _ = train.query('DefendersInTheBox == @i')['Yards']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# train.query(\"NflIdRusher == NflId\") \\\n#     .groupby('DisplayName')['Yards'] \\\n#     .agg(['count','mean']) \\\n#     .query('count > 100') \\\n#     .sort_values('mean', ascending=True) \\\n#     .tail(10)['mean'] \\\n#     .plot(kind='barh',\n#           figsize=(15, 5),\n#           color=color_pal[5],\n#           xlim=(0,6),\n#           title='Top 10 Players by Average Yards')\n# plt.show()\n# train.query(\"NflIdRusher == NflId\") \\\n#     .groupby('DisplayName')['Yards'] \\\n#     .agg(['count','mean']) \\\n#     .query('count > 100') \\\n#     .sort_values('mean', ascending=True) \\\n#     .head(10)['mean'] \\\n#     .plot(kind='barh',\n#           figsize=(15, 5),\n#           color=color_pal[0],\n#           xlim=(0,6),\n#           title='Bottom 10 Players by Average Yards')\n# plt.show()\ntrain.query(\"NflIdRusher == NflId\") \\\n    .groupby('DisplayName')['Yards'] \\\n    .agg(['count','mean']) \\\n    .query('count > 100') \\\n    .sort_values('mean', ascending=True) \\\n    .tail(10)['mean']\ntrain.query(\"NflIdRusher == NflId\") \\\n    .groupby('DisplayName')['Yards'] \\\n    .agg(['count','mean']) \\\n    .query('count > 100') \\\n    .sort_values('mean', ascending=True) \\\n    .head(10)['mean']",
+      "rewrite-ns": 1766299,
+      "overhead-ns": 1766299,
+      "exec-ns": 55048007,
+      "total-ns": 56814306,
+      "patts-hit": {
+        "SortHead": 1
+      },
+      "rewritten": "train.query('NflIdRusher == NflId').groupby('DisplayName')['Yards'].agg([\n    'count', 'mean']).query('count > 100').sort_values('mean', ascending=True\n    ).tail(10)['mean']\ndias.rewriter.sort_head(called_on=train.query('NflIdRusher == NflId').\n    groupby('DisplayName')['Yards'].agg(['count', 'mean']).query(\n    'count > 100'), by='mean', n=10, asc=True, orig=lambda _DIAS_x: _DIAS_x\n    .sort_values('mean', ascending=True).head(10))['mean']\n"
+    },
+    {
+      "raw": "# Create the DL-LB combos\ntrain['DL_LB'] = train['DefensePersonnel'] \\\n    .str[:10] \\\n    .str.replace(' DL, ','-') \\\n    .str.replace(' LB','') # Clean up and convert to DL-LB combo\ntop_5_dl_lb_combos = train.groupby('DL_LB').count()['GameId'] \\\n    .sort_values() \\\n    .tail(10).index.tolist()\n# ALEX: remove plotting\n# ax = train.loc[train['DL_LB'].isin(top_5_dl_lb_combos)] \\\n#     .groupby('DL_LB').mean()['Yards'] \\\n#     .sort_values(ascending=True) \\\n#     .plot(kind='bar',\n#           title='Average Yards Top 5 Defensive DL-LB combos',\n#           figsize=(15, 5),\n#           color=color_pal[4])\n# # for p in ax.patches:\n# #     ax.annotate(str(round(p.get_height(), 2)),\n# #                 (p.get_x() * 1.005, p.get_height() * 1.015))\n\n# #bars = ax.bar(0.5, 5, width=0.5, align=\"center\")\n# bars = [p for p in ax.patches]\n# value_format = \"{:0.2f}\"\n# label_bars(ax, bars, value_format, fontweight='bold')\n# plt.show()\n_ = train.loc[train['DL_LB'].isin(top_5_dl_lb_combos)] \\\n    .groupby('DL_LB').mean()['Yards'] \\\n    .sort_values(ascending=True)",
+      "rewrite-ns": 2903183,
+      "overhead-ns": 2903183,
+      "exec-ns": 2822308485,
+      "total-ns": 2825211668,
+      "patts-hit": {},
+      "rewritten": "train['DL_LB'] = train['DefensePersonnel'].str[:10].str.replace(' DL, ', '-'\n    ).str.replace(' LB', '')\ntop_5_dl_lb_combos = train.groupby('DL_LB').count()['GameId'].sort_values(\n    ).tail(10).index.tolist()\n_ = train.loc[train['DL_LB'].isin(top_5_dl_lb_combos)].groupby('DL_LB').mean()[\n    'Yards'].sort_values(ascending=True)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# def create_football_field(linenumbers=True,\n#                           endzones=True,\n#                           highlight_line=False,\n#                           highlight_line_number=50,\n#                           highlighted_name='Line of Scrimmage',\n#                           fifty_is_los=False,\n#                           figsize=(12*2, 6.33*2)):\n#     \"\"\"\n#     Function that plots the football field for viewing plays.\n#     Allows for showing or hiding endzones.\n#     \"\"\"\n#     rect = patches.Rectangle((0, 0), 120, 53.3, linewidth=0.1,\n#                              edgecolor='r', facecolor='darkgreen', zorder=0)\n\n#     fig, ax = plt.subplots(1, figsize=figsize)\n#     ax.add_patch(rect)\n\n#     plt.plot([10, 10, 10, 20, 20, 30, 30, 40, 40, 50, 50, 60, 60, 70, 70, 80,\n#               80, 90, 90, 100, 100, 110, 110, 120, 0, 0, 120, 120],\n#              [0, 0, 53.3, 53.3, 0, 0, 53.3, 53.3, 0, 0, 53.3, 53.3, 0, 0, 53.3,\n#               53.3, 0, 0, 53.3, 53.3, 0, 0, 53.3, 53.3, 53.3, 0, 0, 53.3],\n#              color='white')\n#     if fifty_is_los:\n#         plt.plot([60, 60], [0, 53.3], color='gold')\n#         plt.text(62, 50, '<- Player Yardline at Snap', color='gold')\n#     # Endzones\n#     if endzones:\n#         ez1 = patches.Rectangle((0, 0), 10, 53.3,\n#                                 linewidth=0.1,\n#                                 edgecolor='r',\n#                                 facecolor='blue',\n#                                 alpha=0.2,\n#                                 zorder=0)\n#         ez2 = patches.Rectangle((110, 0), 120, 53.3,\n#                                 linewidth=0.1,\n#                                 edgecolor='r',\n#                                 facecolor='blue',\n#                                 alpha=0.2,\n#                                 zorder=0)\n#         ax.add_patch(ez1)\n#         ax.add_patch(ez2)\n#     plt.xlim(0, 120)\n#     plt.ylim(-5, 58.3)\n#     plt.axis('off')\n#     if linenumbers:\n#         for x in range(20, 110, 10):\n#             numb = x\n#             if x > 50:\n#                 numb = 120 - x\n#             plt.text(x, 5, str(numb - 10),\n#                      horizontalalignment='center',\n#                      fontsize=20,  # fontname='Arial',\n#                      color='white')\n#             plt.text(x - 0.95, 53.3 - 5, str(numb - 10),\n#                      horizontalalignment='center',\n#                      fontsize=20,  # fontname='Arial',\n#                      color='white', rotation=180)\n#     if endzones:\n#         hash_range = range(11, 110)\n#     else:\n#         hash_range = range(1, 120)\n\n#     for x in hash_range:\n#         ax.plot([x, x], [0.4, 0.7], color='white')\n#         ax.plot([x, x], [53.0, 52.5], color='white')\n#         ax.plot([x, x], [22.91, 23.57], color='white')\n#         ax.plot([x, x], [29.73, 30.39], color='white')\n\n#     if highlight_line:\n#         hl = highlight_line_number + 10\n#         plt.plot([hl, hl], [0, 53.3], color='yellow')\n#         plt.text(hl + 2, 50, '<- {}'.format(highlighted_name),\n#                  color='yellow')\n#     return fig, ax\n\nimport math\ndef get_dx_dy(angle, dist):\n    cartesianAngleRadians = (450-angle)*math.pi/180.0\n    dx = dist * math.cos(cartesianAngleRadians)\n    dy = dist * math.sin(cartesianAngleRadians)\n    return dx, dy",
+      "rewrite-ns": 1833320,
+      "overhead-ns": 1833320,
+      "exec-ns": 517312,
+      "total-ns": 2350632,
+      "patts-hit": {},
+      "rewritten": "import math\ndef get_dx_dy(angle, dist):\n    cartesianAngleRadians = (450 - angle) * math.pi / 180.0\n    dx = dist * math.cos(cartesianAngleRadians)\n    dy = dist * math.sin(cartesianAngleRadians)\n    return dx, dy\n"
+    },
+    {
+      "raw": "play_id = train.query(\"DL_LB == '3-4'\")['PlayId'].reset_index(drop=True)[500]\n# ALEX: remove plotting\n# fig, ax = create_football_field()\n# train.query(\"PlayId == @play_id and Team == 'away'\") \\\n#     .plot(x='X', y='Y', kind='scatter', ax=ax, color='orange', s=200, legend='Away')\n# train.query(\"PlayId == @play_id and Team == 'home'\") \\\n#     .plot(x='X', y='Y', kind='scatter', ax=ax, color='blue', s=200, legend='Home')\n# train.query(\"PlayId == @play_id and NflIdRusher == NflId\") \\\n#     .plot(x='X', y='Y', kind='scatter', ax=ax, color='red', s=200, legend='Rusher')\ntrain.query(\"PlayId == @play_id and Team == 'away'\")\ntrain.query(\"PlayId == @play_id and Team == 'home'\")\ntrain.query(\"PlayId == @play_id and NflIdRusher == NflId\")\nrusher_row = train.query(\"PlayId == @play_id and NflIdRusher == NflId\")\nyards_covered = rusher_row[\"Yards\"].values[0]\n\nx = rusher_row[\"X\"].values[0]\ny = rusher_row[\"Y\"].values[0]\nrusher_dir = rusher_row[\"Dir\"].values[0]\nrusher_speed = rusher_row[\"S\"].values[0]\ndx, dy = get_dx_dy(rusher_dir, rusher_speed)\nyards_gained = train.query(\"PlayId == @play_id\")['Yards'].tolist()[0]\n# ALEX: remove plotting\n# ax.arrow(x, y, dx, dy, length_includes_head=True, width=0.3)\n# plt.title(f'Example of a 3-4 Defense - run resulted in {yards_gained} yards gained', fontsize=20)\n# plt.legend()\n# plt.show()",
+      "rewrite-ns": 4378464,
+      "overhead-ns": 4378464,
+      "exec-ns": 99228201,
+      "total-ns": 103606665,
+      "patts-hit": {},
+      "rewritten": "play_id = train.query(\"DL_LB == '3-4'\")['PlayId'].reset_index(drop=True)[500]\ntrain.query(\"PlayId == @play_id and Team == 'away'\")\ntrain.query(\"PlayId == @play_id and Team == 'home'\")\ntrain.query('PlayId == @play_id and NflIdRusher == NflId')\nrusher_row = train.query('PlayId == @play_id and NflIdRusher == NflId')\nyards_covered = rusher_row['Yards'].values[0]\nx = rusher_row['X'].values[0]\ny = rusher_row['Y'].values[0]\nrusher_dir = rusher_row['Dir'].values[0]\nrusher_speed = rusher_row['S'].values[0]\ndx, dy = get_dx_dy(rusher_dir, rusher_speed)\nyards_gained = train.query('PlayId == @play_id')['Yards'].tolist()[0]\n"
+    },
+    {
+      "raw": "play_id = train.query(\"DL_LB == '4-3'\")['PlayId'].reset_index(drop=True)[500]\n# ALEX: remove plotting\n# fig, ax = create_football_field()\n# train.query(\"PlayId == @play_id and Team == 'away'\") \\\n#     .plot(x='X', y='Y', kind='scatter', ax=ax, color='orange', s=200, legend='Away')\n# train.query(\"PlayId == @play_id and Team == 'home'\") \\\n#     .plot(x='X', y='Y', kind='scatter', ax=ax, color='blue', s=200, legend='Home')\n# train.query(\"PlayId == @play_id and NflIdRusher == NflId\") \\\n#     .plot(x='X', y='Y', kind='scatter', ax=ax, color='red', s=200, legend='Rusher')\ntrain.query(\"PlayId == @play_id and Team == 'away'\")\ntrain.query(\"PlayId == @play_id and Team == 'home'\")\ntrain.query(\"PlayId == @play_id and NflIdRusher == NflId\")\nrusher_row = train.query(\"PlayId == @play_id and NflIdRusher == NflId\")\nyards_covered = rusher_row[\"Yards\"].values[0]\n\nx = rusher_row[\"X\"].values[0]\ny = rusher_row[\"Y\"].values[0]\nrusher_dir = rusher_row[\"Dir\"].values[0]\nrusher_speed = rusher_row[\"S\"].values[0]\ndx, dy = get_dx_dy(rusher_dir, rusher_speed)\nyards_gained = train.query(\"PlayId == @play_id\")['Yards'].tolist()[0]\n# ALEX: remove plotting\n# ax.arrow(x, y, dx, dy, length_includes_head=True, width=0.3)\n# plt.title(f'Example of a 4-3 Defense - run resulted in {yards_gained} yard gained', fontsize=20)\n# plt.legend()\n# plt.show()",
+      "rewrite-ns": 4431230,
+      "overhead-ns": 4431230,
+      "exec-ns": 99087839,
+      "total-ns": 103519069,
+      "patts-hit": {},
+      "rewritten": "play_id = train.query(\"DL_LB == '4-3'\")['PlayId'].reset_index(drop=True)[500]\ntrain.query(\"PlayId == @play_id and Team == 'away'\")\ntrain.query(\"PlayId == @play_id and Team == 'home'\")\ntrain.query('PlayId == @play_id and NflIdRusher == NflId')\nrusher_row = train.query('PlayId == @play_id and NflIdRusher == NflId')\nyards_covered = rusher_row['Yards'].values[0]\nx = rusher_row['X'].values[0]\ny = rusher_row['Y'].values[0]\nrusher_dir = rusher_row['Dir'].values[0]\nrusher_speed = rusher_row['S'].values[0]\ndx, dy = get_dx_dy(rusher_dir, rusher_speed)\nyards_gained = train.query('PlayId == @play_id')['Yards'].tolist()[0]\n"
+    },
+    {
+      "raw": "play_id = train.query(\"DL_LB == '4-2'\")['PlayId'].reset_index(drop=True)[500]\n# ALEX: remove plotting\n# fig, ax = create_football_field()\n# train.query(\"PlayId == @play_id and Team == 'away'\") \\\n#     .plot(x='X', y='Y', kind='scatter', ax=ax, color='orange', s=200, legend='Away')\n# train.query(\"PlayId == @play_id and Team == 'home'\") \\\n#     .plot(x='X', y='Y', kind='scatter', ax=ax, color='blue', s=200, legend='Home')\n# train.query(\"PlayId == @play_id and NflIdRusher == NflId\") \\\n#     .plot(x='X', y='Y', kind='scatter', ax=ax, color='red', s=200, legend='Rusher')\ntrain.query(\"PlayId == @play_id and Team == 'away'\")\ntrain.query(\"PlayId == @play_id and Team == 'home'\")\ntrain.query(\"PlayId == @play_id and NflIdRusher == NflId\")\nrusher_row = train.query(\"PlayId == @play_id and NflIdRusher == NflId\")\nyards_covered = rusher_row[\"Yards\"].values[0]\n\nx = rusher_row[\"X\"].values[0]\ny = rusher_row[\"Y\"].values[0]\nrusher_dir = rusher_row[\"Dir\"].values[0]\nrusher_speed = rusher_row[\"S\"].values[0]\ndx, dy = get_dx_dy(rusher_dir, rusher_speed)\nyards_gained = train.query(\"PlayId == @play_id\")['Yards'].tolist()[0]\n# ALEX: remove plotting\n# ax.arrow(x, y, dx, dy, length_includes_head=True, width=0.3)\n# plt.title(f'Example of a 4-2 Defense - run resulted in {yards_gained} yards gained', fontsize=20)\n# plt.legend()\n# plt.show()",
+      "rewrite-ns": 4390293,
+      "overhead-ns": 4390293,
+      "exec-ns": 98004054,
+      "total-ns": 102394347,
+      "patts-hit": {},
+      "rewritten": "play_id = train.query(\"DL_LB == '4-2'\")['PlayId'].reset_index(drop=True)[500]\ntrain.query(\"PlayId == @play_id and Team == 'away'\")\ntrain.query(\"PlayId == @play_id and Team == 'home'\")\ntrain.query('PlayId == @play_id and NflIdRusher == NflId')\nrusher_row = train.query('PlayId == @play_id and NflIdRusher == NflId')\nyards_covered = rusher_row['Yards'].values[0]\nx = rusher_row['X'].values[0]\ny = rusher_row['Y'].values[0]\nrusher_dir = rusher_row['Dir'].values[0]\nrusher_speed = rusher_row['S'].values[0]\ndx, dy = get_dx_dy(rusher_dir, rusher_speed)\nyards_gained = train.query('PlayId == @play_id')['Yards'].tolist()[0]\n"
+    },
+    {
+      "raw": "train['SnapHandoffSeconds'] = (pd.to_datetime(train['TimeHandoff']) - \\\n                               pd.to_datetime(train['TimeSnap'])).dt.total_seconds()\n\n# ALEX: remove plotting\n# (train.groupby('SnapHandoffSeconds').count() / 22 )['GameId'].plot(kind='bar',\n#                                                                    figsize=(15, 5))\n# bars = [p for p in ax.patches]\n# value_format = \"{}\"\n# label_bars(ax, bars, value_format, fontweight='bold')\n# plt.show()\n(train.groupby('SnapHandoffSeconds').count() / 22 )['GameId']",
+      "rewrite-ns": 1616614,
+      "overhead-ns": 1616614,
+      "exec-ns": 1706739600,
+      "total-ns": 1708356214,
+      "patts-hit": {},
+      "rewritten": "train['SnapHandoffSeconds'] = (pd.to_datetime(train['TimeHandoff']) - pd.\n    to_datetime(train['TimeSnap'])).dt.total_seconds()\n(train.groupby('SnapHandoffSeconds').count() / 22)['GameId']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# train.groupby('SnapHandoffSeconds')['Yards'].mean().plot(kind='barh',\n#                                                          color=color_pal[1],\n#                                                          figsize=(15, 5),\n#                                                          title='Average Yards Gained by SnapHandoff Seconds')\n# plt.show()\ntrain.groupby('SnapHandoffSeconds')['Yards'].mean()",
+      "rewrite-ns": 563744,
+      "overhead-ns": 563744,
+      "exec-ns": 13387111,
+      "total-ns": 13950855,
+      "patts-hit": {},
+      "rewritten": "train.groupby('SnapHandoffSeconds')['Yards'].mean()\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 16877,
+      "overhead-ns": 16877,
+      "exec-ns": 92770,
+      "total-ns": 109647,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 12.749791396,
+  "max-disk-in-mb": 0
+}

@@ -1,0 +1,92 @@
+{
+  "max-mem-in-mb": 1018,
+  "max-mem-in-mb2": 2128,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n\nimport numpy as np",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 377262844
+    },
+    {
+      "raw": "Path = './input/diabetes.scaled.csv'\ntrain_df = pd.read_csv(Path)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 8069740
+    },
+    {
+      "raw": "train_df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 921834687
+    },
+    {
+      "raw": "train_df.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 976953
+    },
+    {
+      "raw": "# ALEX: evaluate lazy computation\nevaluate_lazy(train_df.describe())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1641100933
+    },
+    {
+      "raw": "#only iterates through feature columns leaving the label (Outcome)\n#features = train_df.drop('Outcome', axis=1)\n#for cols in features:\n#    train_df[cols] = train_df[cols].replace(0,train_df[cols].mean())\ntrain_df['Glucose'] = train_df['Glucose'].replace(0, train_df['Glucose'].mean())\ntrain_df['BloodPressure'] = train_df['BloodPressure'].replace(0, train_df['BloodPressure'].mean())\ntrain_df['SkinThickness'] = train_df['SkinThickness'].replace(0, train_df['SkinThickness'].mean())\ntrain_df['Insulin'] = train_df['Insulin'].replace(0, train_df['Insulin'].mean())\ntrain_df['BMI'] = train_df['BMI'].replace(0, train_df['BMI'].mean())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 26526685
+    },
+    {
+      "raw": "# ALEX: evaluate lazy computation\nevaluate_lazy(train_df.describe())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2208109448
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# import seaborn as sb\n# import matplotlib.pyplot as plt",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 228363
+    },
+    {
+      "raw": "#Correlation matrix\n# help from: https://www.kaggle.com/zacharywyman/titanic-top-10-beginner-tutorial/data?select=train.csv",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 156148
+    },
+    {
+      "raw": "corr_matrix = train_df.corr()\n# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize = (10,8))\n# sb.heatmap(corr_matrix, annot = True, fmt='.2g', vmin = -1,\n#             vmax = 1, center = 0, cmap = 'coolwarm')\nevaluate_lazy(corr_matrix)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 7099667522
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import train_test_split\n# from sklearn.ensemble import RandomForestClassifier\n# from sklearn.model_selection import GridSearchCV\n# from sklearn.metrics import accuracy_score",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 260018
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# x_train, x_test, y_train, y_test = train_test_split(train_df.drop('Outcome', axis=1), train_df['Outcome'], \n#                                                   test_size = 0.2)\nevaluate_lazy(train_df.drop('Outcome', axis=1))\nevaluate_lazy(train_df['Outcome'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2688908020
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# print(x_train.shape, y_train.shape)\n# print(x_test.shape, y_test.shape)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 259374
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# model = RandomForestClassifier(n_estimators=250, max_features='auto',\n#                               max_depth = 6, criterion='entropy')\n# model.fit(x_train, y_train)\n# y_pred = model.predict(x_test)\n# print(\"Accuracy score of Random Forest: \", (accuracy_score(y_pred, y_test))*100)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 231623
+    }
+  ],
+  "total-time-in-sec": 14.973592358,
+  "max-disk-in-mb": 0
+}

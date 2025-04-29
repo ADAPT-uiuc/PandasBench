@@ -1,0 +1,320 @@
+{
+  "max-mem-in-mb": 8002,
+  "max-mem-in-mb2": 8841,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove ML code, plotting\n# from sklearn.preprocessing import LabelEncoder\n# from sklearn.model_selection import train_test_split\n# from sklearn.ensemble import RandomForestClassifier\n# import matplotlib.pyplot as plt\n# %matplotlib inline\n# import seaborn as sns\n# plt.style.use('bmh')\n# plt.style.use('ggplot')\n# plt.rcParams['figure.figsize'] = 20, 10",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 399659
+    },
+    {
+      "raw": "def nullremove(df):\n    for i in range(0,len(df.columns)):\n        print(i)\n    ",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 454034
+    },
+    {
+      "raw": "def descr(df):\n    print(df.describe().round())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 365023
+    },
+    {
+      "raw": "app=pd.read_csv(\"./input/application_train.scaled.csv\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 12363401972
+    },
+    {
+      "raw": "print(app.shape)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 603210
+    },
+    {
+      "raw": "application=app.copy()\nprint(application.shape)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 552903667
+    },
+    {
+      "raw": "application_object=application.select_dtypes(\"object\")\nprint(application_object.shape)\nprint(application_object.columns)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 150172704
+    },
+    {
+      "raw": "application_object_columns=application_object.columns.tolist()\napplication_columns=application.columns.tolist()\nprint(len(application_object_columns))\nprint(len(application_columns))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 468507
+    },
+    {
+      "raw": "app_if = list(set(application_columns) - set(application_object_columns))\nprint(len(app_if))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 333181
+    },
+    {
+      "raw": "app_df=application[app_if]\n\nprint(app_df.shape)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 409818285
+    },
+    {
+      "raw": "app_df.dtypes",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 553449
+    },
+    {
+      "raw": "def nullremove(df,percentage):\n   # print(len(df))\n    wantedcolumnlist=[]\n    columnlist=df.columns.tolist()\n    #print(len(columnlist))\n    for i in range(len(columnlist)):\n        columnname=columnlist[i]\n        nan_rows = df[columnname].isnull().sum()\n     #   print(i,nan_rows)\n        nullcount=(nan_rows/len(df))*100\n        #print(nullcount)\n        if nullcount>percentage:\n            print(columnname) \n        else:\n            wantedcolumnlist.append(columnname)    \n        \n    df=df[wantedcolumnlist]\n    return df\n    ",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 806733
+    },
+    {
+      "raw": "#app_df=nullremove(app_df,80)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 160268
+    },
+    {
+      "raw": "app_df.isna().sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 194317527
+    },
+    {
+      "raw": "app_df['DAYDIFF']=abs(app_df['DAYS_BIRTH'])-abs(app_df['DAYS_EMPLOYED'])\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 13317845
+    },
+    {
+      "raw": "app_df=app_df[app_df['DAYDIFF']>0]\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 738036513
+    },
+    {
+      "raw": "print(app_df.shape)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 354977
+    },
+    {
+      "raw": "def meansep(df):\n    highermean=pd.DataFrame()\n    lowermean=pd.DataFrame()\n    columns=df.columns.tolist()\n    for i in range(len(columns)):\n        mean=df[columns[i]].mean()\n        if mean>10:\n            highermean[columns[i]]=df[columns[i]]\n        else:\n            if columns[i]=='DAYS_BIRTH' or columns[i]=='DAYS_EMPLOYED' or columns[i]=='TARGET':\n                highermean[columns[i]]=df[columns[i]]\n            else:\n                lowermean[columns[i]]=df[columns[i]]\n    return highermean,lowermean",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 939250
+    },
+    {
+      "raw": "app_dff=app_df.copy()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 331661463
+    },
+    {
+      "raw": "app_dff.isna().sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 148120187
+    },
+    {
+      "raw": "app_dff=nullremove(app_dff,50)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 375553206
+    },
+    {
+      "raw": "hdf,ldf=meansep(app_dff)\nprint(hdf.shape,ldf.shape)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 551948306
+    },
+    {
+      "raw": "hdf.isna().sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 13806985
+    },
+    {
+      "raw": "hdf.dtypes",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 409500
+    },
+    {
+      "raw": "hdf['AMT_ANNUITY']=hdf['AMT_ANNUITY'].fillna(hdf['AMT_ANNUITY'].mean())\nhdf['AMT_GOODS_PRICE']=hdf['AMT_GOODS_PRICE'].fillna(hdf['AMT_GOODS_PRICE'].mean())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 17279714
+    },
+    {
+      "raw": "descr(hdf)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 418343999
+    },
+    {
+      "raw": "hdf=hdf[hdf['AMT_INCOME_TOTAL']<=2000000]\nhdf=hdf[hdf['AMT_CREDIT']<=900000]\nhdf=hdf[hdf['AMT_GOODS_PRICE']<=900000]\nhdf=hdf[hdf['AMT_ANNUITY']<=35000]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 127695751
+    },
+    {
+      "raw": "hdf[hdf['DAYS_EMPLOYED']==-17912]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1759684
+    },
+    {
+      "raw": "application[application['AMT_CREDIT']==4050000.0]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2264534
+    },
+    {
+      "raw": "hdf.columns.tolist()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 257604
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# hdf[['AMT_GOODS_PRICE',\n#   'AMT_INCOME_TOTAL',\n#  'AMT_ANNUITY',\n#  'DAYS_EMPLOYED',\n#   'DAYS_BIRTH',\n#   'AMT_CREDIT',\n#  'DAYDIFF']].hist(figsize=(16, 10), bins=50, xlabelsize=8, ylabelsize=8);\nhdf[['AMT_GOODS_PRICE',\n  'AMT_INCOME_TOTAL',\n 'AMT_ANNUITY',\n 'DAYS_EMPLOYED',\n  'DAYS_BIRTH',\n  'AMT_CREDIT',\n 'DAYDIFF']]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 8818897
+    },
+    {
+      "raw": "correlation = hdf[['AMT_GOODS_PRICE',\n  'AMT_INCOME_TOTAL',\n 'AMT_ANNUITY',\n 'DAYS_EMPLOYED',\n  'DAYS_BIRTH',\n  'AMT_CREDIT',\n 'DAYDIFF']].corr()\n# ALEX: remove plotting\n# plt.figure(figsize=(7,7))\n# flatui = [\"#9b59b6\", \"#3498db\", \"#95a5a6\", \"#e74c3c\", \"#34495e\", \"#2ecc71\"]\n# sns.heatmap(correlation, vmax=1, square=True,annot=True,cmap=flatui)\n# plt.title('Correlation between different fearures')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 143663160
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.preprocessing import Normalizer\n# normalized_application = Normalizer().fit_transform(hdf[['AMT_GOODS_PRICE','AMT_INCOME_TOTAL','AMT_ANNUITY','AMT_CREDIT','DAYDIFF']])\n#print (normalized_application)\nnormalized_application = hdf[['AMT_GOODS_PRICE','AMT_INCOME_TOTAL','AMT_ANNUITY','AMT_CREDIT','DAYDIFF']]\ncorrelation=pd.DataFrame(normalized_application).corr()\ncorrelation.columns=['AMT_GOODS_PRICE','AMT_INCOME_TOTAL','AMT_ANNUITY','AMT_CREDIT','DAYDIFF']\n# ALEX: remove plotting\n# plt.figure(figsize=(8,8))\n# flatui = [\"#9b59b6\", \"#3498db\", \"#95a5a6\", \"#e74c3c\", \"#34495e\", \"#2ecc71\"]\n# sns.heatmap(correlation, vmax=1, square=True,annot=True,cmap=flatui)\n# plt.title('Correlation between different fearures')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 80511778
+    },
+    {
+      "raw": "from numpy import log",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 332577
+    },
+    {
+      "raw": "hdf.head(2)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 349834
+    },
+    {
+      "raw": "hd=hdf.copy()\nhd['AMT_INCOME_TOTAL_log']=log(hdf['AMT_INCOME_TOTAL'])\n\n\n\n\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 9732794
+    },
+    {
+      "raw": "hd.head(2)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 345936
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# hd[['AMT_GOODS_PRICE',\n#   'AMT_INCOME_TOTAL_log',\n#  'AMT_ANNUITY',\n#   'AMT_CREDIT',\n#  'DAYDIFF']].hist(figsize=(16, 10), bins=50, xlabelsize=8, ylabelsize=8);\nhd[['AMT_GOODS_PRICE',\n  'AMT_INCOME_TOTAL_log',\n 'AMT_ANNUITY',\n  'AMT_CREDIT',\n 'DAYDIFF']]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 15718272
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.preprocessing import Normalizer\n# normalized_application = Normalizer().fit_transform(hd[['AMT_GOODS_PRICE',\n#   'AMT_INCOME_TOTAL_log',\n#  'AMT_ANNUITY',\n#   'AMT_CREDIT',\n#  'DAYDIFF']])\nnormalized_application = hd[['AMT_GOODS_PRICE',\n  'AMT_INCOME_TOTAL_log',\n 'AMT_ANNUITY',\n  'AMT_CREDIT',\n 'DAYDIFF']]\n#print (normalized_application)\ncorrelation=pd.DataFrame(normalized_application).corr()\ncorrelation.columns=['AMT_GOODS_PRICE',\n  'AMT_INCOME_TOTAL_log',\n 'AMT_ANNUITY',\n  'AMT_CREDIT',\n 'DAYDIFF']\n# ALEX: remove plotting\n# plt.figure(figsize=(8,8))\n# flatui = [\"#9b59b6\", \"#3498db\", \"#95a5a6\", \"#e74c3c\", \"#34495e\", \"#2ecc71\"]\n# sns.heatmap(correlation, vmax=1, square=True,annot=True,cmap=flatui)\n# plt.title('Correlation between different fearures')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 85296217
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.scatter(hd['AMT_ANNUITY'],hd['AMT_CREDIT'])\n# plt.xlabel(\"amt annuity\")\n# plt.ylabel(\"amt credit\")\n_ = hd['AMT_ANNUITY']\n_ = hd['AMT_CREDIT']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 458393
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.scatter(hd['AMT_GOODS_PRICE'],hd['DAYDIFF'])\n# plt.xlabel(\"amt good\")\n# plt.ylabel(\"amt credit\")\n_ = hd['AMT_GOODS_PRICE']\n_ = hd['DAYDIFF']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 385107
+    },
+    {
+      "raw": "hd.dtypes",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 397746
+    },
+    {
+      "raw": "hd.columns.tolist()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 244603
+    },
+    {
+      "raw": "hd=hd[['SK_ID_CURR',\n 'AMT_GOODS_PRICE',\n 'DAYS_EMPLOYED',\n 'TARGET',\n 'AMT_CREDIT',\n 'DAYS_BIRTH',\n 'AMT_ANNUITY',\n 'HOUR_APPR_PROCESS_START',\n 'DAYDIFF',\n 'AMT_INCOME_TOTAL_log']]\n\nhd.to_csv(\"tt.csv\",index=False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3534324862
+    },
+    {
+      "raw": "hd.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 311513
+    },
+    {
+      "raw": "hd.isna().sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 15069261
+    },
+    {
+      "raw": "ldf.isna().sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 124905876
+    },
+    {
+      "raw": "appobj=application[application_object_columns]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 168442700
+    },
+    {
+      "raw": "appobj.head(2)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 390154
+    },
+    {
+      "raw": "appobj.isna().sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2419699700
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 115121
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 89581
+    }
+  ],
+  "total-time-in-sec": 23.026111819,
+  "max-disk-in-mb": 0
+}

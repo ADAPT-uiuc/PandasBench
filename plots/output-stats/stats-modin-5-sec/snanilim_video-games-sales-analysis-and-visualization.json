@@ -1,0 +1,404 @@
+{
+  "max-mem-in-mb": 2695,
+  "max-mem-in-mb2": 1012,
+  "cells": [
+    {
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove ML code\n# import scipy.stats as st\npd.set_option('display.max_columns', None)\n\nimport math\n\n# ALEX: remove plotting, ML code\n# import matplotlib.pyplot as plt\n# %matplotlib inline\n\n# import seaborn as sns\n# sns.set_style('whitegrid')\n\n# import missingno as msno\n\n# from sklearn.preprocessing import StandardScaler\n# from scipy import stats\n\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3433698287
+    },
+    {
+      "raw": "data = pd.read_csv('./input/vgsales.scaled.csv')\ndata.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3206957936
+    },
+    {
+      "raw": "drop_row_index = data[data['Year'] > 2015].index\ndata = data.drop(drop_row_index)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2197559207
+    },
+    {
+      "raw": "data.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 727078
+    },
+    {
+      "raw": "data.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 787450022
+    },
+    {
+      "raw": "# data.describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 391271
+    },
+    {
+      "raw": "# data.describe(include=['object', 'bool'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 352068
+    },
+    {
+      "raw": "data.isnull().sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 38969005
+    },
+    {
+      "raw": "data['Genre'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 608490343
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.countplot(x=\"Genre\", data=data, order = data['Genre'].value_counts().index)\n# plt.xticks(rotation=90)\n_ = data['Genre'].value_counts().index",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 336953705
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.countplot(x=\"Year\", data=data, order = data.groupby(by=['Year'])['Name'].count().sort_values(ascending=False).index)\n# plt.xticks(rotation=90)\n_ = data.groupby(by=['Year'])['Name'].count().sort_values(ascending=False).index",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 568409420
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(30, 10))\n# sns.countplot(x=\"Year\", data=data, hue='Genre', order=data.Year.value_counts().iloc[:5].index)\n# plt.xticks(size=16, rotation=90)\n_ = data.Year.value_counts().iloc[:5].index",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 302997121
+    },
+    {
+      "raw": "data_year = data.groupby(by=['Year'])['Global_Sales'].sum()\ndata_year = data_year.reset_index()\n# data_year.sort_values(by=['Global_Sales'], ascending=False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 403569299
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.barplot(x=\"Year\", y=\"Global_Sales\", data=data_year)\n# plt.xticks(rotation=90)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 320842
+    },
+    {
+      "raw": "year_max_df = data.groupby(['Year', 'Genre']).size().reset_index(name='count')\nyear_max_idx = year_max_df.groupby(['Year'])['count'].transform(max) == year_max_df['count']\nyear_max_genre = year_max_df[year_max_idx].reset_index(drop=True)\nyear_max_genre = year_max_genre.drop_duplicates(subset=[\"Year\", \"count\"], keep='last').reset_index(drop=True)\n# year_max_genre",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 873406550
+    },
+    {
+      "raw": "genre = year_max_genre['Genre'].values\n# genre[0]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 12692881
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(30, 15))\n# g = sns.barplot(x='Year', y='count', data=year_max_genre)\nindex = 0\nfor value in year_max_genre['count'].values:\n#     print(asd)\n# ALEX: remove plotting\n#     g.text(index, value + 5, str(genre[index] + '----' +str(value)), color='#000', size=14, rotation= 90, ha=\"center\")\n    _ = str(genre[index] + '----' +str(value))\n    index += 1\n\n\n\n\n# ALEX: remove plotting\n# plt.xticks(rotation=90)\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 13217141
+    },
+    {
+      "raw": "year_sale_dx = data.groupby(by=['Year', 'Genre'])['Global_Sales'].sum().reset_index()\nyear_sale = year_sale_dx.groupby(by=['Year'])['Global_Sales'].transform(max) == year_sale_dx['Global_Sales']\nyear_sale_max = year_sale_dx[year_sale].reset_index(drop=True)\n# year_sale_max",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 710796836
+    },
+    {
+      "raw": "genre = year_sale_max['Genre']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2593704
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(30, 18))\n# g = sns.barplot(x='Year', y='Global_Sales', data=year_sale_max)\nindex = 0\nfor value in year_sale_max['Global_Sales']:\n# ALEX: remove plotting\n#     g.text(index, value + 1, str(genre[index] + '----' +str(round(value, 2))), color='#000', size=14, rotation= 90, ha=\"center\")\n    _ = str(genre[index] + '----' +str(round(value, 2)))\n    index += 1\n\n# ALEX: remove plotting\n# plt.xticks(rotation=90)\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 578277361
+    },
+    {
+      "raw": "data_genre = data.groupby(by=['Genre'])['Global_Sales'].sum()\ndata_genre = data_genre.reset_index()\ndata_genre = data_genre.sort_values(by=['Global_Sales'], ascending=False)\n# data_genre",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 589181147
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.barplot(x=\"Genre\", y=\"Global_Sales\", data=data_genre)\n# plt.xticks(rotation=90)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 620616
+    },
+    {
+      "raw": "data_platform = data.groupby(by=['Platform'])['Global_Sales'].sum()\ndata_platform = data_platform.reset_index()\ndata_platform = data_platform.sort_values(by=['Global_Sales'], ascending=False)\n# data_platform",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 652763265
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.barplot(x=\"Platform\", y=\"Global_Sales\", data=data_platform)\n# plt.xticks(rotation=90)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 390160
+    },
+    {
+      "raw": "top_game_sale = data.head(20)\ntop_game_sale = top_game_sale[['Name', 'Year', 'Genre', 'Global_Sales']]\ntop_game_sale = top_game_sale.sort_values(by=['Global_Sales'], ascending=False)\n# top_game_sale",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 200677834
+    },
+    {
+      "raw": "name = top_game_sale['Name']\nyear = top_game_sale['Year']\ny = np.arange(0, 20)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 43433694
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(30, 18))\n# g = sns.barplot(x='Name', y='Global_Sales', data=top_game_sale)\nindex = 0\nfor value in top_game_sale['Global_Sales']:\n# ALEX: remove plotting\n#     g.text(index, value - 18, name[index], color='#000', size=14, rotation= 90, ha=\"center\")\n    _ = name[index]\n    index += 1\n\n# ALEX: remove plotting\n# plt.xticks(y, top_game_sale['Year'], fontsize=14, rotation=90)\n# plt.xlabel('Release Year')\n# plt.show()\n_ = top_game_sale['Year']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 262205732
+    },
+    {
+      "raw": "comp_genre = data[['Genre', 'NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales']]\n# comp_genre\ncomp_map = comp_genre.groupby(by=['Genre']).sum()\n# comp_map",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 550589447
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.set(font_scale=1)\n# sns.heatmap(comp_map, annot=True, fmt = '.1f')\n\n# plt.xticks(fontsize=14)\n# plt.yticks(fontsize=14)\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 422940
+    },
+    {
+      "raw": "comp_table = comp_map.reset_index()\ncomp_table = pd.melt(comp_table, id_vars=['Genre'], value_vars=['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales'], var_name='Sale_Area', value_name='Sale_Price')\ncomp_table.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 34390530
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.barplot(x='Genre', y='Sale_Price', hue='Sale_Area', data=comp_table)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 364577
+    },
+    {
+      "raw": "comp_platform = data[['Platform', 'NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales']]\ncomp_platform.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2719753
+    },
+    {
+      "raw": "comp_platform = comp_platform.groupby(by=['Platform']).sum().reset_index()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 629773784
+    },
+    {
+      "raw": "# comp_table = comp_map.reset_index()\ncomp_table = pd.melt(comp_platform, id_vars=['Platform'], value_vars=['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales'], var_name='Sale_Area', value_name='Sale_Price')\ncomp_table.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 28938044
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(30, 15))\n# sns.barplot(x='Platform', y='Sale_Price', hue='Sale_Area', data=comp_table)\n# plt.xticks(fontsize=14)\n# plt.yticks(fontsize=14)\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 381037
+    },
+    {
+      "raw": "top_publisher = data.groupby(by=['Publisher'])['Year'].count().sort_values(ascending=False).head(20)\ntop_publisher = pd.DataFrame(top_publisher).reset_index()\n# top_publisher",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 739565698
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.countplot(x=\"Publisher\", data=data, order = data.groupby(by=['Publisher'])['Year'].count().sort_values(ascending=False).iloc[:20].index)\n# plt.xticks(rotation=90)\n_ = data.groupby(by=['Publisher'])['Year'].count().sort_values(ascending=False).iloc[:20].index",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 641107516
+    },
+    {
+      "raw": "sale_pbl = data[['Publisher', 'Global_Sales']]\nsale_pbl = sale_pbl.groupby('Publisher')['Global_Sales'].sum().sort_values(ascending=False).head(20)\nsale_pbl = pd.DataFrame(sale_pbl).reset_index()\n# sale_pbl",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 671122694
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.barplot(x='Publisher', y='Global_Sales', data=sale_pbl)\n# plt.xticks(rotation=90)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 382471
+    },
+    {
+      "raw": "comp_publisher = data[['Publisher', 'NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales', 'Global_Sales']]\ncomp_publisher.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2854937
+    },
+    {
+      "raw": "comp_publisher = comp_publisher.groupby(by=['Publisher']).sum().reset_index().sort_values(by=['Global_Sales'], ascending=False)\ncomp_publisher = comp_publisher.head(20)\n# comp_publisher",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 770536532
+    },
+    {
+      "raw": "comp_publisher = pd.melt(comp_publisher, id_vars=['Publisher'], value_vars=['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales'], var_name='Sale_Area', value_name='Sale_Price')\ncomp_publisher",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 14960931
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(30, 15))\n# sns.barplot(x='Publisher', y='Sale_Price', hue='Sale_Area', data=comp_publisher)\n# plt.xticks(fontsize=14, rotation=90)\n# plt.yticks(fontsize=14)\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 396845
+    },
+    {
+      "raw": "top_publisher =  data[['Year', 'Publisher']]\ntop_publisher_df = top_publisher.groupby(by=['Year', 'Publisher']).size().reset_index(name='Count')\ntop_publisher_idx =  top_publisher_df.groupby(by=['Year'])['Count'].transform(max) == top_publisher_df['Count']\ntop_publisher_count = top_publisher_df[top_publisher_idx].reset_index(drop=True)\ntop_publisher_count  = top_publisher_count.drop_duplicates(subset=[\"Year\", \"Count\"], keep='last').reset_index(drop=True)\n# top_publisher_count",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1143310513
+    },
+    {
+      "raw": "publisher= top_publisher_count['Publisher']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2255666
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(30, 15))\n# g = sns.barplot(x='Year', y='Count', data=top_publisher_count)\nindex = 0\nfor value in top_publisher_count['Count'].values:\n#     print(asd)\n# ALEX: remove plotting\n#     g.text(index, value + 5, str(publisher[index] + '----' +str(value)), color='#000', size=14, rotation= 90, ha=\"center\")\n    _ = str(publisher[index] + '----' +str(value))\n    index += 1\n\n\n\n\n# ALEX: remove plotting\n# plt.xticks(rotation=90)\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 357434206
+    },
+    {
+      "raw": "# data.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 530518
+    },
+    {
+      "raw": "top_sale_reg = data[['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales']]\n# pd.DataFrame(top_sale_reg.sum(), columns=['a', 'b'])\ntop_sale_reg = top_sale_reg.sum().reset_index()\ntop_sale_reg = top_sale_reg.rename(columns={\"index\": \"region\", 0: \"sale\"})\ntop_sale_reg",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 35752908
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12, 8))\n# sns.barplot(x='region', y='sale', data = top_sale_reg)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 384490
+    },
+    {
+      "raw": "labels = top_sale_reg['region']\nsizes = top_sale_reg['sale']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2987755
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10, 8))\n# plt.pie(sizes, labels=labels, autopct='%1.1f%%', shadow=True, startangle=90)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 340421
+    },
+    {
+      "raw": "# sns.distplot(data['NA_Sales'],  kde=False, fit=stats.gamma);\n# sns.distplot(data['EU_Sales'],  kde=False, fit=stats.gamma);\n# ALEX: remove plotting\n# plt.figure(figsize=(25,30))\nsales_columns = ['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales', 'Global_Sales']\nfor i, column in enumerate(sales_columns):\n# ALEX: remove plotting\n#     plt.subplot(3,2,i+1)\n#     sns.distplot(data[column], bins=20, kde=False, fit=stats.gamma)\n    _ = data[column]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5763715
+    },
+    {
+      "raw": "data_hist_log = data.copy()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 828029
+    },
+    {
+      "raw": "data_hist_log = data_hist_log[data_hist_log.NA_Sales != 0]\ndata_hist_log = data_hist_log[data_hist_log.EU_Sales != 0]\ndata_hist_log = data_hist_log[data_hist_log.Other_Sales != 0]\ndata_hist_log = data_hist_log[data_hist_log.JP_Sales != 0]\ndata_hist_log = data_hist_log[data_hist_log.Global_Sales != 0]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2001019980
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(25,30))\nsales_columns = ['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales', 'Global_Sales']\nfor i, column in enumerate(sales_columns):\n# ALEX: remove plotting\n#     plt.subplot(3,2,i+1)\n#     sns.distplot(np.log(data_hist_log[column]), bins=20, kde=False, fit=stats.gamma)\n    _ = np.log(data_hist_log[column])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 920051326
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(13,10))\n# sns.heatmap(data.corr(), cmap = \"Blues\", annot=True, linewidth=3)\n_ = data.corr()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 867418145
+    },
+    {
+      "raw": "data_pair = data.loc[:,[\"Year\",\"Platform\", \"Genre\", \"NA_Sales\",\"EU_Sales\", \"Other_Sales\"]]\ndata_pair",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 27423872
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.pairplot(data_pair, hue='Genre')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 340983
+    },
+    {
+      "raw": "data_pair_log = data_pair.copy()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1278350
+    },
+    {
+      "raw": "sale_columns = ['NA_Sales', 'EU_Sales', 'Other_Sales']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 620407
+    },
+    {
+      "raw": "# for column in sale_columns:\n#     if 0 in data[column].unique():\n#         pass\n#     else:\n#         data_pair_log[column] = np.log(data_pair_log[column])\n# #         data_pair_log.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 330303
+    },
+    {
+      "raw": "data_pair_log = data_pair_log[data_pair_log.NA_Sales != 0]\ndata_pair_log = data_pair_log[data_pair_log.EU_Sales != 0]\ndata_pair_log = data_pair_log[data_pair_log.Other_Sales != 0]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 679409891
+    },
+    {
+      "raw": "data_pair_log",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 481900
+    },
+    {
+      "raw": "data_pair_log['NA_Sales'] = np.log(data_pair_log['NA_Sales']);\ndata_pair_log['EU_Sales'] = np.log(data_pair_log['EU_Sales']);\ndata_pair_log['Other_Sales'] = np.log(data_pair_log['Other_Sales']);",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 774253426
+    },
+    {
+      "raw": "# sns.pairplot(data_pair_log, hue='Genre',  diag_kind = 'kde',\n#              plot_kws = {'alpha': 0.6, 's': 80, 'edgecolor': 'k'},\n#              size = 4)\n\n# ALEX: remove plotting\n# sns.pairplot(data_pair_log, hue='Genre',  palette=\"husl\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 326778
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 187637
+    }
+  ],
+  "total-time-in-sec": 26.73834148,
+  "max-disk-in-mb": 0
+}

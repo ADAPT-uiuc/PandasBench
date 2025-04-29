@@ -1,0 +1,98 @@
+{
+  "max-mem-in-mb": 2073,
+  "max-mem-in-mb2": 823,
+  "cells": [
+    {
+      "raw": "# http://stackoverflow.com/questions/22233488/pandas-drop-a-level-from-a-multi-level-column-index\n# http://pandas.pydata.org/pandas-docs/version/0.18.1/visualization.html\n# http://stackoverflow.com/questions/34233347/pandas-plot-how-to-control-the-bar-width-and-the-gaps\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt\n# import colorsys\n# %matplotlib inline\n\n# ALEX: remove path printing\n# from subprocess import check_output\n# print(check_output([\"ls\", \"./input\"]).decode(\"utf8\"))\n\n# Any results you write to the current directory are saved as output.",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3310170444
+    },
+    {
+      "raw": "historical = pd.read_csv('./input/historical.scaled.csv')\npass_ = pd.read_csv('./input/pass_06_13.scaled.csv')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4833618383
+    },
+    {
+      "raw": "historical.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1413415
+    },
+    {
+      "raw": "historical.describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 36752569
+    },
+    {
+      "raw": "pass_.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1953295
+    },
+    {
+      "raw": "print(pass_.columns.tolist())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 839896
+    },
+    {
+      "raw": "total = pass_[['year','black','hispanic','white', 'asian']].groupby(['year']).agg(['sum'])\ntotal = total[['black','hispanic','white','asian']].reset_index()\ntotal.columns = total.columns.droplevel()\ntotal.columns = ['year','black','hispanic','white','asian']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 878576605
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# total.plot.bar(x = 'year',figsize=(10,6),linewidth=0.75,width=0.7)\n# plt.title('Participants in the AP Computer Science Exam by Race,1999-2013')\n# you can use the width parameter to set the gap",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 328984
+    },
+    {
+      "raw": "columns = ['year','black_passed', 'hispanic_passed',  'white_passed', 'asian_passed']\npass_copy = pass_[['year','black_passed', 'hispanic_passed',  'white_passed', 'asian_passed']].copy()\nfor col in columns:\n    pass_copy[col] = pd.to_numeric(pass_copy[col],errors='coerce') ## becuase data have nonumeric\n\npass_copy = pass_copy[['year','black_passed', 'hispanic_passed',  'white_passed', 'asian_passed']].fillna(0)\npass_rate = pass_copy[['year','black_passed', 'hispanic_passed',  'white_passed', 'asian_passed']].groupby(['year']).agg(['sum'])\npass_rate = pass_rate[['black_passed', 'hispanic_passed',  'white_passed', 'asian_passed']].reset_index()\npass_rate.columns = pass_rate.columns.droplevel()\npass_rate.columns = ['year','black','hispanic','white','asian']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1940304781
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# pass_rate.plot.bar(x='year',figsize=(10,6),linewidth=0.75,width=0.7)\n# plt.title('Pass Rate')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 319927
+    },
+    {
+      "raw": "gender_pass = pass_[['year','black_male','black_female','white_male',\n                     'white_female','hispanic_male','hispanic_female',\n                     'asian_male','asian_female']].groupby(['year']).agg(['sum'])\ngender_pass = gender_pass.reset_index()\ngender_pass.columns = gender_pass.columns.droplevel()\ngender_pass.columns = ['year','black_male','black_female','white_male',\n                     'white_female','hispanic_male','hispanic_female',\n                     'asian_male','asian_female']\n# ALEX: remove plotting\n# gender_pass.plot.bar(x='year',figsize=(10,6),linewidth=0.8)\n# plt.title('Male vs Female')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 877596212
+    },
+    {
+      "raw": "historical.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 139841892
+    },
+    {
+      "raw": "historical['1999'] = pd.to_numeric(historical['1999'],errors='coerce')\nhistorical.drop(['Pop'],axis=1,inplace=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 9534597
+    },
+    {
+      "raw": "hm = historical.set_index('state')\n# ALEX: remove plotting\n# fig,ax = plt.subplots(figsize=(10,6))\n# sns.heatmap(hm,ax=ax)\n# plt.title('exam taken per state per year')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 141779887
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 215003
+    }
+  ],
+  "total-time-in-sec": 12.17324589,
+  "max-disk-in-mb": 0
+}

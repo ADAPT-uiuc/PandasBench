@@ -1,0 +1,518 @@
+{
+  "max-mem-in-mb": 938,
+  "max-mem-in-mb2": 199,
+  "cells": [
+    {
+      "raw": "# Import the necessary libraries\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\nfrom datetime import datetime\n#import zipfile\n#import kaggle",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3427030918
+    },
+    {
+      "raw": "# Uncomment the import to extract the file from Kaggle with your key\n#!kaggle datasets download -d rashikrahmanpritom/data-science-job-posting-on-glassdoor",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 360091
+    },
+    {
+      "raw": "# Extract the files from the ZIP file\n#zip_name = 'data-science-job-posting-on-glassdoor.zip'\n#with zipfile.ZipFile(zip_name,'r') as file:\n#    file.extractall()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 284764
+    },
+    {
+      "raw": "# Read the .csv file as a pandas dataframe\njob_data = pd.read_csv(\"./input/Uncleaned_DS_jobs.scaled.csv\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2783386517
+    },
+    {
+      "raw": "# Explore the data\njob_data.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 103539213
+    },
+    {
+      "raw": "job_data.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 543291
+    },
+    {
+      "raw": "# Check the information structure\njob_data.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1171711
+    },
+    {
+      "raw": "# Drop the index column\njob_data.drop('index',axis=1,inplace=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2846000
+    },
+    {
+      "raw": "# Check for duplicates\njob_data[job_data.duplicated()].shape\njob_data[job_data.duplicated()]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 311631344
+    },
+    {
+      "raw": "# Drop duplicates\njob_data.drop_duplicates(inplace=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 144281397
+    },
+    {
+      "raw": "# Check the shape again\njob_data.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 12744293
+    },
+    {
+      "raw": "# Set appropiate column names in the form of lowercase words separated by '_'\njob_data.rename(columns= lambda header: header.lower().replace(\" \",\"_\"), inplace= True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2691908
+    },
+    {
+      "raw": "# Inspect the Job title column\njob_data[\"job_title\"][:150]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5906193
+    },
+    {
+      "raw": "# Make the replacement\njob_data[\"job_title\"]=job_data.loc[:,\"job_title\"].str.replace(\"(Sr.)\",\"sr.\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 11693526
+    },
+    {
+      "raw": "# Delete the rest of the instances using a regex\njob_data[\"job_title\"]=job_data.loc[:,\"job_title\"].str.extract('([^()]+)')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 63771337
+    },
+    {
+      "raw": "#Replace the special characters with an empty value by defining a regex pattern\njob_data['job_title'] = job_data['job_title'].str.replace(r'[^a-zA-Z0-9-,/\\s]','',regex=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 20221392
+    },
+    {
+      "raw": "#Inspect the salary estimate column\njob_data['salary_estimate'][100:200]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2092659
+    },
+    {
+      "raw": "# Define a function to extract the salary limits\ndef extract_values(text):\n    extracted_integer = ''\n    modified_string = ''\n    \n    for i in range(len(text)):\n        if i+1 < len(text):\n            if text[i].isdigit():\n                extracted_integer += text[i]\n                if not text[i+1].isdigit():\n                    break\n        if i == len(text) - 1 and text[i].isdigit():\n            extracted_integer += text[i]\n    \n    if extracted_integer:\n        modified_string = text[:text.find(extracted_integer)] + text[text.find(extracted_integer) + len(extracted_integer):]\n        extracted_integer = int(extracted_integer)\n    \n    return extracted_integer, modified_string",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1369590
+    },
+    {
+      "raw": "#Obtain the minimum salary in the range\njob_data['min_salary_K$'], job_data['salary_estimate'] = zip(*job_data['salary_estimate'].apply(extract_values))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 82771635
+    },
+    {
+      "raw": "#Obtain the maximum salary in the range\njob_data['max_salary_K$'], job_data['salary_estimate'] = zip(*job_data['salary_estimate'].apply(extract_values))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 64500903
+    },
+    {
+      "raw": "#Drop the old salary range column\njob_data.drop('salary_estimate', axis=1, inplace=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2650524
+    },
+    {
+      "raw": "#Let's obtain the average of these ranges\njob_data['avg_salary_estimate'] = (np.round((job_data['min_salary_K$'] + job_data['max_salary_K$'])/2,decimals=0)).astype(int)\njob_data.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 68799310
+    },
+    {
+      "raw": "#Inspect the job description column\njob_data['job_description'][:150]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2909456
+    },
+    {
+      "raw": "job_data.loc[:,\"job_description\"]\njob_data.loc[job_data.loc[:,\"job_description\"]==\"-1\"]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 34956498
+    },
+    {
+      "raw": "#Inspect the rating column\njob_data['rating'][:150]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2902573
+    },
+    {
+      "raw": "job_data['rating'].unique()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 41068312
+    },
+    {
+      "raw": "# Replace rating mising values with NaN across the entire column\njob_data['rating'].replace(-1.0,np.nan,inplace=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 6973116
+    },
+    {
+      "raw": "job_data['rating'].unique()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 20546856
+    },
+    {
+      "raw": "# Inspect the company name column\njob_data['company_name'][:10]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2894035
+    },
+    {
+      "raw": "job_data['company_name'] = job_data.loc[:,'company_name'].str.replace(r\"\\n\\d+(\\.\\d+)?\",'',regex=True)\njob_data.loc[:,\"company_name\"][:10]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 10363295
+    },
+    {
+      "raw": "# Inspect the location column\njob_data['location'][:10]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2785531
+    },
+    {
+      "raw": "# Check the counts of each unique location state\njob_data.loc[:,\"location\"].apply(lambda x: x.split(\",\")[-1]).value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 125601963
+    },
+    {
+      "raw": "# Create the state column\njob_data['location_state'] = job_data['location'].apply(lambda x: x.split(',')[-1].strip())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 25047147
+    },
+    {
+      "raw": "# Replace the inconsistencies with their correct state abbreviation\ndef clean_location(jobs):\n    return (\n        jobs.loc[:, \"location_state\"]\n        .replace(\"California\",\"CA\")\n        .replace(\"Texas\",\"TX\")\n        .replace(\"Utah\",\"UT\")\n        .replace(\"New Jersey\",\"NJ\")\n        .replace(\"Remote\",\"n/a\")\n        .replace(\"United States\",\"n/a\")\n    )\n\njob_data = job_data.assign(\n    location_state = clean_location\n)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 15914030
+    },
+    {
+      "raw": "job_data[\"location_state\"].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 94172665
+    },
+    {
+      "raw": "# Check if the location of the job and the HQ are in the place\njob_data['same_state'] = (job_data['location'] == job_data['headquarters']).astype(int)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 57165120
+    },
+    {
+      "raw": "job_data.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2002062
+    },
+    {
+      "raw": "# Inspect the headquarters column\njob_data['headquarters'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 123103868
+    },
+    {
+      "raw": "job_data['headquarters'] = job_data['headquarters'].apply(lambda x: x.replace('-1','n/a'))\njob_data[\"headquarters\"].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 143129941
+    },
+    {
+      "raw": "# Inspect the size column\nprint(job_data['size'][:100])\njob_data['size'].unique()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 65537420
+    },
+    {
+      "raw": "# Handle the missing values correctly\ndef size_cleaning(jobs):\n    return (\n        jobs.loc[:, \"size\"]\n        .replace(\"-1\",\"n/a\")\n        .replace(\"Unknown\",\"n/a\")\n    )\n\njob_data = job_data.assign(\n    size = size_cleaning\n)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 9428036
+    },
+    {
+      "raw": "job_data['size'].unique()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 36876595
+    },
+    {
+      "raw": "# Inspect the founded column\njob_data['founded'][:100]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2560441
+    },
+    {
+      "raw": "#Clean the missing values\njob_data['founded'].replace(-1,np.nan,inplace=True)\njob_data['founded'].unique()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 52203690
+    },
+    {
+      "raw": "# obtain the years the company has been in the market and drop the founed column\ncurrent_year = datetime.now().year\njob_data['years_in_market'] = current_year - job_data['founded']\njob_data.drop('founded',axis=1,inplace=True)\njob_data.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 10053328
+    },
+    {
+      "raw": "# Inspect the Type of ownership column\njob_data['type_of_ownership'][:100]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2426815
+    },
+    {
+      "raw": "job_data['type_of_ownership'].unique()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 53034671
+    },
+    {
+      "raw": "def ownership(jobs):\n    return (\n        jobs.loc[:, \"type_of_ownership\"]\n        .replace(\"Nonprofit Organization\",\"Nonprofit\")\n        .replace(\"-1\",\"n/a\")\n        .replace(\"Unknown\",\"n/a\")\n        .replace(\"Company - Public\",\"Public\")\n        .replace(\"Company - Private\",\"Private\")\n        .replace(\"Other Organization\",\"Other\")   \n    )\n\njob_data = job_data.assign(\n    type_of_ownership = ownership\n)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 17123748
+    },
+    {
+      "raw": "job_data['type_of_ownership'].unique()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 37441897
+    },
+    {
+      "raw": "# Inspect the industry column\njob_data['industry'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 105613131
+    },
+    {
+      "raw": "job_data[\"industry\"] = job_data[\"industry\"].apply(lambda x: x.replace(\"-1\",\"n/a\"))\njob_data['industry'].unique()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 72672655
+    },
+    {
+      "raw": "# Inspect the sector column\njob_data['sector'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 91828250
+    },
+    {
+      "raw": "job_data['sector'] = job_data['sector'].apply(lambda x: x.replace(\"-1\",\"n/a\"))\njob_data['sector'].unique()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 75599721
+    },
+    {
+      "raw": "# Inspect the revenue column\njob_data['revenue'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 88330400
+    },
+    {
+      "raw": "def revenue_cleanup(jobs):\n    return (\n        jobs.loc[:, \"revenue\"]\n        .replace(\"-1\",\"n/a\")\n        .replace(\"Unknown / Non-Applicable\",\"n/a\")\n    )\n\njob_data = job_data.assign(\n    revenue = revenue_cleanup\n)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 9789063
+    },
+    {
+      "raw": "job_data['revenue']=job_data.loc[:,'revenue'].str.extract('([^()]+)')\njob_data['revenue'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 157050397
+    },
+    {
+      "raw": "# Finally inspect the competitors column\njob_data['competitors'].value_counts()\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 119784150
+    },
+    {
+      "raw": "np.round((488/659)*100,decimals=2)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 665340
+    },
+    {
+      "raw": "#The percentage is too high so we drop this column\njob_data.drop('competitors',axis=1,inplace=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3552732
+    },
+    {
+      "raw": "job_data.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2774449
+    },
+    {
+      "raw": "# Check if we have any '-1' as missing values\njob_data[job_data.eq('-1').any(axis = 1)]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 202383925
+    },
+    {
+      "raw": "# Check if we have a numerical missing value in any column \njob_data[job_data.eq(-1).any(axis = 1)]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 199473395
+    },
+    {
+      "raw": "# Define a simplification function\n\ndef role_defining(title): \n    if any(keyword in title.lower() for keyword in ['data scientist', 'data science']):\n        return 'Data Scientist'\n    elif any(keyword in title.lower() for keyword in ['data analyst', 'analyst']):\n        return 'Data Analyst'\n    elif 'data engineer' in title.lower():\n        return 'Data Engineer'\n    elif any(keyword in title.lower() for keyword in ['machine learning', 'ai']):\n        return 'Machine Learning Engineer'\n    else:\n        return 'Other'",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1322038
+    },
+    {
+      "raw": "# Apply the function to the new column\njob_data['job_role']= job_data['job_title'].apply(role_defining)\njob_data['job_role'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 95099612
+    },
+    {
+      "raw": "def seniority_defining(title,description):\n    if any(keyword in title.lower() for keyword in ['jr.','jr','junior']) or any(keyword in description.lower() for keyword in ['jr.','jr','junior']):\n        return 'Jr'\n    elif any(keyword in title.lower() for keyword in ['sr.','sr','vp','senior']) or any(keyword in description.lower() for keyword in ['sr.','sr','vp','senior']):\n        return 'Sr'\n    else:\n        return 'Mid-Level'\n    \n\njob_data['job_seniority'] = job_data.apply(lambda row: seniority_defining(row['job_title'], row['job_description']), axis=1)\njob_data['job_seniority'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 234491947
+    },
+    {
+      "raw": "job_data.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2543000
+    },
+    {
+      "raw": "# Create dummy columns for each of the skill considered.\njob_data['excel'] = job_data.apply(lambda x: 1 if 'excel' in x.job_description.lower() else 0, axis=1)\njob_data['sql'] = job_data.apply(lambda x: 1 if 'sql' in x.job_description.lower() else 0, axis=1)\njob_data['python'] = job_data.apply(lambda x: 1 if 'python' in x.job_description.lower() else 0, axis=1)\njob_data['power_bi'] = job_data.apply(lambda x: 1 if 'power bi' in x.job_description.lower() else 0, axis=1)\njob_data['tableau'] = job_data.apply(lambda x: 1 if 'tableau' in x.job_description.lower() else 0, axis=1)\njob_data['scikit'] = job_data.apply(lambda x: 1 if 'scikit' in x.job_description.lower() else 0, axis=1)\njob_data['spark'] = job_data.apply(lambda x: 1 if 'spark' in x.job_description.lower() else 0, axis=1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 521775558
+    },
+    {
+      "raw": "print(job_data['excel'].value_counts())\nprint(job_data['sql'].value_counts())\nprint(job_data['python'].value_counts())\nprint(job_data['power_bi'].value_counts())\nprint(job_data['tableau'].value_counts())\nprint(job_data['scikit'].value_counts())\nprint(job_data['spark'].value_counts())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 688906645
+    },
+    {
+      "raw": "job_data.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2859535
+    },
+    {
+      "raw": "job_data.to_csv('Cleaned_Job_Data.csv',index= False)\njob_data.to_excel('Cleaned_Job_Data.xlsx',index=False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3756455981
+    },
+    {
+      "raw": "# Include the necessary packages fro analysisi and visualization\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# %matplotlib inline",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 510888
+    },
+    {
+      "raw": "# Obtain the basic statistics of the data frame\njob_data.describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 27574577
+    },
+    {
+      "raw": "#Obtain the relationships between columns\n# ALEX: remove plotting\n# sns.pairplot(job_data)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 358410
+    },
+    {
+      "raw": "industry_salary = [\n    round(job_data.loc[job_data[\"industry\"]==\"Biotech & Pharmaceuticals\",\"avg_salary_estimate\"].mean(), 2),\n    round(job_data.loc[job_data[\"industry\"]==\"IT Services\",\"avg_salary_estimate\"].mean(), 2),\n    round(job_data.loc[job_data[\"industry\"]==\"Computer Hardware & Software\",\"avg_salary_estimate\"].mean(), 2),\n    round(job_data.loc[job_data[\"industry\"]==\"Aerospace & Defense\",\"avg_salary_estimate\"].mean(), 2),\n    round(job_data.loc[job_data[\"industry\"]==\"Enterprise Software & Network Solutions\",\"avg_salary_estimate\"].mean(), 2)\n]\n\ntop_paying_industries = [\n    \"Biotech & Pharmaceuticals\",\n    \"IT Services\",\n    \"Computer Hardware & Software\",\n    \"Aerospace & Defense\",\n    \"Enterprise Software & Network Solutions\"\n]\n\n# ALEX: remove plotting\n# plt.bar(top_paying_industries, industry_salary)\n# plt.ylim(110, 140)\n# plt.xlabel(\"Job Industry\")\n# plt.ylabel(\"Average Salary\")\n\n# # Rotate the x-axis labels by 70 degrees\n# plt.xticks(rotation=70)\n\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1734416154
+    },
+    {
+      "raw": "# Let's start by analyzing the average salary for job postings\n# ALEX: remove plotting\n# sns.boxplot(x=job_data['avg_salary_estimate'])\n_ = job_data['avg_salary_estimate']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1851122
+    },
+    {
+      "raw": "# We can define a new data frame to fit in better inside the avg. salary range\ndf = job_data[(job_data.avg_salary_estimate > 50) & (job_data.avg_salary_estimate < 200)] ",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 58697634
+    },
+    {
+      "raw": "df.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 15499252
+    },
+    {
+      "raw": "# Make a comparison between the years the company has been in the market and the avg. salary.\n# ALEX: remove plotting\n# sns.lmplot(x='years_in_market',y='avg_salary_estimate',data=df)\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 420820
+    },
+    {
+      "raw": "# Generate a heatmap based on the numerical columns of the dataframe\n# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(10,10)) \nmatrix = np.triu(df.select_dtypes(include=[np.number]).corr())\n# ALEX: remove plotting\n# sns.heatmap(df.select_dtypes(include=[np.number]).corr(),annot=True, fmt='.1g', vmin=-1, vmax=1, center= 0,  ax=ax)\n_ = df.select_dtypes(include=[np.number]).corr()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 139160394
+    },
+    {
+      "raw": "# Check the sector values\n# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(10,10)) \n# chart = sns.barplot(x=df.sector.value_counts().index, y=df.sector.value_counts())\n# _= chart.set_xticklabels(chart.get_xticklabels(), rotation=75)\n_ = df.sector.value_counts().index\n_ = df.sector.value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 199010794
+    },
+    {
+      "raw": "# Set a simpler name\ndf.rename(columns={'avg_salary_estimate':'avg_salary'}, inplace= True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3114412
+    },
+    {
+      "raw": "# Obtain the avg. salary for each type of role\npd.pivot_table(df,index='job_role', values='avg_salary')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 60778551
+    },
+    {
+      "raw": "# Obtain the avg. salary based on the seniority of the roles\npd.pivot_table(df, index=['job_role','job_seniority'], values='avg_salary').sort_values('avg_salary', ascending =False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 90581770
+    },
+    {
+      "raw": "df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2247775
+    },
+    {
+      "raw": "\n# Define a custom aggregation function to get the percentage of descriptions that include certain skill.\ndef ones_percentage(x):\n    return round((sum(1 for value in x if value == 1)/len(x))*100,2)\n\n# Create the pivot table with the custom aggregation function\npivot_table = pd.pivot_table(df, index='job_role', values=['excel', 'sql', 'python', 'power_bi', 'tableau', 'scikit', 'spark'], aggfunc=ones_percentage)\n\nprint(pivot_table)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 98736331
+    }
+  ],
+  "total-time-in-sec": 16.978442433,
+  "max-disk-in-mb": 0
+}

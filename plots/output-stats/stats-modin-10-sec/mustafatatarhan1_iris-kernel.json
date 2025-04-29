@@ -1,0 +1,206 @@
+{
+  "max-mem-in-mb": 4501,
+  "max-mem-in-mb2": 3619,
+  "cells": [
+    {
+      "raw": "import numpy as np\n# ALEX: remove plotting\n# import seaborn as sns\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3136463638
+    },
+    {
+      "raw": "df = pd.read_csv(\"./input/iris.scaled.csv\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3312994373
+    },
+    {
+      "raw": "df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1283985
+    },
+    {
+      "raw": "df.count()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 14730453
+    },
+    {
+      "raw": "df.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 962700321
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# df.mean()\ndf.mean(numeric_only=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 10859254
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# df.std()\ndf.std(numeric_only=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 8516738
+    },
+    {
+      "raw": "df.isna().sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 11013415
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# df.corr()\ndf.corr(numeric_only=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1684120782
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# corr = df.corr()\ncorr = df.corr(numeric_only=True)\n# ALEX: remove plotting\n# sns.heatmap(corr, \n#             xticklabels=corr.columns.values,\n#             yticklabels=corr.columns.values);\n_ = corr.columns.values\n_ = corr.columns.values",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1112708844
+    },
+    {
+      "raw": "df[\"variety\"].unique()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1229580580
+    },
+    {
+      "raw": "df[\"variety\"].nunique()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 983167060
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.scatterplot(x=\"sepal.width\", y=\"sepal.length\", data=df, color=\"magenta\");",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 263699
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.jointplot(x=\"sepal.width\", y=\"sepal.length\", data=df, color=\"magenta\");",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 271994
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.scatterplot(x=\"sepal.width\", y=\"sepal.length\", hue=\"variety\", data=df);",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 256376
+    },
+    {
+      "raw": "pd.value_counts(df.values.flatten())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 13472392194
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.violinplot(y = \"sepal.width\", data = df);",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 230942
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.distplot(df[\"sepal.width\"], bins=16, color=\"blue\");\n_ = df[\"sepal.width\"]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1352099
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.violinplot(x = \"variety\", y = \"sepal.length\", data = df);",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 214324
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(x = \"variety\", data = df);",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 206258
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.jointplot(x = df[\"sepal.width\"], y = df[\"sepal.length\"], color = \"purple\");\n_ = df[\"sepal.width\"]\n_ = df[\"sepal.length\"]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1971133
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.jointplot(x = df[\"sepal.width\"], y = df[\"sepal.length\"],kind=\"kde\", color = \"purple\");\n_ = df[\"sepal.width\"]\n_ = df[\"sepal.length\"]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1929505
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.scatterplot(x=\"petal.width\", y=\"petal.length\", data=df);",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 214600
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.scatterplot(x=\"petal.width\", y=\"petal.length\",hue=\"variety\", data=df);",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 213514
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.lmplot(x=\"petal.width\", y=\"petal.length\", data=df);",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 208399
+    },
+    {
+      "raw": "df[['petal.length', 'petal.width']].corr()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 374040396
+    },
+    {
+      "raw": "df['total.length'] = df['petal.length'] + df['sepal.length']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 7029803
+    },
+    {
+      "raw": "df['total.length'].mean()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 329454554
+    },
+    {
+      "raw": "df['total.length'].std()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 187378986
+    },
+    {
+      "raw": "df['sepal.length'].max()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 357141653
+    },
+    {
+      "raw": "df[(df['variety']=='Setosa') & (df['sepal.length']>5.5)]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 645872613
+    },
+    {
+      "raw": "df[(df['variety']=='Virginica') & (df['petal.length']<5)][['sepal.length','sepal.width']]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1762519954
+    },
+    {
+      "raw": "df.groupby([\"variety\"]).mean()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 733125427139
+    }
+  ],
+  "total-time-in-sec": 762.736729578,
+  "max-disk-in-mb": 0
+}

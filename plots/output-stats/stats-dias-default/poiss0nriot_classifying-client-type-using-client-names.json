@@ -1,0 +1,152 @@
+{
+  "max-mem-in-mb": 302,
+  "max-mem-in-mb2": 311,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list the files in the input directory\n\n# ALEX: remove path printing\n# from subprocess import check_output\n#print(check_output([\"ls\", \"../input\"]).decode(\"utf8\"))\n\n# Any results you write to the current directory are saved as output.\n\n# Load in the Client Name data\n# Make sure all names uppercase (there are some mixed instances)\npd.set_option('display.max_rows', 50)\nvf = pd.read_csv('./input/cliente_tabla.scaled.csv',header=0)\nvf['NombreCliente'] = vf['NombreCliente'].str.upper()",
+      "rewrite-ns": 2182699,
+      "overhead-ns": 2182699,
+      "exec-ns": 622270064,
+      "total-ns": 624452763,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\npd.set_option('display.max_rows', 50)\nvf = pd.read_csv('./input/cliente_tabla.scaled.csv', header=0)\nvf['NombreCliente'] = vf['NombreCliente'].str.upper()\n"
+    },
+    {
+      "raw": "# Begin with a scan of the Client Name Data based on Top Frequency Client Names\n# Notice there are a lot of Proper Names\nvf['NombreCliente'].value_counts()[0:200]",
+      "rewrite-ns": 878328,
+      "overhead-ns": 878328,
+      "exec-ns": 194025460,
+      "total-ns": 194903788,
+      "patts-hit": {},
+      "rewritten": "vf['NombreCliente'].value_counts()[0:200]\n"
+    },
+    {
+      "raw": "# Let's also generate a list of individual word frequency across all names\ndef tfidf_score_list(vf2, list_len):\n# ALEX: remove ML code\n#     from sklearn.feature_extraction.text import TfidfVectorizer\n#     v = TfidfVectorizer()\n\n    vf2['New'] = 'na'\n    a = \" \".join(vf2['NombreCliente'])\n    vf2['New'][0] = a\n\n# ALEX: remove ML code\n#     tfidf = v.fit_transform(vf2['New'])\n\n#     feature_names = v.get_feature_names()\n\n#     freq = []\n#     doc = 0\n#     feature_index = tfidf[doc,:].nonzero()[1]\n#     tfidf_scores = zip(feature_index, [tfidf[doc, x] for x in feature_index])\n#     for w, s in [(feature_names[i], s) for (i, s) in tfidf_scores]:\n#             freq.append((w.encode('utf-8'),s))\n    _ = vf2['New']\n    \n    del vf2['New']\n    \n# ALEX: remove non pandas code\n#     import numpy as np\n#     names = ['word','score']\n#     formats = ['S50','f8']\n#     dtype = dict(names = names, formats=formats)\n#     array = np.array(freq, dtype=dtype)\n\n#     b = np.sort(array, order='score')\n    \n#     if list_len > len(b)+1:\n#         list_len = len(b)+1\n#     for i in range(1,list_len):\n#         print(b[-i])",
+      "rewrite-ns": 1555859,
+      "overhead-ns": 1555859,
+      "exec-ns": 490751,
+      "total-ns": 2046610,
+      "patts-hit": {},
+      "rewritten": "def tfidf_score_list(vf2, list_len):\n    vf2['New'] = 'na'\n    a = ' '.join(vf2['NombreCliente'])\n    vf2['New'][0] = a\n    _ = vf2['New']\n    del vf2['New']\n"
+    },
+    {
+      "raw": "tfidf_score_list(vf, 200)",
+      "rewrite-ns": 326672,
+      "overhead-ns": 326672,
+      "exec-ns": 70967814,
+      "total-ns": 71294486,
+      "patts-hit": {},
+      "rewritten": "tfidf_score_list(vf, 200)\n"
+    },
+    {
+      "raw": "print(vf[vf['NombreCliente'].str.contains('.*CAFE.*')])",
+      "rewrite-ns": 710428,
+      "overhead-ns": 710428,
+      "exec-ns": 637850015,
+      "total-ns": 638560443,
+      "patts-hit": {},
+      "rewritten": "print(vf[vf['NombreCliente'].str.contains('.*CAFE.*')])\n"
+    },
+    {
+      "raw": "# --- Begin Filtering for specific terms\n\n# Note that the order of filtering is significant.\n# For example: \n# The regex of .*ERIA.* will assign \"FRUITERIA\" to 'Eatery' rather than 'Fresh Market'.\n# In other words, the first filters to occur have a bigger priority.\n\ndef filter_specific(vf2):\n    \n    # Known Large Company / Special Group Types\n    vf2['NombreCliente'] = vf2['NombreCliente'].str.replace('.*REMISION.*','Consignment')\n    vf2['NombreCliente'] = vf2['NombreCliente'].replace(['.*WAL MART.*','.*SAMS CLUB.*'],'Walmart', regex=True)\n    vf2['NombreCliente'] = vf2['NombreCliente'].str.replace('.*OXXO.*','Oxxo Store')\n    vf2['NombreCliente'] = vf2['NombreCliente'].str.replace('.*CONASUPO.*','Govt Store')\n    vf2['NombreCliente'] = vf2['NombreCliente'].str.replace('.*BIMBO.*','Bimbo Store')\n\n    \n\n    # General term search for a random assortment of words I picked from looking at\n    # their frequency of appearance in the data and common spanish words for these categories\n    vf2['NombreCliente'] = vf2['NombreCliente'].replace(['.*COLEG.*','.*UNIV.*','.*ESCU.*','.*INSTI.*',\\\n                                                        '.*PREPAR.*'],'School', regex=True)\n    vf2['NombreCliente'] = vf2['NombreCliente'].str.replace('.*PUESTO.*','Post')\n    vf2['NombreCliente'] = vf2['NombreCliente'].replace(['.*FARMA.*','.*HOSPITAL.*','.*CLINI.*'],'Hospital/Pharmacy', regex=True)\n    vf2['NombreCliente'] = vf2['NombreCliente'].replace(['.*CAFE.*','.*CREMERIA.*','.*DULCERIA.*',\\\n                                                        '.*REST.*','.*BURGER.*','.*TACO.*', '.*TORTA.*',\\\n                                                        '.*TAQUER.*','.*HOT DOG.*',\\\n                                                        '.*COMEDOR.*', '.*ERIA.*','.*BURGU.*'],'Eatery', regex=True)\n    vf2['NombreCliente'] = vf2['NombreCliente'].str.replace('.*SUPER.*','Supermarket')\n    vf2['NombreCliente'] = vf2['NombreCliente'].replace(['.*COMERCIAL.*','.*BODEGA.*','.*DEPOSITO.*',\\\n                                                            '.*ABARROTES.*','.*MERCADO.*','.*CAMBIO.*',\\\n                                                        '.*MARKET.*','.*MART .*','.*MINI .*',\\\n                                                        '.*PLAZA.*','.*MISC.*','.*ELEVEN.*','.*EXP.*',\\\n                                                         '.*SNACK.*', '.*PAPELERIA.*', '.*CARNICERIA.*',\\\n                                                         '.*LOCAL.*','.*COMODIN.*','.*PROVIDENCIA.*'\n                                                        ],'General Market/Mart'\\\n                                                       , regex=True)\n\n    vf2['NombreCliente'] = vf2['NombreCliente'].replace(['.*VERDU.*','.*FRUT.*'],'Fresh Market', regex=True)\n    vf2['NombreCliente'] = vf2['NombreCliente'].replace(['.*HOTEL.*','.*MOTEL.*'],'Hotel', regex=True)",
+      "rewrite-ns": 1609251,
+      "overhead-ns": 1609251,
+      "exec-ns": 1678317,
+      "total-ns": 3287568,
+      "patts-hit": {},
+      "rewritten": "def filter_specific(vf2):\n    vf2['NombreCliente'] = vf2['NombreCliente'].str.replace('.*REMISION.*',\n        'Consignment')\n    vf2['NombreCliente'] = vf2['NombreCliente'].replace(['.*WAL MART.*',\n        '.*SAMS CLUB.*'], 'Walmart', regex=True)\n    vf2['NombreCliente'] = vf2['NombreCliente'].str.replace('.*OXXO.*',\n        'Oxxo Store')\n    vf2['NombreCliente'] = vf2['NombreCliente'].str.replace('.*CONASUPO.*',\n        'Govt Store')\n    vf2['NombreCliente'] = vf2['NombreCliente'].str.replace('.*BIMBO.*',\n        'Bimbo Store')\n    vf2['NombreCliente'] = vf2['NombreCliente'].replace(['.*COLEG.*',\n        '.*UNIV.*', '.*ESCU.*', '.*INSTI.*', '.*PREPAR.*'], 'School', regex\n        =True)\n    vf2['NombreCliente'] = vf2['NombreCliente'].str.replace('.*PUESTO.*',\n        'Post')\n    vf2['NombreCliente'] = vf2['NombreCliente'].replace(['.*FARMA.*',\n        '.*HOSPITAL.*', '.*CLINI.*'], 'Hospital/Pharmacy', regex=True)\n    vf2['NombreCliente'] = vf2['NombreCliente'].replace(['.*CAFE.*',\n        '.*CREMERIA.*', '.*DULCERIA.*', '.*REST.*', '.*BURGER.*',\n        '.*TACO.*', '.*TORTA.*', '.*TAQUER.*', '.*HOT DOG.*', '.*COMEDOR.*',\n        '.*ERIA.*', '.*BURGU.*'], 'Eatery', regex=True)\n    vf2['NombreCliente'] = vf2['NombreCliente'].str.replace('.*SUPER.*',\n        'Supermarket')\n    vf2['NombreCliente'] = vf2['NombreCliente'].replace(['.*COMERCIAL.*',\n        '.*BODEGA.*', '.*DEPOSITO.*', '.*ABARROTES.*', '.*MERCADO.*',\n        '.*CAMBIO.*', '.*MARKET.*', '.*MART .*', '.*MINI .*', '.*PLAZA.*',\n        '.*MISC.*', '.*ELEVEN.*', '.*EXP.*', '.*SNACK.*', '.*PAPELERIA.*',\n        '.*CARNICERIA.*', '.*LOCAL.*', '.*COMODIN.*', '.*PROVIDENCIA.*'],\n        'General Market/Mart', regex=True)\n    vf2['NombreCliente'] = vf2['NombreCliente'].replace(['.*VERDU.*',\n        '.*FRUT.*'], 'Fresh Market', regex=True)\n    vf2['NombreCliente'] = vf2['NombreCliente'].replace(['.*HOTEL.*',\n        '.*MOTEL.*'], 'Hotel', regex=True)\n"
+    },
+    {
+      "raw": "filter_specific(vf)",
+      "rewrite-ns": 264504,
+      "overhead-ns": 264504,
+      "exec-ns": 44609179155,
+      "total-ns": 44609443659,
+      "patts-hit": {},
+      "rewritten": "filter_specific(vf)\n"
+    },
+    {
+      "raw": "# --- Begin filtering for more general terms\n# The idea here is to look for names with particles of speech that would\n# not appear in a person's name.\n# i.e. \"Individuals\" should not contain any participles or numbers in their names.\ndef filter_participle(vf2):\n    vf2['NombreCliente'] = vf2['NombreCliente'].replace([\n            '.*LA .*','.*EL .*','.*DE .*','.*LOS .*','.*DEL .*','.*Y .*', '.*SAN .*', '.*SANTA .*',\\\n            '.*AG .*','.*LAS .*','.*MI .*','.*MA .*', '.*II.*', '.*[0-9]+.*'\\\n    ],'Small Franchise', regex=True)",
+      "rewrite-ns": 699886,
+      "overhead-ns": 699886,
+      "exec-ns": 662043,
+      "total-ns": 1361929,
+      "patts-hit": {},
+      "rewritten": "def filter_participle(vf2):\n    vf2['NombreCliente'] = vf2['NombreCliente'].replace(['.*LA .*',\n        '.*EL .*', '.*DE .*', '.*LOS .*', '.*DEL .*', '.*Y .*', '.*SAN .*',\n        '.*SANTA .*', '.*AG .*', '.*LAS .*', '.*MI .*', '.*MA .*', '.*II.*',\n        '.*[0-9]+.*'], 'Small Franchise', regex=True)\n"
+    },
+    {
+      "raw": "filter_participle(vf)",
+      "rewrite-ns": 286583,
+      "overhead-ns": 286583,
+      "exec-ns": 14709470252,
+      "total-ns": 14709756835,
+      "patts-hit": {},
+      "rewritten": "filter_participle(vf)\n"
+    },
+    {
+      "raw": "# Any remaining entries should be \"Individual\" Named Clients, there are some outliers.\n# More specific filters could be used in order to reduce the percentage of outliers in this final set.\ndef filter_remaining(vf2):\n    def function_word(data):\n        # Avoid the single-words created so far by checking for upper-case\n        if (data.isupper()) and (data != \"NO IDENTIFICADO\"): \n            return 'Individual'\n        else:\n            return data\n    vf2['NombreCliente'] = vf2['NombreCliente'].map(function_word)",
+      "rewrite-ns": 49162187,
+      "overhead-ns": 49162187,
+      "exec-ns": 722920,
+      "total-ns": 49885107,
+      "patts-hit": {},
+      "rewritten": "def filter_remaining(vf2):\n\n    def function_word(data):\n        if data.isupper() and data != 'NO IDENTIFICADO':\n            return 'Individual'\n        else:\n            return data\n    vf2['NombreCliente'] = vf2['NombreCliente'].map(function_word)\n"
+    },
+    {
+      "raw": "filter_remaining(vf)",
+      "rewrite-ns": 294903,
+      "overhead-ns": 294903,
+      "exec-ns": 161922572,
+      "total-ns": 162217475,
+      "patts-hit": {},
+      "rewritten": "filter_remaining(vf)\n"
+    },
+    {
+      "raw": "vf['NombreCliente'].value_counts()",
+      "rewrite-ns": 456919,
+      "overhead-ns": 456919,
+      "exec-ns": 30224220,
+      "total-ns": 30681139,
+      "patts-hit": {},
+      "rewritten": "vf['NombreCliente'].value_counts()\n"
+    },
+    {
+      "raw": "vf.to_csv('clustered_cln.csv', index=0)",
+      "rewrite-ns": 444134,
+      "overhead-ns": 444134,
+      "exec-ns": 892950475,
+      "total-ns": 893394609,
+      "patts-hit": {},
+      "rewritten": "vf.to_csv('clustered_cln.csv', index=0)\n"
+    },
+    {
+      "raw": "#trdf = pd.read_csv('./input/train.csv',header=0)\n#trdf_stores = trdf.merge(vf.drop_duplicates(subset=['Cliente_ID']), how=\"left\")",
+      "rewrite-ns": 19002,
+      "overhead-ns": 19002,
+      "exec-ns": 105601,
+      "total-ns": 124603,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#tsdf = pd.read_csv('./input/test.csv',header=0)\n#tsdf_stores = tsdf.merge(vf.drop_duplicates(subset=['Cliente_ID']), how=\"left\")",
+      "rewrite-ns": 13555,
+      "overhead-ns": 13555,
+      "exec-ns": 76348,
+      "total-ns": 89903,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#trdf.to_csv('./output-stats/train_with_cnames.csv')\n#tsdf.to_csv('./output-stats/test_with_cnames.csv')",
+      "rewrite-ns": 10559,
+      "overhead-ns": 10559,
+      "exec-ns": 62424,
+      "total-ns": 72983,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 61.9915739,
+  "max-disk-in-mb": 0
+}

@@ -1,0 +1,110 @@
+{
+  "max-mem-in-mb": 2294,
+  "max-mem-in-mb2": 4432,
+  "cells": [
+    {
+      "raw": "import numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 354639
+    },
+    {
+      "raw": "#load the data\n# ALEX: remove IPython commands\n# !cp -r ../input/sgp-buildings/* ./",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 192003
+    },
+    {
+      "raw": "tables=  {'total':{'csv_name':'./input/singapore_building_gfa_energy.scaled.csv'},'commercial':{'csv_name':'./input/energy_performance_data_2016.scaled.csv'}}\nfor t in tables:\n    tables[t]['tbl'] = pd.read_csv(tables[t]['csv_name'])\n\ncolumn_key = {'buildingtype':'property type','grossfloorarea':'GFA m2','2016energyusintensity':'kWh/m2/yr'}\nfields = ['property type','GFA m2','kWh/m2/yr']\ntables['commercial']['tbl'].rename(columns=column_key,inplace=True)\ncomm = tables['commercial']['tbl'][fields].copy()\n\nfor f in ['GFA m2','kWh/m2/yr']:\n    comm[f] = comm[f].str.replace(',','').astype(float)\n\ncomm['kWh/yr'] = comm['GFA m2']*comm['kWh/m2/yr']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 18179295648
+    },
+    {
+      "raw": "comm['property type'].unique()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 328451286
+    },
+    {
+      "raw": "pct_OK = len(comm.dropna())/len(comm)\npct_OK",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1603431498
+    },
+    {
+      "raw": "comm.dropna(inplace=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1418862751
+    },
+    {
+      "raw": "comm.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 463348
+    },
+    {
+      "raw": "pvt = pd.pivot_table(comm,index='property type',values=['GFA m2','kWh/yr'],aggfunc='sum')\npvt['kWh/m2/yr'] = pvt['kWh/yr']/pvt['GFA m2']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 552017709
+    },
+    {
+      "raw": "total = tables['total']['tbl'].copy()\ntotal.rename(columns={'kWh/yr/m2':'kWh/m2/yr'},inplace=True)\ntotal['GWh/yr'] = total['mil m2']*total['kWh/m2/yr']\ncomm_totals = total[total['property type']=='commercial'].iloc[0]\n\npvt_scaled = pvt.copy()\npvt_scaled['mil m2'] = pvt['GFA m2']*comm_totals['mil m2']/pvt['GFA m2'].sum()\npvt_scaled['GWh/yr'] = pvt['kWh/yr']*comm_totals['GWh/yr']/pvt['kWh/yr'].sum()\n\npvt_scaled",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 9792087
+    },
+    {
+      "raw": "fields = ['mil m2','kWh/m2/yr','GWh/yr']\n\nex_com = total.drop(total[total['property type']=='commercial'].index)\ntotal = pd.concat([ex_com,pvt_scaled[fields].reset_index()],axis=0)\n\ntotal",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 221246389
+    },
+    {
+      "raw": "pop_mil = 5.6\n\npca = total.copy()\npca['m2/ca'] = total['mil m2']/pop_mil\npca['kWh/ca/yr'] = total['GWh/yr']/pop_mil\n\ndel pca['mil m2'], pca['GWh/yr']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2456833
+    },
+    {
+      "raw": "pca.sort_values('kWh/ca/yr',ascending=False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5694530
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# import seaborn as sb\n# sb.barplot(x='kWh/ca/yr',y='property type',data=pca.sort_values('kWh/ca/yr',ascending=False))\n_ = pca.sort_values('kWh/ca/yr',ascending=False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4195465
+    },
+    {
+      "raw": "pca['kWh/ca/yr'].sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 458877
+    },
+    {
+      "raw": "weekly_hrs = 168\nm2_factors = dict(zip(list(pca['property type']),list(pca['m2/ca'])))\nusage_factors = {\n    'residential':(12*7+4*2)/weekly_hrs,\n    'Office':0.35*40/weekly_hrs,\n    'Retail':0.15*40/weekly_hrs,\n    'Mixed Development':0.05*40/weekly_hrs,\n    'education':0.25*40*9/12/weekly_hrs,\n    'Hotel':0.05*40/weekly_hrs,\n    'healthcare':0.05*40/weekly_hrs,\n    'transport':0.02*40/weekly_hrs,\n    'sports rec':0,\n    'civil / community':0,\n}\nout_of_home_hrs = 16/weekly_hrs #excludes time in transit\nout_of_home = ['Retail','Mixed Development','healthcare','transport',\n          'sports rec','civil / community']\n# ALEX: make notebook run with data scaling\nout_of_home = [elem for elem in out_of_home if elem in m2_factors]\nout_of_home_m2 = dict(zip(out_of_home,[m2_factors[x] for x in out_of_home]))\ntotal_ooh_m2 = sum(out_of_home_m2.values())\n\nfor f in out_of_home:\n    usage_factors[f] = usage_factors[f] + out_of_home_hrs*out_of_home_m2[f]/total_ooh_m2\nusage_factors",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 11750215
+    },
+    {
+      "raw": "hours_per_year = 24*365\nusg = pd.DataFrame({'hrs/ca':usage_factors})\nusg.index.name = 'property type'\ndf = pd.merge(pca,usg.reset_index(),on='property type')\ndf['W/ca'] = df['kWh/ca/yr']/(df['hrs/ca']*hours_per_year)*1000\ndf.sort_values('W/ca',ascending=False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 16184956
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sb.barplot(x='W/ca',y='property type',\n#            data=df.drop(df[df['property type']=='Hotel'].index).sort_values('W/ca',ascending=False))\n_ = df.drop(df[df['property type']=='Hotel'].index).sort_values('W/ca',ascending=False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 12515479
+    }
+  ],
+  "total-time-in-sec": 22.367363713,
+  "max-disk-in-mb": 0
+}

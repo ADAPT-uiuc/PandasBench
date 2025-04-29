@@ -1,0 +1,170 @@
+{
+  "max-mem-in-mb": 911,
+  "max-mem-in-mb2": 981,
+  "cells": [
+    {
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport datetime\n\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# import folium\n# %matplotlib inline",
+      "rewrite-ns": 588074,
+      "overhead-ns": 588074,
+      "exec-ns": 297760,
+      "total-ns": 885834,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\nimport datetime\n"
+    },
+    {
+      "raw": "hotel_bookings = pd.read_csv(\"./input/hotel_bookings.scaled.csv\")",
+      "rewrite-ns": 377203,
+      "overhead-ns": 377203,
+      "exec-ns": 1172251700,
+      "total-ns": 1172628903,
+      "patts-hit": {},
+      "rewritten": "hotel_bookings = pd.read_csv('./input/hotel_bookings.scaled.csv')\n"
+    },
+    {
+      "raw": "hotel_bookings.shape",
+      "rewrite-ns": 88972,
+      "overhead-ns": 88972,
+      "exec-ns": 1048556,
+      "total-ns": 1137528,
+      "patts-hit": {},
+      "rewritten": "hotel_bookings.shape\n"
+    },
+    {
+      "raw": "hotel_bookings.info()",
+      "rewrite-ns": 101642,
+      "overhead-ns": 101642,
+      "exec-ns": 733359799,
+      "total-ns": 733461441,
+      "patts-hit": {},
+      "rewritten": "hotel_bookings.info()\n"
+    },
+    {
+      "raw": "hotel_bookings.describe(include='all')",
+      "rewrite-ns": 187852,
+      "overhead-ns": 187852,
+      "exec-ns": 792047836,
+      "total-ns": 792235688,
+      "patts-hit": {},
+      "rewritten": "hotel_bookings.describe(include='all')\n"
+    },
+    {
+      "raw": "#Dropping feature \"company\" as it has 94% NULL.\nhotel_bookings = hotel_bookings.drop(axis='1',columns='company')",
+      "rewrite-ns": 527613,
+      "overhead-ns": 527613,
+      "exec-ns": 98220504,
+      "total-ns": 98748117,
+      "patts-hit": {},
+      "rewritten": "hotel_bookings = hotel_bookings.drop(axis='1', columns='company')\n"
+    },
+    {
+      "raw": "#Converting certain features to categorical form\ncategorical_features = ['hotel','is_canceled','arrival_date_week_number','meal','country','market_segment',\n                        'distribution_channel','is_repeated_guest','reserved_room_type','assigned_room_type',\n                        'deposit_type','agent','customer_type','reservation_status','arrival_date_month']\nhotel_bookings[categorical_features] = hotel_bookings[categorical_features].astype('category')\n\n# Converting reservation_status_date to datetime object\nhotel_bookings['reservation_status_date'] = hotel_bookings['reservation_status_date'].astype('datetime64[ns]')\n\n# Converting arrival date to datetime object\nMonthtoNum = {'January':1, 'February':2,'March':3,'April':4,'May':5,'June':6,'July':7,\n             'August':8,'September':9,'October':10,'November':11,'December':12}\n\nhotel_bookings['arrival_date'] = hotel_bookings.apply(lambda x:datetime.date(x['arrival_date_year'],\n                                                                             MonthtoNum[x['arrival_date_month']],\n                                                                             x['arrival_date_day_of_month']),\n                                                      axis = 1)\nhotel_bookings['arrival_date'] = hotel_bookings['arrival_date'].astype('datetime64[ns]')\n\nhotel_bookings.info()",
+      "rewrite-ns": 4711936,
+      "overhead-ns": 5212692,
+      "exec-ns": 8069228380,
+      "total-ns": 8073940316,
+      "patts-hit": {},
+      "rewritten": "categorical_features = ['hotel', 'is_canceled', 'arrival_date_week_number',\n    'meal', 'country', 'market_segment', 'distribution_channel',\n    'is_repeated_guest', 'reserved_room_type', 'assigned_room_type',\n    'deposit_type', 'agent', 'customer_type', 'reservation_status',\n    'arrival_date_month']\nhotel_bookings[categorical_features] = hotel_bookings[categorical_features\n    ].astype('category')\nhotel_bookings['reservation_status_date'] = hotel_bookings[\n    'reservation_status_date'].astype('datetime64[ns]')\nMonthtoNum = {'January': 1, 'February': 2, 'March': 3, 'April': 4, 'May': 5,\n    'June': 6, 'July': 7, 'August': 8, 'September': 9, 'October': 10,\n    'November': 11, 'December': 12}\nhotel_bookings['arrival_date'] = hotel_bookings.apply(lambda x: datetime.\n    date(x['arrival_date_year'], MonthtoNum[x['arrival_date_month']], x[\n    'arrival_date_day_of_month']), axis=1)\nhotel_bookings['arrival_date'] = hotel_bookings['arrival_date'].astype(\n    'datetime64[ns]')\nhotel_bookings.info()\n"
+    },
+    {
+      "raw": "# Plot to show outlier in Average Daily Rate\n# ALEX: remove plotting\n# ax = sns.boxplot(x=hotel_bookings['adr'])\n_ = hotel_bookings['adr']",
+      "rewrite-ns": 359980,
+      "overhead-ns": 359980,
+      "exec-ns": 302048,
+      "total-ns": 662028,
+      "patts-hit": {},
+      "rewritten": "_ = hotel_bookings['adr']\n"
+    },
+    {
+      "raw": "hotel_bookings['adr'] = hotel_bookings['adr'].astype('int')",
+      "rewrite-ns": 574588,
+      "overhead-ns": 574588,
+      "exec-ns": 3172534,
+      "total-ns": 3747122,
+      "patts-hit": {},
+      "rewritten": "hotel_bookings['adr'] = hotel_bookings['adr'].astype('int')\n"
+    },
+    {
+      "raw": "# Deleting a record with ADR greater than 5000\nhotel_bookings = hotel_bookings[hotel_bookings['adr'] < 5000]",
+      "rewrite-ns": 530582,
+      "overhead-ns": 530582,
+      "exec-ns": 95608302,
+      "total-ns": 96138884,
+      "patts-hit": {},
+      "rewritten": "hotel_bookings = hotel_bookings[hotel_bookings['adr'] < 5000]\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# ax = sns.boxplot(x=hotel_bookings['adr'])\n_ = hotel_bookings['adr']",
+      "rewrite-ns": 382738,
+      "overhead-ns": 382738,
+      "exec-ns": 381548,
+      "total-ns": 764286,
+      "patts-hit": {},
+      "rewritten": "_ = hotel_bookings['adr']\n"
+    },
+    {
+      "raw": "# The function generating the EDA for categorical data\n\ndef categorical_eda(df):\n    \"\"\"Given dataframe, generate EDA of categorical data\"\"\"\n    print(\"To check: Unique count of non-numeric data\")\n    print(df.select_dtypes(include=['category']).nunique())\n    # Plot count distribution of categorical data\n    \n    for col in df.select_dtypes(include='category').columns:\n        if df[col].nunique() < 20:\n# ALEX: remove plotting\n#             fig = sns.catplot(x=col, kind=\"count\", data=df)\n#             fig.set_xticklabels(rotation=90)\n#             plt.show()\n            pass\n        \n        \ncategorical_eda(hotel_bookings)",
+      "rewrite-ns": 1992225,
+      "overhead-ns": 1995943,
+      "exec-ns": 74469903,
+      "total-ns": 76462128,
+      "patts-hit": {},
+      "rewritten": "def categorical_eda(df):\n    \"\"\"Given dataframe, generate EDA of categorical data\"\"\"\n    print('To check: Unique count of non-numeric data')\n    print(df.select_dtypes(include=['category']).nunique())\n    for col in df.select_dtypes(include='category').columns:\n        if df[col].nunique() < 20:\n            pass\ncategorical_eda(hotel_bookings)\n"
+    },
+    {
+      "raw": "country_count = hotel_bookings['country'].value_counts()\ncountry_count_df = pd.DataFrame(country_count)\ncountry_count_df = country_count_df.reset_index()\ncountry_count_df.columns = ['country','booking_count']\ncountry_count_df = country_count_df[country_count_df['booking_count'] > 10]\n\n# ALEX: remove plotting\n# import plotly.express as px\n\n# fig = px.choropleth(country_count_df, locations=\"country\",\n#                     color=\"booking_count\",\n#                     hover_name=\"country\",\n#                     color_continuous_scale=px.colors.sequential.RdBu)\n# fig.show()",
+      "rewrite-ns": 1754814,
+      "overhead-ns": 1754814,
+      "exec-ns": 4012192,
+      "total-ns": 5767006,
+      "patts-hit": {},
+      "rewritten": "country_count = hotel_bookings['country'].value_counts()\ncountry_count_df = pd.DataFrame(country_count)\ncountry_count_df = country_count_df.reset_index()\ncountry_count_df.columns = ['country', 'booking_count']\ncountry_count_df = country_count_df[country_count_df['booking_count'] > 10]\n"
+    },
+    {
+      "raw": "reservation_df = hotel_bookings[['hotel','reservation_status']]\nreservation_df.groupby(['hotel']).count()",
+      "rewrite-ns": 904785,
+      "overhead-ns": 904785,
+      "exec-ns": 5612054,
+      "total-ns": 6516839,
+      "patts-hit": {},
+      "rewritten": "reservation_df = hotel_bookings[['hotel', 'reservation_status']]\nreservation_df.groupby(['hotel']).count()\n"
+    },
+    {
+      "raw": "hotel_bookings_1 = hotel_bookings[hotel_bookings['hotel'] == 'City Hotel']\nhotel_bookings_1['reservation_status'].value_counts()",
+      "rewrite-ns": 820374,
+      "overhead-ns": 820374,
+      "exec-ns": 33996707,
+      "total-ns": 34817081,
+      "patts-hit": {},
+      "rewritten": "hotel_bookings_1 = hotel_bookings[hotel_bookings['hotel'] == 'City Hotel']\nhotel_bookings_1['reservation_status'].value_counts()\n"
+    },
+    {
+      "raw": "hotel_bookings_2 = hotel_bookings[hotel_bookings['hotel'] == 'Resort Hotel']\nhotel_bookings_2['reservation_status'].value_counts()",
+      "rewrite-ns": 869306,
+      "overhead-ns": 869306,
+      "exec-ns": 19247618,
+      "total-ns": 20116924,
+      "patts-hit": {},
+      "rewritten": "hotel_bookings_2 = hotel_bookings[hotel_bookings['hotel'] == 'Resort Hotel']\nhotel_bookings_2['reservation_status'].value_counts()\n"
+    },
+    {
+      "raw": "# Percentage of Cancelation\nprint('Percentage of calculation in City Hotel: ',(32185/79329)*100)\nprint('Percentage of calculation in Resort Hotel: ',(10831/40060)*100)",
+      "rewrite-ns": 917629,
+      "overhead-ns": 917629,
+      "exec-ns": 340211,
+      "total-ns": 1257840,
+      "patts-hit": {},
+      "rewritten": "print('Percentage of calculation in City Hotel: ', 32185 / 79329 * 100)\nprint('Percentage of calculation in Resort Hotel: ', 10831 / 40060 * 100)\n"
+    },
+    {
+      "raw": "# import pandas as pd\nhotel_bookings = pd.read_csv(\"./input/hotel_bookings.scaled.csv\")",
+      "rewrite-ns": 377418,
+      "overhead-ns": 377418,
+      "exec-ns": 1155052486,
+      "total-ns": 1155429904,
+      "patts-hit": {},
+      "rewritten": "hotel_bookings = pd.read_csv('./input/hotel_bookings.scaled.csv')\n"
+    }
+  ],
+  "total-time-in-sec": 12.274717869,
+  "max-disk-in-mb": 0
+}

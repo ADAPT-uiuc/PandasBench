@@ -1,0 +1,199 @@
+{
+  "max-mem-in-mb": 4754,
+  "max-mem-in-mb2": 4757,
+  "cells": [
+    {
+      "raw": "import numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting, path printing\n# import seaborn as sns\n# %pylab inline\n# from subprocess import check_output\n# print(check_output([\"ls\", \"../input\"]).decode(\"utf8\"))\n",
+      "rewrite-ns": 686633,
+      "overhead-ns": 686633,
+      "exec-ns": 414299,
+      "total-ns": 1100932,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "df = pd.read_csv('./input/survey.scaled.csv')\ndf.info()\nto_drop = ['Timestamp']  # A list of columns we will drop later on",
+      "rewrite-ns": 829800,
+      "overhead-ns": 829800,
+      "exec-ns": 5252807078,
+      "total-ns": 5253636878,
+      "patts-hit": {},
+      "rewritten": "df = pd.read_csv('./input/survey.scaled.csv')\ndf.info()\nto_drop = ['Timestamp']\n"
+    },
+    {
+      "raw": "df.Gender.unique()",
+      "rewrite-ns": 420856,
+      "overhead-ns": 420856,
+      "exec-ns": 27448051,
+      "total-ns": 27868907,
+      "patts-hit": {},
+      "rewritten": "df.Gender.unique()\n"
+    },
+    {
+      "raw": "# Holy hamburgers! That's a lot of possibilities for gender. Let's clean it up\n# Let's see their freq counts first\ndf.Gender.value_counts()",
+      "rewrite-ns": 362619,
+      "overhead-ns": 362619,
+      "exec-ns": 43823357,
+      "total-ns": 44185976,
+      "patts-hit": {},
+      "rewritten": "df.Gender.value_counts()\n"
+    },
+    {
+      "raw": "df.Gender = df.Gender.str.lower()\ndf.Gender = df.Gender = df.Gender.replace('m', 'male')\ndf.Gender = df.Gender.replace('f', 'female')\ndf['HasMale'] = df.Gender.str.contains('male|man|guy|maile|malr|androgyne|male|mal|make|msle')\ndf['HasFemale'] = df.Gender.str.contains('female|woman|femail|androgyne|femake')\ndf['HasNB'] = df.Gender.str.contains('non-binary|enby|queer|all|fluid|agender|neuter|p')\n# That's gender cleaned up.\nto_drop.append('Gender')\n# Moving on.\ndf.describe(include=['O'])",
+      "rewrite-ns": 4002829,
+      "overhead-ns": 4002829,
+      "exec-ns": 3988663270,
+      "total-ns": 3992666099,
+      "patts-hit": {},
+      "rewritten": "df.Gender = df.Gender.str.lower()\ndf.Gender = df.Gender = df.Gender.replace('m', 'male')\ndf.Gender = df.Gender.replace('f', 'female')\ndf['HasMale'] = df.Gender.str.contains(\n    'male|man|guy|maile|malr|androgyne|male|mal|make|msle')\ndf['HasFemale'] = df.Gender.str.contains('female|woman|femail|androgyne|femake'\n    )\ndf['HasNB'] = df.Gender.str.contains(\n    'non-binary|enby|queer|all|fluid|agender|neuter|p')\nto_drop.append('Gender')\ndf.describe(include=['O'])\n"
+    },
+    {
+      "raw": "# Let's take care of country first.\ndf.Country.unique()",
+      "rewrite-ns": 370331,
+      "overhead-ns": 370331,
+      "exec-ns": 33201159,
+      "total-ns": 33571490,
+      "patts-hit": {},
+      "rewritten": "df.Country.unique()\n"
+    },
+    {
+      "raw": "# They're clean. They can be one-hot-encoded\nfor country in sorted(list(df.Country.unique())):\n    df['Country_'+str(country)] = (df.Country == country).astype(int)\nto_drop.append('Country')",
+      "rewrite-ns": 1611602,
+      "overhead-ns": 1611602,
+      "exec-ns": 2154252521,
+      "total-ns": 2155864123,
+      "patts-hit": {},
+      "rewritten": "for country in sorted(list(df.Country.unique())):\n    df['Country_' + str(country)] = (df.Country == country).astype(int)\nto_drop.append('Country')\n"
+    },
+    {
+      "raw": "# First we need to handle the missing values in state. There are simply too many to ignore\n# Let's see where exactly they are missing. I suspect that only US states have been recorded\ndf.groupby('Country')['state'].apply(lambda x: x.isnull().mean())",
+      "rewrite-ns": 1017203,
+      "overhead-ns": 1017203,
+      "exec-ns": 108006844,
+      "total-ns": 109024047,
+      "patts-hit": {},
+      "rewritten": "df.groupby('Country')['state'].apply(lambda x: x.isnull().mean())\n"
+    },
+    {
+      "raw": "# As we can see, most countries have no state data.\n# It's just easier to leave the NA's as they are\n# We'll one hot them too.\nfor st in list(df.state.unique()):\n    df['state_'+str(st)] = (df.state == st).astype(int)\nto_drop.append('state')\n\n# all the columns which are binary in nature, let's make them 01 based.\ndf.self_employed.fillna(df.self_employed.mode()[0], inplace=True)\nfor col in df.select_dtypes(include=['object']):\n    u_count = len(df[col].unique()) \n    if u_count < 2:\n        to_drop.append(col)\n        print('adding ', col, 'to drop list as no variation')\n    elif u_count == 2:\n        first = list(df[col].unique())[-1]\n        df[col] = (df[col] == first).astype(int)\n        print('converted', col)",
+      "rewrite-ns": 2859494,
+      "overhead-ns": 2859494,
+      "exec-ns": 4580037527,
+      "total-ns": 4582897021,
+      "patts-hit": {
+        "LenUnique": 1
+      },
+      "rewritten": "for st in list(df.state.unique()):\n    df['state_' + str(st)] = (df.state == st).astype(int)\nto_drop.append('state')\ndf.self_employed.fillna(df.self_employed.mode()[0], inplace=True)\nfor col in df.select_dtypes(include=['object']):\n    u_count = dias.rewriter.len_unique(series=df[col])\n    if u_count < 2:\n        to_drop.append(col)\n        print('adding ', col, 'to drop list as no variation')\n    elif u_count == 2:\n        first = list(df[col].unique())[-1]\n        df[col] = (df[col] == first).astype(int)\n        print('converted', col)\n"
+    },
+    {
+      "raw": "# Let's see what is still left\ndf.drop(to_drop, axis=1).info()",
+      "rewrite-ns": 583760,
+      "overhead-ns": 583760,
+      "exec-ns": 527280479,
+      "total-ns": 527864239,
+      "patts-hit": {},
+      "rewritten": "df.drop(to_drop, axis=1).info()\n"
+    },
+    {
+      "raw": "# For now we drop everything else.\ndf.work_interfere.unique()",
+      "rewrite-ns": 381806,
+      "overhead-ns": 381806,
+      "exec-ns": 31337226,
+      "total-ns": 31719032,
+      "patts-hit": {},
+      "rewritten": "df.work_interfere.unique()\n"
+    },
+    {
+      "raw": "df.work_interfere.fillna(df.work_interfere.mode().values[0], inplace=True)\ndf.work_interfere = df.work_interfere.map({'Never': 0, 'Rarely': 1,\n                                           'Sometimes': 2, 'Often': 3})\ndf.no_employees.unique()",
+      "rewrite-ns": 1766798,
+      "overhead-ns": 1766798,
+      "exec-ns": 278768758,
+      "total-ns": 280535556,
+      "patts-hit": {},
+      "rewritten": "df.work_interfere.fillna(df.work_interfere.mode().values[0], inplace=True)\ndf.work_interfere = df.work_interfere.map({'Never': 0, 'Rarely': 1,\n    'Sometimes': 2, 'Often': 3})\ndf.no_employees.unique()\n"
+    },
+    {
+      "raw": "df.no_employees = df.no_employees.map({'6-25': 6, '26-100': 26,\n                                       '100-500': 100, '500-1000': 500,\n                                       'More than 1000': 1000, '1-5': 1\n                                      })\ndf.benefits.unique()",
+      "rewrite-ns": 1244432,
+      "overhead-ns": 1244432,
+      "exec-ns": 199773530,
+      "total-ns": 201017962,
+      "patts-hit": {},
+      "rewritten": "df.no_employees = df.no_employees.map({'6-25': 6, '26-100': 26, '100-500': \n    100, '500-1000': 500, 'More than 1000': 1000, '1-5': 1})\ndf.benefits.unique()\n"
+    },
+    {
+      "raw": "# There is another pattern here. We take advantage of that:\noption_map = {'Yes': 1, 'No': -1, \"Don't know\": 0,\n              'Not sure': 0, 'Maybe': 0, 'Some of them': 0}\nynns = {'Yes': 1, 'No': -1, 'Not sure': 0}\nfor col in df.select_dtypes(include=['object']):\n    uniques = set(df[col].unique())\n    if (uniques == {'Yes', 'No', \"Don't know\"} or\n        uniques == {'Yes', 'No', 'Not sure'} or\n        uniques == {'Yes', 'No', 'Maybe'} or\n        uniques == {'Yes', 'No', 'Some of them'}):\n        print('encoding', col, 'To -1, 0, 1')\n        df[col] = df[col].map(option_map)",
+      "rewrite-ns": 3765360,
+      "overhead-ns": 3765360,
+      "exec-ns": 2489287127,
+      "total-ns": 2493052487,
+      "patts-hit": {},
+      "rewritten": "option_map = {'Yes': 1, 'No': -1, \"Don't know\": 0, 'Not sure': 0, 'Maybe': \n    0, 'Some of them': 0}\nynns = {'Yes': 1, 'No': -1, 'Not sure': 0}\nfor col in df.select_dtypes(include=['object']):\n    uniques = set(df[col].unique())\n    if uniques == {'Yes', 'No', \"Don't know\"} or uniques == {'Yes', 'No',\n        'Not sure'} or uniques == {'Yes', 'No', 'Maybe'} or uniques == {'Yes',\n        'No', 'Some of them'}:\n        print('encoding', col, 'To -1, 0, 1')\n        df[col] = df[col].map(option_map)\n"
+    },
+    {
+      "raw": "df.describe(include=['O'])",
+      "rewrite-ns": 220133,
+      "overhead-ns": 220133,
+      "exec-ns": 583866266,
+      "total-ns": 584086399,
+      "patts-hit": {},
+      "rewritten": "df.describe(include=['O'])\n"
+    },
+    {
+      "raw": "df.leave.unique()",
+      "rewrite-ns": 382758,
+      "overhead-ns": 382758,
+      "exec-ns": 35645819,
+      "total-ns": 36028577,
+      "patts-hit": {},
+      "rewritten": "df.leave.unique()\n"
+    },
+    {
+      "raw": "df.leave = df.leave.map({'Very easy': 0, 'Somewhat easy': 1, \"Don't know\": 2, 'Somewhat difficult': 3,\n                         'Very difficult': 4\n                        })\n# this leaves comments as the only string data. Since it's quiet small in number, we'll drop it",
+      "rewrite-ns": 893181,
+      "overhead-ns": 893181,
+      "exec-ns": 86877107,
+      "total-ns": 87770288,
+      "patts-hit": {},
+      "rewritten": "df.leave = df.leave.map({'Very easy': 0, 'Somewhat easy': 1, \"Don't know\": \n    2, 'Somewhat difficult': 3, 'Very difficult': 4})\n"
+    },
+    {
+      "raw": "to_drop.append('comments')\ndf.info()",
+      "rewrite-ns": 425750,
+      "overhead-ns": 425750,
+      "exec-ns": 5319273,
+      "total-ns": 5745023,
+      "patts-hit": {},
+      "rewritten": "to_drop.append('comments')\ndf.info()\n"
+    },
+    {
+      "raw": "# We obtain a clean dataset. Now we can try predicting stuff.\nprint(to_drop)\ndata = df.drop(to_drop, axis=1)\ndata.info()",
+      "rewrite-ns": 568705,
+      "overhead-ns": 568705,
+      "exec-ns": 422667810,
+      "total-ns": 423236515,
+      "patts-hit": {},
+      "rewritten": "print(to_drop)\ndata = df.drop(to_drop, axis=1)\ndata.info()\n"
+    },
+    {
+      "raw": "# Thos who have shought treatment\nx, y = data.drop('treatment', axis=1), data.treatment\n\n# ALEX: remove ML code\n# from sklearn.ensemble import RandomForestClassifier\n# from sklearn.model_selection import cross_val_score\n# model = RandomForestClassifier(n_jobs=-1, n_estimators=200, class_weight='balanced')\n# scores = cross_val_score(model, x, y, scoring='roc_auc', cv=5)\n# print(scores.mean())",
+      "rewrite-ns": 818618,
+      "overhead-ns": 818618,
+      "exec-ns": 412047602,
+      "total-ns": 412866220,
+      "patts-hit": {},
+      "rewritten": "x, y = data.drop('treatment', axis=1), data.treatment\n"
+    },
+    {
+      "raw": "# Family history\nx, y = data.drop('family_history', axis=1), data.family_history\n# ALEX: remove ML code\n# model = RandomForestClassifier(n_jobs=-1, n_estimators=200, class_weight='balanced')\n# scores = cross_val_score(model, x, y, scoring='roc_auc', cv=5)\n# print(scores.mean())",
+      "rewrite-ns": 785826,
+      "overhead-ns": 785826,
+      "exec-ns": 412499496,
+      "total-ns": 413285322,
+      "patts-hit": {},
+      "rewritten": "x, y = data.drop('family_history', axis=1), data.family_history\n"
+    }
+  ],
+  "total-time-in-sec": 21.698023093,
+  "max-disk-in-mb": 0
+}

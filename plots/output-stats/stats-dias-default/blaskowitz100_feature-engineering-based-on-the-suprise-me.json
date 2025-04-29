@@ -1,0 +1,251 @@
+{
+  "max-mem-in-mb": 400,
+  "max-mem-in-mb2": 646,
+  "cells": [
+    {
+      "raw": "import glob\nimport re\nimport numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n\n# Remove the restriction for the max dataframe width\n# pd.options.display.max_columns = 250\n# pd.options.display.max_rows = 250\n\n# ALEX: remove ML code\n# from sklearn.preprocessing import LabelEncoder\nfrom datetime import datetime\nfrom IPython.display import display",
+      "rewrite-ns": 1079983,
+      "overhead-ns": 1079983,
+      "exec-ns": 567843,
+      "total-ns": 1647826,
+      "patts-hit": {},
+      "rewritten": "import glob\nimport re\nimport numpy as np\nexec(os.environ['IREWR_IMPORTS'])\nfrom datetime import datetime\nfrom IPython.display import display\n"
+    },
+    {
+      "raw": "data = {\n    'gt_visits': pd.read_csv('./input/air_visit_data.scaled.csv'),\n    'air_store_info': pd.read_csv('./input/air_store_info.scaled.csv'),\n    #'hs': pd.read_csv('../input/hpg_store_info.csv'),\n    'air_reserve_history': pd.read_csv('./input/air_reserve.scaled.csv'),\n    'hpg_reserve_history': pd.read_csv('./input/hpg_reserve.scaled.csv'),\n    \n    'hpg_to_air_id': pd.read_csv('./input/store_id_relation.scaled.csv'),\n    'subm_visits': pd.read_csv('./input/sample_submission.scaled.csv'),\n    'holidays': pd.read_csv('./input/date_info.scaled.csv').rename(columns={'calendar_date':'visit_date'})\n}",
+      "rewrite-ns": 2802766,
+      "overhead-ns": 2802766,
+      "exec-ns": 1122865858,
+      "total-ns": 1125668624,
+      "patts-hit": {},
+      "rewritten": "data = {'gt_visits': pd.read_csv('./input/air_visit_data.scaled.csv'),\n    'air_store_info': pd.read_csv('./input/air_store_info.scaled.csv'),\n    'air_reserve_history': pd.read_csv('./input/air_reserve.scaled.csv'),\n    'hpg_reserve_history': pd.read_csv('./input/hpg_reserve.scaled.csv'),\n    'hpg_to_air_id': pd.read_csv('./input/store_id_relation.scaled.csv'),\n    'subm_visits': pd.read_csv('./input/sample_submission.scaled.csv'),\n    'holidays': pd.read_csv('./input/date_info.scaled.csv').rename(columns=\n    {'calendar_date': 'visit_date'})}\n"
+    },
+    {
+      "raw": "###############################################################################################\n# Get the air-reserve id  of the hpg restaurants\n###############################################################################################\ndata['hpg_reserve_history'] = pd.merge(\n    data['hpg_reserve_history'], data['hpg_to_air_id'], \n    how='inner', on=['hpg_store_id']\n)\n\n###############################################################################################\n# Drop the HPG id\n###############################################################################################\ndata['hpg_reserve_history'] = data['hpg_reserve_history'].drop('hpg_store_id', axis=1)\n\ndisplay(data['hpg_reserve_history'].shape)",
+      "rewrite-ns": 1900052,
+      "overhead-ns": 1900052,
+      "exec-ns": 241932691,
+      "total-ns": 243832743,
+      "patts-hit": {},
+      "rewritten": "data['hpg_reserve_history'] = pd.merge(data['hpg_reserve_history'], data[\n    'hpg_to_air_id'], how='inner', on=['hpg_store_id'])\ndata['hpg_reserve_history'] = data['hpg_reserve_history'].drop('hpg_store_id',\n    axis=1)\ndisplay(data['hpg_reserve_history'].shape)\n"
+    },
+    {
+      "raw": "###############################################################################################\n# Append the HPG reservations to the air-reserve history\n###############################################################################################\nprint(\"Shape before: \", data['air_reserve_history'].shape)\n\nreservation_history = data['air_reserve_history'].append(data['hpg_reserve_history'], sort=\"True\")\nreservation_history = data['air_reserve_history'].sort_values(by=['air_store_id', 'reserve_datetime'])\nreservation_history = data['air_reserve_history'].reset_index()\nreservation_history = reservation_history.drop('index', axis=1)\n\ndisplay(reservation_history.head())\nprint(\"Shape after: \", reservation_history.shape)",
+      "rewrite-ns": 3090076,
+      "overhead-ns": 3090076,
+      "exec-ns": 36567134,
+      "total-ns": 39657210,
+      "patts-hit": {},
+      "rewritten": "print('Shape before: ', data['air_reserve_history'].shape)\nreservation_history = data['air_reserve_history'].append(data[\n    'hpg_reserve_history'], sort='True')\nreservation_history = data['air_reserve_history'].sort_values(by=[\n    'air_store_id', 'reserve_datetime'])\nreservation_history = data['air_reserve_history'].reset_index()\nreservation_history = reservation_history.drop('index', axis=1)\ndisplay(reservation_history.head())\nprint('Shape after: ', reservation_history.shape)\n"
+    },
+    {
+      "raw": "###############################################################################################\n# Log transform the the ammount of reserved visitors for this day\n###############################################################################################\nreservation_history['reserve_visitors'] = np.log1p(reservation_history['reserve_visitors'])",
+      "rewrite-ns": 604834,
+      "overhead-ns": 604834,
+      "exec-ns": 751996,
+      "total-ns": 1356830,
+      "patts-hit": {},
+      "rewritten": "reservation_history['reserve_visitors'] = np.log1p(reservation_history[\n    'reserve_visitors'])\n"
+    },
+    {
+      "raw": "###############################################################################################\n# Convert dates into datetime objects / get the day of the week / \n# cut off hours, minutes and seconds\n###############################################################################################\nreservation_history['visit_datetime'] = pd.to_datetime(reservation_history['visit_datetime'])\nreservation_history['visit_dow'] = reservation_history['visit_datetime'].dt.dayofweek\nreservation_history['visit_datetime'] = reservation_history['visit_datetime'].dt.date\nreservation_history['reserve_datetime'] = pd.to_datetime(reservation_history['reserve_datetime'])\nreservation_history['reserve_datetime'] = reservation_history['reserve_datetime'].dt.date\n\n###############################################################################################\n# Calculate the time difference between reservation and visit\n###############################################################################################\nreservation_history['reserve_datetime_diff'] = reservation_history.apply(\n    lambda r: (r['visit_datetime'] - r['reserve_datetime']).days,\n    axis=1\n)",
+      "rewrite-ns": 3344775,
+      "overhead-ns": 3776452,
+      "exec-ns": 595038855,
+      "total-ns": 598383630,
+      "patts-hit": {},
+      "rewritten": "reservation_history['visit_datetime'] = pd.to_datetime(reservation_history[\n    'visit_datetime'])\nreservation_history['visit_dow'] = reservation_history['visit_datetime'\n    ].dt.dayofweek\nreservation_history['visit_datetime'] = reservation_history['visit_datetime'\n    ].dt.date\nreservation_history['reserve_datetime'] = pd.to_datetime(reservation_history\n    ['reserve_datetime'])\nreservation_history['reserve_datetime'] = reservation_history[\n    'reserve_datetime'].dt.date\nreservation_history['reserve_datetime_diff'] = reservation_history.apply(lambda\n    r: (r['visit_datetime'] - r['reserve_datetime']).days, axis=1)\n"
+    },
+    {
+      "raw": "reservation_history[reservation_history.air_store_id == 'air_00a91d42b08b08d9']",
+      "rewrite-ns": 454718,
+      "overhead-ns": 454718,
+      "exec-ns": 9767781,
+      "total-ns": 10222499,
+      "patts-hit": {},
+      "rewritten": "reservation_history[reservation_history.air_store_id == 'air_00a91d42b08b08d9']\n"
+    },
+    {
+      "raw": "###############################################################################################\n# Group the reservations in to subgroubs:\n# \n# EARLY RESERVATIONS\n# sum_res_diff_er ==> SUM reservation_diff on this day\n# sum_vis_er ==> SUM reservated visitors this day\n# avg_res_diff_er ==> AVG reservation_diff on this day\n# avg_vis_er ==> AVG reservated visitors this day\n#\n# LATE RESERVATIONS\n# sum_res_diff_lr ==> SUM reservation_diff on this day\n# sum_vis_lr ==> SUM reservated visitors this day\n# avg_res_diff_lr ==> AVG reservation_diff on this day\n# avg_vis_lr ==> AVG reservated visitors this day\n###############################################################################################\nreservation_history['early_reservation'] = reservation_history['reserve_datetime_diff'] > 2\nreservation_history['late_reservation'] = reservation_history['reserve_datetime_diff'] <= 2\n\n# SUM early reservations\ntmp1 = reservation_history[reservation_history['early_reservation']].groupby(\n    ['air_store_id','visit_datetime'], as_index=False\n)[['reserve_datetime_diff', 'reserve_visitors']]\ntmp1 = tmp1.sum()\ntmp1 = tmp1.rename(columns={\n    'visit_datetime':'visit_date',\n    'reserve_datetime_diff': 'sum_res_diff_er',\n    'reserve_visitors':'sum_vis_er'\n})\n\n# AVG early reservations\ntmp2 = reservation_history[reservation_history['early_reservation']].groupby(\n    ['air_store_id','visit_datetime'], as_index=False\n)[['reserve_datetime_diff', 'reserve_visitors']]\ntmp2 = tmp2.mean()\ntmp2 = tmp2.rename(columns={\n    'visit_datetime':'visit_date',\n    'reserve_datetime_diff': 'avg_res_diff_er',\n    'reserve_visitors':'avg_vis_er'\n})\n\n# SUM late reservations\ntmp3 = reservation_history[reservation_history['late_reservation']].groupby(\n    ['air_store_id','visit_datetime'], as_index=False\n)[['reserve_datetime_diff', 'reserve_visitors']]\ntmp3 = tmp3.sum()\ntmp3 = tmp3.rename(columns={\n    'visit_datetime':'visit_date', \n    'reserve_datetime_diff': 'sum_res_diff_lr', \n    'reserve_visitors':'sum_vis_lr'\n})\n\n# AVG late reservations\ntmp4 = reservation_history[reservation_history['late_reservation']].groupby(\n    ['air_store_id','visit_datetime'], as_index=False\n)[['reserve_datetime_diff', 'reserve_visitors']]\ntmp4 = tmp4.mean()\ntmp4 = tmp4.rename(columns={\n    'visit_datetime':'visit_date', \n    'reserve_datetime_diff': 'avg_res_diff_lr',\n    'reserve_visitors':'avg_vis_lr'\n})\n\nreservation_history = pd.merge(tmp1, tmp2, how='inner', on=['air_store_id','visit_date'])\nreservation_history = pd.merge(reservation_history, tmp3, how='outer', on=['air_store_id','visit_date'])\nreservation_history = pd.merge(reservation_history, tmp4, how='outer', on=['air_store_id','visit_date'])\n\nreservation_history.head()",
+      "rewrite-ns": 8917943,
+      "overhead-ns": 8917943,
+      "exec-ns": 83214770,
+      "total-ns": 92132713,
+      "patts-hit": {},
+      "rewritten": "reservation_history['early_reservation'] = reservation_history[\n    'reserve_datetime_diff'] > 2\nreservation_history['late_reservation'] = reservation_history[\n    'reserve_datetime_diff'] <= 2\ntmp1 = reservation_history[reservation_history['early_reservation']].groupby([\n    'air_store_id', 'visit_datetime'], as_index=False)[[\n    'reserve_datetime_diff', 'reserve_visitors']]\ntmp1 = tmp1.sum()\ntmp1 = tmp1.rename(columns={'visit_datetime': 'visit_date',\n    'reserve_datetime_diff': 'sum_res_diff_er', 'reserve_visitors':\n    'sum_vis_er'})\ntmp2 = reservation_history[reservation_history['early_reservation']].groupby([\n    'air_store_id', 'visit_datetime'], as_index=False)[[\n    'reserve_datetime_diff', 'reserve_visitors']]\ntmp2 = tmp2.mean()\ntmp2 = tmp2.rename(columns={'visit_datetime': 'visit_date',\n    'reserve_datetime_diff': 'avg_res_diff_er', 'reserve_visitors':\n    'avg_vis_er'})\ntmp3 = reservation_history[reservation_history['late_reservation']].groupby([\n    'air_store_id', 'visit_datetime'], as_index=False)[[\n    'reserve_datetime_diff', 'reserve_visitors']]\ntmp3 = tmp3.sum()\ntmp3 = tmp3.rename(columns={'visit_datetime': 'visit_date',\n    'reserve_datetime_diff': 'sum_res_diff_lr', 'reserve_visitors':\n    'sum_vis_lr'})\ntmp4 = reservation_history[reservation_history['late_reservation']].groupby([\n    'air_store_id', 'visit_datetime'], as_index=False)[[\n    'reserve_datetime_diff', 'reserve_visitors']]\ntmp4 = tmp4.mean()\ntmp4 = tmp4.rename(columns={'visit_datetime': 'visit_date',\n    'reserve_datetime_diff': 'avg_res_diff_lr', 'reserve_visitors':\n    'avg_vis_lr'})\nreservation_history = pd.merge(tmp1, tmp2, how='inner', on=['air_store_id',\n    'visit_date'])\nreservation_history = pd.merge(reservation_history, tmp3, how='outer', on=[\n    'air_store_id', 'visit_date'])\nreservation_history = pd.merge(reservation_history, tmp4, how='outer', on=[\n    'air_store_id', 'visit_date'])\nreservation_history.head()\n"
+    },
+    {
+      "raw": "###############################################################################################\n# Get all unique stores from the submission file\n# Because the submission file contains the restaurant id and visit date in one attribute, \n# this information has to be splitted up\n###############################################################################################\n\ndata['subm_visits']['visit_date'] = data['subm_visits']['id'].map(lambda x: str(x).split('_')[2])\ndata['subm_visits']['air_store_id'] = data['subm_visits']['id'].map(lambda x: '_'.join(x.split('_')[:2]))\n\n# Extract unique store ids and create an empty dataframe for the store meta information\nunique_stores = data['subm_visits']['air_store_id'].unique()\nstores = pd.concat([pd.DataFrame({'air_store_id': unique_stores, 'dow': [i]*len(unique_stores)}) for i in range(7)], axis=0, ignore_index=True).reset_index(drop=True)\n\nstores.head()",
+      "rewrite-ns": 4104234,
+      "overhead-ns": 4104234,
+      "exec-ns": 26906838,
+      "total-ns": 31011072,
+      "patts-hit": {},
+      "rewritten": "data['subm_visits']['visit_date'] = data['subm_visits']['id'].map(lambda x:\n    str(x).split('_')[2])\ndata['subm_visits']['air_store_id'] = data['subm_visits']['id'].map(lambda\n    x: '_'.join(x.split('_')[:2]))\nunique_stores = data['subm_visits']['air_store_id'].unique()\nstores = pd.concat([pd.DataFrame({'air_store_id': unique_stores, 'dow': [i] *\n    len(unique_stores)}) for i in range(7)], axis=0, ignore_index=True\n    ).reset_index(drop=True)\nstores.head()\n"
+    },
+    {
+      "raw": "###############################################################################################\n# Fill the gaps in the training dataset for each restaurant\n# So every row step is exactly one day\n###############################################################################################\ndata['gt_visits']['visit_date'] = pd.to_datetime(data['gt_visits']['visit_date'])\ndata['gt_visits'] = data['gt_visits'].groupby('air_store_id').resample('D', on='visit_date').sum().fillna(0)\ndata['gt_visits'] = data['gt_visits'].reset_index()\ndata['gt_visits'].head()",
+      "rewrite-ns": 2334251,
+      "overhead-ns": 2334251,
+      "exec-ns": 1185383117,
+      "total-ns": 1187717368,
+      "patts-hit": {},
+      "rewritten": "data['gt_visits']['visit_date'] = pd.to_datetime(data['gt_visits'][\n    'visit_date'])\ndata['gt_visits'] = data['gt_visits'].groupby('air_store_id').resample('D',\n    on='visit_date').sum().fillna(0)\ndata['gt_visits'] = data['gt_visits'].reset_index()\ndata['gt_visits'].head()\n"
+    },
+    {
+      "raw": "###############################################################################################\n# Also check if the submission data has the same stepsize for each restaurant\n# One row step == one day\n###############################################################################################\norg_shape = data['subm_visits'].shape\ndata['subm_visits']['visit_date'] = pd.to_datetime(data['subm_visits']['visit_date'])\ntmp = data['subm_visits'].groupby('air_store_id').resample('D', on='visit_date').sum().fillna(0)\ntmp = tmp.reset_index()\nresampled_shape = tmp.shape\n\nif org_shape[0] == resampled_shape[0]:\n    print('Submission has a stepsize of one day per row and restaurant')\n    del org_shape, tmp, resampled_shape",
+      "rewrite-ns": 2991310,
+      "overhead-ns": 2991310,
+      "exec-ns": 930958395,
+      "total-ns": 933949705,
+      "patts-hit": {},
+      "rewritten": "org_shape = data['subm_visits'].shape\ndata['subm_visits']['visit_date'] = pd.to_datetime(data['subm_visits'][\n    'visit_date'])\ntmp = data['subm_visits'].groupby('air_store_id').resample('D', on='visit_date'\n    ).sum().fillna(0)\ntmp = tmp.reset_index()\nresampled_shape = tmp.shape\nif org_shape[0] == resampled_shape[0]:\n    print('Submission has a stepsize of one day per row and restaurant')\n    del org_shape, tmp, resampled_shape\n"
+    },
+    {
+      "raw": "###############################################################################################\n# Transform to datetime objects and split the dates up\n###############################################################################################\ndata['gt_visits']['visit_date'] = pd.to_datetime(data['gt_visits']['visit_date'])\ndata['gt_visits']['dow'] = data['gt_visits']['visit_date'].dt.dayofweek\ndata['gt_visits']['year'] = data['gt_visits']['visit_date'].dt.year\ndata['gt_visits']['month'] = data['gt_visits']['visit_date'].dt.month\ndata['gt_visits']['week'] = data['gt_visits']['visit_date'].dt.week\ndata['gt_visits']['visit_date'] = data['gt_visits']['visit_date'].dt.date\n\n# Also store the visit date as an integer value\ndata['gt_visits']['visit_date_int'] = data['gt_visits']['visit_date'].apply(\n    lambda x: x.strftime('%Y%m%d')\n).astype(int)\n\n# Also log-transform the ground truth visitor values\ndata['gt_visits']['visitors'] = np.log1p(data['gt_visits']['visitors'].values.astype(np.int))\n\ndata['gt_visits'].head()",
+      "rewrite-ns": 5718447,
+      "overhead-ns": 5718447,
+      "exec-ns": 697135543,
+      "total-ns": 702853990,
+      "patts-hit": {},
+      "rewritten": "data['gt_visits']['visit_date'] = pd.to_datetime(data['gt_visits'][\n    'visit_date'])\ndata['gt_visits']['dow'] = data['gt_visits']['visit_date'].dt.dayofweek\ndata['gt_visits']['year'] = data['gt_visits']['visit_date'].dt.year\ndata['gt_visits']['month'] = data['gt_visits']['visit_date'].dt.month\ndata['gt_visits']['week'] = data['gt_visits']['visit_date'].dt.week\ndata['gt_visits']['visit_date'] = data['gt_visits']['visit_date'].dt.date\ndata['gt_visits']['visit_date_int'] = data['gt_visits']['visit_date'].apply(\n    lambda x: x.strftime('%Y%m%d')).astype(int)\ndata['gt_visits']['visitors'] = np.log1p(data['gt_visits']['visitors'].\n    values.astype(np.int))\ndata['gt_visits'].head()\n"
+    },
+    {
+      "raw": "###############################################################################################\n# Transform to datetime objects and split the dates up\n###############################################################################################\ndata['subm_visits']['visit_date'] = pd.to_datetime(data['subm_visits']['visit_date'])\ndata['subm_visits']['dow'] = data['subm_visits']['visit_date'].dt.dayofweek\ndata['subm_visits']['year'] = data['subm_visits']['visit_date'].dt.year\ndata['subm_visits']['month'] = data['subm_visits']['visit_date'].dt.month\ndata['subm_visits']['week'] = data['subm_visits']['visit_date'].dt.week\ndata['subm_visits']['visit_date'] = data['subm_visits']['visit_date'].dt.date\n\n# Also store the visit date as an integer value\ndata['subm_visits']['visit_date_int'] = data['subm_visits']['visit_date'].apply(\n    lambda x: x.strftime('%Y%m%d')\n).astype(int)\n\ndata['subm_visits'].head()",
+      "rewrite-ns": 4848498,
+      "overhead-ns": 4848498,
+      "exec-ns": 86565091,
+      "total-ns": 91413589,
+      "patts-hit": {},
+      "rewritten": "data['subm_visits']['visit_date'] = pd.to_datetime(data['subm_visits'][\n    'visit_date'])\ndata['subm_visits']['dow'] = data['subm_visits']['visit_date'].dt.dayofweek\ndata['subm_visits']['year'] = data['subm_visits']['visit_date'].dt.year\ndata['subm_visits']['month'] = data['subm_visits']['visit_date'].dt.month\ndata['subm_visits']['week'] = data['subm_visits']['visit_date'].dt.week\ndata['subm_visits']['visit_date'] = data['subm_visits']['visit_date'].dt.date\ndata['subm_visits']['visit_date_int'] = data['subm_visits']['visit_date'\n    ].apply(lambda x: x.strftime('%Y%m%d')).astype(int)\ndata['subm_visits'].head()\n"
+    },
+    {
+      "raw": "###############################################################################################\n# Calculate the min, max, avg, median and overall reservations for each day of a week\n###############################################################################################\n# Min visits\ntmp = data['gt_visits'].groupby(['air_store_id','dow'], as_index=False)['visitors']\ntmp = tmp.min()\ntmp = tmp.rename(columns={'visitors':'min_visitors'})\nstores = pd.merge(stores, tmp, how='left', on=['air_store_id','dow']) \n\n# Mean visits\ntmp = data['gt_visits'].groupby(['air_store_id','dow'], as_index=False)['visitors']\ntmp = tmp.mean()\ntmp = tmp.rename(columns={'visitors':'mean_visitors'})\nstores = pd.merge(stores, tmp, how='left', on=['air_store_id','dow'])\n\n# Median visits\ntmp = data['gt_visits'].groupby(['air_store_id','dow'], as_index=False)['visitors']\ntmp = tmp.median()\ntmp = tmp.rename(columns={'visitors':'median_visitors'})\nstores = pd.merge(stores, tmp, how='left', on=['air_store_id','dow'])\n\n# Max visits\ntmp = data['gt_visits'].groupby(['air_store_id','dow'], as_index=False)['visitors']\ntmp = tmp.max()\ntmp = tmp.rename(columns={'visitors':'max_visitors'})\nstores = pd.merge(stores, tmp, how='left', on=['air_store_id','dow'])\n\n# Overall visits on this week day\ntmp = data['gt_visits'].groupby(['air_store_id','dow'], as_index=False)['visitors']\ntmp = tmp.count()\ntmp = tmp.rename(columns={'visitors':'count_observations'})\nstores = pd.merge(stores, tmp, how='left', on=['air_store_id','dow']) \n\n###############################################################################################\n# Merge this information with the remaining restaurant meta information\n###############################################################################################\nstores = pd.merge(stores, data['air_store_info'], how='left', on=['air_store_id'])\n\n###############################################################################################\n# Show one example\n###############################################################################################\nstores.loc[stores['air_store_id'] == 'air_00a91d42b08b08d9']",
+      "rewrite-ns": 9846643,
+      "overhead-ns": 9846643,
+      "exec-ns": 132582539,
+      "total-ns": 142429182,
+      "patts-hit": {},
+      "rewritten": "tmp = data['gt_visits'].groupby(['air_store_id', 'dow'], as_index=False)[\n    'visitors']\ntmp = tmp.min()\ntmp = tmp.rename(columns={'visitors': 'min_visitors'})\nstores = pd.merge(stores, tmp, how='left', on=['air_store_id', 'dow'])\ntmp = data['gt_visits'].groupby(['air_store_id', 'dow'], as_index=False)[\n    'visitors']\ntmp = tmp.mean()\ntmp = tmp.rename(columns={'visitors': 'mean_visitors'})\nstores = pd.merge(stores, tmp, how='left', on=['air_store_id', 'dow'])\ntmp = data['gt_visits'].groupby(['air_store_id', 'dow'], as_index=False)[\n    'visitors']\ntmp = tmp.median()\ntmp = tmp.rename(columns={'visitors': 'median_visitors'})\nstores = pd.merge(stores, tmp, how='left', on=['air_store_id', 'dow'])\ntmp = data['gt_visits'].groupby(['air_store_id', 'dow'], as_index=False)[\n    'visitors']\ntmp = tmp.max()\ntmp = tmp.rename(columns={'visitors': 'max_visitors'})\nstores = pd.merge(stores, tmp, how='left', on=['air_store_id', 'dow'])\ntmp = data['gt_visits'].groupby(['air_store_id', 'dow'], as_index=False)[\n    'visitors']\ntmp = tmp.count()\ntmp = tmp.rename(columns={'visitors': 'count_observations'})\nstores = pd.merge(stores, tmp, how='left', on=['air_store_id', 'dow'])\nstores = pd.merge(stores, data['air_store_info'], how='left', on=[\n    'air_store_id'])\nstores.loc[stores['air_store_id'] == 'air_00a91d42b08b08d9']\n"
+    },
+    {
+      "raw": "###############################################################################################\n# Remove some char from the Genre name and area name\n###############################################################################################\nstores['air_genre_name'] = stores['air_genre_name'].map(\n    lambda x: str(str(x).replace('/',' '))\n)\nstores['air_area_name'] = stores['air_area_name'].map(\n    lambda x: str(str(x).replace('-',' '))\n)\n\n###############################################################################################\n# Label-Encoding the cleanded names\n###############################################################################################\n# ALEX: remove ML code\n# le = LabelEncoder()\n# stores['air_genre_name'] = le.fit_transform(stores['air_genre_name'])\n# stores['air_area_name'] = le.fit_transform(stores['air_area_name'])\nstores['air_genre_name'] = stores['air_genre_name']\nstores['air_area_name'] = stores['air_area_name']",
+      "rewrite-ns": 2628072,
+      "overhead-ns": 2628072,
+      "exec-ns": 4065121,
+      "total-ns": 6693193,
+      "patts-hit": {},
+      "rewritten": "stores['air_genre_name'] = stores['air_genre_name'].map(lambda x: str(str(x\n    ).replace('/', ' ')))\nstores['air_area_name'] = stores['air_area_name'].map(lambda x: str(str(x).\n    replace('-', ' ')))\nstores['air_genre_name'] = stores['air_genre_name']\nstores['air_area_name'] = stores['air_area_name']\n"
+    },
+    {
+      "raw": "stores['lon_plus_lat'] = stores['longitude'] + stores['latitude']\nstores['var_max_lat'] = stores['latitude'].max() - stores['latitude']\nstores['var_max_lon'] = stores['longitude'].max() - stores['longitude']",
+      "rewrite-ns": 1792399,
+      "overhead-ns": 1792399,
+      "exec-ns": 1518125,
+      "total-ns": 3310524,
+      "patts-hit": {},
+      "rewritten": "stores['lon_plus_lat'] = stores['longitude'] + stores['latitude']\nstores['var_max_lat'] = stores['latitude'].max() - stores['latitude']\nstores['var_max_lon'] = stores['longitude'].max() - stores['longitude']\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# le = LabelEncoder()\n# stores['air_store_id_feat'] = le.fit_transform(stores['air_store_id'])\nstores['air_store_id_feat'] = stores['air_store_id']",
+      "rewrite-ns": 387960,
+      "overhead-ns": 387960,
+      "exec-ns": 503142,
+      "total-ns": 891102,
+      "patts-hit": {},
+      "rewritten": "stores['air_store_id_feat'] = stores['air_store_id']\n"
+    },
+    {
+      "raw": "display(stores.head())",
+      "rewrite-ns": 363553,
+      "overhead-ns": 363553,
+      "exec-ns": 9058264,
+      "total-ns": 9421817,
+      "patts-hit": {},
+      "rewritten": "display(stores.head())\n"
+    },
+    {
+      "raw": "###############################################################################################\n# Prepare the datetime object and simplify it in a da and day of week\n###############################################################################################\ndata['holidays']['visit_date'] = pd.to_datetime(data['holidays']['visit_date'])\n\n# Attention: This day of week does not match the encoding of the 'dow' field\n# ALEX: remove ML code\n# data['holidays']['day_of_week'] = le.fit_transform(data['holidays']['day_of_week'])\ndata['holidays']['day_of_week'] = data['holidays']['day_of_week']\ndata['holidays']['dow_holidays'] = data['holidays']['visit_date'].dt.dayofweek\n\ndata['holidays']['visit_date'] = data['holidays']['visit_date'].dt.date\n\ndisplay(data['holidays'].head())",
+      "rewrite-ns": 2675460,
+      "overhead-ns": 2675460,
+      "exec-ns": 4826688,
+      "total-ns": 7502148,
+      "patts-hit": {},
+      "rewritten": "data['holidays']['visit_date'] = pd.to_datetime(data['holidays']['visit_date'])\ndata['holidays']['day_of_week'] = data['holidays']['day_of_week']\ndata['holidays']['dow_holidays'] = data['holidays']['visit_date'].dt.dayofweek\ndata['holidays']['visit_date'] = data['holidays']['visit_date'].dt.date\ndisplay(data['holidays'].head())\n"
+    },
+    {
+      "raw": "###############################################################################################\n# Add holiday information to the training data\n###############################################################################################\ntrain = pd.merge(data['gt_visits'], data['holidays'], how='left', on=['visit_date'])\ndisplay(train.head())",
+      "rewrite-ns": 1085745,
+      "overhead-ns": 1085745,
+      "exec-ns": 51912182,
+      "total-ns": 52997927,
+      "patts-hit": {},
+      "rewritten": "train = pd.merge(data['gt_visits'], data['holidays'], how='left', on=[\n    'visit_date'])\ndisplay(train.head())\n"
+    },
+    {
+      "raw": "###############################################################################################\n# Add holiday information to the submission data\n###############################################################################################\ntest = pd.merge(data['subm_visits'], data['holidays'], how='left', on=['visit_date'])\ndisplay(test.head())",
+      "rewrite-ns": 1149478,
+      "overhead-ns": 1149478,
+      "exec-ns": 14066462,
+      "total-ns": 15215940,
+      "patts-hit": {},
+      "rewritten": "test = pd.merge(data['subm_visits'], data['holidays'], how='left', on=[\n    'visit_date'])\ndisplay(test.head())\n"
+    },
+    {
+      "raw": "##############################################################################################\n# Merge the training data with the prepared meta information\n##############################################################################################\ntrain = pd.merge(train, stores, how='inner', on=['air_store_id','dow'])\ntrain = pd.merge(train, reservation_history, how='left', on=['air_store_id','visit_date'])\n\n# Create the same ID that is used in the submission file\ntrain['id'] = train.apply(\n    lambda r: '_'.join([str(r['air_store_id']), str(r['visit_date'])]), \n    axis=1\n)\n\n###############################################################################################\n# Merge the submission dataset with the prepared meta information\n###############################################################################################\ntest = pd.merge(test, stores, how='left', on=['air_store_id','dow'])\ntest = pd.merge(test, reservation_history, how='left', on=['air_store_id','visit_date'])",
+      "rewrite-ns": 3601762,
+      "overhead-ns": 3883146,
+      "exec-ns": 2346434585,
+      "total-ns": 2350036347,
+      "patts-hit": {},
+      "rewritten": "train = pd.merge(train, stores, how='inner', on=['air_store_id', 'dow'])\ntrain = pd.merge(train, reservation_history, how='left', on=['air_store_id',\n    'visit_date'])\ntrain['id'] = train.apply(lambda r: '_'.join([str(r['air_store_id']), str(r\n    ['visit_date'])]), axis=1)\ntest = pd.merge(test, stores, how='left', on=['air_store_id', 'dow'])\ntest = pd.merge(test, reservation_history, how='left', on=['air_store_id',\n    'visit_date'])\n"
+    },
+    {
+      "raw": "###############################################################################################\n# Sort the train and test dataframes again\n###############################################################################################\ntrain = train.sort_values(by=['air_store_id', 'visit_date'])\ntest = test.sort_values(by=['air_store_id', 'visit_date'])",
+      "rewrite-ns": 947222,
+      "overhead-ns": 947222,
+      "exec-ns": 95504317,
+      "total-ns": 96451539,
+      "patts-hit": {},
+      "rewritten": "train = train.sort_values(by=['air_store_id', 'visit_date'])\ntest = test.sort_values(by=['air_store_id', 'visit_date'])\n"
+    },
+    {
+      "raw": "###############################################################################################\n# Fill NaN with an -1 value\n###############################################################################################\ntrain = train.fillna(-1)\ntest = test.fillna(-1)",
+      "rewrite-ns": 815024,
+      "overhead-ns": 815024,
+      "exec-ns": 237628445,
+      "total-ns": 238443469,
+      "patts-hit": {},
+      "rewritten": "train = train.fillna(-1)\ntest = test.fillna(-1)\n"
+    },
+    {
+      "raw": "display(train.head())\ndisplay(train.shape)\ndisplay(test.head())\ndisplay(test.shape)",
+      "rewrite-ns": 1148453,
+      "overhead-ns": 1148453,
+      "exec-ns": 34942212,
+      "total-ns": 36090665,
+      "patts-hit": {},
+      "rewritten": "display(train.head())\ndisplay(train.shape)\ndisplay(test.head())\ndisplay(test.shape)\n"
+    },
+    {
+      "raw": "# ALEX: remove non pandas code\n# FEATURES = {\n#     'air_store_id_feat' : 'LabelEncoded store ID as an input feature. It allows the network to seperate between the stores',\n#     'dow' : 'Day of the week e.g. Monday, Tuesday, Wednesday,...',\n#     'year' : 'Year of the visit',\n#     'month' : 'Month of the visit',\n#     'week' : 'Week of the visit',\n#     'visit_date_int' : 'Complete visit date as a integer value',\n#     'holiday_flg' : 'Is the current day in the holidays',\n#     'min_visitors' : 'Minimum visitors of the current week day',\n#     'mean_visitors' : 'Mean visitors of the current week day',\n#     'median_visitors' : 'Median visitors of the current week day',\n#     'max_visitors' : 'Maximum visitors of the current week day',\n#     'count_observations' : 'Total number of reservations for this week day',\n#     'air_genre_name' : 'Label encoded name of the cusine genre',\n#     'air_area_name' : 'Label encoded name of the area the restaurant is located in',\n#     'latitude' : 'Latitude of the restaurant location',\n#     'longitude' : 'Longitude of the restaurant location',\n#     'lon_plus_lat' : 'Linear combination of longitude and latitude',\n#     'var_max_lat' : 'Max(Latitude) - Latitude of the current restaurant',\n#     'var_max_lon' : 'Max(Longitude) - Longitude of the current restaurant',\n#     'sum_res_diff_er' : 'Summed up differences between the reservation date and the visit date [Diff > 2 days]',\n#     'sum_vis_er' : 'Summed up reservated visitors for this day [Diff > 2 days]',\n#     'avg_res_diff_er' : 'AVG of differences between the reservation date and the visit date [Diff > 2 days]',\n#     'avg_vis_er' : 'AVG reservated visitors for this day [Diff > 2 days]',\n#     'sum_res_diff_lr' : 'Summed up differences between the reservation date and the visit date [Diff <= 2 days]',\n#     'sum_vis_lr' : 'Summed up reservated visitors for this day [Diff <= 2 days]',\n#     'avg_res_diff_lr' : 'AVG of differences between the reservation date and the visit date [Diff > 2 days]',\n#     'avg_vis_lr' : 'AVG reservated visitors for this day [Diff <= 2 days]' \n# }\n\n# EXCLUDED_FEATURES = {\n#     'id' : 'Air reservation id of the restaurant',\n#     'visit_date' : 'Use the numeric value instead!',\n#     'air_store_id' : 'Air reservation id of the restaurant',\n#     'day_of_week' : 'Day of the week encoded in the date_info.csv file',\n#     'dow_holidays' : 'Day of the week encoded in the date_info.csv file'\n# }\n\n# GROUND_TRUTH_FEATURES = {\n#     'visitors' : 'Ground truth information. The number os visitors is transformed with np.log1p()'\n# }",
+      "rewrite-ns": 28068,
+      "overhead-ns": 28068,
+      "exec-ns": 89035,
+      "total-ns": 117103,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove non pandas code\n# FEATURE_COLS = list(FEATURES.keys())\n# EXCLUDED_COLS = list(EXCLUDED_FEATURES.keys())\n# GROUND_TRUTH_COLS = list(GROUND_TRUTH_FEATURES.keys())\n\n# print('Number of cols: ', len(FEATURE_COLS) + len(EXCLUDED_COLS) + len(GROUND_TRUTH_COLS))",
+      "rewrite-ns": 13207,
+      "overhead-ns": 13207,
+      "exec-ns": 67516,
+      "total-ns": 80723,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 8.019529478,
+  "max-disk-in-mb": 0
+}

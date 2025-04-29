@@ -1,0 +1,116 @@
+{
+  "max-mem-in-mb": 1143,
+  "max-mem-in-mb2": 2087,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         file_  = os.path.join(dirname, filename)\n\n# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "rewrite-ns": 703218,
+      "overhead-ns": 703218,
+      "exec-ns": 389746,
+      "total-ns": 1092964,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns",
+      "rewrite-ns": 20969,
+      "overhead-ns": 20969,
+      "exec-ns": 108535,
+      "total-ns": 129504,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "df = pd.read_csv(\"./input/salary_data.scaled.csv\")\n\ndf.head(5)",
+      "rewrite-ns": 606306,
+      "overhead-ns": 606306,
+      "exec-ns": 3867048117,
+      "total-ns": 3867654423,
+      "patts-hit": {},
+      "rewritten": "df = pd.read_csv('./input/salary_data.scaled.csv')\ndf.head(5)\n"
+    },
+    {
+      "raw": "df.duplicated().sum()",
+      "rewrite-ns": 464207,
+      "overhead-ns": 464207,
+      "exec-ns": 1518334004,
+      "total-ns": 1518798211,
+      "patts-hit": {},
+      "rewritten": "df.duplicated().sum()\n"
+    },
+    {
+      "raw": "df.isnull().sum()",
+      "rewrite-ns": 428476,
+      "overhead-ns": 428476,
+      "exec-ns": 2350069534,
+      "total-ns": 2350498010,
+      "patts-hit": {},
+      "rewritten": "df.isnull().sum()\n"
+    },
+    {
+      "raw": "df.describe(include = 'all')",
+      "rewrite-ns": 145815,
+      "overhead-ns": 145815,
+      "exec-ns": 2924553979,
+      "total-ns": 2924699794,
+      "patts-hit": {},
+      "rewritten": "df.describe(include='all')\n"
+    },
+    {
+      "raw": "df = df.drop(['wage_span'] , axis = 1)",
+      "rewrite-ns": 585331,
+      "overhead-ns": 585331,
+      "exec-ns": 214087526,
+      "total-ns": 214672857,
+      "patts-hit": {},
+      "rewritten": "df = df.drop(['wage_span'], axis=1)\n"
+    },
+    {
+      "raw": "df.sort_values('continent_name')",
+      "rewrite-ns": 392154,
+      "overhead-ns": 392154,
+      "exec-ns": 6498069224,
+      "total-ns": 6498461378,
+      "patts-hit": {},
+      "rewritten": "df.sort_values('continent_name')\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize = (20,5))\n\nsorted_order = (\n    df.groupby('continent_name' , as_index = False)\n    .agg({'median_salary':'mean'})\n    .sort_values('median_salary' , ascending = True)\n)['continent_name'].values\n\n# ALEX: remove plotting\n# sns.boxplot(\n#     data = df\n#     ,x = 'continent_name'\n#     ,y = 'median_salary'\n#     ,order = sorted_order\n\n# )\n\n# plt.title('Median Salary')\n# plt.xlabel('Continent')\n# plt.ylabel('Salary')\n# plt.show()",
+      "rewrite-ns": 1121765,
+      "overhead-ns": 1121765,
+      "exec-ns": 332328555,
+      "total-ns": 333450320,
+      "patts-hit": {},
+      "rewritten": "sorted_order = df.groupby('continent_name', as_index=False).agg({\n    'median_salary': 'mean'}).sort_values('median_salary', ascending=True)[\n    'continent_name'].values\n"
+    },
+    {
+      "raw": "tp5_highestslry_contry_conti = (\n    df.sort_values('highest_salary' , ascending = False).groupby('continent_name')\n    .head(5)\n    .sort_values(['continent_name','highest_salary'] , ascending = [True, False])\n)\n\ncont_order = (\n    df.groupby('continent_name')\n    .agg({'highest_salary':\"max\"})\n    .sort_values('highest_salary' , ascending = False)\n    .index\n).tolist()\n\n# ALEX: remove plotting\n# fig , ax = plt.subplots(3,3 , figsize = (20,15) , sharex = True)\n\n# row_n , col_n = 0 , 0\n\n# for cont in tp5_highestslry_contry_conti['continent_name'].unique().tolist():\nfor cont in cont_order:\n# ALEX: remove plotting\n#     sns.barplot(\n#         data = tp5_highestslry_contry_conti.query('continent_name == @cont')\n#         ,x = 'highest_salary'\n#         ,y = 'country_name'\n#         ,ax = ax[row_n, col_n]\n#     )\n    \n#     ax[row_n, col_n].set_title(cont)\n#     ax[row_n, col_n].spines[['top','right']].set_visible(False)\n#     ax[row_n, col_n].set_xlabel('Salary')\n#     ax[row_n, col_n].set_ylabel('Country')\n    \n#     if col_n == 2:\n#         col_n = 0\n#         row_n += 1\n#     else:\n#         col_n += 1\n    _ = tp5_highestslry_contry_conti.query('continent_name == @cont')\n\n# ALEX: remove plotting\n# plt.suptitle('Top 5 Countries with Highest Salary from each Continent')\n# plt.tight_layout()\n# plt.show()",
+      "rewrite-ns": 2518703,
+      "overhead-ns": 2518703,
+      "exec-ns": 2590671942,
+      "total-ns": 2593190645,
+      "patts-hit": {},
+      "rewritten": "tp5_highestslry_contry_conti = df.sort_values('highest_salary', ascending=False\n    ).groupby('continent_name').head(5).sort_values(['continent_name',\n    'highest_salary'], ascending=[True, False])\ncont_order = df.groupby('continent_name').agg({'highest_salary': 'max'}\n    ).sort_values('highest_salary', ascending=False).index.tolist()\nfor cont in cont_order:\n    _ = tp5_highestslry_contry_conti.query('continent_name == @cont')\n"
+    },
+    {
+      "raw": "cont_order = (\n    df.groupby('continent_name')\n    .agg({'lowest_salary':\"min\"})\n    .sort_values('lowest_salary' , ascending = False)\n    .index\n).tolist()\n\ntp5_lwstslry_contry_conti = (\n    df.sort_values('lowest_salary' , ascending = True).groupby('continent_name')\n    .head(5)\n    .sort_values(['continent_name','lowest_salary'] , ascending = [True, True])\n)\n\n# ALEX: remove plotting\n# fig , ax = plt.subplots(3,3 , figsize = (20,15) , sharex = True)\n\n\n# row_n , col_n = 0 , 0\n\n# for cont in tp5_highestslry_contry_conti['continent_name'].unique().tolist():\nfor cont in cont_order:\n# ALEX: remove plotting\n#     sns.barplot(\n#         data = tp5_lwstslry_contry_conti.query('continent_name == @cont')\n#         ,x = 'lowest_salary'\n#         ,y = 'country_name'\n#         ,ax = ax[row_n, col_n]\n#     )\n    \n#     ax[row_n, col_n].set_title(cont)\n#     ax[row_n, col_n].spines[['top','right']].set_visible(False)\n#     ax[row_n, col_n].set_xlabel('Salary')\n#     ax[row_n, col_n].set_ylabel('Country')\n    \n#     if col_n == 2:\n#         col_n = 0\n#         row_n += 1\n#     else:\n#         col_n += 1\n    _ = tp5_lwstslry_contry_conti.query('continent_name == @cont')\n\n# ALEX: remove plotting\n# plt.suptitle('Top 5 Countries with Lowest Salary from each Continent')\n# plt.tight_layout()\n# plt.show()",
+      "rewrite-ns": 2512254,
+      "overhead-ns": 2512254,
+      "exec-ns": 2558866551,
+      "total-ns": 2561378805,
+      "patts-hit": {},
+      "rewritten": "cont_order = df.groupby('continent_name').agg({'lowest_salary': 'min'}\n    ).sort_values('lowest_salary', ascending=False).index.tolist()\ntp5_lwstslry_contry_conti = df.sort_values('lowest_salary', ascending=True\n    ).groupby('continent_name').head(5).sort_values(['continent_name',\n    'lowest_salary'], ascending=[True, True])\nfor cont in cont_order:\n    _ = tp5_lwstslry_contry_conti.query('continent_name == @cont')\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 15258,
+      "overhead-ns": 15258,
+      "exec-ns": 111864,
+      "total-ns": 127122,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 22.864154033,
+  "max-disk-in-mb": 0
+}

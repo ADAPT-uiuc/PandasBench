@@ -1,0 +1,80 @@
+{
+  "max-mem-in-mb": 1221,
+  "max-mem-in-mb2": 2157,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\ndf = pd.read_csv(filepath_or_buffer='./input/Airline Dataset.scaled.csv', parse_dates=['Departure Date'])\ndf.head()",
+      "rewrite-ns": 1288023,
+      "overhead-ns": 1288023,
+      "exec-ns": 7395874444,
+      "total-ns": 7397162467,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\ndf = pd.read_csv(filepath_or_buffer='./input/Airline Dataset.scaled.csv',\n    parse_dates=['Departure Date'])\ndf.head()\n"
+    },
+    {
+      "raw": "df.info()",
+      "rewrite-ns": 155774,
+      "overhead-ns": 155774,
+      "exec-ns": 3196759,
+      "total-ns": 3352533,
+      "patts-hit": {},
+      "rewritten": "df.info()\n"
+    },
+    {
+      "raw": "df.nunique()",
+      "rewrite-ns": 315730,
+      "overhead-ns": 320407,
+      "exec-ns": 1530366547,
+      "total-ns": 1530682277,
+      "patts-hit": {},
+      "rewritten": "df.nunique()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# from seaborn import kdeplot\n# kdeplot(data=df, x='Age', hue='Gender')",
+      "rewrite-ns": 21896,
+      "overhead-ns": 21896,
+      "exec-ns": 120997,
+      "total-ns": 142893,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# from matplotlib.pyplot import subplots\n# _, ax = subplots(figsize=(12, 12), ncols=2, nrows=2,  )\ncolumns = [key for key, value in df.nunique().to_dict().items() if value < 10]\nfor index, column in enumerate(columns):\n    df[column].value_counts() # .plot(ax=ax.ravel()[index], kind='bar', legend=True)",
+      "rewrite-ns": 2526738,
+      "overhead-ns": 2529818,
+      "exec-ns": 2033640605,
+      "total-ns": 2036167343,
+      "patts-hit": {},
+      "rewritten": "columns = [key for key, value in df.nunique().to_dict().items() if value < 10]\nfor index, column in enumerate(columns):\n    df[column].value_counts()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# kdeplot(data=df, x='Passenger ID', hue='Flight Status')",
+      "rewrite-ns": 23821,
+      "overhead-ns": 23821,
+      "exec-ns": 115523,
+      "total-ns": 139344,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "df['Departure Date'].dt.year.value_counts()",
+      "rewrite-ns": 539501,
+      "overhead-ns": 539501,
+      "exec-ns": 163836679,
+      "total-ns": 164376180,
+      "patts-hit": {},
+      "rewritten": "df['Departure Date'].dt.year.value_counts()\n"
+    },
+    {
+      "raw": "df['Last Name'].value_counts().nlargest(n=10)",
+      "rewrite-ns": 631911,
+      "overhead-ns": 631911,
+      "exec-ns": 309070440,
+      "total-ns": 309702351,
+      "patts-hit": {},
+      "rewritten": "df['Last Name'].value_counts().nlargest(n=10)\n"
+    }
+  ],
+  "total-time-in-sec": 11.441725388,
+  "max-disk-in-mb": 0
+}

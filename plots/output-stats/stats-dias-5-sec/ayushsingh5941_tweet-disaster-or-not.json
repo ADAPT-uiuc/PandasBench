@@ -1,0 +1,332 @@
+{
+  "max-mem-in-mb": 133,
+  "max-mem-in-mb2": 138,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\nimport re\n# ALEX: remove ML code\n# from nltk.stem import WordNetLemmatizer\n# from nltk.corpus import names, stopwords\nimport unicodedata\n# from sklearn.model_selection import train_test_split\n# from sklearn.feature_extraction.text import TfidfVectorizer\n# from sklearn.pipeline import Pipeline\n# from sklearn.metrics import classification_report\n# from sklearn.linear_model import LogisticRegression",
+      "rewrite-ns": 868737,
+      "overhead-ns": 868737,
+      "exec-ns": 474527,
+      "total-ns": 1343264,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\nimport re\nimport unicodedata\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 28357,
+      "overhead-ns": 28357,
+      "exec-ns": 108561,
+      "total-ns": 136918,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "tweet_train_df = pd.read_csv('./input/train.scaled.csv')\ntweet_test_df = pd.read_csv('./input/test.scaled.csv')\nId = tweet_test_df['id']",
+      "rewrite-ns": 1281259,
+      "overhead-ns": 1281259,
+      "exec-ns": 93222921,
+      "total-ns": 94504180,
+      "patts-hit": {},
+      "rewritten": "tweet_train_df = pd.read_csv('./input/train.scaled.csv')\ntweet_test_df = pd.read_csv('./input/test.scaled.csv')\nId = tweet_test_df['id']\n"
+    },
+    {
+      "raw": "tweet_train_df.head()",
+      "rewrite-ns": 132630,
+      "overhead-ns": 132630,
+      "exec-ns": 8031277,
+      "total-ns": 8163907,
+      "patts-hit": {},
+      "rewritten": "tweet_train_df.head()\n"
+    },
+    {
+      "raw": "tweet_train_df.isna().sum()",
+      "rewrite-ns": 544180,
+      "overhead-ns": 544180,
+      "exec-ns": 17341339,
+      "total-ns": 17885519,
+      "patts-hit": {},
+      "rewritten": "tweet_train_df.isna().sum()\n"
+    },
+    {
+      "raw": "tweet_train_df.info()",
+      "rewrite-ns": 113078,
+      "overhead-ns": 113078,
+      "exec-ns": 20326358,
+      "total-ns": 20439436,
+      "patts-hit": {},
+      "rewritten": "tweet_train_df.info()\n"
+    },
+    {
+      "raw": "tweet_train_df.shape",
+      "rewrite-ns": 83343,
+      "overhead-ns": 83343,
+      "exec-ns": 684596,
+      "total-ns": 767939,
+      "patts-hit": {},
+      "rewritten": "tweet_train_df.shape\n"
+    },
+    {
+      "raw": "def data_imputation(data):\n    data['keyword'].fillna(' ', inplace=True)\n    data['location'].fillna(' ', inplace=True)\n    return data",
+      "rewrite-ns": 2154762,
+      "overhead-ns": 2154762,
+      "exec-ns": 548741,
+      "total-ns": 2703503,
+      "patts-hit": {},
+      "rewritten": "def data_imputation(data):\n    data['keyword'].fillna(' ', inplace=True)\n    data['location'].fillna(' ', inplace=True)\n    return data\n"
+    },
+    {
+      "raw": "tweet_train_df = data_imputation(tweet_train_df)",
+      "rewrite-ns": 428268,
+      "overhead-ns": 428268,
+      "exec-ns": 5023586,
+      "total-ns": 5451854,
+      "patts-hit": {},
+      "rewritten": "tweet_train_df = data_imputation(tweet_train_df)\n"
+    },
+    {
+      "raw": "tweet_test_df = data_imputation(tweet_test_df)",
+      "rewrite-ns": 424341,
+      "overhead-ns": 424341,
+      "exec-ns": 2623382,
+      "total-ns": 3047723,
+      "patts-hit": {},
+      "rewritten": "tweet_test_df = data_imputation(tweet_test_df)\n"
+    },
+    {
+      "raw": "tweet_train_df.isna().sum()",
+      "rewrite-ns": 516169,
+      "overhead-ns": 516169,
+      "exec-ns": 16985725,
+      "total-ns": 17501894,
+      "patts-hit": {},
+      "rewritten": "tweet_train_df.isna().sum()\n"
+    },
+    {
+      "raw": "tweet_train_df['text'] = tweet_train_df['text'] +' '+ tweet_train_df['location'] +' '+ tweet_train_df['keyword']\ntweet_test_df['text'] = tweet_test_df['text'] +' '+ tweet_test_df['location'] +' '+ tweet_test_df['keyword']",
+      "rewrite-ns": 2563925,
+      "overhead-ns": 2563925,
+      "exec-ns": 39300033,
+      "total-ns": 41863958,
+      "patts-hit": {},
+      "rewritten": "tweet_train_df['text'] = tweet_train_df['text'] + ' ' + tweet_train_df[\n    'location'] + ' ' + tweet_train_df['keyword']\ntweet_test_df['text'] = tweet_test_df['text'] + ' ' + tweet_test_df['location'\n    ] + ' ' + tweet_test_df['keyword']\n"
+    },
+    {
+      "raw": "target = tweet_train_df['target']",
+      "rewrite-ns": 450453,
+      "overhead-ns": 450453,
+      "exec-ns": 393054,
+      "total-ns": 843507,
+      "patts-hit": {},
+      "rewritten": "target = tweet_train_df['target']\n"
+    },
+    {
+      "raw": "tweet_train_df.drop(['target', 'location', 'keyword', 'id'], axis=1, inplace=True)\ntweet_test_df.drop(['location', 'keyword', 'id'], axis=1, inplace=True)",
+      "rewrite-ns": 1569360,
+      "overhead-ns": 1569360,
+      "exec-ns": 3427345,
+      "total-ns": 4996705,
+      "patts-hit": {},
+      "rewritten": "tweet_train_df.drop(['target', 'location', 'keyword', 'id'], axis=1,\n    inplace=True)\ntweet_test_df.drop(['location', 'keyword', 'id'], axis=1, inplace=True)\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# lemmetizer = WordNetLemmatizer()",
+      "rewrite-ns": 21664,
+      "overhead-ns": 21664,
+      "exec-ns": 110702,
+      "total-ns": 132366,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# all_names = set(names.words())",
+      "rewrite-ns": 18279,
+      "overhead-ns": 18279,
+      "exec-ns": 100421,
+      "total-ns": 118700,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# stop_words = set(stopwords.words('english'))",
+      "rewrite-ns": 17590,
+      "overhead-ns": 17590,
+      "exec-ns": 94783,
+      "total-ns": 112373,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# tf_idf = TfidfVectorizer(min_df=0.1, max_df=0.7)",
+      "rewrite-ns": 17454,
+      "overhead-ns": 17454,
+      "exec-ns": 95279,
+      "total-ns": 112733,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "def cleaned_string(string):\n    # Removing all the digits\n    string = re.sub(r'\\d', '', string)\n    \n    # Removing accented data\n    string = unicodedata.normalize('NFKD', string).encode('ascii', 'ignore').decode('utf-8', 'ignore')\n    \n    # Removing Mentions\n    string = re.sub(r'@\\w+', ' ', string)\n    \n    # Removing links \n    string = re.sub(r'(https?:\\/\\/)?([\\da-zA-Z\\.-\\/\\#\\:]+)\\.([\\da-zA-Z\\.\\/\\:\\#]{0,9})([\\/\\w \\.-\\/\\:\\#]*)', ' ', string)\n    \n    # Removing all the digits special caharacters\n    string = re.sub(r'\\W', ' ', string)\n        \n    \n    # Removing double whitespaces\n    string = re.sub(r'\\s+', ' ', string, flags=re.I)\n    \n\n    \n    string = string.strip()\n    \n    #Removing all Single characters\n    string = re.sub(r'\\^[a-zA-Z]\\s+','' , string)\n    \n    \n    # Lemmetizing the string and removing stop words\n    string = string.split()\n# ALEX: remove ML code\n#     string = [lemmetizer.lemmatize(word) for word in string if word not in stop_words and word not in all_names]\n    string = ' '.join(string)\n    \n    # Lowercasing all data\n    string = string.lower()\n        \n    return string",
+      "rewrite-ns": 5479504,
+      "overhead-ns": 5479504,
+      "exec-ns": 1117544,
+      "total-ns": 6597048,
+      "patts-hit": {},
+      "rewritten": "def cleaned_string(string):\n    string = re.sub('\\\\d', '', string)\n    string = unicodedata.normalize('NFKD', string).encode('ascii', 'ignore'\n        ).decode('utf-8', 'ignore')\n    string = re.sub('@\\\\w+', ' ', string)\n    string = re.sub(\n        '(https?:\\\\/\\\\/)?([\\\\da-zA-Z\\\\.-\\\\/\\\\#\\\\:]+)\\\\.([\\\\da-zA-Z\\\\.\\\\/\\\\:\\\\#]{0,9})([\\\\/\\\\w \\\\.-\\\\/\\\\:\\\\#]*)'\n        , ' ', string)\n    string = re.sub('\\\\W', ' ', string)\n    string = re.sub('\\\\s+', ' ', string, flags=re.I)\n    string = string.strip()\n    string = re.sub('\\\\^[a-zA-Z]\\\\s+', '', string)\n    string = string.split()\n    string = ' '.join(string)\n    string = string.lower()\n    return string\n"
+    },
+    {
+      "raw": "def clean_text(data):\n    for i in range(data.shape[0]):\n        for j in range(data.shape[1]):\n            data.iloc[i, j] = cleaned_string(data.iloc[i, j])\n    return data\n            \n            \n    ",
+      "rewrite-ns": 2304739,
+      "overhead-ns": 2304739,
+      "exec-ns": 612617,
+      "total-ns": 2917356,
+      "patts-hit": {},
+      "rewritten": "def clean_text(data):\n    for i in range(data.shape[0]):\n        for j in range(data.shape[1]):\n            data.iloc[i, j] = cleaned_string(data.iloc[i, j])\n    return data\n"
+    },
+    {
+      "raw": "tweet_cleaned_test_df = clean_text(tweet_test_df)",
+      "rewrite-ns": 397108,
+      "overhead-ns": 397108,
+      "exec-ns": 1737743793,
+      "total-ns": 1738140901,
+      "patts-hit": {},
+      "rewritten": "tweet_cleaned_test_df = clean_text(tweet_test_df)\n"
+    },
+    {
+      "raw": "tweet_cleaned_test_df.shape",
+      "rewrite-ns": 132318,
+      "overhead-ns": 132318,
+      "exec-ns": 697246,
+      "total-ns": 829564,
+      "patts-hit": {},
+      "rewritten": "tweet_cleaned_test_df.shape\n"
+    },
+    {
+      "raw": "tweet_cleaned_test_df.head()",
+      "rewrite-ns": 104598,
+      "overhead-ns": 104598,
+      "exec-ns": 2782634,
+      "total-ns": 2887232,
+      "patts-hit": {},
+      "rewritten": "tweet_cleaned_test_df.head()\n"
+    },
+    {
+      "raw": "tweet_cleaned_train_df = clean_text(tweet_train_df)",
+      "rewrite-ns": 317914,
+      "overhead-ns": 317914,
+      "exec-ns": 3781311136,
+      "total-ns": 3781629050,
+      "patts-hit": {},
+      "rewritten": "tweet_cleaned_train_df = clean_text(tweet_train_df)\n"
+    },
+    {
+      "raw": "tweet_train_df.shape",
+      "rewrite-ns": 76879,
+      "overhead-ns": 76879,
+      "exec-ns": 590149,
+      "total-ns": 667028,
+      "patts-hit": {},
+      "rewritten": "tweet_train_df.shape\n"
+    },
+    {
+      "raw": "tweet_cleaned_train_df.head()",
+      "rewrite-ns": 91742,
+      "overhead-ns": 91742,
+      "exec-ns": 2364084,
+      "total-ns": 2455826,
+      "patts-hit": {},
+      "rewritten": "tweet_cleaned_train_df.head()\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_train, X_valid, y_train, y_valid = train_test_split(tweet_cleaned_train_df['text'], target,random_state = 0)\n_ = tweet_cleaned_train_df['text']\n",
+      "rewrite-ns": 333425,
+      "overhead-ns": 333425,
+      "exec-ns": 277880,
+      "total-ns": 611305,
+      "patts-hit": {},
+      "rewritten": "_ = tweet_cleaned_train_df['text']\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# catboost = LogisticRegression()",
+      "rewrite-ns": 11912,
+      "overhead-ns": 11912,
+      "exec-ns": 67991,
+      "total-ns": 79903,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# pipeline_sgd = Pipeline([\n#     ('tfidf',  TfidfVectorizer()),\n#     ('nb', catboost,)\n# ])",
+      "rewrite-ns": 10998,
+      "overhead-ns": 10998,
+      "exec-ns": 59959,
+      "total-ns": 70957,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# model = pipeline_sgd.fit(X_train, y_train)",
+      "rewrite-ns": 10110,
+      "overhead-ns": 10110,
+      "exec-ns": 56408,
+      "total-ns": 66518,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# y_predict = model.predict(X_valid)",
+      "rewrite-ns": 9776,
+      "overhead-ns": 9776,
+      "exec-ns": 52478,
+      "total-ns": 62254,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# print(classification_report(y_valid, y_predict))",
+      "rewrite-ns": 9263,
+      "overhead-ns": 9263,
+      "exec-ns": 52692,
+      "total-ns": 61955,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# y_pred_test = model.predict(tweet_cleaned_test_df['text'])\ny_pred_test = tweet_cleaned_test_df['text']",
+      "rewrite-ns": 303002,
+      "overhead-ns": 303002,
+      "exec-ns": 244746,
+      "total-ns": 547748,
+      "patts-hit": {},
+      "rewritten": "y_pred_test = tweet_cleaned_test_df['text']\n"
+    },
+    {
+      "raw": "# Saving result on test set\n# ALEX: remove ML code\noutput = pd.DataFrame({'Id': Id,\n                       'target': y_pred_test})\n\noutput.to_csv(r'submission.csv', index=False)",
+      "rewrite-ns": 863211,
+      "overhead-ns": 863211,
+      "exec-ns": 38975722,
+      "total-ns": 39838933,
+      "patts-hit": {},
+      "rewritten": "output = pd.DataFrame({'Id': Id, 'target': y_pred_test})\noutput.to_csv('submission.csv', index=False)\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 12610,
+      "overhead-ns": 12610,
+      "exec-ns": 69985,
+      "total-ns": 82595,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 10506,
+      "overhead-ns": 10506,
+      "exec-ns": 61080,
+      "total-ns": 71586,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 5.797744238,
+  "max-disk-in-mb": 0
+}

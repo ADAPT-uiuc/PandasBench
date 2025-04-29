@@ -1,0 +1,215 @@
+{
+  "max-mem-in-mb": 774,
+  "max-mem-in-mb2": 846,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt",
+      "rewrite-ns": 698029,
+      "overhead-ns": 698029,
+      "exec-ns": 396468,
+      "total-ns": 1094497,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.metrics import accuracy_score, classification_report, confusion_matrix\n# from sklearn.linear_model import LogisticRegression\n# from sklearn.model_selection import train_test_split\n# from sklearn.preprocessing import StandardScaler\n# from sklearn.neighbors import KNeighborsClassifier\n# from sklearn.pipeline import Pipeline\n# from sklearn.svm import SVC",
+      "rewrite-ns": 24506,
+      "overhead-ns": 24506,
+      "exec-ns": 117930,
+      "total-ns": 142436,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "titanic = pd.read_csv('./input/train.scaled.csv')",
+      "rewrite-ns": 548300,
+      "overhead-ns": 548300,
+      "exec-ns": 760819017,
+      "total-ns": 761367317,
+      "patts-hit": {},
+      "rewritten": "titanic = pd.read_csv('./input/train.scaled.csv')\n"
+    },
+    {
+      "raw": "titanic[['Age']].describe()",
+      "rewrite-ns": 562171,
+      "overhead-ns": 562171,
+      "exec-ns": 37643353,
+      "total-ns": 38205524,
+      "patts-hit": {},
+      "rewritten": "titanic[['Age']].describe()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.heatmap(titanic.isnull(),yticklabels=False,cbar=False,cmap='viridis')\n# plt.show()\n_ = titanic.isnull()",
+      "rewrite-ns": 381124,
+      "overhead-ns": 381124,
+      "exec-ns": 374315797,
+      "total-ns": 374696921,
+      "patts-hit": {},
+      "rewritten": "_ = titanic.isnull()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(x='Survived',data=titanic,palette='RdBu_r');",
+      "rewrite-ns": 21658,
+      "overhead-ns": 21658,
+      "exec-ns": 101411,
+      "total-ns": 123069,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(x='Survived',hue='Sex',data=titanic,palette='RdBu_r');",
+      "rewrite-ns": 12225,
+      "overhead-ns": 12225,
+      "exec-ns": 74081,
+      "total-ns": 86306,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(x='Survived',hue='Pclass',data=titanic,palette='viridis');",
+      "rewrite-ns": 11035,
+      "overhead-ns": 11035,
+      "exec-ns": 61065,
+      "total-ns": 72100,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(x='Pclass',hue='Survived',data=titanic,palette='viridis');",
+      "rewrite-ns": 10261,
+      "overhead-ns": 10261,
+      "exec-ns": 57595,
+      "total-ns": 67856,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# titanic[titanic.Survived == 0].hist(\"Age\", bins=20)\n# plt.show()\ntitanic[titanic.Survived == 0]",
+      "rewrite-ns": 468959,
+      "overhead-ns": 468959,
+      "exec-ns": 36702018,
+      "total-ns": 37170977,
+      "patts-hit": {},
+      "rewritten": "titanic[titanic.Survived == 0]\n"
+    },
+    {
+      "raw": "titanic.Age = titanic.groupby('Pclass').Age.transform(lambda x: x.fillna(np.round(x.mean())))",
+      "rewrite-ns": 1230385,
+      "overhead-ns": 1230385,
+      "exec-ns": 104011060,
+      "total-ns": 105241445,
+      "patts-hit": {},
+      "rewritten": "titanic.Age = titanic.groupby('Pclass').Age.transform(lambda x: x.fillna(np\n    .round(x.mean())))\n"
+    },
+    {
+      "raw": "# Extract titles from name\ntitanic['Title']=0\nfor i in titanic:\n    titanic['Title']=titanic['Name'].str.extract('([A-Za-z]+)\\.', expand=False)  # Use REGEX to define a search pattern",
+      "rewrite-ns": 1189772,
+      "overhead-ns": 1189772,
+      "exec-ns": 10826897047,
+      "total-ns": 10828086819,
+      "patts-hit": {},
+      "rewritten": "titanic['Title'] = 0\nfor i in titanic:\n    titanic['Title'] = titanic['Name'].str.extract('([A-Za-z]+)\\\\.', expand\n        =False)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15,5))\n# sns.barplot(x=titanic['Title'], y=titanic['Age']);\n# plt.show()\n_ = titanic['Title']\n_ = titanic['Age']",
+      "rewrite-ns": 747146,
+      "overhead-ns": 747146,
+      "exec-ns": 647687,
+      "total-ns": 1394833,
+      "patts-hit": {},
+      "rewritten": "_ = titanic['Title']\n_ = titanic['Age']\n"
+    },
+    {
+      "raw": "titanic_melted = pd.melt(titanic[['Survived', 'Age']], \"Survived\", var_name=\"Ages\")",
+      "rewrite-ns": 781670,
+      "overhead-ns": 781670,
+      "exec-ns": 120998547,
+      "total-ns": 121780217,
+      "patts-hit": {},
+      "rewritten": "titanic_melted = pd.melt(titanic[['Survived', 'Age']], 'Survived', var_name\n    ='Ages')\n"
+    },
+    {
+      "raw": "titanic_melted.head()",
+      "rewrite-ns": 132748,
+      "overhead-ns": 132748,
+      "exec-ns": 4194555,
+      "total-ns": 4327303,
+      "patts-hit": {},
+      "rewritten": "titanic_melted.head()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.swarmplot(x = 'Ages', y=\"value\", hue=\"Survived\", data=titanic_melted)\n# plt.show()",
+      "rewrite-ns": 18493,
+      "overhead-ns": 18493,
+      "exec-ns": 96321,
+      "total-ns": 114814,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "df = titanic.drop(['Name', 'Ticket', 'Cabin'], axis=1)",
+      "rewrite-ns": 627240,
+      "overhead-ns": 627240,
+      "exec-ns": 30364223,
+      "total-ns": 30991463,
+      "patts-hit": {},
+      "rewritten": "df = titanic.drop(['Name', 'Ticket', 'Cabin'], axis=1)\n"
+    },
+    {
+      "raw": "sex_conv = lambda x : 1 if x=='male' else 0 \ndf['Is_male'] = df['Sex'].apply(sex_conv)",
+      "rewrite-ns": 9949380,
+      "overhead-ns": 9949380,
+      "exec-ns": 198766701,
+      "total-ns": 208716081,
+      "patts-hit": {},
+      "rewritten": "sex_conv = lambda x: 1 if x == 'male' else 0\ndf['Is_male'] = df['Sex'].apply(sex_conv)\n"
+    },
+    {
+      "raw": "df['Age'] =pd.cut(df['Age'], bins=[1, 12, 50, 200], labels=['Child','Adult','Elder'])",
+      "rewrite-ns": 1101421,
+      "overhead-ns": 1101421,
+      "exec-ns": 13124614,
+      "total-ns": 14226035,
+      "patts-hit": {},
+      "rewritten": "df['Age'] = pd.cut(df['Age'], bins=[1, 12, 50, 200], labels=['Child',\n    'Adult', 'Elder'])\n"
+    },
+    {
+      "raw": "embarked_new = pd.get_dummies(df['Embarked'])\ntrain = pd.concat([df[['PassengerId','Survived','Pclass','Sex', \n                       'Age', 'SibSp', 'Parch', 'Fare','Embarked','Is_male']], embarked_new], axis=1)",
+      "rewrite-ns": 1522169,
+      "overhead-ns": 1522169,
+      "exec-ns": 121442337,
+      "total-ns": 122964506,
+      "patts-hit": {},
+      "rewritten": "embarked_new = pd.get_dummies(df['Embarked'])\ntrain = pd.concat([df[['PassengerId', 'Survived', 'Pclass', 'Sex', 'Age',\n    'SibSp', 'Parch', 'Fare', 'Embarked', 'Is_male']], embarked_new], axis=1)\n"
+    },
+    {
+      "raw": "# Family size feature\ndf['FamilySize'] = df['SibSp'] + df['Parch']\ndf.drop('SibSp',axis=1,inplace=True)\ndf.drop('Parch',axis=1,inplace=True)\ndf.head()",
+      "rewrite-ns": 1509481,
+      "overhead-ns": 1509481,
+      "exec-ns": 94966271,
+      "total-ns": 96475752,
+      "patts-hit": {},
+      "rewritten": "df['FamilySize'] = df['SibSp'] + df['Parch']\ndf.drop('SibSp', axis=1, inplace=True)\ndf.drop('Parch', axis=1, inplace=True)\ndf.head()\n"
+    },
+    {
+      "raw": "titanic = pd.read_csv('./input/train.scaled.csv')\ndf = titanic.drop(['Ticket', 'Cabin'], axis=1)\n\n#Converting Sex\nsex_conv = lambda x : 1 if x=='male' else 0 \ndf['Is_male'] = df['Sex'].apply(sex_conv)\n\n# Adding \"Title\" column\ndf['Title']=0\nfor i in df:\n    df['Title']=df['Name'].str.extract('([A-Za-z]+)\\.', expand=False)  \n\n# Imputing Age  \ndf['Age'] = df.groupby('Title')['Age'].transform(lambda x: x.fillna(np.round(x.mean())))\n\n# Converting Age\ndf['Age'] =pd.cut(df['Age'], bins=[1, 12, 50, 200], labels=['Child','Adult','Elder'])\n\n# Adding Family column\ndf['FamilySize'] = df['SibSp'] + df['Parch']\ndf.drop('SibSp',axis=1,inplace=True)\ndf.drop('Parch',axis=1,inplace=True)\n\n#Binilen limanlar\u0131 grupland\u0131rma\nembarked_new = pd.get_dummies(df['Embarked'])\n\ntrain = pd.concat([df[['Survived','Pclass', \n                       'FamilySize','Fare',\n                       'Is_male', 'Age']], embarked_new], axis=1)\n\nX = train[['Is_male','Pclass', 'Age', \"FamilySize\"]]\ny = train['Survived']",
+      "rewrite-ns": 7723390,
+      "overhead-ns": 7723390,
+      "exec-ns": 11236327089,
+      "total-ns": 11244050479,
+      "patts-hit": {},
+      "rewritten": "titanic = pd.read_csv('./input/train.scaled.csv')\ndf = titanic.drop(['Ticket', 'Cabin'], axis=1)\nsex_conv = lambda x: 1 if x == 'male' else 0\ndf['Is_male'] = df['Sex'].apply(sex_conv)\ndf['Title'] = 0\nfor i in df:\n    df['Title'] = df['Name'].str.extract('([A-Za-z]+)\\\\.', expand=False)\ndf['Age'] = df.groupby('Title')['Age'].transform(lambda x: x.fillna(np.\n    round(x.mean())))\ndf['Age'] = pd.cut(df['Age'], bins=[1, 12, 50, 200], labels=['Child',\n    'Adult', 'Elder'])\ndf['FamilySize'] = df['SibSp'] + df['Parch']\ndf.drop('SibSp', axis=1, inplace=True)\ndf.drop('Parch', axis=1, inplace=True)\nembarked_new = pd.get_dummies(df['Embarked'])\ntrain = pd.concat([df[['Survived', 'Pclass', 'FamilySize', 'Fare',\n    'Is_male', 'Age']], embarked_new], axis=1)\nX = train[['Is_male', 'Pclass', 'Age', 'FamilySize']]\ny = train['Survived']\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 39853,
+      "overhead-ns": 39853,
+      "exec-ns": 195200,
+      "total-ns": 235053,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 23.991631803,
+  "max-disk-in-mb": 0
+}

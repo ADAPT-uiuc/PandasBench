@@ -1,0 +1,266 @@
+{
+  "max-mem-in-mb": 109,
+  "max-mem-in-mb2": 112,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nsp = pd.read_csv(\"./input/StudentsPerformance.scaled.csv\")\nsp",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3576652
+    },
+    {
+      "raw": "sp.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 426967
+    },
+    {
+      "raw": "sp.describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 6433912
+    },
+    {
+      "raw": "print(sp)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 9661185
+    },
+    {
+      "raw": "# ALEX: remove non Pandas code\n# import datetime\n\n# x = datetime.datetime.now()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 193525
+    },
+    {
+      "raw": "# ALEX: remove non Pandas code\n# x",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 166116
+    },
+    {
+      "raw": "sp.columns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 313062
+    },
+    {
+      "raw": "sp.iloc[0:,6].dtype",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 506891
+    },
+    {
+      "raw": "scores = sp[\"math score\"]\nprint(scores)\nscores.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1167637
+    },
+    {
+      "raw": "scores.max()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 405590
+    },
+    {
+      "raw": "sp.dtypes",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 398859
+    },
+    {
+      "raw": "scores.head(10)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 373221
+    },
+    {
+      "raw": "sp.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5245180
+    },
+    {
+      "raw": "All_scores = sp[[\"gender\",\"reading score\",\"math score\",\"writing score\"]]\nAll_scores",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1020953
+    },
+    {
+      "raw": "All_scores.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 307453
+    },
+    {
+      "raw": "math_passed = [sp[\"math score\"]>=50]\nmath_passed",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 560935
+    },
+    {
+      "raw": "math_passed_genderwise = All_scores[All_scores[\"math score\"]>=50]\nmath_passed_genderwise",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 939173
+    },
+    {
+      "raw": "failed = sp[\"math score\"]<50\nfailed",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 551155
+    },
+    {
+      "raw": "#Students who passed(>=50) in writing score, actually completed the test preparation course\ncourse_completed = sp.loc[sp[\"writing score\"]>=50,\"test preparation course\"]\ncourse_completed\ncourse_completed",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 806400
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# All_scores.plot()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 175074
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# All_scores[\"math score\"].plot()\nAll_scores[\"math score\"]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 296538
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# All_scores.plot.scatter(x=\"reading score\",y=\"writing score\",alpha=0.5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 164632
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sp.plot.box()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 156750
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# axs = sp.plot.area(figsize=(20,16),subplots = True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 155346
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# fig, axs = plt.subplots(figsize=(20,16));\n\n# sp.plot.area(ax=axs);\n\n# axs.set_ylabel(\"Scores for different Subjects\");\n\n# fig.savefig(\"Scores.png\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 186483
+    },
+    {
+      "raw": "#Mean of math scores\nsp[\"math score\"].mean()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 429447
+    },
+    {
+      "raw": "sp[\"writing score\"].mean()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 470292
+    },
+    {
+      "raw": "sp[\"reading score\"].mean()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 461918
+    },
+    {
+      "raw": "sp[[\"math score\",\"reading score\",\"writing score\"]].describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 6375962
+    },
+    {
+      "raw": "sp.agg({'math score': ['min','mean','max', 'median', 'skew'],\n             'writing score': ['min', 'max', 'median', 'mean','skew']})",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3624696
+    },
+    {
+      "raw": "#Average math score for male and female comparison\nsp[[\"gender\",\"math score\"]].groupby(\"gender\").mean()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1908310
+    },
+    {
+      "raw": "sp[[\"test preparation course\",\"math score\",\"reading score\",\"writing score\"]].groupby(\"test preparation course\").mean()\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1942113
+    },
+    {
+      "raw": "a = sp[[\"race/ethnicity\",\"math score\",\"reading score\",\"writing score\"]].groupby(\"race/ethnicity\").mean()\na",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1903853
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# a.plot()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 178162
+    },
+    {
+      "raw": "b = sp[[\"parental level of education\",\"math score\",\"reading score\",\"writing score\"]].groupby(\"parental level of education\").mean()\nb",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1948783
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# b.plot(figsize=(20,16))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 175794
+    },
+    {
+      "raw": "c = sp[[\"lunch\",\"math score\",\"reading score\",\"writing score\"]].groupby(\"lunch\").mean()\nc",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1975040
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# c.plot()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 177523
+    },
+    {
+      "raw": "sp[\"gender\"].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 779670
+    },
+    {
+      "raw": "sp[\"parental level of education\"].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 783558
+    },
+    {
+      "raw": "sp[\"test preparation course\"].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 749659
+    },
+    {
+      "raw": "sp[\"lunch\"].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 740682
+    },
+    {
+      "raw": "sp[\"race/ethnicity\"].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 784236
+    }
+  ],
+  "total-time-in-sec": 0.059599387,
+  "max-disk-in-mb": 0
+}

@@ -1,0 +1,305 @@
+{
+  "max-mem-in-mb": 109,
+  "max-mem-in-mb2": 113,
+  "cells": [
+    {
+      "raw": "import numpy as np\n# ALEX: remove plotting\n# import seaborn as sns\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])",
+      "rewrite-ns": 495161,
+      "overhead-ns": 495161,
+      "exec-ns": 273597,
+      "total-ns": 768758,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "df = pd.read_csv(\"./input/iris.scaled.csv\")",
+      "rewrite-ns": 370417,
+      "overhead-ns": 370417,
+      "exec-ns": 1705998,
+      "total-ns": 2076415,
+      "patts-hit": {},
+      "rewritten": "df = pd.read_csv('./input/iris.scaled.csv')\n"
+    },
+    {
+      "raw": "df.head()",
+      "rewrite-ns": 79733,
+      "overhead-ns": 79733,
+      "exec-ns": 5609962,
+      "total-ns": 5689695,
+      "patts-hit": {},
+      "rewritten": "df.head()\n"
+    },
+    {
+      "raw": "df.count()",
+      "rewrite-ns": 269892,
+      "overhead-ns": 269892,
+      "exec-ns": 1364833,
+      "total-ns": 1634725,
+      "patts-hit": {},
+      "rewritten": "df.count()\n"
+    },
+    {
+      "raw": "df.info()",
+      "rewrite-ns": 73218,
+      "overhead-ns": 73218,
+      "exec-ns": 3108232,
+      "total-ns": 3181450,
+      "patts-hit": {},
+      "rewritten": "df.info()\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# df.mean()\ndf.mean(numeric_only=True)",
+      "rewrite-ns": 359975,
+      "overhead-ns": 359975,
+      "exec-ns": 1053524,
+      "total-ns": 1413499,
+      "patts-hit": {},
+      "rewritten": "df.mean(numeric_only=True)\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# df.std()\ndf.std(numeric_only=True)",
+      "rewrite-ns": 346587,
+      "overhead-ns": 346587,
+      "exec-ns": 1092672,
+      "total-ns": 1439259,
+      "patts-hit": {},
+      "rewritten": "df.std(numeric_only=True)\n"
+    },
+    {
+      "raw": "df.isna().sum()",
+      "rewrite-ns": 363475,
+      "overhead-ns": 363475,
+      "exec-ns": 1022224,
+      "total-ns": 1385699,
+      "patts-hit": {},
+      "rewritten": "df.isna().sum()\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# df.corr()\ndf.corr(numeric_only=True)",
+      "rewrite-ns": 346637,
+      "overhead-ns": 346637,
+      "exec-ns": 3695751,
+      "total-ns": 4042388,
+      "patts-hit": {},
+      "rewritten": "df.corr(numeric_only=True)\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# corr = df.corr()\ncorr = df.corr(numeric_only=True)\n# ALEX: remove plotting\n# sns.heatmap(corr, \n#             xticklabels=corr.columns.values,\n#             yticklabels=corr.columns.values);\n_ = corr.columns.values\n_ = corr.columns.values",
+      "rewrite-ns": 906241,
+      "overhead-ns": 906241,
+      "exec-ns": 473125,
+      "total-ns": 1379366,
+      "patts-hit": {},
+      "rewritten": "corr = df.corr(numeric_only=True)\n_ = corr.columns.values\n_ = corr.columns.values\n"
+    },
+    {
+      "raw": "df[\"variety\"].unique()",
+      "rewrite-ns": 101351,
+      "overhead-ns": 101351,
+      "exec-ns": 530917,
+      "total-ns": 632268,
+      "patts-hit": {},
+      "rewritten": "df['variety'].unique()\n"
+    },
+    {
+      "raw": "df[\"variety\"].nunique()",
+      "rewrite-ns": 365534,
+      "overhead-ns": 365534,
+      "exec-ns": 478095,
+      "total-ns": 843629,
+      "patts-hit": {},
+      "rewritten": "df['variety'].nunique()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.scatterplot(x=\"sepal.width\", y=\"sepal.length\", data=df, color=\"magenta\");",
+      "rewrite-ns": 11814,
+      "overhead-ns": 11814,
+      "exec-ns": 62500,
+      "total-ns": 74314,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.jointplot(x=\"sepal.width\", y=\"sepal.length\", data=df, color=\"magenta\");",
+      "rewrite-ns": 10157,
+      "overhead-ns": 10157,
+      "exec-ns": 58604,
+      "total-ns": 68761,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.scatterplot(x=\"sepal.width\", y=\"sepal.length\", hue=\"variety\", data=df);",
+      "rewrite-ns": 10672,
+      "overhead-ns": 10672,
+      "exec-ns": 59017,
+      "total-ns": 69689,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "pd.value_counts(df.values.flatten())",
+      "rewrite-ns": 878040,
+      "overhead-ns": 878040,
+      "exec-ns": 1376721,
+      "total-ns": 2254761,
+      "patts-hit": {},
+      "rewritten": "pd.value_counts(df.values.flatten())\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.violinplot(y = \"sepal.width\", data = df);",
+      "rewrite-ns": 11893,
+      "overhead-ns": 11893,
+      "exec-ns": 65611,
+      "total-ns": 77504,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.distplot(df[\"sepal.width\"], bins=16, color=\"blue\");\n_ = df[\"sepal.width\"]",
+      "rewrite-ns": 305044,
+      "overhead-ns": 305044,
+      "exec-ns": 196484,
+      "total-ns": 501528,
+      "patts-hit": {},
+      "rewritten": "_ = df['sepal.width']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.violinplot(x = \"variety\", y = \"sepal.length\", data = df);",
+      "rewrite-ns": 11460,
+      "overhead-ns": 11460,
+      "exec-ns": 61101,
+      "total-ns": 72561,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(x = \"variety\", data = df);",
+      "rewrite-ns": 10226,
+      "overhead-ns": 10226,
+      "exec-ns": 57145,
+      "total-ns": 67371,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.jointplot(x = df[\"sepal.width\"], y = df[\"sepal.length\"], color = \"purple\");\n_ = df[\"sepal.width\"]\n_ = df[\"sepal.length\"]",
+      "rewrite-ns": 540387,
+      "overhead-ns": 540387,
+      "exec-ns": 218600,
+      "total-ns": 758987,
+      "patts-hit": {},
+      "rewritten": "_ = df['sepal.width']\n_ = df['sepal.length']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.jointplot(x = df[\"sepal.width\"], y = df[\"sepal.length\"],kind=\"kde\", color = \"purple\");\n_ = df[\"sepal.width\"]\n_ = df[\"sepal.length\"]",
+      "rewrite-ns": 524507,
+      "overhead-ns": 524507,
+      "exec-ns": 206756,
+      "total-ns": 731263,
+      "patts-hit": {},
+      "rewritten": "_ = df['sepal.width']\n_ = df['sepal.length']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.scatterplot(x=\"petal.width\", y=\"petal.length\", data=df);",
+      "rewrite-ns": 10834,
+      "overhead-ns": 10834,
+      "exec-ns": 59597,
+      "total-ns": 70431,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.scatterplot(x=\"petal.width\", y=\"petal.length\",hue=\"variety\", data=df);",
+      "rewrite-ns": 10033,
+      "overhead-ns": 10033,
+      "exec-ns": 56122,
+      "total-ns": 66155,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.lmplot(x=\"petal.width\", y=\"petal.length\", data=df);",
+      "rewrite-ns": 9890,
+      "overhead-ns": 9890,
+      "exec-ns": 55692,
+      "total-ns": 65582,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "df[['petal.length', 'petal.width']].corr()",
+      "rewrite-ns": 459725,
+      "overhead-ns": 459725,
+      "exec-ns": 3016619,
+      "total-ns": 3476344,
+      "patts-hit": {},
+      "rewritten": "df[['petal.length', 'petal.width']].corr()\n"
+    },
+    {
+      "raw": "df['total.length'] = df['petal.length'] + df['sepal.length']",
+      "rewrite-ns": 587984,
+      "overhead-ns": 587984,
+      "exec-ns": 572419,
+      "total-ns": 1160403,
+      "patts-hit": {},
+      "rewritten": "df['total.length'] = df['petal.length'] + df['sepal.length']\n"
+    },
+    {
+      "raw": "df['total.length'].mean()",
+      "rewrite-ns": 358185,
+      "overhead-ns": 358185,
+      "exec-ns": 554503,
+      "total-ns": 912688,
+      "patts-hit": {},
+      "rewritten": "df['total.length'].mean()\n"
+    },
+    {
+      "raw": "df['total.length'].std()",
+      "rewrite-ns": 353385,
+      "overhead-ns": 353385,
+      "exec-ns": 542837,
+      "total-ns": 896222,
+      "patts-hit": {},
+      "rewritten": "df['total.length'].std()\n"
+    },
+    {
+      "raw": "df['sepal.length'].max()",
+      "rewrite-ns": 366977,
+      "overhead-ns": 366977,
+      "exec-ns": 482373,
+      "total-ns": 849350,
+      "patts-hit": {},
+      "rewritten": "df['sepal.length'].max()\n"
+    },
+    {
+      "raw": "df[(df['variety']=='Setosa') & (df['sepal.length']>5.5)]",
+      "rewrite-ns": 750211,
+      "overhead-ns": 750211,
+      "exec-ns": 5308578,
+      "total-ns": 6058789,
+      "patts-hit": {},
+      "rewritten": "df[(df['variety'] == 'Setosa') & (df['sepal.length'] > 5.5)]\n"
+    },
+    {
+      "raw": "df[(df['variety']=='Virginica') & (df['petal.length']<5)][['sepal.length','sepal.width']]",
+      "rewrite-ns": 942808,
+      "overhead-ns": 942808,
+      "exec-ns": 3832722,
+      "total-ns": 4775530,
+      "patts-hit": {},
+      "rewritten": "df[(df['variety'] == 'Virginica') & (df['petal.length'] < 5)][[\n    'sepal.length', 'sepal.width']]\n"
+    },
+    {
+      "raw": "df.groupby([\"variety\"]).mean()",
+      "rewrite-ns": 466340,
+      "overhead-ns": 466340,
+      "exec-ns": 4775298,
+      "total-ns": 5241638,
+      "patts-hit": {},
+      "rewritten": "df.groupby(['variety']).mean()\n"
+    }
+  ],
+  "total-time-in-sec": 0.052737022,
+  "max-disk-in-mb": 0
+}

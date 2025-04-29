@@ -1,0 +1,116 @@
+{
+  "max-mem-in-mb": 3673,
+  "max-mem-in-mb2": 4944,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list the files in the input directory\n\n# ALEX: remove path printing\n# from subprocess import check_output\n# print(check_output([\"ls\", \"../input\"]).decode(\"utf8\"))\n\n# Any results you write to the current directory are saved as output.",
+      "rewrite-ns": 506905,
+      "overhead-ns": 506905,
+      "exec-ns": 279899,
+      "total-ns": 786804,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "temp = pd.read_csv(\"./input/deliveries.scaled.csv\")",
+      "rewrite-ns": 369313,
+      "overhead-ns": 369313,
+      "exec-ns": 8244465328,
+      "total-ns": 8244834641,
+      "patts-hit": {},
+      "rewritten": "temp = pd.read_csv('./input/deliveries.scaled.csv')\n"
+    },
+    {
+      "raw": "temp.columns[[1]]",
+      "rewrite-ns": 504250,
+      "overhead-ns": 504250,
+      "exec-ns": 1488535,
+      "total-ns": 1992785,
+      "patts-hit": {},
+      "rewritten": "temp.columns[[1]]\n"
+    },
+    {
+      "raw": "t = temp.drop(temp.columns[[3, 9, 15, 17, 18, 19, 20]], axis = 1)",
+      "rewrite-ns": 916428,
+      "overhead-ns": 916428,
+      "exec-ns": 233036776,
+      "total-ns": 233953204,
+      "patts-hit": {},
+      "rewritten": "t = temp.drop(temp.columns[[3, 9, 15, 17, 18, 19, 20]], axis=1)\n"
+    },
+    {
+      "raw": "t.info()",
+      "rewrite-ns": 120616,
+      "overhead-ns": 120616,
+      "exec-ns": 3862084,
+      "total-ns": 3982700,
+      "patts-hit": {},
+      "rewritten": "t.info()\n"
+    },
+    {
+      "raw": "#t.ix[:,8:14].head(2)\n#collist = list(t)\n#collist.remove('match_id', 'inning', 'batting_team', 'over', 'ball', 'batsman', 'non_striker', 'bowler')\n\nt['extra_sum'] = t[['wide_runs','bye_runs','legbye_runs','noball_runs','penalty_runs','extra_runs']].sum(axis=1)\n ",
+      "rewrite-ns": 903112,
+      "overhead-ns": 903112,
+      "exec-ns": 163281792,
+      "total-ns": 164184904,
+      "patts-hit": {},
+      "rewritten": "t['extra_sum'] = t[['wide_runs', 'bye_runs', 'legbye_runs', 'noball_runs',\n    'penalty_runs', 'extra_runs']].sum(axis=1)\n"
+    },
+    {
+      "raw": "evaluate_lazy(t)",
+      "rewrite-ns": 310405,
+      "overhead-ns": 310405,
+      "exec-ns": 11948324,
+      "total-ns": 12258729,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(t)\n"
+    },
+    {
+      "raw": "df1 = t.groupby(['bowler', 'batting_team', 'over' ,'match_id', 'inning'])",
+      "rewrite-ns": 610534,
+      "overhead-ns": 610534,
+      "exec-ns": 471951,
+      "total-ns": 1082485,
+      "patts-hit": {},
+      "rewritten": "df1 = t.groupby(['bowler', 'batting_team', 'over', 'match_id', 'inning'])\n"
+    },
+    {
+      "raw": "df2 = t.groupby(['bowler', 'non_striker']) #, 'over' ,'match_id', 'inning'])",
+      "rewrite-ns": 487054,
+      "overhead-ns": 487054,
+      "exec-ns": 370482,
+      "total-ns": 857536,
+      "patts-hit": {},
+      "rewritten": "df2 = t.groupby(['bowler', 'non_striker'])\n"
+    },
+    {
+      "raw": "evaluate_lazy(df2[['noball_runs']].count())",
+      "rewrite-ns": 535770,
+      "overhead-ns": 535770,
+      "exec-ns": 1042448403,
+      "total-ns": 1042984173,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(df2[['noball_runs']].count())\n"
+    },
+    {
+      "raw": "evaluate_lazy(df1['bowler'].count())",
+      "rewrite-ns": 533466,
+      "overhead-ns": 533466,
+      "exec-ns": 1151017141,
+      "total-ns": 1151550607,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(df1['bowler'].count())\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 22923,
+      "overhead-ns": 22923,
+      "exec-ns": 111188,
+      "total-ns": 134111,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 10.858602679,
+  "max-disk-in-mb": 0
+}

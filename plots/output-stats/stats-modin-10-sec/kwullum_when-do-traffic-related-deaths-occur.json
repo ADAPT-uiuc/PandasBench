@@ -1,0 +1,68 @@
+{
+  "max-mem-in-mb": 2477,
+  "max-mem-in-mb2": 825,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# %matplotlib inline",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3350466496
+    },
+    {
+      "raw": "# The original dataset\ndf = pd.read_csv(\"./input/UK_Traffic_Accidents_2015.scaled.csv\")\ndf.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5565668155
+    },
+    {
+      "raw": "df = pd.read_csv(\"./input/UK_Traffic_Accidents_2015.scaled.csv\", usecols=[\"Day_of_Week\", \"Time\"])\ndf.dropna(inplace=True)\ndf.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1907286184
+    },
+    {
+      "raw": "df['Time'] = df['Time'].map(lambda x: str(x)[:-3])\ndf.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 7633403
+    },
+    {
+      "raw": "# Convert \"Day_of_Week\" to string\ndf[\"Day_of_Week\"] = df[\"Day_of_Week\"].astype(str)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 701192371
+    },
+    {
+      "raw": "# Adding column for ordering the days of the week\ndf['Day'] = df[\"Day_of_Week\"]\ndf.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2083517
+    },
+    {
+      "raw": "df[\"Day_of_Week\"] = df[\"Day_of_Week\"].replace(\"1\", \"Sunday\")\ndf[\"Day_of_Week\"] = df[\"Day_of_Week\"].replace(\"2\", \"Monday\")\ndf[\"Day_of_Week\"] = df[\"Day_of_Week\"].replace(\"3\", \"Tuesday\")\ndf[\"Day_of_Week\"] = df[\"Day_of_Week\"].replace(\"4\", \"Wednesday\")\ndf[\"Day_of_Week\"] = df[\"Day_of_Week\"].replace(\"5\", \"Thursday\")\ndf[\"Day_of_Week\"] = df[\"Day_of_Week\"].replace(\"6\", \"Friday\")\ndf[\"Day_of_Week\"] = df[\"Day_of_Week\"].replace(\"7\", \"Saturday\")\n\ndf.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 23781190
+    },
+    {
+      "raw": "# Using .ctrosstab() to create a pivot table\ndf_pivot = pd.crosstab(df[\"Day_of_Week\"], df[\"Time\"])\ndf_pivot",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3476839169
+    },
+    {
+      "raw": "# Making the index chronological\ndf_pivot = df_pivot.reindex([\"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\", \"Saturday\", \"Sunday\"])\ndf_pivot",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2530070
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(30,8))\n# graph = sns.heatmap(df_pivot, cmap=\"Blues\", linecolor=\"white\", linewidths=0.1)\n\n# ax.set_title(\"Number of traffic-related deaths per day & hour combination\", y=1.3, fontsize=30, fontweight=\"bold\")\n# ax.set_xlabel(\"\")\n# ax.set_ylabel(\"\")\n\n# #from matplotlib import rcParams\n# #rcParams['axes.titlepad'] = 130 # Space between the title and graph\n\n# locs, labels = plt.yticks() # Rotating row labels\n# plt.setp(labels, rotation=0) # Rotating row labels\n\n# ax.xaxis.tick_top() # x axis on top\n# ax.xaxis.set_label_position('top') # x axis on top\n\n# graph.tick_params(axis='both',labelsize=15) # Tick label size\n# graph",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 253959
+    }
+  ],
+  "total-time-in-sec": 15.037734514,
+  "max-disk-in-mb": 0
+}

@@ -1,0 +1,158 @@
+{
+  "max-mem-in-mb": 1101,
+  "max-mem-in-mb2": 1414,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sns\nimport re\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# %matplotlib inline\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 5GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 518854
+    },
+    {
+      "raw": "flipkart_data = pd.read_csv(r\"./input/OnlineOrders_of_a_ecommerce_website.scaled.csv\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3495287243
+    },
+    {
+      "raw": "flipkart_data.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 532400
+    },
+    {
+      "raw": "flipkart_data.rename(columns={'crawl_timestamp': 'Timestamp',\n                              'product_name': 'Product_Name',\n                             'product_category_tree': 'Product_Category_Tree',\n                             'retail_price': 'Retail_Price',\n                             'discounted_price': 'Discounted_Price',\n                             'brand': 'Brand'}, inplace=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 962009
+    },
+    {
+      "raw": "flipkart_data.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 294054
+    },
+    {
+      "raw": "flipkart_data['Category'] = flipkart_data['Product_Category_Tree'].apply(lambda x: re.split('\\[]*|\\\"|\\>>|\\,', x)[2])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5545404789
+    },
+    {
+      "raw": "flipkart_data.head(5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 440520
+    },
+    {
+      "raw": "flipkart_data.drop(['Product_Category_Tree'], axis = 1, inplace= True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 125517832
+    },
+    {
+      "raw": "flipkart_data.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 407419
+    },
+    {
+      "raw": "flipkart_data['Timestamp'] = flipkart_data['Timestamp'].apply(lambda x: x.split('+')[0])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 692235038
+    },
+    {
+      "raw": "flipkart_data.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 418099
+    },
+    {
+      "raw": "# Save the data as csv file\nflipkart_data.to_csv('fkartDataset.csv', index=False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 8449821553
+    },
+    {
+      "raw": "flkart_data = pd.read_csv('fkartDataset.csv')\nflkart_data.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2202064498
+    },
+    {
+      "raw": "flkart_data.isnull().sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 953120520
+    },
+    {
+      "raw": "#Adding the month column\nflkart_data['Month'] = pd.to_numeric(pd.DatetimeIndex(flkart_data['Timestamp']).month)\nflkart_data.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 368220003
+    },
+    {
+      "raw": "totalsum = flkart_data.groupby('Month').sum()\ntotalsum ",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 39906621
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# months = range(1, 7)\n# plt.bar(months, totalsum['Discounted_Price'])\n# plt.xticks(months)\n# plt.xlabel(\"Months\")\n# plt.ylabel('Sales in INR')\n# plt.show()\n_ = totalsum['Discounted_Price']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 438524
+    },
+    {
+      "raw": "flkart_data['Timestamp'] = pd.to_datetime(flkart_data['Timestamp'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 272087833
+    },
+    {
+      "raw": "flkart_data['Hour'] = flkart_data['Timestamp'].dt.hour\nflkart_data['Minute'] = flkart_data['Timestamp'].dt.minute",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 140232791
+    },
+    {
+      "raw": "flkart_data.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 528947
+    },
+    {
+      "raw": "hours = [hour for hour, df in flkart_data.groupby('Hour')]\n\n# ALEX: remove plotting\n# plt.plot(hours, flkart_data.groupby(['Hour']).count())\n# plt.xticks(hours)\n# plt.xlabel('Hour')\n# plt.ylabel('Number of Orders')\n# plt.grid()\n# plt.show()\n_ = flkart_data.groupby(['Hour']).count()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1032783716
+    },
+    {
+      "raw": "# So our target is to look after duplicates rows\ndups_category = flkart_data.pivot_table(index=['Category'], aggfunc='size')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 141232621
+    },
+    {
+      "raw": "print(dups_category.nlargest(6))\n\n# ALEX: remove plotting\n# x =list(range(1,7))\n\n# fig, ax = plt.subplots()\n# bar = sns.barplot(data=flkart_data, x=x , y=dups_category.nlargest(6), edgecolor=\"white\")\n# ax.set_xticklabels([\"Clothes\", \"Jewel\", 'Mobile&Accessories', 'Home Decor', 'Footwear', 'Tools&Hardware'], rotation=90)\n# plt.show();\n_ = dups_category.nlargest(6)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2254500
+    },
+    {
+      "raw": "# So our target is to look after duplicates rows\ndups_product = flkart_data.pivot_table(index=['Product_Name'], aggfunc='size')\n\nprint(dups_product.nlargest(10))\n# ALEX: remove plotting\n# items = range(10)\n\n# x =list(range(1,11))\n# fig, ax = plt.subplots()\n# bar = sns.barplot(data=flkart_data, x=x , y=dups_category.nlargest(10), edgecolor=\"white\")\n# plt.show();\n_ = dups_category.nlargest(10)\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 268948962
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 113483
+    }
+  ],
+  "total-time-in-sec": 23.733772829,
+  "max-disk-in-mb": 0
+}

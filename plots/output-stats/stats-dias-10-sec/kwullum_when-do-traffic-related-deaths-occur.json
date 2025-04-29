@@ -1,0 +1,98 @@
+{
+  "max-mem-in-mb": 2413,
+  "max-mem-in-mb2": 3745,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# %matplotlib inline",
+      "rewrite-ns": 506704,
+      "overhead-ns": 506704,
+      "exec-ns": 270985,
+      "total-ns": 777689,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n"
+    },
+    {
+      "raw": "# The original dataset\ndf = pd.read_csv(\"./input/UK_Traffic_Accidents_2015.scaled.csv\")\ndf.head()",
+      "rewrite-ns": 404193,
+      "overhead-ns": 404193,
+      "exec-ns": 5938522575,
+      "total-ns": 5938926768,
+      "patts-hit": {},
+      "rewritten": "df = pd.read_csv('./input/UK_Traffic_Accidents_2015.scaled.csv')\ndf.head()\n"
+    },
+    {
+      "raw": "df = pd.read_csv(\"./input/UK_Traffic_Accidents_2015.scaled.csv\", usecols=[\"Day_of_Week\", \"Time\"])\ndf.dropna(inplace=True)\ndf.head()",
+      "rewrite-ns": 1008323,
+      "overhead-ns": 1008323,
+      "exec-ns": 2153181458,
+      "total-ns": 2154189781,
+      "patts-hit": {},
+      "rewritten": "df = pd.read_csv('./input/UK_Traffic_Accidents_2015.scaled.csv', usecols=[\n    'Day_of_Week', 'Time'])\ndf.dropna(inplace=True)\ndf.head()\n"
+    },
+    {
+      "raw": "df['Time'] = df['Time'].map(lambda x: str(x)[:-3])\ndf.head()",
+      "rewrite-ns": 1116414,
+      "overhead-ns": 1116414,
+      "exec-ns": 646350798,
+      "total-ns": 647467212,
+      "patts-hit": {},
+      "rewritten": "df['Time'] = df['Time'].map(lambda x: str(x)[:-3])\ndf.head()\n"
+    },
+    {
+      "raw": "# Convert \"Day_of_Week\" to string\ndf[\"Day_of_Week\"] = df[\"Day_of_Week\"].astype(str)",
+      "rewrite-ns": 652613,
+      "overhead-ns": 652613,
+      "exec-ns": 867263307,
+      "total-ns": 867915920,
+      "patts-hit": {},
+      "rewritten": "df['Day_of_Week'] = df['Day_of_Week'].astype(str)\n"
+    },
+    {
+      "raw": "# Adding column for ordering the days of the week\ndf['Day'] = df[\"Day_of_Week\"]\ndf.head()",
+      "rewrite-ns": 497176,
+      "overhead-ns": 497176,
+      "exec-ns": 85456758,
+      "total-ns": 85953934,
+      "patts-hit": {},
+      "rewritten": "df['Day'] = df['Day_of_Week']\ndf.head()\n"
+    },
+    {
+      "raw": "df[\"Day_of_Week\"] = df[\"Day_of_Week\"].replace(\"1\", \"Sunday\")\ndf[\"Day_of_Week\"] = df[\"Day_of_Week\"].replace(\"2\", \"Monday\")\ndf[\"Day_of_Week\"] = df[\"Day_of_Week\"].replace(\"3\", \"Tuesday\")\ndf[\"Day_of_Week\"] = df[\"Day_of_Week\"].replace(\"4\", \"Wednesday\")\ndf[\"Day_of_Week\"] = df[\"Day_of_Week\"].replace(\"5\", \"Thursday\")\ndf[\"Day_of_Week\"] = df[\"Day_of_Week\"].replace(\"6\", \"Friday\")\ndf[\"Day_of_Week\"] = df[\"Day_of_Week\"].replace(\"7\", \"Saturday\")\n\ndf.head()",
+      "rewrite-ns": 1829013,
+      "overhead-ns": 1829013,
+      "exec-ns": 901357306,
+      "total-ns": 903186319,
+      "patts-hit": {},
+      "rewritten": "df['Day_of_Week'] = df['Day_of_Week'].replace('1', 'Sunday')\ndf['Day_of_Week'] = df['Day_of_Week'].replace('2', 'Monday')\ndf['Day_of_Week'] = df['Day_of_Week'].replace('3', 'Tuesday')\ndf['Day_of_Week'] = df['Day_of_Week'].replace('4', 'Wednesday')\ndf['Day_of_Week'] = df['Day_of_Week'].replace('5', 'Thursday')\ndf['Day_of_Week'] = df['Day_of_Week'].replace('6', 'Friday')\ndf['Day_of_Week'] = df['Day_of_Week'].replace('7', 'Saturday')\ndf.head()\n"
+    },
+    {
+      "raw": "# Using .ctrosstab() to create a pivot table\ndf_pivot = pd.crosstab(df[\"Day_of_Week\"], df[\"Time\"])\ndf_pivot",
+      "rewrite-ns": 772255,
+      "overhead-ns": 772255,
+      "exec-ns": 447021755,
+      "total-ns": 447794010,
+      "patts-hit": {},
+      "rewritten": "df_pivot = pd.crosstab(df['Day_of_Week'], df['Time'])\ndf_pivot\n"
+    },
+    {
+      "raw": "# Making the index chronological\ndf_pivot = df_pivot.reindex([\"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\", \"Saturday\", \"Sunday\"])\ndf_pivot",
+      "rewrite-ns": 745011,
+      "overhead-ns": 745011,
+      "exec-ns": 29309171,
+      "total-ns": 30054182,
+      "patts-hit": {},
+      "rewritten": "df_pivot = df_pivot.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday',\n    'Friday', 'Saturday', 'Sunday'])\ndf_pivot\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(30,8))\n# graph = sns.heatmap(df_pivot, cmap=\"Blues\", linecolor=\"white\", linewidths=0.1)\n\n# ax.set_title(\"Number of traffic-related deaths per day & hour combination\", y=1.3, fontsize=30, fontweight=\"bold\")\n# ax.set_xlabel(\"\")\n# ax.set_ylabel(\"\")\n\n# #from matplotlib import rcParams\n# #rcParams['axes.titlepad'] = 130 # Space between the title and graph\n\n# locs, labels = plt.yticks() # Rotating row labels\n# plt.setp(labels, rotation=0) # Rotating row labels\n\n# ax.xaxis.tick_top() # x axis on top\n# ax.xaxis.set_label_position('top') # x axis on top\n\n# graph.tick_params(axis='both',labelsize=15) # Tick label size\n# graph",
+      "rewrite-ns": 26575,
+      "overhead-ns": 26575,
+      "exec-ns": 117294,
+      "total-ns": 143869,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 11.076409684,
+  "max-disk-in-mb": 0
+}

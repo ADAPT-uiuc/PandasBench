@@ -1,0 +1,80 @@
+{
+  "max-mem-in-mb": 1888,
+  "max-mem-in-mb2": 2335,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list the files in the input directory\n\n# ALEX: remove path printing\n# from subprocess import check_output\n# print(check_output([\"ls\", \"../input\"]).decode(\"utf8\"))\n\n# Any results you write to the current directory are saved as output.",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 299373
+    },
+    {
+      "raw": "temp = pd.read_csv(\"./input/deliveries.scaled.csv\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4167476900
+    },
+    {
+      "raw": "temp.columns[[1]]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 453117
+    },
+    {
+      "raw": "t = temp.drop(temp.columns[[3, 9, 15, 17, 18, 19, 20]], axis = 1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 175631694
+    },
+    {
+      "raw": "t.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3488369
+    },
+    {
+      "raw": "#t.ix[:,8:14].head(2)\n#collist = list(t)\n#collist.remove('match_id', 'inning', 'batting_team', 'over', 'ball', 'batsman', 'non_striker', 'bowler')\n\nt['extra_sum'] = t[['wide_runs','bye_runs','legbye_runs','noball_runs','penalty_runs','extra_runs']].sum(axis=1)\n ",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 81288083
+    },
+    {
+      "raw": "evaluate_lazy(t)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 301928
+    },
+    {
+      "raw": "df1 = t.groupby(['bowler', 'batting_team', 'over' ,'match_id', 'inning'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 513223
+    },
+    {
+      "raw": "df2 = t.groupby(['bowler', 'non_striker']) #, 'over' ,'match_id', 'inning'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 625118
+    },
+    {
+      "raw": "evaluate_lazy(df2[['noball_runs']].count())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 543929317
+    },
+    {
+      "raw": "evaluate_lazy(df1['bowler'].count())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 539288809
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 129091
+    }
+  ],
+  "total-time-in-sec": 5.513425022,
+  "max-disk-in-mb": 0
+}

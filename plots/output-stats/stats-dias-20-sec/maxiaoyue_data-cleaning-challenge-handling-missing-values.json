@@ -1,0 +1,386 @@
+{
+  "max-mem-in-mb": 2348,
+  "max-mem-in-mb2": 3015,
+  "cells": [
+    {
+      "raw": "# modules we'll use\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n\n# read in all our data\nnfl_data = pd.read_csv(\"./input/NFL Play by Play 2009-2017 (v4).scaled.csv\")\nsf_permits = pd.read_csv(\"./input/Building_Permits.scaled.csv\")\n\n# set seed for reproducibility\nnp.random.seed(0) ",
+      "rewrite-ns": 2938583,
+      "overhead-ns": 2938583,
+      "exec-ns": 8850364505,
+      "total-ns": 8853303088,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\nnfl_data = pd.read_csv('./input/NFL Play by Play 2009-2017 (v4).scaled.csv')\nsf_permits = pd.read_csv('./input/Building_Permits.scaled.csv')\nnp.random.seed(0)\n"
+    },
+    {
+      "raw": "# look at a few rows of the nfl_data file. I can see a handful of missing data already!\nnfl_data.sample(5)",
+      "rewrite-ns": 198215,
+      "overhead-ns": 198215,
+      "exec-ns": 56912990,
+      "total-ns": 57111205,
+      "patts-hit": {},
+      "rewritten": "nfl_data.sample(5)\n"
+    },
+    {
+      "raw": "# your turn! Look at a couple of rows from the sf_permits dataset. Do you notice any missing data?\nsf_permits.sample(6)\n# your code goes here :)",
+      "rewrite-ns": 125777,
+      "overhead-ns": 125777,
+      "exec-ns": 30322668,
+      "total-ns": 30448445,
+      "patts-hit": {},
+      "rewritten": "sf_permits.sample(6)\n"
+    },
+    {
+      "raw": "sf_permits.head()",
+      "rewrite-ns": 87706,
+      "overhead-ns": 87706,
+      "exec-ns": 21820541,
+      "total-ns": 21908247,
+      "patts-hit": {},
+      "rewritten": "sf_permits.head()\n"
+    },
+    {
+      "raw": "sf_permits.tail()",
+      "rewrite-ns": 90188,
+      "overhead-ns": 90188,
+      "exec-ns": 21841788,
+      "total-ns": 21931976,
+      "patts-hit": {},
+      "rewritten": "sf_permits.tail()\n"
+    },
+    {
+      "raw": "# get the number of missing data points per column\nmissing_values_count = nfl_data.isnull().sum()\n\n# look at the # of missing points in the first ten columns\nmissing_values_count[0:10]",
+      "rewrite-ns": 728436,
+      "overhead-ns": 728436,
+      "exec-ns": 2694607201,
+      "total-ns": 2695335637,
+      "patts-hit": {},
+      "rewritten": "missing_values_count = nfl_data.isnull().sum()\nmissing_values_count[0:10]\n"
+    },
+    {
+      "raw": "# how many total missing values do we have?\ntotal_cells = np.product(nfl_data.shape)\ntotal_missing = missing_values_count.sum()\n\n# percent of data that is missing\n(total_missing/total_cells) * 100",
+      "rewrite-ns": 1135139,
+      "overhead-ns": 1135139,
+      "exec-ns": 845540,
+      "total-ns": 1980679,
+      "patts-hit": {},
+      "rewritten": "total_cells = np.product(nfl_data.shape)\ntotal_missing = missing_values_count.sum()\ntotal_missing / total_cells * 100\n"
+    },
+    {
+      "raw": "sf_permits.isnull().sum()[:10]",
+      "rewrite-ns": 529460,
+      "overhead-ns": 529460,
+      "exec-ns": 988957797,
+      "total-ns": 989487257,
+      "patts-hit": {},
+      "rewritten": "sf_permits.isnull().sum()[:10]\n"
+    },
+    {
+      "raw": "# your turn! Find out what percent of the sf_permits dataset is missing\nsf_permits.isnull().sum().sum() * 100.0/np.prod(sf_permits.shape)",
+      "rewrite-ns": 1010834,
+      "overhead-ns": 1010834,
+      "exec-ns": 986275382,
+      "total-ns": 987286216,
+      "patts-hit": {},
+      "rewritten": "sf_permits.isnull().sum().sum() * 100.0 / np.prod(sf_permits.shape)\n"
+    },
+    {
+      "raw": "# look at the # of missing points in the first ten columns\nmissing_values_count[0:10]",
+      "rewrite-ns": 370928,
+      "overhead-ns": 370928,
+      "exec-ns": 1013923,
+      "total-ns": 1384851,
+      "patts-hit": {},
+      "rewritten": "missing_values_count[0:10]\n"
+    },
+    {
+      "raw": "sf_permits[['Street Number Suffix', 'Zipcode']].isnull().sum()",
+      "rewrite-ns": 610585,
+      "overhead-ns": 610585,
+      "exec-ns": 38564505,
+      "total-ns": 39175090,
+      "patts-hit": {},
+      "rewritten": "sf_permits[['Street Number Suffix', 'Zipcode']].isnull().sum()\n"
+    },
+    {
+      "raw": "sf_permits.shape",
+      "rewrite-ns": 62914,
+      "overhead-ns": 62914,
+      "exec-ns": 485359,
+      "total-ns": 548273,
+      "patts-hit": {},
+      "rewritten": "sf_permits.shape\n"
+    },
+    {
+      "raw": "# remove all the rows that contain a missing value\nnfl_data.dropna()",
+      "rewrite-ns": 300316,
+      "overhead-ns": 300316,
+      "exec-ns": 2694682649,
+      "total-ns": 2694982965,
+      "patts-hit": {},
+      "rewritten": "nfl_data.dropna()\n"
+    },
+    {
+      "raw": "# remove all columns with at least one missing value\ncolumns_with_na_dropped = nfl_data.dropna(axis=1)\ncolumns_with_na_dropped.head()",
+      "rewrite-ns": 516636,
+      "overhead-ns": 516636,
+      "exec-ns": 2806269027,
+      "total-ns": 2806785663,
+      "patts-hit": {},
+      "rewritten": "columns_with_na_dropped = nfl_data.dropna(axis=1)\ncolumns_with_na_dropped.head()\n"
+    },
+    {
+      "raw": "# just how much data did we lose?\nprint(\"Columns in original dataset: %d \\n\" % nfl_data.shape[1])\nprint(\"Columns with na's dropped: %d\" % columns_with_na_dropped.shape[1])",
+      "rewrite-ns": 1021934,
+      "overhead-ns": 1021934,
+      "exec-ns": 359470,
+      "total-ns": 1381404,
+      "patts-hit": {},
+      "rewritten": "print('Columns in original dataset: %d \\n' % nfl_data.shape[1])\nprint(\"Columns with na's dropped: %d\" % columns_with_na_dropped.shape[1])\n"
+    },
+    {
+      "raw": "# Your turn! Try removing all the rows from the sf_permits dataset that contain missing values. How many are left?\nprint (sf_permits.shape[0])\nprint (sf_permits.dropna().shape[0])",
+      "rewrite-ns": 871768,
+      "overhead-ns": 871768,
+      "exec-ns": 1022731877,
+      "total-ns": 1023603645,
+      "patts-hit": {},
+      "rewritten": "print(sf_permits.shape[0])\nprint(sf_permits.dropna().shape[0])\n"
+    },
+    {
+      "raw": "col_na_dropped_sf_permits = sf_permits.dropna(axis= 1)",
+      "rewrite-ns": 463738,
+      "overhead-ns": 463738,
+      "exec-ns": 1007655192,
+      "total-ns": 1008118930,
+      "patts-hit": {},
+      "rewritten": "col_na_dropped_sf_permits = sf_permits.dropna(axis=1)\n"
+    },
+    {
+      "raw": "print ('Columns in original dataset: %d' % sf_permits.shape[1])\nprint ('Columns with missing values dropped: %d' % col_na_dropped_sf_permits.shape[1])",
+      "rewrite-ns": 1091382,
+      "overhead-ns": 1091382,
+      "exec-ns": 385569,
+      "total-ns": 1476951,
+      "patts-hit": {},
+      "rewritten": "print('Columns in original dataset: %d' % sf_permits.shape[1])\nprint('Columns with missing values dropped: %d' % col_na_dropped_sf_permits\n    .shape[1])\n"
+    },
+    {
+      "raw": "# Now try removing all the columns with empty values. Now how much of your data is left?\nsf_permits.dropna(axis = 1, how = 'all').shape[1]",
+      "rewrite-ns": 709715,
+      "overhead-ns": 709715,
+      "exec-ns": 1078202224,
+      "total-ns": 1078911939,
+      "patts-hit": {},
+      "rewritten": "sf_permits.dropna(axis=1, how='all').shape[1]\n"
+    },
+    {
+      "raw": "# get a small subset of the NFL dataset\nsubset_nfl_data = nfl_data.loc[:, 'EPA':'Season'].head()\nsubset_nfl_data",
+      "rewrite-ns": 795949,
+      "overhead-ns": 795949,
+      "exec-ns": 33109322,
+      "total-ns": 33905271,
+      "patts-hit": {},
+      "rewritten": "subset_nfl_data = nfl_data.loc[:, 'EPA':'Season'].head()\nsubset_nfl_data\n"
+    },
+    {
+      "raw": "# replace all NA's with 0\nsubset_nfl_data.fillna(0)",
+      "rewrite-ns": 390044,
+      "overhead-ns": 390044,
+      "exec-ns": 8186500,
+      "total-ns": 8576544,
+      "patts-hit": {},
+      "rewritten": "subset_nfl_data.fillna(0)\n"
+    },
+    {
+      "raw": "# replace all NA's the value that comes directly after it in the same column, \n# then replace all the reamining na's with 0\nsubset_nfl_data.fillna(method = 'bfill', axis=0).fillna(0)",
+      "rewrite-ns": 605289,
+      "overhead-ns": 605289,
+      "exec-ns": 8172644,
+      "total-ns": 8777933,
+      "patts-hit": {},
+      "rewritten": "subset_nfl_data.fillna(method='bfill', axis=0).fillna(0)\n"
+    },
+    {
+      "raw": "# Your turn! Try replacing all the NaN's in the sf_permits data with the one that\n# comes directly after it and then replacing any remaining NaN's with 0\nsf_permits.fillna(method = 'bfill', axis = 0).fillna(0)",
+      "rewrite-ns": 574940,
+      "overhead-ns": 574940,
+      "exec-ns": 2437923889,
+      "total-ns": 2438498829,
+      "patts-hit": {},
+      "rewritten": "sf_permits.fillna(method='bfill', axis=0).fillna(0)\n"
+    },
+    {
+      "raw": "sf_permits[sf_permits.Zipcode.isnull()]['Block'].head()",
+      "rewrite-ns": 691038,
+      "overhead-ns": 691038,
+      "exec-ns": 6512342,
+      "total-ns": 7203380,
+      "patts-hit": {},
+      "rewritten": "sf_permits[sf_permits.Zipcode.isnull()]['Block'].head()\n"
+    },
+    {
+      "raw": "sf_permits.sort_values(by = 'Block')[['Block','Zipcode']].loc[sf_permits.Block == '0552']",
+      "rewrite-ns": 880643,
+      "overhead-ns": 880643,
+      "exec-ns": 500102739,
+      "total-ns": 500983382,
+      "patts-hit": {},
+      "rewritten": "sf_permits.sort_values(by='Block')[['Block', 'Zipcode']].loc[sf_permits.\n    Block == '0552']\n"
+    },
+    {
+      "raw": "sf_permits.groupby('Block').Zipcode.nunique().shape",
+      "rewrite-ns": 574213,
+      "overhead-ns": 574213,
+      "exec-ns": 94651008,
+      "total-ns": 95225221,
+      "patts-hit": {},
+      "rewritten": "sf_permits.groupby('Block').Zipcode.nunique().shape\n"
+    },
+    {
+      "raw": "mask = (sf_permits.groupby('Block').Zipcode.nunique() > 1)\nsf_permits.groupby('Block').Zipcode.nunique()[mask].head()",
+      "rewrite-ns": 1265359,
+      "overhead-ns": 1265359,
+      "exec-ns": 134467778,
+      "total-ns": 135733137,
+      "patts-hit": {},
+      "rewritten": "mask = sf_permits.groupby('Block').Zipcode.nunique() > 1\nsf_permits.groupby('Block').Zipcode.nunique()[mask].head()\n"
+    },
+    {
+      "raw": "sf_permits.Zipcode.isnull().sum()",
+      "rewrite-ns": 461328,
+      "overhead-ns": 461328,
+      "exec-ns": 1382389,
+      "total-ns": 1843717,
+      "patts-hit": {},
+      "rewritten": "sf_permits.Zipcode.isnull().sum()\n"
+    },
+    {
+      "raw": "sf_permits_Zip_na_fill_with_block = sf_permits.sort_values(by = 'Block').Zipcode.fillna(method = 'bfill').fillna(method = 'ffill')",
+      "rewrite-ns": 822147,
+      "overhead-ns": 822147,
+      "exec-ns": 472545918,
+      "total-ns": 473368065,
+      "patts-hit": {},
+      "rewritten": "sf_permits_Zip_na_fill_with_block = sf_permits.sort_values(by='Block'\n    ).Zipcode.fillna(method='bfill').fillna(method='ffill')\n"
+    },
+    {
+      "raw": "sf_permits_Zip_na_fill_with_block.isnull().sum()",
+      "rewrite-ns": 425513,
+      "overhead-ns": 425513,
+      "exec-ns": 1233094,
+      "total-ns": 1658607,
+      "patts-hit": {},
+      "rewritten": "sf_permits_Zip_na_fill_with_block.isnull().sum()\n"
+    },
+    {
+      "raw": "sf_permits.columns",
+      "rewrite-ns": 80716,
+      "overhead-ns": 80716,
+      "exec-ns": 797876,
+      "total-ns": 878592,
+      "patts-hit": {},
+      "rewritten": "sf_permits.columns\n"
+    },
+    {
+      "raw": "sf_permits.sort_values(by= ['Street Name','Street Number']).Zipcode.head()",
+      "rewrite-ns": 630723,
+      "overhead-ns": 630723,
+      "exec-ns": 260882322,
+      "total-ns": 261513045,
+      "patts-hit": {},
+      "rewritten": "sf_permits.sort_values(by=['Street Name', 'Street Number']).Zipcode.head()\n"
+    },
+    {
+      "raw": "sf_permits_Zip_na_fill_with_street = sf_permits.sort_values(by= ['Street Name','Street Number']).Zipcode.fillna(method = 'bfill').fillna(method = 'ffill')",
+      "rewrite-ns": 950935,
+      "overhead-ns": 950935,
+      "exec-ns": 266516621,
+      "total-ns": 267467556,
+      "patts-hit": {},
+      "rewritten": "sf_permits_Zip_na_fill_with_street = sf_permits.sort_values(by=[\n    'Street Name', 'Street Number']).Zipcode.fillna(method='bfill').fillna(\n    method='ffill')\n"
+    },
+    {
+      "raw": "sf_permits_Zip_na_fill_with_street.isnull().sum()",
+      "rewrite-ns": 421829,
+      "overhead-ns": 421829,
+      "exec-ns": 1258375,
+      "total-ns": 1680204,
+      "patts-hit": {},
+      "rewritten": "sf_permits_Zip_na_fill_with_street.isnull().sum()\n"
+    },
+    {
+      "raw": "(sf_permits_Zip_na_fill_with_street.sort_index() != sf_permits_Zip_na_fill_with_block.sort_index()).sum()",
+      "rewrite-ns": 658825,
+      "overhead-ns": 658825,
+      "exec-ns": 88762678,
+      "total-ns": 89421503,
+      "patts-hit": {},
+      "rewritten": "(sf_permits_Zip_na_fill_with_street.sort_index() !=\n    sf_permits_Zip_na_fill_with_block.sort_index()).sum()\n"
+    },
+    {
+      "raw": "mask = (sf_permits_Zip_na_fill_with_street.sort_index() != sf_permits_Zip_na_fill_with_block.sort_index())",
+      "rewrite-ns": 604793,
+      "overhead-ns": 604793,
+      "exec-ns": 85885309,
+      "total-ns": 86490102,
+      "patts-hit": {},
+      "rewritten": "mask = sf_permits_Zip_na_fill_with_street.sort_index(\n    ) != sf_permits_Zip_na_fill_with_block.sort_index()\n"
+    },
+    {
+      "raw": "sf_permits_Zip_na_fill_with_street[mask]",
+      "rewrite-ns": 288636,
+      "overhead-ns": 288636,
+      "exec-ns": 17064189,
+      "total-ns": 17352825,
+      "patts-hit": {},
+      "rewritten": "sf_permits_Zip_na_fill_with_street[mask]\n"
+    },
+    {
+      "raw": "sf_permits_zip_na_fill_with_block_street = sf_permits.sort_values(by = ['Block', 'Street Name', 'Street Number']).Zipcode.fillna(method = 'bfill').fillna(method = 'ffill')",
+      "rewrite-ns": 974851,
+      "overhead-ns": 974851,
+      "exec-ns": 278461624,
+      "total-ns": 279436475,
+      "patts-hit": {},
+      "rewritten": "sf_permits_zip_na_fill_with_block_street = sf_permits.sort_values(by=[\n    'Block', 'Street Name', 'Street Number']).Zipcode.fillna(method='bfill'\n    ).fillna(method='ffill')\n"
+    },
+    {
+      "raw": "sf_permits_zip_na_fill_with_block_street.sort_index().head()",
+      "rewrite-ns": 428513,
+      "overhead-ns": 428513,
+      "exec-ns": 45580897,
+      "total-ns": 46009410,
+      "patts-hit": {},
+      "rewritten": "sf_permits_zip_na_fill_with_block_street.sort_index().head()\n"
+    },
+    {
+      "raw": "sf_permits_Zip_na_fill_with_block.sort_index().head()",
+      "rewrite-ns": 416749,
+      "overhead-ns": 416749,
+      "exec-ns": 47450853,
+      "total-ns": 47867602,
+      "patts-hit": {},
+      "rewritten": "sf_permits_Zip_na_fill_with_block.sort_index().head()\n"
+    },
+    {
+      "raw": "(sf_permits_zip_na_fill_with_block_street.sort_index() != sf_permits_Zip_na_fill_with_block.sort_index()).sum()",
+      "rewrite-ns": 656641,
+      "overhead-ns": 656641,
+      "exec-ns": 89446178,
+      "total-ns": 90102819,
+      "patts-hit": {},
+      "rewritten": "(sf_permits_zip_na_fill_with_block_street.sort_index() !=\n    sf_permits_Zip_na_fill_with_block.sort_index()).sum()\n"
+    },
+    {
+      "raw": "(sf_permits_zip_na_fill_with_block_street.sort_index() != sf_permits_Zip_na_fill_with_street.sort_index()).sum()",
+      "rewrite-ns": 660971,
+      "overhead-ns": 660971,
+      "exec-ns": 86042640,
+      "total-ns": 86703611,
+      "patts-hit": {},
+      "rewritten": "(sf_permits_zip_na_fill_with_block_street.sort_index() !=\n    sf_permits_Zip_na_fill_with_street.sort_index()).sum()\n"
+    }
+  ],
+  "total-time-in-sec": 27.295860291,
+  "max-disk-in-mb": 0
+}

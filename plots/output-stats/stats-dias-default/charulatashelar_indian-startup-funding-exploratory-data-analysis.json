@@ -1,0 +1,323 @@
+{
+  "max-mem-in-mb": 114,
+  "max-mem-in-mb2": 118,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nfrom datetime import datetime\nimport re\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n\n# %matplotlib inline\n\n# import warnings\n# warnings.filterwarnings('ignore')",
+      "rewrite-ns": 789266,
+      "overhead-ns": 789266,
+      "exec-ns": 453766,
+      "total-ns": 1243032,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\nfrom datetime import datetime\nimport re\n"
+    },
+    {
+      "raw": "# 1. Initial data exploration using shape, describe() and info()\n\nfile_path = \"./input/startup_funding.scaled.csv\"\ndata = pd.read_csv(file_path)\ndata.head()",
+      "rewrite-ns": 790662,
+      "overhead-ns": 790662,
+      "exec-ns": 23468552,
+      "total-ns": 24259214,
+      "patts-hit": {},
+      "rewritten": "file_path = './input/startup_funding.scaled.csv'\ndata = pd.read_csv(file_path)\ndata.head()\n"
+    },
+    {
+      "raw": "data.shape",
+      "rewrite-ns": 82801,
+      "overhead-ns": 82801,
+      "exec-ns": 697172,
+      "total-ns": 779973,
+      "patts-hit": {},
+      "rewritten": "data.shape\n"
+    },
+    {
+      "raw": "data.columns",
+      "rewrite-ns": 74629,
+      "overhead-ns": 74629,
+      "exec-ns": 862481,
+      "total-ns": 937110,
+      "patts-hit": {},
+      "rewritten": "data.columns\n"
+    },
+    {
+      "raw": "data.info()",
+      "rewrite-ns": 112672,
+      "overhead-ns": 112672,
+      "exec-ns": 7891817,
+      "total-ns": 8004489,
+      "patts-hit": {},
+      "rewritten": "data.info()\n"
+    },
+    {
+      "raw": "# 2. The data types of data in few columns are not correct to do statistical analysis, hence it needs to be fixed using dtype, astype()\n\ndata.rename(columns={\"Date dd/mm/yyyy\": \"Date\", 'Startup Name': 'StartupName', 'Industry Vertical':'IndustryVertical',\n       'SubVertical': 'SubVertical', 'City  Location': 'CityLocation', 'Investors Name': 'InvestorsName', 'InvestmentnType':'InvestmentnType',\n       'Amount in USD':'AmountUSD', 'Remarks':'Remarks'}, inplace=True)\ndata.head()",
+      "rewrite-ns": 2194411,
+      "overhead-ns": 2194411,
+      "exec-ns": 9541950,
+      "total-ns": 11736361,
+      "patts-hit": {},
+      "rewritten": "data.rename(columns={'Date dd/mm/yyyy': 'Date', 'Startup Name':\n    'StartupName', 'Industry Vertical': 'IndustryVertical', 'SubVertical':\n    'SubVertical', 'City  Location': 'CityLocation', 'Investors Name':\n    'InvestorsName', 'InvestmentnType': 'InvestmentnType', 'Amount in USD':\n    'AmountUSD', 'Remarks': 'Remarks'}, inplace=True)\ndata.head()\n"
+    },
+    {
+      "raw": "# 3. Few values 'Date' column are not in correcdt date format checking those rows\ndata[~data.Date.str.contains('(\\d{2})[/](\\d{2})[/](\\d{4})')]",
+      "rewrite-ns": 831075,
+      "overhead-ns": 831075,
+      "exec-ns": 11703954,
+      "total-ns": 12535029,
+      "patts-hit": {},
+      "rewritten": "data[~data.Date.str.contains('(\\\\d{2})[/](\\\\d{2})[/](\\\\d{4})')]\n"
+    },
+    {
+      "raw": "#incorrect_date = data[~data.Date.str.contains('(\\d{2})[/](\\d{2})[/](\\d{4})')].index # [192, 2571, 2606, 2775, 2776, 2831, 3011, 3029]\n# ALEX: make notebook run with input scaling\n# data.loc[ 192, 'Date'] = '05/07/2018' \n# data.loc[2571, 'Date'] = '01/07/2015' \n# data.loc[2606, 'Date'] = '10/07/2015'\n# data.loc[2775, 'Date'] = '12/05/2015' \n# data.loc[2776, 'Date'] = '12/05/2015'\n# data.loc[2831, 'Date'] = '13/04/2015' \n# data.loc[3011, 'Date'] = '15/01/2015'\n# data.loc[3029, 'Date'] = '22/01/2015'\nincorrect_date = data[~data.Date.str.contains('(\\d{2})[/](\\d{2})[/](\\d{4})')].index\nreplacements = ['05/07/2018', '01/07/2015', '10/07/2015', '12/05/2015',\n                '12/05/2015', '13/04/2015', '15/01/2015', '22/01/2015']\nfor i, idx in enumerate(incorrect_date):\n    data.loc[idx, 'Date'] = replacements[i % len(replacements)]",
+      "rewrite-ns": 3021475,
+      "overhead-ns": 3021475,
+      "exec-ns": 3771458,
+      "total-ns": 6792933,
+      "patts-hit": {},
+      "rewritten": "incorrect_date = data[~data.Date.str.contains('(\\\\d{2})[/](\\\\d{2})[/](\\\\d{4})')\n    ].index\nreplacements = ['05/07/2018', '01/07/2015', '10/07/2015', '12/05/2015',\n    '12/05/2015', '13/04/2015', '15/01/2015', '22/01/2015']\nfor i, idx in enumerate(incorrect_date):\n    data.loc[idx, 'Date'] = replacements[i % len(replacements)]\n"
+    },
+    {
+      "raw": "# 4. Extracting date, month, year from string values in 'Date' column\n\ndate_expand = data['Date'].str.extract(r'(\\d{2})/?(\\d{2})/?(\\d{4})')\ndata['Year'] = date_expand[2]\ndata['Month'] = date_expand[1]\ndata['NewDate'] = date_expand[0]+'/'+date_expand[1]+'/'+date_expand[2]\ndata.head()",
+      "rewrite-ns": 2809592,
+      "overhead-ns": 2809592,
+      "exec-ns": 18246374,
+      "total-ns": 21055966,
+      "patts-hit": {},
+      "rewritten": "date_expand = data['Date'].str.extract('(\\\\d{2})/?(\\\\d{2})/?(\\\\d{4})')\ndata['Year'] = date_expand[2]\ndata['Month'] = date_expand[1]\ndata['NewDate'] = date_expand[0] + '/' + date_expand[1] + '/' + date_expand[2]\ndata.head()\n"
+    },
+    {
+      "raw": "data['Date'] = pd.to_datetime(data['Date'])#['Date']\ndata.head()",
+      "rewrite-ns": 825232,
+      "overhead-ns": 825232,
+      "exec-ns": 22183508,
+      "total-ns": 23008740,
+      "patts-hit": {},
+      "rewritten": "data['Date'] = pd.to_datetime(data['Date'])\ndata.head()\n"
+    },
+    {
+      "raw": "# 5. Converting datatype of values in 'AmountUSD' column from string to float. Marking Undisclosed values to 'nan' and then converting into float type\n\ndata.loc[data['AmountUSD'].isin(['undisclosed', 'unknown', 'Undisclosed']), 'AmountUSD'] = 'nan'\n\ndata['AmountUSD'] = data['AmountUSD'].astype(str)\ndata['NewAmountUSD'] = data['AmountUSD'].apply(lambda x : re.sub(\"[^0-9]\", \"\", x))\ndata.loc[data['NewAmountUSD']=='', 'NewAmountUSD'] = 0 #'nan' # replace with average of funding provided that months \ndata['NewAmountUSD'] = data['NewAmountUSD'].astype(float)\ndata.head()",
+      "rewrite-ns": 4473377,
+      "overhead-ns": 4473377,
+      "exec-ns": 19949112,
+      "total-ns": 24422489,
+      "patts-hit": {},
+      "rewritten": "data.loc[data['AmountUSD'].isin(['undisclosed', 'unknown', 'Undisclosed']),\n    'AmountUSD'] = 'nan'\ndata['AmountUSD'] = data['AmountUSD'].astype(str)\ndata['NewAmountUSD'] = data['AmountUSD'].apply(lambda x: re.sub('[^0-9]',\n    '', x))\ndata.loc[data['NewAmountUSD'] == '', 'NewAmountUSD'] = 0\ndata['NewAmountUSD'] = data['NewAmountUSD'].astype(float)\ndata.head()\n"
+    },
+    {
+      "raw": "# 6. Cleaning column 'CityLocation'\n\ndata.loc[data['CityLocation'].isin(['\\\\\\\\xc2\\\\\\\\xa0Noida', '\\\\xc2\\\\xa0Noida']), 'CityLocation'] = 'Noida'\ndata.loc[data['CityLocation'].isin(['\\\\\\\\xc2\\\\\\\\xa0Bangalore', '\\\\xc2\\\\xa0Bangalore', 'Bangalore']), 'CityLocation'] = 'Bengaluru'\ndata.loc[data['CityLocation'].isin(['\\\\\\\\xc2\\\\\\\\xa0New Delhi', '\\\\xc2\\\\xa0New Delhi']), 'CityLocation'] = 'New Delhi'\ndata.loc[data['CityLocation'].isin(['\\\\\\\\xc2\\\\\\\\xa0Gurgaon', 'Gurugram']), 'CityLocation'] = 'Gurgaon'\ndata.loc[data['CityLocation'].isin(['\\\\\\\\xc2\\\\\\\\xa0Mumbai', '\\\\xc2\\\\xa0Mumbai']), 'CityLocation'] = 'Mumbai'\n# len(data['CityLocation'].unique())",
+      "rewrite-ns": 4871284,
+      "overhead-ns": 4871284,
+      "exec-ns": 3502208,
+      "total-ns": 8373492,
+      "patts-hit": {},
+      "rewritten": "data.loc[data['CityLocation'].isin(['\\\\\\\\xc2\\\\\\\\xa0Noida',\n    '\\\\xc2\\\\xa0Noida']), 'CityLocation'] = 'Noida'\ndata.loc[data['CityLocation'].isin(['\\\\\\\\xc2\\\\\\\\xa0Bangalore',\n    '\\\\xc2\\\\xa0Bangalore', 'Bangalore']), 'CityLocation'] = 'Bengaluru'\ndata.loc[data['CityLocation'].isin(['\\\\\\\\xc2\\\\\\\\xa0New Delhi',\n    '\\\\xc2\\\\xa0New Delhi']), 'CityLocation'] = 'New Delhi'\ndata.loc[data['CityLocation'].isin(['\\\\\\\\xc2\\\\\\\\xa0Gurgaon', 'Gurugram']),\n    'CityLocation'] = 'Gurgaon'\ndata.loc[data['CityLocation'].isin(['\\\\\\\\xc2\\\\\\\\xa0Mumbai',\n    '\\\\xc2\\\\xa0Mumbai']), 'CityLocation'] = 'Mumbai'\n"
+    },
+    {
+      "raw": "# 7. Cleanning column 'IndustryVertical'\n\ndata.loc[data['IndustryVertical'] == \"\\\\\\\\xc2\\\\\\\\xa0News Aggregator mobile app\", 'IndustryVertical'] = 'News Aggregator mobile app'\ndata.loc[data['IndustryVertical'] == \"\\\\\\\\xc2\\\\\\\\xa0Online Jewellery Store\", 'IndustryVertical'] = 'Online Jewellery Store'\ndata.loc[data['IndustryVertical'] == \"\\\\\\\\xc2\\\\\\\\xa0Fashion Info Aggregator App\", 'IndustryVertical'] = 'Fashion Info Aggregator App'\ndata.loc[data['IndustryVertical'] == \"\\\\\\\\xc2\\\\\\\\xa0Online Study Notes Marketplace\", 'IndustryVertical'] = 'Online Study Notes Marketplace'\ndata.loc[data['IndustryVertical'] == \"\\\\\\\\xc2\\\\\\\\xa0Warranty Programs Service Administration\", 'IndustryVertical'] = 'Warranty Programs Service Administration'\ndata.loc[data['IndustryVertical'] == \"\\\\\\\\xc2\\\\\\\\xa0Pre-School Chain\", 'IndustryVertical'] = 'Pre-School Chain'\ndata.loc[data['IndustryVertical'] == \"\\\\\\\\xc2\\\\\\\\xa0Premium Loyalty Rewards Point Management\", 'IndustryVertical'] = 'Premium Loyalty Rewards Point Management'\ndata.loc[data['IndustryVertical'] == \"\\\\\\\\xc2\\\\\\\\xa0Contact Center Software Platform\", 'IndustryVertical'] = 'Contact Center Software Platform'\ndata.loc[data['IndustryVertical'] == \"\\\\\\\\xc2\\\\\\\\xa0Casual Dining restaurant Chain\", 'IndustryVertical'] = 'Casual Dining restaurant Chain'\ndata.loc[data['IndustryVertical'] == \"\\\\\\\\xc2\\\\\\\\xa0Online Grocery Delivery\", 'IndustryVertical'] = 'Online Grocery Delivery'\ndata.loc[data['IndustryVertical'] == \"Online home d\\\\\\\\xc3\\\\\\\\xa9cor marketplace\", 'IndustryVertical'] = 'Online home decor marketplace'\ndata.loc[data['IndustryVertical'].isin([\"ECommerce\", \"E-Commerce\", \"E-commerce\", \"Ecommerce\"]), 'IndustryVertical'] = 'eCommerce'\ndata.loc[data['IndustryVertical'].isin([\"Fin-Tech\"]), 'IndustryVertical'] = 'FinTech'",
+      "rewrite-ns": 10290077,
+      "overhead-ns": 10290077,
+      "exec-ns": 7876988,
+      "total-ns": 18167065,
+      "patts-hit": {},
+      "rewritten": "data.loc[data['IndustryVertical'] ==\n    '\\\\\\\\xc2\\\\\\\\xa0News Aggregator mobile app', 'IndustryVertical'\n    ] = 'News Aggregator mobile app'\ndata.loc[data['IndustryVertical'] == '\\\\\\\\xc2\\\\\\\\xa0Online Jewellery Store',\n    'IndustryVertical'] = 'Online Jewellery Store'\ndata.loc[data['IndustryVertical'] ==\n    '\\\\\\\\xc2\\\\\\\\xa0Fashion Info Aggregator App', 'IndustryVertical'\n    ] = 'Fashion Info Aggregator App'\ndata.loc[data['IndustryVertical'] ==\n    '\\\\\\\\xc2\\\\\\\\xa0Online Study Notes Marketplace', 'IndustryVertical'\n    ] = 'Online Study Notes Marketplace'\ndata.loc[data['IndustryVertical'] ==\n    '\\\\\\\\xc2\\\\\\\\xa0Warranty Programs Service Administration',\n    'IndustryVertical'] = 'Warranty Programs Service Administration'\ndata.loc[data['IndustryVertical'] == '\\\\\\\\xc2\\\\\\\\xa0Pre-School Chain',\n    'IndustryVertical'] = 'Pre-School Chain'\ndata.loc[data['IndustryVertical'] ==\n    '\\\\\\\\xc2\\\\\\\\xa0Premium Loyalty Rewards Point Management',\n    'IndustryVertical'] = 'Premium Loyalty Rewards Point Management'\ndata.loc[data['IndustryVertical'] ==\n    '\\\\\\\\xc2\\\\\\\\xa0Contact Center Software Platform', 'IndustryVertical'\n    ] = 'Contact Center Software Platform'\ndata.loc[data['IndustryVertical'] ==\n    '\\\\\\\\xc2\\\\\\\\xa0Casual Dining restaurant Chain', 'IndustryVertical'\n    ] = 'Casual Dining restaurant Chain'\ndata.loc[data['IndustryVertical'] ==\n    '\\\\\\\\xc2\\\\\\\\xa0Online Grocery Delivery', 'IndustryVertical'\n    ] = 'Online Grocery Delivery'\ndata.loc[data['IndustryVertical'] ==\n    'Online home d\\\\\\\\xc3\\\\\\\\xa9cor marketplace', 'IndustryVertical'\n    ] = 'Online home decor marketplace'\ndata.loc[data['IndustryVertical'].isin(['ECommerce', 'E-Commerce',\n    'E-commerce', 'Ecommerce']), 'IndustryVertical'] = 'eCommerce'\ndata.loc[data['IndustryVertical'].isin(['Fin-Tech']), 'IndustryVertical'\n    ] = 'FinTech'\n"
+    },
+    {
+      "raw": "# 8. Cleanning column 'InvestorsName'\n\ndata.loc[data['InvestorsName'].isin(['Undisclosed investors', 'Undisclosed', 'undisclosed investors', 'Undisclosed Investor', 'Undisclosed investors']), 'InvestorsName'] = 'Undisclosed Investors'\ndata.loc[data['InvestorsName'] == \"\\\\\\\\xc2\\\\\\\\xa0Tiger Global\", 'InvestorsName'] = 'Tiger Global'\ndata.loc[data['InvestorsName'] == \"\\\\\\\\xc2\\\\\\\\xa0IndianIdeas.com\", 'InvestorsName'] = 'IndianIdeas'\ndata.loc[data['InvestorsName'] == \"\\\\\\\\xc2\\\\\\\\xa0IvyCap Ventures, Accel Partners, Dragoneer Investment Group\", 'InvestorsName'] = 'IvyCap Ventures, Accel Partners, Dragoneer Investment Group'\ndata.loc[data['InvestorsName'] == \"\\\\\\\\xc2\\\\\\\\xa0Goldman Sachs\", 'InvestorsName'] = 'Goldman Sachs'",
+      "rewrite-ns": 4226526,
+      "overhead-ns": 4226526,
+      "exec-ns": 3665246,
+      "total-ns": 7891772,
+      "patts-hit": {},
+      "rewritten": "data.loc[data['InvestorsName'].isin(['Undisclosed investors', 'Undisclosed',\n    'undisclosed investors', 'Undisclosed Investor',\n    'Undisclosed investors']), 'InvestorsName'] = 'Undisclosed Investors'\ndata.loc[data['InvestorsName'] == '\\\\\\\\xc2\\\\\\\\xa0Tiger Global', 'InvestorsName'\n    ] = 'Tiger Global'\ndata.loc[data['InvestorsName'] == '\\\\\\\\xc2\\\\\\\\xa0IndianIdeas.com',\n    'InvestorsName'] = 'IndianIdeas'\ndata.loc[data['InvestorsName'] ==\n    '\\\\\\\\xc2\\\\\\\\xa0IvyCap Ventures, Accel Partners, Dragoneer Investment Group'\n    , 'InvestorsName'\n    ] = 'IvyCap Ventures, Accel Partners, Dragoneer Investment Group'\ndata.loc[data['InvestorsName'] == '\\\\\\\\xc2\\\\\\\\xa0Goldman Sachs',\n    'InvestorsName'] = 'Goldman Sachs'\n"
+    },
+    {
+      "raw": "startup_data = data[['Date', 'Year', 'Month', 'StartupName', 'IndustryVertical', 'SubVertical', 'CityLocation', 'InvestorsName', 'InvestmentnType', 'NewAmountUSD']]\nstartup_data['Date'] = pd.to_datetime(startup_data.Date)\nstartup_data.set_index('Date', inplace=True)\nstartup_data.head()",
+      "rewrite-ns": 1969224,
+      "overhead-ns": 1969224,
+      "exec-ns": 15232399,
+      "total-ns": 17201623,
+      "patts-hit": {},
+      "rewritten": "startup_data = data[['Date', 'Year', 'Month', 'StartupName',\n    'IndustryVertical', 'SubVertical', 'CityLocation', 'InvestorsName',\n    'InvestmentnType', 'NewAmountUSD']]\nstartup_data['Date'] = pd.to_datetime(startup_data.Date)\nstartup_data.set_index('Date', inplace=True)\nstartup_data.head()\n"
+    },
+    {
+      "raw": "funding_count_yr = pd.DataFrame(startup_data['Year'].value_counts())\nfunding_count_yr.rename(columns={\"Year\":\"Number of Fundings\"}, inplace=True)\nfunding_count_yr",
+      "rewrite-ns": 1385603,
+      "overhead-ns": 1385603,
+      "exec-ns": 4182415,
+      "total-ns": 5568018,
+      "patts-hit": {},
+      "rewritten": "funding_count_yr = pd.DataFrame(startup_data['Year'].value_counts())\nfunding_count_yr.rename(columns={'Year': 'Number of Fundings'}, inplace=True)\nfunding_count_yr\n"
+    },
+    {
+      "raw": "funding_count_qtr = pd.DataFrame(data=startup_data['Year'].resample('QS').count())\nfunding_count_qtr.rename(columns={'Year':'Number of Fundings(Qtr)'}, inplace=True)\n# ALEX: make notebook run with input scaling\n# funding_count_qtr['QtrMonth'] = ['2015-1', '2015-4', '2015-7', '2015-10', '2016-1', '2016-4', '2016-7', '2016-10', '2017-1', '2017-4', '2017-7', '2017-10', '2018-1', '2018-4', '2018-7', '2018-10', '2019-1', '2019-4', '2019-7', '2019-10', '2020-1', '2020-4', '2020-7', '2020-10']\nfunding_count_qtr['QtrMonth'] = ['2015-1', '2015-4', '2015-7',\n                                 '2015-10', '2016-1', '2016-4',\n                                 '2016-7', '2016-10', '2017-1',\n                                 '2017-4', '2017-7', '2017-10',\n                                 '2018-1', '2018-4', '2018-7',\n                                 '2018-10', '2019-1', '2019-4',\n                                 '2019-7', '2019-10', '2020-1',\n                                 '2020-4', '2020-7', '2020-10'][:len(funding_count_qtr)]\nfunding_count_qtr.head()",
+      "rewrite-ns": 3307897,
+      "overhead-ns": 3307897,
+      "exec-ns": 10239676,
+      "total-ns": 13547573,
+      "patts-hit": {},
+      "rewritten": "funding_count_qtr = pd.DataFrame(data=startup_data['Year'].resample('QS').\n    count())\nfunding_count_qtr.rename(columns={'Year': 'Number of Fundings(Qtr)'},\n    inplace=True)\nfunding_count_qtr['QtrMonth'] = ['2015-1', '2015-4', '2015-7', '2015-10',\n    '2016-1', '2016-4', '2016-7', '2016-10', '2017-1', '2017-4', '2017-7',\n    '2017-10', '2018-1', '2018-4', '2018-7', '2018-10', '2019-1', '2019-4',\n    '2019-7', '2019-10', '2020-1', '2020-4', '2020-7', '2020-10'][:len(\n    funding_count_qtr)]\nfunding_count_qtr.head()\n"
+    },
+    {
+      "raw": "funding_total_yr = pd.DataFrame(startup_data.groupby(by=['Year'])['NewAmountUSD'].sum())\nfunding_total_yr.rename(columns={\"NewAmountUSD\":\"Total Funding(USD-Bn)\"}, inplace=True)\nfunding_total_yr = funding_total_yr.sort_values(by='Total Funding(USD-Bn)', ascending=False)\nfunding_total_yr",
+      "rewrite-ns": 2216515,
+      "overhead-ns": 2216515,
+      "exec-ns": 5487437,
+      "total-ns": 7703952,
+      "patts-hit": {},
+      "rewritten": "funding_total_yr = pd.DataFrame(startup_data.groupby(by=['Year'])[\n    'NewAmountUSD'].sum())\nfunding_total_yr.rename(columns={'NewAmountUSD': 'Total Funding(USD-Bn)'},\n    inplace=True)\nfunding_total_yr = funding_total_yr.sort_values(by='Total Funding(USD-Bn)',\n    ascending=False)\nfunding_total_yr\n"
+    },
+    {
+      "raw": "funding_total_qtr = pd.DataFrame(data=startup_data['NewAmountUSD'].resample('QS').sum())\nfunding_total_qtr.rename(columns={'NewAmountUSD':'Total Fundings(Qtr USD-Bn)'}, inplace=True)\n# ALEX: make notebook run with input scaling\n# funding_total_qtr['QtrMonth'] = ['2015-1', '2015-4', '2015-7', '2015-10', '2016-1', '2016-4', '2016-7', '2016-10', '2017-1', '2017-4', '2017-7', '2017-10', '2018-1', '2018-4', '2018-7', '2018-10', '2019-1', '2019-4', '2019-7', '2019-10', '2020-1', '2020-4', '2020-7', '2020-10']\nfunding_total_qtr['QtrMonth'] = ['2015-1', '2015-4', '2015-7',\n                                 '2015-10', '2016-1', '2016-4',\n                                 '2016-7', '2016-10', '2017-1',\n                                 '2017-4', '2017-7', '2017-10',\n                                 '2018-1', '2018-4', '2018-7',\n                                 '2018-10', '2019-1', '2019-4',\n                                 '2019-7', '2019-10', '2020-1',\n                                 '2020-4', '2020-7', '2020-10'][:len(funding_total_qtr)]\nfunding_total_qtr.head()",
+      "rewrite-ns": 3305681,
+      "overhead-ns": 3305681,
+      "exec-ns": 7541333,
+      "total-ns": 10847014,
+      "patts-hit": {},
+      "rewritten": "funding_total_qtr = pd.DataFrame(data=startup_data['NewAmountUSD'].resample\n    ('QS').sum())\nfunding_total_qtr.rename(columns={'NewAmountUSD':\n    'Total Fundings(Qtr USD-Bn)'}, inplace=True)\nfunding_total_qtr['QtrMonth'] = ['2015-1', '2015-4', '2015-7', '2015-10',\n    '2016-1', '2016-4', '2016-7', '2016-10', '2017-1', '2017-4', '2017-7',\n    '2017-10', '2018-1', '2018-4', '2018-7', '2018-10', '2019-1', '2019-4',\n    '2019-7', '2019-10', '2020-1', '2020-4', '2020-7', '2020-10'][:len(\n    funding_total_qtr)]\nfunding_total_qtr.head()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(18,8))\n\n# sns.barplot(x=funding_count_yr.index, y=funding_count_yr['Number of Fundings'], data=funding_count_yr, ax=axes[0,0], orient='v')\n# sns.barplot(x=funding_count_qtr.index, y=funding_count_qtr['Number of Fundings(Qtr)'], data=funding_count_qtr, ax=axes[0,1], orient='v').set_xticklabels(rotation=90, labels=funding_total_qtr['QtrMonth'])\n\n# sns.barplot(x=funding_total_yr.index, y=funding_total_yr['Total Funding(USD-Bn)'], data=funding_total_yr, ax=axes[1,0], orient='v')\n# sns.barplot(x=funding_total_qtr.index, y=funding_total_qtr['Total Fundings(Qtr USD-Bn)'], data=funding_total_qtr, ax=axes[1,1], orient='v').set_xticklabels(rotation=90, labels=funding_total_qtr['QtrMonth'])\n\n# fig.tight_layout(pad=3)\n# plt.show()\n_ = funding_count_yr.index\n_ = funding_count_yr['Number of Fundings']\n_ = funding_count_qtr.index\n_ = funding_count_qtr['Number of Fundings(Qtr)']\n_ = funding_total_qtr['QtrMonth']\n_ = funding_total_yr.index\n_ = funding_total_yr['Total Funding(USD-Bn)']\n_ = funding_total_qtr.index\n_ = funding_total_qtr['Total Fundings(Qtr USD-Bn)']\n_ = funding_total_qtr['QtrMonth']",
+      "rewrite-ns": 2908749,
+      "overhead-ns": 2908749,
+      "exec-ns": 929766,
+      "total-ns": 3838515,
+      "patts-hit": {},
+      "rewritten": "_ = funding_count_yr.index\n_ = funding_count_yr['Number of Fundings']\n_ = funding_count_qtr.index\n_ = funding_count_qtr['Number of Fundings(Qtr)']\n_ = funding_total_qtr['QtrMonth']\n_ = funding_total_yr.index\n_ = funding_total_yr['Total Funding(USD-Bn)']\n_ = funding_total_qtr.index\n_ = funding_total_qtr['Total Fundings(Qtr USD-Bn)']\n_ = funding_total_qtr['QtrMonth']\n"
+    },
+    {
+      "raw": "fundings_count_city = pd.DataFrame(startup_data['CityLocation'].value_counts().sort_values(ascending=False)[:10])\nfundings_count_city.rename(columns={'CityLocation':'Number of Fundings by City'}, inplace=True)\nfundings_count_city.head()",
+      "rewrite-ns": 1896330,
+      "overhead-ns": 1896330,
+      "exec-ns": 4248531,
+      "total-ns": 6144861,
+      "patts-hit": {},
+      "rewritten": "fundings_count_city = pd.DataFrame(startup_data['CityLocation'].\n    value_counts().sort_values(ascending=False)[:10])\nfundings_count_city.rename(columns={'CityLocation':\n    'Number of Fundings by City'}, inplace=True)\nfundings_count_city.head()\n"
+    },
+    {
+      "raw": "funding_total_city = pd.DataFrame(startup_data.groupby('CityLocation')['NewAmountUSD'].sum()).sort_values(by=\"NewAmountUSD\", ascending=False)[:15]\nfunding_total_city.rename(columns={'NewAmountUSD':'Total Funding by City(USD-Bn)'}, inplace=True)\nfunding_total_city.head()",
+      "rewrite-ns": 2053194,
+      "overhead-ns": 2053194,
+      "exec-ns": 5346074,
+      "total-ns": 7399268,
+      "patts-hit": {},
+      "rewritten": "funding_total_city = pd.DataFrame(startup_data.groupby('CityLocation')[\n    'NewAmountUSD'].sum()).sort_values(by='NewAmountUSD', ascending=False)[:15]\nfunding_total_city.rename(columns={'NewAmountUSD':\n    'Total Funding by City(USD-Bn)'}, inplace=True)\nfunding_total_city.head()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(25, 10))\n\n# sns.barplot(x=fundings_count_city.index, y=fundings_count_city['Number of Fundings by City'], data=fundings_count_city, ax=axes[0])\n# sns.barplot(x=funding_total_city.index, y=funding_total_city['Total Funding by City(USD-Bn)'], data=funding_total_city, ax=axes[1]).set_xticklabels(rotation=90, labels=funding_total_city.index)\n\n# fig.tight_layout(pad=0.5)\n# plt.show()\n_ = fundings_count_city.index\n_ = fundings_count_city['Number of Fundings by City']\n_ = funding_total_city.index\n_ = funding_total_city['Total Funding by City(USD-Bn)']\n_ = funding_total_city.index",
+      "rewrite-ns": 1487499,
+      "overhead-ns": 1487499,
+      "exec-ns": 586812,
+      "total-ns": 2074311,
+      "patts-hit": {},
+      "rewritten": "_ = fundings_count_city.index\n_ = fundings_count_city['Number of Fundings by City']\n_ = funding_total_city.index\n_ = funding_total_city['Total Funding by City(USD-Bn)']\n_ = funding_total_city.index\n"
+    },
+    {
+      "raw": "fundings_count_industry = pd.DataFrame(startup_data['IndustryVertical'].value_counts().sort_values(ascending=False))[:15]\nfundings_count_industry.rename(columns={'IndustryVertical':'Number of Fundings by Industry'}, inplace=True)\nfundings_count_industry.head()",
+      "rewrite-ns": 1787321,
+      "overhead-ns": 1787321,
+      "exec-ns": 4422142,
+      "total-ns": 6209463,
+      "patts-hit": {},
+      "rewritten": "fundings_count_industry = pd.DataFrame(startup_data['IndustryVertical'].\n    value_counts().sort_values(ascending=False))[:15]\nfundings_count_industry.rename(columns={'IndustryVertical':\n    'Number of Fundings by Industry'}, inplace=True)\nfundings_count_industry.head()\n"
+    },
+    {
+      "raw": "funding_total_industry = pd.DataFrame(startup_data.groupby('IndustryVertical')['NewAmountUSD'].sum()).sort_values(by=\"NewAmountUSD\", ascending=False)[:15]\nfunding_total_industry.rename(columns={'NewAmountUSD':'Total Funding by Industry(USD-Bn)'}, inplace=True)\nfunding_total_industry.head()",
+      "rewrite-ns": 2025599,
+      "overhead-ns": 2025599,
+      "exec-ns": 5936728,
+      "total-ns": 7962327,
+      "patts-hit": {},
+      "rewritten": "funding_total_industry = pd.DataFrame(startup_data.groupby(\n    'IndustryVertical')['NewAmountUSD'].sum()).sort_values(by=\n    'NewAmountUSD', ascending=False)[:15]\nfunding_total_industry.rename(columns={'NewAmountUSD':\n    'Total Funding by Industry(USD-Bn)'}, inplace=True)\nfunding_total_industry.head()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(25, 15))\n\n# sns.barplot(x=fundings_count_industry.index, y=fundings_count_industry['Number of Fundings by Industry'], data=fundings_count_industry, ax=axes[0]).set_xticklabels(rotation=90, labels=fundings_count_industry.index)\n# sns.barplot(x=funding_total_industry.index, y=funding_total_industry['Total Funding by Industry(USD-Bn)'], data=funding_total_industry, ax=axes[1]).set_xticklabels(rotation=90, labels=funding_total_industry.index)\n\n# fig.tight_layout(pad=1)\n# #plt.xticks(rotation=90)\n# plt.show()\n_ = fundings_count_industry.index\n_ = fundings_count_industry['Number of Fundings by Industry']\n_ = fundings_count_industry.index\n_ = funding_total_industry.index\n_ = funding_total_industry['Total Funding by Industry(USD-Bn)']\n_ = funding_total_industry.index",
+      "rewrite-ns": 1722036,
+      "overhead-ns": 1722036,
+      "exec-ns": 641035,
+      "total-ns": 2363071,
+      "patts-hit": {},
+      "rewritten": "_ = fundings_count_industry.index\n_ = fundings_count_industry['Number of Fundings by Industry']\n_ = fundings_count_industry.index\n_ = funding_total_industry.index\n_ = funding_total_industry['Total Funding by Industry(USD-Bn)']\n_ = funding_total_industry.index\n"
+    },
+    {
+      "raw": "funding_count_investor = pd.DataFrame(startup_data['InvestorsName'].value_counts()).sort_values(by='InvestorsName', ascending=False)[:10]\nfunding_count_investor.rename(columns={'InvestorsName': 'Number of Investments by Investor'}, inplace=True)\nfunding_count_investor.drop(funding_count_investor[funding_count_investor.index == 'Undisclosed Investors'].index, inplace=True)\nfunding_count_investor.head()",
+      "rewrite-ns": 2669429,
+      "overhead-ns": 2669429,
+      "exec-ns": 5679750,
+      "total-ns": 8349179,
+      "patts-hit": {},
+      "rewritten": "funding_count_investor = pd.DataFrame(startup_data['InvestorsName'].\n    value_counts()).sort_values(by='InvestorsName', ascending=False)[:10]\nfunding_count_investor.rename(columns={'InvestorsName':\n    'Number of Investments by Investor'}, inplace=True)\nfunding_count_investor.drop(funding_count_investor[funding_count_investor.\n    index == 'Undisclosed Investors'].index, inplace=True)\nfunding_count_investor.head()\n"
+    },
+    {
+      "raw": "funding_total_investor = pd.DataFrame(startup_data.groupby(['InvestorsName'])['NewAmountUSD'].sum()).sort_values(by=\"NewAmountUSD\", ascending=False)[:15]\nfunding_total_investor.rename(columns={'NewAmountUSD':'Total Funding by Investor(USD-Bn)'}, inplace=True)\nfunding_total_investor.head()",
+      "rewrite-ns": 2109760,
+      "overhead-ns": 2109760,
+      "exec-ns": 6981316,
+      "total-ns": 9091076,
+      "patts-hit": {},
+      "rewritten": "funding_total_investor = pd.DataFrame(startup_data.groupby(['InvestorsName'\n    ])['NewAmountUSD'].sum()).sort_values(by='NewAmountUSD', ascending=False)[:\n    15]\nfunding_total_investor.rename(columns={'NewAmountUSD':\n    'Total Funding by Investor(USD-Bn)'}, inplace=True)\nfunding_total_investor.head()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(25, 15))\n\n# sns.barplot(x=funding_count_investor.index, y=funding_count_investor['Number of Investments by Investor'], data=funding_count_investor, ax=axes[0]).set_xticklabels(rotation=90, labels=funding_count_investor.index)\n# sns.barplot(x=funding_total_investor.index, y=funding_total_investor['Total Funding by Investor(USD-Bn)'], data=funding_total_investor, ax=axes[1]).set_xticklabels(rotation=90, labels=funding_total_investor.index)\n\n# fig.tight_layout(pad=1)\n# plt.show()\n_ = funding_count_investor.index\n_ = funding_count_investor['Number of Investments by Investor']\n_ = funding_count_investor.index\n_ = funding_total_investor.index\n_ = funding_total_investor['Total Funding by Investor(USD-Bn)']\n_ = funding_total_investor.index",
+      "rewrite-ns": 1751443,
+      "overhead-ns": 1751443,
+      "exec-ns": 621886,
+      "total-ns": 2373329,
+      "patts-hit": {},
+      "rewritten": "_ = funding_count_investor.index\n_ = funding_count_investor['Number of Investments by Investor']\n_ = funding_count_investor.index\n_ = funding_total_investor.index\n_ = funding_total_investor['Total Funding by Investor(USD-Bn)']\n_ = funding_total_investor.index\n"
+    },
+    {
+      "raw": "startup_data[startup_data['InvestorsName'].isin(['Westbridge Capital', 'Softbank'])]",
+      "rewrite-ns": 810871,
+      "overhead-ns": 810871,
+      "exec-ns": 9333877,
+      "total-ns": 10144748,
+      "patts-hit": {},
+      "rewritten": "startup_data[startup_data['InvestorsName'].isin(['Westbridge Capital',\n    'Softbank'])]\n"
+    },
+    {
+      "raw": "funding_count_company = pd.DataFrame(startup_data['StartupName'].value_counts()).sort_values(by='StartupName', ascending=False)[:15]\nfunding_count_company.rename(columns={'StartupName': 'Number of Investments by Investor'}, inplace=True)\nfunding_count_company.head()",
+      "rewrite-ns": 1863932,
+      "overhead-ns": 1863932,
+      "exec-ns": 5115258,
+      "total-ns": 6979190,
+      "patts-hit": {},
+      "rewritten": "funding_count_company = pd.DataFrame(startup_data['StartupName'].value_counts()\n    ).sort_values(by='StartupName', ascending=False)[:15]\nfunding_count_company.rename(columns={'StartupName':\n    'Number of Investments by Investor'}, inplace=True)\nfunding_count_company.head()\n"
+    },
+    {
+      "raw": "funding_total_company = pd.DataFrame(startup_data.groupby('StartupName')['NewAmountUSD'].sum()).sort_values(by='NewAmountUSD', ascending=False)[:15]\nfunding_total_company.rename(columns={'NewAmountUSD': \"Total amount Raised by Startup (USD-Bn)\"}, inplace=True)\nfunding_total_company.head()",
+      "rewrite-ns": 2036866,
+      "overhead-ns": 2036866,
+      "exec-ns": 6915456,
+      "total-ns": 8952322,
+      "patts-hit": {},
+      "rewritten": "funding_total_company = pd.DataFrame(startup_data.groupby('StartupName')[\n    'NewAmountUSD'].sum()).sort_values(by='NewAmountUSD', ascending=False)[:15]\nfunding_total_company.rename(columns={'NewAmountUSD':\n    'Total amount Raised by Startup (USD-Bn)'}, inplace=True)\nfunding_total_company.head()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(25, 15))\n\n# sns.barplot(x=funding_count_company.index, y=funding_count_company['Number of Investments by Investor'], data=funding_count_company, ax=axes[0]).set_xticklabels(rotation=90, labels=funding_count_company.index)\n# sns.barplot(x=funding_total_company.index, y=funding_total_company['Total amount Raised by Startup (USD-Bn)'], data=funding_total_company, ax=axes[1]).set_xticklabels(rotation=90, labels=funding_total_company.index)\n\n# fig.tight_layout(pad=1)\n# plt.show()\n_ = funding_count_company.index\n_ = funding_count_company['Number of Investments by Investor']\n_ = funding_count_company.index\n_ = funding_total_company.index\n_ = funding_total_company['Total amount Raised by Startup (USD-Bn)']\n_ = funding_total_company.index",
+      "rewrite-ns": 1761938,
+      "overhead-ns": 1761938,
+      "exec-ns": 641517,
+      "total-ns": 2403455,
+      "patts-hit": {},
+      "rewritten": "_ = funding_count_company.index\n_ = funding_count_company['Number of Investments by Investor']\n_ = funding_count_company.index\n_ = funding_total_company.index\n_ = funding_total_company['Total amount Raised by Startup (USD-Bn)']\n_ = funding_total_company.index\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(25,8))\n# sns.distplot(startup_data.loc[startup_data['NewAmountUSD']<=10000000.0, 'NewAmountUSD'])\n# plt.show()\n_ = startup_data.loc[startup_data['NewAmountUSD']<=10000000.0, 'NewAmountUSD']",
+      "rewrite-ns": 879968,
+      "overhead-ns": 879968,
+      "exec-ns": 725243,
+      "total-ns": 1605211,
+      "patts-hit": {},
+      "rewritten": "_ = startup_data.loc[startup_data['NewAmountUSD'] <= 10000000.0, 'NewAmountUSD'\n    ]\n"
+    },
+    {
+      "raw": "funding_average = startup_data['NewAmountUSD'].mean()\nfunding_meadian = startup_data['NewAmountUSD'].median()\nprint(funding_average, funding_meadian)",
+      "rewrite-ns": 1363470,
+      "overhead-ns": 1363470,
+      "exec-ns": 1005919,
+      "total-ns": 2369389,
+      "patts-hit": {},
+      "rewritten": "funding_average = startup_data['NewAmountUSD'].mean()\nfunding_meadian = startup_data['NewAmountUSD'].median()\nprint(funding_average, funding_meadian)\n"
+    }
+  ],
+  "total-time-in-sec": 0.31233556,
+  "max-disk-in-mb": 0
+}

@@ -1,0 +1,170 @@
+{
+  "max-mem-in-mb": 124,
+  "max-mem-in-mb2": 127,
+  "cells": [
+    {
+      "raw": "# importing libraries\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\nfrom datetime import datetime # datetime processing\n\n# Data visualisation\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n\n# setting path of the dataset\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 475011
+    },
+    {
+      "raw": "melb_house = pd.read_csv(\"./input/melb_data.scaled.csv\")\n\n# checking the columns\nmelb_house.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 42307361
+    },
+    {
+      "raw": "melb_house.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 336315
+    },
+    {
+      "raw": "melb_house.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 18008401
+    },
+    {
+      "raw": "# checking for unique entries\n\nunique_val = []\nfor i in melb_house.columns:\n    u = melb_house[i].nunique()\n    unique_val.append(u)\n    \npd.DataFrame({\"No. of unique values\": unique_val}, index=melb_house.columns)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 9477580
+    },
+    {
+      "raw": "# Working dataset\ndataset = melb_house.copy()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 920644
+    },
+    {
+      "raw": "# plot of missing value\n# ALEX: remove plotting\n# plt.figure(figsize=(9,5))\n# sns.heatmap(dataset.isnull(),yticklabels=False, cbar=False, cmap=\"Paired\");\n# plt.title(\"Heatmap of Missing Values\");\n_ = dataset.isnull()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 12461334
+    },
+    {
+      "raw": "# Features with missing values\nmiss = dataset.isnull().sum().sort_values(ascending = False).head(5)\nmiss_per = (miss/len(dataset))*100\n\n# Percentage of missing values\npd.DataFrame({'No. missing values': miss, '% of missind data': miss_per.values})",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 14235422
+    },
+    {
+      "raw": "dataset['Car'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 871162
+    },
+    {
+      "raw": "# Filling null value\ndataset['Car'].fillna(0, inplace = True)\n\n# confimation after filling the null values\nprint(\"Null values before replacement :\", melb_house['Car'].isnull().sum())\nprint(\"Null values after replacement :\", dataset['Car'].isnull().sum())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1388119
+    },
+    {
+      "raw": "dataset['CouncilArea'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1247986
+    },
+    {
+      "raw": "# Filling the null value \ndataset['CouncilArea'].fillna('Unavailable', inplace = True)\n\n\n# confimation after filling the null values\nprint(\"Null values before replacement :\", melb_house['CouncilArea'].isnull().sum())\nprint(\"Null values after replacement :\", dataset['CouncilArea'].isnull().sum())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2811851
+    },
+    {
+      "raw": "# Filling the null value \ndataset['YearBuilt'].fillna(\"Unknown\", inplace=True)\n\n# confimation after filling the null values\nprint(\"Null values before replacement :\", melb_house['YearBuilt'].isnull().sum())\nprint(\"Null values after replacement :\", dataset['YearBuilt'].isnull().sum())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2867396
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize = (5, 5))\n# sns.distplot(dataset['BuildingArea']);\n_ = dataset['BuildingArea']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 358980
+    },
+    {
+      "raw": "# Filling the null value \ndataset['BuildingArea'].fillna(0, inplace = True)\n\n# confimation after filling the null values\nprint(\"Null values before replacement :\", melb_house['BuildingArea'].isnull().sum())\nprint(\"Null values after replacement :\", dataset['BuildingArea'].isnull().sum())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1399744
+    },
+    {
+      "raw": "# log transformation of price\ndataset['Price_trans'] = np.log(dataset['Price'])\n\n# plot of price\n# ALEX: remove plotting\n# plt.figure(figsize=(10, 5))\n# plt.subplots_adjust(wspace=0.5)\n# plt.suptitle(\"Distribution of Price\", fontsize=14)\n\n# plt.subplot(1,2,1)\n# p1 = sns.kdeplot(dataset['Price']);\n# p1.title.set_text(\"Before Transfromation\")\n\n# plt.subplot(1,2,2)\n# p2 = sns.kdeplot(dataset['Price_trans']);\n# p2.title.set_text(\"After log Transformation\")\n_ = dataset['Price']\n_ = dataset['Price_trans']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1199697
+    },
+    {
+      "raw": "# Grouping the numerical data\nnum =  dataset.select_dtypes(exclude=\"object\")\nnum = num.drop(['Price'], axis=1)\n\n# Distributions of numrical data\n# ALEX: remove plotting\n# plt.figure(figsize=(15, 13))\n# plt.subplots_adjust(hspace=0.4, wspace=0.3)\n\n# j=1\n\nfor i in list(num.columns):\n# ALEX: remove plotting\n#     plt.subplot(4,3,j)\n#     sns.distplot(dataset[i])\n#     j+=1\n    _ = dataset[i]\n    \n# ALEX: remove plotting\n# plt.suptitle(\"Distribution of Numerical Data\", fontsize=15);\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3994143
+    },
+    {
+      "raw": "\n# ALEX: remove plotting\n# plt.figure(figsize=(15, 5))\n# plt.subplots_adjust(wspace=0.5)\n\n# plt.subplot(1,2,1)\n# ax1 = sns.countplot(x=dataset['Type'], palette='Accent');\n# ax1.title.set_text(\"Plot of House Type\")\n\n# plt.subplot(1,2,2)\n# ax2= sns.countplot(x=dataset['Method'], palette='Accent');\n# ax2.title.set_text(\"Plot of Method of Selling\")\n_ = dataset['Type']\n_ = dataset['Method']\n    ",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 493284
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10, 5))\n# sns.countplot(y = dataset['Regionname']);\n# plt.ylabel(\"Region Name\", fontsize=12);\n# plt.xlabel(\"Count\", fontsize=12);\n_ = dataset['Regionname']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 345982
+    },
+    {
+      "raw": "# checking for top 10 seller\n# ALEX: remove plotting\n# dataset['SellerG'].value_counts().head(10).plot(kind='bar', color='brown');\n_ = dataset['SellerG'].value_counts().head(10)\n\n# plot for top seller\n# ALEX: remove plotting\n# plt.title(\"Top 10 Estate Agents\", fontsize=14);",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1419997
+    },
+    {
+      "raw": "# coverting date into datetime format\ndataset['Date'] = pd.to_datetime(dataset['Date'])\nyear = dataset['Date'].map(lambda x: datetime.strftime(x, '%Y'))\ndataset['year'] = year\nmonth = dataset['Date'].map(lambda x: datetime.strftime(x, '%b'))\ndataset['month'] = month\n\n# plot of each month\n# ALEX: remove plotting\n# plt.figure(figsize = (12, 4))\n# sns.countplot(x=dataset['month'], hue=dataset['year'], palette='Set1');\n_ = dataset['month']\n_ = dataset['year']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 91926721
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10, 5))\n# sns.boxplot(x = 'Rooms', y = \"Price_trans\", data=dataset);\n# plt.ylabel(\"Price\");",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 189050
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 5))\n# plt.subplots_adjust(wspace=0.3)\n\n# plt.subplot(1,2,1)\n# sns.boxplot(x = 'Type', y = \"Price_trans\", data=dataset, palette='Set3');\n# plt.ylabel(\"Price\");\n\n# plt.subplot(1,2,2)\n# sns.boxplot(x = 'Method', y = \"Price_trans\", data=dataset, palette='Set3');\n# plt.ylabel(\"Price\");",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 217615
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 5))\n# sns.boxenplot(x = 'Car', y = \"Price_trans\", data=dataset);\n# plt.ylabel(\"Price\");",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 168973
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.lmplot(x=\"Landsize\", y='Price_trans', data=dataset);\n# plt.ylabel(\"Price\");\n# plt.xticks(rotation=15);",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 164606
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.scatterplot(x='Distance', y='Price_trans', data=dataset);\n# plt.ylabel(\"Price\");",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 153703
+    },
+    {
+      "raw": "# Dataset of Metropolitan area\nrm = dataset[dataset['Regionname'].map(lambda x: 'Metropolitan' in x)]\n\n# Dataset of Victoria area\nrv = dataset[dataset['Regionname'].map(lambda x: 'Victoria' in x)]\n\n# plots of both region\n# ALEX: remove plotting\n# plt.figure(figsize=(15, 5))\n\n# plt.subplot(1,2,1)\n# ar1 = sns.scatterplot(x='Distance', y='Price_trans', data=rm, color='orange');\n# plt.ylabel(\"Price\");\n# ar1.title.set_text(\"Metropolitan\");\n\n# plt.subplot(1,2,2)\n# ar2 = sns.scatterplot(x='Distance', y='Price_trans', data=rv, color=\"green\");\n# plt.ylabel(\"Price\");\n# ar2.title.set_text('Victoria');",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 10510760
+    }
+  ],
+  "total-time-in-sec": 0.219951837,
+  "max-disk-in-mb": 0
+}

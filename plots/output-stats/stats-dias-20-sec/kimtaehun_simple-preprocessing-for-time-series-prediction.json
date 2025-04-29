@@ -1,0 +1,188 @@
+{
+  "max-mem-in-mb": 1389,
+  "max-mem-in-mb2": 2587,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np",
+      "rewrite-ns": 682362,
+      "overhead-ns": 682362,
+      "exec-ns": 388116,
+      "total-ns": 1070478,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n"
+    },
+    {
+      "raw": "#load dataset\n# Alex: update paths\nproteins = pd.read_csv(\"./input/train_proteins.scaled.csv\")\npeptides = pd.read_csv(\"./input/train_peptides.scaled.csv\")\nclinical = pd.read_csv(\"./input/train_clinical_data.scaled.csv\")",
+      "rewrite-ns": 1298166,
+      "overhead-ns": 1298166,
+      "exec-ns": 2032509401,
+      "total-ns": 2033807567,
+      "patts-hit": {},
+      "rewritten": "proteins = pd.read_csv('./input/train_proteins.scaled.csv')\npeptides = pd.read_csv('./input/train_peptides.scaled.csv')\nclinical = pd.read_csv('./input/train_clinical_data.scaled.csv')\n"
+    },
+    {
+      "raw": "print('proteins shape:             ', proteins.shape)\nprint('peptides shape:             ', peptides.shape)\nprint('clinical shape:             ', clinical.shape)",
+      "rewrite-ns": 1033773,
+      "overhead-ns": 1033773,
+      "exec-ns": 429895,
+      "total-ns": 1463668,
+      "patts-hit": {},
+      "rewritten": "print('proteins shape:             ', proteins.shape)\nprint('peptides shape:             ', peptides.shape)\nprint('clinical shape:             ', clinical.shape)\n"
+    },
+    {
+      "raw": "proteins[proteins['patient_id'] == 55]['visit_month'].value_counts()",
+      "rewrite-ns": 706642,
+      "overhead-ns": 706642,
+      "exec-ns": 5982646,
+      "total-ns": 6689288,
+      "patts-hit": {},
+      "rewritten": "proteins[proteins['patient_id'] == 55]['visit_month'].value_counts()\n"
+    },
+    {
+      "raw": "peptides[peptides['patient_id'] == 55]['visit_month'].value_counts()",
+      "rewrite-ns": 677614,
+      "overhead-ns": 677614,
+      "exec-ns": 12941583,
+      "total-ns": 13619197,
+      "patts-hit": {},
+      "rewritten": "peptides[peptides['patient_id'] == 55]['visit_month'].value_counts()\n"
+    },
+    {
+      "raw": "# merge proteins and peptides dataset based on 'visit_id' and 'UniPort'\ndf_all = proteins.merge(peptides[['visit_id', 'UniProt', 'Peptide','PeptideAbundance']], on = ['visit_id','UniProt'], how = 'left')",
+      "rewrite-ns": 951888,
+      "overhead-ns": 951888,
+      "exec-ns": 2103212649,
+      "total-ns": 2104164537,
+      "patts-hit": {},
+      "rewritten": "df_all = proteins.merge(peptides[['visit_id', 'UniProt', 'Peptide',\n    'PeptideAbundance']], on=['visit_id', 'UniProt'], how='left')\n"
+    },
+    {
+      "raw": "def summary(df):\n    print(f'data shape: {df.shape}')\n    summ = pd.DataFrame(df.dtypes, columns=['data type'])\n    summ['#missing'] = df.isnull().sum().values * 100\n    summ['%missing'] = df.isnull().sum().values / len(df)\n    summ['#unique'] = df.nunique().values\n    desc = pd.DataFrame(df.describe(include='all').transpose())\n    summ['min'] = desc['min'].values\n    summ['max'] = desc['max'].values\n    summ['first value'] = df.loc[0].values\n    summ['second value'] = df.loc[1].values\n    summ['third value'] = df.loc[2].values\n    \n    return summ",
+      "rewrite-ns": 5142493,
+      "overhead-ns": 5142493,
+      "exec-ns": 975515,
+      "total-ns": 6118008,
+      "patts-hit": {},
+      "rewritten": "def summary(df):\n    print(f'data shape: {df.shape}')\n    summ = pd.DataFrame(df.dtypes, columns=['data type'])\n    summ['#missing'] = df.isnull().sum().values * 100\n    summ['%missing'] = df.isnull().sum().values / len(df)\n    summ['#unique'] = df.nunique().values\n    desc = pd.DataFrame(df.describe(include='all').transpose())\n    summ['min'] = desc['min'].values\n    summ['max'] = desc['max'].values\n    summ['first value'] = df.loc[0].values\n    summ['second value'] = df.loc[1].values\n    summ['third value'] = df.loc[2].values\n    return summ\n"
+    },
+    {
+      "raw": "summary(df_all) # .style.background_gradient(cmap='YlOrBr')",
+      "rewrite-ns": 270187,
+      "overhead-ns": 280634,
+      "exec-ns": 14513525692,
+      "total-ns": 14513795879,
+      "patts-hit": {},
+      "rewritten": "summary(df_all)\n"
+    },
+    {
+      "raw": "# group by uniprot\ndf_by_uniprot = df_all.groupby(['visit_id','UniProt'])['NPX'].mean().reset_index()",
+      "rewrite-ns": 911218,
+      "overhead-ns": 911218,
+      "exec-ns": 1342492979,
+      "total-ns": 1343404197,
+      "patts-hit": {},
+      "rewritten": "df_by_uniprot = df_all.groupby(['visit_id', 'UniProt'])['NPX'].mean(\n    ).reset_index()\n"
+    },
+    {
+      "raw": "# group by peptides\ndf_by_peptide = df_all.groupby(['visit_id','Peptide'])['PeptideAbundance'].mean().reset_index()",
+      "rewrite-ns": 834770,
+      "overhead-ns": 834770,
+      "exec-ns": 1689108489,
+      "total-ns": 1689943259,
+      "patts-hit": {},
+      "rewritten": "df_by_peptide = df_all.groupby(['visit_id', 'Peptide'])['PeptideAbundance'\n    ].mean().reset_index()\n"
+    },
+    {
+      "raw": "# pivot groupby table for uniprot dataset\ndf_uniprot = df_by_uniprot.pivot(index='visit_id',columns = 'UniProt', values = 'NPX').rename_axis(columns=None).reset_index()",
+      "rewrite-ns": 900709,
+      "overhead-ns": 900709,
+      "exec-ns": 32685731,
+      "total-ns": 33586440,
+      "patts-hit": {},
+      "rewritten": "df_uniprot = df_by_uniprot.pivot(index='visit_id', columns='UniProt',\n    values='NPX').rename_axis(columns=None).reset_index()\n"
+    },
+    {
+      "raw": "# pivot groupby table for pepdite dataset\ndf_peptide = df_by_peptide.pivot(index='visit_id',columns = 'Peptide', values = 'PeptideAbundance').rename_axis(columns=None).reset_index()",
+      "rewrite-ns": 840332,
+      "overhead-ns": 840332,
+      "exec-ns": 173741219,
+      "total-ns": 174581551,
+      "patts-hit": {},
+      "rewritten": "df_peptide = df_by_peptide.pivot(index='visit_id', columns='Peptide',\n    values='PeptideAbundance').rename_axis(columns=None).reset_index()\n"
+    },
+    {
+      "raw": "### let's see how these talbe looks like",
+      "rewrite-ns": 22578,
+      "overhead-ns": 22578,
+      "exec-ns": 132131,
+      "total-ns": 154709,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "df_uniprot.sample(5)",
+      "rewrite-ns": 146912,
+      "overhead-ns": 146912,
+      "exec-ns": 45455345,
+      "total-ns": 45602257,
+      "patts-hit": {},
+      "rewritten": "df_uniprot.sample(5)\n"
+    },
+    {
+      "raw": "df_peptide.sample(5)",
+      "rewrite-ns": 113688,
+      "overhead-ns": 113688,
+      "exec-ns": 44436500,
+      "total-ns": 44550188,
+      "patts-hit": {},
+      "rewritten": "df_peptide.sample(5)\n"
+    },
+    {
+      "raw": "# add patient id and visit month\ndf_uniprot[['patient_id','visit_month']] = df_uniprot.visit_id.str.split(\"_\", expand=True)\ndf_peptide[['patient_id','visit_month']] = df_peptide.visit_id.str.split(\"_\", expand=True)",
+      "rewrite-ns": 1375175,
+      "overhead-ns": 1375175,
+      "exec-ns": 3326874,
+      "total-ns": 4702049,
+      "patts-hit": {},
+      "rewritten": "df_uniprot[['patient_id', 'visit_month']] = df_uniprot.visit_id.str.split('_',\n    expand=True)\ndf_peptide[['patient_id', 'visit_month']] = df_peptide.visit_id.str.split('_',\n    expand=True)\n"
+    },
+    {
+      "raw": "clinical.head(5)",
+      "rewrite-ns": 92023,
+      "overhead-ns": 92023,
+      "exec-ns": 6214433,
+      "total-ns": 6306456,
+      "patts-hit": {},
+      "rewritten": "clinical.head(5)\n"
+    },
+    {
+      "raw": "clinical.melt(id_vars=['visit_id', 'patient_id', 'visit_month', 'upd23b_clinical_state_on_medication'], \n                   var_name='updrs', value_name='rating')",
+      "rewrite-ns": 657627,
+      "overhead-ns": 657627,
+      "exec-ns": 10269391,
+      "total-ns": 10927018,
+      "patts-hit": {},
+      "rewritten": "clinical.melt(id_vars=['visit_id', 'patient_id', 'visit_month',\n    'upd23b_clinical_state_on_medication'], var_name='updrs', value_name=\n    'rating')\n"
+    },
+    {
+      "raw": "# to be continued....",
+      "rewrite-ns": 12783,
+      "overhead-ns": 12783,
+      "exec-ns": 69354,
+      "total-ns": 82137,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 11384,
+      "overhead-ns": 11384,
+      "exec-ns": 59782,
+      "total-ns": 71166,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 22.034640049,
+  "max-disk-in-mb": 0
+}

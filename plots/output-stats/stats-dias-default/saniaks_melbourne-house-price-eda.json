@@ -1,0 +1,298 @@
+{
+  "max-mem-in-mb": 125,
+  "max-mem-in-mb2": 128,
+  "cells": [
+    {
+      "raw": "#importing libraries\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib\n# from matplotlib import pyplot as plt\n# %matplotlib inline\npd.pandas.set_option('display.max_columns',None)\npd.pandas.set_option('display.max_rows',None)\nimport warnings\nwarnings.filterwarnings('ignore')",
+      "rewrite-ns": 1965828,
+      "overhead-ns": 1965828,
+      "exec-ns": 718105,
+      "total-ns": 2683933,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\npd.pandas.set_option('display.max_columns', None)\npd.pandas.set_option('display.max_rows', None)\nimport warnings\nwarnings.filterwarnings('ignore')\n"
+    },
+    {
+      "raw": "#loading dataset\ndata=pd.read_csv('./input/melb_data.scaled.csv')\ndf=data.copy()",
+      "rewrite-ns": 884699,
+      "overhead-ns": 884699,
+      "exec-ns": 42605653,
+      "total-ns": 43490352,
+      "patts-hit": {},
+      "rewritten": "data = pd.read_csv('./input/melb_data.scaled.csv')\ndf = data.copy()\n"
+    },
+    {
+      "raw": "df.head()",
+      "rewrite-ns": 120349,
+      "overhead-ns": 120349,
+      "exec-ns": 8318182,
+      "total-ns": 8438531,
+      "patts-hit": {},
+      "rewritten": "df.head()\n"
+    },
+    {
+      "raw": "df.describe().T",
+      "rewrite-ns": 451105,
+      "overhead-ns": 451105,
+      "exec-ns": 32860358,
+      "total-ns": 33311463,
+      "patts-hit": {},
+      "rewritten": "df.describe().T\n"
+    },
+    {
+      "raw": "df.info()",
+      "rewrite-ns": 116035,
+      "overhead-ns": 116035,
+      "exec-ns": 17419532,
+      "total-ns": 17535567,
+      "patts-hit": {},
+      "rewritten": "df.info()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,8))\n# sns.heatmap(df.isnull(), cbar=False,cmap=\"Greens\");\n_ = df.isnull()",
+      "rewrite-ns": 483709,
+      "overhead-ns": 483709,
+      "exec-ns": 12467525,
+      "total-ns": 12951234,
+      "patts-hit": {},
+      "rewritten": "_ = df.isnull()\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run with input scaling\n# df.drop(['BuildingArea','Address'],axis=1).head(5)\ndf.drop(['BuildingArea','Address'],axis=1,errors='ignore').head(5)",
+      "rewrite-ns": 943375,
+      "overhead-ns": 943375,
+      "exec-ns": 7985686,
+      "total-ns": 8929061,
+      "patts-hit": {},
+      "rewritten": "df.drop(['BuildingArea', 'Address'], axis=1, errors='ignore').head(5)\n"
+    },
+    {
+      "raw": "numerical_feature=[feature for feature in df.columns if df[feature].dtype !='object']\nprint('There are {} numerical features.'.format(len(numerical_feature)))\n\nyear=[feature for feature in numerical_feature if \"Yr\" in feature or \"Year\" in feature]\n\ndiscrete_feature=[feature for feature in numerical_feature if (df[feature].nunique())<25 and feature not in year+['Id']]\nprint('There are {} are discrete features'.format(len(discrete_feature)) )\n\ncontinuous_feature=[feature for feature in numerical_feature if feature not in discrete_feature and feature not in year+['Id']]\nprint('There are {} are continuous features'.format(len(continuous_feature)) )\n\ncat_feature=[feature for feature in df.columns if df[feature].dtypes=='object']\nprint('There are {} categorical features.'.format(len(cat_feature)))",
+      "rewrite-ns": 7810808,
+      "overhead-ns": 7810808,
+      "exec-ns": 4683135,
+      "total-ns": 12493943,
+      "patts-hit": {},
+      "rewritten": "numerical_feature = [feature for feature in df.columns if df[feature].dtype !=\n    'object']\nprint('There are {} numerical features.'.format(len(numerical_feature)))\nyear = [feature for feature in numerical_feature if 'Yr' in feature or \n    'Year' in feature]\ndiscrete_feature = [feature for feature in numerical_feature if df[feature]\n    .nunique() < 25 and feature not in year + ['Id']]\nprint('There are {} are discrete features'.format(len(discrete_feature)))\ncontinuous_feature = [feature for feature in numerical_feature if feature\n     not in discrete_feature and feature not in year + ['Id']]\nprint('There are {} are continuous features'.format(len(continuous_feature)))\ncat_feature = [feature for feature in df.columns if df[feature].dtypes ==\n    'object']\nprint('There are {} categorical features.'.format(len(cat_feature)))\n"
+    },
+    {
+      "raw": "type={'h':'house','u':'unit','t':'townhouse'}\ndf=df.replace({'Type':type})",
+      "rewrite-ns": 1122016,
+      "overhead-ns": 1122016,
+      "exec-ns": 4287484,
+      "total-ns": 5409500,
+      "patts-hit": {},
+      "rewritten": "type = {'h': 'house', 'u': 'unit', 't': 'townhouse'}\ndf = df.replace({'Type': type})\n"
+    },
+    {
+      "raw": "def outlier_function(df, col_name):\n    first_quartile = np.percentile(np.array(df[col_name].tolist()), 25)\n    third_quartile = np.percentile(np.array(df[col_name].tolist()), 75)\n    IQR = third_quartile - first_quartile\n                      \n    upper_limit = third_quartile+(3*IQR)\n    lower_limit = first_quartile-(3*IQR)\n    outlier_count = 0\n                      \n    for value in df[col_name].tolist():\n        if (value < lower_limit) | (value > upper_limit):\n            outlier_count +=1\n    return lower_limit, upper_limit, outlier_count\nfor feature in continuous_feature:\n    if outlier_function(df,feature)[2] > 1:\n        print('{}: {} outliers'.format(feature,outlier_function(df,feature)[2]))",
+      "rewrite-ns": 6477296,
+      "overhead-ns": 6477296,
+      "exec-ns": 49011129,
+      "total-ns": 55488425,
+      "patts-hit": {},
+      "rewritten": "def outlier_function(df, col_name):\n    first_quartile = np.percentile(np.array(df[col_name].tolist()), 25)\n    third_quartile = np.percentile(np.array(df[col_name].tolist()), 75)\n    IQR = third_quartile - first_quartile\n    upper_limit = third_quartile + 3 * IQR\n    lower_limit = first_quartile - 3 * IQR\n    outlier_count = 0\n    for value in df[col_name].tolist():\n        if (value < lower_limit) | (value > upper_limit):\n            outlier_count += 1\n    return lower_limit, upper_limit, outlier_count\nfor feature in continuous_feature:\n    if outlier_function(df, feature)[2] > 1:\n        print('{}: {} outliers'.format(feature, outlier_function(df,\n            feature)[2]))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,8))\ncorr=df[continuous_feature].corr()\n# ALEX: remove plotting\n# plt.title('Correlation heatmap of continuous features',fontsize=15)\n# sns.heatmap(corr);",
+      "rewrite-ns": 589231,
+      "overhead-ns": 589231,
+      "exec-ns": 5155698,
+      "total-ns": 5744929,
+      "patts-hit": {},
+      "rewritten": "corr = df[continuous_feature].corr()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, axarr = plt.subplots(2, 2, figsize=(12, 10))\n\n# sns.distplot(df['Price'],ax=axarr[0][0],color='blue',hist_kws=dict(edgecolor=\"k\", linewidth=2)).set_title('Distribution of Price')\n# sns.distplot(df['Distance'],ax=axarr[1][0],color='green',hist_kws=dict(edgecolor=\"k\", linewidth=2)).set_title('Distribution of Distance')\n# sns.distplot(np.log(df['Price']),ax=axarr[0][1],color='red',hist_kws=dict(edgecolor=\"k\", linewidth=2)).set_title('Distribution of Price(Transformed value on log scale)')\n# sns.distplot(df['Landsize'],ax=axarr[1][1],color='orange',hist_kws=dict(edgecolor=\"k\", linewidth=2)).set_title('Distribution of Landsize')\n# plt.subplots_adjust(hspace=.6)\n# sns.set_style('darkgrid')\n# sns.despine()\n\n_ = df['Price']\n_ = df['Distance']\n_ = np.log(df['Price'])\n_ = df['Landsize']",
+      "rewrite-ns": 1571780,
+      "overhead-ns": 1571780,
+      "exec-ns": 734183,
+      "total-ns": 2305963,
+      "patts-hit": {},
+      "rewritten": "_ = df['Price']\n_ = df['Distance']\n_ = np.log(df['Price'])\n_ = df['Landsize']\n"
+    },
+    {
+      "raw": "df['price_per_unit_area']=df['Price']/df['Landsize']",
+      "rewrite-ns": 784517,
+      "overhead-ns": 784517,
+      "exec-ns": 922417,
+      "total-ns": 1706934,
+      "patts-hit": {},
+      "rewritten": "df['price_per_unit_area'] = df['Price'] / df['Landsize']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,8))\n# sns.scatterplot(y=np.log(df['price_per_unit_area']),x=df['Distance'],data=df,hue='Regionname').set_title(\"Distance from property to CBD\",fontsize=20);\n_ = np.log(df['price_per_unit_area'])\n_ = df['Distance']",
+      "rewrite-ns": 966184,
+      "overhead-ns": 966184,
+      "exec-ns": 696142,
+      "total-ns": 1662326,
+      "patts-hit": {},
+      "rewritten": "_ = np.log(df['price_per_unit_area'])\n_ = df['Distance']\n"
+    },
+    {
+      "raw": "df[discrete_feature].head(3)",
+      "rewrite-ns": 569100,
+      "overhead-ns": 569100,
+      "exec-ns": 4284611,
+      "total-ns": 4853711,
+      "patts-hit": {},
+      "rewritten": "df[discrete_feature].head(3)\n"
+    },
+    {
+      "raw": "for feature in discrete_feature:\n    if outlier_function(df,feature)[2] > 1:\n        print('{}: {} outliers'.format(feature,outlier_function(df,feature)[2]))",
+      "rewrite-ns": 1686232,
+      "overhead-ns": 1686232,
+      "exec-ns": 24609764,
+      "total-ns": 26295996,
+      "patts-hit": {},
+      "rewritten": "for feature in discrete_feature:\n    if outlier_function(df, feature)[2] > 1:\n        print('{}: {} outliers'.format(feature, outlier_function(df,\n            feature)[2]))\n"
+    },
+    {
+      "raw": "df['Bedroom2']=df['Bedroom2'].astype('int')\ndf['Bathroom']=df['Bathroom'].astype('int')\ndf['Car']=df['Car'].astype('int',errors='ignore')\ndf['Car']=df['Car'].astype('int',errors='ignore')",
+      "rewrite-ns": 2885054,
+      "overhead-ns": 2885054,
+      "exec-ns": 3443058,
+      "total-ns": 6328112,
+      "patts-hit": {},
+      "rewritten": "df['Bedroom2'] = df['Bedroom2'].astype('int')\ndf['Bathroom'] = df['Bathroom'].astype('int')\ndf['Car'] = df['Car'].astype('int', errors='ignore')\ndf['Car'] = df['Car'].astype('int', errors='ignore')\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, axarr = plt.subplots(2, 2, figsize=(14,10))\n# fig.suptitle('Property features',fontsize=15)\n\n# sns.countplot(df['Rooms'],ax=axarr[0][0],palette='cubehelix').set_title('No. of Rooms')\n# sns.countplot(df['Bedroom2'],ax=axarr[1][0],palette='cubehelix').set_title('No. of Bedrooms')\n# sns.boxplot(x=df['Bedroom2'],y=df['Price'],ax=axarr[1][1],palette='husl').set_title('Price with respect to number of bedrooms')\n# sns.boxplot(x=df['Rooms'],y=df['Price'],ax=axarr[0][1],palette='husl').set_title('Price with respect to no. of rooms')\n\n# plt.subplots_adjust(hspace=.4)\n# sns.set_style('darkgrid')\n# sns.despine()\n_ = df['Rooms']\n_ = df['Bedroom2']\n_ = df['Bedroom2']\n_ = df['Price']\n_ = df['Rooms']\n_ = df['Price']",
+      "rewrite-ns": 1912885,
+      "overhead-ns": 1912885,
+      "exec-ns": 684484,
+      "total-ns": 2597369,
+      "patts-hit": {},
+      "rewritten": "_ = df['Rooms']\n_ = df['Bedroom2']\n_ = df['Bedroom2']\n_ = df['Price']\n_ = df['Rooms']\n_ = df['Price']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, axarr = plt.subplots(2, 2, figsize=(14, 10))\n# fig.suptitle('Property features',fontsize=15)\n\n# sns.countplot(df['Bathroom'],ax=axarr[0][0],palette='husl').set_title('No. of Bathrooms')\n# sns.violinplot(x= \"Bathroom\",y=\"Price\",data=df,palette=\"Set2\",ax=axarr[0][1]).set_title('No. of Bathrooms vs Price')\n# sns.countplot(df['Car'],ax=axarr[1][0],palette='husl').set_title('No.of Cars')\n# sns.boxenplot(x=\"Car\",y=\"Price\",data=df,palette=\"Set1\",ax=axarr[1][1]).set_title('No.of Cars vs Price');\n\n\n# plt.subplots_adjust(hspace=.4)\n# sns.set_style('darkgrid')\n# sns.despine()\n\n_ = df['Bathroom']\n_ = df['Car']",
+      "rewrite-ns": 699256,
+      "overhead-ns": 699256,
+      "exec-ns": 399160,
+      "total-ns": 1098416,
+      "patts-hit": {},
+      "rewritten": "_ = df['Bathroom']\n_ = df['Car']\n"
+    },
+    {
+      "raw": "df[cat_feature].head()",
+      "rewrite-ns": 507019,
+      "overhead-ns": 507019,
+      "exec-ns": 4548702,
+      "total-ns": 5055721,
+      "patts-hit": {},
+      "rewritten": "df[cat_feature].head()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# g=sns.countplot(df['CouncilArea'],data=df,palette='Set2')\n# g.set_xticklabels(g.get_xticklabels(), rotation=90)\n# g.set_title('No.of properties in each Council Area',fontsize=15);\n_ = df['CouncilArea']",
+      "rewrite-ns": 426708,
+      "overhead-ns": 426708,
+      "exec-ns": 369353,
+      "total-ns": 796061,
+      "patts-hit": {},
+      "rewritten": "_ = df['CouncilArea']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,8))\n# g=sns.stripplot(x=df['CouncilArea'],y=df['Price'],hue='Type',data=df,palette='Set1')\n# g.set_xticklabels(g.get_xticklabels(), rotation=90)\n# g.set_title('Preferred Council Area by Price',fontsize=15);\n_ = df['CouncilArea']\n_ = df['Price']",
+      "rewrite-ns": 709725,
+      "overhead-ns": 709725,
+      "exec-ns": 391502,
+      "total-ns": 1101227,
+      "patts-hit": {},
+      "rewritten": "_ = df['CouncilArea']\n_ = df['Price']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,6))\n# g=sns.countplot(df['Regionname'],hue='Type',data=df,palette='Set2')\n# g.set_xticklabels(g.get_xticklabels(), rotation=90)\n# g.set_title('Preferred region by property type',fontsize=15);\n\n_ = df['Regionname']",
+      "rewrite-ns": 407210,
+      "overhead-ns": 407210,
+      "exec-ns": 346922,
+      "total-ns": 754132,
+      "patts-hit": {},
+      "rewritten": "_ = df['Regionname']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,8))\ng=df.groupby(['Regionname'])['Price'].mean().sort_values()\n# ALEX: remove plotting\n# g=sns.boxplot(x='Regionname', y='Price', data=df,order=list(g.index),palette='cubehelix')\n# g=sns.stripplot(x='Regionname', y='Price', data=df,color='orange',jitter=0.2,size=2.5)\n# g.set_xticklabels(g.get_xticklabels(), rotation=90)\n# plt.title('Price with respect to Region',fontsize=15);\n_ = list(g.index)",
+      "rewrite-ns": 1317883,
+      "overhead-ns": 1317883,
+      "exec-ns": 1993556,
+      "total-ns": 3311439,
+      "patts-hit": {},
+      "rewritten": "g = df.groupby(['Regionname'])['Price'].mean().sort_values()\n_ = list(g.index)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, axs = plt.subplots(ncols=2,figsize=(15,6))\n\n# sns.boxplot(x=df['Method'],y=df['Price'],ax=axs[0],palette='cubehelix').set_title('Price vs Method')\n\n# sns.stripplot(x=df['Type'],y=df['Price'],ax=axs[1],palette='hls').set_title('Price vs Type');\n_ = df['Method']\n_ = df['Price']\n_ = df['Type']\n_ = df['Price']",
+      "rewrite-ns": 1331079,
+      "overhead-ns": 1331079,
+      "exec-ns": 527229,
+      "total-ns": 1858308,
+      "patts-hit": {},
+      "rewritten": "_ = df['Method']\n_ = df['Price']\n_ = df['Type']\n_ = df['Price']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, axarr = plt.subplots(2, 1, figsize=(12, 16))\n# fig.suptitle('Preferred Locations',fontsize=15)\n\n# sns.scatterplot(y=df['Lattitude'],x=df['Longtitude'],hue=df['Regionname'],palette='husl',ax=axarr[0]).set_title('Lattitude-Longitude, Regionname')\n# sns.scatterplot(y=df['Lattitude'],x=df['Longtitude'],hue=df['Type'],palette='Set1',ax=axarr[1]).set_title('Lattitude-Longitude,Type')\n# plt.show()\n_ = df['Lattitude']\n_ = df['Longtitude']\n_ = df['Regionname']\n_ = df['Lattitude']\n_ = df['Longtitude']\n_ = df['Type']",
+      "rewrite-ns": 1902491,
+      "overhead-ns": 1902491,
+      "exec-ns": 628235,
+      "total-ns": 2530726,
+      "patts-hit": {},
+      "rewritten": "_ = df['Lattitude']\n_ = df['Longtitude']\n_ = df['Regionname']\n_ = df['Lattitude']\n_ = df['Longtitude']\n_ = df['Type']\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run with input scaling\n# df=df.drop(index=9968,axis=1)\ndf=df.drop(index=9968,axis=1,errors='ignore')",
+      "rewrite-ns": 709142,
+      "overhead-ns": 709142,
+      "exec-ns": 3335666,
+      "total-ns": 4044808,
+      "patts-hit": {},
+      "rewritten": "df = df.drop(index=9968, axis=1, errors='ignore')\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, axarr = plt.subplots(2, 1, figsize=(12, 10))\n\n# fig.suptitle('Trend in Price over the years',fontsize=20)\n\n# sns.lineplot(x='YearBuilt',y='Price',data=df,hue='Type',palette='Set1',ax=axarr[0])\n\n# sns.lineplot(x='YearBuilt',y='Price',data=df,hue='Regionname',palette='Set1',ax=axarr[1]);\n",
+      "rewrite-ns": 21781,
+      "overhead-ns": 21781,
+      "exec-ns": 105911,
+      "total-ns": 127692,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "def d_date(date):\n    return(date[-7:])\ndf['Date']=df['Date'].apply(d_date)",
+      "rewrite-ns": 1311560,
+      "overhead-ns": 1311560,
+      "exec-ns": 4186563,
+      "total-ns": 5498123,
+      "patts-hit": {},
+      "rewritten": "def d_date(date):\n    return date[-7:]\ndf['Date'] = df['Date'].apply(d_date)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,8))\n# gg=sns.countplot(df['Date'],palette='hls',hue='Type',data=df)\n# gg.set_xticklabels(gg.get_xticklabels(), rotation=70)\n# gg.set_title('Month and year of highest sale (2016-2017)',fontsize=15);\n\n_ = df['Date']",
+      "rewrite-ns": 421329,
+      "overhead-ns": 421329,
+      "exec-ns": 596712,
+      "total-ns": 1018041,
+      "patts-hit": {},
+      "rewritten": "_ = df['Date']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,8))\ng=df.groupby(['SellerG','Type','Method']).Price.sum().sort_values(ascending=False).head(20)\n# ALEX: remove plotting\n# g.plot(kind='barh',color='orange',title='Top realtors by Type and Method')\n# plt.xlabel('Price');\n",
+      "rewrite-ns": 515253,
+      "overhead-ns": 515253,
+      "exec-ns": 17560191,
+      "total-ns": 18075444,
+      "patts-hit": {
+        "SortHead": 1
+      },
+      "rewritten": "g = dias.rewriter.sort_head(called_on=df.groupby(['SellerG', 'Type',\n    'Method']).Price.sum(), by=None, n=20, asc=False, orig=lambda _DIAS_x:\n    _DIAS_x.sort_values(ascending=False).head(20))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(16,10))\n# plt.title('Correlation heatmap', fontsize=20)\ncorr_matrix=df.corr()\nmask = np.zeros_like(corr_matrix)\nmask[np.triu_indices_from(mask)] = True\n# ALEX: remove plotting\n# sns.heatmap(corr_matrix,annot=True ,cbar = True,cmap=\"YlGnBu\",mask=mask);",
+      "rewrite-ns": 1397373,
+      "overhead-ns": 1397373,
+      "exec-ns": 9648257,
+      "total-ns": 11045630,
+      "patts-hit": {},
+      "rewritten": "corr_matrix = df.corr()\nmask = np.zeros_like(corr_matrix)\nmask[np.triu_indices_from(mask)] = True\n"
+    }
+  ],
+  "total-time-in-sec": 0.308543117,
+  "max-disk-in-mb": 0
+}

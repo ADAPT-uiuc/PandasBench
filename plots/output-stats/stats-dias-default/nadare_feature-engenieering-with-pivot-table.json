@@ -1,0 +1,179 @@
+{
+  "max-mem-in-mb": 737,
+  "max-mem-in-mb2": 1332,
+  "cells": [
+    {
+      "raw": "# ALEX: remove extra display code, path printing\n# from datetime import datetime\n# import os\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove ML code\n# from scipy.stats import skew\n\nfrom IPython.core.display import display\nfrom tqdm import tqdm\ntqdm.pandas()\n\n# ALEX: remove path printing\n# print(os.listdir(\"./input\"))",
+      "rewrite-ns": 858704,
+      "overhead-ns": 858704,
+      "exec-ns": 2795356,
+      "total-ns": 3654060,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\nfrom IPython.core.display import display\nfrom tqdm import tqdm\ntqdm.pandas()\n"
+    },
+    {
+      "raw": "# \u5192\u982d\u306epivot_table\u3092\u7528\u3044\u305f\u30d0\u30fc\u30b8\u30e7\u30f3\n# \u6b20\u640d\u5024\u304c\u542b\u307e\u308c\u308b\u3053\u3068\u306b\u6ce8\u610f\u3059\u308b\n\n# ALEX: remove extra display code\n# tick = datetime.now()\ntrain_df = pd.read_csv(\"./input/training_set.scaled.csv\", dtype={\"object_id\": np.uint32,\n                                                           \"mjd\": np.float64,\n                                                           \"passband\": np.uint8,\n                                                           \"flux\": np.float32,\n                                                           \"flux_err\": np.float32,\n                                                           \"detected\": np.uint8})\ntrain_meta_df = pd.read_csv('./input/training_set_metadata.scaled.csv')\n# ALEX: remove extra display code\n# tock = datetime.now()\n# print(\"load_data: {} ms\".format((tock - tick).seconds * 1000 + ((tock - tick).microseconds / 1000)))\n\n# tick = datetime.now()\n\n# pivot_table\u306eindex\u3092rank\u3092\u7528\u3044\u3066\u4f5c\u6210\u3059\u308b\ntrain_df[\"rank\"] = train_df.groupby([\"object_id\", \"passband\"])[\"mjd\"].rank()\n\nflux = train_df.pivot_table(columns=[\"object_id\", \"passband\"],\n                            index=\"rank\",\n                            values=\"flux\",\n                            aggfunc=\"mean\")\ndflux = train_df.pivot_table(columns=[\"object_id\", \"passband\"],\n                             index=\"rank\",\n                             values=\"flux_err\",\n                             aggfunc=\"mean\")\n\n# \u5217\u306bNaN\u304c\u542b\u307e\u308c\u308b\u306e\u3067\u6271\u3044\u306b\u6ce8\u610f\u3059\u308b\nflux_mean = np.sum(flux*np.square(flux/dflux), axis=0)/np.sum(np.square(flux/dflux), axis=0)\nflux_std = np.std(flux/flux_mean, ddof = 1, axis=0)\nflux_amp = (np.max(flux, axis=0) - np.min(flux, axis=0))/flux_mean\nflux_mad = np.nanmedian(np.abs((flux - np.nanmedian(flux, axis=0))/flux_mean), axis=0) # array\nflux_beyond = np.sum(np.abs(flux - flux_mean) > np.std(flux, ddof = 1, axis=0), axis=0)/flux.count()\n# ALEX: remove ML code\n# flux_skew = skew(flux, nan_policy=\"omit\", axis=0)  # masked_array\nflux_skew = 0.0\n\nresult_df = pd.concat([flux_mean.reset_index(name=\"flux_mean\"),\n                      flux_std.reset_index(name=\"flux_std\").iloc[:, 2:],\n                      flux_amp.reset_index(name=\"flux_amp\").iloc[:, 2:],\n                      flux_beyond.reset_index(name=\"flux_beyond\").iloc[:, 2:]], axis=1)\nresult_df[\"flux_mad\"] = flux_mad\nresult_df[\"flux_skew\"] = flux_skew\ncolnames = [\"flux_mean\", \"flux_std\", \"flux_amp\", \"flux_beyond\", \"flux_mad\", \"flux_skew\"]\n\nfor j in range(6):\n    train_meta_df = train_meta_df.merge(result_df.loc[result_df.passband == j, :]\n                                                 .rename(columns={colname: \"{}_{}\".format(colname, j) for colname in colnames})\n                                                 .drop(\"passband\", axis=1),\n                                        how=\"left\",\n                                        on=[\"object_id\"])\n# ALEX: remove extra display code\n# tock = datetime.now()\n# print(\"processing_time: {} sec\".format((tock - tick).seconds))\n\ntrain_meta_df.head()",
+      "rewrite-ns": 13104527,
+      "overhead-ns": 13104527,
+      "exec-ns": 2032806210,
+      "total-ns": 2045910737,
+      "patts-hit": {},
+      "rewritten": "train_df = pd.read_csv('./input/training_set.scaled.csv', dtype={\n    'object_id': np.uint32, 'mjd': np.float64, 'passband': np.uint8, 'flux':\n    np.float32, 'flux_err': np.float32, 'detected': np.uint8})\ntrain_meta_df = pd.read_csv('./input/training_set_metadata.scaled.csv')\ntrain_df['rank'] = train_df.groupby(['object_id', 'passband'])['mjd'].rank()\nflux = train_df.pivot_table(columns=['object_id', 'passband'], index='rank',\n    values='flux', aggfunc='mean')\ndflux = train_df.pivot_table(columns=['object_id', 'passband'], index=\n    'rank', values='flux_err', aggfunc='mean')\nflux_mean = np.sum(flux * np.square(flux / dflux), axis=0) / np.sum(np.\n    square(flux / dflux), axis=0)\nflux_std = np.std(flux / flux_mean, ddof=1, axis=0)\nflux_amp = (np.max(flux, axis=0) - np.min(flux, axis=0)) / flux_mean\nflux_mad = np.nanmedian(np.abs((flux - np.nanmedian(flux, axis=0)) /\n    flux_mean), axis=0)\nflux_beyond = np.sum(np.abs(flux - flux_mean) > np.std(flux, ddof=1, axis=0\n    ), axis=0) / flux.count()\nflux_skew = 0.0\nresult_df = pd.concat([flux_mean.reset_index(name='flux_mean'), flux_std.\n    reset_index(name='flux_std').iloc[:, 2:], flux_amp.reset_index(name=\n    'flux_amp').iloc[:, 2:], flux_beyond.reset_index(name='flux_beyond').\n    iloc[:, 2:]], axis=1)\nresult_df['flux_mad'] = flux_mad\nresult_df['flux_skew'] = flux_skew\ncolnames = ['flux_mean', 'flux_std', 'flux_amp', 'flux_beyond', 'flux_mad',\n    'flux_skew']\nfor j in range(6):\n    train_meta_df = train_meta_df.merge(result_df.loc[result_df.passband ==\n        j, :].rename(columns={colname: '{}_{}'.format(colname, j) for\n        colname in colnames}).drop('passband', axis=1), how='left', on=[\n        'object_id'])\ntrain_meta_df.head()\n"
+    },
+    {
+      "raw": "# \u4ee5\u4e0b\u306e\u3088\u3046\u306a\u30c7\u30fc\u30bf\u3092\u7528\u610f\u3059\u308b\ndammy_dics = []\nfor i in range(5):\n    for j in range(10):\n        dammy_dics.append({\"time\": i, \"category\": j, \"price\": 10*i + j})\n\ndammy_df = pd.DataFrame(dammy_dics)\ndammy_df.head(10)",
+      "rewrite-ns": 1811317,
+      "overhead-ns": 1811317,
+      "exec-ns": 3387422,
+      "total-ns": 5198739,
+      "patts-hit": {},
+      "rewritten": "dammy_dics = []\nfor i in range(5):\n    for j in range(10):\n        dammy_dics.append({'time': i, 'category': j, 'price': 10 * i + j})\ndammy_df = pd.DataFrame(dammy_dics)\ndammy_df.head(10)\n"
+    },
+    {
+      "raw": "# DataFrame.pivot_table()\u3067\u30af\u30ed\u30b9\u96c6\u8a08\u8868\u3092\u4f5c\u308c\u308b\ndammy_piv = dammy_df.pivot_table(index=\"time\",\n                                 columns=\"category\",\n                                 values=\"price\",\n                                 aggfunc=\"sum\")\ndisplay(dammy_piv)",
+      "rewrite-ns": 667220,
+      "overhead-ns": 667220,
+      "exec-ns": 8084645,
+      "total-ns": 8751865,
+      "patts-hit": {},
+      "rewritten": "dammy_piv = dammy_df.pivot_table(index='time', columns='category', values=\n    'price', aggfunc='sum')\ndisplay(dammy_piv)\n"
+    },
+    {
+      "raw": "# pivot_table\u306f\u884c\u5217\u3068\u3057\u3066\u8a08\u7b97\u3059\u308b\u3053\u3068\u304c\u3067\u304d\u308b\n# \u5404\u6570\u5024\u3092\u4e8c\u4e57\u3059\u308b\nprint(\"piv^2\")\ndisplay(np.square(dammy_piv))\n\n# \u30b9\u30ab\u30e9\u30fc\u3067\u5272\u308b\"\nprint(\"piv / 10\")\ndisplay(dammy_piv / 10)\n\n# pivot_table\u540c\u58eb\u3092\u8db3\u3059\nprint(\"piv + piv^2\")\ndisplay(dammy_piv + np.square(dammy_piv))",
+      "rewrite-ns": 1317575,
+      "overhead-ns": 1317575,
+      "exec-ns": 17026658,
+      "total-ns": 18344233,
+      "patts-hit": {},
+      "rewritten": "print('piv^2')\ndisplay(np.square(dammy_piv))\nprint('piv / 10')\ndisplay(dammy_piv / 10)\nprint('piv + piv^2')\ndisplay(dammy_piv + np.square(dammy_piv))\n"
+    },
+    {
+      "raw": "# \u5217\u65b9\u5411\u3078\u306e\u96c6\u8a08\n# axis\u3092\u6307\u5b9a\u3057\u306a\u3044\u3068\u81ea\u52d5\u7684\u306b\u5217\u65b9\u5411\u306e\u96c6\u8a08\u306b\u306a\u308a\u3001Series\u304c\u8fd4\u3063\u3066\u304f\u308b\ndisplay(dammy_piv.mean())\n\n# pivot_table\u306b\u5bfe\u3057\u3066Series\u3067\u8a08\u7b97\u3059\u308b\u3068\u3068\u5217\u65b9\u5411\u306bbroadcast\u3055\u308c\u308b\ndisplay(dammy_piv - dammy_piv.mean())",
+      "rewrite-ns": 743786,
+      "overhead-ns": 743786,
+      "exec-ns": 9084086,
+      "total-ns": 9827872,
+      "patts-hit": {},
+      "rewritten": "display(dammy_piv.mean())\ndisplay(dammy_piv - dammy_piv.mean())\n"
+    },
+    {
+      "raw": "# \"\u884c\u65b9\u5411\u3078\u306e\u96c6\u8a08\u3082\u53ef\u80fd\u3060\u304c\"\ndisplay(dammy_piv.mean(axis=1))\n\n# \u3044\u3044\u611f\u3058\u306bbroadcast\u3057\u3066\u304f\u308c\u306a\u3044\nprint(\"piv - seires\")\ndisplay(dammy_piv - dammy_piv.mean(axis=1))\n\n# \u8ee2\u5024\u3092\u4f7f\u3046\u304f\u3089\u3044\u3057\u304b\u826f\u3044\u65b9\u6cd5\u304c\u601d\u3044\u6d6e\u304b\u3070\u306a\u3044\u306e\u3067\u826f\u3044\u65b9\u6cd5\u304c\u3042\u308c\u3070\u6559\u3048\u3066\u304f\u3060\u3055\u3044\nprint(\"(piv.T - series).T\")\ndisplay((dammy_piv.T - dammy_piv.mean(axis=1)).T)",
+      "rewrite-ns": 1501002,
+      "overhead-ns": 1501002,
+      "exec-ns": 15993700,
+      "total-ns": 17494702,
+      "patts-hit": {},
+      "rewritten": "display(dammy_piv.mean(axis=1))\nprint('piv - seires')\ndisplay(dammy_piv - dammy_piv.mean(axis=1))\nprint('(piv.T - series).T')\ndisplay((dammy_piv.T - dammy_piv.mean(axis=1)).T)\n"
+    },
+    {
+      "raw": "# piv.shift()\u3067\u3072\u3068\u3064\u524d\u306e\u5024\u3092\u3068\u308c\u308b\ndammy_piv.shift(1)",
+      "rewrite-ns": 316206,
+      "overhead-ns": 316206,
+      "exec-ns": 7927560,
+      "total-ns": 8243766,
+      "patts-hit": {},
+      "rewritten": "dammy_piv.shift(1)\n"
+    },
+    {
+      "raw": "# \u3053\u308c\u3092\u6d3b\u7528\u3059\u308b\u3068\u3001\u3072\u3068\u3064\u524d\u3068\u306e\u5dee\u5206\u3092\u3068\u308b\u3053\u3068\u304c\u3067\u304d\u308b\ndammy_piv - dammy_piv.shift(1)",
+      "rewrite-ns": 415627,
+      "overhead-ns": 415627,
+      "exec-ns": 8000641,
+      "total-ns": 8416268,
+      "patts-hit": {},
+      "rewritten": "dammy_piv - dammy_piv.shift(1)\n"
+    },
+    {
+      "raw": "# rolling\u95a2\u6570\u3067\u3001\u79fb\u52d5\u5e73\u5747\u7b49\u3092\u3068\u308b\u3053\u3068\u304c\u3067\u304d\u308b\n# \u4ee5\u4e0b\u306e\u30b3\u30fc\u30c9\u306f\u81ea\u4fe1\u3092\u542b\u3081\u305f\u4e09\u3064\u306e\u671f\u9593\u5206\u306e\u5e73\u5747\ndammy_piv.rolling(window=3, center=False).mean()",
+      "rewrite-ns": 504745,
+      "overhead-ns": 504745,
+      "exec-ns": 8320046,
+      "total-ns": 8824791,
+      "patts-hit": {},
+      "rewritten": "dammy_piv.rolling(window=3, center=False).mean()\n"
+    },
+    {
+      "raw": "# shift\u3068\u7d44\u307f\u5408\u308f\u305b\u308b\u3053\u3068\u3067\u3001\u4e00\u3064\u524d\u304b\u3089n\u500b\u524d\u307e\u3067\u306e\u5e73\u5747\u3068\u3044\u3063\u305f\u7279\u5fb4\u91cf\u3092\u4f5c\u308b\u3053\u3068\u304c\u3067\u304d\u308b\ndammy_piv.rolling(window=3, center=False).mean().shift(1)",
+      "rewrite-ns": 639101,
+      "overhead-ns": 639101,
+      "exec-ns": 8244257,
+      "total-ns": 8883358,
+      "patts-hit": {},
+      "rewritten": "dammy_piv.rolling(window=3, center=False).mean().shift(1)\n"
+    },
+    {
+      "raw": "# cum\u3007\u3007\u7cfb\u306e\u95a2\u6570\u306f\u305d\u308c\u307e\u3067\u306e\u5408\u8a08\u3092\u8a08\u7b97\u3067\u304d\u308b\n# \u5408\u8a08\ndisplay(dammy_piv.cumsum())",
+      "rewrite-ns": 356037,
+      "overhead-ns": 356037,
+      "exec-ns": 4798957,
+      "total-ns": 5154994,
+      "patts-hit": {},
+      "rewritten": "display(dammy_piv.cumsum())\n"
+    },
+    {
+      "raw": "# \u4e0a\u8a18\u307e\u3067\u306e\u30c6\u30af\u30cb\u30c3\u30af\u3092\u99c6\u4f7f\u3059\u308b\u3068\u3001leak\u7121\u3057\u306b\u6642\u7cfb\u5217\u306emean_encoding\u304c\u3067\u304d\u308b\ncum_sum = dammy_df.pivot_table(index=\"time\",\n                               columns=\"category\",\n                               values=\"price\",\n                               aggfunc=\"sum\").cumsum()\ncum_count = dammy_df.pivot_table(index=\"time\",\n                                 columns=\"category\",\n                                 values=\"price\",\n                                 aggfunc=\"count\").cumsum()\ncum_mean = cum_sum / cum_count\ncum_mean_without_leakage = cum_mean.shift(1)\ncum_mean_without_leakage",
+      "rewrite-ns": 1848205,
+      "overhead-ns": 1848205,
+      "exec-ns": 14122717,
+      "total-ns": 15970922,
+      "patts-hit": {},
+      "rewritten": "cum_sum = dammy_df.pivot_table(index='time', columns='category', values=\n    'price', aggfunc='sum').cumsum()\ncum_count = dammy_df.pivot_table(index='time', columns='category', values=\n    'price', aggfunc='count').cumsum()\ncum_mean = cum_sum / cum_count\ncum_mean_without_leakage = cum_mean.shift(1)\ncum_mean_without_leakage\n"
+    },
+    {
+      "raw": "# \u30c7\u30fc\u30bf\u306e\u30ed\u30fc\u30c9\ntrain_df = pd.read_csv(\"./input/training_set.scaled.csv\", dtype={\"object_id\": np.uint32,\n                                                           \"mjd\": np.float64,\n                                                           \"passband\": np.uint8,\n                                                           \"flux\": np.float32,\n                                                           \"flux_err\": np.float32,\n                                                           \"detected\": np.uint8})\ntrain_meta_df = pd.read_csv('./input/training_set_metadata.scaled.csv')\ntest_meta_df = pd.read_csv('./input/test_set_metadata.scaled.csv')",
+      "rewrite-ns": 1817662,
+      "overhead-ns": 1817662,
+      "exec-ns": 2357921318,
+      "total-ns": 2359738980,
+      "patts-hit": {},
+      "rewritten": "train_df = pd.read_csv('./input/training_set.scaled.csv', dtype={\n    'object_id': np.uint32, 'mjd': np.float64, 'passband': np.uint8, 'flux':\n    np.float32, 'flux_err': np.float32, 'detected': np.uint8})\ntrain_meta_df = pd.read_csv('./input/training_set_metadata.scaled.csv')\ntest_meta_df = pd.read_csv('./input/test_set_metadata.scaled.csv')\n"
+    },
+    {
+      "raw": "# train_df\u3092\u96c6\u8a08\u3057\u3066train_meta\u306b\u7d50\u5408\u3057\u305f\u3044\ndisplay(train_df.head())\ndisplay(train_meta_df.head())",
+      "rewrite-ns": 709799,
+      "overhead-ns": 709799,
+      "exec-ns": 12371231,
+      "total-ns": 13081030,
+      "patts-hit": {},
+      "rewritten": "display(train_df.head())\ndisplay(train_meta_df.head())\n"
+    },
+    {
+      "raw": "print(\"train_meta: \", train_meta_df.shape)\nprint(\"test_meta: \", test_meta_df.shape)\nprint(\"\u30c6\u30b9\u30c8\u30c7\u30fc\u30bf\u306f\u8a13\u7df4\u30c7\u30fc\u30bf\u306e{:.4}\u500d\".format(test_meta_df.shape[0] / train_meta_df.shape[0]))",
+      "rewrite-ns": 1401923,
+      "overhead-ns": 1401923,
+      "exec-ns": 411966,
+      "total-ns": 1813889,
+      "patts-hit": {},
+      "rewritten": "print('train_meta: ', train_meta_df.shape)\nprint('test_meta: ', test_meta_df.shape)\nprint('\u30c6\u30b9\u30c8\u30c7\u30fc\u30bf\u306f\u8a13\u7df4\u30c7\u30fc\u30bf\u306e{:.4}\u500d'.format(test_meta_df.shape[0] / train_meta_df.\n    shape[0]))\n"
+    },
+    {
+      "raw": "# groupby\u7121\u3057\u306b\u6bce\u56de\u53d6\u308a\u51fa\u305d\u3046\u3068\u3059\u308b\u3068\u3068\u3066\u3064\u3082\u306a\u3044\u6642\u9593\u304c\u304b\u304b\u308b\u306e\u30671/100\u3060\u3051\u8a08\u7b97\nbands = [train_df.passband == b for b in train_df.passband.unique()]\nfor id_ in tqdm(train_df.object_id.unique()[:78]):\n    for band in bands:\n        idx = train_df[(train_df.object_id == id_) & band].index\n        flux, dflux = train_df.loc[idx, \"flux\"], train_df.loc[idx, \"flux_err\"]\n        train_df.loc[idx, \"flux_mean\"] = np.sum(flux*np.square(flux/dflux))/np.sum(np.square(flux/dflux))\n        fluxm = train_df.loc[idx, \"flux_mean\"]\n\n        train_df.loc[idx, \"flux_std\"] = np.std(flux/fluxm, ddof = 1)\n        train_df.loc[idx, \"flux_amp\"] = (np.max(flux) - np.min(flux))/fluxm\n        train_df.loc[idx, \"flux_mad\"] = np.median(np.abs((flux - np.median(flux))/fluxm))\n        train_df.loc[idx, \"flux_beyond\"] = sum(np.abs(flux - fluxm) > np.std(flux, ddof = 1))/len(flux)\n# ALEX: remove ML code\n#         train_df.loc[idx, \"flux_skew\"] = skew(flux)\n        train_df.loc[idx, \"flux_skew\"] = 0.0",
+      "rewrite-ns": 8506165,
+      "overhead-ns": 8506165,
+      "exec-ns": 2080033608,
+      "total-ns": 2088539773,
+      "patts-hit": {},
+      "rewritten": "bands = [(train_df.passband == b) for b in train_df.passband.unique()]\nfor id_ in tqdm(train_df.object_id.unique()[:78]):\n    for band in bands:\n        idx = train_df[(train_df.object_id == id_) & band].index\n        flux, dflux = train_df.loc[idx, 'flux'], train_df.loc[idx, 'flux_err']\n        train_df.loc[idx, 'flux_mean'] = np.sum(flux * np.square(flux / dflux)\n            ) / np.sum(np.square(flux / dflux))\n        fluxm = train_df.loc[idx, 'flux_mean']\n        train_df.loc[idx, 'flux_std'] = np.std(flux / fluxm, ddof=1)\n        train_df.loc[idx, 'flux_amp'] = (np.max(flux) - np.min(flux)) / fluxm\n        train_df.loc[idx, 'flux_mad'] = np.median(np.abs((flux - np.median(\n            flux)) / fluxm))\n        train_df.loc[idx, 'flux_beyond'] = sum(np.abs(flux - fluxm) > np.\n            std(flux, ddof=1)) / len(flux)\n        train_df.loc[idx, 'flux_skew'] = 0.0\n"
+    },
+    {
+      "raw": "# 2. groupby\u3092\u4f7f\u3063\u3066\u8a08\u7b97\u3059\u308b\n# ALEX: remove extra display code\n# tick = datetime.now()\ntrain_df = pd.read_csv(\"./input/training_set.scaled.csv\", dtype={\"object_id\": np.uint32,\n                                                           \"mjd\": np.float64,\n                                                           \"passband\": np.uint8,\n                                                           \"flux\": np.float32,\n                                                           \"flux_err\": np.float32,\n                                                           \"detected\": np.uint8})\ntrain_meta_df = pd.read_csv('./input/training_set_metadata.scaled.csv')\n# ALEX: remove extra display code\n# tock = datetime.now()\n# print(\"load_data: {} ms\".format((tock - tick).seconds * 1000 + ((tock - tick).microseconds / 1000)))\n\n# tick = datetime.now()\n\ndef agg_func(x):\n    d = {}\n    flux, dflux = x[\"flux\"], x[\"flux_err\"]\n    flux_mean = np.sum(flux*np.square(flux/dflux))/np.sum(np.square(flux/dflux))\n    d[\"flux_mean\"] = flux_mean\n    d[\"flux_std\"] = np.std(flux/flux_mean, ddof = 1)\n    d[\"flux_amp\"] = (np.max(flux) - np.min(flux))/flux_mean\n    d[\"flux_beyond\"] = np.sum(np.abs(flux - flux_mean) > np.std(flux, ddof = 1))/flux.shape[0]\n    d[\"flux_mad\"] = np.median(np.abs((flux - np.median(flux))/flux_mean))\n# ALEX: remove ML code\n#     d[\"flux_skew\"] = skew(flux)\n    d[\"flux_skew\"] = 0.0\n    return pd.Series(d, index = [\"flux_mean\", \"flux_std\", \"flux_amp\", \"flux_mad\", \"flux_beyond\", \"flux_skew\"])\n\nresult_df = train_df.groupby([\"object_id\", \"passband\"]).progress_apply(agg_func).reset_index()\n\ncolnames = [\"flux_mean\", \"flux_std\", \"flux_amp\", \"flux_mad\", \"flux_beyond\", \"flux_skew\"]\nfor j in range(6):\n    train_meta_df = train_meta_df.merge(result_df.loc[result_df.passband == j, :]\n                                                 .rename(columns={colname: \"{}_{}\".format(colname, j) for colname in colnames})\n                                                 .drop(\"passband\", axis=1),\n                                        how=\"left\",\n                                        on=[\"object_id\"])\n\n# ALEX: remove extra display code\n# tock = datetime.now()\n# tmp = print(\"total_processing: {} sec\".format((tock - tick).seconds))\ntrain_meta_df.head()",
+      "rewrite-ns": 10628654,
+      "overhead-ns": 10628654,
+      "exec-ns": 70591253206,
+      "total-ns": 70601881860,
+      "patts-hit": {},
+      "rewritten": "train_df = pd.read_csv('./input/training_set.scaled.csv', dtype={\n    'object_id': np.uint32, 'mjd': np.float64, 'passband': np.uint8, 'flux':\n    np.float32, 'flux_err': np.float32, 'detected': np.uint8})\ntrain_meta_df = pd.read_csv('./input/training_set_metadata.scaled.csv')\ndef agg_func(x):\n    d = {}\n    flux, dflux = x['flux'], x['flux_err']\n    flux_mean = np.sum(flux * np.square(flux / dflux)) / np.sum(np.square(\n        flux / dflux))\n    d['flux_mean'] = flux_mean\n    d['flux_std'] = np.std(flux / flux_mean, ddof=1)\n    d['flux_amp'] = (np.max(flux) - np.min(flux)) / flux_mean\n    d['flux_beyond'] = np.sum(np.abs(flux - flux_mean) > np.std(flux, ddof=1)\n        ) / flux.shape[0]\n    d['flux_mad'] = np.median(np.abs((flux - np.median(flux)) / flux_mean))\n    d['flux_skew'] = 0.0\n    return pd.Series(d, index=['flux_mean', 'flux_std', 'flux_amp',\n        'flux_mad', 'flux_beyond', 'flux_skew'])\nresult_df = train_df.groupby(['object_id', 'passband']).progress_apply(agg_func\n    ).reset_index()\ncolnames = ['flux_mean', 'flux_std', 'flux_amp', 'flux_mad', 'flux_beyond',\n    'flux_skew']\nfor j in range(6):\n    train_meta_df = train_meta_df.merge(result_df.loc[result_df.passband ==\n        j, :].rename(columns={colname: '{}_{}'.format(colname, j) for\n        colname in colnames}).drop('passband', axis=1), how='left', on=[\n        'object_id'])\ntrain_meta_df.head()\n"
+    },
+    {
+      "raw": "# \u6b20\u640d\u5024\u304c\u542b\u307e\u308c\u308b\u3053\u3068\u306b\u6ce8\u610f\u3059\u308b\n\n# ALEX: remove extra display code\n# tick = datetime.now()\ntrain_df = pd.read_csv(\"./input/training_set.scaled.csv\", dtype={\"object_id\": np.uint32,\n                                                           \"mjd\": np.float64,\n                                                           \"passband\": np.uint8,\n                                                           \"flux\": np.float32,\n                                                           \"flux_err\": np.float32,\n                                                           \"detected\": np.uint8})\ntrain_meta_df = pd.read_csv('./input/training_set_metadata.scaled.csv')\n# ALEX: remove extra display code\n# tock = datetime.now()\n# print(\"load_data: {} ms\".format((tock - tick).seconds * 1000 + ((tock - tick).microseconds / 1000)))\n\n# tick = datetime.now()\n\n# pivot_table\u306eindex\u3092rank\u3092\u7528\u3044\u3066\u4f5c\u6210\u3059\u308b\ntrain_df[\"rank\"] = train_df.groupby([\"object_id\", \"passband\"])[\"mjd\"].rank()\n\nflux = train_df.pivot_table(columns=[\"object_id\", \"passband\"],\n                            index=\"rank\",\n                            values=\"flux\",\n                            aggfunc=\"mean\")\ndflux = train_df.pivot_table(columns=[\"object_id\", \"passband\"],\n                             index=\"rank\",\n                             values=\"flux_err\",\n                             aggfunc=\"mean\")\n\n# \u5217\u306bNaN\u304c\u542b\u307e\u308c\u308b\u306e\u3067\u6271\u3044\u306b\u6ce8\u610f\u3059\u308b\nflux_mean = np.sum(flux*np.square(flux/dflux), axis=0)/np.sum(np.square(flux/dflux), axis=0)\nflux_std = np.std(flux/flux_mean, ddof = 1, axis=0)\nflux_amp = (np.max(flux, axis=0) - np.min(flux, axis=0))/flux_mean\nflux_mad = np.nanmedian(np.abs((flux - np.nanmedian(flux, axis=0))/flux_mean), axis=0) # array\nflux_beyond = np.sum(np.abs(flux - flux_mean) > np.std(flux, ddof = 1, axis=0), axis=0)/flux.count()\n# ALEX: remove ML code\n# flux_skew = skew(flux, nan_policy=\"omit\", axis=0)  # masked_array\nflux_skew = 0.0\n\nresult_df = pd.concat([flux_mean.reset_index(name=\"flux_mean\"),\n                      flux_std.reset_index(name=\"flux_std\").iloc[:, 2:],\n                      flux_amp.reset_index(name=\"flux_amp\").iloc[:, 2:],\n                      flux_beyond.reset_index(name=\"flux_beyond\").iloc[:, 2:]], axis=1)\nresult_df[\"flux_mad\"] = flux_mad\nresult_df[\"flux_skew\"] = flux_skew\ncolnames = [\"flux_mean\", \"flux_std\", \"flux_amp\", \"flux_beyond\", \"flux_mad\", \"flux_skew\"]\n\nfor j in range(6):\n    train_meta_df = train_meta_df.merge(result_df.loc[result_df.passband == j, :]\n                                                 .rename(columns={colname: \"{}_{}\".format(colname, j) for colname in colnames})\n                                                 .drop(\"passband\", axis=1),\n                                        how=\"left\",\n                                        on=[\"object_id\"])\n# ALEX: remove extra display code\n# tock = datetime.now()\n# print(\"processing_time: {} sec\".format((tock - tick).seconds))\n\ntrain_meta_df.head()",
+      "rewrite-ns": 12979358,
+      "overhead-ns": 12979358,
+      "exec-ns": 1933479140,
+      "total-ns": 1946458498,
+      "patts-hit": {},
+      "rewritten": "train_df = pd.read_csv('./input/training_set.scaled.csv', dtype={\n    'object_id': np.uint32, 'mjd': np.float64, 'passband': np.uint8, 'flux':\n    np.float32, 'flux_err': np.float32, 'detected': np.uint8})\ntrain_meta_df = pd.read_csv('./input/training_set_metadata.scaled.csv')\ntrain_df['rank'] = train_df.groupby(['object_id', 'passband'])['mjd'].rank()\nflux = train_df.pivot_table(columns=['object_id', 'passband'], index='rank',\n    values='flux', aggfunc='mean')\ndflux = train_df.pivot_table(columns=['object_id', 'passband'], index=\n    'rank', values='flux_err', aggfunc='mean')\nflux_mean = np.sum(flux * np.square(flux / dflux), axis=0) / np.sum(np.\n    square(flux / dflux), axis=0)\nflux_std = np.std(flux / flux_mean, ddof=1, axis=0)\nflux_amp = (np.max(flux, axis=0) - np.min(flux, axis=0)) / flux_mean\nflux_mad = np.nanmedian(np.abs((flux - np.nanmedian(flux, axis=0)) /\n    flux_mean), axis=0)\nflux_beyond = np.sum(np.abs(flux - flux_mean) > np.std(flux, ddof=1, axis=0\n    ), axis=0) / flux.count()\nflux_skew = 0.0\nresult_df = pd.concat([flux_mean.reset_index(name='flux_mean'), flux_std.\n    reset_index(name='flux_std').iloc[:, 2:], flux_amp.reset_index(name=\n    'flux_amp').iloc[:, 2:], flux_beyond.reset_index(name='flux_beyond').\n    iloc[:, 2:]], axis=1)\nresult_df['flux_mad'] = flux_mad\nresult_df['flux_skew'] = flux_skew\ncolnames = ['flux_mean', 'flux_std', 'flux_amp', 'flux_beyond', 'flux_mad',\n    'flux_skew']\nfor j in range(6):\n    train_meta_df = train_meta_df.merge(result_df.loc[result_df.passband ==\n        j, :].rename(columns={colname: '{}_{}'.format(colname, j) for\n        colname in colnames}).drop('passband', axis=1), how='left', on=[\n        'object_id'])\ntrain_meta_df.head()\n"
+    }
+  ],
+  "total-time-in-sec": 79.176190337,
+  "max-disk-in-mb": 0
+}

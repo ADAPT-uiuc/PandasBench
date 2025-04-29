@@ -1,0 +1,110 @@
+{
+  "max-mem-in-mb": 9041,
+  "max-mem-in-mb2": 3618,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt #plotting!\n# import seaborn as sns #cute messing with style\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3262947060
+    },
+    {
+      "raw": "# ALEX: removed plotting\n# %matplotlib inline\n# sns.set_style('darkgrid')\ndf = pd.read_csv('./input/highereducationstudentsperformanceevaluation/DATA (1).scaled.csv')\ndf.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3392317471
+    },
+    {
+      "raw": "df.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 436093
+    },
+    {
+      "raw": "df.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 263144924
+    },
+    {
+      "raw": "# Rename columns\ndf.rename(columns={'1': 'AGE', '7': 'SINGLE','20':'ATTENDENCE','25':'NOTETAKING','30': 'GPA'}, inplace=True)\n\n# Access the renamed columns using loc\npreview_columns = ['AGE', 'SINGLE', 'NOTETAKING','GPA','GRADE']\ndf.loc[:, preview_columns].head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4760610
+    },
+    {
+      "raw": "df_clean = df.copy()\n\n# List of columns to keep\nselected_columns = [\n    'AGE',\n    'SINGLE',\n    'NOTETAKING',\n    'GPA',\n    'GRADE',\n    'ATTENDENCE',\n]\n\n# Get the list of columns that exist in the DataFrame but are not in the selected_columns list\ncolumns_to_remove = [col for col in df_clean.columns if col not in selected_columns]\n\n# Drop the columns that are not in the selected_columns list\ndf_clean.drop(columns=columns_to_remove, inplace=True)\n\n# Display DataFrame info to verify\ndf_clean.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 196121667
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(16, 12))\n# sns.heatmap(df_clean.drop('GPA', axis=1).corr(), cmap='YlGnBu', annot=True, fmt='.2f', vmin=0);\n_ = df_clean.drop('GPA', axis=1).corr()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 410233748
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# df_clean.hist(alpha = 0.7, figsize=(12,10), bins=5);",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 255731
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# %matplotlib inline\n# sns.set_style('darkgrid')\ndf = pd.read_csv('./input/highereducationstudentsperformanceevaluation/DATA (1).scaled.csv')\ndf.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2688020230
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(16, 12))\n# sns.heatmap(df.drop('30', axis=1).corr(), cmap='YlGnBu', annot=True, fmt='.2f', vmin=0);\n_ = df.drop('30', axis=1).corr()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2037424805
+    },
+    {
+      "raw": "df_cut = df.copy()\n#Cutting our data to make it more managable\ncolumns_to_remove = [\n    '3',\n    '9',\n    '10',\n    '14',\n    '15',\n    '16',\n    '21',\n    '23',\n    '24',\n    '28',\n    '5',\n    '6',\n    '7',\n    '20',\n    '22',\n    'COURSE ID',\n]\n# Drop the columns to remove\ndf_cut.drop(columns=columns_to_remove, inplace=True)\n\n# Display DataFrame info to verify\ndf_cut.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1046022302
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(16, 12))\n# sns.heatmap(df_cut.drop('30', axis=1).corr(), cmap='YlGnBu', annot=True, fmt='.2f', vmin=0);\n_ = df_cut.drop('30', axis=1).corr()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1147219462
+    },
+    {
+      "raw": "# Rename columns\ndf_cut.rename(columns={\n    '1': 'AGE',\n    '2': 'SEX',\n    '4': 'SCHOLSHIP',\n    '7': 'SINGLE',\n    '8': 'SALARY',\n    '11': 'MOTHERS_EDU',\n    '12': 'FATHERS_EDU',\n    '13': 'SIBLNIGS',\n    '17': 'STUDY_HOURS',\n    '18': 'READS_NON_FIC',\n    '19': 'READS_FIC',\n    '25': 'NOTETAKING',\n    '26': 'LISTENS',\n    '27': 'DISCUSSION',\n    '29': 'PAST_GPA',\n    '30': 'GPA',}, inplace=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2552665
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(16, 12))\n# sns.heatmap(df_cut.drop('PAST_GPA', axis=1).corr(), cmap='YlGnBu', annot=True, fmt='.2f', vmin=0);\n_ = df_cut.drop('PAST_GPA', axis=1).corr()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1361089700
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(16, 12))\n# sns.heatmap(df_cut.drop('PAST_GPA', axis=1).corr(), cmap='YlGnBu', annot=True, fmt='.2f', vmin=0);\n_ = df_cut.drop('PAST_GPA', axis=1).corr()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2504839952
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# df_cut.hist(alpha = 0.7, figsize=(12,10), bins=5);",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 339738
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 240113
+    }
+  ],
+  "total-time-in-sec": 18.317966271,
+  "max-disk-in-mb": 0
+}

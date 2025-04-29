@@ -1,0 +1,323 @@
+{
+  "max-mem-in-mb": 1149,
+  "max-mem-in-mb2": 1612,
+  "cells": [
+    {
+      "raw": "#Import required libraries\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns",
+      "rewrite-ns": 685652,
+      "overhead-ns": 685652,
+      "exec-ns": 399757,
+      "total-ns": 1085409,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n"
+    },
+    {
+      "raw": "#load bitcoin data\nbtc_master = pd.read_csv('./input/gemini_BTCUSD_2020_1min.scaled.csv')\n\n#load ethereum data\neth_master = pd.read_csv('./input/gemini_ETHUSD_2020_1min.scaled.csv')\n\n#load litecoin data\nltc_master = pd.read_csv('./input/gemini_LTCUSD_2020_1min.scaled.csv')",
+      "rewrite-ns": 1310273,
+      "overhead-ns": 1310273,
+      "exec-ns": 5450496223,
+      "total-ns": 5451806496,
+      "patts-hit": {},
+      "rewritten": "btc_master = pd.read_csv('./input/gemini_BTCUSD_2020_1min.scaled.csv')\neth_master = pd.read_csv('./input/gemini_ETHUSD_2020_1min.scaled.csv')\nltc_master = pd.read_csv('./input/gemini_LTCUSD_2020_1min.scaled.csv')\n"
+    },
+    {
+      "raw": "#Check the data dimensions for bitcoin\nbtc_master.head()",
+      "rewrite-ns": 176704,
+      "overhead-ns": 176704,
+      "exec-ns": 9656679,
+      "total-ns": 9833383,
+      "patts-hit": {},
+      "rewritten": "btc_master.head()\n"
+    },
+    {
+      "raw": "btc_master.info()",
+      "rewrite-ns": 99476,
+      "overhead-ns": 99476,
+      "exec-ns": 2929174,
+      "total-ns": 3028650,
+      "patts-hit": {},
+      "rewritten": "btc_master.info()\n"
+    },
+    {
+      "raw": "#Check the data dimensions for ethereum\neth_master.shape",
+      "rewrite-ns": 61836,
+      "overhead-ns": 61836,
+      "exec-ns": 510507,
+      "total-ns": 572343,
+      "patts-hit": {},
+      "rewritten": "eth_master.shape\n"
+    },
+    {
+      "raw": "eth_master.info()",
+      "rewrite-ns": 74266,
+      "overhead-ns": 74266,
+      "exec-ns": 2298506,
+      "total-ns": 2372772,
+      "patts-hit": {},
+      "rewritten": "eth_master.info()\n"
+    },
+    {
+      "raw": "#Check the data dimensions for litecoin\nltc_master.shape",
+      "rewrite-ns": 52079,
+      "overhead-ns": 52079,
+      "exec-ns": 450328,
+      "total-ns": 502407,
+      "patts-hit": {},
+      "rewritten": "ltc_master.shape\n"
+    },
+    {
+      "raw": "ltc_master.info()",
+      "rewrite-ns": 797532,
+      "overhead-ns": 797532,
+      "exec-ns": 2314096,
+      "total-ns": 3111628,
+      "patts-hit": {},
+      "rewritten": "ltc_master.info()\n"
+    },
+    {
+      "raw": "#Convert the object type Date column to datetime type\nbtc_master['Date'] = pd.to_datetime(btc_master['Date'], format='%m/%d/%Y %H:%M')\neth_master['Date'] = pd.to_datetime(eth_master['Date'], format='%m/%d/%Y %H:%M')\nltc_master['Date'] = pd.to_datetime(ltc_master['Date'], format='%m/%d/%Y %H:%M')",
+      "rewrite-ns": 1762985,
+      "overhead-ns": 1762985,
+      "exec-ns": 15700118064,
+      "total-ns": 15701881049,
+      "patts-hit": {},
+      "rewritten": "btc_master['Date'] = pd.to_datetime(btc_master['Date'], format='%m/%d/%Y %H:%M'\n    )\neth_master['Date'] = pd.to_datetime(eth_master['Date'], format='%m/%d/%Y %H:%M'\n    )\nltc_master['Date'] = pd.to_datetime(ltc_master['Date'], format='%m/%d/%Y %H:%M'\n    )\n"
+    },
+    {
+      "raw": "#drop from bitcoin\nbtc_master.drop(['Unix Timestamp','Symbol','Open', 'High','Low'], axis = 1, inplace = True)\n#drop from ethereum \neth_master.drop(['Unix Timestamp','Symbol','Open', 'High','Low'], axis = 1, inplace = True)\n#drop from litecoin\nltc_master.drop(['Unix Timestamp','Symbol','Open', 'High','Low'], axis = 1, inplace = True)\n\nltc_master.columns",
+      "rewrite-ns": 2151088,
+      "overhead-ns": 2151088,
+      "exec-ns": 129357267,
+      "total-ns": 131508355,
+      "patts-hit": {},
+      "rewritten": "btc_master.drop(['Unix Timestamp', 'Symbol', 'Open', 'High', 'Low'], axis=1,\n    inplace=True)\neth_master.drop(['Unix Timestamp', 'Symbol', 'Open', 'High', 'Low'], axis=1,\n    inplace=True)\nltc_master.drop(['Unix Timestamp', 'Symbol', 'Open', 'High', 'Low'], axis=1,\n    inplace=True)\nltc_master.columns\n"
+    },
+    {
+      "raw": "#get all the records in bitcoin dataset but not in ethereum dataset\nbtc_master[~(btc_master['Date'].isin(eth_master[\"Date\"]))]",
+      "rewrite-ns": 763450,
+      "overhead-ns": 763450,
+      "exec-ns": 71842118,
+      "total-ns": 72605568,
+      "patts-hit": {},
+      "rewritten": "btc_master[~btc_master['Date'].isin(eth_master['Date'])]\n"
+    },
+    {
+      "raw": "#get all the records in ethereum dataset but not in bitcoin dataset\neth_master[~(eth_master['Date'].isin(btc_master[\"Date\"]))]",
+      "rewrite-ns": 724186,
+      "overhead-ns": 724186,
+      "exec-ns": 68691737,
+      "total-ns": 69415923,
+      "patts-hit": {},
+      "rewritten": "eth_master[~eth_master['Date'].isin(btc_master['Date'])]\n"
+    },
+    {
+      "raw": "#get all the records in litecoin dataset but not in bitcoin dataset\nltc_master[~(ltc_master['Date'].isin(btc_master[\"Date\"]))].count()",
+      "rewrite-ns": 829340,
+      "overhead-ns": 829340,
+      "exec-ns": 65886443,
+      "total-ns": 66715783,
+      "patts-hit": {},
+      "rewritten": "ltc_master[~ltc_master['Date'].isin(btc_master['Date'])].count()\n"
+    },
+    {
+      "raw": "#get all the records in litecoin dataset but not in ethereum dataset\nltc_master[~(ltc_master['Date'].isin(eth_master[\"Date\"]))].count()",
+      "rewrite-ns": 833541,
+      "overhead-ns": 833541,
+      "exec-ns": 63717752,
+      "total-ns": 64551293,
+      "patts-hit": {},
+      "rewritten": "ltc_master[~ltc_master['Date'].isin(eth_master['Date'])].count()\n"
+    },
+    {
+      "raw": "#Loose the time information\nbtc_master['Date'] = btc_master['Date'].dt.date\n\n#Aggregate by date\nbtc_grouped = pd.pivot_table(btc_master, values=['Close', 'Volume'], index=['Date'],\n                    aggfunc={'Close': np.mean,\n                             'Volume': np.sum})\n\nbtc_grouped.head()",
+      "rewrite-ns": 1750303,
+      "overhead-ns": 1750303,
+      "exec-ns": 636012787,
+      "total-ns": 637763090,
+      "patts-hit": {},
+      "rewritten": "btc_master['Date'] = btc_master['Date'].dt.date\nbtc_grouped = pd.pivot_table(btc_master, values=['Close', 'Volume'], index=\n    ['Date'], aggfunc={'Close': np.mean, 'Volume': np.sum})\nbtc_grouped.head()\n"
+    },
+    {
+      "raw": "btc_grouped.shape",
+      "rewrite-ns": 75946,
+      "overhead-ns": 75946,
+      "exec-ns": 535362,
+      "total-ns": 611308,
+      "patts-hit": {},
+      "rewritten": "btc_grouped.shape\n"
+    },
+    {
+      "raw": "#Loose the time information\neth_master['Date'] = eth_master['Date'].dt.date\n\n#Aggregate by date\neth_grouped = pd.pivot_table(eth_master, values=['Close', 'Volume'], index=['Date'],\n                    aggfunc={'Close': np.mean,\n                             'Volume': np.sum})\neth_grouped.head()",
+      "rewrite-ns": 1526267,
+      "overhead-ns": 1526267,
+      "exec-ns": 662535029,
+      "total-ns": 664061296,
+      "patts-hit": {},
+      "rewritten": "eth_master['Date'] = eth_master['Date'].dt.date\neth_grouped = pd.pivot_table(eth_master, values=['Close', 'Volume'], index=\n    ['Date'], aggfunc={'Close': np.mean, 'Volume': np.sum})\neth_grouped.head()\n"
+    },
+    {
+      "raw": "eth_grouped.shape",
+      "rewrite-ns": 80253,
+      "overhead-ns": 80253,
+      "exec-ns": 549530,
+      "total-ns": 629783,
+      "patts-hit": {},
+      "rewritten": "eth_grouped.shape\n"
+    },
+    {
+      "raw": "#Loose the time information\nltc_master['Date'] = ltc_master['Date'].dt.date\n\n#Aggregate by date\nltc_grouped = pd.pivot_table(ltc_master, values=['Close', 'Volume'], index=['Date'],\n                    aggfunc={'Close': np.mean,\n                             'Volume': np.sum})\nltc_grouped.head()",
+      "rewrite-ns": 1512534,
+      "overhead-ns": 1512534,
+      "exec-ns": 646106076,
+      "total-ns": 647618610,
+      "patts-hit": {},
+      "rewritten": "ltc_master['Date'] = ltc_master['Date'].dt.date\nltc_grouped = pd.pivot_table(ltc_master, values=['Close', 'Volume'], index=\n    ['Date'], aggfunc={'Close': np.mean, 'Volume': np.sum})\nltc_grouped.head()\n"
+    },
+    {
+      "raw": "ltc_grouped.shape",
+      "rewrite-ns": 75265,
+      "overhead-ns": 75265,
+      "exec-ns": 532757,
+      "total-ns": 608022,
+      "patts-hit": {},
+      "rewritten": "ltc_grouped.shape\n"
+    },
+    {
+      "raw": "btc = btc_grouped['Close'].max()\neth = eth_grouped['Close'].max()\nltc = ltc_grouped['Close'].max()\n\n#What is the highest closing value of Bitcoin and when\nprint(\"Highest average value of BTC \", btc,\"was recorded on \",btc_grouped[btc_grouped['Close'] == btc].index.values[0])\n\n#What is the highest closing value of Ethereum and when\nprint(\"Highest average value of ETH \", eth,\"was recorded on \",eth_grouped[eth_grouped['Close'] == eth].index.values[0])\n\n#What is the highest closing value of Litecoin and when\nprint(\"Highest average value of LTC \", ltc,\"was recorded on \",ltc_grouped[ltc_grouped['Close'] == ltc].index.values[0])\n\n\n# ALEX: remove plotting\n# sns.barplot(x = [\"Bitcoin\",\"Ethereum\",\"Litecoin\"], y = [btc,eth,ltc])\n# plt.title(\"Comparision of average highest value in a day between Jan-2020 and 2021-04-14\")\n# plt.show()",
+      "rewrite-ns": 3521841,
+      "overhead-ns": 3521841,
+      "exec-ns": 1748108,
+      "total-ns": 5269949,
+      "patts-hit": {},
+      "rewritten": "btc = btc_grouped['Close'].max()\neth = eth_grouped['Close'].max()\nltc = ltc_grouped['Close'].max()\nprint('Highest average value of BTC ', btc, 'was recorded on ', btc_grouped\n    [btc_grouped['Close'] == btc].index.values[0])\nprint('Highest average value of ETH ', eth, 'was recorded on ', eth_grouped\n    [eth_grouped['Close'] == eth].index.values[0])\nprint('Highest average value of LTC ', ltc, 'was recorded on ', ltc_grouped\n    [ltc_grouped['Close'] == ltc].index.values[0])\n"
+    },
+    {
+      "raw": "btc = btc_grouped['Volume'].max()\neth = eth_grouped['Volume'].max()\nltc = ltc_grouped['Volume'].max()\n\n\n#What is the highest closing volume of Bitcoin and when\nprint(\"Highest volume of BTC \", btc,\"was recorded on \",\n      btc_grouped[btc_grouped['Volume'] == btc].index.values[0])\n\n#What is the highest closing volume of Ethereum and when\nprint(\"Highest volume of ETH \", eth,\"was recorded on \",\n     eth_grouped[eth_grouped['Volume'] == eth].index.values[0])\n\n#What is the highest closing volume of Litecoin and when\nprint(\"Highest volume of LTC \", ltc,\"was recorded on \",\n     ltc_grouped[ltc_grouped['Volume'] == ltc].index.values[0])\n\n# ALEX: remove plotting\n# sns.barplot(x = [\"Bitcoin\",\"Ethereum\",\"Litecoin\"], y = [btc,eth,ltc])\n# plt.title(\"Comparision of highest volume in a day between Jan-2020 and 2021-04-14\")\n# plt.show()",
+      "rewrite-ns": 3436575,
+      "overhead-ns": 3436575,
+      "exec-ns": 1563703,
+      "total-ns": 5000278,
+      "patts-hit": {},
+      "rewritten": "btc = btc_grouped['Volume'].max()\neth = eth_grouped['Volume'].max()\nltc = ltc_grouped['Volume'].max()\nprint('Highest volume of BTC ', btc, 'was recorded on ', btc_grouped[\n    btc_grouped['Volume'] == btc].index.values[0])\nprint('Highest volume of ETH ', eth, 'was recorded on ', eth_grouped[\n    eth_grouped['Volume'] == eth].index.values[0])\nprint('Highest volume of LTC ', ltc, 'was recorded on ', ltc_grouped[\n    ltc_grouped['Volume'] == ltc].index.values[0])\n"
+    },
+    {
+      "raw": "btc = btc_grouped[btc_grouped['Volume'] == btc_grouped['Volume'].max()]['Close'].values[0]\neth = eth_grouped[eth_grouped['Volume'] == eth_grouped['Volume'].max()]['Close'].values[0]\nltc = ltc_grouped[ltc_grouped['Volume'] == ltc_grouped['Volume'].max()]['Close'].values[0]\n\n#What is the closing value of Bitcoin and when the highest volume was transacted \nprint(\"Highest volume of BTC was\", btc_grouped['Volume'].max(),\"and mean closing value on that day was\",btc)\n\n#What is the highest closing volume of Ethereum and when\nprint(\"Highest volume of ETH \", eth_grouped['Volume'].max(),\"and mean closing value on that day was \",eth)\n\n#What is the highest closing volume of Litecoin and when\nprint(\"Highest volume of LTC \", ltc_grouped['Volume'].max(),\"and mean closing value on that day was \",ltc)\n",
+      "rewrite-ns": 4135526,
+      "overhead-ns": 4135526,
+      "exec-ns": 1790729,
+      "total-ns": 5926255,
+      "patts-hit": {},
+      "rewritten": "btc = btc_grouped[btc_grouped['Volume'] == btc_grouped['Volume'].max()]['Close'\n    ].values[0]\neth = eth_grouped[eth_grouped['Volume'] == eth_grouped['Volume'].max()]['Close'\n    ].values[0]\nltc = ltc_grouped[ltc_grouped['Volume'] == ltc_grouped['Volume'].max()]['Close'\n    ].values[0]\nprint('Highest volume of BTC was', btc_grouped['Volume'].max(),\n    'and mean closing value on that day was', btc)\nprint('Highest volume of ETH ', eth_grouped['Volume'].max(),\n    'and mean closing value on that day was ', eth)\nprint('Highest volume of LTC ', ltc_grouped['Volume'].max(),\n    'and mean closing value on that day was ', ltc)\n"
+    },
+    {
+      "raw": "#What is the closing value of Bitcoin and when the highest volume was transacted \nprint(\"Lowest average closing value of BTC \", btc_grouped['Close'].min())\n\n#What is the closing value of Bitcoin and when the highest volume was transacted \nprint(\"Lowest average closing value of ETH \", eth_grouped['Close'].min())\n\n#What is the closing value of Bitcoin and when the highest volume was transacted \nprint(\"Lowest average closing value of LTC \", ltc_grouped['Close'].min())",
+      "rewrite-ns": 1270697,
+      "overhead-ns": 1270697,
+      "exec-ns": 537678,
+      "total-ns": 1808375,
+      "patts-hit": {},
+      "rewritten": "print('Lowest average closing value of BTC ', btc_grouped['Close'].min())\nprint('Lowest average closing value of ETH ', eth_grouped['Close'].min())\nprint('Lowest average closing value of LTC ', ltc_grouped['Close'].min())\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=[15,5])\n# sns.lineplot(x = btc_grouped.index , y = 'Close', data = btc_grouped)\n# plt.show()\n_ = btc_grouped.index",
+      "rewrite-ns": 237195,
+      "overhead-ns": 237195,
+      "exec-ns": 184502,
+      "total-ns": 421697,
+      "patts-hit": {},
+      "rewritten": "_ = btc_grouped.index\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=[15,5])\n# sns.lineplot(x = eth_grouped.index , y = 'Close', data = eth_grouped)\n# plt.show()\n_ = eth_grouped.index",
+      "rewrite-ns": 243884,
+      "overhead-ns": 243884,
+      "exec-ns": 173332,
+      "total-ns": 417216,
+      "patts-hit": {},
+      "rewritten": "_ = eth_grouped.index\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=[15,5])\n# sns.lineplot(x = ltc_grouped.asfreq('M').index , y = 'Close', data = ltc_grouped.asfreq('M'))\n# plt.xticks(ticks = ltc_grouped.asfreq('M').index, labels = ['Jan-20', 'Feb-20', 'Mar-20', 'Apr-20',\n#                                                             'May-20', 'Jun-20', 'Jul-20', 'Aug-20', 'Sep-20', 'Oct-20',\n#                                                            'Nov-20', 'Dec-20', 'Jan-21', 'Feb-21', 'Mar-21'])\n# plt.show()\n\n_ = ltc_grouped.asfreq('M').index\n_ = ltc_grouped.asfreq('M')\n_ = ltc_grouped.asfreq('M').index",
+      "rewrite-ns": 996851,
+      "overhead-ns": 996851,
+      "exec-ns": 4079242,
+      "total-ns": 5076093,
+      "patts-hit": {},
+      "rewritten": "_ = ltc_grouped.asfreq('M').index\n_ = ltc_grouped.asfreq('M')\n_ = ltc_grouped.asfreq('M').index\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15,6))\n# btc_grouped['Close'].plot(c='blue')\n# eth_grouped['Close'].plot(c='cyan')\n# ltc_grouped['Close'].plot(c='orange')\n# plt.title('Comparision of cryptocurrency values through 2020')\n# plt.legend(('Bitcoin','Ethereum', 'Litecoin'))\n# plt.show()",
+      "rewrite-ns": 13644,
+      "overhead-ns": 13644,
+      "exec-ns": 68899,
+      "total-ns": 82543,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#Plot all the three currencies together to understand the trend of average closing value by day\n# ALEX: remove plotting\n# plt.figure(figsize=(15,6))\n# btc_grouped['Close'].plot(c='blue')\n# eth_grouped['Close'].plot(c='cyan')\n# ltc_grouped['Close'].plot(c='orange')\n# plt.title('Comparision of cryptocurrency values through 2020')\n# plt.legend(('Bitcoin','Ethereum', 'Litecoin'))\n# plt.yscale('log')\n# plt.show()",
+      "rewrite-ns": 12609,
+      "overhead-ns": 12609,
+      "exec-ns": 58201,
+      "total-ns": 70810,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#Plot all the three currencies together to understand the trend of volume transcted by day\n# ALEX: remove plotting\n# plt.figure(figsize=(15,6))\n# btc_grouped['Volume'].plot(c='blue')\n# eth_grouped['Volume'].plot(c='cyan')\n# ltc_grouped['Volume'].plot(c='orange')\n# plt.title('Comparision of cryptocurrency volume by day through 2020')\n# plt.legend(('Bitcoin','Ethereum', 'Litecoin'))\n# #plt.yscale('log')\n# plt.show()",
+      "rewrite-ns": 13737,
+      "overhead-ns": 13737,
+      "exec-ns": 54997,
+      "total-ns": 68734,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#Merge bitcoin and ethereum data\nbtc_eth = pd.merge(btc_grouped, eth_grouped, suffixes=('_btc', '_eth'), left_index=True, right_index=True)\nbtc_eth.head()",
+      "rewrite-ns": 770141,
+      "overhead-ns": 770141,
+      "exec-ns": 4967213,
+      "total-ns": 5737354,
+      "patts-hit": {},
+      "rewritten": "btc_eth = pd.merge(btc_grouped, eth_grouped, suffixes=('_btc', '_eth'),\n    left_index=True, right_index=True)\nbtc_eth.head()\n"
+    },
+    {
+      "raw": "#Merge litecoin with other two\nbtc_eth_ltc = pd.merge(btc_eth, ltc_grouped, left_index=True, right_index=True)\nbtc_eth_ltc.rename(columns={\"Close\": \"Close_ltc\", \"Volume\": \"Volume_ltc\"}, inplace=True)\nbtc_eth_ltc.head()",
+      "rewrite-ns": 1071653,
+      "overhead-ns": 1071653,
+      "exec-ns": 6013709,
+      "total-ns": 7085362,
+      "patts-hit": {},
+      "rewritten": "btc_eth_ltc = pd.merge(btc_eth, ltc_grouped, left_index=True, right_index=True)\nbtc_eth_ltc.rename(columns={'Close': 'Close_ltc', 'Volume': 'Volume_ltc'},\n    inplace=True)\nbtc_eth_ltc.head()\n"
+    },
+    {
+      "raw": "#Corelation between the currencies\nbtc_eth_ltc.corr()",
+      "rewrite-ns": 264313,
+      "overhead-ns": 264313,
+      "exec-ns": 4810657,
+      "total-ns": 5074970,
+      "patts-hit": {},
+      "rewritten": "btc_eth_ltc.corr()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize = (15,8))\n# sns.heatmap(btc_eth_ltc.corr(), annot = True)\n# plt.show()\n_ = btc_eth_ltc.corr()",
+      "rewrite-ns": 315628,
+      "overhead-ns": 315628,
+      "exec-ns": 418434,
+      "total-ns": 734062,
+      "patts-hit": {},
+      "rewritten": "_ = btc_eth_ltc.corr()\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 11152,
+      "overhead-ns": 11152,
+      "exec-ns": 62927,
+      "total-ns": 74079,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 23.573130945,
+  "max-disk-in-mb": 0
+}

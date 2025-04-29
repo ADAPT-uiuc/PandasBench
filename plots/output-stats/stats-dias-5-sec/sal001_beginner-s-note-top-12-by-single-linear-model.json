@@ -1,0 +1,395 @@
+{
+  "max-mem-in-mb": 557,
+  "max-mem-in-mb2": 646,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt\n# %matplotlib inline",
+      "rewrite-ns": 692163,
+      "overhead-ns": 692163,
+      "exec-ns": 396174,
+      "total-ns": 1088337,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n"
+    },
+    {
+      "raw": "df = pd.read_csv('./input/train.scaled.csv')\ndf_test = pd.read_csv('./input/test.scaled.csv')",
+      "rewrite-ns": 920569,
+      "overhead-ns": 920569,
+      "exec-ns": 1003683400,
+      "total-ns": 1004603969,
+      "patts-hit": {},
+      "rewritten": "df = pd.read_csv('./input/train.scaled.csv')\ndf_test = pd.read_csv('./input/test.scaled.csv')\n"
+    },
+    {
+      "raw": "train_size = len(df)",
+      "rewrite-ns": 369309,
+      "overhead-ns": 369309,
+      "exec-ns": 322381,
+      "total-ns": 691690,
+      "patts-hit": {},
+      "rewritten": "train_size = len(df)\n"
+    },
+    {
+      "raw": "features = pd.concat([df.drop('SalePrice',axis=1),df_test],sort=False).reset_index(drop=True)\ntarget = df['SalePrice'].copy()",
+      "rewrite-ns": 1373551,
+      "overhead-ns": 1373551,
+      "exec-ns": 313958130,
+      "total-ns": 315331681,
+      "patts-hit": {},
+      "rewritten": "features = pd.concat([df.drop('SalePrice', axis=1), df_test], sort=False\n    ).reset_index(drop=True)\ntarget = df['SalePrice'].copy()\n"
+    },
+    {
+      "raw": "df.head()",
+      "rewrite-ns": 139673,
+      "overhead-ns": 139673,
+      "exec-ns": 39441316,
+      "total-ns": 39580989,
+      "patts-hit": {},
+      "rewritten": "df.head()\n"
+    },
+    {
+      "raw": "print('number of numeric columns: ' + str(len(df.select_dtypes(['int64','float64']).columns)))\nprint('number of categorical columns: ' + str(len(df.select_dtypes(['object']).columns)))",
+      "rewrite-ns": 1610845,
+      "overhead-ns": 1610845,
+      "exec-ns": 20577594,
+      "total-ns": 22188439,
+      "patts-hit": {},
+      "rewritten": "print('number of numeric columns: ' + str(len(df.select_dtypes(['int64',\n    'float64']).columns)))\nprint('number of categorical columns: ' + str(len(df.select_dtypes([\n    'object']).columns)))\n"
+    },
+    {
+      "raw": "#correlation to SalePrice\n# ALEX: remove plotting\n# plt.figure(figsize=(12,6))\n# df.corr()['SalePrice'].drop('SalePrice').sort_values().plot(kind='bar')\ndf.corr()['SalePrice'].drop('SalePrice').sort_values()",
+      "rewrite-ns": 645084,
+      "overhead-ns": 645084,
+      "exec-ns": 263050301,
+      "total-ns": 263695385,
+      "patts-hit": {},
+      "rewritten": "df.corr()['SalePrice'].drop('SalePrice').sort_values()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.jointplot(x='OverallQual', y='SalePrice', data=df)\n\n# sns.jointplot(x='GrLivArea', y='SalePrice', data=df)",
+      "rewrite-ns": 23325,
+      "overhead-ns": 23325,
+      "exec-ns": 105610,
+      "total-ns": 128935,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#23 catergorical columns with missing values\nmissing_str = features.select_dtypes('object').isnull().sum().sort_values(ascending=False)\nmissing_str[missing_str>0]",
+      "rewrite-ns": 1151033,
+      "overhead-ns": 1151033,
+      "exec-ns": 634072275,
+      "total-ns": 635223308,
+      "patts-hit": {},
+      "rewritten": "missing_str = features.select_dtypes('object').isnull().sum().sort_values(\n    ascending=False)\nmissing_str[missing_str > 0]\n"
+    },
+    {
+      "raw": "fill_none = ['MiscFeature','Alley','Fence','FireplaceQu','GarageType','GarageCond', 'GarageQual','GarageFinish','BsmtCond','BsmtFinType1', 'BsmtFinType2', 'BsmtExposure', 'BsmtQual','MasVnrType']\nfeatures[fill_none] = features[fill_none].fillna('None',inplace=False)",
+      "rewrite-ns": 1440009,
+      "overhead-ns": 1440009,
+      "exec-ns": 733499240,
+      "total-ns": 734939249,
+      "patts-hit": {},
+      "rewritten": "fill_none = ['MiscFeature', 'Alley', 'Fence', 'FireplaceQu', 'GarageType',\n    'GarageCond', 'GarageQual', 'GarageFinish', 'BsmtCond', 'BsmtFinType1',\n    'BsmtFinType2', 'BsmtExposure', 'BsmtQual', 'MasVnrType']\nfeatures[fill_none] = features[fill_none].fillna('None', inplace=False)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.scatterplot(x='PoolArea',y='SalePrice',data=df.fillna('Missing'),hue='PoolQC')\n_ = df.fillna('Missing')",
+      "rewrite-ns": 454114,
+      "overhead-ns": 454114,
+      "exec-ns": 325706404,
+      "total-ns": 326160518,
+      "patts-hit": {},
+      "rewritten": "_ = df.fillna('Missing')\n"
+    },
+    {
+      "raw": "features['PoolQC'].fillna('N',inplace=True)\nfeatures['PoolQC'].replace({'Ex':'Y','Fa':'Y','Gd':'Y'},inplace=True)\nfeatures.drop('PoolArea',axis=1,inplace=True)",
+      "rewrite-ns": 1573780,
+      "overhead-ns": 1573780,
+      "exec-ns": 79511428,
+      "total-ns": 81085208,
+      "patts-hit": {},
+      "rewritten": "features['PoolQC'].fillna('N', inplace=True)\nfeatures['PoolQC'].replace({'Ex': 'Y', 'Fa': 'Y', 'Gd': 'Y'}, inplace=True)\nfeatures.drop('PoolArea', axis=1, inplace=True)\n"
+    },
+    {
+      "raw": "otr_cate = ['MSZoning', 'Utilities', 'Functional', 'Electrical', 'SaleType', 'Exterior2nd', 'Exterior1st', 'KitchenQual']\nfor c in otr_cate:\n    features[c] = features[c].fillna(features[c].mode()[0],inplace=False)",
+      "rewrite-ns": 1630447,
+      "overhead-ns": 1630447,
+      "exec-ns": 284912215,
+      "total-ns": 286542662,
+      "patts-hit": {},
+      "rewritten": "otr_cate = ['MSZoning', 'Utilities', 'Functional', 'Electrical', 'SaleType',\n    'Exterior2nd', 'Exterior1st', 'KitchenQual']\nfor c in otr_cate:\n    features[c] = features[c].fillna(features[c].mode()[0], inplace=False)\n"
+    },
+    {
+      "raw": "#11 catergorical columns with missing values\nmissing_num = features.select_dtypes(['int64','float64']).isnull().sum().sort_values(ascending=False)\nmissing_num[missing_num>0]",
+      "rewrite-ns": 1283899,
+      "overhead-ns": 1283899,
+      "exec-ns": 17945115,
+      "total-ns": 19229014,
+      "patts-hit": {},
+      "rewritten": "missing_num = features.select_dtypes(['int64', 'float64']).isnull().sum(\n    ).sort_values(ascending=False)\nmissing_num[missing_num > 0]\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# df.plot(x='LotFrontage',y='LotArea',kind='scatter')",
+      "rewrite-ns": 21036,
+      "overhead-ns": 21036,
+      "exec-ns": 101664,
+      "total-ns": 122700,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "features['LotFrontage'].fillna(features['LotFrontage'].median(),inplace=True)",
+      "rewrite-ns": 732068,
+      "overhead-ns": 732068,
+      "exec-ns": 3483051,
+      "total-ns": 4215119,
+      "patts-hit": {},
+      "rewritten": "features['LotFrontage'].fillna(features['LotFrontage'].median(), inplace=True)\n"
+    },
+    {
+      "raw": "features[features['GarageCond']=='None']['GarageYrBlt'].isnull().sum()",
+      "rewrite-ns": 756645,
+      "overhead-ns": 756645,
+      "exec-ns": 124753528,
+      "total-ns": 125510173,
+      "patts-hit": {},
+      "rewritten": "features[features['GarageCond'] == 'None']['GarageYrBlt'].isnull().sum()\n"
+    },
+    {
+      "raw": "features['GarageYrBlt'].fillna(0,inplace=True)",
+      "rewrite-ns": 547954,
+      "overhead-ns": 547954,
+      "exec-ns": 989416,
+      "total-ns": 1537370,
+      "patts-hit": {},
+      "rewritten": "features['GarageYrBlt'].fillna(0, inplace=True)\n"
+    },
+    {
+      "raw": "fill_zero = ['GarageArea','GarageCars','MasVnrArea','BsmtFullBath','BsmtHalfBath','BsmtFinSF1','BsmtFinSF2','BsmtUnfSF','TotalBsmtSF']\nfeatures[fill_zero] = features[fill_zero].fillna(0)",
+      "rewrite-ns": 1044441,
+      "overhead-ns": 1044441,
+      "exec-ns": 16564957,
+      "total-ns": 17609398,
+      "patts-hit": {},
+      "rewritten": "fill_zero = ['GarageArea', 'GarageCars', 'MasVnrArea', 'BsmtFullBath',\n    'BsmtHalfBath', 'BsmtFinSF1', 'BsmtFinSF2', 'BsmtUnfSF', 'TotalBsmtSF']\nfeatures[fill_zero] = features[fill_zero].fillna(0)\n"
+    },
+    {
+      "raw": "# focusing on first row, and found some point does not follow the trend\n# ALEX: remove plotting\n# sns.pairplot(df[['SalePrice','GrLivArea','1stFlrSF','TotalBsmtSF','LotFrontage','LotArea']].dropna())\n_ = df[['SalePrice','GrLivArea','1stFlrSF','TotalBsmtSF','LotFrontage','LotArea']].dropna()",
+      "rewrite-ns": 733048,
+      "overhead-ns": 733048,
+      "exec-ns": 10834493,
+      "total-ns": 11567541,
+      "patts-hit": {},
+      "rewritten": "_ = df[['SalePrice', 'GrLivArea', '1stFlrSF', 'TotalBsmtSF', 'LotFrontage',\n    'LotArea']].dropna()\n"
+    },
+    {
+      "raw": "drop_index = [] # list to contain all rows should be excluded\ndrop_index.append(df[(df['GrLivArea']>4500) & (df['SalePrice']<400000)].loc[:train_size].index)\ndrop_index.append(df[(df['1stFlrSF']>4000) & (df['SalePrice']<400000)].loc[:train_size].index)\ndrop_index.append(df[(df['TotalBsmtSF']>6000) & (df['SalePrice']<400000)].loc[:train_size].index)\ndrop_index.append(df[df['LotArea']>100000].index)\ndrop_index.append(df[df['LotFrontage']>300].index)\n\ndrop_index = list(map(list,drop_index)) # IndexObject -> python list\ntmp = []\nfor sublist in drop_index:\n    for item in sublist:\n        tmp.append(item)\ndrop_index = list(set(tmp))  # merge into single list and take set() to remove the duplicated\n\nfeatures.drop(drop_index,inplace=True)\ntarget.drop(drop_index,inplace=True)",
+      "rewrite-ns": 6529348,
+      "overhead-ns": 6529348,
+      "exec-ns": 81854730,
+      "total-ns": 88384078,
+      "patts-hit": {},
+      "rewritten": "drop_index = []\ndrop_index.append(df[(df['GrLivArea'] > 4500) & (df['SalePrice'] < 400000)]\n    .loc[:train_size].index)\ndrop_index.append(df[(df['1stFlrSF'] > 4000) & (df['SalePrice'] < 400000)].\n    loc[:train_size].index)\ndrop_index.append(df[(df['TotalBsmtSF'] > 6000) & (df['SalePrice'] < 400000\n    )].loc[:train_size].index)\ndrop_index.append(df[df['LotArea'] > 100000].index)\ndrop_index.append(df[df['LotFrontage'] > 300].index)\ndrop_index = list(map(list, drop_index))\ntmp = []\nfor sublist in drop_index:\n    for item in sublist:\n        tmp.append(item)\ndrop_index = list(set(tmp))\nfeatures.drop(drop_index, inplace=True)\ntarget.drop(drop_index, inplace=True)\n"
+    },
+    {
+      "raw": "features['MSSubClass'] = features['MSSubClass'].astype('object')",
+      "rewrite-ns": 604447,
+      "overhead-ns": 604447,
+      "exec-ns": 4646513,
+      "total-ns": 5250960,
+      "patts-hit": {},
+      "rewritten": "features['MSSubClass'] = features['MSSubClass'].astype('object')\n"
+    },
+    {
+      "raw": "features['Utilities'].value_counts()",
+      "rewrite-ns": 386620,
+      "overhead-ns": 386620,
+      "exec-ns": 7345667,
+      "total-ns": 7732287,
+      "patts-hit": {},
+      "rewritten": "features['Utilities'].value_counts()\n"
+    },
+    {
+      "raw": "features.drop('Utilities',axis=1,inplace=True)",
+      "rewrite-ns": 479007,
+      "overhead-ns": 479007,
+      "exec-ns": 72223750,
+      "total-ns": 72702757,
+      "patts-hit": {},
+      "rewritten": "features.drop('Utilities', axis=1, inplace=True)\n"
+    },
+    {
+      "raw": "features.drop('Id',axis=1,inplace=True)",
+      "rewrite-ns": 510217,
+      "overhead-ns": 510217,
+      "exec-ns": 69556556,
+      "total-ns": 70066773,
+      "patts-hit": {},
+      "rewritten": "features.drop('Id', axis=1, inplace=True)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# df.plot(x='LowQualFinSF',y='SalePrice',kind='scatter')",
+      "rewrite-ns": 23616,
+      "overhead-ns": 23616,
+      "exec-ns": 113509,
+      "total-ns": 137125,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "features['LowQualFinSF'] = features['LowQualFinSF'].apply(lambda x: 'Y' if x>0 else 'N')",
+      "rewrite-ns": 983323,
+      "overhead-ns": 983323,
+      "exec-ns": 18053523,
+      "total-ns": 19036846,
+      "patts-hit": {},
+      "rewritten": "features['LowQualFinSF'] = features['LowQualFinSF'].apply(lambda x: 'Y' if \n    x > 0 else 'N')\n"
+    },
+    {
+      "raw": "#before take square root\n# ALEX: remove plotting\n# sns.jointplot(x=df['GrLivArea'],y=df['SalePrice'].apply(np.log1p),data=df,kind='reg')\n_ = df['GrLivArea']\n_ = df['SalePrice'].apply(np.log1p)",
+      "rewrite-ns": 796160,
+      "overhead-ns": 796160,
+      "exec-ns": 708395,
+      "total-ns": 1504555,
+      "patts-hit": {},
+      "rewritten": "_ = df['GrLivArea']\n_ = df['SalePrice'].apply(np.log1p)\n"
+    },
+    {
+      "raw": "#after take square root\n# ALEX: remove plotting\n# sns.jointplot(x=df['GrLivArea']**0.5,y=df['SalePrice'].apply(np.log1p),data=df,kind='reg')\n_ = df['GrLivArea']**0.5\n_ = df['SalePrice'].apply(np.log1p)",
+      "rewrite-ns": 877056,
+      "overhead-ns": 877056,
+      "exec-ns": 2111632,
+      "total-ns": 2988688,
+      "patts-hit": {},
+      "rewritten": "_ = df['GrLivArea'] ** 0.5\n_ = df['SalePrice'].apply(np.log1p)\n"
+    },
+    {
+      "raw": "features['GrLivArea'] = features['GrLivArea']**0.5",
+      "rewrite-ns": 482029,
+      "overhead-ns": 482029,
+      "exec-ns": 6145543,
+      "total-ns": 6627572,
+      "patts-hit": {},
+      "rewritten": "features['GrLivArea'] = features['GrLivArea'] ** 0.5\n"
+    },
+    {
+      "raw": "#predictor pairwise correlation check\ncorr_matrix = features.corr()\ncolinearity = {}\nfor column in corr_matrix.columns:\n    index = corr_matrix[corr_matrix[column]>0.6].index\n    for indice in index:\n        if not column == indice:\n            if not indice+' '+column in colinearity.keys():\n                colinearity[column+' '+indice]=corr_matrix.loc[indice,column]\ncolinearity",
+      "rewrite-ns": 2792336,
+      "overhead-ns": 2792336,
+      "exec-ns": 411422445,
+      "total-ns": 414214781,
+      "patts-hit": {},
+      "rewritten": "corr_matrix = features.corr()\ncolinearity = {}\nfor column in corr_matrix.columns:\n    index = corr_matrix[corr_matrix[column] > 0.6].index\n    for indice in index:\n        if not column == indice:\n            if not indice + ' ' + column in colinearity.keys():\n                colinearity[column + ' ' + indice] = corr_matrix.loc[indice,\n                    column]\ncolinearity\n"
+    },
+    {
+      "raw": "high_collinerarity = ['GarageArea','TotRmsAbvGrd','1stFlrSF','2ndFlrSF','BsmtFinSF1','BsmtFinSF2','FullBath']\nfeatures = features.drop(high_collinerarity,axis=1)",
+      "rewrite-ns": 942718,
+      "overhead-ns": 942718,
+      "exec-ns": 69514316,
+      "total-ns": 70457034,
+      "patts-hit": {},
+      "rewritten": "high_collinerarity = ['GarageArea', 'TotRmsAbvGrd', '1stFlrSF', '2ndFlrSF',\n    'BsmtFinSF1', 'BsmtFinSF2', 'FullBath']\nfeatures = features.drop(high_collinerarity, axis=1)\n"
+    },
+    {
+      "raw": "categorical_cols = list(features.select_dtypes('object').columns)\ndummies = pd.get_dummies(features[categorical_cols],drop_first=True)\nfeatures = pd.concat([features.drop(categorical_cols,axis=1),dummies],axis=1)",
+      "rewrite-ns": 1741421,
+      "overhead-ns": 1741421,
+      "exec-ns": 778262612,
+      "total-ns": 780004033,
+      "patts-hit": {},
+      "rewritten": "categorical_cols = list(features.select_dtypes('object').columns)\ndummies = pd.get_dummies(features[categorical_cols], drop_first=True)\nfeatures = pd.concat([features.drop(categorical_cols, axis=1), dummies], axis=1\n    )\n"
+    },
+    {
+      "raw": "X_train = features.loc[0:train_size-1]\ny_train = target\nX_test = features.loc[train_size:]",
+      "rewrite-ns": 1085970,
+      "overhead-ns": 1085970,
+      "exec-ns": 3161946,
+      "total-ns": 4247916,
+      "patts-hit": {},
+      "rewritten": "X_train = features.loc[0:train_size - 1]\ny_train = target\nX_test = features.loc[train_size:]\n"
+    },
+    {
+      "raw": "X_train.shape",
+      "rewrite-ns": 67885,
+      "overhead-ns": 67885,
+      "exec-ns": 560848,
+      "total-ns": 628733,
+      "patts-hit": {},
+      "rewritten": "X_train.shape\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.linear_model import RidgeCV\n# reg = RidgeCV()\n# reg.fit(X_train,np.log1p(y_train))\n_ = np.log1p(y_train)\n#reg.fit(X_train,y_train)",
+      "rewrite-ns": 392032,
+      "overhead-ns": 392032,
+      "exec-ns": 621799,
+      "total-ns": 1013831,
+      "patts-hit": {},
+      "rewritten": "_ = np.log1p(y_train)\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import cross_val_score\n# log_rms = np.sqrt(-np.mean(cross_val_score(reg, X_train,np.log1p(y_train), cv=5,scoring='neg_mean_squared_error')))\n# #log_rms = np.sqrt(-np.mean(cross_val_score(reg, X_train,y_train, cv=5,scoring='neg_mean_squared_log_error')))\n# print(f'RMLS : {log_rms}')\n_ = np.log1p(y_train)",
+      "rewrite-ns": 367747,
+      "overhead-ns": 367747,
+      "exec-ns": 553080,
+      "total-ns": 920827,
+      "patts-hit": {},
+      "rewritten": "_ = np.log1p(y_train)\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# pred = np.expm1(reg.predict(X_train))\npred = np.expm1(y_train.to_numpy())\n#pred = reg.predict(X_train)",
+      "rewrite-ns": 461582,
+      "overhead-ns": 461582,
+      "exec-ns": 682408,
+      "total-ns": 1143990,
+      "patts-hit": {},
+      "rewritten": "pred = np.expm1(y_train.to_numpy())\n"
+    },
+    {
+      "raw": "comparison = pd.DataFrame({'prediction':pred.reshape(pred.shape[0],),'actual':y_train,'error':pred.reshape(pred.shape[0],)-y_train})\n# ALEX: remove plotting\n# sns.distplot(comparison['error'])\n_ = comparison['error']",
+      "rewrite-ns": 1544453,
+      "overhead-ns": 1544453,
+      "exec-ns": 1735046,
+      "total-ns": 3279499,
+      "patts-hit": {},
+      "rewritten": "comparison = pd.DataFrame({'prediction': pred.reshape(pred.shape[0]),\n    'actual': y_train, 'error': pred.reshape(pred.shape[0]) - y_train})\n_ = comparison['error']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# comparison.plot(x='prediction',y='error',kind='scatter')",
+      "rewrite-ns": 12350,
+      "overhead-ns": 12350,
+      "exec-ns": 67022,
+      "total-ns": 79372,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# comparison.plot(x='prediction',y='actual',kind='scatter')",
+      "rewrite-ns": 11488,
+      "overhead-ns": 11488,
+      "exec-ns": 65343,
+      "total-ns": 76831,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# output result for submission\n# ALEX: remove ML code\n# pred = np.expm1(reg.predict(X_test))\npred = np.expm1(y_train.to_numpy())\n# ALEX: make notebook run\n# pred = pd.DataFrame(pred.reshape(1459, ))\npred = pd.DataFrame(pred.reshape(pred.shape[0], ))\noutput = pd.concat([df_test['Id'],pred],axis=1).rename(columns={0:'SalePrice'})\noutput.to_csv('submission.csv',index=False)",
+      "rewrite-ns": 2162512,
+      "overhead-ns": 2162512,
+      "exec-ns": 73936062,
+      "total-ns": 76098574,
+      "patts-hit": {},
+      "rewritten": "pred = np.expm1(y_train.to_numpy())\npred = pd.DataFrame(pred.reshape(pred.shape[0]))\noutput = pd.concat([df_test['Id'], pred], axis=1).rename(columns={(0):\n    'SalePrice'})\noutput.to_csv('submission.csv', index=False)\n"
+    },
+    {
+      "raw": "steps = ['Control','Outliers','Log_y','Modification','Non-linearity','Collinearity']\nrmls = [0.15494899171649665,0.14154336306738766,0.11543537404168344,0.11479554199015254,0.11394995795225088,0.11326714995779572]\nscores = pd.DataFrame({'steps':steps,'rmls':rmls})\n\n# ALEX: remove plotting\n# scores.plot(x='steps',y='rmls',marker='o',rot=90)\n# plt.xlabel('Preprocessing Actions',fontsize=14)\n# plt.ylabel('RMLS',fontsize=14)\n# plt.title('RMLS Changing wrt to Preprocessing Actions',fontsize=16)",
+      "rewrite-ns": 1328216,
+      "overhead-ns": 1328216,
+      "exec-ns": 658561,
+      "total-ns": 1986777,
+      "patts-hit": {},
+      "rewritten": "steps = ['Control', 'Outliers', 'Log_y', 'Modification', 'Non-linearity',\n    'Collinearity']\nrmls = [0.15494899171649665, 0.14154336306738766, 0.11543537404168344, \n    0.11479554199015254, 0.11394995795225088, 0.11326714995779572]\nscores = pd.DataFrame({'steps': steps, 'rmls': rmls})\n"
+    }
+  ],
+  "total-time-in-sec": 5.519635524,
+  "max-disk-in-mb": 0
+}

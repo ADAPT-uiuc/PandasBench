@@ -1,0 +1,394 @@
+{
+  "max-mem-in-mb": 380,
+  "max-mem-in-mb2": 480,
+  "cells": [
+    {
+      "raw": "# Data manipulation modules\n# import pandas as pd        # R-like data manipulation\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np         # n-dimensional arrays\n\n# For plotting\n# ALEX: remove plotting\n# import matplotlib as mpl\n# import matplotlib.pyplot as plt      # For base plotting\n# # Seaborn is a library for making statistical graphics\n# # in Python. It is built on top of matplotlib and \n# #  numpy and pandas data structures.\n# import seaborn as sns                # Easier plotting\n\n# # Misc\n# import os\n\n# ## To Show graphs in same window\n# %matplotlib inline\n\n# mpl.style.use(\"seaborn\")\n# plt.style.use(\"seaborn\")\n",
+      "rewrite-ns": 689978,
+      "overhead-ns": 689978,
+      "exec-ns": 410365,
+      "total-ns": 1100343,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n"
+    },
+    {
+      "raw": "######### Begin\n# Read data file\ndata_gv = pd.read_csv(\"./input/gun-violence-data_01-2013_03-2018.scaled.csv\")\n\n# Explore data - First 5 records of Gun Violance data\ndata_gv.head()                          # head()\n\n",
+      "rewrite-ns": 573596,
+      "overhead-ns": 573596,
+      "exec-ns": 2130128909,
+      "total-ns": 2130702505,
+      "patts-hit": {},
+      "rewritten": "data_gv = pd.read_csv('./input/gun-violence-data_01-2013_03-2018.scaled.csv')\ndata_gv.head()\n"
+    },
+    {
+      "raw": "data_gv.columns",
+      "rewrite-ns": 103937,
+      "overhead-ns": 103937,
+      "exec-ns": 760528,
+      "total-ns": 864465,
+      "patts-hit": {},
+      "rewritten": "data_gv.columns\n"
+    },
+    {
+      "raw": "data_gv.columns.values",
+      "rewrite-ns": 273427,
+      "overhead-ns": 273427,
+      "exec-ns": 548157,
+      "total-ns": 821584,
+      "patts-hit": {},
+      "rewritten": "data_gv.columns.values\n"
+    },
+    {
+      "raw": "data_gv.dtypes",
+      "rewrite-ns": 48914,
+      "overhead-ns": 48914,
+      "exec-ns": 1053177,
+      "total-ns": 1102091,
+      "patts-hit": {},
+      "rewritten": "data_gv.dtypes\n"
+    },
+    {
+      "raw": "data_gv.describe()",
+      "rewrite-ns": 91275,
+      "overhead-ns": 91275,
+      "exec-ns": 81295822,
+      "total-ns": 81387097,
+      "patts-hit": {},
+      "rewritten": "data_gv.describe()\n"
+    },
+    {
+      "raw": "data_gv.info()",
+      "rewrite-ns": 93898,
+      "overhead-ns": 93898,
+      "exec-ns": 380346200,
+      "total-ns": 380440098,
+      "patts-hit": {},
+      "rewritten": "data_gv.info()\n"
+    },
+    {
+      "raw": "data_gv.shape",
+      "rewrite-ns": 70842,
+      "overhead-ns": 70842,
+      "exec-ns": 564008,
+      "total-ns": 634850,
+      "patts-hit": {},
+      "rewritten": "data_gv.shape\n"
+    },
+    {
+      "raw": "# Removing columns not useful in analysis\ndata_gv.drop([\"incident_characteristics\",\n              \"latitude\",\n              'longitude',\n              \"incident_url\",\n              \"sources\",\n              \"source_url\",\n              \"incident_url_fields_missing\",\n              \"location_description\",\n              \"participant_relationship\",\n              \"notes\",\n    ], axis=1, inplace=True)",
+      "rewrite-ns": 907238,
+      "overhead-ns": 907238,
+      "exec-ns": 38548723,
+      "total-ns": 39455961,
+      "patts-hit": {},
+      "rewritten": "data_gv.drop(['incident_characteristics', 'latitude', 'longitude',\n    'incident_url', 'sources', 'source_url', 'incident_url_fields_missing',\n    'location_description', 'participant_relationship', 'notes'], axis=1,\n    inplace=True)\n"
+    },
+    {
+      "raw": "data_gv['gun_type'].unique()              # Which values",
+      "rewrite-ns": 151218,
+      "overhead-ns": 151218,
+      "exec-ns": 7205244,
+      "total-ns": 7356462,
+      "patts-hit": {},
+      "rewritten": "data_gv['gun_type'].unique()\n"
+    },
+    {
+      "raw": "##Converting object datatype to datetime\ndata_gv['date'] = pd.to_datetime(data_gv['date']) ",
+      "rewrite-ns": 595518,
+      "overhead-ns": 595518,
+      "exec-ns": 31708489,
+      "total-ns": 32304007,
+      "patts-hit": {},
+      "rewritten": "data_gv['date'] = pd.to_datetime(data_gv['date'])\n"
+    },
+    {
+      "raw": "# we can create columns for month, year and weekdays and extract values \n# from date for further analysis\ndata_gv['f_month'] = data_gv['date'].dt.month\ndata_gv['f_year'] = data_gv['date'].dt.year\ndata_gv['f_weekday'] = data_gv['date'].dt.weekday\n\ndata_gv['f_year'] = data_gv['f_year'].astype('object')\ndata_gv['f_month'] = data_gv['f_month'].astype('object')\ndata_gv['f_weekday'] = data_gv['f_weekday'].astype('object')\n\n#Check the datatype of columns are changed\ndata_gv.dtypes",
+      "rewrite-ns": 2790631,
+      "overhead-ns": 2790631,
+      "exec-ns": 29046385,
+      "total-ns": 31837016,
+      "patts-hit": {},
+      "rewritten": "data_gv['f_month'] = data_gv['date'].dt.month\ndata_gv['f_year'] = data_gv['date'].dt.year\ndata_gv['f_weekday'] = data_gv['date'].dt.weekday\ndata_gv['f_year'] = data_gv['f_year'].astype('object')\ndata_gv['f_month'] = data_gv['f_month'].astype('object')\ndata_gv['f_weekday'] = data_gv['f_weekday'].astype('object')\ndata_gv.dtypes\n"
+    },
+    {
+      "raw": "# Created column for total number of persons impacted (injured+killed)\ndata_gv['total_impacted'] = data_gv['n_killed'] + data_gv['n_injured']",
+      "rewrite-ns": 620788,
+      "overhead-ns": 620788,
+      "exec-ns": 1197807,
+      "total-ns": 1818595,
+      "patts-hit": {},
+      "rewritten": "data_gv['total_impacted'] = data_gv['n_killed'] + data_gv['n_injured']\n"
+    },
+    {
+      "raw": "# Checking for null value of column for guns involved and guns stolen \ndata_gv[\"n_guns_involved\"] = data_gv[\"n_guns_involved\"].fillna(value =0)\ndata_gv[\"gun_stolen\"] = data_gv[\"gun_stolen\"].fillna(value = \"0::Unknown\")",
+      "rewrite-ns": 691033,
+      "overhead-ns": 691033,
+      "exec-ns": 9626684,
+      "total-ns": 10317717,
+      "patts-hit": {
+        "IsInplaceUpdate": 1
+      },
+      "rewritten": "_DIAS_ser = data_gv['n_guns_involved']\nif type(_DIAS_ser) != pd.Series:\n    data_gv['n_guns_involved'] = data_gv['n_guns_involved'].fillna(value=0)\nelse:\n    data_gv['n_guns_involved'].fillna(value=0, inplace=True)\n_DIAS_ser = data_gv['gun_stolen']\nif type(_DIAS_ser) != pd.Series:\n    data_gv['gun_stolen'] = data_gv['gun_stolen'].fillna(value='0::Unknown')\nelse:\n    data_gv['gun_stolen'].fillna(value='0::Unknown', inplace=True)\n"
+    },
+    {
+      "raw": "## Creating multiple columns from Participant's Gender column\ndata_gv[\"participant_gender\"] = data_gv[\"participant_gender\"].fillna(\"0::Unknown\")\n    \ndef gen(n) :                    \n    gen_rows = []               \n    gen_row = str(n).split(\"||\")    \n    for i in gen_row :              \n        g_row = str(i).split(\"::\")  \n        if len(g_row) > 1 :         \n            gen_rows.append(g_row[1])    \n\n    return gen_rows\n\ngen_series = data_gv.participant_gender.apply(gen)\ndata_gv[\"total_participant\"] = gen_series.apply(lambda x: len(x))\ndata_gv[\"male_participant\"] = gen_series.apply(lambda i: i.count(\"Male\"))\ndata_gv[\"female_participant\"] = gen_series.apply(lambda i: i.count(\"Female\"))\ndata_gv[\"unknown_participant\"] = gen_series.apply(lambda i: i.count(\"Unknown\"))\n",
+      "rewrite-ns": 5082609,
+      "overhead-ns": 5082609,
+      "exec-ns": 456462630,
+      "total-ns": 461545239,
+      "patts-hit": {
+        "IsInplaceUpdate": 1
+      },
+      "rewritten": "_DIAS_ser = data_gv['participant_gender']\nif type(_DIAS_ser) != pd.Series:\n    data_gv['participant_gender'] = data_gv['participant_gender'].fillna(\n        '0::Unknown')\nelse:\n    data_gv['participant_gender'].fillna('0::Unknown', inplace=True)\ndef gen(n):\n    gen_rows = []\n    gen_row = str(n).split('||')\n    for i in gen_row:\n        g_row = str(i).split('::')\n        if len(g_row) > 1:\n            gen_rows.append(g_row[1])\n    return gen_rows\ngen_series = data_gv.participant_gender.apply(gen)\ndata_gv['total_participant'] = gen_series.apply(lambda x: len(x))\ndata_gv['male_participant'] = gen_series.apply(lambda i: i.count('Male'))\ndata_gv['female_participant'] = gen_series.apply(lambda i: i.count('Female'))\ndata_gv['unknown_participant'] = gen_series.apply(lambda i: i.count('Unknown'))\n"
+    },
+    {
+      "raw": "# Checking values for new columns\ndata_gv.head()\n",
+      "rewrite-ns": 124957,
+      "overhead-ns": 124957,
+      "exec-ns": 14774322,
+      "total-ns": 14899279,
+      "patts-hit": {},
+      "rewritten": "data_gv.head()\n"
+    },
+    {
+      "raw": "data_gv.shape",
+      "rewrite-ns": 70969,
+      "overhead-ns": 70969,
+      "exec-ns": 537911,
+      "total-ns": 608880,
+      "patts-hit": {},
+      "rewritten": "data_gv.shape\n"
+    },
+    {
+      "raw": "\n##As per assignment lets plot following graphs:\n#i)  Joint Distribution plots\n#ii)  Histograms\n#iii) Kernel Density plots\n#iv) Violin plots\n#v) Box plots\n#vi) FacetGrid",
+      "rewrite-ns": 13346,
+      "overhead-ns": 13346,
+      "exec-ns": 72673,
+      "total-ns": 86019,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "###########################Joint Distribution plots############################\n# Draw a jointplot between Number of Person Killed Vs Injured in all incidences\n# ALEX: remove plotting\n# sns.jointplot(\"n_injured\",\n#               \"n_killed\",\n#               data_gv,\n#               kind='scatter',      # kind : { \u201cscatter\u201d | \u201creg\u201d | \u201cresid\u201d | \u201ckde\u201d | \u201chex\u201d }, optional\n#               s=200, color='m', edgecolor=\"skyblue\", linewidth=2)\n",
+      "rewrite-ns": 13979,
+      "overhead-ns": 13979,
+      "exec-ns": 61053,
+      "total-ns": 75032,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# Draw a jointplot to identify Maximum Number of Person Injured in which incidence\n# ALEX: remove plotting\n# sns.jointplot(\"incident_id\",\n#               \"n_injured\",\n#               data_gv,\n#               kind='scatter'      # kind : { \u201cscatter\u201d | \u201creg\u201d | \u201cresid\u201d | \u201ckde\u201d | \u201chex\u201d }, optional\n#               )",
+      "rewrite-ns": 13162,
+      "overhead-ns": 13162,
+      "exec-ns": 61602,
+      "total-ns": 74764,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# Draw a jointplot to identify Maximum Number of Person Killed in which incidence\n# ALEX: remove plotting\n# sns.jointplot(\"incident_id\",\n#               \"n_killed\",\n#               data_gv,\n#               kind='scatter',      # kind : { \u201cscatter\u201d | \u201creg\u201d | \u201cresid\u201d | \u201ckde\u201d | \u201chex\u201d }, optional\n#               color=\"Red\",\n#               marginal_kws={'color': 'red'})",
+      "rewrite-ns": 12945,
+      "overhead-ns": 12945,
+      "exec-ns": 57875,
+      "total-ns": 70820,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "###############################  Histograms  #########################\n\n# Plot a Histogram for Top 10 Cities with maximum incidents of Gun Violence\nctwise_total = data_gv[[\"incident_id\"]].groupby(data_gv[\"city_or_county\"]).count()\ntop_ct = ctwise_total.sort_values(by='incident_id', ascending=False).head(10)\nprint(top_ct)\n# ALEX: remove plotting\n# top_ct.plot.barh()\ndel(top_ct)",
+      "rewrite-ns": 1158329,
+      "overhead-ns": 1158329,
+      "exec-ns": 70257228,
+      "total-ns": 71415557,
+      "patts-hit": {
+        "SortHead": 1
+      },
+      "rewritten": "ctwise_total = data_gv[['incident_id']].groupby(data_gv['city_or_county']\n    ).count()\ntop_ct = dias.rewriter.sort_head(called_on=ctwise_total, by='incident_id',\n    n=10, asc=False, orig=lambda _DIAS_x: _DIAS_x.sort_values(by=\n    'incident_id', ascending=False).head(10))\nprint(top_ct)\ndel top_ct\n"
+    },
+    {
+      "raw": "# Plot a Histogram for Top 10 States with maximum incidents of Gun Violence\nstwise_total = data_gv[[\"incident_id\"]].groupby(data_gv[\"state\"]).count()\ntop_st = stwise_total.sort_values(by='incident_id', ascending=False).head(10)\nprint(top_st)\n# ALEX: remove plotting\n# top_st.plot.barh()\ndel(top_st)\n",
+      "rewrite-ns": 1150259,
+      "overhead-ns": 1150259,
+      "exec-ns": 13296392,
+      "total-ns": 14446651,
+      "patts-hit": {
+        "SortHead": 1
+      },
+      "rewritten": "stwise_total = data_gv[['incident_id']].groupby(data_gv['state']).count()\ntop_st = dias.rewriter.sort_head(called_on=stwise_total, by='incident_id',\n    n=10, asc=False, orig=lambda _DIAS_x: _DIAS_x.sort_values(by=\n    'incident_id', ascending=False).head(10))\nprint(top_st)\ndel top_st\n"
+    },
+    {
+      "raw": "# Plot a Histogram for Weekday wise Incidents\nweekwise_total = data_gv[[\"incident_id\"]].groupby(data_gv[\"f_weekday\"]).count()\n# ALEX: remove plotting\n# weekwise_total.plot.barh()\ndel(weekwise_total)\n# Here, for weekdays Monday is 0 and Sunday is 6.",
+      "rewrite-ns": 812424,
+      "overhead-ns": 812424,
+      "exec-ns": 11351038,
+      "total-ns": 12163462,
+      "patts-hit": {},
+      "rewritten": "weekwise_total = data_gv[['incident_id']].groupby(data_gv['f_weekday']).count()\ndel weekwise_total\n"
+    },
+    {
+      "raw": "############################  Kernel Density plots  #################################\n# Density plot for gendrwise participant\ngenderwise_total = data_gv[[\"total_participant\", \"male_participant\", \"female_participant\", \"unknown_participant\"]].groupby(data_gv[\"f_year\"]).sum()\n# ALEX: remove plotting\n# dp_gen_plot=sns.kdeplot(genderwise_total['male_participant'], shade=True, color=\"r\")\n# dp_gen_plot=sns.kdeplot(genderwise_total['female_participant'], shade=True, color=\"b\")\n# dp_gen_plot=sns.kdeplot(genderwise_total['unknown_participant'], shade=True, color=\"g\")\n_ = genderwise_total['male_participant']\n_ = genderwise_total['female_participant']\n_ = genderwise_total['unknown_participant']\ndel(genderwise_total)",
+      "rewrite-ns": 1667362,
+      "overhead-ns": 1667362,
+      "exec-ns": 15207229,
+      "total-ns": 16874591,
+      "patts-hit": {},
+      "rewritten": "genderwise_total = data_gv[['total_participant', 'male_participant',\n    'female_participant', 'unknown_participant']].groupby(data_gv['f_year']\n    ).sum()\n_ = genderwise_total['male_participant']\n_ = genderwise_total['female_participant']\n_ = genderwise_total['unknown_participant']\ndel genderwise_total\n"
+    },
+    {
+      "raw": "# Density plot for person injured vs killed on all weekdays\ninj_kill_weektotal = data_gv[[\"n_injured\",\"n_killed\"]].groupby(data_gv[\"f_weekday\"]).sum()\n# ALEX: remove plotting\n# dp_inj_kill_plot=sns.kdeplot(inj_kill_weektotal['n_injured'], shade=True, color=\"r\")\n# dp_inj_kill_plot=sns.kdeplot(inj_kill_weektotal['n_killed'], shade=True, color=\"b\")\n_ = inj_kill_weektotal['n_injured']\n_ = inj_kill_weektotal['n_killed']\ndel(inj_kill_weektotal)",
+      "rewrite-ns": 1312971,
+      "overhead-ns": 1312971,
+      "exec-ns": 12249644,
+      "total-ns": 13562615,
+      "patts-hit": {},
+      "rewritten": "inj_kill_weektotal = data_gv[['n_injured', 'n_killed']].groupby(data_gv[\n    'f_weekday']).sum()\n_ = inj_kill_weektotal['n_injured']\n_ = inj_kill_weektotal['n_killed']\ndel inj_kill_weektotal\n"
+    },
+    {
+      "raw": "################################## Violin plots #################################\n# Violin Plot for Yearwise Person Injured\n# ALEX: remove plotting\n# yr_injured_plot = sns.violinplot(\"f_year\", \"n_injured\", data=data_gv,\n#                                  split=True, inner=\"quartile\")\n# yr_injured_plot.set_title(\"Person killed in incidents per Year\")",
+      "rewrite-ns": 14131,
+      "overhead-ns": 14131,
+      "exec-ns": 75126,
+      "total-ns": 89257,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#  Violin Plot for  Yearwise Person killed\n# ALEX: remove plotting\n# yr_killed_plot = sns.violinplot(\"f_year\", \"n_killed\",\n#                data=data_gv,\n#                split=True,         # If hue variable has two levels, draw half of a violin for each level.\n#                inner=\"quartile\"    #  Options: \u201cbox\u201d, \u201cquartile\u201d, \u201cpoint\u201d, \u201cstick\u201d, None \n#                )\n",
+      "rewrite-ns": 15214,
+      "overhead-ns": 15214,
+      "exec-ns": 60482,
+      "total-ns": 75696,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#Violin Plot for Peron Impacted(Killed/Injured) during gun violence\nImpacted_person_total = data_gv[[\"total_impacted\", \"n_injured\", \"n_killed\"]].groupby(data_gv[\"f_year\"]).sum()\nprint(Impacted_person_total)\n# ALEX: remove plotting\n# yr_impacted_plot = sns.violinplot(data=Impacted_person_total,\n#                split=True,         # If hue variable has two levels, draw half of a violin for each level.\n#                inner=\"quartile\"    #  Options: \u201cbox\u201d, \u201cquartile\u201d, \u201cpoint\u201d, \u201cstick\u201d, None \n#                )\ndel(Impacted_person_total)",
+      "rewrite-ns": 910050,
+      "overhead-ns": 910050,
+      "exec-ns": 16742669,
+      "total-ns": 17652719,
+      "patts-hit": {},
+      "rewritten": "Impacted_person_total = data_gv[['total_impacted', 'n_injured', 'n_killed']\n    ].groupby(data_gv['f_year']).sum()\nprint(Impacted_person_total)\ndel Impacted_person_total\n"
+    },
+    {
+      "raw": "#Violin Plot for Genderwise Peron involved/impacted during gun violence\ngenderwise_total = data_gv[[\"total_participant\", \"male_participant\", \"female_participant\", \"unknown_participant\"]].groupby(data_gv[\"f_year\"]).sum()\nprint(genderwise_total)\n# ALEX: remove plotting\n# yr_gender_plot = sns.violinplot(data=genderwise_total,\n#                split=True,         # If hue variable has two levels, draw half of a violin for each level.\n#                inner=\"quartile\"    #  Options: \u201cbox\u201d, \u201cquartile\u201d, \u201cpoint\u201d, \u201cstick\u201d, None \n#                )\n\ndel(genderwise_total)",
+      "rewrite-ns": 958554,
+      "overhead-ns": 958554,
+      "exec-ns": 17956315,
+      "total-ns": 18914869,
+      "patts-hit": {},
+      "rewritten": "genderwise_total = data_gv[['total_participant', 'male_participant',\n    'female_participant', 'unknown_participant']].groupby(data_gv['f_year']\n    ).sum()\nprint(genderwise_total)\ndel genderwise_total\n"
+    },
+    {
+      "raw": "###################################  Box plots ##################################\n# Box Plot for Monthwise Person Killed\n# ALEX: remove plotting\n# mth_killed_plot = sns.boxplot(\"f_month\", \"n_killed\", data= data_gv)\n# mth_killed_plot.set_title(\"Person killed in incidents per month\")\n",
+      "rewrite-ns": 14522,
+      "overhead-ns": 14522,
+      "exec-ns": 74411,
+      "total-ns": 88933,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# Box Plot for Monthwise Person Injured\n# ALEX: remove plotting\n# mth_injured_plot = sns.boxplot(\"f_month\", \"n_injured\", data= data_gv)\n# mth_injured_plot.set_title(\"Person injured in incidents per month\")\n",
+      "rewrite-ns": 11664,
+      "overhead-ns": 11664,
+      "exec-ns": 64405,
+      "total-ns": 76069,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "####################################### Count Plot #################################\n# Count Plot for Statewise incidences of Gun Violence\n# ALEX: remove plotting\n# state_inc_plot = sns.countplot(\"state\", data = data_gv)\n# state_inc_plot.set_title(\"Staterwise incidence of Gun Violence\")\n# state_inc_plot.set_xticklabels(state_inc_plot.get_xticklabels(), rotation=90)",
+      "rewrite-ns": 12192,
+      "overhead-ns": 12192,
+      "exec-ns": 56462,
+      "total-ns": 68654,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "## Count Plot for State House District wise\n# ALEX: remove plotting\n# state_inc_plot = sns.countplot(\"state_house_district\", data = data_gv)\n# state_inc_plot.set_title(\"State House District wise incidence of Gun Violence\")\n# state_inc_plot.set_xticklabels(state_inc_plot.get_xticklabels())",
+      "rewrite-ns": 10793,
+      "overhead-ns": 10793,
+      "exec-ns": 53782,
+      "total-ns": 64575,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# Count Plot for State Senate District wise\n# ALEX: remove plotting\n# state_inc_plot = sns.countplot(\"state_senate_district\", data = data_gv)\n# state_inc_plot.set_title(\"State Senate District wise incidence of Gun Violence\")\n# state_inc_plot.set_xticklabels(state_inc_plot.get_xticklabels())\n",
+      "rewrite-ns": 10469,
+      "overhead-ns": 10469,
+      "exec-ns": 52061,
+      "total-ns": 62530,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# Count Plot for Weekwise incidences of Gun Violence\n# ALEX: remove plotting\n# wk_inc_plot = sns.countplot(\"f_weekday\", data = data_gv)\n# wk_inc_plot.set_title(\"Weekwise incidence of Gun Violence\")",
+      "rewrite-ns": 9895,
+      "overhead-ns": 9895,
+      "exec-ns": 51842,
+      "total-ns": 61737,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# Count Plot for Monthwise incidences of Gun Violence\n# ALEX: remove plotting\n# mth_inc_plot = sns.countplot(\"f_month\", data = data_gv)\n# mth_inc_plot.set_title(\"Monthwise incidence of Gun Violence\")",
+      "rewrite-ns": 9807,
+      "overhead-ns": 9807,
+      "exec-ns": 51401,
+      "total-ns": 61208,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# Count Plot for Yearwise incidences of Gun Violence\n# ALEX: remove plotting\n# yr_inc_plot = sns.countplot(\"f_year\", data = data_gv)\n# yr_inc_plot.set_title(\"Yearwise incidence of Gun Violence\")",
+      "rewrite-ns": 9793,
+      "overhead-ns": 9793,
+      "exec-ns": 51090,
+      "total-ns": 60883,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "################################# FacetGrid ################################\n# Facet Grid Graph for Male/ Female Partipant per Year\n# ALEX: remove plotting\n# g = sns.FacetGrid(data_gv, hue=\"f_year\", palette=\"Set1\", size=5, hue_kws={\"marker\": [\"^\", \"v\",\"*\",\">\",\"<\",\"o\"]})\n# g.map(plt.scatter, \"male_participant\", \"female_participant\", s=100, linewidth=.5, edgecolor=\"white\")\n# g.add_legend();",
+      "rewrite-ns": 10596,
+      "overhead-ns": 10596,
+      "exec-ns": 50728,
+      "total-ns": 61324,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# Facet Grid Graphh for Person killed and Injured per Year\n# ALEX: remove plotting\n# g = sns.FacetGrid(data_gv, hue=\"f_year\", palette=\"Set1\", size=5, hue_kws={\"marker\": [\"^\", \"v\",\"*\",\">\",\"<\",\"o\"]})\n# g.map(plt.scatter, \"n_injured\", \"n_killed\", s=100, linewidth=.5, edgecolor=\"white\")\n# g.add_legend();\n",
+      "rewrite-ns": 10191,
+      "overhead-ns": 10191,
+      "exec-ns": 50495,
+      "total-ns": 60686,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# Facet Grid Graphh for Person killed and Injured on Particular days of the week\n# ALEX: remove plotting\n# g = sns.FacetGrid(data_gv, hue=\"f_weekday\", palette=\"Set1\", size=5, hue_kws={\"marker\": [\"^\", \"v\",\"h\",\"o\",\">\",\"<\",\"d\"]})\n# g.map(plt.scatter, \"n_injured\", \"n_killed\", s=100, linewidth=.5, edgecolor=\"white\")\n# g.add_legend();",
+      "rewrite-ns": 10201,
+      "overhead-ns": 10201,
+      "exec-ns": 50545,
+      "total-ns": 60746,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "## Please UPVOTE, if you Like the Data Exploration and Plotting",
+      "rewrite-ns": 8943,
+      "overhead-ns": 8943,
+      "exec-ns": 50027,
+      "total-ns": 58970,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 3.363484556,
+  "max-disk-in-mb": 0
+}

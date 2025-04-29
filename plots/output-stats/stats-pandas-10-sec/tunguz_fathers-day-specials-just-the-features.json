@@ -1,0 +1,230 @@
+{
+  "max-mem-in-mb": 793,
+  "max-mem-in-mb2": 1311,
+  "cells": [
+    {
+      "raw": "# Import the necessary libraries\nimport numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting, GC code\n# import os\n# import time\n# import warnings\n# import gc\n# import os\n# from six.moves import urllib\n# import matplotlib\n# import matplotlib.pyplot as plt\n# import seaborn as sns\nimport datetime\n# ALEX: remove plotting, ML code\n# warnings.filterwarnings('ignore')\n# %matplotlib inline\n# plt.style.use('seaborn')\n# from scipy.stats import norm, skew\n# from sklearn.preprocessing import StandardScaler",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 474324
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# #Add All the Models Libraries\n\n# # Scalers\n# from sklearn.utils import shuffle\n# from sklearn.pipeline import Pipeline\n# from sklearn.pipeline import FeatureUnion\n\n# # Models\n\n# from sklearn.linear_model import Lasso\n# from sklearn.metrics import mean_squared_log_error,mean_squared_error, r2_score,mean_absolute_error\n\n# from sklearn.model_selection import train_test_split #training and testing data split\n# from sklearn import metrics #accuracy measure\n# from sklearn.metrics import confusion_matrix #for confusion matrix\n# from scipy.stats import reciprocal, uniform\n\n# from sklearn.model_selection import StratifiedKFold\n\n# # Cross-validation\n# from sklearn.model_selection import KFold #for K-fold cross validation\n# from sklearn.model_selection import cross_val_score #score evaluation\n# from sklearn.model_selection import cross_val_predict #prediction\n# from sklearn.model_selection import cross_validate\n\n# # GridSearchCV\n# from sklearn.model_selection import GridSearchCV\n# from sklearn.model_selection import RandomizedSearchCV\n\n# #Common data processors\n# from sklearn.preprocessing import OneHotEncoder, LabelEncoder\n# from sklearn import feature_selection\n# from sklearn import model_selection\n# from sklearn import metrics\n# from sklearn.base import BaseEstimator, TransformerMixin\n# from sklearn.utils import check_array\n# from scipy import sparse",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 369045
+    },
+    {
+      "raw": "# to make this notebook's output stable across runs\nnp.random.seed(123)\n# ALEX: remove GC code, plotting\n# gc.collect()\n# # To plot pretty figures\n# %matplotlib inline\n# plt.rcParams['axes.labelsize'] = 14\n# plt.rcParams['xtick.labelsize'] = 12\n# plt.rcParams['ytick.labelsize'] = 12",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 362914
+    },
+    {
+      "raw": "#Reduce the memory usage - Inspired by Panchajanya Banerjee\ndef reduce_mem_usage(df, verbose=True):\n    numerics = ['int16', 'int32', 'int64', 'float16', 'float32', 'float64']\n    start_mem = df.memory_usage().sum() / 1024**2    \n    for col in df.columns:\n        col_type = df[col].dtypes\n        if col_type in numerics:\n            c_min = df[col].min()\n            c_max = df[col].max()\n            if str(col_type)[:3] == 'int':\n                if c_min > np.iinfo(np.int8).min and c_max < np.iinfo(np.int8).max:\n                    df[col] = df[col].astype(np.int8)\n                elif c_min > np.iinfo(np.int16).min and c_max < np.iinfo(np.int16).max:\n                    df[col] = df[col].astype(np.int16)\n                elif c_min > np.iinfo(np.int32).min and c_max < np.iinfo(np.int32).max:\n                    df[col] = df[col].astype(np.int32)\n                elif c_min > np.iinfo(np.int64).min and c_max < np.iinfo(np.int64).max:\n                    df[col] = df[col].astype(np.int64)  \n            else:\n                if c_min > np.finfo(np.float16).min and c_max < np.finfo(np.float16).max:\n                    df[col] = df[col].astype(np.float16)\n                elif c_min > np.finfo(np.float32).min and c_max < np.finfo(np.float32).max:\n                    df[col] = df[col].astype(np.float32)\n                else:\n                    df[col] = df[col].astype(np.float64)    \n    end_mem = df.memory_usage().sum() / 1024**2\n    if verbose: print('Mem. usage decreased to {:5.2f} Mb ({:.1f}% reduction)'.format(end_mem, 100 * (start_mem - end_mem) / start_mem))\n    return df",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2795082
+    },
+    {
+      "raw": "train = reduce_mem_usage(pd.read_csv('./input/train.scaled.csv',parse_dates=[\"first_active_month\"]))\ntest = reduce_mem_usage(pd.read_csv('./input/test.scaled.csv', parse_dates=[\"first_active_month\"]))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 37052513
+    },
+    {
+      "raw": "train.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 355956
+    },
+    {
+      "raw": "train.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 7091441
+    },
+    {
+      "raw": "# Now extract the month, year, day, weekday\ntrain[\"month\"] = train[\"first_active_month\"].dt.month\ntrain[\"year\"] = train[\"first_active_month\"].dt.year\n# ALEX: make notebook run\n# train['week'] = train[\"first_active_month\"].dt.weekofyear\ntrain['week'] = train[\"first_active_month\"].dt.isocalendar().week\ntrain['dayofweek'] = train['first_active_month'].dt.dayofweek\n# ALEX: make notebook run\n# train['days'] = (datetime.date(2018, 2, 1) - train['first_active_month'].dt.date).dt.days\ntrain['days'] = pd.to_timedelta((datetime.date(2018, 2, 1) - train['first_active_month'].dt.date)).dt.days\n\ntest[\"month\"] = test[\"first_active_month\"].dt.month\ntest[\"year\"] = test[\"first_active_month\"].dt.year\n# ALEX: make notebook run\n# test['week'] = test[\"first_active_month\"].dt.weekofyear\ntest['week'] = test[\"first_active_month\"].dt.isocalendar().week\ntest['dayofweek'] = test['first_active_month'].dt.dayofweek\n# ALEX: make notebook run\n# test['days'] = (datetime.date(2018, 2, 1) - test['first_active_month'].dt.date).dt.days\ntest['days'] = pd.to_timedelta(datetime.date(2018, 2, 1) - test['first_active_month'].dt.date).dt.days",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 86867975
+    },
+    {
+      "raw": "# Taking Reference from Other Kernels\ndef aggregate_transaction_hist(trans, prefix):  \n        \n    agg_func = {\n        'purchase_date' : ['max','min'],\n        'month_diff' : ['mean'],\n        'weekend' : ['sum', 'mean'],\n        'authorized_flag': ['sum', 'mean'],\n        'category_1': ['sum','mean'],\n        'purchase_amount': ['sum', 'mean', 'max', 'min', 'std'],\n        'installments': ['sum', 'mean', 'max', 'min', 'std'],  \n        #'merchant_id': ['nunique'],\n        'month_lag': ['max','min','mean','var'],\n        'month_diff' : ['mean'],\n        'card_id' : ['size'],\n        'month': ['nunique'],\n        'hour': ['nunique'],\n        'weekofyear': ['nunique'],\n        'dayofweek': ['nunique'],\n        'year': ['nunique'],\n        'subsector_id': ['nunique'],\n        'merchant_category_id' : ['nunique'],\n        'Christmas_Day_2017':['mean'],\n        #'Mothers_Day_2017':['mean'],\n        'fathers_day_2017':['mean'],\n        'Children_day_2017':['mean'],\n        'Black_Friday_2017':['mean'],\n        'Valentine_day_2017':['mean'],\n        'Mothers_Day_2018':['mean']\n    }\n    \n    agg_trans = trans.groupby(['card_id']).agg(agg_func)\n    agg_trans.columns = [prefix + '_'.join(col).strip() \n                           for col in agg_trans.columns.values]\n    agg_trans.reset_index(inplace=True)\n    \n    df = (trans.groupby('card_id')\n          .size()\n          .reset_index(name='{}transactions_count'.format(prefix)))\n    \n    agg_trans = pd.merge(df, agg_trans, on='card_id', how='left')\n    \n    return agg_trans",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1932759
+    },
+    {
+      "raw": "transactions = reduce_mem_usage(pd.read_csv('./input/historical_transactions.scaled.csv'))\ntransactions['authorized_flag'] = transactions['authorized_flag'].map({'Y': 1, 'N': 0})\ntransactions['category_1'] = transactions['category_1'].map({'Y': 1, 'N': 0})",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3607345689
+    },
+    {
+      "raw": "#Feature Engineering - Adding new features inspired by Chau's first kernel\ntransactions['purchase_date'] = pd.to_datetime(transactions['purchase_date'])\ntransactions['year'] = transactions['purchase_date'].dt.year\n# ALEX: make notebook run\n# transactions['weekofyear'] = transactions['purchase_date'].dt.weekofyear\ntransactions['weekofyear'] = transactions['purchase_date'].dt.isocalendar().week\ntransactions['month'] = transactions['purchase_date'].dt.month\ntransactions['dayofweek'] = transactions['purchase_date'].dt.dayofweek\ntransactions['weekend'] = (transactions.purchase_date.dt.weekday >=5).astype(int)\ntransactions['hour'] = transactions['purchase_date'].dt.hour \ntransactions['month_diff'] = ((datetime.datetime.today() - transactions['purchase_date']).dt.days)//30\ntransactions['month_diff'] += transactions['month_lag']\n\n#impute missing values - This is now excluded.\ntransactions['category_2'] = transactions['category_2'].fillna(1.0,inplace=True)\ntransactions['category_3'] = transactions['category_3'].fillna('A',inplace=True)\ntransactions['merchant_id'] = transactions['merchant_id'].fillna('M_ID_00a6ca8a8a',inplace=True)\n# ALEX: remove GC code\n# gc.collect()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1988723294
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# agg_func = {\n#         'mean': ['mean'],\n#     }\n# for col in ['category_2','category_3']:\n#     transactions[col+'_mean'] = transactions['purchase_amount'].groupby(transactions[col]).agg(agg_func)\nfor col in ['category_2','category_3']:\n    transactions[col+'_mean'] = transactions['purchase_amount'].groupby(transactions[col]).agg('mean')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 243914549
+    },
+    {
+      "raw": "# New Features with Key Shopping times considered in the dataset. if the purchase has been made within 60 days, it is considered as an influence\n#Christmas : December 25 2017\ntransactions['Christmas_Day_2017'] = (pd.to_datetime('2017-12-25') - transactions['purchase_date']).dt.days.apply(lambda x: x if x > 0 and x < 100 else 0)\n#Mothers Day: May 14 2017\n#transactions['Mothers_Day_2017'] = (pd.to_datetime('2017-05-04') - transactions['purchase_date']).dt.days.apply(lambda x: x if x > 0 and x < 100 else 0)\n#fathers day: August 13 2017\ntransactions['fathers_day_2017'] = (pd.to_datetime('2017-08-13') - transactions['purchase_date']).dt.days.apply(lambda x: x if x > 0 and x < 100 else 0)\n#Childrens day: October 12 2017\ntransactions['Children_day_2017'] = (pd.to_datetime('2017-10-12') - transactions['purchase_date']).dt.days.apply(lambda x: x if x > 0 and x < 100 else 0)\n#Black Friday : 24th November 2017\ntransactions['Black_Friday_2017'] = (pd.to_datetime('2017-11-24') - transactions['purchase_date']).dt.days.apply(lambda x: x if x > 0 and x < 100 else 0)\n#Valentines Day\ntransactions['Valentine_day_2017'] = (pd.to_datetime('2017-06-12') - transactions['purchase_date']).dt.days.apply(lambda x: x if x > 0 and x < 100 else 0)\n\n#2018\n#Mothers Day: May 13 2018\ntransactions['Mothers_Day_2018'] = (pd.to_datetime('2018-05-13') - transactions['purchase_date']).dt.days.apply(lambda x: x if x > 0 and x < 100 else 0)\n\n# ALEX: remove GC code\n# gc.collect()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3864622714
+    },
+    {
+      "raw": "merge_trans = aggregate_transaction_hist(transactions, prefix='hist_')\ndel transactions\n# ALEX: remove GC code\n# gc.collect()\ntrain = pd.merge(train, merge_trans, on='card_id',how='left')\ntest = pd.merge(test, merge_trans, on='card_id',how='left')\ndel merge_trans\n# ALEX: remove GC code\n# gc.collect()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2414489709
+    },
+    {
+      "raw": "train.head(2)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 530441
+    },
+    {
+      "raw": "#Feature Engineering - Adding new features inspired by Chau's first kernel\ntrain['hist_purchase_date_max'] = pd.to_datetime(train['hist_purchase_date_max'])\ntrain['hist_purchase_date_min'] = pd.to_datetime(train['hist_purchase_date_min'])\ntrain['hist_purchase_date_diff'] = (train['hist_purchase_date_max'] - train['hist_purchase_date_min']).dt.days\ntrain['hist_purchase_date_average'] = train['hist_purchase_date_diff']/train['hist_card_id_size']\ntrain['hist_purchase_date_uptonow'] = (datetime.datetime.today() - train['hist_purchase_date_max']).dt.days\ntrain['hist_first_buy'] = (train['hist_purchase_date_min'] - train['first_active_month']).dt.days\nfor feature in ['hist_purchase_date_max','hist_purchase_date_min']:\n    train[feature] = train[feature].astype(np.int64) * 1e-9\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 6770532
+    },
+    {
+      "raw": "#Feature Engineering - Adding new features inspired by Chau's first kernel\ntest['hist_purchase_date_max'] = pd.to_datetime(test['hist_purchase_date_max'])\ntest['hist_purchase_date_min'] = pd.to_datetime(test['hist_purchase_date_min'])\ntest['hist_purchase_date_diff'] = (test['hist_purchase_date_max'] - test['hist_purchase_date_min']).dt.days\ntest['hist_purchase_date_average'] = test['hist_purchase_date_diff']/test['hist_card_id_size']\ntest['hist_purchase_date_uptonow'] = (datetime.datetime.today() - test['hist_purchase_date_max']).dt.days\ntest['hist_first_buy'] = (test['hist_purchase_date_min'] - test['first_active_month']).dt.days\nfor feature in ['hist_purchase_date_max','hist_purchase_date_min']:\n    test[feature] = test[feature].astype(np.int64) * 1e-9",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5764227
+    },
+    {
+      "raw": "# Taking Reference from Other Kernels\ndef aggregate_transaction_new(trans, prefix):  \n        \n    agg_func = {\n        'purchase_date' : ['max','min'],\n        'month_diff' : ['mean'],\n        'weekend' : ['sum', 'mean'],\n        'authorized_flag': ['sum'],\n        'category_1': ['sum','mean'],\n        'purchase_amount': ['sum', 'mean', 'max', 'min', 'std'],\n        'installments': ['sum', 'mean', 'max', 'min', 'std'],  \n        #'merchant_id': ['nunique'],\n        'month_lag': ['max','min','mean','var'],\n        'month_diff' : ['mean'],\n        'card_id' : ['size'],\n        'month': ['nunique'],\n        'hour': ['nunique'],\n        'weekofyear': ['nunique'],\n        'dayofweek': ['nunique'],\n        'year': ['nunique'],\n        'subsector_id': ['nunique'],\n        'merchant_category_id' : ['nunique'],\n        'Christmas_Day_2017':['mean'],\n        #'Mothers_Day_2017':['mean'],\n        'fathers_day_2017':['mean'],\n        'Children_day_2017':['mean'],\n        'Black_Friday_2017':['mean'],\n        'Valentine_Day_2017' : ['mean'],\n        'Mothers_Day_2018':['mean']\n    }\n    \n    agg_trans = trans.groupby(['card_id']).agg(agg_func)\n    agg_trans.columns = [prefix + '_'.join(col).strip() \n                           for col in agg_trans.columns.values]\n    agg_trans.reset_index(inplace=True)\n    \n    df = (trans.groupby('card_id')\n          .size()\n          .reset_index(name='{}transactions_count'.format(prefix)))\n    \n    agg_trans = pd.merge(df, agg_trans, on='card_id', how='left')\n    \n    return agg_trans",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1396213
+    },
+    {
+      "raw": "# Now extract the data from the new transactions\nnew_transactions = reduce_mem_usage(pd.read_csv('./input/new_merchant_transactions.scaled.csv'))\nnew_transactions['authorized_flag'] = new_transactions['authorized_flag'].map({'Y': 1, 'N': 0})\nnew_transactions['category_1'] = new_transactions['category_1'].map({'Y': 1, 'N': 0})",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 227661211
+    },
+    {
+      "raw": "#Feature Engineering - Adding new features inspired by Chau's first kernel\nnew_transactions['purchase_date'] = pd.to_datetime(new_transactions['purchase_date'])\nnew_transactions['year'] = new_transactions['purchase_date'].dt.year\n# ALEX: make notebook run\n# new_transactions['weekofyear'] = new_transactions['purchase_date'].dt.weekofyear\nnew_transactions['weekofyear'] = new_transactions['purchase_date'].dt.isocalendar().week\nnew_transactions['month'] = new_transactions['purchase_date'].dt.month\nnew_transactions['dayofweek'] = new_transactions['purchase_date'].dt.dayofweek\nnew_transactions['weekend'] = (new_transactions.purchase_date.dt.weekday >=5).astype(int)\nnew_transactions['hour'] = new_transactions['purchase_date'].dt.hour \nnew_transactions['month_diff'] = ((datetime.datetime.today() - new_transactions['purchase_date']).dt.days)//30\nnew_transactions['month_diff'] += new_transactions['month_lag']\n\n#impute missing values\nnew_transactions['category_2'] = new_transactions['category_2'].fillna(1.0,inplace=True)\nnew_transactions['category_3'] = new_transactions['category_3'].fillna('A',inplace=True)\nnew_transactions['merchant_id'] = new_transactions['merchant_id'].fillna('M_ID_00a6ca8a8a',inplace=True)\n\n# New Features with Key Shopping times considered in the dataset. if the purchase has been made within 60 days, \n# it is considered as an influence\n\n#Christmas : December 25 2017\nnew_transactions['Christmas_Day_2017'] = (pd.to_datetime('2017-12-25') - new_transactions['purchase_date']).dt.days.apply(lambda x: x if x > 0 and x < 100 else 0)\n#Mothers Day: May 14 2017 - Was not significant in Feature Importance\n#new_transactions['Mothers_Day_2017'] = (pd.to_datetime('2017-06-04') - new_transactions['purchase_date']).dt.days.apply(lambda x: x if x > 0 and x < 100 else 0)\n#fathers day: August 13 2017\nnew_transactions['fathers_day_2017'] = (pd.to_datetime('2017-08-13') - new_transactions['purchase_date']).dt.days.apply(lambda x: x if x > 0 and x < 100 else 0)\n#Childrens day: October 12 2017\nnew_transactions['Children_day_2017'] = (pd.to_datetime('2017-10-12') - new_transactions['purchase_date']).dt.days.apply(lambda x: x if x > 0 and x < 100 else 0)\n#Valentine's Day : 12th June, 2017\nnew_transactions['Valentine_Day_2017'] = (pd.to_datetime('2017-06-12') - new_transactions['purchase_date']).dt.days.apply(lambda x: x if x > 0 and x < 100 else 0)\n#Black Friday : 24th November 2017\nnew_transactions['Black_Friday_2017'] = (pd.to_datetime('2017-11-24') - new_transactions['purchase_date']).dt.days.apply(lambda x: x if x > 0 and x < 100 else 0)\n\n#2018\n#Mothers Day: May 13 2018\nnew_transactions['Mothers_Day_2018'] = (pd.to_datetime('2018-05-13') - new_transactions['purchase_date']).dt.days.apply(lambda x: x if x > 0 and x < 100 else 0)\n\n# ALEX: make notebook run\n# agg_func = {\n#         'mean': ['mean'],\n#     }\n# for col in ['category_2','category_3']:\n#     new_transactions[col+'_mean'] = new_transactions['purchase_amount'].groupby(new_transactions[col]).agg(agg_func)\nfor col in ['category_2','category_3']:\n    new_transactions[col+'_mean'] = new_transactions['purchase_amount'].groupby(new_transactions[col]).agg('mean')\n\n# ALEX: remove GC code\n# gc.collect()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 386616919
+    },
+    {
+      "raw": "merge_new = aggregate_transaction_new(new_transactions, prefix='new_')\ndel new_transactions\n# ALEX: remove GC code\n# gc.collect()\n\ntrain = pd.merge(train, merge_new, on='card_id',how='left')\ntest = pd.merge(test, merge_new, on='card_id',how='left')\ndel merge_new\n\n# ALEX: remove GC code\n# gc.collect()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 232018290
+    },
+    {
+      "raw": "#Feature Engineering - Adding new features inspired by Chau's first kernel\ntrain['new_purchase_date_max'] = pd.to_datetime(train['new_purchase_date_max'])\ntrain['new_purchase_date_min'] = pd.to_datetime(train['new_purchase_date_min'])\ntrain['new_purchase_date_diff'] = (train['new_purchase_date_max'] - train['new_purchase_date_min']).dt.days\ntrain['new_purchase_date_average'] = train['new_purchase_date_diff']/train['new_card_id_size']\ntrain['new_purchase_date_uptonow'] = (datetime.datetime.today() - train['new_purchase_date_max']).dt.days\ntrain['new_first_buy'] = (train['new_purchase_date_min'] - train['first_active_month']).dt.days\nfor feature in ['new_purchase_date_max','new_purchase_date_min']:\n    train[feature] = train[feature].astype(np.int64) * 1e-9\n\n#Feature Engineering - Adding new features inspired by Chau's first kernel\ntest['new_purchase_date_max'] = pd.to_datetime(test['new_purchase_date_max'])\ntest['new_purchase_date_min'] = pd.to_datetime(test['new_purchase_date_min'])\ntest['new_purchase_date_diff'] = (test['new_purchase_date_max'] - test['new_purchase_date_min']).dt.days\ntest['new_purchase_date_average'] = test['new_purchase_date_diff']/test['new_card_id_size']\ntest['new_purchase_date_uptonow'] = (datetime.datetime.today() - test['new_purchase_date_max']).dt.days\ntest['new_first_buy'] = (test['new_purchase_date_min'] - test['first_active_month']).dt.days\nfor feature in ['new_purchase_date_max','new_purchase_date_min']:\n    test[feature] = test[feature].astype(np.int64) * 1e-9\n    \n#added new feature - Interactive\ntrain['card_id_total'] = train['new_card_id_size'] + train['hist_card_id_size']\ntrain['purchase_amount_total'] = train['new_purchase_amount_sum'] + train['hist_purchase_amount_sum']\n\ntest['card_id_total'] = test['new_card_id_size'] + test['hist_card_id_size']\ntest['purchase_amount_total'] = test['new_purchase_amount_sum'] + test['hist_purchase_amount_sum']\n\n# ALEX: remove GC code\n# gc.collect()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 14017157
+    },
+    {
+      "raw": "# Now check the shape of Train and Test Data\ntrain.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 207642
+    },
+    {
+      "raw": "test.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 227972
+    },
+    {
+      "raw": "train.head(5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 336218
+    },
+    {
+      "raw": "#Check for missing values in training set\nnulls = np.sum(train.isnull())\nnullcols = nulls.loc[(nulls != 0)]\ndtypes = train.dtypes\ndtypes2 = dtypes.loc[(nulls != 0)]\ninfo = pd.concat([nullcols, dtypes2], axis=1).sort_values(by=0, ascending=False)\n#print(info)\n#print(\"There are\", len(nullcols), \"columns with missing values in data set\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 7930143
+    },
+    {
+      "raw": "#Check for missing values in training set\nnulls = np.sum(test.isnull())\nnullcols = nulls.loc[(nulls != 0)]\ndtypes = test.dtypes\ndtypes2 = dtypes.loc[(nulls != 0)]\ninfo = pd.concat([nullcols, dtypes2], axis=1).sort_values(by=0, ascending=False)\n#print(info)\n#print(\"There are\", len(nullcols), \"columns with missing values in test set\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 6481984
+    },
+    {
+      "raw": "numeric_dtypes = ['float64']\nnumerics = []\nfor i in train.columns:\n    if train[i].dtype in numeric_dtypes: \n        numerics.append(i)\n        \n#train.update(train[numerics].fillna(0))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1857039
+    },
+    {
+      "raw": "numeric_dtypes = ['float64']\nnumerics = []\nfor i in test.columns:\n    if test[i].dtype in numeric_dtypes: \n        numerics.append(i)\n        \n#test.update(test[numerics].fillna(0))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1765440
+    },
+    {
+      "raw": "# Remove the Outliers if any \ntrain['outliers'] = 0\ntrain.loc[train['target'] < -30, 'outliers'] = 1\ntrain['outliers'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1468542
+    },
+    {
+      "raw": "for features in ['feature_1','feature_2','feature_3']:\n    order_label = train.groupby([features])['outliers'].mean()\n    train[features] = train[features].map(order_label)\n    test[features] =  test[features].map(order_label)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3945088
+    },
+    {
+      "raw": "# Get the X and Y\ndf_train_columns = [c for c in train.columns if c not in ['card_id', 'first_active_month', 'outliers']]\ndf_test_columns = [c for c in train.columns if c not in ['card_id', 'first_active_month','target','outliers']]\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 436033
+    },
+    {
+      "raw": "train['fold'] = 0\n# ALEX: remove ML code\n# folds = StratifiedKFold(n_splits=5, shuffle=True, random_state=1974)\n\n# for fold_, (trn_idx, val_idx) in enumerate(folds.split(train,train['outliers'].values)):\n#     train['fold'].iloc[val_idx] = fold_\n_ = train['outliers'].values\n    \n\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 533395
+    },
+    {
+      "raw": "df_train_columns.append('fold')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 201046
+    },
+    {
+      "raw": "train.head(20)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 302240
+    },
+    {
+      "raw": "train[df_train_columns].to_csv('new_train.csv', index=False)\ntest[df_test_columns].to_csv('new_test.csv', index=False)\ntrain[['card_id', 'outliers']].to_csv('outliers', index=False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 628318781
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 110469
+    }
+  ],
+  "total-time-in-sec": 13.785294986,
+  "max-disk-in-mb": 0
+}

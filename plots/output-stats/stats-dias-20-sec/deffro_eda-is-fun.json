@@ -1,0 +1,368 @@
+{
+  "max-mem-in-mb": 5131,
+  "max-mem-in-mb2": 5889,
+  "cells": [
+    {
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns \nimport warnings\nwarnings.filterwarnings(\"ignore\")",
+      "rewrite-ns": 1128369,
+      "overhead-ns": 1128369,
+      "exec-ns": 511550,
+      "total-ns": 1639919,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\nimport warnings\nwarnings.filterwarnings('ignore')\n"
+    },
+    {
+      "raw": "train = pd.read_csv('./input/train.scaled.csv')",
+      "rewrite-ns": 514499,
+      "overhead-ns": 514499,
+      "exec-ns": 5624251874,
+      "total-ns": 5624766373,
+      "patts-hit": {},
+      "rewritten": "train = pd.read_csv('./input/train.scaled.csv')\n"
+    },
+    {
+      "raw": "train.info()",
+      "rewrite-ns": 174919,
+      "overhead-ns": 174919,
+      "exec-ns": 4440518,
+      "total-ns": 4615437,
+      "patts-hit": {},
+      "rewritten": "train.info()\n"
+    },
+    {
+      "raw": "train.head()",
+      "rewrite-ns": 106411,
+      "overhead-ns": 106411,
+      "exec-ns": 17663151,
+      "total-ns": 17769562,
+      "patts-hit": {},
+      "rewritten": "train.head()\n"
+    },
+    {
+      "raw": "print(\"The average person kills {:.4f} players, 99% of people have {} kills or less, while the most kills ever recorded is {}.\".format(train['kills'].mean(),train['kills'].quantile(0.99), train['kills'].max()))",
+      "rewrite-ns": 1169016,
+      "overhead-ns": 1169016,
+      "exec-ns": 29587666,
+      "total-ns": 30756682,
+      "patts-hit": {},
+      "rewritten": "print(\n    'The average person kills {:.4f} players, 99% of people have {} kills or less, while the most kills ever recorded is {}.'\n    .format(train['kills'].mean(), train['kills'].quantile(0.99), train[\n    'kills'].max()))\n"
+    },
+    {
+      "raw": "data = train.copy()\ndata.loc[data['kills'] > data['kills'].quantile(0.99)] = '8+'\n# ALEX: remove plotting\n# plt.figure(figsize=(15,10))\n# sns.countplot(data['kills'].astype('str').sort_values())\n# plt.title(\"Kill Count\",fontsize=15)\n# plt.show()\n_ = data['kills'].astype('str').sort_values()",
+      "rewrite-ns": 1652888,
+      "overhead-ns": 1652888,
+      "exec-ns": 4262472465,
+      "total-ns": 4264125353,
+      "patts-hit": {},
+      "rewritten": "data = train.copy()\ndata.loc[data['kills'] > data['kills'].quantile(0.99)] = '8+'\n_ = data['kills'].astype('str').sort_values()\n"
+    },
+    {
+      "raw": "data = train.copy()\ndata = data[data['kills']==0]\n# ALEX: remove plotting\n# plt.figure(figsize=(15,10))\n# plt.title(\"Damage Dealt by 0 killers\",fontsize=15)\n# sns.distplot(data['damageDealt'])\n# plt.show()\n_ = data['damageDealt']",
+      "rewrite-ns": 1126212,
+      "overhead-ns": 1126212,
+      "exec-ns": 795323447,
+      "total-ns": 796449659,
+      "patts-hit": {},
+      "rewritten": "data = train.copy()\ndata = data[data['kills'] == 0]\n_ = data['damageDealt']\n"
+    },
+    {
+      "raw": "print(\"{} players ({:.4f}%) have won without a single kill!\".format(len(data[data['winPlacePerc']==1]), 100*len(data[data['winPlacePerc']==1])/len(train)))\n\ndata1 = train[train['damageDealt'] == 0].copy()\nprint(\"{} players ({:.4f}%) have won without dealing damage!\".format(len(data1[data1['winPlacePerc']==1]), 100*len(data1[data1['winPlacePerc']==1])/len(train)))",
+      "rewrite-ns": 3662989,
+      "overhead-ns": 3662989,
+      "exec-ns": 207364524,
+      "total-ns": 211027513,
+      "patts-hit": {},
+      "rewritten": "print('{} players ({:.4f}%) have won without a single kill!'.format(len(\n    data[data['winPlacePerc'] == 1]), 100 * len(data[data['winPlacePerc'] ==\n    1]) / len(train)))\ndata1 = train[train['damageDealt'] == 0].copy()\nprint('{} players ({:.4f}%) have won without dealing damage!'.format(len(\n    data1[data1['winPlacePerc'] == 1]), 100 * len(data1[data1[\n    'winPlacePerc'] == 1]) / len(train)))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.jointplot(x=\"winPlacePerc\", y=\"kills\", data=train, height=10, ratio=3, color=\"r\")\n# plt.show()",
+      "rewrite-ns": 25344,
+      "overhead-ns": 25344,
+      "exec-ns": 110266,
+      "total-ns": 135610,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "kills = train.copy()\n\nkills['killsCategories'] = pd.cut(kills['kills'], [-1, 0, 2, 5, 10, 60], labels=['0_kills','1-2_kills', '3-5_kills', '6-10_kills', '10+_kills'])\n\n# ALEX: remove plotting\n# plt.figure(figsize=(15,8))\n# sns.boxplot(x=\"killsCategories\", y=\"winPlacePerc\", data=kills)\n# plt.show()",
+      "rewrite-ns": 1566229,
+      "overhead-ns": 1566229,
+      "exec-ns": 235676873,
+      "total-ns": 237243102,
+      "patts-hit": {},
+      "rewritten": "kills = train.copy()\nkills['killsCategories'] = pd.cut(kills['kills'], [-1, 0, 2, 5, 10, 60],\n    labels=['0_kills', '1-2_kills', '3-5_kills', '6-10_kills', '10+_kills'])\n"
+    },
+    {
+      "raw": "print(\"The average person walks for {:.1f}m, 99% of people have walked {}m or less, while the marathoner champion walked for {}m.\".format(train['walkDistance'].mean(), train['walkDistance'].quantile(0.99), train['walkDistance'].max()))",
+      "rewrite-ns": 1221538,
+      "overhead-ns": 1221538,
+      "exec-ns": 42173884,
+      "total-ns": 43395422,
+      "patts-hit": {},
+      "rewritten": "print(\n    'The average person walks for {:.1f}m, 99% of people have walked {}m or less, while the marathoner champion walked for {}m.'\n    .format(train['walkDistance'].mean(), train['walkDistance'].quantile(\n    0.99), train['walkDistance'].max()))\n"
+    },
+    {
+      "raw": "data = train.copy()\ndata = data[data['walkDistance'] < train['walkDistance'].quantile(0.99)]\n# ALEX: remove plotting\n# plt.figure(figsize=(15,10))\n# plt.title(\"Walking Distance Distribution\",fontsize=15)\n# sns.distplot(data['walkDistance'])\n# plt.show()\n_ = data['walkDistance']",
+      "rewrite-ns": 1407018,
+      "overhead-ns": 1407018,
+      "exec-ns": 591356937,
+      "total-ns": 592763955,
+      "patts-hit": {},
+      "rewritten": "data = train.copy()\ndata = data[data['walkDistance'] < train['walkDistance'].quantile(0.99)]\n_ = data['walkDistance']\n"
+    },
+    {
+      "raw": "print(\"{} players ({:.4f}%) walked 0 meters. This means that they die before even taking a step or they are afk (more possible).\".format(len(data[data['walkDistance'] == 0]), 100*len(data1[data1['walkDistance']==0])/len(train)))",
+      "rewrite-ns": 1599252,
+      "overhead-ns": 1599252,
+      "exec-ns": 41123307,
+      "total-ns": 42722559,
+      "patts-hit": {},
+      "rewritten": "print(\n    '{} players ({:.4f}%) walked 0 meters. This means that they die before even taking a step or they are afk (more possible).'\n    .format(len(data[data['walkDistance'] == 0]), 100 * len(data1[data1[\n    'walkDistance'] == 0]) / len(train)))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.jointplot(x=\"winPlacePerc\", y=\"walkDistance\",  data=train, height=10, ratio=3, color=\"lime\")\n# plt.show()",
+      "rewrite-ns": 25775,
+      "overhead-ns": 25775,
+      "exec-ns": 129703,
+      "total-ns": 155478,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "print(\"The average person drives for {:.1f}m, 99% of people have drived {}m or less, while the formula 1 champion drived for {}m.\".format(train['rideDistance'].mean(), train['rideDistance'].quantile(0.99), train['rideDistance'].max()))",
+      "rewrite-ns": 1209994,
+      "overhead-ns": 1209994,
+      "exec-ns": 32197860,
+      "total-ns": 33407854,
+      "patts-hit": {},
+      "rewritten": "print(\n    'The average person drives for {:.1f}m, 99% of people have drived {}m or less, while the formula 1 champion drived for {}m.'\n    .format(train['rideDistance'].mean(), train['rideDistance'].quantile(\n    0.99), train['rideDistance'].max()))\n"
+    },
+    {
+      "raw": "data = train.copy()\ndata = data[data['rideDistance'] < train['rideDistance'].quantile(0.9)]\n# ALEX: remove plotting\n# plt.figure(figsize=(15,10))\n# plt.title(\"Ride Distance Distribution\",fontsize=15)\n# sns.distplot(data['rideDistance'])\n# plt.show()\n_ = data['rideDistance']",
+      "rewrite-ns": 1340110,
+      "overhead-ns": 1340110,
+      "exec-ns": 607192215,
+      "total-ns": 608532325,
+      "patts-hit": {},
+      "rewritten": "data = train.copy()\ndata = data[data['rideDistance'] < train['rideDistance'].quantile(0.9)]\n_ = data['rideDistance']\n"
+    },
+    {
+      "raw": "print(\"{} players ({:.4f}%) drived for 0 meters. This means that they don't have a driving licence yet.\".format(len(data[data['rideDistance'] == 0]), 100*len(data1[data1['rideDistance']==0])/len(train)))",
+      "rewrite-ns": 1633813,
+      "overhead-ns": 1633813,
+      "exec-ns": 350524137,
+      "total-ns": 352157950,
+      "patts-hit": {},
+      "rewritten": "print(\n    \"{} players ({:.4f}%) drived for 0 meters. This means that they don't have a driving licence yet.\"\n    .format(len(data[data['rideDistance'] == 0]), 100 * len(data1[data1[\n    'rideDistance'] == 0]) / len(train)))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.jointplot(x=\"winPlacePerc\", y=\"rideDistance\", data=train, height=10, ratio=3, color=\"y\")\n# plt.show()",
+      "rewrite-ns": 28248,
+      "overhead-ns": 28248,
+      "exec-ns": 123675,
+      "total-ns": 151923,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# f,ax1 = plt.subplots(figsize =(20,10))\n# sns.pointplot(x='vehicleDestroys',y='winPlacePerc',data=data,color='#606060',alpha=0.8)\n# plt.xlabel('Number of Vehicle Destroys',fontsize = 15,color='blue')\n# plt.ylabel('Win Percentage',fontsize = 15,color='blue')\n# plt.title('Vehicle Destroys/ Win Ratio',fontsize = 20,color='blue')\n# plt.grid()\n# plt.show()",
+      "rewrite-ns": 25915,
+      "overhead-ns": 25915,
+      "exec-ns": 107402,
+      "total-ns": 133317,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "print(\"The average person swims for {:.1f}m, 99% of people have swimemd {}m or less, while the olympic champion swimmed for {}m.\".format(train['swimDistance'].mean(), train['swimDistance'].quantile(0.99), train['swimDistance'].max()))",
+      "rewrite-ns": 1196342,
+      "overhead-ns": 1196342,
+      "exec-ns": 27836751,
+      "total-ns": 29033093,
+      "patts-hit": {},
+      "rewritten": "print(\n    'The average person swims for {:.1f}m, 99% of people have swimemd {}m or less, while the olympic champion swimmed for {}m.'\n    .format(train['swimDistance'].mean(), train['swimDistance'].quantile(\n    0.99), train['swimDistance'].max()))\n"
+    },
+    {
+      "raw": "data = train.copy()\ndata = data[data['swimDistance'] < train['swimDistance'].quantile(0.95)]\n# ALEX: remove plotting\n# plt.figure(figsize=(15,10))\n# plt.title(\"Swim Distance Distribution\",fontsize=15)\n# sns.distplot(data['swimDistance'])\n# plt.show()\n_ = data['swimDistance']",
+      "rewrite-ns": 1332239,
+      "overhead-ns": 1332239,
+      "exec-ns": 550376102,
+      "total-ns": 551708341,
+      "patts-hit": {},
+      "rewritten": "data = train.copy()\ndata = data[data['swimDistance'] < train['swimDistance'].quantile(0.95)]\n_ = data['swimDistance']\n"
+    },
+    {
+      "raw": "swim = train.copy()\n\nswim['swimDistance'] = pd.cut(swim['swimDistance'], [-1, 0, 5, 20, 5286], labels=['0m','1-5m', '6-20m', '20m+'])\n\n# ALEX: remove plotting\n# plt.figure(figsize=(15,8))\n# sns.boxplot(x=\"swimDistance\", y=\"winPlacePerc\", data=swim)\n# plt.show()",
+      "rewrite-ns": 1464209,
+      "overhead-ns": 1464209,
+      "exec-ns": 265369261,
+      "total-ns": 266833470,
+      "patts-hit": {},
+      "rewritten": "swim = train.copy()\nswim['swimDistance'] = pd.cut(swim['swimDistance'], [-1, 0, 5, 20, 5286],\n    labels=['0m', '1-5m', '6-20m', '20m+'])\n"
+    },
+    {
+      "raw": "print(\"The average person uses {:.1f} heal items, 99% of people use {} or less, while the doctor used {}.\".format(train['heals'].mean(), train['heals'].quantile(0.99), train['heals'].max()))\nprint(\"The average person uses {:.1f} boost items, 99% of people use {} or less, while the doctor used {}.\".format(train['boosts'].mean(), train['boosts'].quantile(0.99), train['boosts'].max()))",
+      "rewrite-ns": 2216784,
+      "overhead-ns": 2216784,
+      "exec-ns": 59112371,
+      "total-ns": 61329155,
+      "patts-hit": {},
+      "rewritten": "print(\n    'The average person uses {:.1f} heal items, 99% of people use {} or less, while the doctor used {}.'\n    .format(train['heals'].mean(), train['heals'].quantile(0.99), train[\n    'heals'].max()))\nprint(\n    'The average person uses {:.1f} boost items, 99% of people use {} or less, while the doctor used {}.'\n    .format(train['boosts'].mean(), train['boosts'].quantile(0.99), train[\n    'boosts'].max()))\n"
+    },
+    {
+      "raw": "data = train.copy()\ndata = data[data['heals'] < data['heals'].quantile(0.99)]\ndata = data[data['boosts'] < data['boosts'].quantile(0.99)]\n\n# ALEX: remove plotting\n# f,ax1 = plt.subplots(figsize =(20,10))\n# sns.pointplot(x='heals',y='winPlacePerc',data=data,color='lime',alpha=0.8)\n# sns.pointplot(x='boosts',y='winPlacePerc',data=data,color='blue',alpha=0.8)\n# plt.text(4,0.6,'Heals',color='lime',fontsize = 17,style = 'italic')\n# plt.text(4,0.55,'Boosts',color='blue',fontsize = 17,style = 'italic')\n# plt.xlabel('Number of heal/boost items',fontsize = 15,color='blue')\n# plt.ylabel('Win Percentage',fontsize = 15,color='blue')\n# plt.title('Heals vs Boosts',fontsize = 20,color='blue')\n# plt.grid()\n# plt.show()",
+      "rewrite-ns": 1773759,
+      "overhead-ns": 1773759,
+      "exec-ns": 976863201,
+      "total-ns": 978636960,
+      "patts-hit": {},
+      "rewritten": "data = train.copy()\ndata = data[data['heals'] < data['heals'].quantile(0.99)]\ndata = data[data['boosts'] < data['boosts'].quantile(0.99)]\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.jointplot(x=\"winPlacePerc\", y=\"heals\", data=train, height=10, ratio=3, color=\"lime\")\n# plt.show()",
+      "rewrite-ns": 28526,
+      "overhead-ns": 28526,
+      "exec-ns": 120448,
+      "total-ns": 148974,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.jointplot(x=\"winPlacePerc\", y=\"boosts\", data=train, height=10, ratio=3, color=\"blue\")\n# plt.show()",
+      "rewrite-ns": 25318,
+      "overhead-ns": 25318,
+      "exec-ns": 108433,
+      "total-ns": 133751,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "solos = train[train['numGroups']>50]\nduos = train[(train['numGroups']>25) & (train['numGroups']<=50)]\nsquads = train[train['numGroups']<=25]\nprint(\"There are {} ({:.2f}%) solo games, {} ({:.2f}%) duo games and {} ({:.2f}%) squad games.\".format(len(solos), 100*len(solos)/len(train), len(duos), 100*len(duos)/len(train), len(squads), 100*len(squads)/len(train),))",
+      "rewrite-ns": 3766123,
+      "overhead-ns": 3766123,
+      "exec-ns": 377320942,
+      "total-ns": 381087065,
+      "patts-hit": {},
+      "rewritten": "solos = train[train['numGroups'] > 50]\nduos = train[(train['numGroups'] > 25) & (train['numGroups'] <= 50)]\nsquads = train[train['numGroups'] <= 25]\nprint(\n    'There are {} ({:.2f}%) solo games, {} ({:.2f}%) duo games and {} ({:.2f}%) squad games.'\n    .format(len(solos), 100 * len(solos) / len(train), len(duos), 100 * len\n    (duos) / len(train), len(squads), 100 * len(squads) / len(train)))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# f,ax1 = plt.subplots(figsize =(20,10))\n# sns.pointplot(x='kills',y='winPlacePerc',data=solos,color='black',alpha=0.8)\n# sns.pointplot(x='kills',y='winPlacePerc',data=duos,color='#CC0000',alpha=0.8)\n# sns.pointplot(x='kills',y='winPlacePerc',data=squads,color='#3399FF',alpha=0.8)\n# plt.text(37,0.6,'Solos',color='black',fontsize = 17,style = 'italic')\n# plt.text(37,0.55,'Duos',color='#CC0000',fontsize = 17,style = 'italic')\n# plt.text(37,0.5,'Squads',color='#3399FF',fontsize = 17,style = 'italic')\n# plt.xlabel('Number of kills',fontsize = 15,color='blue')\n# plt.ylabel('Win Percentage',fontsize = 15,color='blue')\n# plt.title('Solo vs Duo vs Squad Kills',fontsize = 20,color='blue')\n# plt.grid()\n# plt.show()",
+      "rewrite-ns": 29216,
+      "overhead-ns": 29216,
+      "exec-ns": 114147,
+      "total-ns": 143363,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# f,ax1 = plt.subplots(figsize =(20,10))\n# sns.pointplot(x='DBNOs',y='winPlacePerc',data=duos,color='#CC0000',alpha=0.8)\n# sns.pointplot(x='DBNOs',y='winPlacePerc',data=squads,color='#3399FF',alpha=0.8)\n# sns.pointplot(x='assists',y='winPlacePerc',data=duos,color='#FF6666',alpha=0.8)\n# sns.pointplot(x='assists',y='winPlacePerc',data=squads,color='#CCE5FF',alpha=0.8)\n# sns.pointplot(x='revives',y='winPlacePerc',data=duos,color='#660000',alpha=0.8)\n# sns.pointplot(x='revives',y='winPlacePerc',data=squads,color='#000066',alpha=0.8)\n# plt.text(14,0.5,'Duos - Assists',color='#FF6666',fontsize = 17,style = 'italic')\n# plt.text(14,0.45,'Duos - DBNOs',color='#CC0000',fontsize = 17,style = 'italic')\n# plt.text(14,0.4,'Duos - Revives',color='#660000',fontsize = 17,style = 'italic')\n# plt.text(14,0.35,'Squads - Assists',color='#CCE5FF',fontsize = 17,style = 'italic')\n# plt.text(14,0.3,'Squads - DBNOs',color='#3399FF',fontsize = 17,style = 'italic')\n# plt.text(14,0.25,'Squads - Revives',color='#000066',fontsize = 17,style = 'italic')\n# plt.xlabel('Number of DBNOs/Assits/Revives',fontsize = 15,color='blue')\n# plt.ylabel('Win Percentage',fontsize = 15,color='blue')\n# plt.title('Duo vs Squad DBNOs, Assists, and Revives',fontsize = 20,color='blue')\n# plt.grid()\n# plt.show()",
+      "rewrite-ns": 29911,
+      "overhead-ns": 29911,
+      "exec-ns": 100751,
+      "total-ns": 130662,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# f,ax = plt.subplots(figsize=(15, 15))\n# sns.heatmap(train.corr(), annot=True, linewidths=.5, fmt= '.1f',ax=ax)\n# plt.show()\n_ = train.corr()",
+      "rewrite-ns": 382946,
+      "overhead-ns": 382946,
+      "exec-ns": 3844637822,
+      "total-ns": 3845020768,
+      "patts-hit": {},
+      "rewritten": "_ = train.corr()\n"
+    },
+    {
+      "raw": "k = 5 #number of variables for heatmap\n# ALEX: remove plotting\n# f,ax = plt.subplots(figsize=(11, 11))\ncols = train.corr().nlargest(k, 'winPlacePerc')['winPlacePerc'].index\ncm = np.corrcoef(train[cols].values.T)\n# ALEX: remove plotting\n# sns.set(font_scale=1.25)\n# hm = sns.heatmap(cm, cbar=True, annot=True, square=True, fmt='.2f', annot_kws={'size': 10}, yticklabels=cols.values, xticklabels=cols.values)\n# plt.show()\n_ = cols.values\n_ = cols.values",
+      "rewrite-ns": 1755882,
+      "overhead-ns": 1755882,
+      "exec-ns": 3938142455,
+      "total-ns": 3939898337,
+      "patts-hit": {},
+      "rewritten": "k = 5\ncols = train.corr().nlargest(k, 'winPlacePerc')['winPlacePerc'].index\ncm = np.corrcoef(train[cols].values.T)\n_ = cols.values\n_ = cols.values\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.set()\ncols = ['winPlacePerc', 'walkDistance', 'boosts', 'weaponsAcquired', 'damageDealt', 'killPlace']\n# sns.pairplot(train[cols], size = 2.5)\n# plt.show()\n_ = train[cols]",
+      "rewrite-ns": 776076,
+      "overhead-ns": 776076,
+      "exec-ns": 27038168,
+      "total-ns": 27814244,
+      "patts-hit": {},
+      "rewritten": "cols = ['winPlacePerc', 'walkDistance', 'boosts', 'weaponsAcquired',\n    'damageDealt', 'killPlace']\n_ = train[cols]\n"
+    },
+    {
+      "raw": "train['playersJoined'] = train.groupby('matchId')['matchId'].transform('count')",
+      "rewrite-ns": 750004,
+      "overhead-ns": 750004,
+      "exec-ns": 309159873,
+      "total-ns": 309909877,
+      "patts-hit": {},
+      "rewritten": "train['playersJoined'] = train.groupby('matchId')['matchId'].transform('count')\n"
+    },
+    {
+      "raw": "data = train.copy()\ndata = data[data['playersJoined']>49]\n# ALEX: remove plotting\n# plt.figure(figsize=(15,10))\n# sns.countplot(data['playersJoined'])\n# plt.title(\"Players Joined\",fontsize=15)\n# plt.show()\n_ = data['playersJoined']",
+      "rewrite-ns": 1091790,
+      "overhead-ns": 1091790,
+      "exec-ns": 853018841,
+      "total-ns": 854110631,
+      "patts-hit": {},
+      "rewritten": "data = train.copy()\ndata = data[data['playersJoined'] > 49]\n_ = data['playersJoined']\n"
+    },
+    {
+      "raw": "train['killsNorm'] = train['kills']*((100-train['playersJoined'])/100 + 1)\ntrain['damageDealtNorm'] = train['damageDealt']*((100-train['playersJoined'])/100 + 1)\ntrain[['playersJoined', 'kills', 'killsNorm', 'damageDealt', 'damageDealtNorm']][5:8]",
+      "rewrite-ns": 2296707,
+      "overhead-ns": 2296707,
+      "exec-ns": 380284700,
+      "total-ns": 382581407,
+      "patts-hit": {},
+      "rewritten": "train['killsNorm'] = train['kills'] * ((100 - train['playersJoined']) / 100 + 1\n    )\ntrain['damageDealtNorm'] = train['damageDealt'] * ((100 - train[\n    'playersJoined']) / 100 + 1)\ntrain[['playersJoined', 'kills', 'killsNorm', 'damageDealt', 'damageDealtNorm']\n    ][5:8]\n"
+    },
+    {
+      "raw": "train['healsAndBoosts'] = train['heals']+train['boosts']\ntrain['totalDistance'] = train['walkDistance']+train['rideDistance']+train['swimDistance']",
+      "rewrite-ns": 1334448,
+      "overhead-ns": 1334448,
+      "exec-ns": 24063749,
+      "total-ns": 25398197,
+      "patts-hit": {},
+      "rewritten": "train['healsAndBoosts'] = train['heals'] + train['boosts']\ntrain['totalDistance'] = train['walkDistance'] + train['rideDistance'] + train[\n    'swimDistance']\n"
+    },
+    {
+      "raw": "train['boostsPerWalkDistance'] = train['boosts']/(train['walkDistance']+1) #The +1 is to avoid infinity, because there are entries where boosts>0 and walkDistance=0. Strange.\ntrain['boostsPerWalkDistance'].fillna(0, inplace=True)\ntrain['healsPerWalkDistance'] = train['heals']/(train['walkDistance']+1) #The +1 is to avoid infinity, because there are entries where heals>0 and walkDistance=0. Strange.\ntrain['healsPerWalkDistance'].fillna(0, inplace=True)\ntrain['healsAndBoostsPerWalkDistance'] = train['healsAndBoosts']/(train['walkDistance']+1) #The +1 is to avoid infinity.\ntrain['healsAndBoostsPerWalkDistance'].fillna(0, inplace=True)\ntrain[['walkDistance', 'boosts', 'boostsPerWalkDistance' ,'heals',  'healsPerWalkDistance', 'healsAndBoosts', 'healsAndBoostsPerWalkDistance']][40:45]",
+      "rewrite-ns": 3703947,
+      "overhead-ns": 3703947,
+      "exec-ns": 476010225,
+      "total-ns": 479714172,
+      "patts-hit": {},
+      "rewritten": "train['boostsPerWalkDistance'] = train['boosts'] / (train['walkDistance'] + 1)\ntrain['boostsPerWalkDistance'].fillna(0, inplace=True)\ntrain['healsPerWalkDistance'] = train['heals'] / (train['walkDistance'] + 1)\ntrain['healsPerWalkDistance'].fillna(0, inplace=True)\ntrain['healsAndBoostsPerWalkDistance'] = train['healsAndBoosts'] / (train[\n    'walkDistance'] + 1)\ntrain['healsAndBoostsPerWalkDistance'].fillna(0, inplace=True)\ntrain[['walkDistance', 'boosts', 'boostsPerWalkDistance', 'heals',\n    'healsPerWalkDistance', 'healsAndBoosts', 'healsAndBoostsPerWalkDistance']\n    ][40:45]\n"
+    },
+    {
+      "raw": "train['killsPerWalkDistance'] = train['kills']/(train['walkDistance']+1) #The +1 is to avoid infinity, because there are entries where kills>0 and walkDistance=0. Strange.\ntrain['killsPerWalkDistance'].fillna(0, inplace=True)\ntrain[['kills', 'walkDistance', 'rideDistance', 'killsPerWalkDistance', 'winPlacePerc']].sort_values(by='killsPerWalkDistance').tail(10)",
+      "rewrite-ns": 1854637,
+      "overhead-ns": 1854637,
+      "exec-ns": 481877865,
+      "total-ns": 483732502,
+      "patts-hit": {},
+      "rewritten": "train['killsPerWalkDistance'] = train['kills'] / (train['walkDistance'] + 1)\ntrain['killsPerWalkDistance'].fillna(0, inplace=True)\ntrain[['kills', 'walkDistance', 'rideDistance', 'killsPerWalkDistance',\n    'winPlacePerc']].sort_values(by='killsPerWalkDistance').tail(10)\n"
+    },
+    {
+      "raw": "train['team'] = [1 if i>50 else 2 if (i>25 & i<=50) else 4 for i in train['numGroups']]",
+      "rewrite-ns": 1247903,
+      "overhead-ns": 1247903,
+      "exec-ns": 692702158,
+      "total-ns": 693950061,
+      "patts-hit": {},
+      "rewritten": "train['team'] = [(1 if i > 50 else 2 if i > 25 & i <= 50 else 4) for i in\n    train['numGroups']]\n"
+    },
+    {
+      "raw": "train.head()",
+      "rewrite-ns": 134919,
+      "overhead-ns": 134919,
+      "exec-ns": 20080139,
+      "total-ns": 20215058,
+      "patts-hit": {},
+      "rewritten": "train.head()\n"
+    }
+  ],
+  "total-time-in-sec": 26.193480081,
+  "max-disk-in-mb": 0
+}

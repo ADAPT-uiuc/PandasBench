@@ -1,0 +1,278 @@
+{
+  "max-mem-in-mb": 975,
+  "max-mem-in-mb2": 978,
+  "cells": [
+    {
+      "raw": "#################################### AllState Claims Severity ############################################################\n\n# Below is function to encode categorical variables with high cardinality into numeric values such that they can \n# used in modeling exercises. The technique has been inspired from Owen Zhang's method of dealing with categorical variables\n# with high cardinality\n\n\n# Reading in training and test data\n\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import matplotlib as plt\n# %pylab inline\ndf_train = pd.read_csv(\"./input/train.scaled.csv\", index_col='id')\ndf_test = pd.read_csv(\"./input/test.scaled.csv\", index_col='id')",
+      "rewrite-ns": 1236660,
+      "overhead-ns": 1236660,
+      "exec-ns": 1757937134,
+      "total-ns": 1759173794,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\ndf_train = pd.read_csv('./input/train.scaled.csv', index_col='id')\ndf_test = pd.read_csv('./input/test.scaled.csv', index_col='id')\n"
+    },
+    {
+      "raw": "# Getting all continuous features into a separate dataset\n\ncontfeatures = df_train.select_dtypes(include=[\"float64\"])",
+      "rewrite-ns": 547156,
+      "overhead-ns": 547156,
+      "exec-ns": 2559726,
+      "total-ns": 3106882,
+      "patts-hit": {},
+      "rewritten": "contfeatures = df_train.select_dtypes(include=['float64'])\n"
+    },
+    {
+      "raw": "# Getting all categorical features into a separate dataset\ncatfeatures = df_train.select_dtypes(include=[\"object\"])",
+      "rewrite-ns": 486414,
+      "overhead-ns": 486414,
+      "exec-ns": 123580340,
+      "total-ns": 124066754,
+      "patts-hit": {},
+      "rewritten": "catfeatures = df_train.select_dtypes(include=['object'])\n"
+    },
+    {
+      "raw": "catfeatures_list = list(catfeatures)",
+      "rewrite-ns": 347922,
+      "overhead-ns": 347922,
+      "exec-ns": 305958,
+      "total-ns": 653880,
+      "patts-hit": {},
+      "rewritten": "catfeatures_list = list(catfeatures)\n"
+    },
+    {
+      "raw": "# We can possibly feed categorical variables with less or eq 10 levels direclty into our model.\n# But, cat variables with >10 levels have to be feature engineered so that their effects can be included into the model\ncatvarbs_10 = list((df_train[catfeatures_list].apply(pd.Series.nunique)>10))\n\ncatvarlist = []\nfor (i, v) in zip(catfeatures_list, catvarbs_10):\n    if(v):\n        catvarlist.append(i)",
+      "rewrite-ns": 1696046,
+      "overhead-ns": 1703232,
+      "exec-ns": 603872461,
+      "total-ns": 605568507,
+      "patts-hit": {},
+      "rewritten": "catvarbs_10 = list(df_train[catfeatures_list].apply(pd.Series.nunique) > 10)\ncatvarlist = []\nfor i, v in zip(catfeatures_list, catvarbs_10):\n    if v:\n        catvarlist.append(i)\n"
+    },
+    {
+      "raw": "print(catvarlist)",
+      "rewrite-ns": 149017,
+      "overhead-ns": 149017,
+      "exec-ns": 321148,
+      "total-ns": 470165,
+      "patts-hit": {},
+      "rewritten": "print(catvarlist)\n"
+    },
+    {
+      "raw": "# WE append 'loss' variable to the cat varb dataset to compute means and variance\n\ncatvarlist.append('loss')\ndf_cat_encod = df_train[catvarlist]\ndf_cat_encod.head(5)",
+      "rewrite-ns": 725502,
+      "overhead-ns": 725502,
+      "exec-ns": 30763370,
+      "total-ns": 31488872,
+      "patts-hit": {},
+      "rewritten": "catvarlist.append('loss')\ndf_cat_encod = df_train[catvarlist]\ndf_cat_encod.head(5)\n"
+    },
+    {
+      "raw": "#before running our function to encode, we need to ensure that the list of char variables which we pass to the function\n#does not the 'loss' variable in it\n\ncatvarlist.remove('loss')\ncatvarlist\ntarget=['loss']",
+      "rewrite-ns": 587849,
+      "overhead-ns": 587849,
+      "exec-ns": 304076,
+      "total-ns": 891925,
+      "patts-hit": {},
+      "rewritten": "catvarlist.remove('loss')\ncatvarlist\ntarget = ['loss']\n"
+    },
+    {
+      "raw": "df_cat_encod.head(5)",
+      "rewrite-ns": 106989,
+      "overhead-ns": 106989,
+      "exec-ns": 11120024,
+      "total-ns": 11227013,
+      "patts-hit": {},
+      "rewritten": "df_cat_encod.head(5)\n"
+    },
+    {
+      "raw": "# We define a function which will flatten a multi index column names which are created after aggregation of data\n# This will be useful after creating mean & standard dev of categorical variable levels\n\n\ndef flattenHierarchicalCol(col,sep = ','):\n    if not type(col) is tuple:\n        return col\n    else:\n        new_col = ''\n        for leveli,level in enumerate(col):\n            if not level == '':\n                if not leveli == 0:\n                    new_col += sep\n                new_col += level\n        return new_col",
+      "rewrite-ns": 2054586,
+      "overhead-ns": 2054586,
+      "exec-ns": 546552,
+      "total-ns": 2601138,
+      "patts-hit": {},
+      "rewritten": "def flattenHierarchicalCol(col, sep=','):\n    if not type(col) is tuple:\n        return col\n    else:\n        new_col = ''\n        for leveli, level in enumerate(col):\n            if not level == '':\n                if not leveli == 0:\n                    new_col += sep\n                new_col += level\n        return new_col\n"
+    },
+    {
+      "raw": "# The function below computes the mean and std dev of the target variable across each level of each categorical variable\n# identified and creates two separate features. This can instead be used as a continuous feature in any models we build\n# We add the std dev too so as to introduce some random variation/noise into the data\ndef cat_encoding(list, dataframe, target):\n    for i in range(len(list)):\n# ALEX: make notebook run\n#         group_df = dataframe.groupby([list[i]], as_index=False).agg({target:{\"mean\"+list[i]:'mean', \n#                                                                     \"stdev\"+list[i]:'std'}})\n        group_df = dataframe.groupby([list[i]], as_index=False).agg(_mean=(target, 'mean'), \n                                                                    _stdev=(target, 'std'))\n        group_df.rename(columns={'_mean': 'mean' + list[i], '_stdev': 'stdev' + list[i]})\n        dataframe = pd.merge(dataframe, group_df, on=list[i], how='left')\n    \n    dataframe.columns = dataframe.columns.map(flattenHierarchicalCol)\n    return dataframe",
+      "rewrite-ns": 3399986,
+      "overhead-ns": 3399986,
+      "exec-ns": 744884,
+      "total-ns": 4144870,
+      "patts-hit": {},
+      "rewritten": "def cat_encoding(list, dataframe, target):\n    for i in range(len(list)):\n        group_df = dataframe.groupby([list[i]], as_index=False).agg(_mean=(\n            target, 'mean'), _stdev=(target, 'std'))\n        group_df.rename(columns={'_mean': 'mean' + list[i], '_stdev': \n            'stdev' + list[i]})\n        dataframe = pd.merge(dataframe, group_df, on=list[i], how='left')\n    dataframe.columns = dataframe.columns.map(flattenHierarchicalCol)\n    return dataframe\n"
+    },
+    {
+      "raw": "cat_encoded = cat_encoding(catvarlist,df_cat_encod,target[0])",
+      "rewrite-ns": 498105,
+      "overhead-ns": 498105,
+      "exec-ns": 1002485783,
+      "total-ns": 1002983888,
+      "patts-hit": {},
+      "rewritten": "cat_encoded = cat_encoding(catvarlist, df_cat_encod, target[0])\n"
+    },
+    {
+      "raw": "cat_encoded.head(5)\n\n# Mean and std dev of all categorical variables identified have been computed and returned as a separate dataset which can be joined\n# to our original training set. The same mean & std dev values can be used to transform the same variables in the test set",
+      "rewrite-ns": 147852,
+      "overhead-ns": 147852,
+      "exec-ns": 26649446,
+      "total-ns": 26797298,
+      "patts-hit": {},
+      "rewritten": "cat_encoded.head(5)\n"
+    },
+    {
+      "raw": "names = cat_encoded.columns\nnames",
+      "rewrite-ns": 304289,
+      "overhead-ns": 304289,
+      "exec-ns": 725020,
+      "total-ns": 1029309,
+      "patts-hit": {},
+      "rewritten": "names = cat_encoded.columns\nnames\n"
+    },
+    {
+      "raw": "del cat_encoded['loss']",
+      "rewrite-ns": 255243,
+      "overhead-ns": 255243,
+      "exec-ns": 438177,
+      "total-ns": 693420,
+      "patts-hit": {},
+      "rewritten": "del cat_encoded['loss']\n"
+    },
+    {
+      "raw": "# Removing the word 'loss' from the left of the newly created columns\n\ncat_encoded.rename(columns = lambda x: x.replace('loss,',''), inplace=True)",
+      "rewrite-ns": 713264,
+      "overhead-ns": 713264,
+      "exec-ns": 492746,
+      "total-ns": 1206010,
+      "patts-hit": {},
+      "rewritten": "cat_encoded.rename(columns=lambda x: x.replace('loss,', ''), inplace=True)\n"
+    },
+    {
+      "raw": "cat_encoded.columns",
+      "rewrite-ns": 49869,
+      "overhead-ns": 49869,
+      "exec-ns": 660532,
+      "total-ns": 710401,
+      "patts-hit": {},
+      "rewritten": "cat_encoded.columns\n"
+    },
+    {
+      "raw": "# Taking the same categorical variables we encoded in train set from test set\n\ncat_encod_test = df_test[catvarlist]\ncat_encod_test.head(5)",
+      "rewrite-ns": 365536,
+      "overhead-ns": 365536,
+      "exec-ns": 18659983,
+      "total-ns": 19025519,
+      "patts-hit": {},
+      "rewritten": "cat_encod_test = df_test[catvarlist]\ncat_encod_test.head(5)\n"
+    },
+    {
+      "raw": "cat_encod_test = cat_encod_test.reset_index()",
+      "rewrite-ns": 351814,
+      "overhead-ns": 351814,
+      "exec-ns": 4764059,
+      "total-ns": 5115873,
+      "patts-hit": {},
+      "rewritten": "cat_encod_test = cat_encod_test.reset_index()\n"
+    },
+    {
+      "raw": "del cat_encod_test['id']",
+      "rewrite-ns": 258701,
+      "overhead-ns": 258701,
+      "exec-ns": 404920,
+      "total-ns": 663621,
+      "patts-hit": {},
+      "rewritten": "del cat_encod_test['id']\n"
+    },
+    {
+      "raw": "cat_encoded.head(5)",
+      "rewrite-ns": 116679,
+      "overhead-ns": 116679,
+      "exec-ns": 25823888,
+      "total-ns": 25940567,
+      "patts-hit": {},
+      "rewritten": "cat_encoded.head(5)\n"
+    },
+    {
+      "raw": "cat_encoded2 = cat_encoded",
+      "rewrite-ns": 214530,
+      "overhead-ns": 214530,
+      "exec-ns": 206383,
+      "total-ns": 420913,
+      "patts-hit": {},
+      "rewritten": "cat_encoded2 = cat_encoded\n"
+    },
+    {
+      "raw": "cat_encoded2 = cat_encoded2.drop(cat_encoded2[catvarlist],axis=1)",
+      "rewrite-ns": 546384,
+      "overhead-ns": 546384,
+      "exec-ns": 48855879,
+      "total-ns": 49402263,
+      "patts-hit": {},
+      "rewritten": "cat_encoded2 = cat_encoded2.drop(cat_encoded2[catvarlist], axis=1)\n"
+    },
+    {
+      "raw": "cat_encoded2.head(5)",
+      "rewrite-ns": 148066,
+      "overhead-ns": 148066,
+      "exec-ns": 18915415,
+      "total-ns": 19063481,
+      "patts-hit": {},
+      "rewritten": "cat_encoded2.head(5)\n"
+    },
+    {
+      "raw": "onlystdev = cat_encoded2.filter(like='stdev', axis=1)\nonlystdev.head(5)",
+      "rewrite-ns": 1796609,
+      "overhead-ns": 1796609,
+      "exec-ns": 19165199,
+      "total-ns": 20961808,
+      "patts-hit": {},
+      "rewritten": "onlystdev = cat_encoded2.filter(like='stdev', axis=1)\nonlystdev.head(5)\n"
+    },
+    {
+      "raw": "stdev_names  = onlystdev.columns",
+      "rewrite-ns": 278707,
+      "overhead-ns": 278707,
+      "exec-ns": 245468,
+      "total-ns": 524175,
+      "patts-hit": {},
+      "rewritten": "stdev_names = onlystdev.columns\n"
+    },
+    {
+      "raw": "onlymean = cat_encoded2.filter(like='mean', axis=1)\nmean_names = onlymean.columns\nmean_names",
+      "rewrite-ns": 690631,
+      "overhead-ns": 690631,
+      "exec-ns": 5933810,
+      "total-ns": 6624441,
+      "patts-hit": {},
+      "rewritten": "onlymean = cat_encoded2.filter(like='mean', axis=1)\nmean_names = onlymean.columns\nmean_names\n"
+    },
+    {
+      "raw": "stdev_names.sort\nmean_names.sort",
+      "rewrite-ns": 84797,
+      "overhead-ns": 84797,
+      "exec-ns": 604287,
+      "total-ns": 689084,
+      "patts-hit": {},
+      "rewritten": "stdev_names.sort\nmean_names.sort\n"
+    },
+    {
+      "raw": "# Getting a dictionary based on training set encoding and mapping the same encoding to our test dataset\n\n\nfor i in range(len(catvarlist)):\n    mydict = dict(zip(cat_encoded[catvarlist[i]], cat_encoded[mean_names[i]]))\n    cat_encod_test[mean_names[i]] = cat_encod_test[catvarlist[i]].map(mydict)\n    mydict2 = dict(zip(cat_encoded[catvarlist[i]], cat_encoded[stdev_names[i]]))\n    cat_encod_test[stdev_names[i]] = cat_encod_test[catvarlist[i]].map(mydict2)",
+      "rewrite-ns": 3200171,
+      "overhead-ns": 3200171,
+      "exec-ns": 251045008,
+      "total-ns": 254245179,
+      "patts-hit": {},
+      "rewritten": "for i in range(len(catvarlist)):\n    mydict = dict(zip(cat_encoded[catvarlist[i]], cat_encoded[mean_names[i]]))\n    cat_encod_test[mean_names[i]] = cat_encod_test[catvarlist[i]].map(mydict)\n    mydict2 = dict(zip(cat_encoded[catvarlist[i]], cat_encoded[stdev_names[i]])\n        )\n    cat_encod_test[stdev_names[i]] = cat_encod_test[catvarlist[i]].map(mydict2)\n"
+    },
+    {
+      "raw": "cat_encod_test.head(5)",
+      "rewrite-ns": 135489,
+      "overhead-ns": 135489,
+      "exec-ns": 12464292,
+      "total-ns": 12599781,
+      "patts-hit": {},
+      "rewritten": "cat_encod_test.head(5)\n"
+    }
+  ],
+  "total-time-in-sec": 3.992090831,
+  "max-disk-in-mb": 0
+}

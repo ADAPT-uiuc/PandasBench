@@ -1,0 +1,158 @@
+{
+  "max-mem-in-mb": 2622,
+  "max-mem-in-mb2": 2976,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# import plotly.express as px\n# from wordcloud import WordCloud\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 5GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 471833
+    },
+    {
+      "raw": "movie=pd.read_csv('./input/Movie Dataset.scaled.csv',encoding='latin1')\nmovie.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2669083646
+    },
+    {
+      "raw": "movie.isnull().sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1500908111
+    },
+    {
+      "raw": "movie.dtypes",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 455601
+    },
+    {
+      "raw": "yr_cnt=movie.groupby('Year').apply(lambda x:x['Title'].count()).reset_index(name='Count')\n# ALEX: remove plotting\n# fig = px.bar(yr_cnt, y='Count', x='Year', text='Count',title='Number of Succesful Movies launched by year of the 20th Century')\n# fig.update_traces(texttemplate='%{text:.2s}', textposition='outside')\n# fig.update_layout(uniformtext_minsize=8, uniformtext_mode='hide')\n# fig.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 483984541
+    },
+    {
+      "raw": "yr_cnt=movie.groupby(['Year','Subject']).apply(lambda x:x['Title'].count()).reset_index(name='Count')\n# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# fig = px.area(yr_cnt, x=\"Year\", y=\"Count\",color=\"Subject\",title='Count of Movies Genres by the Years')\n# fig.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 745336711
+    },
+    {
+      "raw": "movie_len=movie[movie['Length'].isnull()==False]\nmovie_length=movie_len.groupby('Year').apply(lambda x:np.average(x['Length'])).reset_index(name='Average_Length')\n# ALEX: remove plotting\n# plt.figure(figsize=(8,8))\n# sns.regplot(movie_length['Year'],movie_length['Average_Length'],color='red',logx=True)\n# plt.xlabel('Years',size=15)\n# plt.ylabel('Average Movie Length',size=15)\n# plt.title('Variation of Movie Length over the Years',size=20)\n_ = movie_length['Year']\n_ = movie_length['Average_Length']\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 521485382
+    },
+    {
+      "raw": "yr_sub_avg=movie.groupby(['Year','Subject']).apply(lambda x:x['Length'].mean()).reset_index(name='Average Movie Time')\n# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# fig = px.area(yr_sub_avg, x=\"Year\", y=\"Average Movie Time\",color='Subject')\n# fig.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 674417768
+    },
+    {
+      "raw": "movie_check=movie[movie['Popularity'].isnull()==False]\nmovie_len_pop=movie_check[['Length','Year','Popularity','Title','Director','Actor','Actress']]\n# ALEX: remove plotting\n# fig = px.scatter(movie_len_pop, x='Year', y='Length',\n#                 size='Popularity',color='Popularity',\n#                  hover_data=['Title','Director','Actor','Actress'],\n#                  title='Variation of Movie Length over the years, and estimating its populartiy')\n# fig.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 245352467
+    },
+    {
+      "raw": "movie_pop=movie[['Title','Year','Popularity','Subject']]\nmovie_pop.sort_values(by='Popularity',ascending=False,inplace=True)\nmovie_top=movie_pop[['Year','Title','Subject']][:20]\nprint('The Top 20 most popular movies are:\\n',movie_top)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 451124321
+    },
+    {
+      "raw": "word_list=movie.Title.tolist()\n# ALEX: remove plotting\n# strr=''\n# for i in word_list:\n#     strr=strr+i+' '\n# wordcloud = WordCloud(width = 1200, height = 1200, \n#                 background_color ='white',collocations=False,  \n#                 min_font_size = 12).generate(strr) \n# plt.figure(figsize = (8, 8), facecolor = 'grey') \n# plt.imshow(wordcloud) \n# plt.axis(\"off\") \n# plt.tight_layout(pad = 0)\n# plt.title('WordCloud using the Movie Names',size=40)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 11697913
+    },
+    {
+      "raw": "actor_cnt=movie.groupby('Actor').apply(lambda x:x['Title'].count()).reset_index(name='Movie Counts')\nactor_cnt.sort_values(by='Movie Counts',ascending=False,inplace=True)\ntop_actor=actor_cnt[:10]\n# ALEX: remove plotting\n# fig = px.bar(top_actor, x='Actor', y='Movie Counts',\n#              color='Movie Counts',title='Top 10 Actors who have acted in most number of Movies ')\n# fig.show()\nmovie_actor=movie[movie['Actor'].isnull()==False]\nword_list_2=movie_actor.Actor.tolist()\n# ALEX: remove plotting\n# strr=''\n# for i in word_list_2:\n#     strr=strr+i+' '\n# wordcloud = WordCloud(width = 1200, height = 1200, \n#                 background_color ='white',collocations=False,  \n#                 min_font_size = 12).generate(strr) \n# plt.figure(figsize = (8, 8), facecolor = 'cyan') \n# plt.imshow(wordcloud) \n# plt.axis(\"off\") \n# plt.tight_layout(pad = 0)\n# plt.title('WordCloud using the Movie Actor names',size=40)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 936174289
+    },
+    {
+      "raw": "actress_cnt=movie.groupby('Actress').apply(lambda x:x['Title'].count()).reset_index(name='Movie Counts')\nactress_cnt.sort_values(by='Movie Counts',ascending=False,inplace=True)\ntop_actress=actress_cnt[:10]\n# ALEX: remove plotting\n# fig = px.bar(top_actress, x='Actress', y='Movie Counts',\n#              color='Movie Counts',title='Top 10 Actresses who have acted in most number of Movies ')\n# fig.show()\nmovie_actress=movie[movie['Actress'].isnull()==False]\nword_list_2=movie_actress.Actress.tolist()\n# ALEX: remove plotting\n# strr=''\n# for i in word_list_2:\n#     strr=strr+i+' '\n# wordcloud = WordCloud(width = 1200, height = 1200, \n#                 background_color ='white',collocations=False,  \n#                 min_font_size = 12).generate(strr) \n# plt.figure(figsize = (8, 8), facecolor = 'pink') \n# plt.imshow(wordcloud) \n# plt.axis(\"off\") \n# plt.tight_layout(pad = 0)\n# plt.title('WordCloud using the Movie Actress names',size=40)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 750520577
+    },
+    {
+      "raw": "director_cnt=movie.groupby('Director').apply(lambda x:x['Title'].count()).reset_index(name='Movie Counts')\ndirector_cnt.sort_values(by='Movie Counts',ascending=False,inplace=True)\ntop_director=director_cnt[:10]\n# ALEX: remove plotting\n# fig = px.bar(top_director, x='Director', y='Movie Counts',\n#              color='Movie Counts',title='Top 10 Directors who have directed most number of Movies ')\n# fig.show()\nmovie_director=movie[movie['Director'].isnull()==False]\nword_list_2=movie_director.Director.tolist()\n# ALEX: remove plotting\n# strr=''\n# for i in word_list_2:\n#     strr=strr+i+' '\n# wordcloud = WordCloud(width = 1200, height = 1200, \n#                 background_color ='black',collocations=False,  \n#                 min_font_size = 12).generate(strr) \n# plt.figure(figsize = (8, 8), facecolor = 'grey') \n# plt.imshow(wordcloud) \n# plt.axis(\"off\") \n# plt.tight_layout(pad = 0)\n# plt.title('WordCloud using the Movie Director names',size=40)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 860505754
+    },
+    {
+      "raw": "act_cnt=movie.groupby(['Actor','Actress']).apply(lambda x:x['Title'].count()).reset_index(name='Movie Counts')\nact_cnt.sort_values(by='Movie Counts',ascending=False,inplace=True)\nprint('The Top 10 Actress of the 20th Century were:\\n',act_cnt[:10])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 866106256
+    },
+    {
+      "raw": "act_pop=movie.groupby(['Actor','Actress']).apply(lambda x:x['Popularity'].mean()).reset_index(name='Average Popularity')\nact_overall=pd.merge(act_cnt,act_pop,how='inner',left_on=['Actor','Actress'],right_on=['Actor','Actress'])\n# ALEX: remove plotting\n# fig = px.scatter(act_overall, x=\"Movie Counts\", y=\"Average Popularity\",\n#                  size=\"Movie Counts\",color=\"Average Popularity\",\n#                  hover_data=['Actor','Actress'],\n#                  title='Popularity vs Movie count metrics for the most succesful Hollywood pairs of the 20th Century')\n# fig.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 851384455
+    },
+    {
+      "raw": "cast_cnt=movie.groupby(['Director','Actor','Actress']).apply(lambda x:x['Title'].count()).reset_index(name='Movie Counts')\ncast_cnt.sort_values(by='Movie Counts',ascending=False,inplace=True)\ncast_pop=movie.groupby(['Director','Actor','Actress']).apply(lambda x:x['Popularity'].mean()).reset_index(name='Average Popularity')\ncast_overall=pd.merge(cast_cnt,cast_pop,how='inner',left_on=['Director','Actor','Actress'],right_on=['Director','Actor','Actress'])\n# ALEX: remove plotting\n# fig = px.scatter(cast_overall, x=\"Movie Counts\", y=\"Average Popularity\",\n#                 size=\"Movie Counts\",color=\"Average Popularity\",\n#                  hover_data=['Director','Actor','Actress'],\n#                  title='Popularity vs Movie count metrics for the most succesful Hollywood Cast (Director and Actors)')\n# fig.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1963343376
+    },
+    {
+      "raw": "actor_genre=movie.groupby('Actor').apply(lambda x:x['Subject'].nunique()).reset_index(name='# Genres')\nactress_genre=movie.groupby('Actress').apply(lambda x:x['Subject'].nunique()).reset_index(name='# Genres')\nactor_genre.sort_values(by='# Genres',ascending=False,inplace=True)\nactress_genre.sort_values(by='# Genres',ascending=False,inplace=True)\ntop_actor_genre=actor_genre[:10]\ntop_actor_genre['Gender']='Male'\ntop_actress_genre=actress_genre[0:10]\ntop_actress_genre['Gender']='Female'\ntop_actor_genre.columns=['Performer',\"# Genres\",'Gender']\ntop_actress_genre.columns=['Performer',\"# Genres\",'Gender']\ntop_performer_genre=pd.concat([top_actor_genre,top_actress_genre])\n# ALEX: remove plotting\n# fig = px.scatter(top_performer_genre, x='Performer', y='# Genres',\n#                 size='# Genres',color='Gender',\n#                  hover_data=['Performer'],\n#                  title='Top Performers of the 20th century who have worked in multiple Genres')\n# fig.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1242913135
+    },
+    {
+      "raw": "movie_filter=movie[movie['Title'].isnull()==False]\nmovie_filter=movie_filter[movie_filter['Actor'].isin(top_actor_genre.Performer.tolist())]\nmovie_filter=movie_filter[movie_filter['Subject'].isnull()==False]\nactor_genre=movie_filter.groupby(['Actor','Subject']).apply(lambda x:x['Title'].count()).reset_index(name='# Genres wise Movies')\n# ALEX: remove plotting\n# plt.figure(figsize=(8,10))\npivot_actor=pd.pivot(actor_genre,index='Actor',columns='Subject',values='# Genres wise Movies')\n# ALEX: remove plotting\n# ax=sns.heatmap(pivot_actor,annot=True,fmt='g',cmap='Spectral_r')\n# plt.xlabel('Genres',size=20)\n# plt.ylabel('Actors',size=25)\n# plt.title('Genre wise filmography of the most verstaile Actors',size=20)\nmovie_filter_2=movie[movie['Title'].isnull()==False]\nmovie_filter_2=movie_filter_2[movie_filter_2['Actress'].isin(top_actress_genre.Performer.tolist())]\nmovie_filter_2=movie_filter_2[movie_filter_2['Subject'].isnull()==False]\nactress_genre=movie_filter_2.groupby(['Actress','Subject']).apply(lambda x:x['Title'].count()).reset_index(name='# Genres wise Movies')\n# ALEX: remove plotting\n# plt.figure(figsize=(8,10))\npivot_actress=pd.pivot(actress_genre,index='Actress',columns='Subject',values='# Genres wise Movies')\n# ALEX: remove plotting\n# ax=sns.heatmap(pivot_actress,annot=True,fmt='g',cmap='copper_r')\n# plt.xlabel('Genres',size=20)\n# plt.ylabel('Actresses',size=25)\n# plt.title('Genre wise filmography of the most verstaile Actresses',size=20)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 947028975
+    },
+    {
+      "raw": "director_genre=movie.groupby('Director').apply(lambda x:x['Subject'].nunique()).reset_index(name='# Genres')\ndirector_genre.sort_values(by='# Genres',ascending=False,inplace=True)\ntop_director_genre=director_genre[:10]\n# ALEX: remove plotting\n# fig = px.scatter(top_director_genre, x='Director', y='# Genres',\n#                 size='# Genres',color='Director',\n#                  hover_data=['Director'],\n#                  title='Top Directors of the 20th century who have worked in multiple Genres')\n# fig.show()\ndir_movie=movie[movie['Director'].isin(top_director_genre.Director.tolist())]\ndirector_genre=dir_movie.groupby(['Director','Subject']).apply(lambda x:x['Title'].count()).reset_index(name='# Genres wise Movies')\n# ALEX: remove plotting\n# plt.figure(figsize=(8,10))\npivot_director=pd.pivot(director_genre,index='Director',columns='Subject',values='# Genres wise Movies')\n# ALEX: remove plotting\n# ax=sns.heatmap(pivot_director,annot=True,fmt='g',cmap='autumn_r')\n# plt.xlabel('Genres',size=20)\n# plt.ylabel('Directors',size=25)\n# plt.title('Genre wise filmography of the most verstaile Directors',size=20)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 764142458
+    },
+    {
+      "raw": "act_movies=movie.groupby('Actor').apply(lambda x:x['Title'].count()).reset_index(name='Acted in Movies')\nactr_movies=movie.groupby('Actress').apply(lambda x:x['Title'].count()).reset_index(name='Acted in Movies')\nactr_movies.columns=['Actor','Acted in Movies']\nacted_movies=pd.concat([act_movies,actr_movies])\nacted_movies=acted_movies[acted_movies['Acted in Movies']>1]\ndir_movies=movie.groupby('Director').apply(lambda x:x['Title'].count()).reset_index(name='Directed Movies')\nact_dir_movies=pd.merge(acted_movies,dir_movies,how='inner',left_on='Actor',right_on='Director')\nact_dir_movies=act_dir_movies[act_dir_movies['Directed Movies']>1]\n# ALEX: remove plotting\n# fig = px.scatter(act_dir_movies, x='Acted in Movies', y='Directed Movies',color='Acted in Movies',size='Acted in Movies',\n#                  hover_data=['Actor'],\n#                  title='Artists who have acted and directed more than 1 movies')\n# fig.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1852521911
+    },
+    {
+      "raw": "award_movies=movie[movie['Awards']=='Yes']\nno_award_movies=movie[movie['Awards']!='Yes']\naward_filter=movie[movie['Awards'].isnull()==False]\naward_filter=award_filter[award_filter['Length'].isnull()==False]\naward_filter=award_filter[award_filter['Year'].isnull()==False]\naward_time_yr=award_filter.groupby(['Year','Awards']).apply(lambda x:np.average(x['Length'])).reset_index(name='Movie Time')\n# ALEX: remove plotting\n# fig = px.line(award_time_yr, x=\"Year\", y=\"Movie Time\", color='Awards',title='Movie Time impacting Awards over the Years')\n# fig.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1555796846
+    },
+    {
+      "raw": "award_filter=movie[movie['Awards'].isnull()==False]\naward_filter=award_filter[award_filter['Popularity'].isnull()==False]\naward_filter=award_filter[award_filter['Year'].isnull()==False]\naward_time_yr=award_filter.groupby(['Year','Awards']).apply(lambda x:np.average(x['Popularity'])).reset_index(name='Popularity')\n# ALEX: remove plotting\n# fig = px.scatter(award_time_yr, x=\"Year\", y=\"Popularity\", color='Awards',size='Popularity',title='Popularity affecting the Awards over the years')\n# fig.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1206450419
+    },
+    {
+      "raw": "actor_award=award_movies.groupby('Actor').apply(lambda x:x['Awards'].count()).reset_index(name='# Awards')\nactress_award=award_movies.groupby('Actress').apply(lambda x:x['Awards'].count()).reset_index(name='# Awards')\ndirector_award=award_movies.groupby('Director').apply(lambda x:x['Awards'].count()).reset_index(name='# Awards')\nactor_award.sort_values(by=\"# Awards\",ascending=False,inplace=True)\nactress_award.sort_values(by=\"# Awards\",ascending=False,inplace=True)\ndirector_award.sort_values(by=\"# Awards\",ascending=False,inplace=True)\ntop_actor_award=actor_award[:10]\ntop_actor_award['Category']='Actor'\ntop_actress_award=actress_award[0:10]\ntop_actress_award['Category']='Actress'\ntop_director_award=director_award[0:10]\ntop_director_award['Category']='Director'\ntop_actor_award.columns=['Artist',\"# Awards\",'Category']\ntop_actress_award.columns=['Artist',\"# Awards\",'Category']\ntop_director_award.columns=['Artist',\"# Awards\",'Category']\ntop_artist_award=pd.concat([top_actor_award,top_actress_award,top_director_award])\n# ALEX: remove plotting\n# fig = px.bar(top_artist_award, x='Artist', y=\"# Awards\",\n#                 color='Category',\n#                  hover_data=['Artist'],\n#                  title='Top Artists of the 20th century who have won most Awards')\n# fig.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 155162380
+    },
+    {
+      "raw": "genre_award=movie.groupby(['Subject','Awards']).apply(lambda x:x['Title'].count()).reset_index(name='Counts')\npiv_genre_count=pd.pivot(genre_award,index='Subject',columns='Awards',values='Counts')\n# ALEX: remove plotting\n# plt.figure(figsize=(4,8))\n# sns.heatmap(piv_genre_count,annot=True,fmt='g',cmap='inferno_r')\n# plt.xlabel('Won Awards?',size=15)\n# plt.ylabel('Genres',size=15)\n# plt.title('Summary of Awards won by the Genres',size=20)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 742799768
+    }
+  ],
+  "total-time-in-sec": 21.999168893,
+  "max-disk-in-mb": 0
+}

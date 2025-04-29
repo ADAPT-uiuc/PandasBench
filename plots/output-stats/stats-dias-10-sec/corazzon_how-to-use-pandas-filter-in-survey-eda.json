@@ -1,0 +1,773 @@
+{
+  "max-mem-in-mb": 2044,
+  "max-mem-in-mb2": 2288,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "rewrite-ns": 695346,
+      "overhead-ns": 695346,
+      "exec-ns": 404029,
+      "total-ns": 1099375,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt\n\n# from IPython.display import set_matplotlib_formats\n# set_matplotlib_formats(\"retina\")\n\n# plt.style.use(\"seaborn-whitegrid\")",
+      "rewrite-ns": 21734,
+      "overhead-ns": 21734,
+      "exec-ns": 110934,
+      "total-ns": 132668,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "raw = pd.read_csv(r\"./input/kaggle_survey_2020_responses.scaled.csv\", low_memory=False)\nraw.shape",
+      "rewrite-ns": 702356,
+      "overhead-ns": 702356,
+      "exec-ns": 5979949901,
+      "total-ns": 5980652257,
+      "patts-hit": {},
+      "rewritten": "raw = pd.read_csv('./input/kaggle_survey_2020_responses.scaled.csv',\n    low_memory=False)\nraw.shape\n"
+    },
+    {
+      "raw": "raw.head()",
+      "rewrite-ns": 172250,
+      "overhead-ns": 172250,
+      "exec-ns": 38841643,
+      "total-ns": 39013893,
+      "patts-hit": {},
+      "rewritten": "raw.head()\n"
+    },
+    {
+      "raw": "question = raw.iloc[0]\nquestion",
+      "rewrite-ns": 428090,
+      "overhead-ns": 428090,
+      "exec-ns": 1135523,
+      "total-ns": 1563613,
+      "patts-hit": {},
+      "rewritten": "question = raw.iloc[0]\nquestion\n"
+    },
+    {
+      "raw": "answer = raw.drop([0])\nanswer",
+      "rewrite-ns": 478098,
+      "overhead-ns": 478098,
+      "exec-ns": 709680728,
+      "total-ns": 710158826,
+      "patts-hit": {},
+      "rewritten": "answer = raw.drop([0])\nanswer\n"
+    },
+    {
+      "raw": "answer.info()",
+      "rewrite-ns": 114712,
+      "overhead-ns": 114712,
+      "exec-ns": 8655103,
+      "total-ns": 8769815,
+      "patts-hit": {},
+      "rewritten": "answer.info()\n"
+    },
+    {
+      "raw": "question[\"Q1\"]",
+      "rewrite-ns": 295087,
+      "overhead-ns": 295087,
+      "exec-ns": 569564,
+      "total-ns": 864651,
+      "patts-hit": {},
+      "rewritten": "question['Q1']\n"
+    },
+    {
+      "raw": "Q1 = answer['Q1'].value_counts().sort_index()\n# ALEX: remove plotting\n# sns.countplot(data=answer.sort_values(\"Q1\"), x=\"Q1\", \n#               palette=\"Blues_r\").set_title(question[\"Q1\"])\n_ = answer.sort_values(\"Q1\")",
+      "rewrite-ns": 880172,
+      "overhead-ns": 880172,
+      "exec-ns": 796215409,
+      "total-ns": 797095581,
+      "patts-hit": {},
+      "rewritten": "Q1 = answer['Q1'].value_counts().sort_index()\n_ = answer.sort_values('Q1')\n"
+    },
+    {
+      "raw": "question_no = \"Q2\"\nQ2 = answer[question_no].value_counts()\nQ2",
+      "rewrite-ns": 720744,
+      "overhead-ns": 720744,
+      "exec-ns": 7869346,
+      "total-ns": 8590090,
+      "patts-hit": {},
+      "rewritten": "question_no = 'Q2'\nQ2 = answer[question_no].value_counts()\nQ2\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(data=answer, \n#               y=question_no).set_title(question[question_no])",
+      "rewrite-ns": 20038,
+      "overhead-ns": 20038,
+      "exec-ns": 99680,
+      "total-ns": 119718,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "q1q2 = pd.crosstab(answer[\"Q1\"], answer[\"Q2\"])\n# ALEX: remove plotting\n# q1q2[[\"Man\", \"Woman\"]].plot.bar(rot=0)\n_ = q1q2[[\"Man\", \"Woman\"]]",
+      "rewrite-ns": 1028949,
+      "overhead-ns": 1028949,
+      "exec-ns": 244138860,
+      "total-ns": 245167809,
+      "patts-hit": {},
+      "rewritten": "q1q2 = pd.crosstab(answer['Q1'], answer['Q2'])\n_ = q1q2[['Man', 'Woman']]\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# q1q2[[\"Man\", \"Woman\"]].sort_index(ascending=False).plot.barh(figsize=(10, 6), title=\"Age & Gender\")\n_ = q1q2[[\"Man\", \"Woman\"]].sort_index(ascending=False)",
+      "rewrite-ns": 687631,
+      "overhead-ns": 687631,
+      "exec-ns": 1080052,
+      "total-ns": 1767683,
+      "patts-hit": {},
+      "rewritten": "_ = q1q2[['Man', 'Woman']].sort_index(ascending=False)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10, 6))\n# sns.countplot(data=answer.sort_values(\"Q1\"), x=\"Q1\", hue=\"Q2\").set_title(\"Age & Gender\")\n_ = answer.sort_values(\"Q1\")",
+      "rewrite-ns": 423923,
+      "overhead-ns": 423923,
+      "exec-ns": 780560509,
+      "total-ns": 780984432,
+      "patts-hit": {},
+      "rewritten": "_ = answer.sort_values('Q1')\n"
+    },
+    {
+      "raw": "def show_countplot_by_qno(qno, fsize=(10, 6), order=None):\n    \"\"\"\n    qno : question_no, ex) Q12\n    fsize : figsize default (10, 6)\n    order : optional order list, default value_counts().index\n    \"\"\"\n    if not order :\n        order = answer[qno].value_counts().index\n        \n# ALEX: remove plotting\n#     plt.figure(figsize=fsize)\n#     sns.countplot(data=answer, \n#                   y=qno,\n#                   order=order,\n#                   palette=\"Blues_r\"\n#                  ).set_title(question[qno])\n    _ = question[qno]",
+      "rewrite-ns": 1452332,
+      "overhead-ns": 1452332,
+      "exec-ns": 696480,
+      "total-ns": 2148812,
+      "patts-hit": {},
+      "rewritten": "def show_countplot_by_qno(qno, fsize=(10, 6), order=None):\n    \"\"\"\n    qno : question_no, ex) Q12\n    fsize : figsize default (10, 6)\n    order : optional order list, default value_counts().index\n    \"\"\"\n    if not order:\n        order = answer[qno].value_counts().index\n    _ = question[qno]\n"
+    },
+    {
+      "raw": "show_countplot_by_qno(\"Q3\", fsize=(12, 12))",
+      "rewrite-ns": 466184,
+      "overhead-ns": 466184,
+      "exec-ns": 7494307,
+      "total-ns": 7960491,
+      "patts-hit": {},
+      "rewritten": "show_countplot_by_qno('Q3', fsize=(12, 12))\n"
+    },
+    {
+      "raw": "show_countplot_by_qno(\"Q4\")",
+      "rewrite-ns": 287240,
+      "overhead-ns": 287240,
+      "exec-ns": 7347347,
+      "total-ns": 7634587,
+      "patts-hit": {},
+      "rewritten": "show_countplot_by_qno('Q4')\n"
+    },
+    {
+      "raw": "show_countplot_by_qno(\"Q5\")",
+      "rewrite-ns": 274023,
+      "overhead-ns": 274023,
+      "exec-ns": 7243911,
+      "total-ns": 7517934,
+      "patts-hit": {},
+      "rewritten": "show_countplot_by_qno('Q5')\n"
+    },
+    {
+      "raw": "show_countplot_by_qno(\"Q6\")",
+      "rewrite-ns": 277911,
+      "overhead-ns": 277911,
+      "exec-ns": 7185869,
+      "total-ns": 7463780,
+      "patts-hit": {},
+      "rewritten": "show_countplot_by_qno('Q6')\n"
+    },
+    {
+      "raw": "q6_cols = ['I have never written code', '< 1 years', '1-2 years', '3-5 years', '5-10 years',  \n       '10-20 years', '20+ years']",
+      "rewrite-ns": 532937,
+      "overhead-ns": 532937,
+      "exec-ns": 266023,
+      "total-ns": 798960,
+      "patts-hit": {},
+      "rewritten": "q6_cols = ['I have never written code', '< 1 years', '1-2 years',\n    '3-5 years', '5-10 years', '10-20 years', '20+ years']\n"
+    },
+    {
+      "raw": "show_countplot_by_qno(\"Q6\", order=q6_cols)",
+      "rewrite-ns": 366179,
+      "overhead-ns": 366179,
+      "exec-ns": 292925,
+      "total-ns": 659104,
+      "patts-hit": {},
+      "rewritten": "show_countplot_by_qno('Q6', order=q6_cols)\n"
+    },
+    {
+      "raw": "question.filter(regex=\"Q7\")[0].split(\"-\")[0]",
+      "rewrite-ns": 780381,
+      "overhead-ns": 780381,
+      "exec-ns": 1124756,
+      "total-ns": 1905137,
+      "patts-hit": {},
+      "rewritten": "question.filter(regex='Q7')[0].split('-')[0]\n"
+    },
+    {
+      "raw": "answer_Q7 = answer.filter(regex=\"Q7\")\nanswer_Q7",
+      "rewrite-ns": 458338,
+      "overhead-ns": 458338,
+      "exec-ns": 32576769,
+      "total-ns": 33035107,
+      "patts-hit": {},
+      "rewritten": "answer_Q7 = answer.filter(regex='Q7')\nanswer_Q7\n"
+    },
+    {
+      "raw": "answer_Q7_desc = answer_Q7.describe()\nanswer_Q7_desc",
+      "rewrite-ns": 395651,
+      "overhead-ns": 395651,
+      "exec-ns": 123315805,
+      "total-ns": 123711456,
+      "patts-hit": {},
+      "rewritten": "answer_Q7_desc = answer_Q7.describe()\nanswer_Q7_desc\n"
+    },
+    {
+      "raw": "answer_Q7_count = answer_Q7_desc.loc[[\"top\", \"count\"]].T\nanswer_Q7_count = answer_Q7_count.set_index(\"top\")\nanswer_Q7_count = answer_Q7_count.sort_values(\"count\", ascending=False)\nanswer_Q7_count",
+      "rewrite-ns": 1250798,
+      "overhead-ns": 1250798,
+      "exec-ns": 3362602,
+      "total-ns": 4613400,
+      "patts-hit": {},
+      "rewritten": "answer_Q7_count = answer_Q7_desc.loc[['top', 'count']].T\nanswer_Q7_count = answer_Q7_count.set_index('top')\nanswer_Q7_count = answer_Q7_count.sort_values('count', ascending=False)\nanswer_Q7_count\n"
+    },
+    {
+      "raw": "q7_title = question.filter(regex=\"Q7\")[0].split(\"-\")[0]",
+      "rewrite-ns": 774812,
+      "overhead-ns": 774812,
+      "exec-ns": 660553,
+      "total-ns": 1435365,
+      "patts-hit": {},
+      "rewritten": "q7_title = question.filter(regex='Q7')[0].split('-')[0]\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.barplot(data=answer_Q7_count, \n#             y=answer_Q7_count.index, x=\"count\", palette=\"Blues_r\").set_title(q7_title)\n_ = answer_Q7_count.index",
+      "rewrite-ns": 274119,
+      "overhead-ns": 274119,
+      "exec-ns": 170840565,
+      "total-ns": 171114684,
+      "patts-hit": {},
+      "rewritten": "_ = answer_Q7_count.index\n"
+    },
+    {
+      "raw": "def get_question_title_by_qno(qno):\n    if qno in question.index:\n        return question[qno]\n    else:\n        q_no = question.filter(regex=qno)[0].split(\"-\")[0]\n        return q_no\n\nget_question_title_by_qno(\"Q7\")",
+      "rewrite-ns": 1640293,
+      "overhead-ns": 1640293,
+      "exec-ns": 1246282,
+      "total-ns": 2886575,
+      "patts-hit": {},
+      "rewritten": "def get_question_title_by_qno(qno):\n    if qno in question.index:\n        return question[qno]\n    else:\n        q_no = question.filter(regex=qno)[0].split('-')[0]\n        return q_no\nget_question_title_by_qno('Q7')\n"
+    },
+    {
+      "raw": "def get_multiple_choice_answer_by_qno(qno):\n    df_answer = answer.filter(regex=qno)\n    answer_desc = df_answer.describe()\n    answer_count = answer_desc.loc[[\"top\", \"count\"]].T.set_index(\"top\")\n    answer_count = answer_count.sort_values(by=\"count\", ascending=False)\n    return answer_count",
+      "rewrite-ns": 1736708,
+      "overhead-ns": 1736708,
+      "exec-ns": 513129,
+      "total-ns": 2249837,
+      "patts-hit": {},
+      "rewritten": "def get_multiple_choice_answer_by_qno(qno):\n    df_answer = answer.filter(regex=qno)\n    answer_desc = df_answer.describe()\n    answer_count = answer_desc.loc[['top', 'count']].T.set_index('top')\n    answer_count = answer_count.sort_values(by='count', ascending=False)\n    return answer_count\n"
+    },
+    {
+      "raw": "get_multiple_choice_answer_by_qno(\"Q9\")",
+      "rewrite-ns": 268073,
+      "overhead-ns": 268073,
+      "exec-ns": 136820316,
+      "total-ns": 137088389,
+      "patts-hit": {},
+      "rewritten": "get_multiple_choice_answer_by_qno('Q9')\n"
+    },
+    {
+      "raw": "def show_multiple_choice_bar_plot_by_qno(qno):\n    multiple_choice_answer = get_multiple_choice_answer_by_qno(qno)\n     \n# ALEX: remove plotting\n#     plt.figure(figsize=(10, 6))\n#     sns.barplot(data=multiple_choice_answer,\n#                 y=multiple_choice_answer.index, \n#                 x=\"count\", \n#                 palette=\"Blues_r\").set_title(get_question_title_by_qno(qno))\n    _ = multiple_choice_answer.index",
+      "rewrite-ns": 640880,
+      "overhead-ns": 640880,
+      "exec-ns": 327910,
+      "total-ns": 968790,
+      "patts-hit": {},
+      "rewritten": "def show_multiple_choice_bar_plot_by_qno(qno):\n    multiple_choice_answer = get_multiple_choice_answer_by_qno(qno)\n    _ = multiple_choice_answer.index\n"
+    },
+    {
+      "raw": "show_multiple_choice_bar_plot_by_qno(\"Q7\")",
+      "rewrite-ns": 281442,
+      "overhead-ns": 281442,
+      "exec-ns": 141044838,
+      "total-ns": 141326280,
+      "patts-hit": {},
+      "rewritten": "show_multiple_choice_bar_plot_by_qno('Q7')\n"
+    },
+    {
+      "raw": "q7_cols = answer.filter(regex=\"Q7\").describe().loc[\"top\"].tolist()",
+      "rewrite-ns": 789086,
+      "overhead-ns": 789086,
+      "exec-ns": 139620182,
+      "total-ns": 140409268,
+      "patts-hit": {},
+      "rewritten": "q7_cols = answer.filter(regex='Q7').describe().loc['top'].tolist()\n"
+    },
+    {
+      "raw": "q2q7 = answer.filter(regex=\"Q7|Q2$\")\nq2q7_count = q2q7.groupby(\"Q2\").count()\nq2q7_count.columns = q7_cols\nq2q7_count",
+      "rewrite-ns": 1058996,
+      "overhead-ns": 1058996,
+      "exec-ns": 264934756,
+      "total-ns": 265993752,
+      "patts-hit": {},
+      "rewritten": "q2q7 = answer.filter(regex='Q7|Q2$')\nq2q7_count = q2q7.groupby('Q2').count()\nq2q7_count.columns = q7_cols\nq2q7_count\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = q2q7_count.loc[[\"Man\", \"Woman\"]].T.sort_values(\"Woman\").plot.barh(title=\"Gender & Programming Language\")\n_ = q2q7_count.loc[[\"Man\", \"Woman\"]].T.sort_values(\"Woman\")",
+      "rewrite-ns": 703169,
+      "overhead-ns": 703169,
+      "exec-ns": 1405951,
+      "total-ns": 2109120,
+      "patts-hit": {},
+      "rewritten": "_ = q2q7_count.loc[['Man', 'Woman']].T.sort_values('Woman')\n"
+    },
+    {
+      "raw": "# show_countplot_by_qno(\"Q7\")\n# show_multiple_choice_bar_plot_by_qno(\"Q1\")",
+      "rewrite-ns": 17276,
+      "overhead-ns": 17276,
+      "exec-ns": 100701,
+      "total-ns": 117977,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "question.index",
+      "rewrite-ns": 70665,
+      "overhead-ns": 70665,
+      "exec-ns": 738884,
+      "total-ns": 809549,
+      "patts-hit": {},
+      "rewritten": "question.index\n"
+    },
+    {
+      "raw": "def show_plot_by_qno(qno):\n    if qno in question.index:\n        show_countplot_by_qno(qno)\n    else:\n        show_multiple_choice_bar_plot_by_qno(qno)",
+      "rewrite-ns": 836352,
+      "overhead-ns": 836352,
+      "exec-ns": 361073,
+      "total-ns": 1197425,
+      "patts-hit": {},
+      "rewritten": "def show_plot_by_qno(qno):\n    if qno in question.index:\n        show_countplot_by_qno(qno)\n    else:\n        show_multiple_choice_bar_plot_by_qno(qno)\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q8\")",
+      "rewrite-ns": 255953,
+      "overhead-ns": 255953,
+      "exec-ns": 7072789,
+      "total-ns": 7328742,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q8')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q9\")",
+      "rewrite-ns": 263472,
+      "overhead-ns": 263472,
+      "exec-ns": 128416124,
+      "total-ns": 128679596,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q9')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q10\")",
+      "rewrite-ns": 292808,
+      "overhead-ns": 292808,
+      "exec-ns": 147372408,
+      "total-ns": 147665216,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q10')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q11\")",
+      "rewrite-ns": 299551,
+      "overhead-ns": 299551,
+      "exec-ns": 7080107,
+      "total-ns": 7379658,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q11')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q12\")",
+      "rewrite-ns": 271795,
+      "overhead-ns": 271795,
+      "exec-ns": 47511026,
+      "total-ns": 47782821,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q12')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q13\")",
+      "rewrite-ns": 282962,
+      "overhead-ns": 282962,
+      "exec-ns": 6894671,
+      "total-ns": 7177633,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q13')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q14\")",
+      "rewrite-ns": 269976,
+      "overhead-ns": 269976,
+      "exec-ns": 128208932,
+      "total-ns": 128478908,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q14')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q15\")",
+      "rewrite-ns": 294754,
+      "overhead-ns": 294754,
+      "exec-ns": 6993769,
+      "total-ns": 7288523,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q15')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q16\")",
+      "rewrite-ns": 275505,
+      "overhead-ns": 275505,
+      "exec-ns": 170332945,
+      "total-ns": 170608450,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q16')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q17\")",
+      "rewrite-ns": 300246,
+      "overhead-ns": 300246,
+      "exec-ns": 133815280,
+      "total-ns": 134115526,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q17')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q18\")",
+      "rewrite-ns": 297244,
+      "overhead-ns": 297244,
+      "exec-ns": 72129990,
+      "total-ns": 72427234,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q18')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q19\")",
+      "rewrite-ns": 292324,
+      "overhead-ns": 292324,
+      "exec-ns": 58318392,
+      "total-ns": 58610716,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q19')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q20\")",
+      "rewrite-ns": 287069,
+      "overhead-ns": 287069,
+      "exec-ns": 6676527,
+      "total-ns": 6963596,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q20')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q21\")",
+      "rewrite-ns": 263566,
+      "overhead-ns": 263566,
+      "exec-ns": 6674289,
+      "total-ns": 6937855,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q21')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q22\")",
+      "rewrite-ns": 272128,
+      "overhead-ns": 272128,
+      "exec-ns": 6702035,
+      "total-ns": 6974163,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q22')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q23\")",
+      "rewrite-ns": 255482,
+      "overhead-ns": 255482,
+      "exec-ns": 86921891,
+      "total-ns": 87177373,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q23')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q24\")",
+      "rewrite-ns": 289630,
+      "overhead-ns": 289630,
+      "exec-ns": 6689927,
+      "total-ns": 6979557,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q24')\n"
+    },
+    {
+      "raw": "q24_count = answer[\"Q24\"].value_counts().reset_index()\nq24_count.columns = [\"range\", \"count\"]\nq24_count",
+      "rewrite-ns": 847882,
+      "overhead-ns": 847882,
+      "exec-ns": 9538301,
+      "total-ns": 10386183,
+      "patts-hit": {},
+      "rewritten": "q24_count = answer['Q24'].value_counts().reset_index()\nq24_count.columns = ['range', 'count']\nq24_count\n"
+    },
+    {
+      "raw": "q24_count[\"min\"] = q24_count[\"range\"].str.split(\"-\", expand=True)[0]\nq24_count[\"max\"] = q24_count[\"range\"].str.split(\"-\", expand=True)[1]\nq24_count[\"min\"] = q24_count[\"min\"].str.replace(\",|\\$|>\", \"\").astype(int)\nq24_count = q24_count.sort_values(\"min\")\nq24_count",
+      "rewrite-ns": 2408445,
+      "overhead-ns": 2408445,
+      "exec-ns": 5929121,
+      "total-ns": 8337566,
+      "patts-hit": {},
+      "rewritten": "q24_count['min'] = q24_count['range'].str.split('-', expand=True)[0]\nq24_count['max'] = q24_count['range'].str.split('-', expand=True)[1]\nq24_count['min'] = q24_count['min'].str.replace(',|\\\\$|>', '').astype(int)\nq24_count = q24_count.sort_values('min')\nq24_count\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10, 6))\n# g = sns.barplot(data=q24_count, \n#                 y=\"range\", x=\"count\", \n#                 palette=\"Blues\").set_title(get_question_title_by_qno(\"Q24\"))",
+      "rewrite-ns": 15302,
+      "overhead-ns": 15302,
+      "exec-ns": 83048,
+      "total-ns": 98350,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "q24_cols = q24_count.range.tolist()",
+      "rewrite-ns": 402585,
+      "overhead-ns": 402585,
+      "exec-ns": 299774,
+      "total-ns": 702359,
+      "patts-hit": {},
+      "rewritten": "q24_cols = q24_count.range.tolist()\n"
+    },
+    {
+      "raw": "q3_usa = answer[answer[\"Q3\"].isin([\"United States of America\"])]\n#ALEX: remove plotting\n# plt.figure(figsize=(10, 6))\n# g= sns.countplot(data=q3_usa, \n#               y=\"Q24\", \n#               order=q24_cols, \n#               palette=\"Blues\").set_title(\"USA yearly compensation\")",
+      "rewrite-ns": 616684,
+      "overhead-ns": 616684,
+      "exec-ns": 150565270,
+      "total-ns": 151181954,
+      "patts-hit": {},
+      "rewritten": "q3_usa = answer[answer['Q3'].isin(['United States of America'])]\n"
+    },
+    {
+      "raw": "q3_korea = answer[answer[\"Q3\"].isin([\"South Korea\"])]\n# ALEX: remove plotting\n# plt.figure(figsize=(10, 6))\n# g = sns.countplot(data=q3_korea, \n#                   y=\"Q24\", \n#                   order=q24_cols, \n#                   palette=\"Blues\").set_title(\"South Korea yearly compensation\")",
+      "rewrite-ns": 683322,
+      "overhead-ns": 683322,
+      "exec-ns": 16028325,
+      "total-ns": 16711647,
+      "patts-hit": {},
+      "rewritten": "q3_korea = answer[answer['Q3'].isin(['South Korea'])]\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q25\")",
+      "rewrite-ns": 277930,
+      "overhead-ns": 277930,
+      "exec-ns": 6505123,
+      "total-ns": 6783053,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q25')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q26_A\")",
+      "rewrite-ns": 272183,
+      "overhead-ns": 272183,
+      "exec-ns": 112557964,
+      "total-ns": 112830147,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q26_A')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q26_B\")",
+      "rewrite-ns": 370994,
+      "overhead-ns": 370994,
+      "exec-ns": 115927780,
+      "total-ns": 116298774,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q26_B')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q27_A\")",
+      "rewrite-ns": 301043,
+      "overhead-ns": 301043,
+      "exec-ns": 108493716,
+      "total-ns": 108794759,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q27_A')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q27_B\")",
+      "rewrite-ns": 296139,
+      "overhead-ns": 296139,
+      "exec-ns": 117434513,
+      "total-ns": 117730652,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q27_B')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q28_A\")",
+      "rewrite-ns": 294946,
+      "overhead-ns": 294946,
+      "exec-ns": 98639500,
+      "total-ns": 98934446,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q28_A')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q28_B\")",
+      "rewrite-ns": 288219,
+      "overhead-ns": 288219,
+      "exec-ns": 106719606,
+      "total-ns": 107007825,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q28_B')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q29_A\")",
+      "rewrite-ns": 290886,
+      "overhead-ns": 290886,
+      "exec-ns": 171399098,
+      "total-ns": 171689984,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q29_A')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q29_B\")",
+      "rewrite-ns": 341030,
+      "overhead-ns": 341030,
+      "exec-ns": 173840953,
+      "total-ns": 174181983,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q29_B')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q30\")",
+      "rewrite-ns": 298092,
+      "overhead-ns": 298092,
+      "exec-ns": 4364653,
+      "total-ns": 4662745,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q30')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q31_A\")",
+      "rewrite-ns": 289151,
+      "overhead-ns": 289151,
+      "exec-ns": 135863233,
+      "total-ns": 136152384,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q31_A')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q31_B\")",
+      "rewrite-ns": 303048,
+      "overhead-ns": 303048,
+      "exec-ns": 139191193,
+      "total-ns": 139494241,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q31_B')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q32\")",
+      "rewrite-ns": 305064,
+      "overhead-ns": 305064,
+      "exec-ns": 3595088,
+      "total-ns": 3900152,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q32')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q33_A\")",
+      "rewrite-ns": 279496,
+      "overhead-ns": 279496,
+      "exec-ns": 75227087,
+      "total-ns": 75506583,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q33_A')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q33_B\")",
+      "rewrite-ns": 290719,
+      "overhead-ns": 290719,
+      "exec-ns": 79434933,
+      "total-ns": 79725652,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q33_B')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q34_A\")",
+      "rewrite-ns": 292378,
+      "overhead-ns": 292378,
+      "exec-ns": 110521527,
+      "total-ns": 110813905,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q34_A')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q34_B\")",
+      "rewrite-ns": 321092,
+      "overhead-ns": 321092,
+      "exec-ns": 112548247,
+      "total-ns": 112869339,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q34_B')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q35_A\")",
+      "rewrite-ns": 298233,
+      "overhead-ns": 298233,
+      "exec-ns": 99406474,
+      "total-ns": 99704707,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q35_A')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q35_B\")",
+      "rewrite-ns": 300118,
+      "overhead-ns": 300118,
+      "exec-ns": 102499745,
+      "total-ns": 102799863,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q35_B')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q36\")",
+      "rewrite-ns": 293824,
+      "overhead-ns": 293824,
+      "exec-ns": 92750061,
+      "total-ns": 93043885,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q36')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q37\")",
+      "rewrite-ns": 298694,
+      "overhead-ns": 298694,
+      "exec-ns": 123320394,
+      "total-ns": 123619088,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q37')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q38\")",
+      "rewrite-ns": 297138,
+      "overhead-ns": 297138,
+      "exec-ns": 6498467,
+      "total-ns": 6795605,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q38')\n"
+    },
+    {
+      "raw": "show_plot_by_qno(\"Q39\")",
+      "rewrite-ns": 278568,
+      "overhead-ns": 278568,
+      "exec-ns": 125599697,
+      "total-ns": 125878265,
+      "patts-hit": {},
+      "rewritten": "show_plot_by_qno('Q39')\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 19277,
+      "overhead-ns": 19277,
+      "exec-ns": 102993,
+      "total-ns": 122270,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 13.090470123,
+  "max-disk-in-mb": 0
+}

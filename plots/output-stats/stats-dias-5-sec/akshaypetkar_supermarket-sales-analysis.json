@@ -1,0 +1,343 @@
+{
+  "max-mem-in-mb": 1083,
+  "max-mem-in-mb2": 1125,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns",
+      "rewrite-ns": 681993,
+      "overhead-ns": 681993,
+      "exec-ns": 396147,
+      "total-ns": 1078140,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n"
+    },
+    {
+      "raw": "df = pd.read_csv('./input/annex1.scaled.csv')\ndf.head()",
+      "rewrite-ns": 576817,
+      "overhead-ns": 576817,
+      "exec-ns": 9797039,
+      "total-ns": 10373856,
+      "patts-hit": {},
+      "rewritten": "df = pd.read_csv('./input/annex1.scaled.csv')\ndf.head()\n"
+    },
+    {
+      "raw": "df1 = pd.read_csv('./input/annex2.scaled.csv')\ndf1.head()",
+      "rewrite-ns": 583739,
+      "overhead-ns": 583739,
+      "exec-ns": 1237893725,
+      "total-ns": 1238477464,
+      "patts-hit": {},
+      "rewritten": "df1 = pd.read_csv('./input/annex2.scaled.csv')\ndf1.head()\n"
+    },
+    {
+      "raw": "# Join the both DataFrames\n\nmerge = pd.merge(df, df1, on ='Item Code')\nmerge.head()",
+      "rewrite-ns": 603817,
+      "overhead-ns": 603817,
+      "exec-ns": 656431648,
+      "total-ns": 657035465,
+      "patts-hit": {},
+      "rewritten": "merge = pd.merge(df, df1, on='Item Code')\nmerge.head()\n"
+    },
+    {
+      "raw": "# Rename Columns\nmerge =merge.rename(columns={'Quantity Sold (kilo)':'Quantity Sold', 'Unit Selling Price (RMB/kg)':'Unit Selling Price','Discount (Yes/No)':'Discount'})",
+      "rewrite-ns": 733889,
+      "overhead-ns": 733889,
+      "exec-ns": 489358581,
+      "total-ns": 490092470,
+      "patts-hit": {},
+      "rewritten": "merge = merge.rename(columns={'Quantity Sold (kilo)': 'Quantity Sold',\n    'Unit Selling Price (RMB/kg)': 'Unit Selling Price',\n    'Discount (Yes/No)': 'Discount'})\n"
+    },
+    {
+      "raw": "#Change datatype of date column.\n\nmerge['Date']=pd.to_datetime(merge['Date'])",
+      "rewrite-ns": 704656,
+      "overhead-ns": 704656,
+      "exec-ns": 304882629,
+      "total-ns": 305587285,
+      "patts-hit": {},
+      "rewritten": "merge['Date'] = pd.to_datetime(merge['Date'])\n"
+    },
+    {
+      "raw": "evaluate_lazy(merge.isnull().sum())",
+      "rewrite-ns": 540247,
+      "overhead-ns": 540247,
+      "exec-ns": 1364910486,
+      "total-ns": 1365450733,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(merge.isnull().sum())\n"
+    },
+    {
+      "raw": "Category_count=merge['Category Name'].value_counts()\nevaluate_lazy(Category_count)",
+      "rewrite-ns": 693254,
+      "overhead-ns": 693254,
+      "exec-ns": 86282738,
+      "total-ns": 86975992,
+      "patts-hit": {},
+      "rewritten": "Category_count = merge['Category Name'].value_counts()\nevaluate_lazy(Category_count)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(8,6))\n# colors = ['blue', 'green', 'red', 'purple', 'orange', 'yellow']\n# plt.bar(Category_count.index, Category_count.values, color = colors)\n# plt.title(\"Category wise Order Count\")\n# plt.xticks(rotation=90)\n# plt.show()\nCategory_count.index\nCategory_count.values",
+      "rewrite-ns": 87783,
+      "overhead-ns": 87783,
+      "exec-ns": 55130247,
+      "total-ns": 55218030,
+      "patts-hit": {},
+      "rewritten": "Category_count.index\nCategory_count.values\n"
+    },
+    {
+      "raw": "top_10_products =merge['Item Name'].value_counts()[:10]\nevaluate_lazy(top_10_products)",
+      "rewrite-ns": 843158,
+      "overhead-ns": 843158,
+      "exec-ns": 84668994,
+      "total-ns": 85512152,
+      "patts-hit": {},
+      "rewritten": "top_10_products = merge['Item Name'].value_counts()[:10]\nevaluate_lazy(top_10_products)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,6))\n# colors = ['red', 'green', 'blue', 'yellow', 'purple', 'orange', 'pink', 'teal', 'brown', 'gray']\n\n# plt.bar(top_10_products.index, top_10_products.values, color = colors)\n# plt.title(\"Top 10 Products by its Order count\")\n# plt.xticks(rotation=90)\n# plt.show()\ntop_10_products.index\ntop_10_products.values",
+      "rewrite-ns": 88747,
+      "overhead-ns": 88747,
+      "exec-ns": 596589,
+      "total-ns": 685336,
+      "patts-hit": {},
+      "rewritten": "top_10_products.index\ntop_10_products.values\n"
+    },
+    {
+      "raw": "# Creating sales column\n\nmerge['Sales']= merge['Unit Selling Price'] * merge['Quantity Sold']",
+      "rewrite-ns": 614879,
+      "overhead-ns": 614879,
+      "exec-ns": 11788617,
+      "total-ns": 12403496,
+      "patts-hit": {},
+      "rewritten": "merge['Sales'] = merge['Unit Selling Price'] * merge['Quantity Sold']\n"
+    },
+    {
+      "raw": "Item_sales = merge.groupby('Item Name',as_index=False)['Sales'].sum().sort_values(by='Sales',ascending=False).head(10)\nevaluate_lazy(Item_sales)",
+      "rewrite-ns": 650688,
+      "overhead-ns": 650688,
+      "exec-ns": 185763244,
+      "total-ns": 186413932,
+      "patts-hit": {
+        "SortHead": 1
+      },
+      "rewritten": "Item_sales = dias.rewriter.sort_head(called_on=merge.groupby('Item Name',\n    as_index=False)['Sales'].sum(), by='Sales', n=10, asc=False, orig=lambda\n    _DIAS_x: _DIAS_x.sort_values(by='Sales', ascending=False).head(10))\nevaluate_lazy(Item_sales)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,8))\n# ab=sns.barplot(x='Item Name',y='Sales',data=Item_sales)\n# ab.bar_label(ab.containers[0])\n# plt.title('Top 10 Products by its Sales')\n# plt.xlabel('Product Name')\n# plt.ylabel('Sales')\n# plt.xticks(rotation=90)\n# plt.show()",
+      "rewrite-ns": 21179,
+      "overhead-ns": 21179,
+      "exec-ns": 100133,
+      "total-ns": 121312,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#Add year column in dataframe\nmerge['Year'] = merge['Date'].dt.year",
+      "rewrite-ns": 538518,
+      "overhead-ns": 538518,
+      "exec-ns": 72642913,
+      "total-ns": 73181431,
+      "patts-hit": {},
+      "rewritten": "merge['Year'] = merge['Date'].dt.year\n"
+    },
+    {
+      "raw": "Year_wise_sales=merge.groupby('Year')['Sales'].sum()\nevaluate_lazy(Year_wise_sales)",
+      "rewrite-ns": 832801,
+      "overhead-ns": 832801,
+      "exec-ns": 42523738,
+      "total-ns": 43356539,
+      "patts-hit": {},
+      "rewritten": "Year_wise_sales = merge.groupby('Year')['Sales'].sum()\nevaluate_lazy(Year_wise_sales)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(6,6))\n# plt.pie(Year_wise_sales,autopct ='%.2f%%',labels =Year_wise_sales.index)\n# plt.title('Year Wise Sales')\n# plt.show()\nevaluate_lazy(Year_wise_sales.index)",
+      "rewrite-ns": 351230,
+      "overhead-ns": 351230,
+      "exec-ns": 689187,
+      "total-ns": 1040417,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(Year_wise_sales.index)\n"
+    },
+    {
+      "raw": "Sale_Or_Return =merge['Sale or Return'].value_counts()\nSale_Or_Return= pd.DataFrame(Sale_Or_Return)\nevaluate_lazy(Sale_Or_Return)",
+      "rewrite-ns": 957051,
+      "overhead-ns": 957051,
+      "exec-ns": 113267642,
+      "total-ns": 114224693,
+      "patts-hit": {},
+      "rewritten": "Sale_Or_Return = merge['Sale or Return'].value_counts()\nSale_Or_Return = pd.DataFrame(Sale_Or_Return)\nevaluate_lazy(Sale_Or_Return)\n"
+    },
+    {
+      "raw": "Discount =merge['Discount'].value_counts()\nDiscount = pd.DataFrame(Discount)\nevaluate_lazy(Discount)",
+      "rewrite-ns": 953696,
+      "overhead-ns": 953696,
+      "exec-ns": 112119259,
+      "total-ns": 113072955,
+      "patts-hit": {},
+      "rewritten": "Discount = merge['Discount'].value_counts()\nDiscount = pd.DataFrame(Discount)\nevaluate_lazy(Discount)\n"
+    },
+    {
+      "raw": "merge.head()",
+      "rewrite-ns": 83020,
+      "overhead-ns": 83020,
+      "exec-ns": 8044810,
+      "total-ns": 8127830,
+      "patts-hit": {},
+      "rewritten": "merge.head()\n"
+    },
+    {
+      "raw": "merge = merge.drop(['Date'],axis=1)",
+      "rewrite-ns": 526305,
+      "overhead-ns": 526305,
+      "exec-ns": 156369219,
+      "total-ns": 156895524,
+      "patts-hit": {},
+      "rewritten": "merge = merge.drop(['Date'], axis=1)\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.preprocessing import LabelEncoder\n# le =LabelEncoder()",
+      "rewrite-ns": 22769,
+      "overhead-ns": 22769,
+      "exec-ns": 112133,
+      "total-ns": 134902,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#Store all categorical columns\ncategorical_columns = merge.select_dtypes(include=['object']).columns",
+      "rewrite-ns": 572496,
+      "overhead-ns": 572496,
+      "exec-ns": 147635624,
+      "total-ns": 148208120,
+      "patts-hit": {},
+      "rewritten": "categorical_columns = merge.select_dtypes(include=['object']).columns\n"
+    },
+    {
+      "raw": "# Converting all categorical columns into numeric\nfor col in categorical_columns:\n# ALEX: remove ML code\n#     merge[col] = le.fit_transform(merge[col])\n    merge[col] = merge[col]\n    \nmerge.head()",
+      "rewrite-ns": 664912,
+      "overhead-ns": 664912,
+      "exec-ns": 421223838,
+      "total-ns": 421888750,
+      "patts-hit": {},
+      "rewritten": "for col in categorical_columns:\n    merge[col] = merge[col]\nmerge.head()\n"
+    },
+    {
+      "raw": "# Define x variables (independents variable)\nx= merge.drop(['Sale or Return'],axis=1)",
+      "rewrite-ns": 564064,
+      "overhead-ns": 564064,
+      "exec-ns": 158514159,
+      "total-ns": 159078223,
+      "patts-hit": {},
+      "rewritten": "x = merge.drop(['Sale or Return'], axis=1)\n"
+    },
+    {
+      "raw": "# Define y variable (dependent variable)\ny = merge['Sale or Return']",
+      "rewrite-ns": 360754,
+      "overhead-ns": 360754,
+      "exec-ns": 361051,
+      "total-ns": 721805,
+      "patts-hit": {},
+      "rewritten": "y = merge['Sale or Return']\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import train_test_split",
+      "rewrite-ns": 17594,
+      "overhead-ns": 17594,
+      "exec-ns": 91741,
+      "total-ns": 109335,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# Split data into train and test datasets\n# ALEX: remove ML code\n# x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)",
+      "rewrite-ns": 11938,
+      "overhead-ns": 11938,
+      "exec-ns": 61185,
+      "total-ns": 73123,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# len(x_train)",
+      "rewrite-ns": 10026,
+      "overhead-ns": 10026,
+      "exec-ns": 56906,
+      "total-ns": 66932,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# len(x_test)",
+      "rewrite-ns": 9605,
+      "overhead-ns": 9605,
+      "exec-ns": 57304,
+      "total-ns": 66909,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.ensemble import RandomForestClassifier\n# model =RandomForestClassifier()",
+      "rewrite-ns": 9794,
+      "overhead-ns": 9794,
+      "exec-ns": 53191,
+      "total-ns": 62985,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# model.fit(x_train,y_train)",
+      "rewrite-ns": 9531,
+      "overhead-ns": 9531,
+      "exec-ns": 55103,
+      "total-ns": 64634,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# model.predict(x_test)",
+      "rewrite-ns": 9524,
+      "overhead-ns": 9524,
+      "exec-ns": 52358,
+      "total-ns": 61882,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import cross_val_score",
+      "rewrite-ns": 9218,
+      "overhead-ns": 9218,
+      "exec-ns": 52765,
+      "total-ns": 61983,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# score =cross_val_score(RandomForestClassifier(),x,y)\n# score",
+      "rewrite-ns": 9679,
+      "overhead-ns": 9679,
+      "exec-ns": 51696,
+      "total-ns": 61375,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# score.mean()",
+      "rewrite-ns": 8770,
+      "overhead-ns": 8770,
+      "exec-ns": 49943,
+      "total-ns": 58713,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 8606,
+      "overhead-ns": 8606,
+      "exec-ns": 49951,
+      "total-ns": 58557,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 5.73610328,
+  "max-disk-in-mb": 0
+}

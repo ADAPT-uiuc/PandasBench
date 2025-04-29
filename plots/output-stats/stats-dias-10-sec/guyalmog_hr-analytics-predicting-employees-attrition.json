@@ -1,0 +1,883 @@
+{
+  "max-mem-in-mb": 802,
+  "max-mem-in-mb2": 937,
+  "cells": [
+    {
+      "raw": "from datetime import datetime\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting, ML code\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier, GradientBoostingClassifier, ExtraTreesClassifier, VotingClassifier\n# from sklearn.naive_bayes import GaussianNB\n# from sklearn.discriminant_analysis import LinearDiscriminantAnalysis\n# from sklearn.linear_model import LogisticRegression\n# from sklearn.neighbors import KNeighborsClassifier\n# from sklearn.tree import DecisionTreeClassifier\n# from sklearn.neural_network import MLPClassifier\n# from sklearn.svm import SVC\n# from sklearn.model_selection import GridSearchCV, cross_val_score, StratifiedKFold, learning_curve, train_test_split, RandomizedSearchCV\n# from sklearn import preprocessing\n# from sklearn.metrics import r2_score, accuracy_score, roc_auc_score, mean_squared_error",
+      "rewrite-ns": 575983,
+      "overhead-ns": 575983,
+      "exec-ns": 312059,
+      "total-ns": 888042,
+      "patts-hit": {},
+      "rewritten": "from datetime import datetime\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n"
+    },
+    {
+      "raw": "import os\n\nemp_data = pd.read_csv(\"./input/employee_survey_data.scaled.csv\", index_col='EmployeeID')\ngen_data = pd.read_csv(\"./input/general_data.scaled.csv\",index_col='EmployeeID')\nmanager_data = pd.read_csv(\"./input/manager_survey_data.scaled.csv\",index_col='EmployeeID')\nin_time_data = pd.read_csv(\"./input/in_time.scaled.csv\")\nout_time_data = pd.read_csv(\"./input/out_time.scaled.csv\")\n",
+      "rewrite-ns": 1833501,
+      "overhead-ns": 1833501,
+      "exec-ns": 2705631901,
+      "total-ns": 2707465402,
+      "patts-hit": {},
+      "rewritten": "import os\nemp_data = pd.read_csv('./input/employee_survey_data.scaled.csv', index_col\n    ='EmployeeID')\ngen_data = pd.read_csv('./input/general_data.scaled.csv', index_col=\n    'EmployeeID')\nmanager_data = pd.read_csv('./input/manager_survey_data.scaled.csv',\n    index_col='EmployeeID')\nin_time_data = pd.read_csv('./input/in_time.scaled.csv')\nout_time_data = pd.read_csv('./input/out_time.scaled.csv')\n"
+    },
+    {
+      "raw": "in_time_data.rename(columns={'Unnamed: 0':'EmployeeID'}, inplace=True)\nin_time_data.set_index('EmployeeID', inplace=True)\nin_time_data\nout_time_data.rename(columns={'Unnamed: 0':'EmployeeID'}, inplace=True)\nout_time_data.set_index('EmployeeID', inplace=True)\nout_time_data.head()",
+      "rewrite-ns": 1750810,
+      "overhead-ns": 1750810,
+      "exec-ns": 42195236,
+      "total-ns": 43946046,
+      "patts-hit": {},
+      "rewritten": "in_time_data.rename(columns={'Unnamed: 0': 'EmployeeID'}, inplace=True)\nin_time_data.set_index('EmployeeID', inplace=True)\nin_time_data\nout_time_data.rename(columns={'Unnamed: 0': 'EmployeeID'}, inplace=True)\nout_time_data.set_index('EmployeeID', inplace=True)\nout_time_data.head()\n"
+    },
+    {
+      "raw": "in_time_data = in_time_data.apply(pd.DatetimeIndex)\nout_time_data = out_time_data.apply(pd.DatetimeIndex)",
+      "rewrite-ns": 821218,
+      "overhead-ns": 825254,
+      "exec-ns": 1167788057,
+      "total-ns": 1168609275,
+      "patts-hit": {},
+      "rewritten": "in_time_data = in_time_data.apply(pd.DatetimeIndex)\nout_time_data = out_time_data.apply(pd.DatetimeIndex)\n"
+    },
+    {
+      "raw": "times = pd.concat([in_time_data, out_time_data], axis=1)",
+      "rewrite-ns": 637310,
+      "overhead-ns": 637310,
+      "exec-ns": 20483694,
+      "total-ns": 21121004,
+      "patts-hit": {},
+      "rewritten": "times = pd.concat([in_time_data, out_time_data], axis=1)\n"
+    },
+    {
+      "raw": "times.head()",
+      "rewrite-ns": 108251,
+      "overhead-ns": 108251,
+      "exec-ns": 37869439,
+      "total-ns": 37977690,
+      "patts-hit": {},
+      "rewritten": "times.head()\n"
+    },
+    {
+      "raw": "times = times.applymap(lambda x: x.hour+0.01*x.minute)\ntimes['avg_in'] = round(times.iloc[:, :261].mean(axis=1),2)\ntimes['avg_out'] = round(times.iloc[:, 261:].mean(axis=1),2)\ntimes['med_in'] = round(times.iloc[:, :261].median(axis=1),2)\ntimes['med_out'] = round(times.iloc[:, 261:].median(axis=1),2)",
+      "rewrite-ns": 4001997,
+      "overhead-ns": 4004429,
+      "exec-ns": 7339486081,
+      "total-ns": 7343488078,
+      "patts-hit": {},
+      "rewritten": "times = times.applymap(lambda x: x.hour + 0.01 * x.minute)\ntimes['avg_in'] = round(times.iloc[:, :261].mean(axis=1), 2)\ntimes['avg_out'] = round(times.iloc[:, 261:].mean(axis=1), 2)\ntimes['med_in'] = round(times.iloc[:, :261].median(axis=1), 2)\ntimes['med_out'] = round(times.iloc[:, 261:].median(axis=1), 2)\n"
+    },
+    {
+      "raw": "times.head()",
+      "rewrite-ns": 157483,
+      "overhead-ns": 157483,
+      "exec-ns": 45933871,
+      "total-ns": 46091354,
+      "patts-hit": {},
+      "rewritten": "times.head()\n"
+    },
+    {
+      "raw": "times.shape",
+      "rewrite-ns": 67904,
+      "overhead-ns": 67904,
+      "exec-ns": 103816352,
+      "total-ns": 103884256,
+      "patts-hit": {},
+      "rewritten": "times.shape\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, axs = plt.subplots(1,3, figsize = (12,4))\n# sns.distplot(times.iloc[4, :261], ax=axs[0]).set(xlabel = 'In time', ylabel = 'Frequency',xlim=(7,12))\n# sns.distplot(times.iloc[72, :261], ax=axs[1]).set(xlabel = 'In time', ylabel = 'Frequency',xlim=(7,12))\n# sns.distplot(times.iloc[102, :261], ax=axs[2]).set(xlabel = 'In time', ylabel = 'Frequency',xlim=(7,12))\n# plt.tight_layout()\n_ = times.iloc[4, :261]\n_ = times.iloc[72, :261]\n_ = times.iloc[102, :261]\n",
+      "rewrite-ns": 1388515,
+      "overhead-ns": 1388515,
+      "exec-ns": 1255387,
+      "total-ns": 2643902,
+      "patts-hit": {},
+      "rewritten": "_ = times.iloc[4, :261]\n_ = times.iloc[72, :261]\n_ = times.iloc[102, :261]\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,4))\n# g = plt.plot(times.iloc[4, :261])\n_ = times.iloc[4, :261]\n",
+      "rewrite-ns": 513633,
+      "overhead-ns": 513633,
+      "exec-ns": 532571,
+      "total-ns": 1046204,
+      "patts-hit": {},
+      "rewritten": "_ = times.iloc[4, :261]\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,4))\n# g = plt.plot(times.iloc[25, :261])\n_ = times.iloc[25, :261]\n",
+      "rewrite-ns": 484205,
+      "overhead-ns": 484205,
+      "exec-ns": 508027,
+      "total-ns": 992232,
+      "patts-hit": {},
+      "rewritten": "_ = times.iloc[25, :261]\n"
+    },
+    {
+      "raw": "times['total'] = times['med_out'] - times['med_in']\ntime_feats = times[['avg_in', 'avg_out', 'med_in','med_out','total']]",
+      "rewrite-ns": 986380,
+      "overhead-ns": 986380,
+      "exec-ns": 39874526,
+      "total-ns": 40860906,
+      "patts-hit": {},
+      "rewritten": "times['total'] = times['med_out'] - times['med_in']\ntime_feats = times[['avg_in', 'avg_out', 'med_in', 'med_out', 'total']]\n"
+    },
+    {
+      "raw": "time_feats.head()",
+      "rewrite-ns": 114966,
+      "overhead-ns": 114966,
+      "exec-ns": 5179664,
+      "total-ns": 5294630,
+      "patts-hit": {},
+      "rewritten": "time_feats.head()\n"
+    },
+    {
+      "raw": "in_time_data.isna().sum()",
+      "rewrite-ns": 382985,
+      "overhead-ns": 382985,
+      "exec-ns": 6781159,
+      "total-ns": 7164144,
+      "patts-hit": {},
+      "rewritten": "in_time_data.isna().sum()\n"
+    },
+    {
+      "raw": "emp_data.head()",
+      "rewrite-ns": 83081,
+      "overhead-ns": 83081,
+      "exec-ns": 3663721,
+      "total-ns": 3746802,
+      "patts-hit": {},
+      "rewritten": "emp_data.head()\n"
+    },
+    {
+      "raw": "manager_data.isna().sum()",
+      "rewrite-ns": 367505,
+      "overhead-ns": 367505,
+      "exec-ns": 973161,
+      "total-ns": 1340666,
+      "patts-hit": {},
+      "rewritten": "manager_data.isna().sum()\n"
+    },
+    {
+      "raw": "emp_data.loc[emp_data['EnvironmentSatisfaction'].isnull()]\n",
+      "rewrite-ns": 514124,
+      "overhead-ns": 514124,
+      "exec-ns": 4982871,
+      "total-ns": 5496995,
+      "patts-hit": {},
+      "rewritten": "emp_data.loc[emp_data['EnvironmentSatisfaction'].isnull()]\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, axs = plt.subplots(1,3, figsize=(10,4))\n# sns.barplot(emp_data['EnvironmentSatisfaction'], emp_data['JobSatisfaction'],ax=axs[0])\n# sns.barplot(emp_data['WorkLifeBalance'], emp_data['JobSatisfaction'],ax=axs[1])\n# sns.barplot(emp_data['WorkLifeBalance'], emp_data['EnvironmentSatisfaction'],ax=axs[2])\n# plt.tight_layout(pad=3)\n_ = emp_data['EnvironmentSatisfaction']\n_ = emp_data['JobSatisfaction']\n_ = emp_data['WorkLifeBalance']\n_ = emp_data['JobSatisfaction']\n_ = emp_data['WorkLifeBalance']\n_ = emp_data['EnvironmentSatisfaction']\n",
+      "rewrite-ns": 1413504,
+      "overhead-ns": 1413504,
+      "exec-ns": 472427,
+      "total-ns": 1885931,
+      "patts-hit": {},
+      "rewritten": "_ = emp_data['EnvironmentSatisfaction']\n_ = emp_data['JobSatisfaction']\n_ = emp_data['WorkLifeBalance']\n_ = emp_data['JobSatisfaction']\n_ = emp_data['WorkLifeBalance']\n_ = emp_data['EnvironmentSatisfaction']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(emp_data, col='WorkLifeBalance',size=2.4, aspect=2, col_wrap=2 )\n# g = g.map(sns.distplot, 'JobSatisfaction', )",
+      "rewrite-ns": 11598,
+      "overhead-ns": 11598,
+      "exec-ns": 63239,
+      "total-ns": 74837,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(emp_data, col='JobSatisfaction',row ='WorkLifeBalance', size=2.4, aspect=2 )\n# g = g.map(sns.distplot, 'EnvironmentSatisfaction' )",
+      "rewrite-ns": 11182,
+      "overhead-ns": 11182,
+      "exec-ns": 59334,
+      "total-ns": 70516,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "def set_mode(data, col, col2, col3):\n    index_nan = list(data[col][data[col].isnull()].index)\n    for i in index_nan:\n        cols_mode = data[col].mode()[0]\n        mode_fill = data[col][((data[col2] == data.loc[i][col2]) & (data[col3] == data.loc[i][col3]))].mode()[0]\n        data[col].loc[i] = mode_fill\n\n\n    \n                    ",
+      "rewrite-ns": 3449781,
+      "overhead-ns": 3449781,
+      "exec-ns": 643977,
+      "total-ns": 4093758,
+      "patts-hit": {},
+      "rewritten": "def set_mode(data, col, col2, col3):\n    index_nan = list(data[col][data[col].isnull()].index)\n    for i in index_nan:\n        cols_mode = data[col].mode()[0]\n        mode_fill = data[col][(data[col2] == data.loc[i][col2]) & (data[\n            col3] == data.loc[i][col3])].mode()[0]\n        data[col].loc[i] = mode_fill\n"
+    },
+    {
+      "raw": "set_mode(emp_data, 'EnvironmentSatisfaction','JobSatisfaction','WorkLifeBalance')",
+      "rewrite-ns": 368451,
+      "overhead-ns": 368451,
+      "exec-ns": 75443586,
+      "total-ns": 75812037,
+      "patts-hit": {},
+      "rewritten": "set_mode(emp_data, 'EnvironmentSatisfaction', 'JobSatisfaction',\n    'WorkLifeBalance')\n"
+    },
+    {
+      "raw": "emp_data.isnull().sum()",
+      "rewrite-ns": 351921,
+      "overhead-ns": 351921,
+      "exec-ns": 1034803,
+      "total-ns": 1386724,
+      "patts-hit": {},
+      "rewritten": "emp_data.isnull().sum()\n"
+    },
+    {
+      "raw": "set_mode(emp_data, 'JobSatisfaction','EnvironmentSatisfaction','WorkLifeBalance')",
+      "rewrite-ns": 369045,
+      "overhead-ns": 369045,
+      "exec-ns": 59864352,
+      "total-ns": 60233397,
+      "patts-hit": {},
+      "rewritten": "set_mode(emp_data, 'JobSatisfaction', 'EnvironmentSatisfaction',\n    'WorkLifeBalance')\n"
+    },
+    {
+      "raw": "emp_data.isnull().sum()",
+      "rewrite-ns": 353094,
+      "overhead-ns": 353094,
+      "exec-ns": 1024261,
+      "total-ns": 1377355,
+      "patts-hit": {},
+      "rewritten": "emp_data.isnull().sum()\n"
+    },
+    {
+      "raw": "set_mode(emp_data, 'WorkLifeBalance','JobSatisfaction','EnvironmentSatisfaction')",
+      "rewrite-ns": 364427,
+      "overhead-ns": 364427,
+      "exec-ns": 109511873,
+      "total-ns": 109876300,
+      "patts-hit": {},
+      "rewritten": "set_mode(emp_data, 'WorkLifeBalance', 'JobSatisfaction',\n    'EnvironmentSatisfaction')\n"
+    },
+    {
+      "raw": "emp_data.isnull().sum()",
+      "rewrite-ns": 352919,
+      "overhead-ns": 352919,
+      "exec-ns": 1000851,
+      "total-ns": 1353770,
+      "patts-hit": {},
+      "rewritten": "emp_data.isnull().sum()\n"
+    },
+    {
+      "raw": "gen_data.head()",
+      "rewrite-ns": 72494,
+      "overhead-ns": 72494,
+      "exec-ns": 11815379,
+      "total-ns": 11887873,
+      "patts-hit": {},
+      "rewritten": "gen_data.head()\n"
+    },
+    {
+      "raw": "df = pd.concat([gen_data,manager_data,emp_data,time_feats], axis=1)",
+      "rewrite-ns": 655320,
+      "overhead-ns": 655320,
+      "exec-ns": 9293019,
+      "total-ns": 9948339,
+      "patts-hit": {},
+      "rewritten": "df = pd.concat([gen_data, manager_data, emp_data, time_feats], axis=1)\n"
+    },
+    {
+      "raw": "for col in df.columns.values:\n    if df[col].nunique() == 1:\n        df.drop(col, axis=1, inplace=True)",
+      "rewrite-ns": 1053914,
+      "overhead-ns": 1053914,
+      "exec-ns": 12849919,
+      "total-ns": 13903833,
+      "patts-hit": {},
+      "rewritten": "for col in df.columns.values:\n    if df[col].nunique() == 1:\n        df.drop(col, axis=1, inplace=True)\n"
+    },
+    {
+      "raw": "df['Attrition'] = np.where(df['Attrition']=='Yes',1,0)",
+      "rewrite-ns": 718558,
+      "overhead-ns": 718558,
+      "exec-ns": 1373923,
+      "total-ns": 2092481,
+      "patts-hit": {},
+      "rewritten": "df['Attrition'] = np.where(df['Attrition'] == 'Yes', 1, 0)\n"
+    },
+    {
+      "raw": "df.NumCompaniesWorked.fillna(0, inplace=True)\ndf.TotalWorkingYears.fillna(0, inplace=True)",
+      "rewrite-ns": 764485,
+      "overhead-ns": 764485,
+      "exec-ns": 704718,
+      "total-ns": 1469203,
+      "patts-hit": {},
+      "rewritten": "df.NumCompaniesWorked.fillna(0, inplace=True)\ndf.TotalWorkingYears.fillna(0, inplace=True)\n"
+    },
+    {
+      "raw": "df.isna().sum()\ndf.head()\n",
+      "rewrite-ns": 382152,
+      "overhead-ns": 382152,
+      "exec-ns": 27897860,
+      "total-ns": 28280012,
+      "patts-hit": {},
+      "rewritten": "df.isna().sum()\ndf.head()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.distplot(df['total']).set(xlabel = 'Total Hours Of Work', ylabel = 'Frequency')\n_ = df['total']",
+      "rewrite-ns": 297151,
+      "overhead-ns": 297151,
+      "exec-ns": 234781,
+      "total-ns": 531932,
+      "patts-hit": {},
+      "rewritten": "_ = df['total']\n"
+    },
+    {
+      "raw": "## checking the exact number of people by hours of work\nprint(df['total'][df['total'] <=7].value_counts().sum())\nprint(df['total'][(df['total'] > 7) & (df['total'] <=8)].value_counts().sum())\nprint(df['total'][df['total'] > 8].value_counts().sum())\n",
+      "rewrite-ns": 2514605,
+      "overhead-ns": 2514605,
+      "exec-ns": 2322640,
+      "total-ns": 4837245,
+      "patts-hit": {},
+      "rewritten": "print(df['total'][df['total'] <= 7].value_counts().sum())\nprint(df['total'][(df['total'] > 7) & (df['total'] <= 8)].value_counts().sum())\nprint(df['total'][df['total'] > 8].value_counts().sum())\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(8,4))\n# plt.subplot(1,2,1)\n# sns.distplot(df['avg_in'], bins=20)\n# plt.subplot(1,2,2)\n# s = sns.distplot(df['avg_out'], bins=20)\n# plt.xticks((range(16,22)))\n# plt.tight_layout(pad=5)\n_ = df['avg_in']\n_ = df['avg_out']",
+      "rewrite-ns": 522126,
+      "overhead-ns": 522126,
+      "exec-ns": 273088,
+      "total-ns": 795214,
+      "patts-hit": {},
+      "rewritten": "_ = df['avg_in']\n_ = df['avg_out']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(8,4))\n# plt.subplot(1,2,1)\n# sns.distplot(df['med_in'], bins=10)\n# plt.subplot(1,2,2)\n# s = sns.distplot(df['med_out'], bins=20)\n# plt.xticks((range(16,22)))\n# plt.tight_layout(pad=5)\n_ = df['med_in']\n_ = df['med_out']",
+      "rewrite-ns": 497865,
+      "overhead-ns": 497865,
+      "exec-ns": 252341,
+      "total-ns": 750206,
+      "patts-hit": {},
+      "rewritten": "_ = df['med_in']\n_ = df['med_out']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot, 'total')",
+      "rewrite-ns": 11733,
+      "overhead-ns": 11733,
+      "exec-ns": 63396,
+      "total-ns": 75129,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot, 'med_in')\n",
+      "rewrite-ns": 11236,
+      "overhead-ns": 11236,
+      "exec-ns": 61205,
+      "total-ns": 72441,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'med_out')",
+      "rewrite-ns": 10448,
+      "overhead-ns": 10448,
+      "exec-ns": 56349,
+      "total-ns": 66797,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'avg_in')",
+      "rewrite-ns": 9487,
+      "overhead-ns": 9487,
+      "exec-ns": 52179,
+      "total-ns": 61666,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition' )\n# g = g.map(sns.distplot , 'avg_out')",
+      "rewrite-ns": 9249,
+      "overhead-ns": 9249,
+      "exec-ns": 51892,
+      "total-ns": 61141,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,4))\n# plt.subplot(1,3,1)\n# g = sns.barplot(df['Attrition'], df['EnvironmentSatisfaction'], hue=df['JobSatisfaction'])\n# plt.legend(loc ='upper right')\n# plt.subplot(1,3,2)\n# s = sns.barplot(df['Attrition'], df['JobInvolvement'], hue=df['JobSatisfaction'])\n# plt.legend(loc ='upper right')\n# plt.subplot(1,3,3)\n# f = sns.barplot(df['Attrition'], df['WorkLifeBalance'], hue=df['JobSatisfaction'])\n# plt.legend(loc ='upper right')\n# plt.tight_layout()\n_ = df['Attrition']\n_ = df['EnvironmentSatisfaction']\n_ = df['JobSatisfaction']\n_ = df['Attrition']\n_ = df['JobInvolvement']\n_ = df['JobSatisfaction']\n_ = df['Attrition']\n_ = df['WorkLifeBalance']\n_ = df['JobSatisfaction']",
+      "rewrite-ns": 2054181,
+      "overhead-ns": 2054181,
+      "exec-ns": 596087,
+      "total-ns": 2650268,
+      "patts-hit": {},
+      "rewritten": "_ = df['Attrition']\n_ = df['EnvironmentSatisfaction']\n_ = df['JobSatisfaction']\n_ = df['Attrition']\n_ = df['JobInvolvement']\n_ = df['JobSatisfaction']\n_ = df['Attrition']\n_ = df['WorkLifeBalance']\n_ = df['JobSatisfaction']\n"
+    },
+    {
+      "raw": "cat_cols = ['BusinessTravel', 'Department','EducationField', 'Gender',\n       'JobRole', 'MaritalStatus','JobInvolvement', 'PerformanceRating',\n       'EnvironmentSatisfaction', 'JobSatisfaction', 'WorkLifeBalance', 'JobLevel']\n# ALEX: remove plotting\n# plt.figure(figsize=(15,18))\nfor i in range(len(cat_cols)):\n# ALEX: remove plotting\n#     plt.subplot(4,3,i+1)\n#     sns.countplot(df[cat_cols[i]], hue=df['Attrition'])\n    _ = df[cat_cols[i]]\n    _ = df['Attrition']\n    if len(df[cat_cols[i]].unique()) >= 3:\n        pass\n# ALEX: remove plotting\n#         plt.xticks(rotation=75)\n# plt.tight_layout()",
+      "rewrite-ns": 1201001,
+      "overhead-ns": 1201001,
+      "exec-ns": 3690344,
+      "total-ns": 4891345,
+      "patts-hit": {
+        "LenUnique": 1
+      },
+      "rewritten": "cat_cols = ['BusinessTravel', 'Department', 'EducationField', 'Gender',\n    'JobRole', 'MaritalStatus', 'JobInvolvement', 'PerformanceRating',\n    'EnvironmentSatisfaction', 'JobSatisfaction', 'WorkLifeBalance', 'JobLevel'\n    ]\nfor i in range(len(cat_cols)):\n    _ = df[cat_cols[i]]\n    _ = df['Attrition']\n    if dias.rewriter.len_unique(series=df[cat_cols[i]]) >= 3:\n        pass\n"
+    },
+    {
+      "raw": "def Att_ratio(data, col):\n    col_values = data[col].unique()\n    print('For',col, ':')\n    for index, item in enumerate(col_values):\n# ALEX: make notebook run with input scaling\n        if type(item) == float or (type(item) == np.float64 and np.isnan(item)):\n            continue\n        ratio = len(df.loc[(df[col] == col_values[index]) & (df['Attrition'] == 1)])/len(df.loc[(df[col] == col_values[index]) & (df['Attrition'] == 0)])\n        print('The Attrition ratio(Yes/No) under the category %s is %f' %(item, ratio))\n    print('-----------------------------------------------------------------------------------------------')\n\n        ",
+      "rewrite-ns": 4383760,
+      "overhead-ns": 4383760,
+      "exec-ns": 818293,
+      "total-ns": 5202053,
+      "patts-hit": {},
+      "rewritten": "def Att_ratio(data, col):\n    col_values = data[col].unique()\n    print('For', col, ':')\n    for index, item in enumerate(col_values):\n        if type(item) == float or type(item) == np.float64 and np.isnan(item):\n            continue\n        ratio = len(df.loc[(df[col] == col_values[index]) & (df['Attrition'\n            ] == 1)]) / len(df.loc[(df[col] == col_values[index]) & (df[\n            'Attrition'] == 0)])\n        print('The Attrition ratio(Yes/No) under the category %s is %f' % (\n            item, ratio))\n    print(\n        '-----------------------------------------------------------------------------------------------'\n        )\n"
+    },
+    {
+      "raw": "cat_cols = ['BusinessTravel', 'Department','EducationField', 'Gender',\n       'JobRole', 'MaritalStatus','JobInvolvement', 'PerformanceRating',\n       'EnvironmentSatisfaction', 'JobSatisfaction', 'WorkLifeBalance', 'JobLevel']\nfor col in cat_cols:\n    Att_ratio(df, col)\n",
+      "rewrite-ns": 994443,
+      "overhead-ns": 994443,
+      "exec-ns": 82510232,
+      "total-ns": 83504675,
+      "patts-hit": {},
+      "rewritten": "cat_cols = ['BusinessTravel', 'Department', 'EducationField', 'Gender',\n    'JobRole', 'MaritalStatus', 'JobInvolvement', 'PerformanceRating',\n    'EnvironmentSatisfaction', 'JobSatisfaction', 'WorkLifeBalance', 'JobLevel'\n    ]\nfor col in cat_cols:\n    Att_ratio(df, col)\n"
+    },
+    {
+      "raw": "df['Gender'].replace({'Female': 1, 'Male': 0}, inplace=True)\ndf['BusinessTravel'].replace({'Travel_Rarely': 1,'Travel_Frequently':2,'Non-Travel':0 }, inplace=True)\ncat_cols = ['Gender','BusinessTravel',\n       'JobInvolvement', 'PerformanceRating',\n       'EnvironmentSatisfaction', 'JobSatisfaction', 'WorkLifeBalance', 'JobLevel']\nfor col in cat_cols:\n    print('The Attrition ration(Yes/All) For',col+':')\n    print(df.groupby([col]).Attrition.agg(['mean']))\n    print('----------------------------------------------------------')\n",
+      "rewrite-ns": 2846820,
+      "overhead-ns": 2846820,
+      "exec-ns": 28821455,
+      "total-ns": 31668275,
+      "patts-hit": {},
+      "rewritten": "df['Gender'].replace({'Female': 1, 'Male': 0}, inplace=True)\ndf['BusinessTravel'].replace({'Travel_Rarely': 1, 'Travel_Frequently': 2,\n    'Non-Travel': 0}, inplace=True)\ncat_cols = ['Gender', 'BusinessTravel', 'JobInvolvement',\n    'PerformanceRating', 'EnvironmentSatisfaction', 'JobSatisfaction',\n    'WorkLifeBalance', 'JobLevel']\nfor col in cat_cols:\n    print('The Attrition ration(Yes/All) For', col + ':')\n    print(df.groupby([col]).Attrition.agg(['mean']))\n    print('----------------------------------------------------------')\n"
+    },
+    {
+      "raw": "df.head()",
+      "rewrite-ns": 77061,
+      "overhead-ns": 77061,
+      "exec-ns": 17615842,
+      "total-ns": 17692903,
+      "patts-hit": {},
+      "rewritten": "df.head()\n"
+    },
+    {
+      "raw": "df.columns",
+      "rewrite-ns": 50771,
+      "overhead-ns": 50771,
+      "exec-ns": 562315,
+      "total-ns": 613086,
+      "patts-hit": {},
+      "rewritten": "df.columns\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.distplot(df.MonthlyIncome)\n_ = df.MonthlyIncome",
+      "rewrite-ns": 247906,
+      "overhead-ns": 247906,
+      "exec-ns": 224984,
+      "total-ns": 472890,
+      "patts-hit": {},
+      "rewritten": "_ = df.MonthlyIncome\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'MaritalStatus', row = 'Department')\n# g = g.map(sns.distplot , 'MonthlyIncome')\n# g.fig.subplots_adjust(top=1,right=1.4, wspace=1)\n",
+      "rewrite-ns": 12578,
+      "overhead-ns": 12578,
+      "exec-ns": 62861,
+      "total-ns": 75439,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "## we can see it here as well, it's more useful to look at the median, as the distribution of income is skewed to the right\nprint(df.groupby(['MaritalStatus']).MonthlyIncome.agg(['mean','median']))\nprint(df.groupby(['Department']).MonthlyIncome.agg(['mean','median']))\n",
+      "rewrite-ns": 1344126,
+      "overhead-ns": 1344126,
+      "exec-ns": 8029610,
+      "total-ns": 9373736,
+      "patts-hit": {},
+      "rewritten": "print(df.groupby(['MaritalStatus']).MonthlyIncome.agg(['mean', 'median']))\nprint(df.groupby(['Department']).MonthlyIncome.agg(['mean', 'median']))\n"
+    },
+    {
+      "raw": "df.columns",
+      "rewrite-ns": 50558,
+      "overhead-ns": 50558,
+      "exec-ns": 699401,
+      "total-ns": 749959,
+      "patts-hit": {},
+      "rewritten": "df.columns\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(14,8))\ntop_corr = df.corr().nlargest(15, 'MonthlyIncome').index\ncm = np.corrcoef(df[top_corr].values.T)\n# ALEX: remove plotting\n# g = sns.heatmap(cm, cbar=True, annot=True, cmap='BrBG',yticklabels = top_corr.values, xticklabels=top_corr.values)\n_ = top_corr.values\n_ = top_corr.values",
+      "rewrite-ns": 1401170,
+      "overhead-ns": 1401170,
+      "exec-ns": 30174048,
+      "total-ns": 31575218,
+      "patts-hit": {},
+      "rewritten": "top_corr = df.corr().nlargest(15, 'MonthlyIncome').index\ncm = np.corrcoef(df[top_corr].values.T)\n_ = top_corr.values\n_ = top_corr.values\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.distplot(df['MonthlyIncome'][df['Attrition'] == 0],color='blue')\n# f = sns.distplot(df['MonthlyIncome'][df['Attrition'] == 1],color='orange')\n_ = df['MonthlyIncome'][df['Attrition'] == 0]\n_ = df['MonthlyIncome'][df['Attrition'] == 1]\ndf.groupby('Attrition').MonthlyIncome.agg(['mean','median'])\n",
+      "rewrite-ns": 1583447,
+      "overhead-ns": 1583447,
+      "exec-ns": 4492096,
+      "total-ns": 6075543,
+      "patts-hit": {},
+      "rewritten": "_ = df['MonthlyIncome'][df['Attrition'] == 0]\n_ = df['MonthlyIncome'][df['Attrition'] == 1]\ndf.groupby('Attrition').MonthlyIncome.agg(['mean', 'median'])\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(14,8))\ntop_corr = df.corr().nlargest(15, 'Age').index\ncm = np.corrcoef(df[top_corr].values.T)\n# ALEX: remove plotting\n# g = sns.heatmap(cm, cbar=True, annot=True, cmap='BrBG',yticklabels = top_corr.values, xticklabels=top_corr.values)\n_ = top_corr.values\n_ = top_corr.values",
+      "rewrite-ns": 1408291,
+      "overhead-ns": 1408291,
+      "exec-ns": 28083905,
+      "total-ns": 29492196,
+      "patts-hit": {},
+      "rewritten": "top_corr = df.corr().nlargest(15, 'Age').index\ncm = np.corrcoef(df[top_corr].values.T)\n_ = top_corr.values\n_ = top_corr.values\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, axs = plt.subplots(1,3, figsize = (12,4))\n# sns.distplot(df['Age'], ax=axs[0])\n# sns.distplot(df['YearsSinceLastPromotion'], ax=axs[1])\n# sns.distplot(df['YearsAtCompany'], ax=axs[2])\n# plt.tight_layout()\n_ = df['Age']\n_ = df['YearsSinceLastPromotion']\n_ = df['YearsAtCompany']",
+      "rewrite-ns": 754364,
+      "overhead-ns": 754364,
+      "exec-ns": 345315,
+      "total-ns": 1099679,
+      "patts-hit": {},
+      "rewritten": "_ = df['Age']\n_ = df['YearsSinceLastPromotion']\n_ = df['YearsAtCompany']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.distplot(df['Age'][df['Attrition'] == 0],color='blue')\n# sns.distplot(df['Age'][df['Attrition'] == 1],color='orange')\n# plt.legend(['No','Yes'])\n_ = df['Age'][df['Attrition'] == 0]\n_ = df['Age'][df['Attrition'] == 1]",
+      "rewrite-ns": 1054583,
+      "overhead-ns": 1054583,
+      "exec-ns": 711854,
+      "total-ns": 1766437,
+      "patts-hit": {},
+      "rewritten": "_ = df['Age'][df['Attrition'] == 0]\n_ = df['Age'][df['Attrition'] == 1]\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'Age')\n# g.fig.subplots_adjust(top=1,right=1.2)\n#plt.tight_layout()\ndf.groupby('Attrition').Age.agg(['median','mean'])",
+      "rewrite-ns": 578376,
+      "overhead-ns": 578376,
+      "exec-ns": 3957448,
+      "total-ns": 4535824,
+      "patts-hit": {},
+      "rewritten": "df.groupby('Attrition').Age.agg(['median', 'mean'])\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.scatterplot(df['Age'], df['total'])\n_ = df['Age']\n_ = df['total']",
+      "rewrite-ns": 524312,
+      "overhead-ns": 524312,
+      "exec-ns": 265008,
+      "total-ns": 789320,
+      "patts-hit": {},
+      "rewritten": "_ = df['Age']\n_ = df['total']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'YearsSinceLastPromotion')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').YearsSinceLastPromotion.agg(['median','mean'])",
+      "rewrite-ns": 564495,
+      "overhead-ns": 564495,
+      "exec-ns": 3652063,
+      "total-ns": 4216558,
+      "patts-hit": {},
+      "rewritten": "df.groupby('Attrition').YearsSinceLastPromotion.agg(['median', 'mean'])\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'YearsWithCurrManager')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').YearsWithCurrManager.agg(['median','mean'])",
+      "rewrite-ns": 589357,
+      "overhead-ns": 589357,
+      "exec-ns": 3740028,
+      "total-ns": 4329385,
+      "patts-hit": {},
+      "rewritten": "df.groupby('Attrition').YearsWithCurrManager.agg(['median', 'mean'])\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'YearsAtCompany')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').YearsAtCompany.agg(['median','mean'])",
+      "rewrite-ns": 582967,
+      "overhead-ns": 582967,
+      "exec-ns": 3715923,
+      "total-ns": 4298890,
+      "patts-hit": {},
+      "rewritten": "df.groupby('Attrition').YearsAtCompany.agg(['median', 'mean'])\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'DistanceFromHome')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').DistanceFromHome.agg(['median','mean'])\n",
+      "rewrite-ns": 584529,
+      "overhead-ns": 584529,
+      "exec-ns": 3719618,
+      "total-ns": 4304147,
+      "patts-hit": {},
+      "rewritten": "df.groupby('Attrition').DistanceFromHome.agg(['median', 'mean'])\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'TotalWorkingYears')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').TotalWorkingYears.agg(['median','mean'])",
+      "rewrite-ns": 581995,
+      "overhead-ns": 581995,
+      "exec-ns": 3716484,
+      "total-ns": 4298479,
+      "patts-hit": {},
+      "rewritten": "df.groupby('Attrition').TotalWorkingYears.agg(['median', 'mean'])\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'Education')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').Education.agg(['median','mean'])",
+      "rewrite-ns": 585331,
+      "overhead-ns": 585331,
+      "exec-ns": 3630787,
+      "total-ns": 4216118,
+      "patts-hit": {},
+      "rewritten": "df.groupby('Attrition').Education.agg(['median', 'mean'])\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'PercentSalaryHike')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').PercentSalaryHike.agg(['median','mean'])",
+      "rewrite-ns": 580604,
+      "overhead-ns": 580604,
+      "exec-ns": 3670293,
+      "total-ns": 4250897,
+      "patts-hit": {},
+      "rewritten": "df.groupby('Attrition').PercentSalaryHike.agg(['median', 'mean'])\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'NumCompaniesWorked')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').NumCompaniesWorked.agg(['median','mean'])",
+      "rewrite-ns": 577509,
+      "overhead-ns": 577509,
+      "exec-ns": 3844785,
+      "total-ns": 4422294,
+      "patts-hit": {},
+      "rewritten": "df.groupby('Attrition').NumCompaniesWorked.agg(['median', 'mean'])\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'YearsSinceLastPromotion')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').YearsSinceLastPromotion.agg(['median','mean'])",
+      "rewrite-ns": 569905,
+      "overhead-ns": 569905,
+      "exec-ns": 3677936,
+      "total-ns": 4247841,
+      "patts-hit": {},
+      "rewritten": "df.groupby('Attrition').YearsSinceLastPromotion.agg(['median', 'mean'])\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'StockOptionLevel')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').StockOptionLevel.agg(['median','mean'])",
+      "rewrite-ns": 571232,
+      "overhead-ns": 571232,
+      "exec-ns": 3648625,
+      "total-ns": 4219857,
+      "patts-hit": {},
+      "rewritten": "df.groupby('Attrition').StockOptionLevel.agg(['median', 'mean'])\n"
+    },
+    {
+      "raw": "x = df.drop(['Attrition'], axis=1).reset_index(drop=True)\ny = df['Attrition'].values",
+      "rewrite-ns": 922091,
+      "overhead-ns": 922091,
+      "exec-ns": 1636547,
+      "total-ns": 2558638,
+      "patts-hit": {},
+      "rewritten": "x = df.drop(['Attrition'], axis=1).reset_index(drop=True)\ny = df['Attrition'].values\n"
+    },
+    {
+      "raw": "cols_todrop = ['JobLevel','Department','JobRole','NumCompaniesWorked','PercentSalaryHike','StockOptionLevel','YearsWithCurrManager','med_in', 'avg_in','avg_out']",
+      "rewrite-ns": 571217,
+      "overhead-ns": 571217,
+      "exec-ns": 241483,
+      "total-ns": 812700,
+      "patts-hit": {},
+      "rewritten": "cols_todrop = ['JobLevel', 'Department', 'JobRole', 'NumCompaniesWorked',\n    'PercentSalaryHike', 'StockOptionLevel', 'YearsWithCurrManager',\n    'med_in', 'avg_in', 'avg_out']\n"
+    },
+    {
+      "raw": "x.drop(cols_todrop, axis=1, inplace=True)",
+      "rewrite-ns": 446960,
+      "overhead-ns": 446960,
+      "exec-ns": 997948,
+      "total-ns": 1444908,
+      "patts-hit": {},
+      "rewritten": "x.drop(cols_todrop, axis=1, inplace=True)\n"
+    },
+    {
+      "raw": "## creating age groups\nx.Age = pd.cut(x.Age, 4)",
+      "rewrite-ns": 510450,
+      "overhead-ns": 510450,
+      "exec-ns": 1977499,
+      "total-ns": 2487949,
+      "patts-hit": {},
+      "rewritten": "x.Age = pd.cut(x.Age, 4)\n"
+    },
+    {
+      "raw": "x.Age.unique()",
+      "rewrite-ns": 308826,
+      "overhead-ns": 308826,
+      "exec-ns": 1138368,
+      "total-ns": 1447194,
+      "patts-hit": {},
+      "rewritten": "x.Age.unique()\n"
+    },
+    {
+      "raw": "## converting categorial variables to dummies\nx = pd.get_dummies(x)",
+      "rewrite-ns": 364411,
+      "overhead-ns": 364411,
+      "exec-ns": 4533380,
+      "total-ns": 4897791,
+      "patts-hit": {},
+      "rewritten": "x = pd.get_dummies(x)\n"
+    },
+    {
+      "raw": "x_copy = x.copy()",
+      "rewrite-ns": 315305,
+      "overhead-ns": 315305,
+      "exec-ns": 556459,
+      "total-ns": 871764,
+      "patts-hit": {},
+      "rewritten": "x_copy = x.copy()\n"
+    },
+    {
+      "raw": "## scaling the features\n\n# ALEX: remove ML code\n# scaler = preprocessing.StandardScaler()\n# x = scaler.fit_transform(x)\n",
+      "rewrite-ns": 12529,
+      "overhead-ns": 12529,
+      "exec-ns": 65011,
+      "total-ns": 77540,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "x_copy.head()",
+      "rewrite-ns": 72958,
+      "overhead-ns": 72958,
+      "exec-ns": 15500025,
+      "total-ns": 15572983,
+      "patts-hit": {},
+      "rewritten": "x_copy.head()\n"
+    },
+    {
+      "raw": "## splitting the sets into train and test\n\n# ALEX: remove ML code\n# x_train, x_test, y_train, y_test = train_test_split(x, y, train_size = 0.7, random_state=42)",
+      "rewrite-ns": 12636,
+      "overhead-ns": 12636,
+      "exec-ns": 67973,
+      "total-ns": 80609,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# Defining a function which examines each model based on the score, then show each one's score and STD, as well as graphic comparison\n# evaluate each model in turn\n# def get_scores(score1, score2):\n#     models = []\n#     models.append(('LR', LogisticRegression()))\n#     models.append(('LDA', LinearDiscriminantAnalysis()))\n#     models.append(('KNN', KNeighborsClassifier()))\n#     models.append(('CART', DecisionTreeClassifier()))\n#     models.append(('NB', GaussianNB()))\n#     models.append(('SVM', SVC()))\n#     models.append(('ADA', AdaBoostClassifier()))\n#     models.append(('GradientBooster', GradientBoostingClassifier()))\n#     models.append(('ExtraTrees', ExtraTreesClassifier()))\n#     models.append(('RandomForest', RandomForestClassifier()))\n#     cv_scores = []\n#     test_scores = []\n#     names = []\n#     stds = []\n#     differences = []\n#     #res = pd.DataFrame(columns = {'Model',score+('(train)'), 'Std', score+('(test_score)'), 'difference'})\n#     #res = res[['Model',score+('(train)'), 'Std', score+('(test_score)'), 'difference']]\n#     res = pd.DataFrame()\n#     for index, model in enumerate(models):\n#         kfold = StratifiedKFold(n_splits=7)\n#         cv_results = cross_val_score(model[1], x_train, y_train, cv=kfold, scoring=score1)\n#         cv_scores.append(cv_results)\n#         names.append(model[0])\n#         model[1].fit(x_train,y_train)\n#         predictions = model[1].predict(x_test)\n#         test_score = score2(predictions, y_test)\n#         test_scores.append(test_score)\n#         stds.append(cv_results.std())\n#         differences.append((cv_results.mean() - test_score))\n#         res.loc[index,'Model'] = model[0]\n#         res.loc[index,score1+('(train)')] = cv_results.mean()\n#         res.loc[index,score1+('(test_score)')] = test_score\n#         res.loc[index,'Std'] = cv_results.std()\n#         res.loc[index,'difference'] = cv_results.mean() - test_score\n#     # boxplot algorithm comparison\n#     fig = plt.figure(figsize = (12,5))\n#     fig.suptitle('Model Comparison')\n#     ax = fig.add_subplot(121)\n#     plt.boxplot(cv_scores)\n#     ax.set_xticklabels(names, rotation=70)\n#     axs = fig.add_subplot(122)\n#     sns.barplot(names,test_scores)\n#     axs.set_xticklabels(names, rotation=70)\n#     plt.tight_layout(pad=5)\n#     return res\n#     plt.show()\n\n    \n",
+      "rewrite-ns": 21801,
+      "overhead-ns": 21801,
+      "exec-ns": 60503,
+      "total-ns": 82304,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# get_scores('accuracy', accuracy_score)",
+      "rewrite-ns": 10297,
+      "overhead-ns": 10297,
+      "exec-ns": 59026,
+      "total-ns": 69323,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# params = {'bootstrap': [True, False],\n#  'max_depth': [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, None],\n#  'max_features': ['auto', 'sqrt'],\n#  'min_samples_leaf': [1, 2, 4],\n#  'min_samples_split': [2, 5, 10],\n#  'n_estimators': [200, 400, 600, 800, 1000]}\n# RandomForest = RandomForestClassifier()\n# randomgrid_forest = RandomizedSearchCV(estimator=RandomForest, param_distributions = params, \n#                                cv=5, n_iter=25, scoring = 'accuracy',\n#                                n_jobs = 4, verbose = 3, random_state = 42,\n#                                return_train_score = True)\n# randomgrid_forest.fit(x_train,y_train)",
+      "rewrite-ns": 12760,
+      "overhead-ns": 12760,
+      "exec-ns": 55657,
+      "total-ns": 68417,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# randomgrid_forest.score(x_test, y_test)",
+      "rewrite-ns": 9699,
+      "overhead-ns": 9699,
+      "exec-ns": 53418,
+      "total-ns": 63117,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# forest_preds = randomgrid_forest.predict(x_test)\n# roc_auc_score(forest_preds, y_test)",
+      "rewrite-ns": 9372,
+      "overhead-ns": 9372,
+      "exec-ns": 51689,
+      "total-ns": 61061,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# randomgrid_forest.best_estimator_",
+      "rewrite-ns": 9259,
+      "overhead-ns": 9259,
+      "exec-ns": 51440,
+      "total-ns": 60699,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "### I created a function which take a model and scoring method, then shows the cross validation score for each estimator\n### and plot it next to the test score.\n# ALEX: remove ML code\n# def estimators_compare(model, cv_score, metrics_score):\n#     train_scores = []\n#     test_scores= []\n#     estimators = [80,100,200,400,600,800,1200]\n#     res = pd.DataFrame(columns = {'Number Of Estimators', 'train_score', 'test_score'})\n#     for ind, i in enumerate(estimators):\n#         mode = model(n_estimators=i)\n#         kfold = StratifiedKFold(n_splits=7)\n#         cv_results = cross_val_score(mode, x_train, y_train, cv=kfold, scoring=cv_score)\n#         mode.fit(x_train, y_train)\n#         predictions = mode.predict(x_test)\n#         train_score = cv_results.mean()\n#         train_scores.append(train_score)\n#         test_score = metrics_score(predictions, y_test)\n#         test_scores.append(test_score)\n#         res.loc[ind,'Number Of Estimators'] = i\n#         res.loc[ind,'train_score'] = train_score\n#         res.loc[ind,'test_score'] = test_score\n\n#     plt.plot(estimators, train_scores, color='red')\n#     plt.plot(estimators, test_scores, color='blue')\n#     legs = ['train', 'test']\n#     plt.legend(legs)\n#     return res",
+      "rewrite-ns": 14949,
+      "overhead-ns": 14949,
+      "exec-ns": 50916,
+      "total-ns": 65865,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# estimators_compare(RandomForestClassifier, 'accuracy', accuracy_score)",
+      "rewrite-ns": 9334,
+      "overhead-ns": 9334,
+      "exec-ns": 50856,
+      "total-ns": 60190,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# final_random_forest = RandomForestClassifier(bootstrap=False, ccp_alpha=0.0, class_weight=None,\n#                        criterion='gini', max_depth=40, max_features='sqrt',\n#                        max_leaf_nodes=None, max_samples=None,\n#                        min_impurity_decrease=0.0, min_impurity_split=None,\n#                        min_samples_leaf=1, min_samples_split=2,\n#                        min_weight_fraction_leaf=0.0, n_estimators=100,\n#                        n_jobs=None, oob_score=False, random_state=None,\n#                        verbose=0, warm_start=False)\n# final_random_forest.fit(x_train, y_train)\n# final_random_forest.score(x_test, y_test)",
+      "rewrite-ns": 11678,
+      "overhead-ns": 11678,
+      "exec-ns": 50511,
+      "total-ns": 62189,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# featuers_coefficients = final_random_forest.feature_importances_.tolist()\nfeature_names = x_copy.columns\n# ALEX: remove ML code\n# feats = pd.DataFrame(pd.Series(featuers_coefficients, feature_names).sort_values(ascending=False),columns=['Coefficient'])\n# feats",
+      "rewrite-ns": 257195,
+      "overhead-ns": 257195,
+      "exec-ns": 181339,
+      "total-ns": 438534,
+      "patts-hit": {},
+      "rewritten": "feature_names = x_copy.columns\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# params2 = {'bootstrap': [True, False],\n#  'max_depth': [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, None],\n#  'max_features': ['auto', 'sqrt'],\n#  'min_samples_leaf': [1, 2, 4],\n#  'min_samples_split': [2, 5, 10],\n#  'n_estimators': [200, 400, 600, 800, 1000]}\n# ExtraTress = ExtraTreesClassifier()\n# randomgrid_extrees = RandomizedSearchCV(estimator=ExtraTress, param_distributions = params2, \n#                                cv=5, n_iter=25, scoring = 'accuracy',\n#                                n_jobs = 4, verbose = 3, random_state = 42,\n#                                return_train_score = True)\n# randomgrid_extrees.fit(x_train,y_train)",
+      "rewrite-ns": 13596,
+      "overhead-ns": 13596,
+      "exec-ns": 59760,
+      "total-ns": 73356,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# randomgrid_extrees.score(x_test, y_test)",
+      "rewrite-ns": 9665,
+      "overhead-ns": 9665,
+      "exec-ns": 54451,
+      "total-ns": 64116,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# randomgrid_extrees.best_estimator_",
+      "rewrite-ns": 9097,
+      "overhead-ns": 9097,
+      "exec-ns": 53057,
+      "total-ns": 62154,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# estimators_compare(ExtraTreesClassifier, 'accuracy', accuracy_score)",
+      "rewrite-ns": 9413,
+      "overhead-ns": 9413,
+      "exec-ns": 51357,
+      "total-ns": 60770,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# final_extra_trees_A = ExtraTreesClassifier(max_depth=40, max_features='sqrt', n_estimators=600)\n# final_extra_trees_A.fit(x_train, y_train)\n# print(final_extra_trees_A.score(x_test, y_test))\n# final_extra_trees_B = ExtraTreesClassifier(max_depth=40, max_features='sqrt', n_estimators=100)\n# final_extra_trees_B.fit(x_train, y_train)\n# print(final_extra_trees_B.score(x_test, y_test))",
+      "rewrite-ns": 18994,
+      "overhead-ns": 18994,
+      "exec-ns": 91669,
+      "total-ns": 110663,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# featuers_coefficients = final_extra_trees.feature_importances_.tolist()\nfeature_names = x_copy.columns\n# ALEX: remove ML code\n# feats = pd.DataFrame(pd.Series(featuers_coefficients, feature_names).sort_values(ascending=False),columns=['Coefficient'])\n# feats",
+      "rewrite-ns": 267806,
+      "overhead-ns": 267806,
+      "exec-ns": 219423,
+      "total-ns": 487229,
+      "patts-hit": {},
+      "rewritten": "feature_names = x_copy.columns\n"
+    }
+  ],
+  "total-time-in-sec": 12.18023114,
+  "max-disk-in-mb": 0
+}

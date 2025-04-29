@@ -1,0 +1,128 @@
+{
+  "max-mem-in-mb": 425,
+  "max-mem-in-mb2": 530,
+  "cells": [
+    {
+      "raw": "# import os\n\nimport numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 360710
+    },
+    {
+      "raw": "df_train = pd.read_csv(\"./input/train_users_2.scaled.csv\")\ndf_train.sample(n=5) #ou head pour avoir les 5 premiers",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 915023241
+    },
+    {
+      "raw": "df_test = pd.read_csv(\"./input/test_users.scaled.csv\")\ndf_test.sample(n=5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 189937857
+    },
+    {
+      "raw": "#Combine into one dataset\ndf_all = pd.concat((df_train, df_test), axis=0, ignore_index=True)\ndf_all.head(n=5) #only display a few lines and not the whole dataframe",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 102227853
+    },
+    {
+      "raw": "df_all.drop('date_first_booking',axis=1, inplace=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 93390092
+    },
+    {
+      "raw": "df_all.sample(n=5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 150250879
+    },
+    {
+      "raw": "df_all['timestamp_first_active'] = pd.to_datetime(df_all['timestamp_first_active'], format='%Y%m%d%H%M%S')\ndf_all.sample(n=5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1704308375
+    },
+    {
+      "raw": "def remove_age_outliers(x, min_value=15, max_value=90):\n    if np.logical_or(x<=min_value, x>=max_value):\n        return np.nan\n    else:\n        return x",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 505882
+    },
+    {
+      "raw": "df_all['age'] = df_all['age'].apply(lambda x: remove_age_outliers(x) if(not np.isnan(x)) else x)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 952097391
+    },
+    {
+      "raw": "df_all['age'].fillna(-1, inplace=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4360597
+    },
+    {
+      "raw": "df_all.sample(n=5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 10706895
+    },
+    {
+      "raw": "df_all.age = df_all.age.astype(int)\ndf_all.sample(n=5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 11761429
+    },
+    {
+      "raw": "def check_NaN_Values_in_df(df):\n    for col in df:\n        nan_count = df[col].isnull().sum()\n        \n        if nan_count != 0:\n            print(col + \"=>\" + str(nan_count) + \"NaN Values\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 463396
+    },
+    {
+      "raw": "check_NaN_Values_in_df(df_all)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 233823017
+    },
+    {
+      "raw": "df_all['first_affiliate_tracked'].fillna(-1, inplace= True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 21840380
+    },
+    {
+      "raw": "check_NaN_Values_in_df(df_all)\ndf_all.sample(n=5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 236712241
+    },
+    {
+      "raw": "df_all.drop('timestamp_first_active', axis=1, inplace=True)\ndf_all.sample(n=5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 89152956
+    },
+    {
+      "raw": "df_all.drop('language', axis=1, inplace=True)\ndf_all.sample(n=5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 78002058
+    },
+    {
+      "raw": "df_all = df_all [df_all['date_account_created'] > '2013-02-01']\ndf_all.sample(n=5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 89500407
+    },
+    {
+      "raw": "# We create the output directory if necessary\n# if not os.path.exists(\"output\"):\n#     os.makedirs(\"output\")\n  \n# We export to cvs\ndf_all.to_csv(\"cleaned.csv\", sep=',' , index=False)\n    ",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1631261619
+    }
+  ],
+  "total-time-in-sec": 6.515687275,
+  "max-disk-in-mb": 0
+}

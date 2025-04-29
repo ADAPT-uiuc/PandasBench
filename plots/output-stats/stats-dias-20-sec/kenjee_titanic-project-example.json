@@ -1,0 +1,530 @@
+{
+  "max-mem-in-mb": 3241,
+  "max-mem-in-mb2": 3588,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sns \n# import matplotlib.pyplot as plt\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n        \n        \n# You can write up to 5GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "rewrite-ns": 708426,
+      "overhead-ns": 708426,
+      "exec-ns": 378857,
+      "total-ns": 1087283,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "training = pd.read_csv('./input/train.scaled.csv')\ntest = pd.read_csv('./input/test.scaled.csv')\n\ntraining['train_test'] = 1\ntest['train_test'] = 0\ntest['Survived'] = np.NaN\nall_data = pd.concat([training,test])\n\n# ALEX: remove plotting\n# %matplotlib inline\nall_data.columns",
+      "rewrite-ns": 2494390,
+      "overhead-ns": 2494390,
+      "exec-ns": 2573379822,
+      "total-ns": 2575874212,
+      "patts-hit": {},
+      "rewritten": "training = pd.read_csv('./input/train.scaled.csv')\ntest = pd.read_csv('./input/test.scaled.csv')\ntraining['train_test'] = 1\ntest['train_test'] = 0\ntest['Survived'] = np.NaN\nall_data = pd.concat([training, test])\nall_data.columns\n"
+    },
+    {
+      "raw": "# Understand nature of the data .info() .describe()\n# Histograms and boxplots \n# Value counts \n# Missing data \n# Correlation between the metrics \n# Explore interesting themes \n    # Wealthy survive? \n    # By location \n    # Age scatterplot with ticket price \n    # Young and wealthy Variable? \n    # Total spent? \n# Feature engineering \n# preprocess data together or use a transformer? \n    # use label for train and test   \n# Scaling?\n\n# Model Baseline \n# Model comparison with CV ",
+      "rewrite-ns": 32265,
+      "overhead-ns": 32265,
+      "exec-ns": 119066,
+      "total-ns": 151331,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#quick look at our data types & null counts \ntraining.info()",
+      "rewrite-ns": 152695,
+      "overhead-ns": 152695,
+      "exec-ns": 3605462,
+      "total-ns": 3758157,
+      "patts-hit": {},
+      "rewritten": "training.info()\n"
+    },
+    {
+      "raw": "# to better understand the numeric data, we want to use the .describe() method. This gives us an understanding of the central tendencies of the data \ntraining.describe()",
+      "rewrite-ns": 88546,
+      "overhead-ns": 88546,
+      "exec-ns": 438205361,
+      "total-ns": 438293907,
+      "patts-hit": {},
+      "rewritten": "training.describe()\n"
+    },
+    {
+      "raw": "#quick way to separate numeric columns\ntraining.describe().columns",
+      "rewrite-ns": 366916,
+      "overhead-ns": 366916,
+      "exec-ns": 427123309,
+      "total-ns": 427490225,
+      "patts-hit": {},
+      "rewritten": "training.describe().columns\n"
+    },
+    {
+      "raw": "# look at numeric and categorical values separately \ndf_num = training[['Age','SibSp','Parch','Fare']]\ndf_cat = training[['Survived','Pclass','Sex','Ticket','Cabin','Embarked']]",
+      "rewrite-ns": 1000072,
+      "overhead-ns": 1000072,
+      "exec-ns": 137895032,
+      "total-ns": 138895104,
+      "patts-hit": {},
+      "rewritten": "df_num = training[['Age', 'SibSp', 'Parch', 'Fare']]\ndf_cat = training[['Survived', 'Pclass', 'Sex', 'Ticket', 'Cabin', 'Embarked']]\n"
+    },
+    {
+      "raw": "#distributions for all numeric variables \nfor i in df_num.columns:\n# ALEX: remove plotting\n#     plt.hist(df_num[i])\n#     plt.title(i)\n#     plt.show()\n    _ = df_num[i]",
+      "rewrite-ns": 548208,
+      "overhead-ns": 548208,
+      "exec-ns": 474189,
+      "total-ns": 1022397,
+      "patts-hit": {},
+      "rewritten": "for i in df_num.columns:\n    _ = df_num[i]\n"
+    },
+    {
+      "raw": "print(df_num.corr())\n# ALEX: remove plotting\n# sns.heatmap(df_num.corr())\n_ = df_num.corr()",
+      "rewrite-ns": 676687,
+      "overhead-ns": 676687,
+      "exec-ns": 235136630,
+      "total-ns": 235813317,
+      "patts-hit": {},
+      "rewritten": "print(df_num.corr())\n_ = df_num.corr()\n"
+    },
+    {
+      "raw": "# compare survival rate across Age, SibSp, Parch, and Fare \npd.pivot_table(training, index = 'Survived', values = ['Age','SibSp','Parch','Fare'])",
+      "rewrite-ns": 755043,
+      "overhead-ns": 755043,
+      "exec-ns": 92281032,
+      "total-ns": 93036075,
+      "patts-hit": {},
+      "rewritten": "pd.pivot_table(training, index='Survived', values=['Age', 'SibSp', 'Parch',\n    'Fare'])\n"
+    },
+    {
+      "raw": "for i in df_cat.columns:\n# ALEX: remove plotting\n#     sns.barplot(x=df_cat[i].value_counts().index,y=df_cat[i].value_counts()).set_title(i)\n#     plt.show()\\\n    _ = df_cat[i].value_counts().index\n    _ = df_cat[i].value_counts()\n    ",
+      "rewrite-ns": 1063535,
+      "overhead-ns": 1063535,
+      "exec-ns": 570902202,
+      "total-ns": 571965737,
+      "patts-hit": {},
+      "rewritten": "for i in df_cat.columns:\n    _ = df_cat[i].value_counts().index\n    _ = df_cat[i].value_counts()\n"
+    },
+    {
+      "raw": "# Comparing survival and each of these categorical variables \nprint(pd.pivot_table(training, index = 'Survived', columns = 'Pclass', values = 'Ticket' ,aggfunc ='count'))\nprint()\nprint(pd.pivot_table(training, index = 'Survived', columns = 'Sex', values = 'Ticket' ,aggfunc ='count'))\nprint()\nprint(pd.pivot_table(training, index = 'Survived', columns = 'Embarked', values = 'Ticket' ,aggfunc ='count'))",
+      "rewrite-ns": 2358310,
+      "overhead-ns": 2358310,
+      "exec-ns": 973566882,
+      "total-ns": 975925192,
+      "patts-hit": {},
+      "rewritten": "print(pd.pivot_table(training, index='Survived', columns='Pclass', values=\n    'Ticket', aggfunc='count'))\nprint()\nprint(pd.pivot_table(training, index='Survived', columns='Sex', values=\n    'Ticket', aggfunc='count'))\nprint()\nprint(pd.pivot_table(training, index='Survived', columns='Embarked', values\n    ='Ticket', aggfunc='count'))\n"
+    },
+    {
+      "raw": "df_cat.Cabin\ntraining['cabin_multiple'] = training.Cabin.apply(lambda x: 0 if pd.isna(x) else len(x.split(' ')))\n# after looking at this, we may want to look at cabin by letter or by number. Let's create some categories for this \n# letters \n# multiple letters \ntraining['cabin_multiple'].value_counts()",
+      "rewrite-ns": 1594097,
+      "overhead-ns": 1594097,
+      "exec-ns": 1110377678,
+      "total-ns": 1111971775,
+      "patts-hit": {},
+      "rewritten": "df_cat.Cabin\ntraining['cabin_multiple'] = training.Cabin.apply(lambda x: 0 if pd.isna(x)\n     else len(x.split(' ')))\ntraining['cabin_multiple'].value_counts()\n"
+    },
+    {
+      "raw": "pd.pivot_table(training, index = 'Survived', columns = 'cabin_multiple', values = 'Ticket' ,aggfunc ='count')",
+      "rewrite-ns": 673778,
+      "overhead-ns": 673778,
+      "exec-ns": 344149695,
+      "total-ns": 344823473,
+      "patts-hit": {},
+      "rewritten": "pd.pivot_table(training, index='Survived', columns='cabin_multiple', values\n    ='Ticket', aggfunc='count')\n"
+    },
+    {
+      "raw": "#creates categories based on the cabin letter (n stands for null)\n#in this case we will treat null values like it's own category\n\ntraining['cabin_adv'] = training.Cabin.apply(lambda x: str(x)[0])\n",
+      "rewrite-ns": 894837,
+      "overhead-ns": 894837,
+      "exec-ns": 384017013,
+      "total-ns": 384911850,
+      "patts-hit": {},
+      "rewritten": "training['cabin_adv'] = training.Cabin.apply(lambda x: str(x)[0])\n"
+    },
+    {
+      "raw": "#comparing surivial rate by cabin\nprint(training.cabin_adv.value_counts())\npd.pivot_table(training,index='Survived',columns='cabin_adv', values = 'Name', aggfunc='count')",
+      "rewrite-ns": 1014961,
+      "overhead-ns": 1014961,
+      "exec-ns": 577673533,
+      "total-ns": 578688494,
+      "patts-hit": {},
+      "rewritten": "print(training.cabin_adv.value_counts())\npd.pivot_table(training, index='Survived', columns='cabin_adv', values=\n    'Name', aggfunc='count')\n"
+    },
+    {
+      "raw": "#understand ticket values better \n#numeric vs non numeric \ntraining['numeric_ticket'] = training.Ticket.apply(lambda x: 1 if x.isnumeric() else 0)\ntraining['ticket_letters'] = training.Ticket.apply(lambda x: ''.join(x.split(' ')[:-1]).replace('.','').replace('/','').lower() if len(x.split(' ')[:-1]) >0 else 0)\n",
+      "rewrite-ns": 2941481,
+      "overhead-ns": 2941481,
+      "exec-ns": 1274798903,
+      "total-ns": 1277740384,
+      "patts-hit": {},
+      "rewritten": "training['numeric_ticket'] = training.Ticket.apply(lambda x: 1 if x.\n    isnumeric() else 0)\ntraining['ticket_letters'] = training.Ticket.apply(lambda x: ''.join(x.\n    split(' ')[:-1]).replace('.', '').replace('/', '').lower() if len(x.\n    split(' ')[:-1]) > 0 else 0)\n"
+    },
+    {
+      "raw": "training['numeric_ticket'].value_counts()",
+      "rewrite-ns": 444867,
+      "overhead-ns": 444867,
+      "exec-ns": 9343946,
+      "total-ns": 9788813,
+      "patts-hit": {},
+      "rewritten": "training['numeric_ticket'].value_counts()\n"
+    },
+    {
+      "raw": "#lets us view all rows in dataframe through scrolling. This is for convenience \npd.set_option(\"display.max_rows\", None)\ntraining['ticket_letters'].value_counts()\n",
+      "rewrite-ns": 694217,
+      "overhead-ns": 694217,
+      "exec-ns": 82078104,
+      "total-ns": 82772321,
+      "patts-hit": {},
+      "rewritten": "pd.set_option('display.max_rows', None)\ntraining['ticket_letters'].value_counts()\n"
+    },
+    {
+      "raw": "#difference in numeric vs non-numeric tickets in survival rate \npd.pivot_table(training,index='Survived',columns='numeric_ticket', values = 'Ticket', aggfunc='count')",
+      "rewrite-ns": 641720,
+      "overhead-ns": 641720,
+      "exec-ns": 562799264,
+      "total-ns": 563440984,
+      "patts-hit": {},
+      "rewritten": "pd.pivot_table(training, index='Survived', columns='numeric_ticket', values\n    ='Ticket', aggfunc='count')\n"
+    },
+    {
+      "raw": "#survival rate across different tyicket types \npd.pivot_table(training,index='Survived',columns='ticket_letters', values = 'Ticket', aggfunc='count')",
+      "rewrite-ns": 654426,
+      "overhead-ns": 654426,
+      "exec-ns": 384721292,
+      "total-ns": 385375718,
+      "patts-hit": {},
+      "rewritten": "pd.pivot_table(training, index='Survived', columns='ticket_letters', values\n    ='Ticket', aggfunc='count')\n"
+    },
+    {
+      "raw": "#feature engineering on person's title \ntraining.Name.head(50)\ntraining['name_title'] = training.Name.apply(lambda x: x.split(',')[1].split('.')[0].strip())\n#mr., ms., master. etc",
+      "rewrite-ns": 1552864,
+      "overhead-ns": 1552864,
+      "exec-ns": 900936422,
+      "total-ns": 902489286,
+      "patts-hit": {},
+      "rewritten": "training.Name.head(50)\ntraining['name_title'] = training.Name.apply(lambda x: x.split(',')[1].\n    split('.')[0].strip())\n"
+    },
+    {
+      "raw": "training['name_title'].value_counts()",
+      "rewrite-ns": 429826,
+      "overhead-ns": 429826,
+      "exec-ns": 115673601,
+      "total-ns": 116103427,
+      "patts-hit": {},
+      "rewritten": "training['name_title'].value_counts()\n"
+    },
+    {
+      "raw": "#create all categorical variables that we did above for both training and test sets \nall_data['cabin_multiple'] = all_data.Cabin.apply(lambda x: 0 if pd.isna(x) else len(x.split(' ')))\nall_data['cabin_adv'] = all_data.Cabin.apply(lambda x: str(x)[0])\nall_data['numeric_ticket'] = all_data.Ticket.apply(lambda x: 1 if x.isnumeric() else 0)\nall_data['ticket_letters'] = all_data.Ticket.apply(lambda x: ''.join(x.split(' ')[:-1]).replace('.','').replace('/','').lower() if len(x.split(' ')[:-1]) >0 else 0)\nall_data['name_title'] = all_data.Name.apply(lambda x: x.split(',')[1].split('.')[0].strip())\n\n#impute nulls for continuous data \n#all_data.Age = all_data.Age.fillna(training.Age.mean())\nall_data.Age = all_data.Age.fillna(training.Age.median())\n#all_data.Fare = all_data.Fare.fillna(training.Fare.mean())\nall_data.Fare = all_data.Fare.fillna(training.Fare.median())\n\n#drop null 'embarked' rows. Only 2 instances of this in training and 0 in test \nall_data.dropna(subset=['Embarked'],inplace = True)\n\n#tried log norm of sibsp (not used)\nall_data['norm_sibsp'] = np.log(all_data.SibSp+1)\n# ALEX: remove plotting\n# all_data['norm_sibsp'].hist()\nall_data['norm_sibsp']\n\n# log norm of fare (used)\nall_data['norm_fare'] = np.log(all_data.Fare+1)\n# ALEX: remove plotting\n# all_data['norm_fare'].hist()\nall_data['norm_fare']\n\n# converted fare to category for pd.get_dummies()\nall_data.Pclass = all_data.Pclass.astype(str)\n\n#created dummy variables from categories (also can use OneHotEncoder)\nall_dummies = pd.get_dummies(all_data[['Pclass','Sex','Age','SibSp','Parch','norm_fare','Embarked','cabin_adv','cabin_multiple','numeric_ticket','name_title','train_test']])\n\n#Split to train test again\nX_train = all_dummies[all_dummies.train_test == 1].drop(['train_test'], axis =1)\nX_test = all_dummies[all_dummies.train_test == 0].drop(['train_test'], axis =1)\n\n\ny_train = all_data[all_data.train_test==1].Survived\ny_train.shape",
+      "rewrite-ns": 11757387,
+      "overhead-ns": 11757387,
+      "exec-ns": 10492813047,
+      "total-ns": 10504570434,
+      "patts-hit": {},
+      "rewritten": "all_data['cabin_multiple'] = all_data.Cabin.apply(lambda x: 0 if pd.isna(x)\n     else len(x.split(' ')))\nall_data['cabin_adv'] = all_data.Cabin.apply(lambda x: str(x)[0])\nall_data['numeric_ticket'] = all_data.Ticket.apply(lambda x: 1 if x.\n    isnumeric() else 0)\nall_data['ticket_letters'] = all_data.Ticket.apply(lambda x: ''.join(x.\n    split(' ')[:-1]).replace('.', '').replace('/', '').lower() if len(x.\n    split(' ')[:-1]) > 0 else 0)\nall_data['name_title'] = all_data.Name.apply(lambda x: x.split(',')[1].\n    split('.')[0].strip())\nall_data.Age = all_data.Age.fillna(training.Age.median())\nall_data.Fare = all_data.Fare.fillna(training.Fare.median())\nall_data.dropna(subset=['Embarked'], inplace=True)\nall_data['norm_sibsp'] = np.log(all_data.SibSp + 1)\nall_data['norm_sibsp']\nall_data['norm_fare'] = np.log(all_data.Fare + 1)\nall_data['norm_fare']\nall_data.Pclass = all_data.Pclass.astype(str)\nall_dummies = pd.get_dummies(all_data[['Pclass', 'Sex', 'Age', 'SibSp',\n    'Parch', 'norm_fare', 'Embarked', 'cabin_adv', 'cabin_multiple',\n    'numeric_ticket', 'name_title', 'train_test']])\nX_train = all_dummies[all_dummies.train_test == 1].drop(['train_test'], axis=1)\nX_test = all_dummies[all_dummies.train_test == 0].drop(['train_test'], axis=1)\ny_train = all_data[all_data.train_test == 1].Survived\ny_train.shape\n"
+    },
+    {
+      "raw": "# Scale data \n# ALEX: remove ML code\n# from sklearn.preprocessing import StandardScaler\n# scale = StandardScaler()\nall_dummies_scaled = all_dummies.copy()\n# ALEX: remove ML code\n# all_dummies_scaled[['Age','SibSp','Parch','norm_fare']]= scale.fit_transform(all_dummies_scaled[['Age','SibSp','Parch','norm_fare']])\nall_dummies_scaled[['Age','SibSp','Parch','norm_fare']] = all_dummies_scaled[['Age','SibSp','Parch','norm_fare']]\nall_dummies_scaled\n\nX_train_scaled = all_dummies_scaled[all_dummies_scaled.train_test == 1].drop(['train_test'], axis =1)\nX_test_scaled = all_dummies_scaled[all_dummies_scaled.train_test == 0].drop(['train_test'], axis =1)\n\ny_train = all_data[all_data.train_test==1].Survived\n",
+      "rewrite-ns": 2962960,
+      "overhead-ns": 2962960,
+      "exec-ns": 1194998997,
+      "total-ns": 1197961957,
+      "patts-hit": {},
+      "rewritten": "all_dummies_scaled = all_dummies.copy()\nall_dummies_scaled[['Age', 'SibSp', 'Parch', 'norm_fare']\n    ] = all_dummies_scaled[['Age', 'SibSp', 'Parch', 'norm_fare']]\nall_dummies_scaled\nX_train_scaled = all_dummies_scaled[all_dummies_scaled.train_test == 1].drop([\n    'train_test'], axis=1)\nX_test_scaled = all_dummies_scaled[all_dummies_scaled.train_test == 0].drop([\n    'train_test'], axis=1)\ny_train = all_data[all_data.train_test == 1].Survived\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import cross_val_score\n# from sklearn.naive_bayes import GaussianNB\n# from sklearn.linear_model import LogisticRegression\n# from sklearn import tree\n# from sklearn.neighbors import KNeighborsClassifier\n# from sklearn.ensemble import RandomForestClassifier\n# from sklearn.svm import SVC",
+      "rewrite-ns": 28511,
+      "overhead-ns": 28511,
+      "exec-ns": 142583,
+      "total-ns": 171094,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#I usually use Naive Bayes as a baseline for my classification tasks \n# ALEX: remove ML code\n# gnb = GaussianNB()\n# cv = cross_val_score(gnb,X_train_scaled,y_train,cv=5)\n# print(cv)\n# print(cv.mean())",
+      "rewrite-ns": 20998,
+      "overhead-ns": 20998,
+      "exec-ns": 101697,
+      "total-ns": 122695,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# lr = LogisticRegression(max_iter = 2000)\n# cv = cross_val_score(lr,X_train,y_train,cv=5)\n# print(cv)\n# print(cv.mean())",
+      "rewrite-ns": 15069,
+      "overhead-ns": 15069,
+      "exec-ns": 81562,
+      "total-ns": 96631,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# lr = LogisticRegression(max_iter = 2000)\n# cv = cross_val_score(lr,X_train_scaled,y_train,cv=5)\n# print(cv)\n# print(cv.mean())",
+      "rewrite-ns": 13103,
+      "overhead-ns": 13103,
+      "exec-ns": 74650,
+      "total-ns": 87753,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# dt = tree.DecisionTreeClassifier(random_state = 1)\n# cv = cross_val_score(dt,X_train,y_train,cv=5)\n# print(cv)\n# print(cv.mean())",
+      "rewrite-ns": 13375,
+      "overhead-ns": 13375,
+      "exec-ns": 72003,
+      "total-ns": 85378,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# dt = tree.DecisionTreeClassifier(random_state = 1)\n# cv = cross_val_score(dt,X_train_scaled,y_train,cv=5)\n# print(cv)\n# print(cv.mean())",
+      "rewrite-ns": 13344,
+      "overhead-ns": 13344,
+      "exec-ns": 73215,
+      "total-ns": 86559,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# knn = KNeighborsClassifier()\n# cv = cross_val_score(knn,X_train,y_train,cv=5)\n# print(cv)\n# print(cv.mean())",
+      "rewrite-ns": 12350,
+      "overhead-ns": 12350,
+      "exec-ns": 69521,
+      "total-ns": 81871,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# knn = KNeighborsClassifier()\n# cv = cross_val_score(knn,X_train_scaled,y_train,cv=5)\n# print(cv)\n# print(cv.mean())",
+      "rewrite-ns": 13180,
+      "overhead-ns": 13180,
+      "exec-ns": 69622,
+      "total-ns": 82802,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# rf = RandomForestClassifier(random_state = 1)\n# cv = cross_val_score(rf,X_train,y_train,cv=5)\n# print(cv)\n# print(cv.mean())",
+      "rewrite-ns": 11999,
+      "overhead-ns": 11999,
+      "exec-ns": 74562,
+      "total-ns": 86561,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# rf = RandomForestClassifier(random_state = 1)\n# cv = cross_val_score(rf,X_train_scaled,y_train,cv=5)\n# print(cv)\n# print(cv.mean())",
+      "rewrite-ns": 12259,
+      "overhead-ns": 12259,
+      "exec-ns": 65892,
+      "total-ns": 78151,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# svc = SVC(probability = True)\n# cv = cross_val_score(svc,X_train_scaled,y_train,cv=5)\n# print(cv)\n# print(cv.mean())",
+      "rewrite-ns": 12063,
+      "overhead-ns": 12063,
+      "exec-ns": 67057,
+      "total-ns": 79120,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from xgboost import XGBClassifier\n# xgb = XGBClassifier(random_state =1)\n# cv = cross_val_score(xgb,X_train_scaled,y_train,cv=5)\n# print(cv)\n# print(cv.mean())",
+      "rewrite-ns": 11938,
+      "overhead-ns": 11938,
+      "exec-ns": 66104,
+      "total-ns": 78042,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#Voting classifier takes all of the inputs and averages the results. For a \"hard\" voting classifier each classifier gets 1 vote \"yes\" or \"no\" and the result is just a popular vote. For this, you generally want odd numbers\n#A \"soft\" classifier averages the confidence of each of the models. If a the average confidence is > 50% that it is a 1 it will be counted as such\n# ALEX: remove ML code\n# from sklearn.ensemble import VotingClassifier\n# voting_clf = VotingClassifier(estimators = [('lr',lr),('knn',knn),('rf',rf),('gnb',gnb),('svc',svc),('xgb',xgb)], voting = 'soft') ",
+      "rewrite-ns": 14080,
+      "overhead-ns": 14080,
+      "exec-ns": 64455,
+      "total-ns": 78535,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# cv = cross_val_score(voting_clf,X_train_scaled,y_train,cv=5)\n# print(cv)\n# print(cv.mean())",
+      "rewrite-ns": 12511,
+      "overhead-ns": 12511,
+      "exec-ns": 64619,
+      "total-ns": 77130,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# voting_clf.fit(X_train_scaled,y_train)\n# y_hat_base_vc = voting_clf.predict(X_test_scaled).astype(int)\n# basic_submission = {'PassengerId': test.PassengerId, 'Survived': y_hat_base_vc}\n# base_submission = pd.DataFrame(data=basic_submission)\n# base_submission.to_csv('base_submission.csv', index=False)",
+      "rewrite-ns": 13307,
+      "overhead-ns": 13307,
+      "exec-ns": 63411,
+      "total-ns": 76718,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import GridSearchCV \n# from sklearn.model_selection import RandomizedSearchCV ",
+      "rewrite-ns": 11703,
+      "overhead-ns": 11703,
+      "exec-ns": 65902,
+      "total-ns": 77605,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#simple performance reporting function\n# ALEX: remove ML code\n# def clf_performance(classifier, model_name):\n#     print(model_name)\n#     print('Best Score: ' + str(classifier.best_score_))\n#     print('Best Parameters: ' + str(classifier.best_params_))",
+      "rewrite-ns": 12531,
+      "overhead-ns": 12531,
+      "exec-ns": 65924,
+      "total-ns": 78455,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# lr = LogisticRegression()\n# param_grid = {'max_iter' : [2000],\n#               'penalty' : ['l1', 'l2'],\n#               'C' : np.logspace(-4, 4, 20),\n#               'solver' : ['liblinear']}\n\n# clf_lr = GridSearchCV(lr, param_grid = param_grid, cv = 5, verbose = True, n_jobs = -1)\n# best_clf_lr = clf_lr.fit(X_train_scaled,y_train)\n# clf_performance(best_clf_lr,'Logistic Regression')",
+      "rewrite-ns": 13625,
+      "overhead-ns": 13625,
+      "exec-ns": 66280,
+      "total-ns": 79905,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# knn = KNeighborsClassifier()\n# param_grid = {'n_neighbors' : [3,5,7,9],\n#               'weights' : ['uniform', 'distance'],\n#               'algorithm' : ['auto', 'ball_tree','kd_tree'],\n#               'p' : [1,2]}\n# clf_knn = GridSearchCV(knn, param_grid = param_grid, cv = 5, verbose = True, n_jobs = -1)\n# best_clf_knn = clf_knn.fit(X_train_scaled,y_train)\n# clf_performance(best_clf_knn,'KNN')",
+      "rewrite-ns": 12803,
+      "overhead-ns": 12803,
+      "exec-ns": 65486,
+      "total-ns": 78289,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# svc = SVC(probability = True)\n# param_grid = tuned_parameters = [{'kernel': ['rbf'], 'gamma': [.1,.5,1,2,5,10],\n#                                   'C': [.1, 1, 10, 100, 1000]},\n#                                  {'kernel': ['linear'], 'C': [.1, 1, 10, 100, 1000]},\n#                                  {'kernel': ['poly'], 'degree' : [2,3,4,5], 'C': [.1, 1, 10, 100, 1000]}]\n# clf_svc = GridSearchCV(svc, param_grid = param_grid, cv = 5, verbose = True, n_jobs = -1)\n# best_clf_svc = clf_svc.fit(X_train_scaled,y_train)\n# clf_performance(best_clf_svc,'SVC')",
+      "rewrite-ns": 14114,
+      "overhead-ns": 14114,
+      "exec-ns": 70626,
+      "total-ns": 84740,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#Because the total feature space is so large, I used a randomized search to narrow down the paramters for the model. I took the best model from this and did a more granular search \n\"\"\"\nrf = RandomForestClassifier(random_state = 1)\nparam_grid =  {'n_estimators': [100,500,1000], \n                                  'bootstrap': [True,False],\n                                  'max_depth': [3,5,10,20,50,75,100,None],\n                                  'max_features': ['auto','sqrt'],\n                                  'min_samples_leaf': [1,2,4,10],\n                                  'min_samples_split': [2,5,10]}\n                                  \nclf_rf_rnd = RandomizedSearchCV(rf, param_distributions = param_grid, n_iter = 100, cv = 5, verbose = True, n_jobs = -1)\nbest_clf_rf_rnd = clf_rf_rnd.fit(X_train_scaled,y_train)\nclf_performance(best_clf_rf_rnd,'Random Forest')\"\"\"",
+      "rewrite-ns": 236276,
+      "overhead-ns": 236276,
+      "exec-ns": 827673,
+      "total-ns": 1063949,
+      "patts-hit": {},
+      "rewritten": "\"\"\"\nrf = RandomForestClassifier(random_state = 1)\nparam_grid =  {'n_estimators': [100,500,1000], \n                                  'bootstrap': [True,False],\n                                  'max_depth': [3,5,10,20,50,75,100,None],\n                                  'max_features': ['auto','sqrt'],\n                                  'min_samples_leaf': [1,2,4,10],\n                                  'min_samples_split': [2,5,10]}\n                                  \nclf_rf_rnd = RandomizedSearchCV(rf, param_distributions = param_grid, n_iter = 100, cv = 5, verbose = True, n_jobs = -1)\nbest_clf_rf_rnd = clf_rf_rnd.fit(X_train_scaled,y_train)\nclf_performance(best_clf_rf_rnd,'Random Forest')\"\"\"\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# rf = RandomForestClassifier(random_state = 1)\n# param_grid =  {'n_estimators': [400,450,500,550],\n#                'criterion':['gini','entropy'],\n#                                   'bootstrap': [True],\n#                                   'max_depth': [15, 20, 25],\n#                                   'max_features': ['auto','sqrt', 10],\n#                                   'min_samples_leaf': [2,3],\n#                                   'min_samples_split': [2,3]}\n                                  \n# clf_rf = GridSearchCV(rf, param_grid = param_grid, cv = 5, verbose = True, n_jobs = -1)\n# best_clf_rf = clf_rf.fit(X_train_scaled,y_train)\n# clf_performance(best_clf_rf,'Random Forest')",
+      "rewrite-ns": 20657,
+      "overhead-ns": 20657,
+      "exec-ns": 80039,
+      "total-ns": 100696,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# best_rf = best_clf_rf.best_estimator_.fit(X_train_scaled,y_train)\n# feat_importances = pd.Series(best_rf.feature_importances_, index=X_train_scaled.columns)\n# feat_importances.nlargest(20).plot(kind='barh')",
+      "rewrite-ns": 15457,
+      "overhead-ns": 15457,
+      "exec-ns": 87563,
+      "total-ns": 103020,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "\"\"\"xgb = XGBClassifier(random_state = 1)\n\nparam_grid = {\n    'n_estimators': [20, 50, 100, 250, 500,1000],\n    'colsample_bytree': [0.2, 0.5, 0.7, 0.8, 1],\n    'max_depth': [2, 5, 10, 15, 20, 25, None],\n    'reg_alpha': [0, 0.5, 1],\n    'reg_lambda': [1, 1.5, 2],\n    'subsample': [0.5,0.6,0.7, 0.8, 0.9],\n    'learning_rate':[.01,0.1,0.2,0.3,0.5, 0.7, 0.9],\n    'gamma':[0,.01,.1,1,10,100],\n    'min_child_weight':[0,.01,0.1,1,10,100],\n    'sampling_method': ['uniform', 'gradient_based']\n}\n\n#clf_xgb = GridSearchCV(xgb, param_grid = param_grid, cv = 5, verbose = True, n_jobs = -1)\n#best_clf_xgb = clf_xgb.fit(X_train_scaled,y_train)\n#clf_performance(best_clf_xgb,'XGB')\nclf_xgb_rnd = RandomizedSearchCV(xgb, param_distributions = param_grid, n_iter = 1000, cv = 5, verbose = True, n_jobs = -1)\nbest_clf_xgb_rnd = clf_xgb_rnd.fit(X_train_scaled,y_train)\nclf_performance(best_clf_xgb_rnd,'XGB')\"\"\"",
+      "rewrite-ns": 223383,
+      "overhead-ns": 223383,
+      "exec-ns": 566381,
+      "total-ns": 789764,
+      "patts-hit": {},
+      "rewritten": "\"\"\"xgb = XGBClassifier(random_state = 1)\n\nparam_grid = {\n    'n_estimators': [20, 50, 100, 250, 500,1000],\n    'colsample_bytree': [0.2, 0.5, 0.7, 0.8, 1],\n    'max_depth': [2, 5, 10, 15, 20, 25, None],\n    'reg_alpha': [0, 0.5, 1],\n    'reg_lambda': [1, 1.5, 2],\n    'subsample': [0.5,0.6,0.7, 0.8, 0.9],\n    'learning_rate':[.01,0.1,0.2,0.3,0.5, 0.7, 0.9],\n    'gamma':[0,.01,.1,1,10,100],\n    'min_child_weight':[0,.01,0.1,1,10,100],\n    'sampling_method': ['uniform', 'gradient_based']\n}\n\n#clf_xgb = GridSearchCV(xgb, param_grid = param_grid, cv = 5, verbose = True, n_jobs = -1)\n#best_clf_xgb = clf_xgb.fit(X_train_scaled,y_train)\n#clf_performance(best_clf_xgb,'XGB')\nclf_xgb_rnd = RandomizedSearchCV(xgb, param_distributions = param_grid, n_iter = 1000, cv = 5, verbose = True, n_jobs = -1)\nbest_clf_xgb_rnd = clf_xgb_rnd.fit(X_train_scaled,y_train)\nclf_performance(best_clf_xgb_rnd,'XGB')\"\"\"\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# xgb = XGBClassifier(random_state = 1)\n\n# param_grid = {\n#     'n_estimators': [450,500,550],\n#     'colsample_bytree': [0.75,0.8,0.85],\n#     'max_depth': [None],\n#     'reg_alpha': [1],\n#     'reg_lambda': [2, 5, 10],\n#     'subsample': [0.55, 0.6, .65],\n#     'learning_rate':[0.5],\n#     'gamma':[.5,1,2],\n#     'min_child_weight':[0.01],\n#     'sampling_method': ['uniform']\n# }\n\n# clf_xgb = GridSearchCV(xgb, param_grid = param_grid, cv = 5, verbose = True, n_jobs = -1)\n# best_clf_xgb = clf_xgb.fit(X_train_scaled,y_train)\n# clf_performance(best_clf_xgb,'XGB')\n",
+      "rewrite-ns": 17260,
+      "overhead-ns": 17260,
+      "exec-ns": 79699,
+      "total-ns": 96959,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# y_hat_xgb = best_clf_xgb.best_estimator_.predict(X_test_scaled).astype(int)\n# xgb_submission = {'PassengerId': test.PassengerId, 'Survived': y_hat_xgb}\n# submission_xgb = pd.DataFrame(data=xgb_submission)\n# submission_xgb.to_csv('xgb_submission3.csv', index=False)",
+      "rewrite-ns": 13127,
+      "overhead-ns": 13127,
+      "exec-ns": 70406,
+      "total-ns": 83533,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# best_lr = best_clf_lr.best_estimator_\n# best_knn = best_clf_knn.best_estimator_\n# best_svc = best_clf_svc.best_estimator_\n# best_rf = best_clf_rf.best_estimator_\n# best_xgb = best_clf_xgb.best_estimator_\n\n# voting_clf_hard = VotingClassifier(estimators = [('knn',best_knn),('rf',best_rf),('svc',best_svc)], voting = 'hard') \n# voting_clf_soft = VotingClassifier(estimators = [('knn',best_knn),('rf',best_rf),('svc',best_svc)], voting = 'soft') \n# voting_clf_all = VotingClassifier(estimators = [('knn',best_knn),('rf',best_rf),('svc',best_svc), ('lr', best_lr)], voting = 'soft') \n# voting_clf_xgb = VotingClassifier(estimators = [('knn',best_knn),('rf',best_rf),('svc',best_svc), ('xgb', best_xgb),('lr', best_lr)], voting = 'soft')\n\n# print('voting_clf_hard :',cross_val_score(voting_clf_hard,X_train,y_train,cv=5))\n# print('voting_clf_hard mean :',cross_val_score(voting_clf_hard,X_train,y_train,cv=5).mean())\n\n# print('voting_clf_soft :',cross_val_score(voting_clf_soft,X_train,y_train,cv=5))\n# print('voting_clf_soft mean :',cross_val_score(voting_clf_soft,X_train,y_train,cv=5).mean())\n\n# print('voting_clf_all :',cross_val_score(voting_clf_all,X_train,y_train,cv=5))\n# print('voting_clf_all mean :',cross_val_score(voting_clf_all,X_train,y_train,cv=5).mean())\n\n# print('voting_clf_xgb :',cross_val_score(voting_clf_xgb,X_train,y_train,cv=5))\n# print('voting_clf_xgb mean :',cross_val_score(voting_clf_xgb,X_train,y_train,cv=5).mean())\n",
+      "rewrite-ns": 19057,
+      "overhead-ns": 19057,
+      "exec-ns": 66906,
+      "total-ns": 85963,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#in a soft voting classifier you can weight some models more than others. I used a grid search to explore different weightings\n#no new results here\n# ALEX: remove ML code\n# params = {'weights' : [[1,1,1],[1,2,1],[1,1,2],[2,1,1],[2,2,1],[1,2,2],[2,1,2]]}\n\n# vote_weight = GridSearchCV(voting_clf_soft, param_grid = params, cv = 5, verbose = True, n_jobs = -1)\n# best_clf_weight = vote_weight.fit(X_train_scaled,y_train)\n# clf_performance(best_clf_weight,'VC Weights')\n# voting_clf_sub = best_clf_weight.best_estimator_.predict(X_test_scaled)\n",
+      "rewrite-ns": 14868,
+      "overhead-ns": 14868,
+      "exec-ns": 65666,
+      "total-ns": 80534,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#Make Predictions\n# ALEX: remove ML code\n# voting_clf_hard.fit(X_train_scaled, y_train)\n# voting_clf_soft.fit(X_train_scaled, y_train)\n# voting_clf_all.fit(X_train_scaled, y_train)\n# voting_clf_xgb.fit(X_train_scaled, y_train)\n\n# best_rf.fit(X_train_scaled, y_train)\n# y_hat_vc_hard = voting_clf_hard.predict(X_test_scaled).astype(int)\n# y_hat_rf = best_rf.predict(X_test_scaled).astype(int)\n# y_hat_vc_soft =  voting_clf_soft.predict(X_test_scaled).astype(int)\n# y_hat_vc_all = voting_clf_all.predict(X_test_scaled).astype(int)\n# y_hat_vc_xgb = voting_clf_xgb.predict(X_test_scaled).astype(int)",
+      "rewrite-ns": 13726,
+      "overhead-ns": 13726,
+      "exec-ns": 66650,
+      "total-ns": 80376,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#convert output to dataframe \n# ALEX: remove ML code\n# final_data = {'PassengerId': test.PassengerId, 'Survived': y_hat_rf}\n# submission = pd.DataFrame(data=final_data)\n\n# final_data_2 = {'PassengerId': test.PassengerId, 'Survived': y_hat_vc_hard}\n# submission_2 = pd.DataFrame(data=final_data_2)\n\n# final_data_3 = {'PassengerId': test.PassengerId, 'Survived': y_hat_vc_soft}\n# submission_3 = pd.DataFrame(data=final_data_3)\n\n# final_data_4 = {'PassengerId': test.PassengerId, 'Survived': y_hat_vc_all}\n# submission_4 = pd.DataFrame(data=final_data_4)\n\n# final_data_5 = {'PassengerId': test.PassengerId, 'Survived': y_hat_vc_xgb}\n# submission_5 = pd.DataFrame(data=final_data_5)\n\n# final_data_comp = {'PassengerId': test.PassengerId, 'Survived_vc_hard': y_hat_vc_hard, 'Survived_rf': y_hat_rf, 'Survived_vc_soft' : y_hat_vc_soft, 'Survived_vc_all' : y_hat_vc_all,  'Survived_vc_xgb' : y_hat_vc_xgb}\n# comparison = pd.DataFrame(data=final_data_comp)",
+      "rewrite-ns": 16304,
+      "overhead-ns": 16304,
+      "exec-ns": 64325,
+      "total-ns": 80629,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#track differences between outputs \n# ALEX: remove ML code\n# comparison['difference_rf_vc_hard'] = comparison.apply(lambda x: 1 if x.Survived_vc_hard != x.Survived_rf else 0, axis =1)\n# comparison['difference_soft_hard'] = comparison.apply(lambda x: 1 if x.Survived_vc_hard != x.Survived_vc_soft else 0, axis =1)\n# comparison['difference_hard_all'] = comparison.apply(lambda x: 1 if x.Survived_vc_all != x.Survived_vc_hard else 0, axis =1)\n",
+      "rewrite-ns": 12045,
+      "overhead-ns": 12045,
+      "exec-ns": 62519,
+      "total-ns": 74564,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# comparison.difference_hard_all.value_counts()",
+      "rewrite-ns": 10558,
+      "overhead-ns": 10558,
+      "exec-ns": 62407,
+      "total-ns": 72965,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#prepare submission files \n# ALEX: remove ML code\n# submission.to_csv('submission_rf.csv', index =False)\n# submission_2.to_csv('submission_vc_hard.csv',index=False)\n# submission_3.to_csv('submission_vc_soft.csv', index=False)\n# submission_4.to_csv('submission_vc_all.csv', index=False)\n# submission_5.to_csv('submission_vc_xgb2.csv', index=False)",
+      "rewrite-ns": 12453,
+      "overhead-ns": 12453,
+      "exec-ns": 63529,
+      "total-ns": 75982,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 22.928508821,
+  "max-disk-in-mb": 0
+}

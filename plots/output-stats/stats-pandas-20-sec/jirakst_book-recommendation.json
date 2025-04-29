@@ -1,0 +1,536 @@
+{
+  "max-mem-in-mb": 1884,
+  "max-mem-in-mb2": 2922,
+  "cells": [
+    {
+      "raw": "# Basic\nimport numpy as np \n# import pandas as pd \nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt \n\n# # System\n# import warnings\n# import os\n# warnings.filterwarnings(\"ignore\")\n# %matplotlib inline\n\n# ALEX: remove path printing\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 419991
+    },
+    {
+      "raw": "users = pd.read_csv('./input/BX-Users.scaled.csv', error_bad_lines=False, delimiter=';', encoding = 'ISO-8859-1') #encoding = \"latin-1\"",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 153369241
+    },
+    {
+      "raw": "books = pd.read_csv('./input/BX-Books.scaled.csv', error_bad_lines=False, delimiter=';', encoding = 'ISO-8859-1') #encoding = \"latin-1",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 902550489
+    },
+    {
+      "raw": "ratings = pd.read_csv('./input/BX-Book-Ratings.scaled.csv', error_bad_lines=False, delimiter=';', encoding = 'ISO-8859-1')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 340666363
+    },
+    {
+      "raw": "users.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 414198
+    },
+    {
+      "raw": "books.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 235868
+    },
+    {
+      "raw": "ratings.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 185801
+    },
+    {
+      "raw": "users.columns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 160132
+    },
+    {
+      "raw": "ratings.columns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 157046
+    },
+    {
+      "raw": "books.columns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 171145
+    },
+    {
+      "raw": "data = pd.merge(ratings, users, on='User-ID', how='inner')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 145351806
+    },
+    {
+      "raw": "data = pd.merge(data, books, on='ISBN', how='inner')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 601887973
+    },
+    {
+      "raw": "# Check\ndata.columns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 294707
+    },
+    {
+      "raw": "#data.rename(columns={'Book-Rating':'BookRating', 'User-ID':'UserID'},inplace=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 191118
+    },
+    {
+      "raw": "# Drop (TODO: image analysis?)\n'''to_drop = ['Image-URL-S', 'Image-URL-M', 'Image-URL-L']\n\ndata = data.drop(to_drop, axis=1, inplace=False)'''",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 367250
+    },
+    {
+      "raw": "data.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 201133
+    },
+    {
+      "raw": "print('Size of the dataset is: ', data.memory_usage().sum() / 1024**2, ' MB')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1367032
+    },
+    {
+      "raw": "# TODO: EDA in Power BI",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 130396
+    },
+    {
+      "raw": "data.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 185181
+    },
+    {
+      "raw": "data.head(5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 262925
+    },
+    {
+      "raw": "data.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1020140767
+    },
+    {
+      "raw": "print('Number of books: ', data['ISBN'].nunique())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 82841139
+    },
+    {
+      "raw": "print('Number of users: ',data['User-ID'].nunique())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 8474719
+    },
+    {
+      "raw": "print('Missing data [%]')\nround(data.isnull().sum() / len(data) * 100, 4)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1016775624
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.distplot(data['Age'].dropna(), kde=False)\n_ = data['Age'].dropna()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 10123282
+    },
+    {
+      "raw": "print('Number of outliers: ', sum(data['Age'] > 100))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 56620051
+    },
+    {
+      "raw": "# data['Book-Rating'] = data['Book-Rating'].replace(0, None)\ndata['Book-Rating'] = data['Book-Rating'].replace([0], None)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 19550356
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(x='Book-Rating', data=data)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 161949
+    },
+    {
+      "raw": "print('Average book rating: ', round(data['Book-Rating'].mean(), 2))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 57530238
+    },
+    {
+      "raw": "# Publication by Year\nyear = pd.to_numeric(data['Year-Of-Publication'], 'coerce').fillna(2099, downcast = 'infer')\n# ALEX: remove plotting\n# sns.distplot(year, kde=False, hist_kws={\"range\": [1945,2020]})",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 243689351
+    },
+    {
+      "raw": "country = data['Location'].apply(lambda row: str(row).split(',')[-1])\ndata.groupby(country)['Book-Rating'].count().sort_values(ascending=False).head(10)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 487769611
+    },
+    {
+      "raw": "# Cast to numeric\ndata['Year-Of-Publication'] = pd.to_numeric(data['Year-Of-Publication'], 'coerce').fillna(2099, downcast = 'infer')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 311809594
+    },
+    {
+      "raw": "data['Book-Rating'] = data['Book-Rating'].replace(0, None)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 25495045
+    },
+    {
+      "raw": "data['Age'] = np.where(data['Age']>90, None, data['Age'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 34235192
+    },
+    {
+      "raw": "# Categorical feautes\ndata[['Book-Author', 'Publisher']] = data[['Book-Author', 'Publisher']].fillna('Unknown')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 755584503
+    },
+    {
+      "raw": "# Check cat features\ndata[['Book-Author', 'Publisher']].isnull().sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 480471986
+    },
+    {
+      "raw": "# Age\nmedian = data[\"Age\"].median()\nstd = data[\"Age\"].std()\nis_null = data[\"Age\"].isnull().sum()\nrand_age = np.random.randint(median - std, median + std, size = is_null)\nage_slice = data[\"Age\"].copy()\nage_slice[pd.isnull(age_slice)] = rand_age\ndata[\"Age\"] = age_slice\ndata[\"Age\"] = data[\"Age\"].astype(int)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 535305230
+    },
+    {
+      "raw": "# Check Age\ndata['Age'].isnull().sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1309968
+    },
+    {
+      "raw": "data['Country'] = data['Location'].apply(lambda row: str(row).split(',')[-1])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 431625359
+    },
+    {
+      "raw": "# Drop irelevant\ndata = data.drop('Location', axis=1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 146351996
+    },
+    {
+      "raw": "data['Country'].head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 537592
+    },
+    {
+      "raw": "#TODO: country/language analysis (Babel lib?)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 184955
+    },
+    {
+      "raw": "#en_list = ['usa', 'canada', 'united kingdom', 'australia']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 143710
+    },
+    {
+      "raw": "#data[data['Country'].isin(en_list)]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 129551
+    },
+    {
+      "raw": "df = data",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 187161
+    },
+    {
+      "raw": "# Relevant score\ndf = df[df['Book-Rating'] >= 6]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 321907743
+    },
+    {
+      "raw": "# Check\ndf.groupby('ISBN')['User-ID'].count().describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 115700133
+    },
+    {
+      "raw": "df = df.groupby('ISBN').filter(lambda x: len(x) >= 5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1590240750
+    },
+    {
+      "raw": "df.groupby('User-ID')['ISBN'].count().describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 21371674
+    },
+    {
+      "raw": "df = df.groupby('User-ID').filter(lambda x: len(x) >= 5)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 562338520
+    },
+    {
+      "raw": "df.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 334679
+    },
+    {
+      "raw": "df_p = df.pivot_table(index='ISBN', columns='User-ID', values='Book-Rating')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 9443931019
+    },
+    {
+      "raw": "# Select users who liked LOTR\nlotr = df_p.loc['0345339703'] # Lord of the Rings Part 1\nlike_lotr = lotr[lotr == 10].to_frame().reset_index()\nusers = like_lotr['User-ID'].to_frame()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 6153447
+    },
+    {
+      "raw": "# Trim original dataset\nliked = pd.merge(users, df, on='User-ID', how='inner')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 56260229
+    },
+    {
+      "raw": "rating_count = liked.groupby('ISBN')['Book-Rating'].count().to_frame()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1746732
+    },
+    {
+      "raw": "rating_mean = liked.groupby('ISBN')['Book-Rating'].mean().to_frame()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 86520405
+    },
+    {
+      "raw": "rating_count.rename(columns={'Book-Rating':'Rating-Count'}, inplace=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 614099
+    },
+    {
+      "raw": "rating_mean.rename(columns={'Book-Rating':'Rating-Mean'}, inplace=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 492708
+    },
+    {
+      "raw": "liked = pd.merge(liked, rating_count, on='ISBN', how='inner')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2241212
+    },
+    {
+      "raw": "liked = pd.merge(liked, rating_mean, on='ISBN', how='inner')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1983076
+    },
+    {
+      "raw": "liked['Rating-Mean'] = liked['Rating-Mean'].round(2)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 453207
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# liked['Rating-Count'].hist()\nliked['Rating-Count']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 204416
+    },
+    {
+      "raw": "C = liked['Rating-Mean'].mean()\nC",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 345223
+    },
+    {
+      "raw": "m = rating_count.quantile(.995)[0] # .9\nm",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 808570
+    },
+    {
+      "raw": "# IMDB formula; source: http://trailerpark.weebly.com/imdb-rating.html?source=post_page---------------------------\ndef weighted_rating(x, m=m, C=C):\n    v = x['Rating-Count']\n    R = x['Rating-Mean']\n\n    return (v/(v+m) * R) + (m/(m+v) * C)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 416220
+    },
+    {
+      "raw": "# Create relevant sub-dataset\nliked_q = liked.copy().loc[liked['Rating-Count'] >= m]\nliked_q.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1281038
+    },
+    {
+      "raw": "liked_q['Score'] = liked_q.apply(weighted_rating, axis=1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2772185
+    },
+    {
+      "raw": "top_r = liked_q[['Book-Title', 'Rating-Mean']]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 722215
+    },
+    {
+      "raw": "top_r = top_r.groupby(['Book-Title'])['Rating-Mean'].mean().to_frame()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 841150
+    },
+    {
+      "raw": "top_r.sort_values(by='Rating-Mean', ascending=False).head(10)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 500220
+    },
+    {
+      "raw": "top_p = liked[['Book-Title', 'Rating-Count']]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1035817
+    },
+    {
+      "raw": "top_p = top_p.groupby(['Book-Title'])['Rating-Count'].mean().to_frame()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1488711
+    },
+    {
+      "raw": "top_p.sort_values(by='Rating-Count', ascending=False).head(10)#.plot(kind='barh')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 544895
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# from tqdm import tqdm\n# from gensim.models import Word2Vec \nimport random",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 170046
+    },
+    {
+      "raw": "users = df[\"User-ID\"].unique().tolist()\nlen(users)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1725703
+    },
+    {
+      "raw": "# shuffle users ID's\nrandom.shuffle(users)\n\n# extract 90% of customer ID's\nusers_train = [users[i] for i in range(round(0.9*len(users)))]\n\n# split data into train and validation set\ntrain_df = df[df['User-ID'].isin(users_train)]\nvalidation_df = df[~df['User-ID'].isin(users_train)]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 26418569
+    },
+    {
+      "raw": "# list to capture purchase history of the customers\nreads_train = []\n\n# populate the list with the product codes\n# ALEX: remove extra display code\n# for i in tqdm(users_train):\nfor i in users_train:\n    temp = train_df[train_df[\"User-ID\"] == i][\"ISBN\"].tolist()\n    reads_train.append(temp)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2348714431
+    },
+    {
+      "raw": "# list to capture purchase history of the customers\nreads_val = []\n\n# populate the list with the product codes\n# ALEX: remove extra display code\n# for i in tqdm(validation_df['User-ID'].unique()):\nfor i in validation_df['User-ID'].unique():\n    temp = validation_df[validation_df[\"User-ID\"] == i][\"ISBN\"].tolist()\n    reads_val.append(temp)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 166294198
+    },
+    {
+      "raw": "# train word2vec model\n# ALEX: remove ML code\n# model = Word2Vec(window = 10, sg = 1, hs = 0,\n#                  negative = 10, # for negative sampling\n#                  alpha=0.03, min_alpha=0.0007,\n#                  seed = 14)\n\n# model.build_vocab(reads_train, progress_per=200)\n\n# model.train(reads_train, total_examples = model.corpus_count, \n#             epochs=10, report_delay=1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 197851
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# model.init_sims(replace=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 133693
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# print(model)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 111908
+    },
+    {
+      "raw": "# extract all vectors\n# ALEX: remove ML code\n# X = model[model.wv.vocab]\n\n# X.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 116717
+    },
+    {
+      "raw": "# ALEX: remove ML code, plotting\n# import umap\n\n# cluster_embedding = umap.UMAP(n_neighbors=30, min_dist=0.0,\n#                               n_components=2, random_state=42).fit_transform(X)\n\n# plt.figure(figsize=(10,9))\n# plt.scatter(cluster_embedding[:, 0], cluster_embedding[:, 1], s=3, cmap='Spectral')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 119744
+    },
+    {
+      "raw": "books = train_df[[\"ISBN\", \"Book-Title\"]]\n\n# remove duplicates\nbooks.drop_duplicates(inplace=True, subset='ISBN', keep=\"last\")\n\n# create product-ID and product-description dictionary\nbooks_dict = books.groupby('ISBN')['Book-Title'].apply(list).to_dict()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 223112306
+    },
+    {
+      "raw": "# Find LOTR\ndf[df['Book-Title'].str.contains('Lord of the Rings')].sample()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 43620934
+    },
+    {
+      "raw": "# Check\nbooks_dict['0345339703']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 221907
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# def similar_books(v, n = 15):\n    \n#     # extract most similar products for the input vector\n#     ms = model.similar_by_vector(v, topn= n+1)[1:]\n    \n#     # extract name and similarity score of the similar products\n#     new_ms = []\n#     for j in ms:\n#         pair = (books_dict[j[0]][0], j[1])\n#         new_ms.append(pair)\n        \n#     return new_ms ",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 173217
+    },
+    {
+      "raw": "# Recommend\n# ALEX: remove ML code\n# similar_books(model['0345339703'])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 111882
+    }
+  ],
+  "total-time-in-sec": 22.910112123,
+  "max-disk-in-mb": 0
+}

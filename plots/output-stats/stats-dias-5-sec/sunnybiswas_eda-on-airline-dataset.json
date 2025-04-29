@@ -1,0 +1,242 @@
+{
+  "max-mem-in-mb": 775,
+  "max-mem-in-mb2": 931,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path search\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "rewrite-ns": 695651,
+      "overhead-ns": 695651,
+      "exec-ns": 403205,
+      "total-ns": 1098856,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "# importing the necessary libraries for EDA on Airline Dataset | Kaggle Dataset\n\n# import pandas as pd \n# import numpy as np\n# ALEX: remove plotting\n# import plotly.express as px\n# import seaborn as sns\n# import matplotlib.pyplot as plt",
+      "rewrite-ns": 22611,
+      "overhead-ns": 22611,
+      "exec-ns": 111165,
+      "total-ns": 133776,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# loading the dataset and showing first 5 rows of the dataset\n\ndf = pd.read_csv(\"./input/Airline Dataset.scaled.csv\")\ndf.head(5)",
+      "rewrite-ns": 623312,
+      "overhead-ns": 623312,
+      "exec-ns": 3140521619,
+      "total-ns": 3141144931,
+      "patts-hit": {},
+      "rewritten": "df = pd.read_csv('./input/Airline Dataset.scaled.csv')\ndf.head(5)\n"
+    },
+    {
+      "raw": "df['Age_rank'] = df['Age'].rank()\n",
+      "rewrite-ns": 640565,
+      "overhead-ns": 640565,
+      "exec-ns": 111336146,
+      "total-ns": 111976711,
+      "patts-hit": {},
+      "rewritten": "df['Age_rank'] = df['Age'].rank()\n"
+    },
+    {
+      "raw": "df3 = df\ndf3 = df3[['First Name','Last Name','Age','Nationality','Age_rank']]\ndf3",
+      "rewrite-ns": 759195,
+      "overhead-ns": 759195,
+      "exec-ns": 35117032,
+      "total-ns": 35876227,
+      "patts-hit": {},
+      "rewritten": "df3 = df\ndf3 = df3[['First Name', 'Last Name', 'Age', 'Nationality', 'Age_rank']]\ndf3\n"
+    },
+    {
+      "raw": "df['max_rank'] = df['Age'].rank(method='max')",
+      "rewrite-ns": 657051,
+      "overhead-ns": 657051,
+      "exec-ns": 108809978,
+      "total-ns": 109467029,
+      "patts-hit": {},
+      "rewritten": "df['max_rank'] = df['Age'].rank(method='max')\n"
+    },
+    {
+      "raw": "# Getting the info on the dataset\ndf.info()",
+      "rewrite-ns": 127831,
+      "overhead-ns": 127831,
+      "exec-ns": 1453284080,
+      "total-ns": 1453411911,
+      "patts-hit": {},
+      "rewritten": "df.info()\n"
+    },
+    {
+      "raw": "# To 5 Airports with highest value counts \n\n\ntop_5_airport_df = df['Airport Name'].value_counts().head(5)\ntop_5_airport_df = pd.DataFrame({'Airport Name': top_5_airport_df.index, 'Count': top_5_airport_df.values})\ntop_5_airport_df = top_5_airport_df.sort_values(by='Count', ascending=True)\n\n# ALEX: remove plotting\n# fig = px.bar(top_5_airport_df, x='Count', y='Airport Name', title='Top 5 Airport with highest Value count' )\n# fig.show()",
+      "rewrite-ns": 1614961,
+      "overhead-ns": 1614961,
+      "exec-ns": 97692114,
+      "total-ns": 99307075,
+      "patts-hit": {},
+      "rewritten": "top_5_airport_df = df['Airport Name'].value_counts().head(5)\ntop_5_airport_df = pd.DataFrame({'Airport Name': top_5_airport_df.index,\n    'Count': top_5_airport_df.values})\ntop_5_airport_df = top_5_airport_df.sort_values(by='Count', ascending=True)\n"
+    },
+    {
+      "raw": "#  Top 20 Country with count of Visitors \n\ndf['Country Name'].value_counts().head(20)",
+      "rewrite-ns": 551033,
+      "overhead-ns": 551033,
+      "exec-ns": 51404602,
+      "total-ns": 51955635,
+      "patts-hit": {},
+      "rewritten": "df['Country Name'].value_counts().head(20)\n"
+    },
+    {
+      "raw": "# Vizualizing the previous cell \n\ntop_20_countries_df =  df['Country Name'].value_counts().head(20)\ntop_20_countries_df = pd.DataFrame({'Country Name': top_20_countries_df.index, 'Count': top_20_countries_df.values})\ntop_20_countries_df = top_20_countries_df.sort_values(by='Count', ascending=True)\n\n# ALEX: remove plotting\n# fig = px.bar(top_20_countries_df, x='Count', y='Country Name', title='Top 20 Countries' )\n# fig.show()",
+      "rewrite-ns": 1661631,
+      "overhead-ns": 1661631,
+      "exec-ns": 50923325,
+      "total-ns": 52584956,
+      "patts-hit": {},
+      "rewritten": "top_20_countries_df = df['Country Name'].value_counts().head(20)\ntop_20_countries_df = pd.DataFrame({'Country Name': top_20_countries_df.\n    index, 'Count': top_20_countries_df.values})\ntop_20_countries_df = top_20_countries_df.sort_values(by='Count', ascending\n    =True)\n"
+    },
+    {
+      "raw": "# Ratio between Male Travellers and Female Travellers\n\nTravl_Ratio =  df['Gender'].value_counts()\nTravl_Ratio = pd.DataFrame({'Gender': Travl_Ratio.index, 'Count': Travl_Ratio.values})\n\n# Plotting a Donut Chart that represents the travelers ratio \n\n# ALEX: remove plotting\n# fig2 = px.pie(Travl_Ratio, values='Count', names='Gender', hole=0.5)\n# fig2.update_layout(title=\"Traveller's Ratio Male vs Female \")\n# fig2.show()",
+      "rewrite-ns": 1052220,
+      "overhead-ns": 1052220,
+      "exec-ns": 50291317,
+      "total-ns": 51343537,
+      "patts-hit": {},
+      "rewritten": "Travl_Ratio = df['Gender'].value_counts()\nTravl_Ratio = pd.DataFrame({'Gender': Travl_Ratio.index, 'Count':\n    Travl_Ratio.values})\n"
+    },
+    {
+      "raw": "# Total number of Pilots per country \n\nPilot_df = df[['Country Name', 'Pilot Name']]\npilot_pivot = pd.pivot_table(Pilot_df, index=['Country Name'], aggfunc='count')\npilot_pivot.rename(columns={'Pilot Name':'Pilot Count'}, inplace=True)\npilot_pivot = pilot_pivot.reset_index()\npilot_pivot.sort_values(by='Pilot Count', ascending=False, inplace=True)\npilot_pivot.head(10)",
+      "rewrite-ns": 2005490,
+      "overhead-ns": 2005490,
+      "exec-ns": 198052895,
+      "total-ns": 200058385,
+      "patts-hit": {},
+      "rewritten": "Pilot_df = df[['Country Name', 'Pilot Name']]\npilot_pivot = pd.pivot_table(Pilot_df, index=['Country Name'], aggfunc='count')\npilot_pivot.rename(columns={'Pilot Name': 'Pilot Count'}, inplace=True)\npilot_pivot = pilot_pivot.reset_index()\npilot_pivot.sort_values(by='Pilot Count', ascending=False, inplace=True)\npilot_pivot.head(10)\n"
+    },
+    {
+      "raw": "# Bar Plot for Pilot Count per Country  \n\n# ALEX: remove plotting\n# fig3 = px.bar(pilot_pivot.head(10), x='Pilot Count', y='Country Name', title='Pilot Count by Country')\n# fig3.show()\n_ = pilot_pivot.head(10)",
+      "rewrite-ns": 422535,
+      "overhead-ns": 422535,
+      "exec-ns": 323399,
+      "total-ns": 745934,
+      "patts-hit": {},
+      "rewritten": "_ = pilot_pivot.head(10)\n"
+    },
+    {
+      "raw": "df.head(5)",
+      "rewrite-ns": 106015,
+      "overhead-ns": 106015,
+      "exec-ns": 10071819,
+      "total-ns": 10177834,
+      "patts-hit": {},
+      "rewritten": "df.head(5)\n"
+    },
+    {
+      "raw": "# Shoes the Count of travellers per Flight Status by Country for the entire duration in the dataset\n\nFlight_status_df = df[['Country Name','Flight Status']]\nFlight_status_df['FTE'] = 1\n\n# Creating a Pivot table by Country with Count of Travellers per Flight Status  \nFlight_status_pivot = pd.pivot_table(Flight_status_df, index=['Country Name'], columns=['Flight Status'], values = ['FTE'], aggfunc='count')\nFlight_status_pivot = Flight_status_pivot.reset_index()\nFlight_status_pivot.head(11)",
+      "rewrite-ns": 1701009,
+      "overhead-ns": 1701009,
+      "exec-ns": 154235378,
+      "total-ns": 155936387,
+      "patts-hit": {},
+      "rewritten": "Flight_status_df = df[['Country Name', 'Flight Status']]\nFlight_status_df['FTE'] = 1\nFlight_status_pivot = pd.pivot_table(Flight_status_df, index=[\n    'Country Name'], columns=['Flight Status'], values=['FTE'], aggfunc='count'\n    )\nFlight_status_pivot = Flight_status_pivot.reset_index()\nFlight_status_pivot.head(11)\n"
+    },
+    {
+      "raw": "# Removing the Spaces on the column names and replacing it with (-) \n# Refrencing the dataframe to another variable (df2)\n\ndf.columns = df.columns.str.replace(' ', '_')\ndf2 = df\ndf2\n\n# Quering on the data based on Airport Country Code (United States) \nUS_data = df2.query('Airport_Country_Code == \"US\"')\n\n\nUS_data",
+      "rewrite-ns": 1097108,
+      "overhead-ns": 1097108,
+      "exec-ns": 88238758,
+      "total-ns": 89335866,
+      "patts-hit": {},
+      "rewritten": "df.columns = df.columns.str.replace(' ', '_')\ndf2 = df\ndf2\nUS_data = df2.query('Airport_Country_Code == \"US\"')\nUS_data\n"
+    },
+    {
+      "raw": "#  The Departure Date is an Object, converting it into Date-time format and extracting Quarter, month and Week \n\nUS_data['Date'] = pd.to_datetime(US_data['Departure_Date']) \n\n# Extract quarter, month, week\n\nUS_data['Quarter'] = US_data['Date'].dt.quarter\nUS_data['Month'] = US_data['Date'].dt.month\nUS_data['Week'] = US_data['Date'].dt.isocalendar().week\nUS_data\n\n#  So Now we have a data_set that only has values for United States for further EDA",
+      "rewrite-ns": 1931419,
+      "overhead-ns": 1931419,
+      "exec-ns": 131710348,
+      "total-ns": 133641767,
+      "patts-hit": {},
+      "rewritten": "US_data['Date'] = pd.to_datetime(US_data['Departure_Date'])\nUS_data['Quarter'] = US_data['Date'].dt.quarter\nUS_data['Month'] = US_data['Date'].dt.month\nUS_data['Week'] = US_data['Date'].dt.isocalendar().week\nUS_data\n"
+    },
+    {
+      "raw": "#  Creating a Customer Column based on Departure and Arrival Airport \nUS_data['Route'] = US_data['Airport_Name'].str.cat(US_data['Arrival_Airport'], sep=' -to- ')\n\nUS_Flight_Route = US_data['Route'].value_counts()\nUS_Flight_Route = pd.DataFrame({'Route': US_Flight_Route.index, 'Count': US_Flight_Route.values})\nTop_20_US_Flight_Route = US_Flight_Route.head(20)\n\n# Plotting a Donut Chart that represents the travelers ratio \n\n# ALEX: remove plotting\n# fig5 = px.bar(Top_20_US_Flight_Route, y='Route', x='Count')\n# fig5.update_layout(title=\"Ratio of USA Visitors\")\n# fig5.show()\n",
+      "rewrite-ns": 2007318,
+      "overhead-ns": 2007318,
+      "exec-ns": 97751498,
+      "total-ns": 99758816,
+      "patts-hit": {},
+      "rewritten": "US_data['Route'] = US_data['Airport_Name'].str.cat(US_data[\n    'Arrival_Airport'], sep=' -to- ')\nUS_Flight_Route = US_data['Route'].value_counts()\nUS_Flight_Route = pd.DataFrame({'Route': US_Flight_Route.index, 'Count':\n    US_Flight_Route.values})\nTop_20_US_Flight_Route = US_Flight_Route.head(20)\n"
+    },
+    {
+      "raw": "Top_20_US_Flight_Route",
+      "rewrite-ns": 76155,
+      "overhead-ns": 76155,
+      "exec-ns": 3009299,
+      "total-ns": 3085454,
+      "patts-hit": {},
+      "rewritten": "Top_20_US_Flight_Route\n"
+    },
+    {
+      "raw": "# Figuring out the total number of flight per month \n\n\nfiltered_df = df[['Airport_Name','Departure_Date','Arrival_Airport','Pilot_Name']]\nfiltered_df1 = pd.DataFrame(filtered_df)\nfiltered_df1_no_duplicates = filtered_df1.drop_duplicates()\nfiltered_df1_no_duplicates['Date'] = pd.to_datetime(filtered_df1_no_duplicates['Departure_Date']) \n\n# Extracting month\nfiltered_df1_no_duplicates['Month'] = filtered_df1_no_duplicates['Date'].dt.month\nfiltered_df1_no_duplicates",
+      "rewrite-ns": 2013762,
+      "overhead-ns": 2013762,
+      "exec-ns": 391301046,
+      "total-ns": 393314808,
+      "patts-hit": {},
+      "rewritten": "filtered_df = df[['Airport_Name', 'Departure_Date', 'Arrival_Airport',\n    'Pilot_Name']]\nfiltered_df1 = pd.DataFrame(filtered_df)\nfiltered_df1_no_duplicates = filtered_df1.drop_duplicates()\nfiltered_df1_no_duplicates['Date'] = pd.to_datetime(filtered_df1_no_duplicates\n    ['Departure_Date'])\nfiltered_df1_no_duplicates['Month'] = filtered_df1_no_duplicates['Date'\n    ].dt.month\nfiltered_df1_no_duplicates\n"
+    },
+    {
+      "raw": "# Table for Total number of flight per month (This included all flight status)\n\nfiltered_df1_no_duplicates\nTotal_flights = filtered_df1_no_duplicates['Month'].value_counts()\nTotal_flights = Total_flights.reset_index()\nTotal_flights.sort_values(by='index', ascending=True, inplace=True)\nTotal_flights",
+      "rewrite-ns": 1154668,
+      "overhead-ns": 1154668,
+      "exec-ns": 3828087,
+      "total-ns": 4982755,
+      "patts-hit": {},
+      "rewritten": "filtered_df1_no_duplicates\nTotal_flights = filtered_df1_no_duplicates['Month'].value_counts()\nTotal_flights = Total_flights.reset_index()\nTotal_flights.sort_values(by='index', ascending=True, inplace=True)\nTotal_flights\n"
+    },
+    {
+      "raw": "# Histogram representation of the flights \n\n# ALEX: remove plotting\n# fig6 = px.bar(Total_flights, x='index',y='Month', title='MOM Flights')\n# fig6.show()",
+      "rewrite-ns": 18549,
+      "overhead-ns": 18549,
+      "exec-ns": 84986,
+      "total-ns": 103535,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#  Getting the Average number of flights per month \n\nAverage_Flight = np.mean(Total_flights['Month'])\nAverage_Flight",
+      "rewrite-ns": 510317,
+      "overhead-ns": 510317,
+      "exec-ns": 663393,
+      "total-ns": 1173710,
+      "patts-hit": {},
+      "rewritten": "Average_Flight = np.mean(Total_flights['Month'])\nAverage_Flight\n"
+    },
+    {
+      "raw": "# Ratio of Visitors per Nations/Country of Origin\n\nVisitors_per_nations = df['Nationality'].value_counts()\nVisitors_per_nations.head()\nVisitors_per_nations_1 = Visitors_per_nations.head(20).reset_index()\nVisitors_per_nations_1.sort_values(by='Nationality', ascending=False, inplace=True)\nVisitors_per_nations_1.head(5)\n# ALEX: remove plotting\n# fig7 = px.pie(Visitors_per_nations_1, values='Nationality', names='index', hole=0.5, title='Nationality Ratio (TOP 20)')\n# fig7.show()",
+      "rewrite-ns": 1327345,
+      "overhead-ns": 1327345,
+      "exec-ns": 53163318,
+      "total-ns": 54490663,
+      "patts-hit": {},
+      "rewritten": "Visitors_per_nations = df['Nationality'].value_counts()\nVisitors_per_nations.head()\nVisitors_per_nations_1 = Visitors_per_nations.head(20).reset_index()\nVisitors_per_nations_1.sort_values(by='Nationality', ascending=False,\n    inplace=True)\nVisitors_per_nations_1.head(5)\n"
+    },
+    {
+      "raw": "FL_state = df[['Departure_Date','Flight_Status']]\nFL_state['Date']  = pd.to_datetime(FL_state['Departure_Date'])\nFL_state['Month'] = FL_state['Date'].dt.month\nFL_state",
+      "rewrite-ns": 1293964,
+      "overhead-ns": 1293964,
+      "exec-ns": 186909956,
+      "total-ns": 188203920,
+      "patts-hit": {},
+      "rewritten": "FL_state = df[['Departure_Date', 'Flight_Status']]\nFL_state['Date'] = pd.to_datetime(FL_state['Departure_Date'])\nFL_state['Month'] = FL_state['Date'].dt.month\nFL_state\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 20641,
+      "overhead-ns": 20641,
+      "exec-ns": 101392,
+      "total-ns": 122033,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 6.443432511,
+  "max-disk-in-mb": 0
+}

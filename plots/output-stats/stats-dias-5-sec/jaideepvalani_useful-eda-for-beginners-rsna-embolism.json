@@ -1,0 +1,278 @@
+{
+  "max-mem-in-mb": 1377,
+  "max-mem-in-mb2": 1567,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt\n# sns.set(font_scale=1.4)\n# # Input data files are available in the read-only \"../input/\" directory\n# # For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# import os\n \n\n# You can write up to 5GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "rewrite-ns": 691503,
+      "overhead-ns": 691503,
+      "exec-ns": 410213,
+      "total-ns": 1101716,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": " ",
+      "rewrite-ns": 19585,
+      "overhead-ns": 19585,
+      "exec-ns": 117059,
+      "total-ns": 136644,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "train_df=pd.read_csv('./input/train.scaled.csv')\ntest_df=pd.read_csv('./input/test.scaled.csv')",
+      "rewrite-ns": 923307,
+      "overhead-ns": 923307,
+      "exec-ns": 2517862082,
+      "total-ns": 2518785389,
+      "patts-hit": {},
+      "rewritten": "train_df = pd.read_csv('./input/train.scaled.csv')\ntest_df = pd.read_csv('./input/test.scaled.csv')\n"
+    },
+    {
+      "raw": "train_df.columns",
+      "rewrite-ns": 119795,
+      "overhead-ns": 119795,
+      "exec-ns": 1397955,
+      "total-ns": 1517750,
+      "patts-hit": {},
+      "rewritten": "train_df.columns\n"
+    },
+    {
+      "raw": "# ALEX: remove extra input data dependency\n# list_of_patient_ids=os.listdir('./input/train')",
+      "rewrite-ns": 19723,
+      "overhead-ns": 19723,
+      "exec-ns": 103300,
+      "total-ns": 123023,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove extra input data dependency\n# len(list_of_patient_ids)\n#total 7279 patients in the study\n#study instance id map to image ids ",
+      "rewrite-ns": 14973,
+      "overhead-ns": 14973,
+      "exec-ns": 75306,
+      "total-ns": 90279,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#\ntrain_df[train_df.StudyInstanceUID=='df06fad17bc3']\n\n# ALEX: evaluate lazy computation\nevaluate_lazy(test_df[test_df.StudyInstanceUID=='df06fad17bc3'])\n#train_df.StudyInstanceUID.nunique() ",
+      "rewrite-ns": 954080,
+      "overhead-ns": 954080,
+      "exec-ns": 123661941,
+      "total-ns": 124616021,
+      "patts-hit": {},
+      "rewritten": "train_df[train_df.StudyInstanceUID == 'df06fad17bc3']\nevaluate_lazy(test_df[test_df.StudyInstanceUID == 'df06fad17bc3'])\n"
+    },
+    {
+      "raw": "# ALEX: evaluate lazy computation\nevaluate_lazy(train_df.groupby(['StudyInstanceUID','SeriesInstanceUID']).agg(series_count=('SOPInstanceUID','count')))\n## each patient has got only one CT report ,total patients 7279",
+      "rewrite-ns": 859809,
+      "overhead-ns": 859809,
+      "exec-ns": 312447234,
+      "total-ns": 313307043,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(train_df.groupby(['StudyInstanceUID', 'SeriesInstanceUID']).\n    agg(series_count=('SOPInstanceUID', 'count')))\n"
+    },
+    {
+      "raw": "#train_df.iloc[:,4:].columns.tolist()",
+      "rewrite-ns": 19889,
+      "overhead-ns": 19889,
+      "exec-ns": 108087,
+      "total-ns": 127976,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.bar??",
+      "rewrite-ns": 15110,
+      "overhead-ns": 15110,
+      "exec-ns": 78411,
+      "total-ns": 93521,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#train_df[train_df.negative_exam_for_pe==0].sum(axis=1)\n#eda  my_plot.legend([\"Total\",\"Belts\",\"Shirts\",\"Shoes\"]\n'''\nimport seaborn as sns\nimport matplotlib.pyplot as plt\nsns.set(font_scale=1.4)\nplt.rcParams[\"figure.figsize\"] = (10,10)\n#train_df.iloc[:,4:].sum(axis= 0).plot(kind='bar')\n#plt.figure(figsize=15,20)\n#my_colors = 'rgbkymc'\n#plt.barh (height=train_df.iloc[:,4:].sum(axis= 0),x=train_df.iloc[:,4:].columns.tolist(),\n#         color  =plt.cm.Paired(np.arange(len(train_df.iloc[:,4:].columns.tolist()))) )\n\nplt.barh (width=train_df.iloc[:,4:].sum(axis= 0),y=train_df.iloc[:,4:].columns.tolist(),\n         color  =plt.cm.Paired(np.arange(len(train_df.iloc[:,4:].columns.tolist()))) )\n#plt.legend(train_df.iloc[:,4:].columns.tolist()) \n#train_df.iloc[:,3:].plot()\n\n#train_df.iloc[:,4:].value_counts(0).plot(kind='bar');\n'''",
+      "rewrite-ns": 209966,
+      "overhead-ns": 209966,
+      "exec-ns": 640814,
+      "total-ns": 850780,
+      "patts-hit": {},
+      "rewritten": "\"\"\"\nimport seaborn as sns\nimport matplotlib.pyplot as plt\nsns.set(font_scale=1.4)\nplt.rcParams[\"figure.figsize\"] = (10,10)\n#train_df.iloc[:,4:].sum(axis= 0).plot(kind='bar')\n#plt.figure(figsize=15,20)\n#my_colors = 'rgbkymc'\n#plt.barh (height=train_df.iloc[:,4:].sum(axis= 0),x=train_df.iloc[:,4:].columns.tolist(),\n#         color  =plt.cm.Paired(np.arange(len(train_df.iloc[:,4:].columns.tolist()))) )\n\nplt.barh (width=train_df.iloc[:,4:].sum(axis= 0),y=train_df.iloc[:,4:].columns.tolist(),\n         color  =plt.cm.Paired(np.arange(len(train_df.iloc[:,4:].columns.tolist()))) )\n#plt.legend(train_df.iloc[:,4:].columns.tolist()) \n#train_df.iloc[:,3:].plot()\n\n#train_df.iloc[:,4:].value_counts(0).plot(kind='bar');\n\"\"\"\n"
+    },
+    {
+      "raw": "#check the counts of each illnesses\n# ALEX: evaluate lazy computation\nevaluate_lazy(train_df.iloc[:,4:].sum(axis= 0).reset_index().rename (columns={'index':'category_illness', 0:'count'}))",
+      "rewrite-ns": 1206624,
+      "overhead-ns": 1206624,
+      "exec-ns": 108018149,
+      "total-ns": 109224773,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(train_df.iloc[:, 4:].sum(axis=0).reset_index().rename(columns\n    ={'index': 'category_illness', (0): 'count'}))\n"
+    },
+    {
+      "raw": "#checking each category if lung illness\n# ALEX: remove plotting\n# sns.barplot(y=train_df.iloc[:,4:].columns.tolist(),x=train_df.iloc[:,4:].sum(axis= 0))\n_ = train_df.iloc[:,4:].columns.tolist()\nevaluate_lazy(train_df.iloc[:,4:].sum(axis= 0))",
+      "rewrite-ns": 1328791,
+      "overhead-ns": 1328791,
+      "exec-ns": 184501644,
+      "total-ns": 185830435,
+      "patts-hit": {},
+      "rewritten": "_ = train_df.iloc[:, 4:].columns.tolist()\nevaluate_lazy(train_df.iloc[:, 4:].sum(axis=0))\n"
+    },
+    {
+      "raw": "#checking co occurance\n# ALEX: evaluate lazy computation\nevaluate_lazy(train_df[train_df.negative_exam_for_pe!=0].iloc[:,4:].sum(axis= 0).reset_index().rename (columns={'index':'category_illness', 0:'count'}))",
+      "rewrite-ns": 1508180,
+      "overhead-ns": 1508180,
+      "exec-ns": 227411363,
+      "total-ns": 228919543,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(train_df[train_df.negative_exam_for_pe != 0].iloc[:, 4:].sum(\n    axis=0).reset_index().rename(columns={'index': 'category_illness', (0):\n    'count'}))\n"
+    },
+    {
+      "raw": "train_df[train_df.central_pe!=0].iloc[:,4:].sum(axis= 0).reset_index().rename (columns={'index':'category_illness', 0:'count'})\n#central PE occurs frequently along with rightsided/leftsided PE\n# ALEX: remove plotting\n# sns.barplot(y=train_df.iloc[:,4:].columns.tolist(),x=train_df[train_df.central_pe!=0].iloc[:,4:].sum(axis= 0))\n_ = train_df.iloc[:,4:].columns.tolist()\n# ALEX: evaluate lazy computation\nevaluate_lazy(train_df[train_df.central_pe!=0].iloc[:,4:].sum(axis= 0))",
+      "rewrite-ns": 2814500,
+      "overhead-ns": 2814500,
+      "exec-ns": 118440498,
+      "total-ns": 121254998,
+      "patts-hit": {},
+      "rewritten": "train_df[train_df.central_pe != 0].iloc[:, 4:].sum(axis=0).reset_index(\n    ).rename(columns={'index': 'category_illness', (0): 'count'})\n_ = train_df.iloc[:, 4:].columns.tolist()\nevaluate_lazy(train_df[train_df.central_pe != 0].iloc[:, 4:].sum(axis=0))\n"
+    },
+    {
+      "raw": "#rightsided_pe\n# ALEX: remove plotting\n# sns.barplot(y=train_df.iloc[:,4:].columns.tolist(),x=train_df[train_df.rightsided_pe!=0].iloc[:,4:].sum(axis= 0))\n_ = train_df.iloc[:,4:].columns.tolist()\n# ALEX: evaluate lazy computation\nevaluate_lazy(train_df[train_df.rightsided_pe!=0].iloc[:,4:].sum(axis= 0))",
+      "rewrite-ns": 1614932,
+      "overhead-ns": 1614932,
+      "exec-ns": 169012081,
+      "total-ns": 170627013,
+      "patts-hit": {},
+      "rewritten": "_ = train_df.iloc[:, 4:].columns.tolist()\nevaluate_lazy(train_df[train_df.rightsided_pe != 0].iloc[:, 4:].sum(axis=0))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.barplot(y=train_df.iloc[:,4:].columns.tolist(),x=train_df[train_df.leftsided_pe!=0].iloc[:,4:].sum(axis= 0))\n_ = train_df.iloc[:,4:].columns.tolist()\n# ALEX: evaluate lazy computation\nevaluate_lazy(train_df[train_df.leftsided_pe!=0].iloc[:,4:].sum(axis= 0))\n",
+      "rewrite-ns": 1585431,
+      "overhead-ns": 1585431,
+      "exec-ns": 147456732,
+      "total-ns": 149042163,
+      "patts-hit": {},
+      "rewritten": "_ = train_df.iloc[:, 4:].columns.tolist()\nevaluate_lazy(train_df[train_df.leftsided_pe != 0].iloc[:, 4:].sum(axis=0))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.barplot(y=train_df.iloc[:,4:].columns.tolist(),x=train_df[train_df.true_filling_defect_not_pe!=0].iloc[:,4:].sum(axis= 0))\n_ = train_df.iloc[:,4:].columns.tolist()\n# ALEX: evaluate lazy computation\nevaluate_lazy(train_df[train_df.true_filling_defect_not_pe!=0].iloc[:,4:].sum(axis= 0))\n",
+      "rewrite-ns": 1587909,
+      "overhead-ns": 1587909,
+      "exec-ns": 88920801,
+      "total-ns": 90508710,
+      "patts-hit": {},
+      "rewritten": "_ = train_df.iloc[:, 4:].columns.tolist()\nevaluate_lazy(train_df[train_df.true_filling_defect_not_pe != 0].iloc[:, 4:\n    ].sum(axis=0))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.barplot(y=train_df.iloc[:,4:].columns.tolist(),x=train_df[train_df.chronic_pe!=0].iloc[:,4:].sum(axis= 0))\n_ = train_df.iloc[:,4:].columns.tolist()\n# ALEX: evaluate lazy computation\nevaluate_lazy(train_df[train_df.chronic_pe!=0].iloc[:,4:].sum(axis= 0))\n",
+      "rewrite-ns": 1635997,
+      "overhead-ns": 1635997,
+      "exec-ns": 96647988,
+      "total-ns": 98283985,
+      "patts-hit": {},
+      "rewritten": "_ = train_df.iloc[:, 4:].columns.tolist()\nevaluate_lazy(train_df[train_df.chronic_pe != 0].iloc[:, 4:].sum(axis=0))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.barplot(y=train_df.iloc[:,4:].columns.tolist(),x=train_df[train_df.rv_lv_ratio_lt_1!=0].iloc[:,4:].sum(axis= 0))\n_ = train_df.iloc[:,4:].columns.tolist()\n# ALEX: evaluate lazy computation\nevaluate_lazy(train_df[train_df.rv_lv_ratio_lt_1!=0].iloc[:,4:].sum(axis= 0))\n",
+      "rewrite-ns": 1538532,
+      "overhead-ns": 1538532,
+      "exec-ns": 137173824,
+      "total-ns": 138712356,
+      "patts-hit": {},
+      "rewritten": "_ = train_df.iloc[:, 4:].columns.tolist()\nevaluate_lazy(train_df[train_df.rv_lv_ratio_lt_1 != 0].iloc[:, 4:].sum(axis=0))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.barplot(y=train_df.iloc[:,4:].columns.tolist(),x=train_df[train_df.rv_lv_ratio_gte_1!=0].iloc[:,4:].sum(axis= 0))\n_ = train_df.iloc[:,4:].columns.tolist()\n# ALEX: evaluate lazy computation\nevaluate_lazy(train_df[train_df.rv_lv_ratio_gte_1!=0].iloc[:,4:].sum(axis= 0))\n\n",
+      "rewrite-ns": 1565880,
+      "overhead-ns": 1565880,
+      "exec-ns": 120287796,
+      "total-ns": 121853676,
+      "patts-hit": {},
+      "rewritten": "_ = train_df.iloc[:, 4:].columns.tolist()\nevaluate_lazy(train_df[train_df.rv_lv_ratio_gte_1 != 0].iloc[:, 4:].sum(axis=0)\n    )\n"
+    },
+    {
+      "raw": "#train_df[train_df.central_pe!=0].iloc[:,4:].sum(axis= 0).reset_index().rename (columns={'index':'category_illness', 0:'count'})\n#central PE occurs frequently along with rightsided/leftsided PE\n# ALEX: remove plotting\n# sns.barplot(y=train_df.iloc[:,4:].columns.tolist(),x=train_df[train_df.acute_and_chronic_pe!=0].iloc[:,4:].sum(axis= 0))\n_ = train_df.iloc[:,4:].columns.tolist()\n# ALEX: evaluate lazy computation\nevaluate_lazy(train_df[train_df.acute_and_chronic_pe!=0].iloc[:,4:].sum(axis= 0))",
+      "rewrite-ns": 1576454,
+      "overhead-ns": 1576454,
+      "exec-ns": 92212047,
+      "total-ns": 93788501,
+      "patts-hit": {},
+      "rewritten": "_ = train_df.iloc[:, 4:].columns.tolist()\nevaluate_lazy(train_df[train_df.acute_and_chronic_pe != 0].iloc[:, 4:].sum(\n    axis=0))\n"
+    },
+    {
+      "raw": "# ALEX: evaluate lazy computation\nevaluate_lazy(train_df[train_df.pe_present_on_image!=0].StudyInstanceUID.nunique())  ",
+      "rewrite-ns": 752121,
+      "overhead-ns": 752121,
+      "exec-ns": 26168538,
+      "total-ns": 26920659,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(train_df[train_df.pe_present_on_image != 0].StudyInstanceUID.\n    nunique())\n"
+    },
+    {
+      "raw": "sample_sub=pd.read_csv('./input/sample_submission.scaled.csv')\n",
+      "rewrite-ns": 423545,
+      "overhead-ns": 423545,
+      "exec-ns": 58550688,
+      "total-ns": 58974233,
+      "patts-hit": {},
+      "rewritten": "sample_sub = pd.read_csv('./input/sample_submission.scaled.csv')\n"
+    },
+    {
+      "raw": "#there are patients for whom only id are given but not category suffix \n# ALEX: evaluate lazy computation\nevaluate_lazy(sample_sub[sample_sub.id=='5f34e0c61c00'])",
+      "rewrite-ns": 563714,
+      "overhead-ns": 563714,
+      "exec-ns": 12728367,
+      "total-ns": 13292081,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(sample_sub[sample_sub.id == '5f34e0c61c00'])\n"
+    },
+    {
+      "raw": "#sample_sub.sort_values(by='id')\n#sample_sub[~sample_sub.id.str.contains('pe')]\n#sample_sub[sample_sub.id.str.contains('df06fad17bc3')]",
+      "rewrite-ns": 17908,
+      "overhead-ns": 17908,
+      "exec-ns": 95624,
+      "total-ns": 113532,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "neg_pe_count_df=train_df.loc[train_df.negative_exam_for_pe==1,:]\n# ALEX: evaluate lazy computation\nevaluate_lazy(neg_pe_count_df.groupby(['StudyInstanceUID','SeriesInstanceUID']).agg(neg_pe_count=('SOPInstanceUID','count') ))\n#oh majority of patients have no PE    and thus seem to be having normal lung",
+      "rewrite-ns": 1378114,
+      "overhead-ns": 1378114,
+      "exec-ns": 351362587,
+      "total-ns": 352740701,
+      "patts-hit": {},
+      "rewritten": "neg_pe_count_df = train_df.loc[train_df.negative_exam_for_pe == 1, :]\nevaluate_lazy(neg_pe_count_df.groupby(['StudyInstanceUID',\n    'SeriesInstanceUID']).agg(neg_pe_count=('SOPInstanceUID', 'count')))\n"
+    },
+    {
+      "raw": "#sanity check to see if any patients has got inconsistent findings,looks like perfect\n# patient with pe_present_on_image has aleast one PE illness category on\n# ALEX: evaluate lazy computation\nevaluate_lazy(train_df.loc[train_df.negative_exam_for_pe==1,:].pe_present_on_image.value_counts())",
+      "rewrite-ns": 889846,
+      "overhead-ns": 889846,
+      "exec-ns": 160036151,
+      "total-ns": 160925997,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(train_df.loc[train_df.negative_exam_for_pe == 1, :].\n    pe_present_on_image.value_counts())\n"
+    },
+    {
+      "raw": "#4911+2368\n# ALEX: evaluate lazy computation\nevaluate_lazy(train_df.pe_present_on_image.value_counts()) #\n#train_df.StudyInstanceUID.nunique()\n#neg_pe_count_df.groupby(['StudyInstanceUID','SeriesInstanceUID']) [neg_pe_count_df.iloc[:,4:].columns.tolist()].apply(lambda x : x.astype(int).sum())",
+      "rewrite-ns": 459125,
+      "overhead-ns": 459125,
+      "exec-ns": 11722635,
+      "total-ns": 12181760,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(train_df.pe_present_on_image.value_counts())\n"
+    },
+    {
+      "raw": "#lets try to check the coexistence of each illness type\n#looks like all slices are consistent with each other for a patient and hence one can pick randomly few to check for particular PE illness\npos_pe_count_df=train_df.loc[train_df.negative_exam_for_pe!=1,:]\n\n# ALEX: evaluate lazy computation\nevaluate_lazy(pos_pe_count_df.groupby(['StudyInstanceUID','SeriesInstanceUID']) [pos_pe_count_df.iloc[:,4:].columns.tolist()].apply(lambda x : x.astype(int).sum()))",
+      "rewrite-ns": 2111454,
+      "overhead-ns": 2111454,
+      "exec-ns": 711614007,
+      "total-ns": 713725461,
+      "patts-hit": {},
+      "rewritten": "pos_pe_count_df = train_df.loc[train_df.negative_exam_for_pe != 1, :]\nevaluate_lazy(pos_pe_count_df.groupby(['StudyInstanceUID',\n    'SeriesInstanceUID'])[pos_pe_count_df.iloc[:, 4:].columns.tolist()].\n    apply(lambda x: x.astype(int).sum()))\n"
+    }
+  ],
+  "total-time-in-sec": 5.807670719,
+  "max-disk-in-mb": 0
+}

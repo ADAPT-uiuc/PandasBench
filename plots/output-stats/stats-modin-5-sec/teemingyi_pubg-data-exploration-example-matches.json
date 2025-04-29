@@ -1,0 +1,80 @@
+{
+  "max-mem-in-mb": 2479,
+  "max-mem-in-mb2": 259,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list the files in the input directory\n\n# ALEX: remove path printing\n# import os\n# print(os.listdir(\"./input\"))\n\n# Any results you write to the current directory are saved as output.",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3198003971
+    },
+    {
+      "raw": "data = pd.read_csv('./input/train_V2.scaled.csv')\n\ndata.loc[:5,]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5193889189
+    },
+    {
+      "raw": "data_solo_example = data.loc[data.matchId == data.loc[data.matchType=='solo','matchId'].iloc[0],:].sort_values(by='winPlacePerc',ascending=False)\nprint(data_solo_example)\n\nprint('This example has {} players.'.format(len(data_solo_example.Id)))\nprint('This example has {} groups.'.format(len(data_solo_example.groupId.unique())))\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2917446974
+    },
+    {
+      "raw": "[x-data_solo_example.winPlacePerc.iloc[i+1] for i, x in enumerate(data_solo_example.winPlacePerc) if i < len(data_solo_example.winPlacePerc)-1]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 799485013
+    },
+    {
+      "raw": "data_solo_example.loc[data_solo_example.groupId.isin(\n    list(data_solo_example.groupId.value_counts().loc[data_solo_example.groupId.value_counts()>1].index\n        ))]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 325424993
+    },
+    {
+      "raw": "data_duo_example = data.loc[data.matchId == data.loc[data.matchType=='duo','matchId'].iloc[0],:].sort_values(by='winPlacePerc',ascending=False)\nprint(data_duo_example)\n\nprint('This example has {} players.'.format(len(data_duo_example.Id)))\nprint('This example has {} groups.'.format(len(data_duo_example.groupId.unique())))\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2109488662
+    },
+    {
+      "raw": "data_duo_example.maxPlace",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1079223
+    },
+    {
+      "raw": "data_duo_example.loc[data_duo_example.groupId.isin(\n    list(data_duo_example.groupId.value_counts().loc[data_duo_example.groupId.value_counts()>2].index\n        ))]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 243394546
+    },
+    {
+      "raw": "data_squad_example = data.loc[data.matchId == data.loc[data.matchType=='squad','matchId'].iloc[0],:].sort_values(by='winPlacePerc',ascending=False)\nprint(data_squad_example)\n\nprint('This example has {} players.'.format(len(data_squad_example.Id)))\nprint('This example has {} groups.'.format(len(data_squad_example.groupId.unique())))\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2796009069
+    },
+    {
+      "raw": "data_squad_example.maxPlace",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1925407
+    },
+    {
+      "raw": "data_squad_example.loc[data_squad_example.groupId.isin(\n    list(data_squad_example.groupId.value_counts().loc[data_squad_example.groupId.value_counts()>4].index\n        ))]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 228688084
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 173968
+    }
+  ],
+  "total-time-in-sec": 17.815009099,
+  "max-disk-in-mb": 0
+}

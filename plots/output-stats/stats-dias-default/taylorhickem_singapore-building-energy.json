@@ -1,0 +1,161 @@
+{
+  "max-mem-in-mb": 110,
+  "max-mem-in-mb2": 113,
+  "cells": [
+    {
+      "raw": "import numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])",
+      "rewrite-ns": 505968,
+      "overhead-ns": 505968,
+      "exec-ns": 271749,
+      "total-ns": 777717,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "#load the data\n# ALEX: remove IPython commands\n# !cp -r ../input/sgp-buildings/* ./",
+      "rewrite-ns": 11848,
+      "overhead-ns": 11848,
+      "exec-ns": 68138,
+      "total-ns": 79986,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "tables=  {'total':{'csv_name':'./input/singapore_building_gfa_energy.scaled.csv'},'commercial':{'csv_name':'./input/energy_performance_data_2016.scaled.csv'}}\nfor t in tables:\n    tables[t]['tbl'] = pd.read_csv(tables[t]['csv_name'])\n\ncolumn_key = {'buildingtype':'property type','grossfloorarea':'GFA m2','2016energyusintensity':'kWh/m2/yr'}\nfields = ['property type','GFA m2','kWh/m2/yr']\ntables['commercial']['tbl'].rename(columns=column_key,inplace=True)\ncomm = tables['commercial']['tbl'][fields].copy()\n\nfor f in ['GFA m2','kWh/m2/yr']:\n    comm[f] = comm[f].str.replace(',','').astype(float)\n\ncomm['kWh/yr'] = comm['GFA m2']*comm['kWh/m2/yr']",
+      "rewrite-ns": 4394588,
+      "overhead-ns": 4394588,
+      "exec-ns": 7433546,
+      "total-ns": 11828134,
+      "patts-hit": {},
+      "rewritten": "tables = {'total': {'csv_name':\n    './input/singapore_building_gfa_energy.scaled.csv'}, 'commercial': {\n    'csv_name': './input/energy_performance_data_2016.scaled.csv'}}\nfor t in tables:\n    tables[t]['tbl'] = pd.read_csv(tables[t]['csv_name'])\ncolumn_key = {'buildingtype': 'property type', 'grossfloorarea': 'GFA m2',\n    '2016energyusintensity': 'kWh/m2/yr'}\nfields = ['property type', 'GFA m2', 'kWh/m2/yr']\ntables['commercial']['tbl'].rename(columns=column_key, inplace=True)\ncomm = tables['commercial']['tbl'][fields].copy()\nfor f in ['GFA m2', 'kWh/m2/yr']:\n    comm[f] = comm[f].str.replace(',', '').astype(float)\ncomm['kWh/yr'] = comm['GFA m2'] * comm['kWh/m2/yr']\n"
+    },
+    {
+      "raw": "comm['property type'].unique()",
+      "rewrite-ns": 111819,
+      "overhead-ns": 111819,
+      "exec-ns": 995560,
+      "total-ns": 1107379,
+      "patts-hit": {},
+      "rewritten": "comm['property type'].unique()\n"
+    },
+    {
+      "raw": "pct_OK = len(comm.dropna())/len(comm)\npct_OK",
+      "rewrite-ns": 631919,
+      "overhead-ns": 631919,
+      "exec-ns": 1209288,
+      "total-ns": 1841207,
+      "patts-hit": {},
+      "rewritten": "pct_OK = len(comm.dropna()) / len(comm)\npct_OK\n"
+    },
+    {
+      "raw": "comm.dropna(inplace=True)",
+      "rewrite-ns": 351254,
+      "overhead-ns": 351254,
+      "exec-ns": 688714,
+      "total-ns": 1039968,
+      "patts-hit": {},
+      "rewritten": "comm.dropna(inplace=True)\n"
+    },
+    {
+      "raw": "comm.head()",
+      "rewrite-ns": 68450,
+      "overhead-ns": 68450,
+      "exec-ns": 4510373,
+      "total-ns": 4578823,
+      "patts-hit": {},
+      "rewritten": "comm.head()\n"
+    },
+    {
+      "raw": "pvt = pd.pivot_table(comm,index='property type',values=['GFA m2','kWh/yr'],aggfunc='sum')\npvt['kWh/m2/yr'] = pvt['kWh/yr']/pvt['GFA m2']",
+      "rewrite-ns": 1226941,
+      "overhead-ns": 1226941,
+      "exec-ns": 3435805,
+      "total-ns": 4662746,
+      "patts-hit": {},
+      "rewritten": "pvt = pd.pivot_table(comm, index='property type', values=['GFA m2',\n    'kWh/yr'], aggfunc='sum')\npvt['kWh/m2/yr'] = pvt['kWh/yr'] / pvt['GFA m2']\n"
+    },
+    {
+      "raw": "total = tables['total']['tbl'].copy()\ntotal.rename(columns={'kWh/yr/m2':'kWh/m2/yr'},inplace=True)\ntotal['GWh/yr'] = total['mil m2']*total['kWh/m2/yr']\ncomm_totals = total[total['property type']=='commercial'].iloc[0]\n\npvt_scaled = pvt.copy()\npvt_scaled['mil m2'] = pvt['GFA m2']*comm_totals['mil m2']/pvt['GFA m2'].sum()\npvt_scaled['GWh/yr'] = pvt['kWh/yr']*comm_totals['GWh/yr']/pvt['kWh/yr'].sum()\n\npvt_scaled",
+      "rewrite-ns": 3917168,
+      "overhead-ns": 3917168,
+      "exec-ns": 6784945,
+      "total-ns": 10702113,
+      "patts-hit": {},
+      "rewritten": "total = tables['total']['tbl'].copy()\ntotal.rename(columns={'kWh/yr/m2': 'kWh/m2/yr'}, inplace=True)\ntotal['GWh/yr'] = total['mil m2'] * total['kWh/m2/yr']\ncomm_totals = total[total['property type'] == 'commercial'].iloc[0]\npvt_scaled = pvt.copy()\npvt_scaled['mil m2'] = pvt['GFA m2'] * comm_totals['mil m2'] / pvt['GFA m2'\n    ].sum()\npvt_scaled['GWh/yr'] = pvt['kWh/yr'] * comm_totals['GWh/yr'] / pvt['kWh/yr'\n    ].sum()\npvt_scaled\n"
+    },
+    {
+      "raw": "fields = ['mil m2','kWh/m2/yr','GWh/yr']\n\nex_com = total.drop(total[total['property type']=='commercial'].index)\ntotal = pd.concat([ex_com,pvt_scaled[fields].reset_index()],axis=0)\n\ntotal",
+      "rewrite-ns": 1627736,
+      "overhead-ns": 1627736,
+      "exec-ns": 5632053,
+      "total-ns": 7259789,
+      "patts-hit": {},
+      "rewritten": "fields = ['mil m2', 'kWh/m2/yr', 'GWh/yr']\nex_com = total.drop(total[total['property type'] == 'commercial'].index)\ntotal = pd.concat([ex_com, pvt_scaled[fields].reset_index()], axis=0)\ntotal\n"
+    },
+    {
+      "raw": "pop_mil = 5.6\n\npca = total.copy()\npca['m2/ca'] = total['mil m2']/pop_mil\npca['kWh/ca/yr'] = total['GWh/yr']/pop_mil\n\ndel pca['mil m2'], pca['GWh/yr']",
+      "rewrite-ns": 1596360,
+      "overhead-ns": 1596360,
+      "exec-ns": 1235157,
+      "total-ns": 2831517,
+      "patts-hit": {},
+      "rewritten": "pop_mil = 5.6\npca = total.copy()\npca['m2/ca'] = total['mil m2'] / pop_mil\npca['kWh/ca/yr'] = total['GWh/yr'] / pop_mil\ndel pca['mil m2'], pca['GWh/yr']\n"
+    },
+    {
+      "raw": "pca.sort_values('kWh/ca/yr',ascending=False)",
+      "rewrite-ns": 383412,
+      "overhead-ns": 383412,
+      "exec-ns": 4006529,
+      "total-ns": 4389941,
+      "patts-hit": {},
+      "rewritten": "pca.sort_values('kWh/ca/yr', ascending=False)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# import seaborn as sb\n# sb.barplot(x='kWh/ca/yr',y='property type',data=pca.sort_values('kWh/ca/yr',ascending=False))\n_ = pca.sort_values('kWh/ca/yr',ascending=False)",
+      "rewrite-ns": 435154,
+      "overhead-ns": 435154,
+      "exec-ns": 394262,
+      "total-ns": 829416,
+      "patts-hit": {},
+      "rewritten": "_ = pca.sort_values('kWh/ca/yr', ascending=False)\n"
+    },
+    {
+      "raw": "pca['kWh/ca/yr'].sum()",
+      "rewrite-ns": 361091,
+      "overhead-ns": 361091,
+      "exec-ns": 505392,
+      "total-ns": 866483,
+      "patts-hit": {},
+      "rewritten": "pca['kWh/ca/yr'].sum()\n"
+    },
+    {
+      "raw": "weekly_hrs = 168\nm2_factors = dict(zip(list(pca['property type']),list(pca['m2/ca'])))\nusage_factors = {\n    'residential':(12*7+4*2)/weekly_hrs,\n    'Office':0.35*40/weekly_hrs,\n    'Retail':0.15*40/weekly_hrs,\n    'Mixed Development':0.05*40/weekly_hrs,\n    'education':0.25*40*9/12/weekly_hrs,\n    'Hotel':0.05*40/weekly_hrs,\n    'healthcare':0.05*40/weekly_hrs,\n    'transport':0.02*40/weekly_hrs,\n    'sports rec':0,\n    'civil / community':0,\n}\nout_of_home_hrs = 16/weekly_hrs #excludes time in transit\nout_of_home = ['Retail','Mixed Development','healthcare','transport',\n          'sports rec','civil / community']\n# ALEX: make notebook run with data scaling\nout_of_home = [elem for elem in out_of_home if elem in m2_factors]\nout_of_home_m2 = dict(zip(out_of_home,[m2_factors[x] for x in out_of_home]))\ntotal_ooh_m2 = sum(out_of_home_m2.values())\n\nfor f in out_of_home:\n    usage_factors[f] = usage_factors[f] + out_of_home_hrs*out_of_home_m2[f]/total_ooh_m2\nusage_factors",
+      "rewrite-ns": 6547909,
+      "overhead-ns": 6547909,
+      "exec-ns": 1629114,
+      "total-ns": 8177023,
+      "patts-hit": {},
+      "rewritten": "weekly_hrs = 168\nm2_factors = dict(zip(list(pca['property type']), list(pca['m2/ca'])))\nusage_factors = {'residential': (12 * 7 + 4 * 2) / weekly_hrs, 'Office': \n    0.35 * 40 / weekly_hrs, 'Retail': 0.15 * 40 / weekly_hrs,\n    'Mixed Development': 0.05 * 40 / weekly_hrs, 'education': 0.25 * 40 * 9 /\n    12 / weekly_hrs, 'Hotel': 0.05 * 40 / weekly_hrs, 'healthcare': 0.05 * \n    40 / weekly_hrs, 'transport': 0.02 * 40 / weekly_hrs, 'sports rec': 0,\n    'civil / community': 0}\nout_of_home_hrs = 16 / weekly_hrs\nout_of_home = ['Retail', 'Mixed Development', 'healthcare', 'transport',\n    'sports rec', 'civil / community']\nout_of_home = [elem for elem in out_of_home if elem in m2_factors]\nout_of_home_m2 = dict(zip(out_of_home, [m2_factors[x] for x in out_of_home]))\ntotal_ooh_m2 = sum(out_of_home_m2.values())\nfor f in out_of_home:\n    usage_factors[f] = usage_factors[f] + out_of_home_hrs * out_of_home_m2[f\n        ] / total_ooh_m2\nusage_factors\n"
+    },
+    {
+      "raw": "hours_per_year = 24*365\nusg = pd.DataFrame({'hrs/ca':usage_factors})\nusg.index.name = 'property type'\ndf = pd.merge(pca,usg.reset_index(),on='property type')\ndf['W/ca'] = df['kWh/ca/yr']/(df['hrs/ca']*hours_per_year)*1000\ndf.sort_values('W/ca',ascending=False)",
+      "rewrite-ns": 2350537,
+      "overhead-ns": 2350537,
+      "exec-ns": 7357240,
+      "total-ns": 9707777,
+      "patts-hit": {},
+      "rewritten": "hours_per_year = 24 * 365\nusg = pd.DataFrame({'hrs/ca': usage_factors})\nusg.index.name = 'property type'\ndf = pd.merge(pca, usg.reset_index(), on='property type')\ndf['W/ca'] = df['kWh/ca/yr'] / (df['hrs/ca'] * hours_per_year) * 1000\ndf.sort_values('W/ca', ascending=False)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sb.barplot(x='W/ca',y='property type',\n#            data=df.drop(df[df['property type']=='Hotel'].index).sort_values('W/ca',ascending=False))\n_ = df.drop(df[df['property type']=='Hotel'].index).sort_values('W/ca',ascending=False)",
+      "rewrite-ns": 920537,
+      "overhead-ns": 920537,
+      "exec-ns": 920344,
+      "total-ns": 1840881,
+      "patts-hit": {},
+      "rewritten": "_ = df.drop(df[df['property type'] == 'Hotel'].index).sort_values('W/ca',\n    ascending=False)\n"
+    }
+  ],
+  "total-time-in-sec": 0.0725209,
+  "max-disk-in-mb": 0
+}

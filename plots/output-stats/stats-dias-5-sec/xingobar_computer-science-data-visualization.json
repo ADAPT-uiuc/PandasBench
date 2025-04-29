@@ -1,0 +1,143 @@
+{
+  "max-mem-in-mb": 1091,
+  "max-mem-in-mb2": 1932,
+  "cells": [
+    {
+      "raw": "# http://stackoverflow.com/questions/22233488/pandas-drop-a-level-from-a-multi-level-column-index\n# http://pandas.pydata.org/pandas-docs/version/0.18.1/visualization.html\n# http://stackoverflow.com/questions/34233347/pandas-plot-how-to-control-the-bar-width-and-the-gaps\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt\n# import colorsys\n# %matplotlib inline\n\n# ALEX: remove path printing\n# from subprocess import check_output\n# print(check_output([\"ls\", \"./input\"]).decode(\"utf8\"))\n\n# Any results you write to the current directory are saved as output.",
+      "rewrite-ns": 497788,
+      "overhead-ns": 497788,
+      "exec-ns": 268327,
+      "total-ns": 766115,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "historical = pd.read_csv('./input/historical.scaled.csv')\npass_ = pd.read_csv('./input/pass_06_13.scaled.csv')",
+      "rewrite-ns": 662011,
+      "overhead-ns": 662011,
+      "exec-ns": 3252068691,
+      "total-ns": 3252730702,
+      "patts-hit": {},
+      "rewritten": "historical = pd.read_csv('./input/historical.scaled.csv')\npass_ = pd.read_csv('./input/pass_06_13.scaled.csv')\n"
+    },
+    {
+      "raw": "historical.head()",
+      "rewrite-ns": 181300,
+      "overhead-ns": 181300,
+      "exec-ns": 11811983,
+      "total-ns": 11993283,
+      "patts-hit": {},
+      "rewritten": "historical.head()\n"
+    },
+    {
+      "raw": "historical.describe()",
+      "rewrite-ns": 99461,
+      "overhead-ns": 99461,
+      "exec-ns": 229909365,
+      "total-ns": 230008826,
+      "patts-hit": {},
+      "rewritten": "historical.describe()\n"
+    },
+    {
+      "raw": "pass_.head()",
+      "rewrite-ns": 113137,
+      "overhead-ns": 113137,
+      "exec-ns": 15930786,
+      "total-ns": 16043923,
+      "patts-hit": {},
+      "rewritten": "pass_.head()\n"
+    },
+    {
+      "raw": "print(pass_.columns.tolist())",
+      "rewrite-ns": 456404,
+      "overhead-ns": 456404,
+      "exec-ns": 297155,
+      "total-ns": 753559,
+      "patts-hit": {},
+      "rewritten": "print(pass_.columns.tolist())\n"
+    },
+    {
+      "raw": "total = pass_[['year','black','hispanic','white', 'asian']].groupby(['year']).agg(['sum'])\ntotal = total[['black','hispanic','white','asian']].reset_index()\ntotal.columns = total.columns.droplevel()\ntotal.columns = ['year','black','hispanic','white','asian']",
+      "rewrite-ns": 2157015,
+      "overhead-ns": 2157015,
+      "exec-ns": 71026975,
+      "total-ns": 73183990,
+      "patts-hit": {},
+      "rewritten": "total = pass_[['year', 'black', 'hispanic', 'white', 'asian']].groupby(['year']\n    ).agg(['sum'])\ntotal = total[['black', 'hispanic', 'white', 'asian']].reset_index()\ntotal.columns = total.columns.droplevel()\ntotal.columns = ['year', 'black', 'hispanic', 'white', 'asian']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# total.plot.bar(x = 'year',figsize=(10,6),linewidth=0.75,width=0.7)\n# plt.title('Participants in the AP Computer Science Exam by Race,1999-2013')\n# you can use the width parameter to set the gap",
+      "rewrite-ns": 22847,
+      "overhead-ns": 22847,
+      "exec-ns": 105426,
+      "total-ns": 128273,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "columns = ['year','black_passed', 'hispanic_passed',  'white_passed', 'asian_passed']\npass_copy = pass_[['year','black_passed', 'hispanic_passed',  'white_passed', 'asian_passed']].copy()\nfor col in columns:\n    pass_copy[col] = pd.to_numeric(pass_copy[col],errors='coerce') ## becuase data have nonumeric\n\npass_copy = pass_copy[['year','black_passed', 'hispanic_passed',  'white_passed', 'asian_passed']].fillna(0)\npass_rate = pass_copy[['year','black_passed', 'hispanic_passed',  'white_passed', 'asian_passed']].groupby(['year']).agg(['sum'])\npass_rate = pass_rate[['black_passed', 'hispanic_passed',  'white_passed', 'asian_passed']].reset_index()\npass_rate.columns = pass_rate.columns.droplevel()\npass_rate.columns = ['year','black','hispanic','white','asian']",
+      "rewrite-ns": 4427112,
+      "overhead-ns": 4427112,
+      "exec-ns": 2047703406,
+      "total-ns": 2052130518,
+      "patts-hit": {},
+      "rewritten": "columns = ['year', 'black_passed', 'hispanic_passed', 'white_passed',\n    'asian_passed']\npass_copy = pass_[['year', 'black_passed', 'hispanic_passed',\n    'white_passed', 'asian_passed']].copy()\nfor col in columns:\n    pass_copy[col] = pd.to_numeric(pass_copy[col], errors='coerce')\npass_copy = pass_copy[['year', 'black_passed', 'hispanic_passed',\n    'white_passed', 'asian_passed']].fillna(0)\npass_rate = pass_copy[['year', 'black_passed', 'hispanic_passed',\n    'white_passed', 'asian_passed']].groupby(['year']).agg(['sum'])\npass_rate = pass_rate[['black_passed', 'hispanic_passed', 'white_passed',\n    'asian_passed']].reset_index()\npass_rate.columns = pass_rate.columns.droplevel()\npass_rate.columns = ['year', 'black', 'hispanic', 'white', 'asian']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# pass_rate.plot.bar(x='year',figsize=(10,6),linewidth=0.75,width=0.7)\n# plt.title('Pass Rate')",
+      "rewrite-ns": 23404,
+      "overhead-ns": 23404,
+      "exec-ns": 111719,
+      "total-ns": 135123,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "gender_pass = pass_[['year','black_male','black_female','white_male',\n                     'white_female','hispanic_male','hispanic_female',\n                     'asian_male','asian_female']].groupby(['year']).agg(['sum'])\ngender_pass = gender_pass.reset_index()\ngender_pass.columns = gender_pass.columns.droplevel()\ngender_pass.columns = ['year','black_male','black_female','white_male',\n                     'white_female','hispanic_male','hispanic_female',\n                     'asian_male','asian_female']\n# ALEX: remove plotting\n# gender_pass.plot.bar(x='year',figsize=(10,6),linewidth=0.8)\n# plt.title('Male vs Female')",
+      "rewrite-ns": 2280894,
+      "overhead-ns": 2280894,
+      "exec-ns": 108682987,
+      "total-ns": 110963881,
+      "patts-hit": {},
+      "rewritten": "gender_pass = pass_[['year', 'black_male', 'black_female', 'white_male',\n    'white_female', 'hispanic_male', 'hispanic_female', 'asian_male',\n    'asian_female']].groupby(['year']).agg(['sum'])\ngender_pass = gender_pass.reset_index()\ngender_pass.columns = gender_pass.columns.droplevel()\ngender_pass.columns = ['year', 'black_male', 'black_female', 'white_male',\n    'white_female', 'hispanic_male', 'hispanic_female', 'asian_male',\n    'asian_female']\n"
+    },
+    {
+      "raw": "historical.info()",
+      "rewrite-ns": 121803,
+      "overhead-ns": 121803,
+      "exec-ns": 133740574,
+      "total-ns": 133862377,
+      "patts-hit": {},
+      "rewritten": "historical.info()\n"
+    },
+    {
+      "raw": "historical['1999'] = pd.to_numeric(historical['1999'],errors='coerce')\nhistorical.drop(['Pop'],axis=1,inplace=True)",
+      "rewrite-ns": 1132150,
+      "overhead-ns": 1132150,
+      "exec-ns": 271562573,
+      "total-ns": 272694723,
+      "patts-hit": {},
+      "rewritten": "historical['1999'] = pd.to_numeric(historical['1999'], errors='coerce')\nhistorical.drop(['Pop'], axis=1, inplace=True)\n"
+    },
+    {
+      "raw": "hm = historical.set_index('state')\n# ALEX: remove plotting\n# fig,ax = plt.subplots(figsize=(10,6))\n# sns.heatmap(hm,ax=ax)\n# plt.title('exam taken per state per year')",
+      "rewrite-ns": 489431,
+      "overhead-ns": 489431,
+      "exec-ns": 27406103,
+      "total-ns": 27895534,
+      "patts-hit": {},
+      "rewritten": "hm = historical.set_index('state')\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 22499,
+      "overhead-ns": 22499,
+      "exec-ns": 113700,
+      "total-ns": 136199,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 6.183427026,
+  "max-disk-in-mb": 0
+}

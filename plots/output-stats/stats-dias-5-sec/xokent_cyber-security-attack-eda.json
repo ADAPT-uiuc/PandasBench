@@ -1,0 +1,197 @@
+{
+  "max-mem-in-mb": 536,
+  "max-mem-in-mb2": 655,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# import sketch\n# from dataprep.eda import plot, plot_missing, plot_correlation\npd.set_option('display.max_columns', 50)",
+      "rewrite-ns": 1116156,
+      "overhead-ns": 1116156,
+      "exec-ns": 513277,
+      "total-ns": 1629433,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\npd.set_option('display.max_columns', 50)\n"
+    },
+    {
+      "raw": "df = pd.read_csv('./input/cybersecurity_attacks.scaled.csv', parse_dates=['Timestamp'], dtype={'Protocol':'category', 'Packet Type':'category', 'Traffic Type':'category', 'Attack Type':'category', 'Attack Signature':'category', 'Action Taken':'category', 'Severity Level':'category', 'Network Segment':'category', 'Log Source':'category'}).drop(columns=['Malware Indicators', 'Alerts/Warnings', 'Proxy Information', 'Firewall Logs', 'IDS/IPS Alerts'])",
+      "rewrite-ns": 2216158,
+      "overhead-ns": 2216158,
+      "exec-ns": 3180152488,
+      "total-ns": 3182368646,
+      "patts-hit": {},
+      "rewritten": "df = pd.read_csv('./input/cybersecurity_attacks.scaled.csv', parse_dates=[\n    'Timestamp'], dtype={'Protocol': 'category', 'Packet Type': 'category',\n    'Traffic Type': 'category', 'Attack Type': 'category',\n    'Attack Signature': 'category', 'Action Taken': 'category',\n    'Severity Level': 'category', 'Network Segment': 'category',\n    'Log Source': 'category'}).drop(columns=['Malware Indicators',\n    'Alerts/Warnings', 'Proxy Information', 'Firewall Logs', 'IDS/IPS Alerts'])\n"
+    },
+    {
+      "raw": "df.info()",
+      "rewrite-ns": 196565,
+      "overhead-ns": 196565,
+      "exec-ns": 276683491,
+      "total-ns": 276880056,
+      "patts-hit": {},
+      "rewritten": "df.info()\n"
+    },
+    {
+      "raw": "df.head()",
+      "rewrite-ns": 107158,
+      "overhead-ns": 107158,
+      "exec-ns": 5776379,
+      "total-ns": 5883537,
+      "patts-hit": {},
+      "rewritten": "df.head()\n"
+    },
+    {
+      "raw": "df.describe().T",
+      "rewrite-ns": 347721,
+      "overhead-ns": 347721,
+      "exec-ns": 54233221,
+      "total-ns": 54580942,
+      "patts-hit": {},
+      "rewritten": "df.describe().T\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig = plt.figure(figsize=(10, 8))\n# fig.add_subplot(211)\n# df.resample('M', on='Timestamp')['Attack Type'].count().plot(title='Timestamp cyber attack by month')\n\n# fig.add_subplot(212)\n# df.resample('Y', on='Timestamp')['Attack Type'].count().plot(title='Timestamp cyber attack by year')\n# plt.subplots_adjust(hspace=.5)\n# plt.show()\ndf.resample('M', on='Timestamp')['Attack Type'].count()\ndf.resample('Y', on='Timestamp')['Attack Type'].count()",
+      "rewrite-ns": 1106237,
+      "overhead-ns": 1106237,
+      "exec-ns": 714626754,
+      "total-ns": 715732991,
+      "patts-hit": {},
+      "rewritten": "df.resample('M', on='Timestamp')['Attack Type'].count()\ndf.resample('Y', on='Timestamp')['Attack Type'].count()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# import plotly.express as px \n\ndata = pd.crosstab(df['Timestamp'], df['Attack Type']).resample('M').count().melt(ignore_index=False)\n# ALEX: remove plotting\n# px.line(data, x=data.index, y='value', color='Attack Type', title='Attack Type by Month').show()\n_ = data.index",
+      "rewrite-ns": 1341919,
+      "overhead-ns": 1341919,
+      "exec-ns": 504847013,
+      "total-ns": 506188932,
+      "patts-hit": {},
+      "rewritten": "data = pd.crosstab(df['Timestamp'], df['Attack Type']).resample('M').count(\n    ).melt(ignore_index=False)\n_ = data.index\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# df.groupby(df['Timestamp'].dt.time).agg({'Attack Type':'count'}).nlargest(10, 'Attack Type').plot(kind='barh', figsize=(10,8), cmap='icefire', title='Time frequency by cyber attack')\ndf.groupby(df['Timestamp'].dt.time).agg({'Attack Type':'count'}).nlargest(10, 'Attack Type')",
+      "rewrite-ns": 1001868,
+      "overhead-ns": 1001868,
+      "exec-ns": 213571605,
+      "total-ns": 214573473,
+      "patts-hit": {},
+      "rewritten": "df.groupby(df['Timestamp'].dt.time).agg({'Attack Type': 'count'}).nlargest(\n    10, 'Attack Type')\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plot(df)",
+      "rewrite-ns": 22903,
+      "overhead-ns": 22903,
+      "exec-ns": 106583,
+      "total-ns": 129486,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "for col in ['Protocol', 'Packet Type', 'Traffic Type', 'Attack Signature', 'Action Taken', 'Severity Level', 'Log Source', 'Network Segment']:\n# ALEX: remove plotting\n#     plt.figure(figsize=(8,7))\n#     sns.countplot(data=df, y=df[col], hue='Attack Type')\n#     plt.show()\n    _ = df[col]",
+      "rewrite-ns": 822510,
+      "overhead-ns": 822510,
+      "exec-ns": 387183,
+      "total-ns": 1209693,
+      "patts-hit": {},
+      "rewritten": "for col in ['Protocol', 'Packet Type', 'Traffic Type', 'Attack Signature',\n    'Action Taken', 'Severity Level', 'Log Source', 'Network Segment']:\n    _ = df[col]\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plot(df, 'Device Information')",
+      "rewrite-ns": 14267,
+      "overhead-ns": 14267,
+      "exec-ns": 82063,
+      "total-ns": 96330,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plot(df, 'Payload Data')",
+      "rewrite-ns": 10584,
+      "overhead-ns": 10584,
+      "exec-ns": 59024,
+      "total-ns": 69608,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plot(df, 'Packet Length')",
+      "rewrite-ns": 10378,
+      "overhead-ns": 10378,
+      "exec-ns": 56242,
+      "total-ns": 66620,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plot(df, 'Anomaly Scores')",
+      "rewrite-ns": 9962,
+      "overhead-ns": 9962,
+      "exec-ns": 57021,
+      "total-ns": 66983,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# df.boxplot(figsize=(10,8), by='Attack Type')",
+      "rewrite-ns": 10457,
+      "overhead-ns": 10457,
+      "exec-ns": 57768,
+      "total-ns": 68225,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# px.scatter_3d(df, x='Source Port', y='Destination Port', z='Packet Length', color='Protocol').show()",
+      "rewrite-ns": 10847,
+      "overhead-ns": 10847,
+      "exec-ns": 56031,
+      "total-ns": 66878,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# px.scatter_3d(df, x='Source Port', y='Destination Port', z='Anomaly Scores', color='Attack Type').show()",
+      "rewrite-ns": 10123,
+      "overhead-ns": 10123,
+      "exec-ns": 54431,
+      "total-ns": 64554,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# px.bar(df.groupby('Attack Type')['Anomaly Scores'].mean().reset_index(), y='Attack Type', x='Anomaly Scores').show()\n_ = df.groupby('Attack Type')['Anomaly Scores'].mean().reset_index()",
+      "rewrite-ns": 719991,
+      "overhead-ns": 719991,
+      "exec-ns": 3581140,
+      "total-ns": 4301131,
+      "patts-hit": {},
+      "rewritten": "_ = df.groupby('Attack Type')['Anomaly Scores'].mean().reset_index()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# pd.crosstab(df['Geo-location Data'], df['Attack Type']).nlargest(5, columns='DDoS')['DDoS'].plot(kind='barh',figsize=(8,7), title='DDoS Attack by location')\npd.crosstab(df['Geo-location Data'], df['Attack Type']).nlargest(5, columns='DDoS')['DDoS']",
+      "rewrite-ns": 898159,
+      "overhead-ns": 898159,
+      "exec-ns": 303376652,
+      "total-ns": 304274811,
+      "patts-hit": {},
+      "rewritten": "pd.crosstab(df['Geo-location Data'], df['Attack Type']).nlargest(5, columns\n    ='DDoS')['DDoS']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# pd.crosstab(df['Geo-location Data'], df['Attack Type']).nlargest(5, columns='Malware')['Malware'].plot(kind='barh',figsize=(8,7), title='Malware Attack by location')\npd.crosstab(df['Geo-location Data'], df['Attack Type']).nlargest(5, columns='Malware')['Malware']",
+      "rewrite-ns": 946713,
+      "overhead-ns": 946713,
+      "exec-ns": 300521763,
+      "total-ns": 301468476,
+      "patts-hit": {},
+      "rewritten": "pd.crosstab(df['Geo-location Data'], df['Attack Type']).nlargest(5, columns\n    ='Malware')['Malware']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# pd.crosstab(df['Geo-location Data'], df['Attack Type']).nlargest(5, columns='Intrusion')['Intrusion'].plot(kind='barh',figsize=(8,7), title='Intrusion Attack by location')\npd.crosstab(df['Geo-location Data'], df['Attack Type']).nlargest(5, columns='Intrusion')['Intrusion']",
+      "rewrite-ns": 948958,
+      "overhead-ns": 948958,
+      "exec-ns": 302754211,
+      "total-ns": 303703169,
+      "patts-hit": {},
+      "rewritten": "pd.crosstab(df['Geo-location Data'], df['Attack Type']).nlargest(5, columns\n    ='Intrusion')['Intrusion']\n"
+    }
+  ],
+  "total-time-in-sec": 5.873423974,
+  "max-disk-in-mb": 0
+}

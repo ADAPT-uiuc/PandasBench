@@ -1,0 +1,92 @@
+{
+  "max-mem-in-mb": 109,
+  "max-mem-in-mb2": 113,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list the files in the input directory\n\n# ALEX: remove path printing\n# from subprocess import check_output\n# print(check_output([\"ls\", \"../input\"]).decode(\"utf8\"))\n\n# Any results you write to the current directory are saved as output.\n# ALEX: make notebook work with runner\nfrom IPython.display import display",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 489732
+    },
+    {
+      "raw": "trainData = pd.read_csv(\"./input/train.scaled.csv\")\ntestData = pd.read_csv(\"./input/test.scaled.csv\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 7132382
+    },
+    {
+      "raw": "trainData.Sex = trainData.Sex.astype('category')\ntestData.Sex = testData.Sex.astype('category')\ntrainData['IsMale'] = trainData.Sex.cat.codes\ntestData['IsMale'] = testData.Sex.cat.codes",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3295759
+    },
+    {
+      "raw": "trainData.head(n=20)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 482977
+    },
+    {
+      "raw": "display(trainData.describe().round(2))\ndisplay(trainData.describe(include=[\"O\"]))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 34717699
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# trainData.Sex.value_counts(normalize=True).plot(kind=\"bar\", title=\"Sex\")\n# plt.show()\n# trainData.Pclass.value_counts().plot(kind=\"barh\", title=\"Pclass\")\n# plt.show()\n# trainData.Fare.plot(kind=\"density\", title=\"Fare\", xlim=(0,800))\n# plt.show()\ntrainData.Sex.value_counts(normalize=True)\ntrainData.Pclass.value_counts()\ntrainData.Fare",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1507900
+    },
+    {
+      "raw": "trainData.groupby([\"Sex\", \"Survived\"])[\"Survived\"].count()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2492936
+    },
+    {
+      "raw": "trainData[[\"PassengerId\",\"Survived\", \"Pclass\", \"Age\", \"SibSp\", \"Parch\", \"Fare\", \"IsMale\"]].corrwith(trainData.Survived).round(4) * 100",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3542003
+    },
+    {
+      "raw": "testFeatures = [\"IsMale\", \"Pclass\", \"Fare\"]\n# ALEX: make notebook run\n# X = trainData[testFeatures].fillna(0).as_matrix()\n# Y = trainData[\"Survived\"].fillna(0).as_matrix()\nX = trainData[testFeatures].fillna(0).to_numpy()\nY = trainData[\"Survived\"].fillna(0).to_numpy()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1549906
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn import tree\n# dtree = tree.DecisionTreeClassifier(max_depth=3)\n# dtree.fit(X, Y) #ALL OF THE MAGIC HAPPENS RIGHT HERE LADIES AND GENTLEMEN AND OTHERS",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 184954
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# import graphviz\n# dot_data = tree.export_graphviz(dtree, out_file=None, feature_names=testFeatures)\n# graph = graphviz.Source(dot_data)\n# graph",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 178323
+    },
+    {
+      "raw": "# ALEX: remove ML code, make notebook run\n# testData[\"Survived\"] = dtree.predict(testData[testFeatures].fillna(0).as_matrix())\ntestData[\"Survived\"] = testData[testFeatures].fillna(0).to_numpy()[:,1]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1540995
+    },
+    {
+      "raw": "predictions = testData[[\"PassengerId\", \"Survived\"]]\npredictions.to_csv(\"dtree_predictions.csv\", index=False)\n# ALEX: remove path printing\n# print(check_output([\"ls\", \".\"]).decode(\"utf8\"))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 7682439
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 126161
+    }
+  ],
+  "total-time-in-sec": 0.064924166,
+  "max-disk-in-mb": 0
+}

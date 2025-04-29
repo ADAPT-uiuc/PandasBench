@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 
 def get_num_cells(lib):
-  base = f'../runner/output/stats-{lib}-default/'
+  base = f'./output-stats/stats-{lib}-default/'
   directory = Path(base)
   fnames = [base + f.name for f in directory.iterdir() if f.is_file() and f.name != '.version']
   num_cells = 0
@@ -11,7 +11,7 @@ def get_num_cells(lib):
       num_cells += len(json.load(file)['cells'])
 
   if lib != 'pandas':
-    base = f'../runner/output/errors-{lib}-default/'
+    base = f'./output-stats/errors-{lib}-default/'
     directory = Path(base)
     fnames = [base + f.name for f in directory.iterdir() if f.is_file() and f.name.endswith('.error.txt')]
     for fname in fnames:

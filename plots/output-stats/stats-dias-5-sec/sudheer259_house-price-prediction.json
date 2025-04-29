@@ -1,0 +1,1930 @@
+{
+  "max-mem-in-mb": 858,
+  "max-mem-in-mb2": 862,
+  "cells": [
+    {
+      "raw": "import numpy as np\n# import pandas as pd\nimport os\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# from matplotlib import pyplot as plt\n# import seaborn as sns\n# %matplotlib inline",
+      "rewrite-ns": 567692,
+      "overhead-ns": 567692,
+      "exec-ns": 307220,
+      "total-ns": 874912,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nimport os\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "#Loading the Data\ntrain = pd.read_csv('./input/train.scaled.csv')",
+      "rewrite-ns": 384011,
+      "overhead-ns": 384011,
+      "exec-ns": 536891202,
+      "total-ns": 537275213,
+      "patts-hit": {},
+      "rewritten": "train = pd.read_csv('./input/train.scaled.csv')\n"
+    },
+    {
+      "raw": "nulls = train.isnull().sum().sort_values(ascending=False)\nnulls.head(20)",
+      "rewrite-ns": 745457,
+      "overhead-ns": 745457,
+      "exec-ns": 381904301,
+      "total-ns": 382649758,
+      "patts-hit": {},
+      "rewritten": "nulls = train.isnull().sum().sort_values(ascending=False)\nnulls.head(20)\n"
+    },
+    {
+      "raw": "train = train.drop(['Id','PoolQC','MiscFeature','Alley','Fence'],axis = 1)",
+      "rewrite-ns": 703930,
+      "overhead-ns": 703930,
+      "exec-ns": 36056620,
+      "total-ns": 36760550,
+      "patts-hit": {},
+      "rewritten": "train = train.drop(['Id', 'PoolQC', 'MiscFeature', 'Alley', 'Fence'], axis=1)\n"
+    },
+    {
+      "raw": "train[['Fireplaces','FireplaceQu']].head(10)",
+      "rewrite-ns": 716110,
+      "overhead-ns": 716110,
+      "exec-ns": 6443092,
+      "total-ns": 7159202,
+      "patts-hit": {},
+      "rewritten": "train[['Fireplaces', 'FireplaceQu']].head(10)\n"
+    },
+    {
+      "raw": "train['FireplaceQu'].isnull().sum()",
+      "rewrite-ns": 507831,
+      "overhead-ns": 507831,
+      "exec-ns": 3692726,
+      "total-ns": 4200557,
+      "patts-hit": {},
+      "rewritten": "train['FireplaceQu'].isnull().sum()\n"
+    },
+    {
+      "raw": "train['Fireplaces'].value_counts()",
+      "rewrite-ns": 377013,
+      "overhead-ns": 377013,
+      "exec-ns": 1467315,
+      "total-ns": 1844328,
+      "patts-hit": {},
+      "rewritten": "train['Fireplaces'].value_counts()\n"
+    },
+    {
+      "raw": "train['FireplaceQu']=train['FireplaceQu'].fillna('NF')",
+      "rewrite-ns": 403819,
+      "overhead-ns": 403819,
+      "exec-ns": 4236992,
+      "total-ns": 4640811,
+      "patts-hit": {
+        "IsInplaceUpdate": 1
+      },
+      "rewritten": "_DIAS_ser = train['FireplaceQu']\nif type(_DIAS_ser) != pd.Series:\n    train['FireplaceQu'] = train['FireplaceQu'].fillna('NF')\nelse:\n    train['FireplaceQu'].fillna('NF', inplace=True)\n"
+    },
+    {
+      "raw": "train['LotFrontage'] =train['LotFrontage'].fillna(value=train['LotFrontage'].mean())",
+      "rewrite-ns": 471149,
+      "overhead-ns": 471149,
+      "exec-ns": 1676895,
+      "total-ns": 2148044,
+      "patts-hit": {
+        "IsInplaceUpdate": 1
+      },
+      "rewritten": "_DIAS_ser = train['LotFrontage']\nif type(_DIAS_ser) != pd.Series:\n    train['LotFrontage'] = train['LotFrontage'].fillna(value=train[\n        'LotFrontage'].mean())\nelse:\n    train['LotFrontage'].fillna(value=train['LotFrontage'].mean(), inplace=True\n        )\n"
+    },
+    {
+      "raw": "train['GarageType'].isnull().sum()",
+      "rewrite-ns": 464907,
+      "overhead-ns": 464907,
+      "exec-ns": 3778941,
+      "total-ns": 4243848,
+      "patts-hit": {},
+      "rewritten": "train['GarageType'].isnull().sum()\n"
+    },
+    {
+      "raw": "train['GarageCond'].isnull().sum()",
+      "rewrite-ns": 466204,
+      "overhead-ns": 466204,
+      "exec-ns": 3620013,
+      "total-ns": 4086217,
+      "patts-hit": {},
+      "rewritten": "train['GarageCond'].isnull().sum()\n"
+    },
+    {
+      "raw": "train['GarageFinish'].isnull().sum()",
+      "rewrite-ns": 468981,
+      "overhead-ns": 468981,
+      "exec-ns": 3629146,
+      "total-ns": 4098127,
+      "patts-hit": {},
+      "rewritten": "train['GarageFinish'].isnull().sum()\n"
+    },
+    {
+      "raw": "train['GarageYrBlt'].isnull().sum()",
+      "rewrite-ns": 456081,
+      "overhead-ns": 456081,
+      "exec-ns": 931265,
+      "total-ns": 1387346,
+      "patts-hit": {},
+      "rewritten": "train['GarageYrBlt'].isnull().sum()\n"
+    },
+    {
+      "raw": "train['GarageQual'].isnull().sum()",
+      "rewrite-ns": 466351,
+      "overhead-ns": 466351,
+      "exec-ns": 3622382,
+      "total-ns": 4088733,
+      "patts-hit": {},
+      "rewritten": "train['GarageQual'].isnull().sum()\n"
+    },
+    {
+      "raw": "train['GarageArea'].value_counts().head()",
+      "rewrite-ns": 470296,
+      "overhead-ns": 470296,
+      "exec-ns": 1602833,
+      "total-ns": 2073129,
+      "patts-hit": {},
+      "rewritten": "train['GarageArea'].value_counts().head()\n"
+    },
+    {
+      "raw": "train['GarageType']=train['GarageType'].fillna('NG')\ntrain['GarageCond']=train['GarageCond'].fillna('NG')\ntrain['GarageFinish']=train['GarageFinish'].fillna('NG')\ntrain['GarageYrBlt']=train['GarageYrBlt'].fillna('NG')\ntrain['GarageQual']=train['GarageQual'].fillna('NG')",
+      "rewrite-ns": 2160915,
+      "overhead-ns": 2160915,
+      "exec-ns": 18490957,
+      "total-ns": 20651872,
+      "patts-hit": {
+        "IsInplaceUpdate": 1
+      },
+      "rewritten": "_DIAS_ser = train['GarageType']\nif type(_DIAS_ser) != pd.Series:\n    train['GarageType'] = train['GarageType'].fillna('NG')\nelse:\n    train['GarageType'].fillna('NG', inplace=True)\n_DIAS_ser = train['GarageCond']\nif type(_DIAS_ser) != pd.Series:\n    train['GarageCond'] = train['GarageCond'].fillna('NG')\nelse:\n    train['GarageCond'].fillna('NG', inplace=True)\n_DIAS_ser = train['GarageFinish']\nif type(_DIAS_ser) != pd.Series:\n    train['GarageFinish'] = train['GarageFinish'].fillna('NG')\nelse:\n    train['GarageFinish'].fillna('NG', inplace=True)\n_DIAS_ser = train['GarageYrBlt']\nif type(_DIAS_ser) != pd.Series:\n    train['GarageYrBlt'] = train['GarageYrBlt'].fillna('NG')\nelse:\n    train['GarageYrBlt'].fillna('NG', inplace=True)\n_DIAS_ser = train['GarageQual']\nif type(_DIAS_ser) != pd.Series:\n    train['GarageQual'] = train['GarageQual'].fillna('NG')\nelse:\n    train['GarageQual'].fillna('NG', inplace=True)\n"
+    },
+    {
+      "raw": "train.BsmtExposure.isnull().sum()",
+      "rewrite-ns": 420548,
+      "overhead-ns": 420548,
+      "exec-ns": 3646317,
+      "total-ns": 4066865,
+      "patts-hit": {},
+      "rewritten": "train.BsmtExposure.isnull().sum()\n"
+    },
+    {
+      "raw": "train.BsmtFinType2.isnull().sum()",
+      "rewrite-ns": 406574,
+      "overhead-ns": 406574,
+      "exec-ns": 3615523,
+      "total-ns": 4022097,
+      "patts-hit": {},
+      "rewritten": "train.BsmtFinType2.isnull().sum()\n"
+    },
+    {
+      "raw": "train.BsmtFinType1.isnull().sum()",
+      "rewrite-ns": 400924,
+      "overhead-ns": 400924,
+      "exec-ns": 3647075,
+      "total-ns": 4047999,
+      "patts-hit": {},
+      "rewritten": "train.BsmtFinType1.isnull().sum()\n"
+    },
+    {
+      "raw": "train.BsmtCond.isnull().sum() ",
+      "rewrite-ns": 416423,
+      "overhead-ns": 416423,
+      "exec-ns": 3615388,
+      "total-ns": 4031811,
+      "patts-hit": {},
+      "rewritten": "train.BsmtCond.isnull().sum()\n"
+    },
+    {
+      "raw": "train.BsmtQual.isnull().sum()",
+      "rewrite-ns": 415653,
+      "overhead-ns": 415653,
+      "exec-ns": 3625322,
+      "total-ns": 4040975,
+      "patts-hit": {},
+      "rewritten": "train.BsmtQual.isnull().sum()\n"
+    },
+    {
+      "raw": "train.TotalBsmtSF.value_counts().head()",
+      "rewrite-ns": 420434,
+      "overhead-ns": 420434,
+      "exec-ns": 1892574,
+      "total-ns": 2313008,
+      "patts-hit": {},
+      "rewritten": "train.TotalBsmtSF.value_counts().head()\n"
+    },
+    {
+      "raw": "train['BsmtExposure']=train['BsmtExposure'].fillna('NB')\ntrain['BsmtFinType2']=train['BsmtFinType2'].fillna('NB')\ntrain['BsmtFinType1']=train['BsmtFinType1'].fillna('NB')\ntrain['BsmtCond']=train['BsmtCond'].fillna('NB')\ntrain['BsmtQual']=train['BsmtQual'].fillna('NB')",
+      "rewrite-ns": 1419315,
+      "overhead-ns": 1419315,
+      "exec-ns": 18742314,
+      "total-ns": 20161629,
+      "patts-hit": {
+        "IsInplaceUpdate": 1
+      },
+      "rewritten": "_DIAS_ser = train['BsmtExposure']\nif type(_DIAS_ser) != pd.Series:\n    train['BsmtExposure'] = train['BsmtExposure'].fillna('NB')\nelse:\n    train['BsmtExposure'].fillna('NB', inplace=True)\n_DIAS_ser = train['BsmtFinType2']\nif type(_DIAS_ser) != pd.Series:\n    train['BsmtFinType2'] = train['BsmtFinType2'].fillna('NB')\nelse:\n    train['BsmtFinType2'].fillna('NB', inplace=True)\n_DIAS_ser = train['BsmtFinType1']\nif type(_DIAS_ser) != pd.Series:\n    train['BsmtFinType1'] = train['BsmtFinType1'].fillna('NB')\nelse:\n    train['BsmtFinType1'].fillna('NB', inplace=True)\n_DIAS_ser = train['BsmtCond']\nif type(_DIAS_ser) != pd.Series:\n    train['BsmtCond'] = train['BsmtCond'].fillna('NB')\nelse:\n    train['BsmtCond'].fillna('NB', inplace=True)\n_DIAS_ser = train['BsmtQual']\nif type(_DIAS_ser) != pd.Series:\n    train['BsmtQual'] = train['BsmtQual'].fillna('NB')\nelse:\n    train['BsmtQual'].fillna('NB', inplace=True)\n"
+    },
+    {
+      "raw": "train['MasVnrArea'] = train['MasVnrArea'].fillna(train['MasVnrArea'].mean())",
+      "rewrite-ns": 424229,
+      "overhead-ns": 424229,
+      "exec-ns": 1293794,
+      "total-ns": 1718023,
+      "patts-hit": {
+        "IsInplaceUpdate": 1
+      },
+      "rewritten": "_DIAS_ser = train['MasVnrArea']\nif type(_DIAS_ser) != pd.Series:\n    train['MasVnrArea'] = train['MasVnrArea'].fillna(train['MasVnrArea'].mean()\n        )\nelse:\n    train['MasVnrArea'].fillna(train['MasVnrArea'].mean(), inplace=True)\n"
+    },
+    {
+      "raw": "train['MasVnrType'] = train['MasVnrType'].fillna('none')",
+      "rewrite-ns": 351764,
+      "overhead-ns": 351764,
+      "exec-ns": 4087319,
+      "total-ns": 4439083,
+      "patts-hit": {
+        "IsInplaceUpdate": 1
+      },
+      "rewritten": "_DIAS_ser = train['MasVnrType']\nif type(_DIAS_ser) != pd.Series:\n    train['MasVnrType'] = train['MasVnrType'].fillna('none')\nelse:\n    train['MasVnrType'].fillna('none', inplace=True)\n"
+    },
+    {
+      "raw": "train.Electrical = train.Electrical.fillna('SBrkr')",
+      "rewrite-ns": 471405,
+      "overhead-ns": 471405,
+      "exec-ns": 29872082,
+      "total-ns": 30343487,
+      "patts-hit": {},
+      "rewritten": "train.Electrical = train.Electrical.fillna('SBrkr')\n"
+    },
+    {
+      "raw": "train.isnull().sum().sum()",
+      "rewrite-ns": 511721,
+      "overhead-ns": 511721,
+      "exec-ns": 352345783,
+      "total-ns": 352857504,
+      "patts-hit": {},
+      "rewritten": "train.isnull().sum().sum()\n"
+    },
+    {
+      "raw": "num_train = train._get_numeric_data()",
+      "rewrite-ns": 367137,
+      "overhead-ns": 367137,
+      "exec-ns": 350206,
+      "total-ns": 717343,
+      "patts-hit": {},
+      "rewritten": "num_train = train._get_numeric_data()\n"
+    },
+    {
+      "raw": "num_train.columns",
+      "rewrite-ns": 58568,
+      "overhead-ns": 58568,
+      "exec-ns": 701118,
+      "total-ns": 759686,
+      "patts-hit": {},
+      "rewritten": "num_train.columns\n"
+    },
+    {
+      "raw": "def var_summary(x):\n    return pd.Series([x.count(), x.isnull().sum(), x.sum(), x.mean(), x.median(),  x.std(), x.var(), x.min(), x.quantile(0.01), x.quantile(0.05),x.quantile(0.10),x.quantile(0.25),x.quantile(0.50),x.quantile(0.75), x.quantile(0.90),x.quantile(0.95), x.quantile(0.99),x.max()], \n                  index=['N', 'NMISS', 'SUM', 'MEAN','MEDIAN', 'STD', 'VAR', 'MIN', 'P1' , 'P5' ,'P10' ,'P25' ,'P50' ,'P75' ,'P90' ,'P95' ,'P99' ,'MAX'])\n\nnum_train.apply(lambda x: var_summary(x)).T\n",
+      "rewrite-ns": 4843919,
+      "overhead-ns": 4848141,
+      "exec-ns": 542543654,
+      "total-ns": 547387573,
+      "patts-hit": {},
+      "rewritten": "def var_summary(x):\n    return pd.Series([x.count(), x.isnull().sum(), x.sum(), x.mean(), x.\n        median(), x.std(), x.var(), x.min(), x.quantile(0.01), x.quantile(\n        0.05), x.quantile(0.1), x.quantile(0.25), x.quantile(0.5), x.\n        quantile(0.75), x.quantile(0.9), x.quantile(0.95), x.quantile(0.99),\n        x.max()], index=['N', 'NMISS', 'SUM', 'MEAN', 'MEDIAN', 'STD',\n        'VAR', 'MIN', 'P1', 'P5', 'P10', 'P25', 'P50', 'P75', 'P90', 'P95',\n        'P99', 'MAX'])\nnum_train.apply(lambda x: var_summary(x)).T\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 19147,
+      "overhead-ns": 19147,
+      "exec-ns": 93775,
+      "total-ns": 112922,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot([num_train.LotFrontage])\n_ = [num_train.LotFrontage]",
+      "rewrite-ns": 345514,
+      "overhead-ns": 345514,
+      "exec-ns": 320242,
+      "total-ns": 665756,
+      "patts-hit": {},
+      "rewritten": "_ = [num_train.LotFrontage]\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# train['LotFrontage']= train['LotFrontage'].clip_upper(train['LotFrontage'].quantile(0.99))\ntrain['LotFrontage']= train['LotFrontage'].clip(upper=train['LotFrontage'].quantile(0.99))",
+      "rewrite-ns": 869232,
+      "overhead-ns": 869232,
+      "exec-ns": 3125810,
+      "total-ns": 3995042,
+      "patts-hit": {},
+      "rewritten": "train['LotFrontage'] = train['LotFrontage'].clip(upper=train['LotFrontage']\n    .quantile(0.99))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(num_train.LotArea)\n_ = num_train.LotArea",
+      "rewrite-ns": 262430,
+      "overhead-ns": 262430,
+      "exec-ns": 253263,
+      "total-ns": 515693,
+      "patts-hit": {},
+      "rewritten": "_ = num_train.LotArea\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# train['LotArea']= train['LotArea'].clip_upper(train['LotArea'].quantile(0.99))\ntrain['LotArea']= train['LotArea'].clip(upper=train['LotArea'].quantile(0.99))",
+      "rewrite-ns": 822276,
+      "overhead-ns": 822276,
+      "exec-ns": 9562327,
+      "total-ns": 10384603,
+      "patts-hit": {},
+      "rewritten": "train['LotArea'] = train['LotArea'].clip(upper=train['LotArea'].quantile(0.99))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(train['MasVnrArea'])\n_ = train['MasVnrArea']",
+      "rewrite-ns": 310553,
+      "overhead-ns": 310553,
+      "exec-ns": 250194,
+      "total-ns": 560747,
+      "patts-hit": {},
+      "rewritten": "_ = train['MasVnrArea']\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# train['MasVnrArea']= train['MasVnrArea'].clip_upper(train['MasVnrArea'].quantile(0.99))\ntrain['MasVnrArea']= train['MasVnrArea'].clip(upper=train['MasVnrArea'].quantile(0.99))",
+      "rewrite-ns": 834353,
+      "overhead-ns": 834353,
+      "exec-ns": 2925320,
+      "total-ns": 3759673,
+      "patts-hit": {},
+      "rewritten": "train['MasVnrArea'] = train['MasVnrArea'].clip(upper=train['MasVnrArea'].\n    quantile(0.99))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(train['BsmtFinSF1'])\n_ = train['BsmtFinSF1']",
+      "rewrite-ns": 302110,
+      "overhead-ns": 302110,
+      "exec-ns": 250281,
+      "total-ns": 552391,
+      "patts-hit": {},
+      "rewritten": "_ = train['BsmtFinSF1']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(train['BsmtFinSF2'])\n_ = train['BsmtFinSF2']",
+      "rewrite-ns": 287395,
+      "overhead-ns": 287395,
+      "exec-ns": 227641,
+      "total-ns": 515036,
+      "patts-hit": {},
+      "rewritten": "_ = train['BsmtFinSF2']\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# train['BsmtFinSF1']= train['BsmtFinSF1'].clip_upper(train['BsmtFinSF1'].quantile(0.99)) \n# train['BsmtFinSF2']= train['BsmtFinSF2'].clip_upper(train['BsmtFinSF2'].quantile(0.99))\ntrain['BsmtFinSF1']= train['BsmtFinSF1'].clip(upper=train['BsmtFinSF1'].quantile(0.99)) \ntrain['BsmtFinSF2']= train['BsmtFinSF2'].clip(upper=train['BsmtFinSF2'].quantile(0.99))",
+      "rewrite-ns": 1564637,
+      "overhead-ns": 1564637,
+      "exec-ns": 20303285,
+      "total-ns": 21867922,
+      "patts-hit": {},
+      "rewritten": "train['BsmtFinSF1'] = train['BsmtFinSF1'].clip(upper=train['BsmtFinSF1'].\n    quantile(0.99))\ntrain['BsmtFinSF2'] = train['BsmtFinSF2'].clip(upper=train['BsmtFinSF2'].\n    quantile(0.99))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(train['TotalBsmtSF'])\n_ = train['TotalBsmtSF']",
+      "rewrite-ns": 329672,
+      "overhead-ns": 329672,
+      "exec-ns": 288580,
+      "total-ns": 618252,
+      "patts-hit": {},
+      "rewritten": "_ = train['TotalBsmtSF']\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# train['TotalBsmtSF']= train['TotalBsmtSF'].clip_upper(train['TotalBsmtSF'].quantile(0.99))\ntrain['TotalBsmtSF']= train['TotalBsmtSF'].clip(upper=train['TotalBsmtSF'].quantile(0.99))",
+      "rewrite-ns": 858240,
+      "overhead-ns": 858240,
+      "exec-ns": 4507338,
+      "total-ns": 5365578,
+      "patts-hit": {},
+      "rewritten": "train['TotalBsmtSF'] = train['TotalBsmtSF'].clip(upper=train['TotalBsmtSF']\n    .quantile(0.99))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(train['1stFlrSF'])\n_ = train['1stFlrSF']",
+      "rewrite-ns": 312413,
+      "overhead-ns": 312413,
+      "exec-ns": 264100,
+      "total-ns": 576513,
+      "patts-hit": {},
+      "rewritten": "_ = train['1stFlrSF']\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# train['1stFlrSF']= train['1stFlrSF'].clip_upper(train['1stFlrSF'].quantile(0.99))\ntrain['1stFlrSF']= train['1stFlrSF'].clip(upper=train['1stFlrSF'].quantile(0.99))",
+      "rewrite-ns": 836205,
+      "overhead-ns": 836205,
+      "exec-ns": 4576627,
+      "total-ns": 5412832,
+      "patts-hit": {},
+      "rewritten": "train['1stFlrSF'] = train['1stFlrSF'].clip(upper=train['1stFlrSF'].quantile\n    (0.99))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(train['2ndFlrSF'])\n_ = train['2ndFlrSF']",
+      "rewrite-ns": 304784,
+      "overhead-ns": 304784,
+      "exec-ns": 253996,
+      "total-ns": 558780,
+      "patts-hit": {},
+      "rewritten": "_ = train['2ndFlrSF']\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# train['2ndFlrSF']= train['2ndFlrSF'].clip_upper(train['2ndFlrSF'].quantile(0.99))\ntrain['2ndFlrSF']= train['2ndFlrSF'].clip(upper=train['2ndFlrSF'].quantile(0.99))",
+      "rewrite-ns": 831613,
+      "overhead-ns": 831613,
+      "exec-ns": 4494202,
+      "total-ns": 5325815,
+      "patts-hit": {},
+      "rewritten": "train['2ndFlrSF'] = train['2ndFlrSF'].clip(upper=train['2ndFlrSF'].quantile\n    (0.99))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(train['GrLivArea'])\n_ = train['GrLivArea']",
+      "rewrite-ns": 302989,
+      "overhead-ns": 302989,
+      "exec-ns": 250826,
+      "total-ns": 553815,
+      "patts-hit": {},
+      "rewritten": "_ = train['GrLivArea']\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# train['GrLivArea']= train['GrLivArea'].clip_upper(train['GrLivArea'].quantile(0.99))\ntrain['GrLivArea']= train['GrLivArea'].clip(upper=train['GrLivArea'].quantile(0.99))",
+      "rewrite-ns": 832931,
+      "overhead-ns": 832931,
+      "exec-ns": 4747247,
+      "total-ns": 5580178,
+      "patts-hit": {},
+      "rewritten": "train['GrLivArea'] = train['GrLivArea'].clip(upper=train['GrLivArea'].\n    quantile(0.99))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(train['BedroomAbvGr'])\n_ = train['BedroomAbvGr']",
+      "rewrite-ns": 306514,
+      "overhead-ns": 306514,
+      "exec-ns": 246413,
+      "total-ns": 552927,
+      "patts-hit": {},
+      "rewritten": "_ = train['BedroomAbvGr']\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# train['BedroomAbvGr']= train['BedroomAbvGr'].clip_upper(train['BedroomAbvGr'].quantile(0.99))\n# train['BedroomAbvGr']= train['BedroomAbvGr'].clip_lower(train['BedroomAbvGr'].quantile(0.01))\ntrain['BedroomAbvGr']= train['BedroomAbvGr'].clip(upper=train['BedroomAbvGr'].quantile(0.99))\ntrain['BedroomAbvGr']= train['BedroomAbvGr'].clip(lower=train['BedroomAbvGr'].quantile(0.01))",
+      "rewrite-ns": 1670125,
+      "overhead-ns": 1670125,
+      "exec-ns": 6861726,
+      "total-ns": 8531851,
+      "patts-hit": {},
+      "rewritten": "train['BedroomAbvGr'] = train['BedroomAbvGr'].clip(upper=train[\n    'BedroomAbvGr'].quantile(0.99))\ntrain['BedroomAbvGr'] = train['BedroomAbvGr'].clip(lower=train[\n    'BedroomAbvGr'].quantile(0.01))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(train['GarageCars'])\n_ = train['GarageCars']",
+      "rewrite-ns": 302579,
+      "overhead-ns": 302579,
+      "exec-ns": 258678,
+      "total-ns": 561257,
+      "patts-hit": {},
+      "rewritten": "_ = train['GarageCars']\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# train['GarageCars']= train['GarageCars'].clip_upper(train['GarageCars'].quantile(0.99))\ntrain['GarageCars']= train['GarageCars'].clip(upper=train['GarageCars'].quantile(0.99))",
+      "rewrite-ns": 826493,
+      "overhead-ns": 826493,
+      "exec-ns": 4401161,
+      "total-ns": 5227654,
+      "patts-hit": {},
+      "rewritten": "train['GarageCars'] = train['GarageCars'].clip(upper=train['GarageCars'].\n    quantile(0.99))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(train['GarageArea'])\n_ = train['GarageArea']",
+      "rewrite-ns": 303139,
+      "overhead-ns": 303139,
+      "exec-ns": 247145,
+      "total-ns": 550284,
+      "patts-hit": {},
+      "rewritten": "_ = train['GarageArea']\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# train['GarageArea']= train['GarageArea'].clip_upper(train['GarageArea'].quantile(0.99))\ntrain['GarageArea']= train['GarageArea'].clip(upper=train['GarageArea'].quantile(0.99))",
+      "rewrite-ns": 840007,
+      "overhead-ns": 840007,
+      "exec-ns": 4409101,
+      "total-ns": 5249108,
+      "patts-hit": {},
+      "rewritten": "train['GarageArea'] = train['GarageArea'].clip(upper=train['GarageArea'].\n    quantile(0.99))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(train['WoodDeckSF'])\n_ = train['WoodDeckSF']",
+      "rewrite-ns": 304653,
+      "overhead-ns": 304653,
+      "exec-ns": 247542,
+      "total-ns": 552195,
+      "patts-hit": {},
+      "rewritten": "_ = train['WoodDeckSF']\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# train['WoodDeckSF']= train['WoodDeckSF'].clip_upper(train['WoodDeckSF'].quantile(0.99))\ntrain['WoodDeckSF']= train['WoodDeckSF'].clip(upper=train['WoodDeckSF'].quantile(0.99))",
+      "rewrite-ns": 826773,
+      "overhead-ns": 826773,
+      "exec-ns": 3714592,
+      "total-ns": 4541365,
+      "patts-hit": {},
+      "rewritten": "train['WoodDeckSF'] = train['WoodDeckSF'].clip(upper=train['WoodDeckSF'].\n    quantile(0.99))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(train['OpenPorchSF'])\n_ = train['OpenPorchSF']",
+      "rewrite-ns": 303314,
+      "overhead-ns": 303314,
+      "exec-ns": 245827,
+      "total-ns": 549141,
+      "patts-hit": {},
+      "rewritten": "_ = train['OpenPorchSF']\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# train['OpenPorchSF']= train['OpenPorchSF'].clip_upper(train['OpenPorchSF'].quantile(0.99))\ntrain['OpenPorchSF']= train['OpenPorchSF'].clip(upper=train['OpenPorchSF'].quantile(0.99))",
+      "rewrite-ns": 835893,
+      "overhead-ns": 835893,
+      "exec-ns": 3986655,
+      "total-ns": 4822548,
+      "patts-hit": {},
+      "rewritten": "train['OpenPorchSF'] = train['OpenPorchSF'].clip(upper=train['OpenPorchSF']\n    .quantile(0.99))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(train['EnclosedPorch'])\n_ = train['EnclosedPorch']",
+      "rewrite-ns": 304141,
+      "overhead-ns": 304141,
+      "exec-ns": 248577,
+      "total-ns": 552718,
+      "patts-hit": {},
+      "rewritten": "_ = train['EnclosedPorch']\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# train['EnclosedPorch']= train['EnclosedPorch'].clip_upper(train['EnclosedPorch'].quantile(0.99))\ntrain['EnclosedPorch']= train['EnclosedPorch'].clip(upper=train['EnclosedPorch'].quantile(0.99))",
+      "rewrite-ns": 829072,
+      "overhead-ns": 829072,
+      "exec-ns": 3683505,
+      "total-ns": 4512577,
+      "patts-hit": {},
+      "rewritten": "train['EnclosedPorch'] = train['EnclosedPorch'].clip(upper=train[\n    'EnclosedPorch'].quantile(0.99))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(train['3SsnPorch'])\n_ = train['3SsnPorch']",
+      "rewrite-ns": 303647,
+      "overhead-ns": 303647,
+      "exec-ns": 244140,
+      "total-ns": 547787,
+      "patts-hit": {},
+      "rewritten": "_ = train['3SsnPorch']\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# train['3SsnPorch']= train['3SsnPorch'].clip_upper(train['3SsnPorch'].quantile(0.99))\ntrain['3SsnPorch']= train['3SsnPorch'].clip(upper=train['3SsnPorch'].quantile(0.99))",
+      "rewrite-ns": 834005,
+      "overhead-ns": 834005,
+      "exec-ns": 3489473,
+      "total-ns": 4323478,
+      "patts-hit": {},
+      "rewritten": "train['3SsnPorch'] = train['3SsnPorch'].clip(upper=train['3SsnPorch'].\n    quantile(0.99))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(train['ScreenPorch'])\n_ = train['ScreenPorch']",
+      "rewrite-ns": 303886,
+      "overhead-ns": 303886,
+      "exec-ns": 244481,
+      "total-ns": 548367,
+      "patts-hit": {},
+      "rewritten": "_ = train['ScreenPorch']\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# train['ScreenPorch']= train['ScreenPorch'].clip_upper(train['ScreenPorch'].quantile(0.99))\ntrain['ScreenPorch']= train['ScreenPorch'].clip(upper=train['ScreenPorch'].quantile(0.99))",
+      "rewrite-ns": 827533,
+      "overhead-ns": 827533,
+      "exec-ns": 3542768,
+      "total-ns": 4370301,
+      "patts-hit": {},
+      "rewritten": "train['ScreenPorch'] = train['ScreenPorch'].clip(upper=train['ScreenPorch']\n    .quantile(0.99))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(train['PoolArea'])\n_ = train['PoolArea']",
+      "rewrite-ns": 300890,
+      "overhead-ns": 300890,
+      "exec-ns": 243234,
+      "total-ns": 544124,
+      "patts-hit": {},
+      "rewritten": "_ = train['PoolArea']\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# train['PoolArea']= train['PoolArea'].clip_upper(train['PoolArea'].quantile(0.99))\ntrain['PoolArea']= train['PoolArea'].clip(upper=train['PoolArea'].quantile(0.99))",
+      "rewrite-ns": 833392,
+      "overhead-ns": 833392,
+      "exec-ns": 3303082,
+      "total-ns": 4136474,
+      "patts-hit": {},
+      "rewritten": "train['PoolArea'] = train['PoolArea'].clip(upper=train['PoolArea'].quantile\n    (0.99))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(train['MiscVal'])\n_ = train['MiscVal']",
+      "rewrite-ns": 303447,
+      "overhead-ns": 303447,
+      "exec-ns": 243920,
+      "total-ns": 547367,
+      "patts-hit": {},
+      "rewritten": "_ = train['MiscVal']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.boxplot(train.SalePrice)\n_ = train.SalePrice",
+      "rewrite-ns": 251873,
+      "overhead-ns": 251873,
+      "exec-ns": 225230,
+      "total-ns": 477103,
+      "patts-hit": {},
+      "rewritten": "_ = train.SalePrice\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# train['SalePrice']= train['SalePrice'].clip_upper(train['SalePrice'].quantile(0.99))\n# train['SalePrice']= train['SalePrice'].clip_lower(train['SalePrice'].quantile(0.01))\ntrain['SalePrice']= train['SalePrice'].clip(upper=train['SalePrice'].quantile(0.99))\ntrain['SalePrice']= train['SalePrice'].clip(lower=train['SalePrice'].quantile(0.01))",
+      "rewrite-ns": 1565756,
+      "overhead-ns": 1565756,
+      "exec-ns": 6540024,
+      "total-ns": 8105780,
+      "patts-hit": {},
+      "rewritten": "train['SalePrice'] = train['SalePrice'].clip(upper=train['SalePrice'].\n    quantile(0.99))\ntrain['SalePrice'] = train['SalePrice'].clip(lower=train['SalePrice'].\n    quantile(0.01))\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# train['MiscVal']= train['MiscVal'].clip_upper(train['MiscVal'].quantile(0.99))\ntrain['MiscVal']= train['MiscVal'].clip(upper=train['MiscVal'].quantile(0.99))",
+      "rewrite-ns": 829340,
+      "overhead-ns": 829340,
+      "exec-ns": 3580330,
+      "total-ns": 4409670,
+      "patts-hit": {},
+      "rewritten": "train['MiscVal'] = train['MiscVal'].clip(upper=train['MiscVal'].quantile(0.99))\n"
+    },
+    {
+      "raw": "num_corr=num_train .corr()\n# ALEX: remove plotting\n# plt.subplots(figsize=(13,10))\n# sns.heatmap(num_corr,vmax =.8 ,square = True)",
+      "rewrite-ns": 321166,
+      "overhead-ns": 321166,
+      "exec-ns": 303512434,
+      "total-ns": 303833600,
+      "patts-hit": {},
+      "rewritten": "num_corr = num_train.corr()\n"
+    },
+    {
+      "raw": "k = 14\ncols = num_corr.nlargest(k, 'SalePrice')['SalePrice'].index\ncm = np.corrcoef(num_train[cols].values.T)\n# ALEX: remove plotting\n# sns.set(font_scale=1.35)\n# f, ax = plt.subplots(figsize=(10,10))\n# hm=sns.heatmap(cm, annot = True,vmax =.8, yticklabels=cols.values, xticklabels = cols.values)\n_ = cols.values\n_ = cols.values",
+      "rewrite-ns": 1645977,
+      "overhead-ns": 1645977,
+      "exec-ns": 11068871,
+      "total-ns": 12714848,
+      "patts-hit": {},
+      "rewritten": "k = 14\ncols = num_corr.nlargest(k, 'SalePrice')['SalePrice'].index\ncm = np.corrcoef(num_train[cols].values.T)\n_ = cols.values\n_ = cols.values\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# import statsmodels.api as sm\n# import statsmodels.formula.api as smf",
+      "rewrite-ns": 21171,
+      "overhead-ns": 21171,
+      "exec-ns": 105118,
+      "total-ns": 126289,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "train.info()",
+      "rewrite-ns": 111275,
+      "overhead-ns": 111275,
+      "exec-ns": 358140083,
+      "total-ns": 358251358,
+      "patts-hit": {},
+      "rewritten": "train.info()\n"
+    },
+    {
+      "raw": "train.columns",
+      "rewrite-ns": 75714,
+      "overhead-ns": 75714,
+      "exec-ns": 855005,
+      "total-ns": 930719,
+      "patts-hit": {},
+      "rewritten": "train.columns\n"
+    },
+    {
+      "raw": "s1 = set(train.columns)\ns2 = set(['SalePrice'])",
+      "rewrite-ns": 678955,
+      "overhead-ns": 678955,
+      "exec-ns": 279605,
+      "total-ns": 958560,
+      "patts-hit": {},
+      "rewritten": "s1 = set(train.columns)\ns2 = set(['SalePrice'])\n"
+    },
+    {
+      "raw": "features = \"+\".join((set(s1)-s2))\nfeatures",
+      "rewrite-ns": 600692,
+      "overhead-ns": 600692,
+      "exec-ns": 492114,
+      "total-ns": 1092806,
+      "patts-hit": {},
+      "rewritten": "features = '+'.join(set(s1) - s2)\nfeatures\n"
+    },
+    {
+      "raw": "train = train.rename(columns ={'1stFlrSF':'firstFlrSF','2ndFlrSF':'iindFlrSF','3SsnPorch':'iiiSsnPorch'})",
+      "rewrite-ns": 626935,
+      "overhead-ns": 626935,
+      "exec-ns": 116770683,
+      "total-ns": 117397618,
+      "patts-hit": {},
+      "rewritten": "train = train.rename(columns={'1stFlrSF': 'firstFlrSF', '2ndFlrSF':\n    'iindFlrSF', '3SsnPorch': 'iiiSsnPorch'})\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# lm=smf.ols('SalePrice~firstFlrSF+MasVnrType+GarageFinish+KitchenAbvGr+WoodDeckSF+LandContour+LandSlope+GarageCars+Street+Exterior1st+iindFlrSF+SaleCondition+Electrical+LotConfig+HeatingQC+PavedDrive+LotArea+BsmtUnfSF+RoofMatl+TotRmsAbvGrd+BsmtFullBath+ExterQual+BedroomAbvGr+EnclosedPorch+BsmtQual+BsmtFinSF2+GarageCond+HouseStyle+GrLivArea+PoolArea+Utilities+BsmtExposure+HalfBath+Condition1+YrSold+MasVnrArea+BldgType+MSZoning+Fireplaces+FireplaceQu+BsmtFinType1+YearBuilt+BsmtHalfBath+Heating+SaleType+BsmtCond+MSSubClass+ScreenPorch+OpenPorchSF+FullBath+BsmtFinSF1+MoSold+LowQualFinSF+GarageType+Exterior2nd+iiiSsnPorch+TotalBsmtSF+ExterCond+Neighborhood+OverallQual+GarageArea+LotShape+MiscVal+YearRemodAdd+OverallCond+BsmtFinType2+Condition2+CentralAir+LotFrontage+Functional+RoofStyle+GarageYrBlt+KitchenQual+Foundation+GarageQual',data = train).fit()",
+      "rewrite-ns": 29619,
+      "overhead-ns": 29619,
+      "exec-ns": 117245,
+      "total-ns": 146864,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# lm.summary()",
+      "rewrite-ns": 12973,
+      "overhead-ns": 12973,
+      "exec-ns": 75790,
+      "total-ns": 88763,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 10587,
+      "overhead-ns": 10587,
+      "exec-ns": 62157,
+      "total-ns": 72744,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# imc = pd.DataFrame(lm.pvalues)\n# imc\nimc = pd.DataFrame(pd.Series(0, index=['firstFlrSF', 'MasVnrType', 'GarageFinish+KitchenAbvGr',\n                                       'WoodDeckSF', 'LandContour', 'LandSlope', 'GarageCars',\n                                       'Street', 'Exterior1st', 'iindFlrSF', 'SaleCondition',\n                                       'Electrical', 'LotConfig', 'HeatingQC', 'PavedDrive', 'LotArea',\n                                       'BsmtUnfSF', 'RoofMatl', 'TotRmsAbvGrd', 'BsmtFullBath', 'ExterQual',\n                                       'BedroomAbvGr', 'EnclosedPorch', 'BsmtQual', 'BsmtFinSF2', 'GarageCond',\n                                       'HouseStyle', 'GrLivArea', 'PoolArea', 'Utilities', 'BsmtExposure',\n                                       'HalfBath', 'Condition1', 'YrSold', 'MasVnrArea', 'BldgType',\n                                       'MSZoning', 'Fireplaces', 'FireplaceQu', 'BsmtFinType1', 'YearBuilt',\n                                       'BsmtHalfBath', 'Heating', 'SaleType', 'BsmtCond', 'MSSubClass',\n                                       'ScreenPorch', 'OpenPorchSF', 'FullBath', 'BsmtFinSF1', 'MoSold',\n                                       'LowQualFinSF', 'GarageType', 'Exterior2nd', 'iiiSsnPorch',\n                                       'TotalBsmtSF', 'ExterCond', 'Neighborhood', 'OverallQual',\n                                       'GarageArea', 'LotShape', 'MiscVal', 'YearRemodAdd',\n                                       'OverallCond', 'BsmtFinType2', 'Condition2', 'CentralAir',\n                                       'LotFrontage', 'Functional', 'RoofStyle', 'GarageYrBlt', 'KitchenQual',\n                                       'Foundation', 'GarageQual']))\nimc",
+      "rewrite-ns": 3328327,
+      "overhead-ns": 3328327,
+      "exec-ns": 3980850,
+      "total-ns": 7309177,
+      "patts-hit": {},
+      "rewritten": "imc = pd.DataFrame(pd.Series(0, index=['firstFlrSF', 'MasVnrType',\n    'GarageFinish+KitchenAbvGr', 'WoodDeckSF', 'LandContour', 'LandSlope',\n    'GarageCars', 'Street', 'Exterior1st', 'iindFlrSF', 'SaleCondition',\n    'Electrical', 'LotConfig', 'HeatingQC', 'PavedDrive', 'LotArea',\n    'BsmtUnfSF', 'RoofMatl', 'TotRmsAbvGrd', 'BsmtFullBath', 'ExterQual',\n    'BedroomAbvGr', 'EnclosedPorch', 'BsmtQual', 'BsmtFinSF2', 'GarageCond',\n    'HouseStyle', 'GrLivArea', 'PoolArea', 'Utilities', 'BsmtExposure',\n    'HalfBath', 'Condition1', 'YrSold', 'MasVnrArea', 'BldgType',\n    'MSZoning', 'Fireplaces', 'FireplaceQu', 'BsmtFinType1', 'YearBuilt',\n    'BsmtHalfBath', 'Heating', 'SaleType', 'BsmtCond', 'MSSubClass',\n    'ScreenPorch', 'OpenPorchSF', 'FullBath', 'BsmtFinSF1', 'MoSold',\n    'LowQualFinSF', 'GarageType', 'Exterior2nd', 'iiiSsnPorch',\n    'TotalBsmtSF', 'ExterCond', 'Neighborhood', 'OverallQual', 'GarageArea',\n    'LotShape', 'MiscVal', 'YearRemodAdd', 'OverallCond', 'BsmtFinType2',\n    'Condition2', 'CentralAir', 'LotFrontage', 'Functional', 'RoofStyle',\n    'GarageYrBlt', 'KitchenQual', 'Foundation', 'GarageQual']))\nimc\n"
+    },
+    {
+      "raw": "best_features = imc[imc[0] <= 0.05].index\nbest_features",
+      "rewrite-ns": 597475,
+      "overhead-ns": 597475,
+      "exec-ns": 1137971,
+      "total-ns": 1735446,
+      "patts-hit": {},
+      "rewritten": "best_features = imc[imc[0] <= 0.05].index\nbest_features\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from statsmodels.stats.outliers_influence import variance_inflation_factor as vif",
+      "rewrite-ns": 12976,
+      "overhead-ns": 12976,
+      "exec-ns": 68783,
+      "total-ns": 81759,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# train['intercept'] = lm.params[0]\ntrain['intercept'] = 210016.3483272409",
+      "rewrite-ns": 292746,
+      "overhead-ns": 292746,
+      "exec-ns": 586414,
+      "total-ns": 879160,
+      "patts-hit": {},
+      "rewritten": "train['intercept'] = 210016.3483272409\n"
+    },
+    {
+      "raw": "for i in range(18):\n# ALEX: make notebook run, remove ML code\n#     print (vif(train[['firstFlrSF', 'WoodDeckSF', 'GarageCars', 'iindFlrSF', 'LotArea',\n#        'BsmtUnfSF', 'GrLivArea', 'PoolArea', 'Fireplaces', 'YearBuilt',\n#        'ScreenPorch', 'LowQualFinSF', 'TotalBsmtSF', 'OverallQual',\n#        'GarageArea', 'YearRemodAdd', 'OverallCond','intercept']].as_matrix(), i))\n    _ = train[['firstFlrSF', 'WoodDeckSF', 'GarageCars', 'iindFlrSF', 'LotArea',\n       'BsmtUnfSF', 'GrLivArea', 'PoolArea', 'Fireplaces', 'YearBuilt',\n       'ScreenPorch', 'LowQualFinSF', 'TotalBsmtSF', 'OverallQual',\n       'GarageArea', 'YearRemodAdd', 'OverallCond','intercept']].to_numpy()",
+      "rewrite-ns": 1262622,
+      "overhead-ns": 1262622,
+      "exec-ns": 72486932,
+      "total-ns": 73749554,
+      "patts-hit": {},
+      "rewritten": "for i in range(18):\n    _ = train[['firstFlrSF', 'WoodDeckSF', 'GarageCars', 'iindFlrSF',\n        'LotArea', 'BsmtUnfSF', 'GrLivArea', 'PoolArea', 'Fireplaces',\n        'YearBuilt', 'ScreenPorch', 'LowQualFinSF', 'TotalBsmtSF',\n        'OverallQual', 'GarageArea', 'YearRemodAdd', 'OverallCond',\n        'intercept']].to_numpy()\n"
+    },
+    {
+      "raw": "train_a = train[ ['GarageFinish','Exterior1st','SaleCondition', 'LotConfig', 'RoofMatl', 'ExterQual', 'BsmtQual',  'GarageCond',\n        'BsmtExposure', 'Condition1','BldgType', 'MSZoning', 'SaleType','GarageType', 'Exterior2nd','Neighborhood', 'Condition2',\n       'Functional', 'GarageYrBlt', 'KitchenQual','Foundation', 'GarageQual', 'WoodDeckSF', 'LotArea',\n       'BsmtUnfSF', 'Fireplaces', 'YearBuilt','ScreenPorch', 'LowQualFinSF', 'TotalBsmtSF', 'OverallQual',\n       'YearRemodAdd', 'OverallCond','SalePrice']]",
+      "rewrite-ns": 1800027,
+      "overhead-ns": 1800027,
+      "exec-ns": 13246081,
+      "total-ns": 15046108,
+      "patts-hit": {},
+      "rewritten": "train_a = train[['GarageFinish', 'Exterior1st', 'SaleCondition',\n    'LotConfig', 'RoofMatl', 'ExterQual', 'BsmtQual', 'GarageCond',\n    'BsmtExposure', 'Condition1', 'BldgType', 'MSZoning', 'SaleType',\n    'GarageType', 'Exterior2nd', 'Neighborhood', 'Condition2', 'Functional',\n    'GarageYrBlt', 'KitchenQual', 'Foundation', 'GarageQual', 'WoodDeckSF',\n    'LotArea', 'BsmtUnfSF', 'Fireplaces', 'YearBuilt', 'ScreenPorch',\n    'LowQualFinSF', 'TotalBsmtSF', 'OverallQual', 'YearRemodAdd',\n    'OverallCond', 'SalePrice']]\n"
+    },
+    {
+      "raw": "best_train = train_a\nbest_train.info()",
+      "rewrite-ns": 310992,
+      "overhead-ns": 310992,
+      "exec-ns": 196735537,
+      "total-ns": 197046529,
+      "patts-hit": {},
+      "rewritten": "best_train = train_a\nbest_train.info()\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.ensemble import RandomForestRegressor",
+      "rewrite-ns": 20414,
+      "overhead-ns": 20414,
+      "exec-ns": 103391,
+      "total-ns": 123805,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "train_d = pd.get_dummies(train)",
+      "rewrite-ns": 410769,
+      "overhead-ns": 410769,
+      "exec-ns": 282576588,
+      "total-ns": 282987357,
+      "patts-hit": {},
+      "rewritten": "train_d = pd.get_dummies(train)\n"
+    },
+    {
+      "raw": "numeric = train._get_numeric_data()\ncategory = train.drop(numeric.columns,axis = 1)",
+      "rewrite-ns": 839636,
+      "overhead-ns": 839636,
+      "exec-ns": 21630674,
+      "total-ns": 22470310,
+      "patts-hit": {},
+      "rewritten": "numeric = train._get_numeric_data()\ncategory = train.drop(numeric.columns, axis=1)\n"
+    },
+    {
+      "raw": "train_dx = train_d.drop([\"SalePrice\"],axis = 1)\ntrain_dy = train_d.SalePrice",
+      "rewrite-ns": 753846,
+      "overhead-ns": 753846,
+      "exec-ns": 19026483,
+      "total-ns": 19780329,
+      "patts-hit": {},
+      "rewritten": "train_dx = train_d.drop(['SalePrice'], axis=1)\ntrain_dy = train_d.SalePrice\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.cross_validation import train_test_split",
+      "rewrite-ns": 25258,
+      "overhead-ns": 25258,
+      "exec-ns": 111027,
+      "total-ns": 136285,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_train, X_test, Y_train, Y_test = train_test_split(\n#         train_dx,\n#         train_dy,\n#         test_size=0.20,\n#         random_state=123)",
+      "rewrite-ns": 18587,
+      "overhead-ns": 18587,
+      "exec-ns": 82250,
+      "total-ns": 100837,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 11057,
+      "overhead-ns": 11057,
+      "exec-ns": 65498,
+      "total-ns": 76555,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# radm_clf = RandomForestRegressor(oob_score=True,n_estimators=100 )\n# radm_clf.fit( X_train, Y_train )",
+      "rewrite-ns": 11235,
+      "overhead-ns": 11235,
+      "exec-ns": 60400,
+      "total-ns": 71635,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# indices = np.argsort(radm_clf.feature_importances_)[::-1]\nfeature_rank = pd.DataFrame( columns = ['rank', 'feature', 'importance'] )\n# ALEX: remove ML code\n# for f in range(X_train.shape[1]):\n#     feature_rank.loc[f] = [f+1,\n#                          X_train.columns[indices[f]],\n#                          radm_clf.feature_importances_[indices[f]]]\n# f, ax = plt.subplots(figsize=(10,100))\n# sns.barplot( y = 'feature', x = 'importance', data = feature_rank, color = 'Yellow')\n# plt.show()",
+      "rewrite-ns": 586261,
+      "overhead-ns": 586261,
+      "exec-ns": 1327514,
+      "total-ns": 1913775,
+      "patts-hit": {},
+      "rewritten": "feature_rank = pd.DataFrame(columns=['rank', 'feature', 'importance'])\n"
+    },
+    {
+      "raw": "ff = feature_rank.head(30)\nff",
+      "rewrite-ns": 411265,
+      "overhead-ns": 411265,
+      "exec-ns": 1100221,
+      "total-ns": 1511486,
+      "patts-hit": {},
+      "rewritten": "ff = feature_rank.head(30)\nff\n"
+    },
+    {
+      "raw": "list(ff.feature)",
+      "rewrite-ns": 316149,
+      "overhead-ns": 316149,
+      "exec-ns": 544929,
+      "total-ns": 861078,
+      "patts-hit": {},
+      "rewritten": "list(ff.feature)\n"
+    },
+    {
+      "raw": "final_cols = train_d[['OverallQual','GrLivArea','GarageCars', 'TotalBsmtSF', 'BsmtFinSF1', 'firstFlrSF',\n 'GarageArea', 'LotArea', 'YearBuilt', 'OpenPorchSF', 'FullBath', 'LotFrontage', 'BsmtUnfSF', 'YearRemodAdd',\n 'OverallCond','iindFlrSF','MasVnrArea','GarageType_Detchd','WoodDeckSF','MoSold','BsmtQual_Gd','TotRmsAbvGrd',\n 'Neighborhood_Edwards','KitchenAbvGr','MSZoning_RM','MSSubClass','BsmtQual_Ex','GarageType_Attchd',\n'ExterQual_Ex','KitchenQual_Gd']]",
+      "rewrite-ns": 1399855,
+      "overhead-ns": 1399855,
+      "exec-ns": 40594880,
+      "total-ns": 41994735,
+      "patts-hit": {},
+      "rewritten": "final_cols = train_d[['OverallQual', 'GrLivArea', 'GarageCars',\n    'TotalBsmtSF', 'BsmtFinSF1', 'firstFlrSF', 'GarageArea', 'LotArea',\n    'YearBuilt', 'OpenPorchSF', 'FullBath', 'LotFrontage', 'BsmtUnfSF',\n    'YearRemodAdd', 'OverallCond', 'iindFlrSF', 'MasVnrArea',\n    'GarageType_Detchd', 'WoodDeckSF', 'MoSold', 'BsmtQual_Gd',\n    'TotRmsAbvGrd', 'Neighborhood_Edwards', 'KitchenAbvGr', 'MSZoning_RM',\n    'MSSubClass', 'BsmtQual_Ex', 'GarageType_Attchd', 'ExterQual_Ex',\n    'KitchenQual_Gd']]\n"
+    },
+    {
+      "raw": "data_x = final_cols\ndata_y = train.SalePrice\nfinal_data = pd.concat([data_x,data_y],axis = 1)",
+      "rewrite-ns": 983011,
+      "overhead-ns": 983011,
+      "exec-ns": 4725041,
+      "total-ns": 5708052,
+      "patts-hit": {},
+      "rewritten": "data_x = final_cols\ndata_y = train.SalePrice\nfinal_data = pd.concat([data_x, data_y], axis=1)\n"
+    },
+    {
+      "raw": "feats = \"+\".join(data_x)\nfeats",
+      "rewrite-ns": 436649,
+      "overhead-ns": 436649,
+      "exec-ns": 577031,
+      "total-ns": 1013680,
+      "patts-hit": {},
+      "rewritten": "feats = '+'.join(data_x)\nfeats\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# import statsmodels.api as sm\n# import statsmodels.formula.api as smf",
+      "rewrite-ns": 16283,
+      "overhead-ns": 16283,
+      "exec-ns": 85328,
+      "total-ns": 101611,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "final_data = final_data.rename(columns ={'1stFlrSF':'firstFlrSF','2ndFlrSF':'iindFlrSF'})",
+      "rewrite-ns": 599865,
+      "overhead-ns": 599865,
+      "exec-ns": 13412425,
+      "total-ns": 14012290,
+      "patts-hit": {},
+      "rewritten": "final_data = final_data.rename(columns={'1stFlrSF': 'firstFlrSF',\n    '2ndFlrSF': 'iindFlrSF'})\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# lm=smf.ols('SalePrice~OverallQual+GrLivArea+GarageCars+TotalBsmtSF+BsmtFinSF1+firstFlrSF+GarageArea+LotArea+YearBuilt+OpenPorchSF+FullBath+LotFrontage+BsmtUnfSF+YearRemodAdd+OverallCond+iindFlrSF+MasVnrArea+GarageType_Detchd+WoodDeckSF+MoSold+BsmtQual_Gd+TotRmsAbvGrd+Neighborhood_Edwards+KitchenAbvGr+MSZoning_RM+MSSubClass+BsmtQual_Ex+GarageType_Attchd+ExterQual_Ex+KitchenQual_Gd',final_data).fit()",
+      "rewrite-ns": 24877,
+      "overhead-ns": 24877,
+      "exec-ns": 113481,
+      "total-ns": 138358,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# lm.summary()",
+      "rewrite-ns": 17195,
+      "overhead-ns": 17195,
+      "exec-ns": 91257,
+      "total-ns": 108452,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# lm.pvalues",
+      "rewrite-ns": 12020,
+      "overhead-ns": 12020,
+      "exec-ns": 70545,
+      "total-ns": 82565,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from statsmodels.stats.outliers_influence import variance_inflation_factor as vif",
+      "rewrite-ns": 10856,
+      "overhead-ns": 10856,
+      "exec-ns": 60903,
+      "total-ns": 71759,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# final_data['intercept'] = lm.params[0]\nfinal_data['intercept'] = -831389.4696019923",
+      "rewrite-ns": 410669,
+      "overhead-ns": 410669,
+      "exec-ns": 697730,
+      "total-ns": 1108399,
+      "patts-hit": {},
+      "rewritten": "final_data['intercept'] = -831389.4696019923\n"
+    },
+    {
+      "raw": "final_data.columns",
+      "rewrite-ns": 62062,
+      "overhead-ns": 62062,
+      "exec-ns": 710246,
+      "total-ns": 772308,
+      "patts-hit": {},
+      "rewritten": "final_data.columns\n"
+    },
+    {
+      "raw": "for i in range(31):\n# ALEX: make notebook run\n#     print (vif(final_data[['OverallQual', 'GrLivArea', 'GarageCars', 'TotalBsmtSF', 'BsmtFinSF1',\n#        'firstFlrSF', 'GarageArea', 'LotArea', 'YearBuilt', 'OpenPorchSF',\n#        'FullBath', 'LotFrontage', 'BsmtUnfSF', 'YearRemodAdd', 'OverallCond',\n#        'iindFlrSF', 'MasVnrArea', 'GarageType_Detchd', 'WoodDeckSF', 'MoSold',\n#        'BsmtQual_Gd', 'TotRmsAbvGrd', 'Neighborhood_Edwards', 'KitchenAbvGr',\n#        'MSZoning_RM', 'MSSubClass', 'BsmtQual_Ex', 'GarageType_Attchd',\n#        'ExterQual_Ex', 'KitchenQual_Gd','intercept']].as_matrix(), i))\n    final_data[['OverallQual', 'GrLivArea', 'GarageCars', 'TotalBsmtSF', 'BsmtFinSF1',\n       'firstFlrSF', 'GarageArea', 'LotArea', 'YearBuilt', 'OpenPorchSF',\n       'FullBath', 'LotFrontage', 'BsmtUnfSF', 'YearRemodAdd', 'OverallCond',\n       'iindFlrSF', 'MasVnrArea', 'GarageType_Detchd', 'WoodDeckSF', 'MoSold',\n       'BsmtQual_Gd', 'TotRmsAbvGrd', 'Neighborhood_Edwards', 'KitchenAbvGr',\n       'MSZoning_RM', 'MSSubClass', 'BsmtQual_Ex', 'GarageType_Attchd',\n       'ExterQual_Ex', 'KitchenQual_Gd','intercept']].to_numpy()",
+      "rewrite-ns": 1735086,
+      "overhead-ns": 1735086,
+      "exec-ns": 190004999,
+      "total-ns": 191740085,
+      "patts-hit": {},
+      "rewritten": "for i in range(31):\n    final_data[['OverallQual', 'GrLivArea', 'GarageCars', 'TotalBsmtSF',\n        'BsmtFinSF1', 'firstFlrSF', 'GarageArea', 'LotArea', 'YearBuilt',\n        'OpenPorchSF', 'FullBath', 'LotFrontage', 'BsmtUnfSF',\n        'YearRemodAdd', 'OverallCond', 'iindFlrSF', 'MasVnrArea',\n        'GarageType_Detchd', 'WoodDeckSF', 'MoSold', 'BsmtQual_Gd',\n        'TotRmsAbvGrd', 'Neighborhood_Edwards', 'KitchenAbvGr',\n        'MSZoning_RM', 'MSSubClass', 'BsmtQual_Ex', 'GarageType_Attchd',\n        'ExterQual_Ex', 'KitchenQual_Gd', 'intercept']].to_numpy()\n"
+    },
+    {
+      "raw": "final_data = final_data.rename(columns ={'firstFlrSF':'1stFlrSF','iindFlrSF':'2ndFlrSF'})",
+      "rewrite-ns": 640370,
+      "overhead-ns": 640370,
+      "exec-ns": 3010376,
+      "total-ns": 3650746,
+      "patts-hit": {},
+      "rewritten": "final_data = final_data.rename(columns={'firstFlrSF': '1stFlrSF',\n    'iindFlrSF': '2ndFlrSF'})\n"
+    },
+    {
+      "raw": "final_data1 = final_data.drop(['GrLivArea', 'GarageCars', 'BsmtFinSF1', 'TotalBsmtSF',\n       '1stFlrSF', 'GarageArea','YearBuilt','BsmtUnfSF','2ndFlrSF'],axis = 1)",
+      "rewrite-ns": 822462,
+      "overhead-ns": 822462,
+      "exec-ns": 2819598,
+      "total-ns": 3642060,
+      "patts-hit": {},
+      "rewritten": "final_data1 = final_data.drop(['GrLivArea', 'GarageCars', 'BsmtFinSF1',\n    'TotalBsmtSF', '1stFlrSF', 'GarageArea', 'YearBuilt', 'BsmtUnfSF',\n    '2ndFlrSF'], axis=1)\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# import scipy.stats as stats",
+      "rewrite-ns": 18022,
+      "overhead-ns": 18022,
+      "exec-ns": 89506,
+      "total-ns": 107528,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "train.Neighborhood.value_counts()",
+      "rewrite-ns": 346211,
+      "overhead-ns": 346211,
+      "exec-ns": 5156821,
+      "total-ns": 5503032,
+      "patts-hit": {},
+      "rewritten": "train.Neighborhood.value_counts()\n"
+    },
+    {
+      "raw": "nb1 = train.SalePrice[train.Neighborhood=='NAmes']\nnb2 = train.SalePrice[train.Neighborhood=='CollgCr']\nnb3 = train.SalePrice[train.Neighborhood=='Edwards']\nnb4 = train.SalePrice[train.Neighborhood=='Somerst']\nnb5 = train.SalePrice[train.Neighborhood=='Gilbert']\nnb6 = train.SalePrice[train.Neighborhood=='NridgHt']\nnb7 = train.SalePrice[train.Neighborhood=='Sawyer']\nnb8 = train.SalePrice[train.Neighborhood=='NWAmes']\nnb9 = train.SalePrice[train.Neighborhood=='SawyerW']\nnb10 = train.SalePrice[train.Neighborhood=='BrkSide']\nnb11 = train.SalePrice[train.Neighborhood=='Crawfor']\nnb12= train.SalePrice[train.Neighborhood=='Mitchel']\nnb13 = train.SalePrice[train.Neighborhood=='NoRidge']\nnb14 = train.SalePrice[train.Neighborhood=='Timber']\nnb15 = train.SalePrice[train.Neighborhood=='IDOTRR']\nnb16 = train.SalePrice[train.Neighborhood=='ClearCr']\nnb17 = train.SalePrice[train.Neighborhood=='StoneBr']\nnb18 = train.SalePrice[train.Neighborhood=='SWISU']\nnb19 = train.SalePrice[train.Neighborhood=='Blmngtn']\nnb20 = train.SalePrice[train.Neighborhood=='MeadowV']\nnb21 = train.SalePrice[train.Neighborhood=='BrDale']\nnb22 = train.SalePrice[train.Neighborhood=='Veenker']\nnb23 = train.SalePrice[train.Neighborhood=='NPkVill']\nnb24 = train.SalePrice[train.Neighborhood=='Blueste']",
+      "rewrite-ns": 10635110,
+      "overhead-ns": 10635110,
+      "exec-ns": 108700810,
+      "total-ns": 119335920,
+      "patts-hit": {},
+      "rewritten": "nb1 = train.SalePrice[train.Neighborhood == 'NAmes']\nnb2 = train.SalePrice[train.Neighborhood == 'CollgCr']\nnb3 = train.SalePrice[train.Neighborhood == 'Edwards']\nnb4 = train.SalePrice[train.Neighborhood == 'Somerst']\nnb5 = train.SalePrice[train.Neighborhood == 'Gilbert']\nnb6 = train.SalePrice[train.Neighborhood == 'NridgHt']\nnb7 = train.SalePrice[train.Neighborhood == 'Sawyer']\nnb8 = train.SalePrice[train.Neighborhood == 'NWAmes']\nnb9 = train.SalePrice[train.Neighborhood == 'SawyerW']\nnb10 = train.SalePrice[train.Neighborhood == 'BrkSide']\nnb11 = train.SalePrice[train.Neighborhood == 'Crawfor']\nnb12 = train.SalePrice[train.Neighborhood == 'Mitchel']\nnb13 = train.SalePrice[train.Neighborhood == 'NoRidge']\nnb14 = train.SalePrice[train.Neighborhood == 'Timber']\nnb15 = train.SalePrice[train.Neighborhood == 'IDOTRR']\nnb16 = train.SalePrice[train.Neighborhood == 'ClearCr']\nnb17 = train.SalePrice[train.Neighborhood == 'StoneBr']\nnb18 = train.SalePrice[train.Neighborhood == 'SWISU']\nnb19 = train.SalePrice[train.Neighborhood == 'Blmngtn']\nnb20 = train.SalePrice[train.Neighborhood == 'MeadowV']\nnb21 = train.SalePrice[train.Neighborhood == 'BrDale']\nnb22 = train.SalePrice[train.Neighborhood == 'Veenker']\nnb23 = train.SalePrice[train.Neighborhood == 'NPkVill']\nnb24 = train.SalePrice[train.Neighborhood == 'Blueste']\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# stats.f_oneway(nb1,nb2,nb3,nb4,nb5,nb6,nb7,nb8,nb9,nb10,nb11,nb12,nb13,nb14,nb15,nb16,nb17,nb18,nb19,nb20,nb21,nb22,nb23,nb24)",
+      "rewrite-ns": 13633,
+      "overhead-ns": 13633,
+      "exec-ns": 71000,
+      "total-ns": 84633,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "train.GarageQual.value_counts()",
+      "rewrite-ns": 321615,
+      "overhead-ns": 321615,
+      "exec-ns": 4993318,
+      "total-ns": 5314933,
+      "patts-hit": {},
+      "rewritten": "train.GarageQual.value_counts()\n"
+    },
+    {
+      "raw": "gq1 = train.SalePrice[train.GarageQual=='TA']\ngq2 = train.SalePrice[train.GarageQual=='NG']\ngq3 = train.SalePrice[train.GarageQual=='Fa']\ngq4 = train.SalePrice[train.GarageQual=='Gd']\ngq5 = train.SalePrice[train.GarageQual=='Ex']\ngq6 = train.SalePrice[train.GarageQual=='Po']",
+      "rewrite-ns": 2634001,
+      "overhead-ns": 2634001,
+      "exec-ns": 25354442,
+      "total-ns": 27988443,
+      "patts-hit": {},
+      "rewritten": "gq1 = train.SalePrice[train.GarageQual == 'TA']\ngq2 = train.SalePrice[train.GarageQual == 'NG']\ngq3 = train.SalePrice[train.GarageQual == 'Fa']\ngq4 = train.SalePrice[train.GarageQual == 'Gd']\ngq5 = train.SalePrice[train.GarageQual == 'Ex']\ngq6 = train.SalePrice[train.GarageQual == 'Po']\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# stats.f_oneway(gq1,gq2,gq3,gq4,gq5)",
+      "rewrite-ns": 13044,
+      "overhead-ns": 13044,
+      "exec-ns": 68960,
+      "total-ns": 82004,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "train.GarageCond.value_counts()",
+      "rewrite-ns": 312809,
+      "overhead-ns": 312809,
+      "exec-ns": 4881146,
+      "total-ns": 5193955,
+      "patts-hit": {},
+      "rewritten": "train.GarageCond.value_counts()\n"
+    },
+    {
+      "raw": "gc1 = train.SalePrice[train.GarageQual=='TA']\ngc2 = train.SalePrice[train.GarageQual=='NG']\ngc3 = train.SalePrice[train.GarageQual=='Fa']\ngc4 = train.SalePrice[train.GarageQual=='Gd']\ngc5 = train.SalePrice[train.GarageQual=='Po']\ngc6 = train.SalePrice[train.GarageQual=='Ex']",
+      "rewrite-ns": 2641160,
+      "overhead-ns": 2641160,
+      "exec-ns": 25221469,
+      "total-ns": 27862629,
+      "patts-hit": {},
+      "rewritten": "gc1 = train.SalePrice[train.GarageQual == 'TA']\ngc2 = train.SalePrice[train.GarageQual == 'NG']\ngc3 = train.SalePrice[train.GarageQual == 'Fa']\ngc4 = train.SalePrice[train.GarageQual == 'Gd']\ngc5 = train.SalePrice[train.GarageQual == 'Po']\ngc6 = train.SalePrice[train.GarageQual == 'Ex']\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# stats.f_oneway(gc1,gc2,gc3,gc4,gc5)",
+      "rewrite-ns": 12966,
+      "overhead-ns": 12966,
+      "exec-ns": 68201,
+      "total-ns": 81167,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "train.BsmtExposure.value_counts()",
+      "rewrite-ns": 311287,
+      "overhead-ns": 311287,
+      "exec-ns": 4873485,
+      "total-ns": 5184772,
+      "patts-hit": {},
+      "rewritten": "train.BsmtExposure.value_counts()\n"
+    },
+    {
+      "raw": "be1 = train.SalePrice[train.BsmtExposure==\"No\"]\nbe2 = train.SalePrice[train.BsmtExposure==\"Av\"]\nbe3 = train.SalePrice[train.BsmtExposure==\"Gd\"]\nbe4 = train.SalePrice[train.BsmtExposure==\"Mn\"]\nbe5 = train.SalePrice[train.BsmtExposure==\"NB\"]",
+      "rewrite-ns": 2278915,
+      "overhead-ns": 2278915,
+      "exec-ns": 22854139,
+      "total-ns": 25133054,
+      "patts-hit": {},
+      "rewritten": "be1 = train.SalePrice[train.BsmtExposure == 'No']\nbe2 = train.SalePrice[train.BsmtExposure == 'Av']\nbe3 = train.SalePrice[train.BsmtExposure == 'Gd']\nbe4 = train.SalePrice[train.BsmtExposure == 'Mn']\nbe5 = train.SalePrice[train.BsmtExposure == 'NB']\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# stats.f_oneway(be1,be2,be3,be4,be5)",
+      "rewrite-ns": 13050,
+      "overhead-ns": 13050,
+      "exec-ns": 68594,
+      "total-ns": 81644,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "test_data = pd.read_csv('./input/test.scaled.csv')",
+      "rewrite-ns": 368768,
+      "overhead-ns": 368768,
+      "exec-ns": 501764576,
+      "total-ns": 502133344,
+      "patts-hit": {},
+      "rewritten": "test_data = pd.read_csv('./input/test.scaled.csv')\n"
+    },
+    {
+      "raw": "test1 = test_data[['OverallQual', 'YearBuilt', 'YearRemodAdd', 'MasVnrArea', 'BsmtFinSF1',\n       'TotalBsmtSF', 'FullBath', 'TotRmsAbvGrd', 'Fireplaces', \n       'MSZoning', 'LotShape', 'LotConfig', 'Neighborhood', 'Condition1',\n       'BldgType', 'HouseStyle', 'RoofStyle', 'RoofMatl', 'ExterQual',\n       'Foundation', 'BsmtQual', 'BsmtExposure', 'CentralAir', 'FireplaceQu',\n       'GarageFinish', 'GarageQual', 'GarageCond']]",
+      "rewrite-ns": 1338467,
+      "overhead-ns": 1338467,
+      "exec-ns": 11801348,
+      "total-ns": 13139815,
+      "patts-hit": {},
+      "rewritten": "test1 = test_data[['OverallQual', 'YearBuilt', 'YearRemodAdd', 'MasVnrArea',\n    'BsmtFinSF1', 'TotalBsmtSF', 'FullBath', 'TotRmsAbvGrd', 'Fireplaces',\n    'MSZoning', 'LotShape', 'LotConfig', 'Neighborhood', 'Condition1',\n    'BldgType', 'HouseStyle', 'RoofStyle', 'RoofMatl', 'ExterQual',\n    'Foundation', 'BsmtQual', 'BsmtExposure', 'CentralAir', 'FireplaceQu',\n    'GarageFinish', 'GarageQual', 'GarageCond']]\n"
+    },
+    {
+      "raw": "nulls1 = test1.isnull().sum().sort_values(ascending = False)\nnulls1",
+      "rewrite-ns": 678652,
+      "overhead-ns": 678652,
+      "exec-ns": 160221831,
+      "total-ns": 160900483,
+      "patts-hit": {},
+      "rewritten": "nulls1 = test1.isnull().sum().sort_values(ascending=False)\nnulls1\n"
+    },
+    {
+      "raw": "test1['FireplaceQu']=test1['FireplaceQu'].fillna('NF')\ntest1['GarageCond']=test1['GarageCond'].fillna('NG')\ntest1['GarageFinish']=test1['GarageFinish'].fillna('NG')\ntest1['GarageQual']=test1['GarageQual'].fillna('NG')\ntest1['BsmtExposure']=test1['BsmtExposure'].fillna('NB')\ntest1['BsmtQual'] = test1['BsmtQual'].fillna('NB')\ntest1['MasVnrArea'] = test1['MasVnrArea'].fillna(test1['MasVnrArea'].mean())\ntest1['MSZoning'] = test1['MSZoning'].fillna('RL')\ntest1['BsmtFinSF1'] = test1['BsmtFinSF1'].fillna(test1['BsmtFinSF1'].mean())\ntest1['TotalBsmtSF'] = test1['TotalBsmtSF'].fillna(test1['TotalBsmtSF'].mean())",
+      "rewrite-ns": 2940840,
+      "overhead-ns": 2940840,
+      "exec-ns": 37201936,
+      "total-ns": 40142776,
+      "patts-hit": {
+        "IsInplaceUpdate": 1
+      },
+      "rewritten": "_DIAS_ser = test1['FireplaceQu']\nif type(_DIAS_ser) != pd.Series:\n    test1['FireplaceQu'] = test1['FireplaceQu'].fillna('NF')\nelse:\n    test1['FireplaceQu'].fillna('NF', inplace=True)\n_DIAS_ser = test1['GarageCond']\nif type(_DIAS_ser) != pd.Series:\n    test1['GarageCond'] = test1['GarageCond'].fillna('NG')\nelse:\n    test1['GarageCond'].fillna('NG', inplace=True)\n_DIAS_ser = test1['GarageFinish']\nif type(_DIAS_ser) != pd.Series:\n    test1['GarageFinish'] = test1['GarageFinish'].fillna('NG')\nelse:\n    test1['GarageFinish'].fillna('NG', inplace=True)\n_DIAS_ser = test1['GarageQual']\nif type(_DIAS_ser) != pd.Series:\n    test1['GarageQual'] = test1['GarageQual'].fillna('NG')\nelse:\n    test1['GarageQual'].fillna('NG', inplace=True)\n_DIAS_ser = test1['BsmtExposure']\nif type(_DIAS_ser) != pd.Series:\n    test1['BsmtExposure'] = test1['BsmtExposure'].fillna('NB')\nelse:\n    test1['BsmtExposure'].fillna('NB', inplace=True)\n_DIAS_ser = test1['BsmtQual']\nif type(_DIAS_ser) != pd.Series:\n    test1['BsmtQual'] = test1['BsmtQual'].fillna('NB')\nelse:\n    test1['BsmtQual'].fillna('NB', inplace=True)\n_DIAS_ser = test1['MasVnrArea']\nif type(_DIAS_ser) != pd.Series:\n    test1['MasVnrArea'] = test1['MasVnrArea'].fillna(test1['MasVnrArea'].mean()\n        )\nelse:\n    test1['MasVnrArea'].fillna(test1['MasVnrArea'].mean(), inplace=True)\n_DIAS_ser = test1['MSZoning']\nif type(_DIAS_ser) != pd.Series:\n    test1['MSZoning'] = test1['MSZoning'].fillna('RL')\nelse:\n    test1['MSZoning'].fillna('RL', inplace=True)\n_DIAS_ser = test1['BsmtFinSF1']\nif type(_DIAS_ser) != pd.Series:\n    test1['BsmtFinSF1'] = test1['BsmtFinSF1'].fillna(test1['BsmtFinSF1'].mean()\n        )\nelse:\n    test1['BsmtFinSF1'].fillna(test1['BsmtFinSF1'].mean(), inplace=True)\n_DIAS_ser = test1['TotalBsmtSF']\nif type(_DIAS_ser) != pd.Series:\n    test1['TotalBsmtSF'] = test1['TotalBsmtSF'].fillna(test1['TotalBsmtSF']\n        .mean())\nelse:\n    test1['TotalBsmtSF'].fillna(test1['TotalBsmtSF'].mean(), inplace=True)\n"
+    },
+    {
+      "raw": "test2 = test1._get_numeric_data()",
+      "rewrite-ns": 343427,
+      "overhead-ns": 343427,
+      "exec-ns": 319000,
+      "total-ns": 662427,
+      "patts-hit": {},
+      "rewritten": "test2 = test1._get_numeric_data()\n"
+    },
+    {
+      "raw": "def var_summary(x):\n    return pd.Series([x.count(), x.isnull().sum(), x.sum(), x.mean(), x.median(),  x.std(), x.var(), x.min(), x.quantile(0.01), x.quantile(0.05),x.quantile(0.10),x.quantile(0.25),x.quantile(0.50),x.quantile(0.75), x.quantile(0.90),x.quantile(0.95), x.quantile(0.99),x.max()], \n                  index=['N', 'NMISS', 'SUM', 'MEAN','MEDIAN', 'STD', 'VAR', 'MIN', 'P1' , 'P5' ,'P10' ,'P25' ,'P50' ,'P75' ,'P90' ,'P95' ,'P99' ,'MAX'])\n\ntest2.apply(lambda x: var_summary(x)).T\n",
+      "rewrite-ns": 4695406,
+      "overhead-ns": 4698154,
+      "exec-ns": 149936931,
+      "total-ns": 154632337,
+      "patts-hit": {},
+      "rewritten": "def var_summary(x):\n    return pd.Series([x.count(), x.isnull().sum(), x.sum(), x.mean(), x.\n        median(), x.std(), x.var(), x.min(), x.quantile(0.01), x.quantile(\n        0.05), x.quantile(0.1), x.quantile(0.25), x.quantile(0.5), x.\n        quantile(0.75), x.quantile(0.9), x.quantile(0.95), x.quantile(0.99),\n        x.max()], index=['N', 'NMISS', 'SUM', 'MEAN', 'MEDIAN', 'STD',\n        'VAR', 'MIN', 'P1', 'P5', 'P10', 'P25', 'P50', 'P75', 'P90', 'P95',\n        'P99', 'MAX'])\ntest2.apply(lambda x: var_summary(x)).T\n"
+    },
+    {
+      "raw": "test3 = test1.drop(test2.columns,axis = 1)",
+      "rewrite-ns": 520093,
+      "overhead-ns": 520093,
+      "exec-ns": 10075250,
+      "total-ns": 10595343,
+      "patts-hit": {},
+      "rewritten": "test3 = test1.drop(test2.columns, axis=1)\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# test2['OverallQual']= test2['OverallQual'].clip_upper(test2['OverallQual'].quantile(0.99))\n# test2['OverallQual']= test2['OverallQual'].clip_lower(test2['OverallQual'].quantile(0.01))\n# test2['YearBuilt']= test2['YearBuilt'].clip_upper(test2['YearBuilt'].quantile(0.99))\n# test2['YearBuilt']= test2['YearBuilt'].clip_lower(test2['YearBuilt'].quantile(0.01))\n# test2['MasVnrArea']= test2['MasVnrArea'].clip_upper(test2['MasVnrArea'].quantile(0.99))\n# test2['BsmtFinSF1']= test2['BsmtFinSF1'].clip_upper(test2['BsmtFinSF1'].quantile(0.99))\n# test2['TotalBsmtSF']= test2['TotalBsmtSF'].clip_upper(test2['TotalBsmtSF'].quantile(0.99))\n# test2['TotalBsmtSF']= test2['TotalBsmtSF'].clip_upper(test2['TotalBsmtSF'].quantile(0.99))\n# test2['TotRmsAbvGrd']= test2['TotRmsAbvGrd'].clip_upper(test2['TotRmsAbvGrd'].quantile(0.99))\ntest2['OverallQual']= test2['OverallQual'].clip(upper=test2['OverallQual'].quantile(0.99))\ntest2['OverallQual']= test2['OverallQual'].clip(lower=test2['OverallQual'].quantile(0.01))\ntest2['YearBuilt']= test2['YearBuilt'].clip(upper=test2['YearBuilt'].quantile(0.99))\ntest2['YearBuilt']= test2['YearBuilt'].clip(lower=test2['YearBuilt'].quantile(0.01))\ntest2['MasVnrArea']= test2['MasVnrArea'].clip(upper=test2['MasVnrArea'].quantile(0.99))\ntest2['BsmtFinSF1']= test2['BsmtFinSF1'].clip(upper=test2['BsmtFinSF1'].quantile(0.99))\ntest2['TotalBsmtSF']= test2['TotalBsmtSF'].clip(upper=test2['TotalBsmtSF'].quantile(0.99))\ntest2['TotalBsmtSF']= test2['TotalBsmtSF'].clip(upper=test2['TotalBsmtSF'].quantile(0.99))\ntest2['TotRmsAbvGrd']= test2['TotRmsAbvGrd'].clip(upper=test2['TotRmsAbvGrd'].quantile(0.99))",
+      "rewrite-ns": 6669811,
+      "overhead-ns": 6669811,
+      "exec-ns": 23093097,
+      "total-ns": 29762908,
+      "patts-hit": {},
+      "rewritten": "test2['OverallQual'] = test2['OverallQual'].clip(upper=test2['OverallQual']\n    .quantile(0.99))\ntest2['OverallQual'] = test2['OverallQual'].clip(lower=test2['OverallQual']\n    .quantile(0.01))\ntest2['YearBuilt'] = test2['YearBuilt'].clip(upper=test2['YearBuilt'].\n    quantile(0.99))\ntest2['YearBuilt'] = test2['YearBuilt'].clip(lower=test2['YearBuilt'].\n    quantile(0.01))\ntest2['MasVnrArea'] = test2['MasVnrArea'].clip(upper=test2['MasVnrArea'].\n    quantile(0.99))\ntest2['BsmtFinSF1'] = test2['BsmtFinSF1'].clip(upper=test2['BsmtFinSF1'].\n    quantile(0.99))\ntest2['TotalBsmtSF'] = test2['TotalBsmtSF'].clip(upper=test2['TotalBsmtSF']\n    .quantile(0.99))\ntest2['TotalBsmtSF'] = test2['TotalBsmtSF'].clip(upper=test2['TotalBsmtSF']\n    .quantile(0.99))\ntest2['TotRmsAbvGrd'] = test2['TotRmsAbvGrd'].clip(upper=test2[\n    'TotRmsAbvGrd'].quantile(0.99))\n"
+    },
+    {
+      "raw": "finaltest = pd.concat([test2,test3],axis = 1)",
+      "rewrite-ns": 573665,
+      "overhead-ns": 573665,
+      "exec-ns": 5973222,
+      "total-ns": 6546887,
+      "patts-hit": {},
+      "rewritten": "finaltest = pd.concat([test2, test3], axis=1)\n"
+    },
+    {
+      "raw": "finaltest1 = pd.get_dummies(finaltest)",
+      "rewrite-ns": 383996,
+      "overhead-ns": 383996,
+      "exec-ns": 99774064,
+      "total-ns": 100158060,
+      "patts-hit": {},
+      "rewritten": "finaltest1 = pd.get_dummies(finaltest)\n"
+    },
+    {
+      "raw": "finaltest.columns",
+      "rewrite-ns": 85394,
+      "overhead-ns": 85394,
+      "exec-ns": 803454,
+      "total-ns": 888848,
+      "patts-hit": {},
+      "rewritten": "finaltest.columns\n"
+    },
+    {
+      "raw": "final_data1.head()",
+      "rewrite-ns": 109901,
+      "overhead-ns": 109901,
+      "exec-ns": 11953856,
+      "total-ns": 12063757,
+      "patts-hit": {},
+      "rewritten": "final_data1.head()\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run with input scaling\n# train1 =final_data1.sample(n = 730 ,random_state = 123)\ntrain1 =final_data1.sample(n = min(len(final_data) - 10, 730) ,random_state = 123)\ntrain2 = final_data1.drop(train1.index)",
+      "rewrite-ns": 1159604,
+      "overhead-ns": 1159604,
+      "exec-ns": 8780803,
+      "total-ns": 9940407,
+      "patts-hit": {},
+      "rewritten": "train1 = final_data1.sample(n=min(len(final_data) - 10, 730), random_state=123)\ntrain2 = final_data1.drop(train1.index)\n"
+    },
+    {
+      "raw": "train1x = train1.drop(['intercept','SalePrice'], axis = 1)\ntrain1y = train1.SalePrice",
+      "rewrite-ns": 752057,
+      "overhead-ns": 752057,
+      "exec-ns": 729209,
+      "total-ns": 1481266,
+      "patts-hit": {},
+      "rewritten": "train1x = train1.drop(['intercept', 'SalePrice'], axis=1)\ntrain1y = train1.SalePrice\n"
+    },
+    {
+      "raw": "train2x = train2.drop(['SalePrice','intercept'],axis = 1)\ntrain2y = train2.SalePrice",
+      "rewrite-ns": 746341,
+      "overhead-ns": 746341,
+      "exec-ns": 2389743,
+      "total-ns": 3136084,
+      "patts-hit": {},
+      "rewritten": "train2x = train2.drop(['SalePrice', 'intercept'], axis=1)\ntrain2y = train2.SalePrice\n"
+    },
+    {
+      "raw": "best_train = pd.get_dummies(best_train)",
+      "rewrite-ns": 370831,
+      "overhead-ns": 370831,
+      "exec-ns": 170026184,
+      "total-ns": 170397015,
+      "patts-hit": {},
+      "rewritten": "best_train = pd.get_dummies(best_train)\n"
+    },
+    {
+      "raw": "train_s1 = best_train.sample(n = min(len(final_data) - 10, 730) ,random_state = 123)\ntrain_s2 = best_train.drop(train_s1.index)                             ",
+      "rewrite-ns": 1288820,
+      "overhead-ns": 1288820,
+      "exec-ns": 110710003,
+      "total-ns": 111998823,
+      "patts-hit": {},
+      "rewritten": "train_s1 = best_train.sample(n=min(len(final_data) - 10, 730), random_state=123\n    )\ntrain_s2 = best_train.drop(train_s1.index)\n"
+    },
+    {
+      "raw": "train_s1x = train_s1.drop(['SalePrice'], axis = 1)\ntrain_s1y = train_s1.SalePrice",
+      "rewrite-ns": 786885,
+      "overhead-ns": 786885,
+      "exec-ns": 1072894,
+      "total-ns": 1859779,
+      "patts-hit": {},
+      "rewritten": "train_s1x = train_s1.drop(['SalePrice'], axis=1)\ntrain_s1y = train_s1.SalePrice\n"
+    },
+    {
+      "raw": "train_s2x = train_s2.drop(['SalePrice'],axis = 1)\ntrain_s2y = train_s2.SalePrice",
+      "rewrite-ns": 735884,
+      "overhead-ns": 735884,
+      "exec-ns": 16484588,
+      "total-ns": 17220472,
+      "patts-hit": {},
+      "rewritten": "train_s2x = train_s2.drop(['SalePrice'], axis=1)\ntrain_s2y = train_s2.SalePrice\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.linear_model import LinearRegression",
+      "rewrite-ns": 19764,
+      "overhead-ns": 19764,
+      "exec-ns": 106533,
+      "total-ns": 126297,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_train = train1x\n# Y_train = train1y",
+      "rewrite-ns": 13567,
+      "overhead-ns": 13567,
+      "exec-ns": 73588,
+      "total-ns": 87155,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# linreg = LinearRegression()\n# linreg.fit(X_train, Y_train)",
+      "rewrite-ns": 11668,
+      "overhead-ns": 11668,
+      "exec-ns": 64912,
+      "total-ns": 76580,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_train , X_test, Y_train, Y_test = train_test_split(\n#         train2x,\n#         train2y,\n#         test_size=0.20,\n#         random_state=123)",
+      "rewrite-ns": 10824,
+      "overhead-ns": 10824,
+      "exec-ns": 61491,
+      "total-ns": 72315,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# y_pred = linreg.predict(X_test)",
+      "rewrite-ns": 10161,
+      "overhead-ns": 10161,
+      "exec-ns": 57208,
+      "total-ns": 67369,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn import metrics",
+      "rewrite-ns": 9681,
+      "overhead-ns": 9681,
+      "exec-ns": 55640,
+      "total-ns": 65321,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# rmse = np.sqrt(metrics.mean_squared_error(Y_test, y_pred))\n# rmse",
+      "rewrite-ns": 9926,
+      "overhead-ns": 9926,
+      "exec-ns": 54837,
+      "total-ns": 64763,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# metrics.r2_score(Y_test, y_pred)",
+      "rewrite-ns": 9751,
+      "overhead-ns": 9751,
+      "exec-ns": 55141,
+      "total-ns": 64892,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn import metrics\n# from sklearn.tree import DecisionTreeRegressor\n# from sklearn.grid_search import GridSearchCV",
+      "rewrite-ns": 10019,
+      "overhead-ns": 10019,
+      "exec-ns": 54851,
+      "total-ns": 64870,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_train = train1x \n# Y_train = train1y",
+      "rewrite-ns": 9785,
+      "overhead-ns": 9785,
+      "exec-ns": 55200,
+      "total-ns": 64985,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# depth_list = list(range(1,20))\n# for depth in depth_list:\n#     dt_obj = DecisionTreeRegressor(max_depth=depth)\n#     dt_obj.fit(X_train, Y_train)\n#     print ('depth:', depth, 'R_squared:', metrics.r2_score(Y_test, dt_obj.predict(X_test)))",
+      "rewrite-ns": 10808,
+      "overhead-ns": 10808,
+      "exec-ns": 57422,
+      "total-ns": 68230,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# param_grid = {'max_depth': np.arange(3,20)}\n# tree = GridSearchCV(DecisionTreeRegressor(), param_grid, cv=10)\n# tree.fit(X_train, Y_train)",
+      "rewrite-ns": 10117,
+      "overhead-ns": 10117,
+      "exec-ns": 55465,
+      "total-ns": 65582,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# tree.best_params_",
+      "rewrite-ns": 9620,
+      "overhead-ns": 9620,
+      "exec-ns": 55665,
+      "total-ns": 65285,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# tree.best_score_",
+      "rewrite-ns": 9660,
+      "overhead-ns": 9660,
+      "exec-ns": 54178,
+      "total-ns": 63838,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 9322,
+      "overhead-ns": 9322,
+      "exec-ns": 53536,
+      "total-ns": 62858,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# tree_final = DecisionTreeRegressor(max_depth=8)\n# tree_final.fit(X_train, Y_train)",
+      "rewrite-ns": 10009,
+      "overhead-ns": 10009,
+      "exec-ns": 53893,
+      "total-ns": 63902,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_train, X_test, Y_train, Y_test = train_test_split(\n#         train2x,\n#         train2y,\n#         test_size=0.20,\n#         random_state=123)",
+      "rewrite-ns": 10382,
+      "overhead-ns": 10382,
+      "exec-ns": 53578,
+      "total-ns": 63960,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# tree_test_pred = pd.DataFrame({'actual': Y_test, 'predicted': tree_final.predict(X_test)})\ntree_test_pred = pd.DataFrame({'actual': train2y, 'predicted': train2y})",
+      "rewrite-ns": 594485,
+      "overhead-ns": 594485,
+      "exec-ns": 783946,
+      "total-ns": 1378431,
+      "patts-hit": {},
+      "rewritten": "tree_test_pred = pd.DataFrame({'actual': train2y, 'predicted': train2y})\n"
+    },
+    {
+      "raw": "tree_test_pred.sample(10)",
+      "rewrite-ns": 112597,
+      "overhead-ns": 112597,
+      "exec-ns": 4451255,
+      "total-ns": 4563852,
+      "patts-hit": {},
+      "rewritten": "tree_test_pred.sample(10)\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# metrics.r2_score(Y_test, tree_test_pred.predicted)\n_ = tree_test_pred.predicted",
+      "rewrite-ns": 262802,
+      "overhead-ns": 262802,
+      "exec-ns": 269201,
+      "total-ns": 532003,
+      "patts-hit": {},
+      "rewritten": "_ = tree_test_pred.predicted\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# rmse = np.sqrt(metrics.mean_squared_error(Y_test, tree_test_pred.predicted))\n# rmse\n_ = tree_test_pred.predicted",
+      "rewrite-ns": 247766,
+      "overhead-ns": 247766,
+      "exec-ns": 209271,
+      "total-ns": 457037,
+      "patts-hit": {},
+      "rewritten": "_ = tree_test_pred.predicted\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.ensemble import RandomForestRegressor",
+      "rewrite-ns": 11802,
+      "overhead-ns": 11802,
+      "exec-ns": 64281,
+      "total-ns": 76083,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_train = train1x\n# Y_train = train1y",
+      "rewrite-ns": 10973,
+      "overhead-ns": 10973,
+      "exec-ns": 60860,
+      "total-ns": 71833,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# depth_list = list(range(1,20))\n# for depth in depth_list:\n#     dt_obj = RandomForestRegressor(max_depth=depth)\n#     dt_obj.fit(X_train, Y_train)\n#     print ('depth:', depth, 'R_Squared:', metrics.r2_score(Y_test, dt_obj.predict(X_test)))",
+      "rewrite-ns": 12083,
+      "overhead-ns": 12083,
+      "exec-ns": 59889,
+      "total-ns": 71972,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# radm_clf = RandomForestRegressor(oob_score=True,n_estimators=100)\n# radm_clf.fit( X_train, Y_train )",
+      "rewrite-ns": 11294,
+      "overhead-ns": 11294,
+      "exec-ns": 60491,
+      "total-ns": 71785,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_train, X_test, Y_train, Y_test = train_test_split(\n#         train2x,\n#         train2y,\n#         test_size=0.20,\n#         random_state=123)",
+      "rewrite-ns": 10919,
+      "overhead-ns": 10919,
+      "exec-ns": 57015,
+      "total-ns": 67934,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# radm_test_pred = pd.DataFrame( { 'actual':  Y_test,\n#                             'predicted': radm_clf.predict( X_test ) } )\nradm_test_pred = pd.DataFrame( { 'actual':  train2y,\n                            'predicted': train2y } )",
+      "rewrite-ns": 542023,
+      "overhead-ns": 542023,
+      "exec-ns": 626325,
+      "total-ns": 1168348,
+      "patts-hit": {},
+      "rewritten": "radm_test_pred = pd.DataFrame({'actual': train2y, 'predicted': train2y})\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# metrics.r2_score( radm_test_pred.actual, radm_test_pred.predicted )\n_ = radm_test_pred.actual\n_ = radm_test_pred.predicted",
+      "rewrite-ns": 442009,
+      "overhead-ns": 442009,
+      "exec-ns": 308368,
+      "total-ns": 750377,
+      "patts-hit": {},
+      "rewritten": "_ = radm_test_pred.actual\n_ = radm_test_pred.predicted\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# rmse = np.sqrt(metrics.mean_squared_error(radm_test_pred.actual, radm_test_pred.predicted))\n# rmse\n_ = radm_test_pred.actual\n_ = radm_test_pred.predicted",
+      "rewrite-ns": 446283,
+      "overhead-ns": 446283,
+      "exec-ns": 230053,
+      "total-ns": 676336,
+      "patts-hit": {},
+      "rewritten": "_ = radm_test_pred.actual\n_ = radm_test_pred.predicted\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.ensemble import BaggingRegressor",
+      "rewrite-ns": 12285,
+      "overhead-ns": 12285,
+      "exec-ns": 65069,
+      "total-ns": 77354,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code, plotting\n# from sklearn import metrics\n# import matplotlib.pyplot as plt \n# import seaborn as sns",
+      "rewrite-ns": 11370,
+      "overhead-ns": 11370,
+      "exec-ns": 59553,
+      "total-ns": 70923,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# param_bag = {'n_estimators': list(range(100, 801, 100)),\n#              }",
+      "rewrite-ns": 10972,
+      "overhead-ns": 10972,
+      "exec-ns": 58618,
+      "total-ns": 69590,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.grid_search import GridSearchCV\n# bag_cl = GridSearchCV(estimator=BaggingRegressor(),\n#                   param_grid=param_bag,\n#                   cv=5,\n#                   verbose=True, n_jobs=-1)",
+      "rewrite-ns": 11180,
+      "overhead-ns": 11180,
+      "exec-ns": 57074,
+      "total-ns": 68254,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# bag_cl.get_params()",
+      "rewrite-ns": 9854,
+      "overhead-ns": 9854,
+      "exec-ns": 55407,
+      "total-ns": 65261,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_train = train1x\n# Y_train = train1y",
+      "rewrite-ns": 10544,
+      "overhead-ns": 10544,
+      "exec-ns": 57315,
+      "total-ns": 67859,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# bag_cl.fit(X_train, Y_train)",
+      "rewrite-ns": 9981,
+      "overhead-ns": 9981,
+      "exec-ns": 56411,
+      "total-ns": 66392,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# bag_cl.best_params_",
+      "rewrite-ns": 10061,
+      "overhead-ns": 10061,
+      "exec-ns": 55086,
+      "total-ns": 65147,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# bagclm = BaggingRegressor(oob_score=True, n_estimators=600)\n# bagclm.fit(X_train, Y_train)",
+      "rewrite-ns": 10018,
+      "overhead-ns": 10018,
+      "exec-ns": 54928,
+      "total-ns": 64946,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_train, X_test, Y_train, Y_test = train_test_split(\n#         train2x,\n#         train2y,\n#         test_size=0.20,\n#         random_state=123)",
+      "rewrite-ns": 10168,
+      "overhead-ns": 10168,
+      "exec-ns": 53682,
+      "total-ns": 63850,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# y_pred = pd.DataFrame( { 'actual':  Y_test,\n#                             'predicted': bagclm.predict( X_test) } )\ny_pred = pd.DataFrame( { 'actual':  train2y,\n                            'predicted': train2y } )",
+      "rewrite-ns": 538603,
+      "overhead-ns": 538603,
+      "exec-ns": 602981,
+      "total-ns": 1141584,
+      "patts-hit": {},
+      "rewritten": "y_pred = pd.DataFrame({'actual': train2y, 'predicted': train2y})\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# bagclm.estimators_features_",
+      "rewrite-ns": 12747,
+      "overhead-ns": 12747,
+      "exec-ns": 67172,
+      "total-ns": 79919,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# metrics.r2_score(y_pred.actual, y_pred.predicted)\n_ = y_pred.actual, y_pred.predicted",
+      "rewrite-ns": 420444,
+      "overhead-ns": 420444,
+      "exec-ns": 299734,
+      "total-ns": 720178,
+      "patts-hit": {},
+      "rewritten": "_ = y_pred.actual, y_pred.predicted\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# rmse = np.sqrt(metrics.mean_squared_error(Y_test, y_pred.predicted))\n# rmse\n_ = y_pred.predicted",
+      "rewrite-ns": 240535,
+      "overhead-ns": 240535,
+      "exec-ns": 193328,
+      "total-ns": 433863,
+      "patts-hit": {},
+      "rewritten": "_ = y_pred.predicted\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.ensemble import AdaBoostRegressor, GradientBoostingRegressor",
+      "rewrite-ns": 11864,
+      "overhead-ns": 11864,
+      "exec-ns": 63750,
+      "total-ns": 75614,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# [10**x for x in range(-3, 3)]",
+      "rewrite-ns": 10778,
+      "overhead-ns": 10778,
+      "exec-ns": 59266,
+      "total-ns": 70044,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# paragrid_ada = {'n_estimators': [100, 200, 400, 600, 800],\n#                'learning_rate': [10**x for x in range(-3, 3)]}",
+      "rewrite-ns": 10341,
+      "overhead-ns": 10341,
+      "exec-ns": 60089,
+      "total-ns": 70430,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.grid_search import GridSearchCV\n# ada = GridSearchCV(estimator=AdaBoostRegressor(),\n#                   param_grid=paragrid_ada,\n#                   cv=5,\n#                   verbose=True, n_jobs=-1)",
+      "rewrite-ns": 10894,
+      "overhead-ns": 10894,
+      "exec-ns": 54775,
+      "total-ns": 65669,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_train = train1x\n# Y_train = train1y",
+      "rewrite-ns": 9699,
+      "overhead-ns": 9699,
+      "exec-ns": 54709,
+      "total-ns": 64408,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# ada.fit(X_train, Y_train)",
+      "rewrite-ns": 9969,
+      "overhead-ns": 9969,
+      "exec-ns": 55815,
+      "total-ns": 65784,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# ada.best_params_",
+      "rewrite-ns": 9805,
+      "overhead-ns": 9805,
+      "exec-ns": 57114,
+      "total-ns": 66919,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# ada_clf = AdaBoostRegressor(learning_rate=0.1, n_estimators=800)",
+      "rewrite-ns": 10468,
+      "overhead-ns": 10468,
+      "exec-ns": 55519,
+      "total-ns": 65987,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# ada_clf.fit(X_train, Y_train)",
+      "rewrite-ns": 9749,
+      "overhead-ns": 9749,
+      "exec-ns": 54774,
+      "total-ns": 64523,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_train, X_test, Y_train, Y_test = train_test_split(\n#         train2x,\n#         train2y,\n#         test_size=0.20,\n#         random_state=123)",
+      "rewrite-ns": 10338,
+      "overhead-ns": 10338,
+      "exec-ns": 55247,
+      "total-ns": 65585,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# ada_test_pred = pd.DataFrame({'actual': Y_test,\n#                             'predicted': ada_clf.predict(X_test)})\nada_test_pred = pd.DataFrame({'actual': train2y,\n                            'predicted': train2y})",
+      "rewrite-ns": 637851,
+      "overhead-ns": 637851,
+      "exec-ns": 607773,
+      "total-ns": 1245624,
+      "patts-hit": {},
+      "rewritten": "ada_test_pred = pd.DataFrame({'actual': train2y, 'predicted': train2y})\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# metrics.r2_score(ada_test_pred.actual, ada_test_pred.predicted)\n_ = ada_test_pred.actual\n_ = ada_test_pred.predicted",
+      "rewrite-ns": 443237,
+      "overhead-ns": 443237,
+      "exec-ns": 308680,
+      "total-ns": 751917,
+      "patts-hit": {},
+      "rewritten": "_ = ada_test_pred.actual\n_ = ada_test_pred.predicted\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# rmse = np.sqrt(metrics.mean_squared_error(Y_test, y_pred.predicted))\n# rmse\n_ = y_pred.predicted",
+      "rewrite-ns": 238016,
+      "overhead-ns": 238016,
+      "exec-ns": 191976,
+      "total-ns": 429992,
+      "patts-hit": {},
+      "rewritten": "_ = y_pred.predicted\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# param_test1 = {'n_estimators': [100, 200, 400, 600, 800],\n#               'max_depth': list(range(1,10))}\n# gsearch1 = GridSearchCV(estimator = GradientBoostingRegressor(learning_rate=0.1, min_samples_split=500, min_samples_leaf=50,\n#                                                                max_features='sqrt',subsample=0.8, random_state=10), \n#                         param_grid = param_test1, scoring='r2',n_jobs=4,iid=False, cv=5)",
+      "rewrite-ns": 13964,
+      "overhead-ns": 13964,
+      "exec-ns": 64153,
+      "total-ns": 78117,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_train = train1x\n# Y_train = train1y",
+      "rewrite-ns": 11070,
+      "overhead-ns": 11070,
+      "exec-ns": 59457,
+      "total-ns": 70527,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# gsearch1.fit(X_train, Y_train)",
+      "rewrite-ns": 10576,
+      "overhead-ns": 10576,
+      "exec-ns": 59662,
+      "total-ns": 70238,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# gsearch1.best_params_",
+      "rewrite-ns": 17978,
+      "overhead-ns": 17978,
+      "exec-ns": 58931,
+      "total-ns": 76909,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# gbm = GradientBoostingRegressor(learning_rate=0.1, min_samples_split=500, min_samples_leaf=50,max_depth=1, n_estimators=200,\n#                                                                max_features='sqrt',subsample=0.8, random_state=10)",
+      "rewrite-ns": 11069,
+      "overhead-ns": 11069,
+      "exec-ns": 55529,
+      "total-ns": 66598,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# gbm.fit(X_train, Y_train)",
+      "rewrite-ns": 9904,
+      "overhead-ns": 9904,
+      "exec-ns": 55949,
+      "total-ns": 65853,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_train, X_test, Y_train, Y_test = train_test_split(\n#         train2x,\n#         train2y,\n#         test_size=0.20,\n#         random_state=123)",
+      "rewrite-ns": 10730,
+      "overhead-ns": 10730,
+      "exec-ns": 55598,
+      "total-ns": 66328,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# gbm_test_pred = pd.DataFrame({'actual': Y_test,\n#                             'predicted': gbm.predict(X_test)})\ngbm_test_pred = pd.DataFrame({'actual': train2y,\n                            'predicted': train2y})",
+      "rewrite-ns": 535742,
+      "overhead-ns": 535742,
+      "exec-ns": 598770,
+      "total-ns": 1134512,
+      "patts-hit": {},
+      "rewritten": "gbm_test_pred = pd.DataFrame({'actual': train2y, 'predicted': train2y})\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# metrics.r2_score(gbm_test_pred.actual, gbm_test_pred.predicted)\n_ = gbm_test_pred.actual\n_ = gbm_test_pred.predicted",
+      "rewrite-ns": 433925,
+      "overhead-ns": 433925,
+      "exec-ns": 302652,
+      "total-ns": 736577,
+      "patts-hit": {},
+      "rewritten": "_ = gbm_test_pred.actual\n_ = gbm_test_pred.predicted\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# rmse = np.sqrt(metrics.mean_squared_error(gbm_test_pred.actual, gbm_test_pred.predicted))\n# rmse\n_ = gbm_test_pred.actual\n_ = gbm_test_pred.predicted",
+      "rewrite-ns": 439554,
+      "overhead-ns": 439554,
+      "exec-ns": 229446,
+      "total-ns": 669000,
+      "patts-hit": {},
+      "rewritten": "_ = gbm_test_pred.actual\n_ = gbm_test_pred.predicted\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 11256,
+      "overhead-ns": 11256,
+      "exec-ns": 65183,
+      "total-ns": 76439,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 5.40584326,
+  "max-disk-in-mb": 0
+}

@@ -1,0 +1,188 @@
+{
+  "max-mem-in-mb": 483,
+  "max-mem-in-mb2": 587,
+  "cells": [
+    {
+      "raw": "# import os\n\nimport numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])",
+      "rewrite-ns": 684445,
+      "overhead-ns": 684445,
+      "exec-ns": 393738,
+      "total-ns": 1078183,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "df_train = pd.read_csv(\"./input/train_users_2.scaled.csv\")\ndf_train.sample(n=5) #ou head pour avoir les 5 premiers",
+      "rewrite-ns": 618822,
+      "overhead-ns": 618822,
+      "exec-ns": 945437755,
+      "total-ns": 946056577,
+      "patts-hit": {},
+      "rewritten": "df_train = pd.read_csv('./input/train_users_2.scaled.csv')\ndf_train.sample(n=5)\n"
+    },
+    {
+      "raw": "df_test = pd.read_csv(\"./input/test_users.scaled.csv\")\ndf_test.sample(n=5)",
+      "rewrite-ns": 482974,
+      "overhead-ns": 482974,
+      "exec-ns": 202612927,
+      "total-ns": 203095901,
+      "patts-hit": {},
+      "rewritten": "df_test = pd.read_csv('./input/test_users.scaled.csv')\ndf_test.sample(n=5)\n"
+    },
+    {
+      "raw": "#Combine into one dataset\ndf_all = pd.concat((df_train, df_test), axis=0, ignore_index=True)\ndf_all.head(n=5) #only display a few lines and not the whole dataframe",
+      "rewrite-ns": 744191,
+      "overhead-ns": 744191,
+      "exec-ns": 112319149,
+      "total-ns": 113063340,
+      "patts-hit": {},
+      "rewritten": "df_all = pd.concat((df_train, df_test), axis=0, ignore_index=True)\ndf_all.head(n=5)\n"
+    },
+    {
+      "raw": "df_all.drop('date_first_booking',axis=1, inplace=True)",
+      "rewrite-ns": 615545,
+      "overhead-ns": 615545,
+      "exec-ns": 81221729,
+      "total-ns": 81837274,
+      "patts-hit": {},
+      "rewritten": "df_all.drop('date_first_booking', axis=1, inplace=True)\n"
+    },
+    {
+      "raw": "df_all.sample(n=5)",
+      "rewrite-ns": 140658,
+      "overhead-ns": 140658,
+      "exec-ns": 155859665,
+      "total-ns": 156000323,
+      "patts-hit": {},
+      "rewritten": "df_all.sample(n=5)\n"
+    },
+    {
+      "raw": "df_all['timestamp_first_active'] = pd.to_datetime(df_all['timestamp_first_active'], format='%Y%m%d%H%M%S')\ndf_all.sample(n=5)",
+      "rewrite-ns": 744547,
+      "overhead-ns": 744547,
+      "exec-ns": 1716578096,
+      "total-ns": 1717322643,
+      "patts-hit": {},
+      "rewritten": "df_all['timestamp_first_active'] = pd.to_datetime(df_all[\n    'timestamp_first_active'], format='%Y%m%d%H%M%S')\ndf_all.sample(n=5)\n"
+    },
+    {
+      "raw": "def remove_age_outliers(x, min_value=15, max_value=90):\n    if np.logical_or(x<=min_value, x>=max_value):\n        return np.nan\n    else:\n        return x",
+      "rewrite-ns": 1185218,
+      "overhead-ns": 1185218,
+      "exec-ns": 431972,
+      "total-ns": 1617190,
+      "patts-hit": {},
+      "rewritten": "def remove_age_outliers(x, min_value=15, max_value=90):\n    if np.logical_or(x <= min_value, x >= max_value):\n        return np.nan\n    else:\n        return x\n"
+    },
+    {
+      "raw": "df_all['age'] = df_all['age'].apply(lambda x: remove_age_outliers(x) if(not np.isnan(x)) else x)",
+      "rewrite-ns": 1227205,
+      "overhead-ns": 1227205,
+      "exec-ns": 968857190,
+      "total-ns": 970084395,
+      "patts-hit": {},
+      "rewritten": "df_all['age'] = df_all['age'].apply(lambda x: remove_age_outliers(x) if not\n    np.isnan(x) else x)\n"
+    },
+    {
+      "raw": "df_all['age'].fillna(-1, inplace=True)",
+      "rewrite-ns": 620398,
+      "overhead-ns": 620398,
+      "exec-ns": 4304079,
+      "total-ns": 4924477,
+      "patts-hit": {},
+      "rewritten": "df_all['age'].fillna(-1, inplace=True)\n"
+    },
+    {
+      "raw": "df_all.sample(n=5)",
+      "rewrite-ns": 131168,
+      "overhead-ns": 131168,
+      "exec-ns": 39562228,
+      "total-ns": 39693396,
+      "patts-hit": {},
+      "rewritten": "df_all.sample(n=5)\n"
+    },
+    {
+      "raw": "df_all.age = df_all.age.astype(int)\ndf_all.sample(n=5)",
+      "rewrite-ns": 596417,
+      "overhead-ns": 596417,
+      "exec-ns": 21387283,
+      "total-ns": 21983700,
+      "patts-hit": {},
+      "rewritten": "df_all.age = df_all.age.astype(int)\ndf_all.sample(n=5)\n"
+    },
+    {
+      "raw": "def check_NaN_Values_in_df(df):\n    for col in df:\n        nan_count = df[col].isnull().sum()\n        \n        if nan_count != 0:\n            print(col + \"=>\" + str(nan_count) + \"NaN Values\")",
+      "rewrite-ns": 1580022,
+      "overhead-ns": 1580022,
+      "exec-ns": 436681,
+      "total-ns": 2016703,
+      "patts-hit": {},
+      "rewritten": "def check_NaN_Values_in_df(df):\n    for col in df:\n        nan_count = df[col].isnull().sum()\n        if nan_count != 0:\n            print(col + '=>' + str(nan_count) + 'NaN Values')\n"
+    },
+    {
+      "raw": "check_NaN_Values_in_df(df_all)",
+      "rewrite-ns": 252236,
+      "overhead-ns": 252236,
+      "exec-ns": 226667857,
+      "total-ns": 226920093,
+      "patts-hit": {},
+      "rewritten": "check_NaN_Values_in_df(df_all)\n"
+    },
+    {
+      "raw": "df_all['first_affiliate_tracked'].fillna(-1, inplace= True)",
+      "rewrite-ns": 599214,
+      "overhead-ns": 599214,
+      "exec-ns": 21705113,
+      "total-ns": 22304327,
+      "patts-hit": {},
+      "rewritten": "df_all['first_affiliate_tracked'].fillna(-1, inplace=True)\n"
+    },
+    {
+      "raw": "check_NaN_Values_in_df(df_all)\ndf_all.sample(n=5)",
+      "rewrite-ns": 334059,
+      "overhead-ns": 334059,
+      "exec-ns": 246869183,
+      "total-ns": 247203242,
+      "patts-hit": {},
+      "rewritten": "check_NaN_Values_in_df(df_all)\ndf_all.sample(n=5)\n"
+    },
+    {
+      "raw": "df_all.drop('timestamp_first_active', axis=1, inplace=True)\ndf_all.sample(n=5)",
+      "rewrite-ns": 552626,
+      "overhead-ns": 552626,
+      "exec-ns": 94736323,
+      "total-ns": 95288949,
+      "patts-hit": {},
+      "rewritten": "df_all.drop('timestamp_first_active', axis=1, inplace=True)\ndf_all.sample(n=5)\n"
+    },
+    {
+      "raw": "df_all.drop('language', axis=1, inplace=True)\ndf_all.sample(n=5)",
+      "rewrite-ns": 564479,
+      "overhead-ns": 564479,
+      "exec-ns": 84979565,
+      "total-ns": 85544044,
+      "patts-hit": {},
+      "rewritten": "df_all.drop('language', axis=1, inplace=True)\ndf_all.sample(n=5)\n"
+    },
+    {
+      "raw": "df_all = df_all [df_all['date_account_created'] > '2013-02-01']\ndf_all.sample(n=5)",
+      "rewrite-ns": 633712,
+      "overhead-ns": 633712,
+      "exec-ns": 90581668,
+      "total-ns": 91215380,
+      "patts-hit": {},
+      "rewritten": "df_all = df_all[df_all['date_account_created'] > '2013-02-01']\ndf_all.sample(n=5)\n"
+    },
+    {
+      "raw": "# We create the output directory if necessary\n# if not os.path.exists(\"output\"):\n#     os.makedirs(\"output\")\n  \n# We export to cvs\ndf_all.to_csv(\"cleaned.csv\", sep=',' , index=False)\n    ",
+      "rewrite-ns": 522097,
+      "overhead-ns": 522097,
+      "exec-ns": 1639370573,
+      "total-ns": 1639892670,
+      "patts-hit": {},
+      "rewritten": "df_all.to_csv('cleaned.csv', sep=',', index=False)\n"
+    }
+  ],
+  "total-time-in-sec": 6.667142807,
+  "max-disk-in-mb": 0
+}

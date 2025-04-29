@@ -1,0 +1,266 @@
+{
+  "max-mem-in-mb": 117,
+  "max-mem-in-mb2": 120,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt\n# %matplotlib inline",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 376776
+    },
+    {
+      "raw": "df = pd.read_csv('./input/train.scaled.csv')\ndf_test = pd.read_csv('./input/test.scaled.csv')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 29369288
+    },
+    {
+      "raw": "train_size = len(df)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 358816
+    },
+    {
+      "raw": "features = pd.concat([df.drop('SalePrice',axis=1),df_test],sort=False).reset_index(drop=True)\ntarget = df['SalePrice'].copy()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 11991794
+    },
+    {
+      "raw": "df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 392540
+    },
+    {
+      "raw": "print('number of numeric columns: ' + str(len(df.select_dtypes(['int64','float64']).columns)))\nprint('number of categorical columns: ' + str(len(df.select_dtypes(['object']).columns)))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1388486
+    },
+    {
+      "raw": "#correlation to SalePrice\n# ALEX: remove plotting\n# plt.figure(figsize=(12,6))\n# df.corr()['SalePrice'].drop('SalePrice').sort_values().plot(kind='bar')\ndf.corr()['SalePrice'].drop('SalePrice').sort_values()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 7415458
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.jointplot(x='OverallQual', y='SalePrice', data=df)\n\n# sns.jointplot(x='GrLivArea', y='SalePrice', data=df)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 187275
+    },
+    {
+      "raw": "#23 catergorical columns with missing values\nmissing_str = features.select_dtypes('object').isnull().sum().sort_values(ascending=False)\nmissing_str[missing_str>0]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 15615220
+    },
+    {
+      "raw": "fill_none = ['MiscFeature','Alley','Fence','FireplaceQu','GarageType','GarageCond', 'GarageQual','GarageFinish','BsmtCond','BsmtFinType1', 'BsmtFinType2', 'BsmtExposure', 'BsmtQual','MasVnrType']\nfeatures[fill_none] = features[fill_none].fillna('None',inplace=False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 18859354
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.scatterplot(x='PoolArea',y='SalePrice',data=df.fillna('Missing'),hue='PoolQC')\n_ = df.fillna('Missing')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 9057113
+    },
+    {
+      "raw": "features['PoolQC'].fillna('N',inplace=True)\nfeatures['PoolQC'].replace({'Ex':'Y','Fa':'Y','Gd':'Y'},inplace=True)\nfeatures.drop('PoolArea',axis=1,inplace=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4177216
+    },
+    {
+      "raw": "otr_cate = ['MSZoning', 'Utilities', 'Functional', 'Electrical', 'SaleType', 'Exterior2nd', 'Exterior1st', 'KitchenQual']\nfor c in otr_cate:\n    features[c] = features[c].fillna(features[c].mode()[0],inplace=False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 10974901
+    },
+    {
+      "raw": "#11 catergorical columns with missing values\nmissing_num = features.select_dtypes(['int64','float64']).isnull().sum().sort_values(ascending=False)\nmissing_num[missing_num>0]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1868725
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# df.plot(x='LotFrontage',y='LotArea',kind='scatter')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 176037
+    },
+    {
+      "raw": "features['LotFrontage'].fillna(features['LotFrontage'].median(),inplace=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1205066
+    },
+    {
+      "raw": "features[features['GarageCond']=='None']['GarageYrBlt'].isnull().sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3876195
+    },
+    {
+      "raw": "features['GarageYrBlt'].fillna(0,inplace=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 698515
+    },
+    {
+      "raw": "fill_zero = ['GarageArea','GarageCars','MasVnrArea','BsmtFullBath','BsmtHalfBath','BsmtFinSF1','BsmtFinSF2','BsmtUnfSF','TotalBsmtSF']\nfeatures[fill_zero] = features[fill_zero].fillna(0)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2724635
+    },
+    {
+      "raw": "# focusing on first row, and found some point does not follow the trend\n# ALEX: remove plotting\n# sns.pairplot(df[['SalePrice','GrLivArea','1stFlrSF','TotalBsmtSF','LotFrontage','LotArea']].dropna())\n_ = df[['SalePrice','GrLivArea','1stFlrSF','TotalBsmtSF','LotFrontage','LotArea']].dropna()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1697381
+    },
+    {
+      "raw": "drop_index = [] # list to contain all rows should be excluded\ndrop_index.append(df[(df['GrLivArea']>4500) & (df['SalePrice']<400000)].loc[:train_size].index)\ndrop_index.append(df[(df['1stFlrSF']>4000) & (df['SalePrice']<400000)].loc[:train_size].index)\ndrop_index.append(df[(df['TotalBsmtSF']>6000) & (df['SalePrice']<400000)].loc[:train_size].index)\ndrop_index.append(df[df['LotArea']>100000].index)\ndrop_index.append(df[df['LotFrontage']>300].index)\n\ndrop_index = list(map(list,drop_index)) # IndexObject -> python list\ntmp = []\nfor sublist in drop_index:\n    for item in sublist:\n        tmp.append(item)\ndrop_index = list(set(tmp))  # merge into single list and take set() to remove the duplicated\n\nfeatures.drop(drop_index,inplace=True)\ntarget.drop(drop_index,inplace=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 6857406
+    },
+    {
+      "raw": "features['MSSubClass'] = features['MSSubClass'].astype('object')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 900892
+    },
+    {
+      "raw": "features['Utilities'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 895897
+    },
+    {
+      "raw": "features.drop('Utilities',axis=1,inplace=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2523254
+    },
+    {
+      "raw": "features.drop('Id',axis=1,inplace=True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2336617
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# df.plot(x='LowQualFinSF',y='SalePrice',kind='scatter')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 183741
+    },
+    {
+      "raw": "features['LowQualFinSF'] = features['LowQualFinSF'].apply(lambda x: 'Y' if x>0 else 'N')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1411693
+    },
+    {
+      "raw": "#before take square root\n# ALEX: remove plotting\n# sns.jointplot(x=df['GrLivArea'],y=df['SalePrice'].apply(np.log1p),data=df,kind='reg')\n_ = df['GrLivArea']\n_ = df['SalePrice'].apply(np.log1p)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 646676
+    },
+    {
+      "raw": "#after take square root\n# ALEX: remove plotting\n# sns.jointplot(x=df['GrLivArea']**0.5,y=df['SalePrice'].apply(np.log1p),data=df,kind='reg')\n_ = df['GrLivArea']**0.5\n_ = df['SalePrice'].apply(np.log1p)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 799361
+    },
+    {
+      "raw": "features['GrLivArea'] = features['GrLivArea']**0.5",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 861546
+    },
+    {
+      "raw": "#predictor pairwise correlation check\ncorr_matrix = features.corr()\ncolinearity = {}\nfor column in corr_matrix.columns:\n    index = corr_matrix[corr_matrix[column]>0.6].index\n    for indice in index:\n        if not column == indice:\n            if not indice+' '+column in colinearity.keys():\n                colinearity[column+' '+indice]=corr_matrix.loc[indice,column]\ncolinearity",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 17897161
+    },
+    {
+      "raw": "high_collinerarity = ['GarageArea','TotRmsAbvGrd','1stFlrSF','2ndFlrSF','BsmtFinSF1','BsmtFinSF2','FullBath']\nfeatures = features.drop(high_collinerarity,axis=1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2370311
+    },
+    {
+      "raw": "categorical_cols = list(features.select_dtypes('object').columns)\ndummies = pd.get_dummies(features[categorical_cols],drop_first=True)\nfeatures = pd.concat([features.drop(categorical_cols,axis=1),dummies],axis=1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 35685945
+    },
+    {
+      "raw": "X_train = features.loc[0:train_size-1]\ny_train = target\nX_test = features.loc[train_size:]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 684544
+    },
+    {
+      "raw": "X_train.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 278085
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.linear_model import RidgeCV\n# reg = RidgeCV()\n# reg.fit(X_train,np.log1p(y_train))\n_ = np.log1p(y_train)\n#reg.fit(X_train,y_train)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 474623
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import cross_val_score\n# log_rms = np.sqrt(-np.mean(cross_val_score(reg, X_train,np.log1p(y_train), cv=5,scoring='neg_mean_squared_error')))\n# #log_rms = np.sqrt(-np.mean(cross_val_score(reg, X_train,y_train, cv=5,scoring='neg_mean_squared_log_error')))\n# print(f'RMLS : {log_rms}')\n_ = np.log1p(y_train)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 472923
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# pred = np.expm1(reg.predict(X_train))\npred = np.expm1(y_train.to_numpy())\n#pred = reg.predict(X_train)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 403169
+    },
+    {
+      "raw": "comparison = pd.DataFrame({'prediction':pred.reshape(pred.shape[0],),'actual':y_train,'error':pred.reshape(pred.shape[0],)-y_train})\n# ALEX: remove plotting\n# sns.distplot(comparison['error'])\n_ = comparison['error']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1192934
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# comparison.plot(x='prediction',y='error',kind='scatter')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 174609
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# comparison.plot(x='prediction',y='actual',kind='scatter')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 160182
+    },
+    {
+      "raw": "# output result for submission\n# ALEX: remove ML code\n# pred = np.expm1(reg.predict(X_test))\npred = np.expm1(y_train.to_numpy())\n# ALEX: make notebook run\n# pred = pd.DataFrame(pred.reshape(1459, ))\npred = pd.DataFrame(pred.reshape(pred.shape[0], ))\noutput = pd.concat([df_test['Id'],pred],axis=1).rename(columns={0:'SalePrice'})\noutput.to_csv('submission.csv',index=False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5418497
+    },
+    {
+      "raw": "steps = ['Control','Outliers','Log_y','Modification','Non-linearity','Collinearity']\nrmls = [0.15494899171649665,0.14154336306738766,0.11543537404168344,0.11479554199015254,0.11394995795225088,0.11326714995779572]\nscores = pd.DataFrame({'steps':steps,'rmls':rmls})\n\n# ALEX: remove plotting\n# scores.plot(x='steps',y='rmls',marker='o',rot=90)\n# plt.xlabel('Preprocessing Actions',fontsize=14)\n# plt.ylabel('RMLS',fontsize=14)\n# plt.title('RMLS Changing wrt to Preprocessing Actions',fontsize=16)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 929319
+    }
+  ],
+  "total-time-in-sec": 0.205970176,
+  "max-disk-in-mb": 0
+}

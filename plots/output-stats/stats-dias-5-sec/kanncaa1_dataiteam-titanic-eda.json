@@ -1,0 +1,804 @@
+{
+  "max-mem-in-mb": 128,
+  "max-mem-in-mb2": 132,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# plt.style.use(\"seaborn-whitegrid\")\n\n# import seaborn as sns\n\nfrom collections import Counter\n\nimport warnings\nwarnings.filterwarnings(\"ignore\")\n\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# Any results you write to the current directory are saved as output.",
+      "rewrite-ns": 883574,
+      "overhead-ns": 883574,
+      "exec-ns": 391067,
+      "total-ns": 1274641,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\nfrom collections import Counter\nimport warnings\nwarnings.filterwarnings('ignore')\n"
+    },
+    {
+      "raw": "train_df = pd.read_csv(\"./input/train.scaled.csv\")\ntest_df = pd.read_csv(\"./input/test.scaled.csv\")\ntest_PassengerId = test_df[\"PassengerId\"]",
+      "rewrite-ns": 895529,
+      "overhead-ns": 895529,
+      "exec-ns": 17869341,
+      "total-ns": 18764870,
+      "patts-hit": {},
+      "rewritten": "train_df = pd.read_csv('./input/train.scaled.csv')\ntest_df = pd.read_csv('./input/test.scaled.csv')\ntest_PassengerId = test_df['PassengerId']\n"
+    },
+    {
+      "raw": "train_df.columns",
+      "rewrite-ns": 52263,
+      "overhead-ns": 52263,
+      "exec-ns": 952731,
+      "total-ns": 1004994,
+      "patts-hit": {},
+      "rewritten": "train_df.columns\n"
+    },
+    {
+      "raw": "train_df.head()",
+      "rewrite-ns": 73493,
+      "overhead-ns": 73493,
+      "exec-ns": 8175343,
+      "total-ns": 8248836,
+      "patts-hit": {},
+      "rewritten": "train_df.head()\n"
+    },
+    {
+      "raw": "train_df.describe()",
+      "rewrite-ns": 74015,
+      "overhead-ns": 74015,
+      "exec-ns": 15750321,
+      "total-ns": 15824336,
+      "patts-hit": {},
+      "rewritten": "train_df.describe()\n"
+    },
+    {
+      "raw": "train_df.info()",
+      "rewrite-ns": 75465,
+      "overhead-ns": 75465,
+      "exec-ns": 8728929,
+      "total-ns": 8804394,
+      "patts-hit": {},
+      "rewritten": "train_df.info()\n"
+    },
+    {
+      "raw": "def bar_plot(variable):\n    \"\"\"\n        input: variable ex: \"Sex\"\n        output: bar plot & value count\n    \"\"\"\n    # get feature\n    var = train_df[variable]\n    # count number of categorical variable(value/sample)\n    varValue = var.value_counts()\n    \n    # visualize\n# ALEX: remove plotting\n#     plt.figure(figsize = (9,3))\n#     plt.bar(varValue.index, varValue)\n#     plt.xticks(varValue.index, varValue.index.values)\n#     plt.ylabel(\"Frequency\")\n#     plt.title(variable)\n#     plt.show()\n#     print(\"{}: \\n {}\".format(variable,varValue))\n    _ = varValue.index\n    _ = varValue.index\n    _ = varValue.index.values\n    _ = \"{}: \\n {}\".format(variable,varValue)\n    ",
+      "rewrite-ns": 1685919,
+      "overhead-ns": 1685919,
+      "exec-ns": 561699,
+      "total-ns": 2247618,
+      "patts-hit": {},
+      "rewritten": "def bar_plot(variable):\n    \"\"\"\n        input: variable ex: \"Sex\"\n        output: bar plot & value count\n    \"\"\"\n    var = train_df[variable]\n    varValue = var.value_counts()\n    _ = varValue.index\n    _ = varValue.index\n    _ = varValue.index.values\n    _ = '{}: \\n {}'.format(variable, varValue)\n"
+    },
+    {
+      "raw": "category1 = [\"Survived\",\"Sex\",\"Pclass\",\"Embarked\",\"SibSp\", \"Parch\"]\nfor c in category1:\n    bar_plot(c)",
+      "rewrite-ns": 814349,
+      "overhead-ns": 814349,
+      "exec-ns": 3257280,
+      "total-ns": 4071629,
+      "patts-hit": {},
+      "rewritten": "category1 = ['Survived', 'Sex', 'Pclass', 'Embarked', 'SibSp', 'Parch']\nfor c in category1:\n    bar_plot(c)\n"
+    },
+    {
+      "raw": "category2 = [\"Cabin\", \"Name\", \"Ticket\"]\nfor c in category2:\n    print(\"{} \\n\".format(train_df[c].value_counts()))",
+      "rewrite-ns": 998335,
+      "overhead-ns": 998335,
+      "exec-ns": 3400251,
+      "total-ns": 4398586,
+      "patts-hit": {},
+      "rewritten": "category2 = ['Cabin', 'Name', 'Ticket']\nfor c in category2:\n    print('{} \\n'.format(train_df[c].value_counts()))\n"
+    },
+    {
+      "raw": "def plot_hist(variable):\n# ALEX: remove plotting\n#     plt.figure(figsize = (9,3))\n#     plt.hist(train_df[variable], bins = 50)\n#     plt.xlabel(variable)\n#     plt.ylabel(\"Frequency\")\n#     plt.title(\"{} distribution with hist\".format(variable))\n#     plt.show()\n    _ = train_df[variable]\n    _ = \"{} distribution with hist\".format(variable)",
+      "rewrite-ns": 704736,
+      "overhead-ns": 704736,
+      "exec-ns": 267888,
+      "total-ns": 972624,
+      "patts-hit": {},
+      "rewritten": "def plot_hist(variable):\n    _ = train_df[variable]\n    _ = '{} distribution with hist'.format(variable)\n"
+    },
+    {
+      "raw": "numericVar = [\"Fare\", \"Age\",\"PassengerId\"]\nfor n in numericVar:\n    plot_hist(n)",
+      "rewrite-ns": 639237,
+      "overhead-ns": 639237,
+      "exec-ns": 281186,
+      "total-ns": 920423,
+      "patts-hit": {},
+      "rewritten": "numericVar = ['Fare', 'Age', 'PassengerId']\nfor n in numericVar:\n    plot_hist(n)\n"
+    },
+    {
+      "raw": "# Plcass vs Survived\ntrain_df[[\"Pclass\",\"Survived\"]].groupby([\"Pclass\"], as_index = False).mean().sort_values(by=\"Survived\",ascending = False)",
+      "rewrite-ns": 960004,
+      "overhead-ns": 960004,
+      "exec-ns": 4006486,
+      "total-ns": 4966490,
+      "patts-hit": {},
+      "rewritten": "train_df[['Pclass', 'Survived']].groupby(['Pclass'], as_index=False).mean(\n    ).sort_values(by='Survived', ascending=False)\n"
+    },
+    {
+      "raw": "# Sex vs Survived\ntrain_df[[\"Sex\",\"Survived\"]].groupby([\"Sex\"], as_index = False).mean().sort_values(by=\"Survived\",ascending = False)",
+      "rewrite-ns": 964092,
+      "overhead-ns": 964092,
+      "exec-ns": 4335738,
+      "total-ns": 5299830,
+      "patts-hit": {},
+      "rewritten": "train_df[['Sex', 'Survived']].groupby(['Sex'], as_index=False).mean(\n    ).sort_values(by='Survived', ascending=False)\n"
+    },
+    {
+      "raw": "# Sibsp vs Survived\ntrain_df[[\"SibSp\",\"Survived\"]].groupby([\"SibSp\"], as_index = False).mean().sort_values(by=\"Survived\",ascending = False)",
+      "rewrite-ns": 954113,
+      "overhead-ns": 954113,
+      "exec-ns": 4007530,
+      "total-ns": 4961643,
+      "patts-hit": {},
+      "rewritten": "train_df[['SibSp', 'Survived']].groupby(['SibSp'], as_index=False).mean(\n    ).sort_values(by='Survived', ascending=False)\n"
+    },
+    {
+      "raw": "# Parch vs Survived\ntrain_df[[\"Parch\",\"Survived\"]].groupby([\"Parch\"], as_index = False).mean().sort_values(by=\"Survived\",ascending = False)",
+      "rewrite-ns": 962964,
+      "overhead-ns": 962964,
+      "exec-ns": 3972054,
+      "total-ns": 4935018,
+      "patts-hit": {},
+      "rewritten": "train_df[['Parch', 'Survived']].groupby(['Parch'], as_index=False).mean(\n    ).sort_values(by='Survived', ascending=False)\n"
+    },
+    {
+      "raw": "def detect_outliers(df,features):\n    outlier_indices = []\n    \n    for c in features:\n        # 1st quartile\n        Q1 = np.percentile(df[c],25)\n        # 3rd quartile\n        Q3 = np.percentile(df[c],75)\n        # IQR\n        IQR = Q3 - Q1\n        # Outlier step\n        outlier_step = IQR * 1.5\n        # detect outlier and their indeces\n        outlier_list_col = df[(df[c] < Q1 - outlier_step) | (df[c] > Q3 + outlier_step)].index\n        # store indeces\n        outlier_indices.extend(outlier_list_col)\n    \n    outlier_indices = Counter(outlier_indices)\n    multiple_outliers = list(i for i, v in outlier_indices.items() if v > 2)\n    \n    return multiple_outliers",
+      "rewrite-ns": 4098214,
+      "overhead-ns": 4098214,
+      "exec-ns": 776791,
+      "total-ns": 4875005,
+      "patts-hit": {},
+      "rewritten": "def detect_outliers(df, features):\n    outlier_indices = []\n    for c in features:\n        Q1 = np.percentile(df[c], 25)\n        Q3 = np.percentile(df[c], 75)\n        IQR = Q3 - Q1\n        outlier_step = IQR * 1.5\n        outlier_list_col = df[(df[c] < Q1 - outlier_step) | (df[c] > Q3 +\n            outlier_step)].index\n        outlier_indices.extend(outlier_list_col)\n    outlier_indices = Counter(outlier_indices)\n    multiple_outliers = list(i for i, v in outlier_indices.items() if v > 2)\n    return multiple_outliers\n"
+    },
+    {
+      "raw": "train_df.loc[detect_outliers(train_df,[\"Age\",\"SibSp\",\"Parch\",\"Fare\"])]",
+      "rewrite-ns": 584373,
+      "overhead-ns": 584373,
+      "exec-ns": 13674854,
+      "total-ns": 14259227,
+      "patts-hit": {},
+      "rewritten": "train_df.loc[detect_outliers(train_df, ['Age', 'SibSp', 'Parch', 'Fare'])]\n"
+    },
+    {
+      "raw": "# drop outliers\ntrain_df = train_df.drop(detect_outliers(train_df,[\"Age\",\"SibSp\",\"Parch\",\"Fare\"]),axis = 0).reset_index(drop = True)",
+      "rewrite-ns": 896807,
+      "overhead-ns": 896807,
+      "exec-ns": 5923461,
+      "total-ns": 6820268,
+      "patts-hit": {},
+      "rewritten": "train_df = train_df.drop(detect_outliers(train_df, ['Age', 'SibSp', 'Parch',\n    'Fare']), axis=0).reset_index(drop=True)\n"
+    },
+    {
+      "raw": "train_df_len = len(train_df)\ntrain_df = pd.concat([train_df,test_df],axis = 0).reset_index(drop = True)",
+      "rewrite-ns": 932767,
+      "overhead-ns": 932767,
+      "exec-ns": 5042272,
+      "total-ns": 5975039,
+      "patts-hit": {},
+      "rewritten": "train_df_len = len(train_df)\ntrain_df = pd.concat([train_df, test_df], axis=0).reset_index(drop=True)\n"
+    },
+    {
+      "raw": "train_df.head()",
+      "rewrite-ns": 74029,
+      "overhead-ns": 74029,
+      "exec-ns": 7581432,
+      "total-ns": 7655461,
+      "patts-hit": {},
+      "rewritten": "train_df.head()\n"
+    },
+    {
+      "raw": "train_df.columns[train_df.isnull().any()]",
+      "rewrite-ns": 494340,
+      "overhead-ns": 494340,
+      "exec-ns": 8877029,
+      "total-ns": 9371369,
+      "patts-hit": {},
+      "rewritten": "train_df.columns[train_df.isnull().any()]\n"
+    },
+    {
+      "raw": "train_df.isnull().sum()",
+      "rewrite-ns": 350894,
+      "overhead-ns": 350894,
+      "exec-ns": 9004942,
+      "total-ns": 9355836,
+      "patts-hit": {},
+      "rewritten": "train_df.isnull().sum()\n"
+    },
+    {
+      "raw": "train_df[train_df[\"Embarked\"].isnull()]",
+      "rewrite-ns": 449536,
+      "overhead-ns": 449536,
+      "exec-ns": 11729075,
+      "total-ns": 12178611,
+      "patts-hit": {},
+      "rewritten": "train_df[train_df['Embarked'].isnull()]\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# train_df.boxplot(column=\"Fare\",by = \"Embarked\")\n# plt.show()",
+      "rewrite-ns": 12766,
+      "overhead-ns": 12766,
+      "exec-ns": 68427,
+      "total-ns": 81193,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "train_df[\"Embarked\"] = train_df[\"Embarked\"].fillna(\"C\")\ntrain_df[train_df[\"Embarked\"].isnull()]",
+      "rewrite-ns": 743452,
+      "overhead-ns": 743452,
+      "exec-ns": 2627880,
+      "total-ns": 3371332,
+      "patts-hit": {
+        "IsInplaceUpdate": 1
+      },
+      "rewritten": "_DIAS_ser = train_df['Embarked']\nif type(_DIAS_ser) != pd.Series:\n    train_df['Embarked'] = train_df['Embarked'].fillna('C')\nelse:\n    train_df['Embarked'].fillna('C', inplace=True)\ntrain_df[train_df['Embarked'].isnull()]\n"
+    },
+    {
+      "raw": "train_df[train_df[\"Fare\"].isnull()]",
+      "rewrite-ns": 445934,
+      "overhead-ns": 445934,
+      "exec-ns": 8453916,
+      "total-ns": 8899850,
+      "patts-hit": {},
+      "rewritten": "train_df[train_df['Fare'].isnull()]\n"
+    },
+    {
+      "raw": "train_df[\"Fare\"] = train_df[\"Fare\"].fillna(np.mean(train_df[train_df[\"Pclass\"] == 3][\"Fare\"]))",
+      "rewrite-ns": 550576,
+      "overhead-ns": 550576,
+      "exec-ns": 1613712,
+      "total-ns": 2164288,
+      "patts-hit": {
+        "IsInplaceUpdate": 1
+      },
+      "rewritten": "_DIAS_ser = train_df['Fare']\nif type(_DIAS_ser) != pd.Series:\n    train_df['Fare'] = train_df['Fare'].fillna(np.mean(train_df[train_df[\n        'Pclass'] == 3]['Fare']))\nelse:\n    train_df['Fare'].fillna(np.mean(train_df[train_df['Pclass'] == 3][\n        'Fare']), inplace=True)\n"
+    },
+    {
+      "raw": "train_df[train_df[\"Fare\"].isnull()]",
+      "rewrite-ns": 443854,
+      "overhead-ns": 443854,
+      "exec-ns": 1056114,
+      "total-ns": 1499968,
+      "patts-hit": {},
+      "rewritten": "train_df[train_df['Fare'].isnull()]\n"
+    },
+    {
+      "raw": "list1 = [\"SibSp\", \"Parch\", \"Age\", \"Fare\", \"Survived\"]\n# ALEX: remove plotting\n# sns.heatmap(train_df[list1].corr(), annot = True, fmt = \".2f\")\n# plt.show()\n_ = train_df[list1].corr()",
+      "rewrite-ns": 732776,
+      "overhead-ns": 732776,
+      "exec-ns": 2022088,
+      "total-ns": 2754864,
+      "patts-hit": {},
+      "rewritten": "list1 = ['SibSp', 'Parch', 'Age', 'Fare', 'Survived']\n_ = train_df[list1].corr()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.factorplot(x = \"SibSp\", y = \"Survived\", data = train_df, kind = \"bar\", size = 6)\n# g.set_ylabels(\"Survived Probability\")\n# plt.show()",
+      "rewrite-ns": 12719,
+      "overhead-ns": 12719,
+      "exec-ns": 65683,
+      "total-ns": 78402,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.factorplot(x = \"Parch\", y = \"Survived\", kind = \"bar\", data = train_df, size = 6)\n# g.set_ylabels(\"Survived Probability\")\n# plt.show()",
+      "rewrite-ns": 11731,
+      "overhead-ns": 11731,
+      "exec-ns": 62174,
+      "total-ns": 73905,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.factorplot(x = \"Pclass\", y = \"Survived\", data = train_df, kind = \"bar\", size = 6)\n# g.set_ylabels(\"Survived Probability\")\n# plt.show()",
+      "rewrite-ns": 10588,
+      "overhead-ns": 10588,
+      "exec-ns": 56770,
+      "total-ns": 67358,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(train_df, col = \"Survived\")\n# g.map(sns.distplot, \"Age\", bins = 25)\n# plt.show()",
+      "rewrite-ns": 9644,
+      "overhead-ns": 9644,
+      "exec-ns": 54820,
+      "total-ns": 64464,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(train_df, col = \"Survived\", row = \"Pclass\", size = 2)\n# g.map(plt.hist, \"Age\", bins = 25)\n# g.add_legend()\n# plt.show()",
+      "rewrite-ns": 9850,
+      "overhead-ns": 9850,
+      "exec-ns": 52976,
+      "total-ns": 62826,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(train_df, row = \"Embarked\", size = 2)\n# g.map(sns.pointplot, \"Pclass\",\"Survived\",\"Sex\")\n# g.add_legend()\n# plt.show()",
+      "rewrite-ns": 9561,
+      "overhead-ns": 9561,
+      "exec-ns": 52907,
+      "total-ns": 62468,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(train_df, row = \"Embarked\", col = \"Survived\", size = 2.3)\n# g.map(sns.barplot, \"Sex\", \"Fare\")\n# g.add_legend()\n# plt.show()",
+      "rewrite-ns": 10024,
+      "overhead-ns": 10024,
+      "exec-ns": 52764,
+      "total-ns": 62788,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "train_df[train_df[\"Age\"].isnull()]",
+      "rewrite-ns": 441031,
+      "overhead-ns": 441031,
+      "exec-ns": 9844354,
+      "total-ns": 10285385,
+      "patts-hit": {},
+      "rewritten": "train_df[train_df['Age'].isnull()]\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.factorplot(x = \"Sex\", y = \"Age\", data = train_df, kind = \"box\")\n# plt.show()",
+      "rewrite-ns": 12841,
+      "overhead-ns": 12841,
+      "exec-ns": 67772,
+      "total-ns": 80613,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.factorplot(x = \"Sex\", y = \"Age\", hue = \"Pclass\",data = train_df, kind = \"box\")\n# plt.show()",
+      "rewrite-ns": 11131,
+      "overhead-ns": 11131,
+      "exec-ns": 61798,
+      "total-ns": 72929,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.factorplot(x = \"Parch\", y = \"Age\", data = train_df, kind = \"box\")\n# sns.factorplot(x = \"SibSp\", y = \"Age\", data = train_df, kind = \"box\")\n# plt.show()",
+      "rewrite-ns": 10820,
+      "overhead-ns": 10820,
+      "exec-ns": 56159,
+      "total-ns": 66979,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#train_df[\"Sex\"] = [1 if i == \"male\" else 0 for i in train_df[\"Sex\"]]",
+      "rewrite-ns": 9549,
+      "overhead-ns": 9549,
+      "exec-ns": 53509,
+      "total-ns": 63058,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.heatmap(train_df[[\"Age\",\"Sex\",\"SibSp\",\"Parch\",\"Pclass\"]].corr(), annot = True)\n# plt.show()\n_ = train_df[[\"Age\",\"Sex\",\"SibSp\",\"Parch\",\"Pclass\"]].corr()",
+      "rewrite-ns": 595568,
+      "overhead-ns": 595568,
+      "exec-ns": 1827266,
+      "total-ns": 2422834,
+      "patts-hit": {},
+      "rewritten": "_ = train_df[['Age', 'Sex', 'SibSp', 'Parch', 'Pclass']].corr()\n"
+    },
+    {
+      "raw": "index_nan_age = list(train_df[\"Age\"][train_df[\"Age\"].isnull()].index)\nfor i in index_nan_age:\n    age_pred = train_df[\"Age\"][((train_df[\"SibSp\"] == train_df.iloc[i][\"SibSp\"]) &(train_df[\"Parch\"] == train_df.iloc[i][\"Parch\"])& (train_df[\"Pclass\"] == train_df.iloc[i][\"Pclass\"]))].median()\n    age_med = train_df[\"Age\"].median()\n    if not np.isnan(age_pred):\n        train_df[\"Age\"].iloc[i] = age_pred\n    else:\n        train_df[\"Age\"].iloc[i] = age_med",
+      "rewrite-ns": 3974786,
+      "overhead-ns": 3974786,
+      "exec-ns": 5608117322,
+      "total-ns": 5612092108,
+      "patts-hit": {},
+      "rewritten": "index_nan_age = list(train_df['Age'][train_df['Age'].isnull()].index)\nfor i in index_nan_age:\n    age_pred = train_df['Age'][(train_df['SibSp'] == train_df.iloc[i][\n        'SibSp']) & (train_df['Parch'] == train_df.iloc[i]['Parch']) & (\n        train_df['Pclass'] == train_df.iloc[i]['Pclass'])].median()\n    age_med = train_df['Age'].median()\n    if not np.isnan(age_pred):\n        train_df['Age'].iloc[i] = age_pred\n    else:\n        train_df['Age'].iloc[i] = age_med\n"
+    },
+    {
+      "raw": "train_df[train_df[\"Age\"].isnull()]",
+      "rewrite-ns": 545328,
+      "overhead-ns": 545328,
+      "exec-ns": 1380436,
+      "total-ns": 1925764,
+      "patts-hit": {},
+      "rewritten": "train_df[train_df['Age'].isnull()]\n"
+    },
+    {
+      "raw": "train_df[\"Name\"].head(10)",
+      "rewrite-ns": 408573,
+      "overhead-ns": 408573,
+      "exec-ns": 851698,
+      "total-ns": 1260271,
+      "patts-hit": {},
+      "rewritten": "train_df['Name'].head(10)\n"
+    },
+    {
+      "raw": "name = train_df[\"Name\"]\ntrain_df[\"Title\"] = [i.split(\".\")[0].split(\",\")[-1].strip() for i in name]",
+      "rewrite-ns": 1301971,
+      "overhead-ns": 1301971,
+      "exec-ns": 8002533,
+      "total-ns": 9304504,
+      "patts-hit": {},
+      "rewritten": "name = train_df['Name']\ntrain_df['Title'] = [i.split('.')[0].split(',')[-1].strip() for i in name]\n"
+    },
+    {
+      "raw": "train_df[\"Title\"].head(10)",
+      "rewrite-ns": 401239,
+      "overhead-ns": 401239,
+      "exec-ns": 859346,
+      "total-ns": 1260585,
+      "patts-hit": {},
+      "rewritten": "train_df['Title'].head(10)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(x=\"Title\", data = train_df)\n# plt.xticks(rotation = 60)\n# plt.show()",
+      "rewrite-ns": 12817,
+      "overhead-ns": 12817,
+      "exec-ns": 67360,
+      "total-ns": 80177,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# convert to categorical\ntrain_df[\"Title\"] = train_df[\"Title\"].replace([\"Lady\",\"the Countess\",\"Capt\",\"Col\",\"Don\",\"Dr\",\"Major\",\"Rev\",\"Sir\",\"Jonkheer\",\"Dona\"],\"other\")\ntrain_df[\"Title\"] = [0 if i == \"Master\" else 1 if i == \"Miss\" or i == \"Ms\" or i == \"Mlle\" or i == \"Mrs\" else 2 if i == \"Mr\" else 3 for i in train_df[\"Title\"]]\ntrain_df[\"Title\"].head(20)",
+      "rewrite-ns": 2236360,
+      "overhead-ns": 2236360,
+      "exec-ns": 12047480,
+      "total-ns": 14283840,
+      "patts-hit": {},
+      "rewritten": "train_df['Title'] = train_df['Title'].replace(['Lady', 'the Countess',\n    'Capt', 'Col', 'Don', 'Dr', 'Major', 'Rev', 'Sir', 'Jonkheer', 'Dona'],\n    'other')\ntrain_df['Title'] = [(0 if i == 'Master' else 1 if i == 'Miss' or i == 'Ms' or\n    i == 'Mlle' or i == 'Mrs' else 2 if i == 'Mr' else 3) for i in train_df\n    ['Title']]\ntrain_df['Title'].head(20)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(x=\"Title\", data = train_df)\n# plt.xticks(rotation = 60)\n# plt.show()",
+      "rewrite-ns": 12678,
+      "overhead-ns": 12678,
+      "exec-ns": 66345,
+      "total-ns": 79023,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.factorplot(x = \"Title\", y = \"Survived\", data = train_df, kind = \"bar\")\n# g.set_xticklabels([\"Master\",\"Mrs\",\"Mr\",\"Other\"])\n# g.set_ylabels(\"Survival Probability\")\n# plt.show()",
+      "rewrite-ns": 11789,
+      "overhead-ns": 11789,
+      "exec-ns": 62543,
+      "total-ns": 74332,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "train_df.drop(labels = [\"Name\"], axis = 1, inplace = True)",
+      "rewrite-ns": 529058,
+      "overhead-ns": 529058,
+      "exec-ns": 1351715,
+      "total-ns": 1880773,
+      "patts-hit": {},
+      "rewritten": "train_df.drop(labels=['Name'], axis=1, inplace=True)\n"
+    },
+    {
+      "raw": "train_df.head()",
+      "rewrite-ns": 75248,
+      "overhead-ns": 75248,
+      "exec-ns": 7739639,
+      "total-ns": 7814887,
+      "patts-hit": {},
+      "rewritten": "train_df.head()\n"
+    },
+    {
+      "raw": "train_df = pd.get_dummies(train_df,columns=[\"Title\"])\ntrain_df.head()",
+      "rewrite-ns": 541362,
+      "overhead-ns": 541362,
+      "exec-ns": 12526672,
+      "total-ns": 13068034,
+      "patts-hit": {},
+      "rewritten": "train_df = pd.get_dummies(train_df, columns=['Title'])\ntrain_df.head()\n"
+    },
+    {
+      "raw": "train_df.head()",
+      "rewrite-ns": 75398,
+      "overhead-ns": 75398,
+      "exec-ns": 8596638,
+      "total-ns": 8672036,
+      "patts-hit": {},
+      "rewritten": "train_df.head()\n"
+    },
+    {
+      "raw": "train_df[\"Fsize\"] = train_df[\"SibSp\"] + train_df[\"Parch\"] + 1",
+      "rewrite-ns": 661139,
+      "overhead-ns": 661139,
+      "exec-ns": 692691,
+      "total-ns": 1353830,
+      "patts-hit": {},
+      "rewritten": "train_df['Fsize'] = train_df['SibSp'] + train_df['Parch'] + 1\n"
+    },
+    {
+      "raw": "train_df.head()",
+      "rewrite-ns": 78087,
+      "overhead-ns": 78087,
+      "exec-ns": 9053441,
+      "total-ns": 9131528,
+      "patts-hit": {},
+      "rewritten": "train_df.head()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.factorplot(x = \"Fsize\", y = \"Survived\", data = train_df, kind = \"bar\")\n# g.set_ylabels(\"Survival\")\n# plt.show()",
+      "rewrite-ns": 13490,
+      "overhead-ns": 13490,
+      "exec-ns": 68177,
+      "total-ns": 81667,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "train_df[\"family_size\"] = [1 if i < 5 else 0 for i in train_df[\"Fsize\"]]",
+      "rewrite-ns": 738895,
+      "overhead-ns": 738895,
+      "exec-ns": 4393790,
+      "total-ns": 5132685,
+      "patts-hit": {},
+      "rewritten": "train_df['family_size'] = [(1 if i < 5 else 0) for i in train_df['Fsize']]\n"
+    },
+    {
+      "raw": "train_df.head(10)",
+      "rewrite-ns": 87437,
+      "overhead-ns": 87437,
+      "exec-ns": 9883921,
+      "total-ns": 9971358,
+      "patts-hit": {},
+      "rewritten": "train_df.head(10)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(x = \"family_size\", data = train_df)\n# plt.show()",
+      "rewrite-ns": 13183,
+      "overhead-ns": 13183,
+      "exec-ns": 69673,
+      "total-ns": 82856,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.factorplot(x = \"family_size\", y = \"Survived\", data = train_df, kind = \"bar\")\n# g.set_ylabels(\"Survival\")\n# plt.show()",
+      "rewrite-ns": 11272,
+      "overhead-ns": 11272,
+      "exec-ns": 60395,
+      "total-ns": 71667,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "train_df = pd.get_dummies(train_df, columns= [\"family_size\"])\ntrain_df.head()",
+      "rewrite-ns": 532332,
+      "overhead-ns": 532332,
+      "exec-ns": 13477308,
+      "total-ns": 14009640,
+      "patts-hit": {},
+      "rewritten": "train_df = pd.get_dummies(train_df, columns=['family_size'])\ntrain_df.head()\n"
+    },
+    {
+      "raw": "train_df[\"Embarked\"].head()",
+      "rewrite-ns": 360571,
+      "overhead-ns": 360571,
+      "exec-ns": 760685,
+      "total-ns": 1121256,
+      "patts-hit": {},
+      "rewritten": "train_df['Embarked'].head()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(x = \"Embarked\", data = train_df)\n# plt.show()",
+      "rewrite-ns": 11779,
+      "overhead-ns": 11779,
+      "exec-ns": 64316,
+      "total-ns": 76095,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "train_df = pd.get_dummies(train_df, columns=[\"Embarked\"])\ntrain_df.head()",
+      "rewrite-ns": 520883,
+      "overhead-ns": 520883,
+      "exec-ns": 14994682,
+      "total-ns": 15515565,
+      "patts-hit": {},
+      "rewritten": "train_df = pd.get_dummies(train_df, columns=['Embarked'])\ntrain_df.head()\n"
+    },
+    {
+      "raw": "train_df[\"Ticket\"].head(20)",
+      "rewrite-ns": 400716,
+      "overhead-ns": 400716,
+      "exec-ns": 904165,
+      "total-ns": 1304881,
+      "patts-hit": {},
+      "rewritten": "train_df['Ticket'].head(20)\n"
+    },
+    {
+      "raw": "a = \"A/5. 2151\"\na.replace(\".\",\"\").replace(\"/\",\"\").strip().split(\" \")[0]",
+      "rewrite-ns": 934628,
+      "overhead-ns": 934628,
+      "exec-ns": 567129,
+      "total-ns": 1501757,
+      "patts-hit": {},
+      "rewritten": "a = 'A/5. 2151'\na.replace('.', '').replace('/', '').strip().split(' ')[0]\n"
+    },
+    {
+      "raw": "tickets = []\nfor i in list(train_df.Ticket):\n    if not i.isdigit():\n        tickets.append(i.replace(\".\",\"\").replace(\"/\",\"\").strip().split(\" \")[0])\n    else:\n        tickets.append(\"x\")\ntrain_df[\"Ticket\"] = tickets",
+      "rewrite-ns": 2044585,
+      "overhead-ns": 2044585,
+      "exec-ns": 5009255,
+      "total-ns": 7053840,
+      "patts-hit": {},
+      "rewritten": "tickets = []\nfor i in list(train_df.Ticket):\n    if not i.isdigit():\n        tickets.append(i.replace('.', '').replace('/', '').strip().split(\n            ' ')[0])\n    else:\n        tickets.append('x')\ntrain_df['Ticket'] = tickets\n"
+    },
+    {
+      "raw": "train_df[\"Ticket\"].head(20)",
+      "rewrite-ns": 397814,
+      "overhead-ns": 397814,
+      "exec-ns": 813807,
+      "total-ns": 1211621,
+      "patts-hit": {},
+      "rewritten": "train_df['Ticket'].head(20)\n"
+    },
+    {
+      "raw": "train_df.head()",
+      "rewrite-ns": 73415,
+      "overhead-ns": 73415,
+      "exec-ns": 10610278,
+      "total-ns": 10683693,
+      "patts-hit": {},
+      "rewritten": "train_df.head()\n"
+    },
+    {
+      "raw": "train_df = pd.get_dummies(train_df, columns= [\"Ticket\"], prefix = \"T\")\ntrain_df.head(10)",
+      "rewrite-ns": 605178,
+      "overhead-ns": 605178,
+      "exec-ns": 30031596,
+      "total-ns": 30636774,
+      "patts-hit": {},
+      "rewritten": "train_df = pd.get_dummies(train_df, columns=['Ticket'], prefix='T')\ntrain_df.head(10)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(x = \"Pclass\", data = train_df)\n# plt.show()",
+      "rewrite-ns": 13258,
+      "overhead-ns": 13258,
+      "exec-ns": 69962,
+      "total-ns": 83220,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "train_df[\"Pclass\"] = train_df[\"Pclass\"].astype(\"category\")\ntrain_df = pd.get_dummies(train_df, columns= [\"Pclass\"])\ntrain_df.head()",
+      "rewrite-ns": 1000691,
+      "overhead-ns": 1000691,
+      "exec-ns": 29390863,
+      "total-ns": 30391554,
+      "patts-hit": {},
+      "rewritten": "train_df['Pclass'] = train_df['Pclass'].astype('category')\ntrain_df = pd.get_dummies(train_df, columns=['Pclass'])\ntrain_df.head()\n"
+    },
+    {
+      "raw": "train_df[\"Sex\"] = train_df[\"Sex\"].astype(\"category\")\ntrain_df = pd.get_dummies(train_df, columns=[\"Sex\"])\ntrain_df.head()",
+      "rewrite-ns": 986516,
+      "overhead-ns": 986516,
+      "exec-ns": 29167747,
+      "total-ns": 30154263,
+      "patts-hit": {},
+      "rewritten": "train_df['Sex'] = train_df['Sex'].astype('category')\ntrain_df = pd.get_dummies(train_df, columns=['Sex'])\ntrain_df.head()\n"
+    },
+    {
+      "raw": "train_df.drop(labels = [\"PassengerId\", \"Cabin\"], axis = 1, inplace = True)",
+      "rewrite-ns": 554291,
+      "overhead-ns": 554291,
+      "exec-ns": 1002641,
+      "total-ns": 1556932,
+      "patts-hit": {},
+      "rewritten": "train_df.drop(labels=['PassengerId', 'Cabin'], axis=1, inplace=True)\n"
+    },
+    {
+      "raw": "train_df.columns",
+      "rewrite-ns": 49324,
+      "overhead-ns": 49324,
+      "exec-ns": 671071,
+      "total-ns": 720395,
+      "patts-hit": {},
+      "rewritten": "train_df.columns\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import train_test_split, StratifiedKFold, GridSearchCV\n# from sklearn.linear_model import LogisticRegression\n# from sklearn.svm import SVC\n# from sklearn.ensemble import RandomForestClassifier, VotingClassifier\n# from sklearn.neighbors import KNeighborsClassifier\n# from sklearn.tree import DecisionTreeClassifier\n# from sklearn.metrics import accuracy_score",
+      "rewrite-ns": 13630,
+      "overhead-ns": 13630,
+      "exec-ns": 62894,
+      "total-ns": 76524,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "train_df_len",
+      "rewrite-ns": 49705,
+      "overhead-ns": 49705,
+      "exec-ns": 421426,
+      "total-ns": 471131,
+      "patts-hit": {},
+      "rewritten": "train_df_len\n"
+    },
+    {
+      "raw": "test = train_df[train_df_len:]\ntest.drop(labels = [\"Survived\"],axis = 1, inplace = True)\n",
+      "rewrite-ns": 799429,
+      "overhead-ns": 799429,
+      "exec-ns": 910017,
+      "total-ns": 1709446,
+      "patts-hit": {},
+      "rewritten": "test = train_df[train_df_len:]\ntest.drop(labels=['Survived'], axis=1, inplace=True)\n"
+    },
+    {
+      "raw": "test.head()",
+      "rewrite-ns": 72846,
+      "overhead-ns": 72846,
+      "exec-ns": 23384142,
+      "total-ns": 23456988,
+      "patts-hit": {},
+      "rewritten": "test.head()\n"
+    },
+    {
+      "raw": "train = train_df[:train_df_len]\nX_train = train.drop(labels = \"Survived\", axis = 1)\ny_train = train[\"Survived\"]\n# ALEX: remove ML code\n# X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size = 0.33, random_state = 42)\n# print(\"X_train\",len(X_train))\n# print(\"X_test\",len(X_test))\n# print(\"y_train\",len(y_train))\n# print(\"y_test\",len(y_test))\nprint(\"test\",len(test))",
+      "rewrite-ns": 1262658,
+      "overhead-ns": 1262658,
+      "exec-ns": 1108525,
+      "total-ns": 2371183,
+      "patts-hit": {},
+      "rewritten": "train = train_df[:train_df_len]\nX_train = train.drop(labels='Survived', axis=1)\ny_train = train['Survived']\nprint('test', len(test))\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# logreg = LogisticRegression()\n# logreg.fit(X_train, y_train)\n# acc_log_train = round(logreg.score(X_train, y_train)*100,2) \n# acc_log_test = round(logreg.score(X_test,y_test)*100,2)\n# print(\"Training Accuracy: % {}\".format(acc_log_train))\n# print(\"Testing Accuracy: % {}\".format(acc_log_test))",
+      "rewrite-ns": 13166,
+      "overhead-ns": 13166,
+      "exec-ns": 67412,
+      "total-ns": 80578,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# random_state = 42\n# classifier = [DecisionTreeClassifier(random_state = random_state),\n#              SVC(random_state = random_state),\n#              RandomForestClassifier(random_state = random_state),\n#              LogisticRegression(random_state = random_state),\n#              KNeighborsClassifier()]\n\n# dt_param_grid = {\"min_samples_split\" : range(10,500,20),\n#                 \"max_depth\": range(1,20,2)}\n\n# svc_param_grid = {\"kernel\" : [\"rbf\"],\n#                  \"gamma\": [0.001, 0.01, 0.1, 1],\n#                  \"C\": [1,10,50,100,200,300,1000]}\n\n# rf_param_grid = {\"max_features\": [1,3,10],\n#                 \"min_samples_split\":[2,3,10],\n#                 \"min_samples_leaf\":[1,3,10],\n#                 \"bootstrap\":[False],\n#                 \"n_estimators\":[100,300],\n#                 \"criterion\":[\"gini\"]}\n\n# logreg_param_grid = {\"C\":np.logspace(-3,3,7),\n#                     \"penalty\": [\"l1\",\"l2\"]}\n\n# knn_param_grid = {\"n_neighbors\": np.linspace(1,19,10, dtype = int).tolist(),\n#                  \"weights\": [\"uniform\",\"distance\"],\n#                  \"metric\":[\"euclidean\",\"manhattan\"]}\n# classifier_param = [dt_param_grid,\n#                    svc_param_grid,\n#                    rf_param_grid,\n#                    logreg_param_grid,\n#                    knn_param_grid]",
+      "rewrite-ns": 17340,
+      "overhead-ns": 17340,
+      "exec-ns": 61168,
+      "total-ns": 78508,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# cv_result = []\n# best_estimators = []\n# for i in range(len(classifier)):\n#     clf = GridSearchCV(classifier[i], param_grid=classifier_param[i], cv = StratifiedKFold(n_splits = 10), scoring = \"accuracy\", n_jobs = -1,verbose = 1)\n#     clf.fit(X_train,y_train)\n#     cv_result.append(clf.best_score_)\n#     best_estimators.append(clf.best_estimator_)\n#     print(cv_result[i])",
+      "rewrite-ns": 12255,
+      "overhead-ns": 12255,
+      "exec-ns": 58333,
+      "total-ns": 70588,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# cv_results = pd.DataFrame({\"Cross Validation Means\":cv_result, \"ML Models\":[\"DecisionTreeClassifier\", \"SVM\",\"RandomForestClassifier\",\n#              \"LogisticRegression\",\n#              \"KNeighborsClassifier\"]})\n\n# g = sns.barplot(\"Cross Validation Means\", \"ML Models\", data = cv_results)\n# g.set_xlabel(\"Mean Accuracy\")\n# g.set_title(\"Cross Validation Scores\")",
+      "rewrite-ns": 11643,
+      "overhead-ns": 11643,
+      "exec-ns": 56351,
+      "total-ns": 67994,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# votingC = VotingClassifier(estimators = [(\"dt\",best_estimators[0]),\n#                                         (\"rfc\",best_estimators[2]),\n#                                         (\"lr\",best_estimators[3])],\n#                                         voting = \"soft\", n_jobs = -1)\n# votingC = votingC.fit(X_train, y_train)\n# print(accuracy_score(votingC.predict(X_test),y_test))",
+      "rewrite-ns": 11712,
+      "overhead-ns": 11712,
+      "exec-ns": 57833,
+      "total-ns": 69545,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# test_survived = pd.Series(votingC.predict(test), name = \"Survived\").astype(int)\n# results = pd.concat([test_PassengerId, test_survived],axis = 1)\n# results.to_csv(\"titanic.csv\", index = False)",
+      "rewrite-ns": 10618,
+      "overhead-ns": 10618,
+      "exec-ns": 54363,
+      "total-ns": 64981,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 6.061583129,
+  "max-disk-in-mb": 0
+}

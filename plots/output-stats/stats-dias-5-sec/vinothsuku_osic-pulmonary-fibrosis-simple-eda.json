@@ -1,0 +1,161 @@
+{
+  "max-mem-in-mb": 482,
+  "max-mem-in-mb2": 1153,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import plotly.express as px\n# import plotly as plty\n# import seaborn as sns\n# import plotly.graph_objs as go\n# from plotly.offline import iplot\n# from plotly.subplots import make_subplots\n# import plotly.io as pio\n# import os\n# %matplotlib inline\n",
+      "rewrite-ns": 690101,
+      "overhead-ns": 690101,
+      "exec-ns": 383337,
+      "total-ns": 1073438,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n"
+    },
+    {
+      "raw": "path = './input/'",
+      "rewrite-ns": 293916,
+      "overhead-ns": 293916,
+      "exec-ns": 284366,
+      "total-ns": 578282,
+      "patts-hit": {},
+      "rewritten": "path = './input/'\n"
+    },
+    {
+      "raw": "df_train = pd.read_csv(f'{path}train.scaled.csv')\ndf_test = pd.read_csv(f'{path}test.scaled.csv')",
+      "rewrite-ns": 1246535,
+      "overhead-ns": 1246535,
+      "exec-ns": 2949932394,
+      "total-ns": 2951178929,
+      "patts-hit": {},
+      "rewritten": "df_train = pd.read_csv(f'{path}train.scaled.csv')\ndf_test = pd.read_csv(f'{path}test.scaled.csv')\n"
+    },
+    {
+      "raw": "df_train.info()",
+      "rewrite-ns": 160427,
+      "overhead-ns": 160427,
+      "exec-ns": 3559391,
+      "total-ns": 3719818,
+      "patts-hit": {},
+      "rewritten": "df_train.info()\n"
+    },
+    {
+      "raw": "df_train.describe(include='all').T",
+      "rewrite-ns": 448592,
+      "overhead-ns": 448592,
+      "exec-ns": 1667760775,
+      "total-ns": 1668209367,
+      "patts-hit": {},
+      "rewritten": "df_train.describe(include='all').T\n"
+    },
+    {
+      "raw": "df_train.head()",
+      "rewrite-ns": 108152,
+      "overhead-ns": 108152,
+      "exec-ns": 4727682,
+      "total-ns": 4835834,
+      "patts-hit": {},
+      "rewritten": "df_train.head()\n"
+    },
+    {
+      "raw": "df_tmp = df_train.groupby(['Patient', 'Sex'])['SmokingStatus'].unique().reset_index()",
+      "rewrite-ns": 803869,
+      "overhead-ns": 803869,
+      "exec-ns": 957277482,
+      "total-ns": 958081351,
+      "patts-hit": {},
+      "rewritten": "df_tmp = df_train.groupby(['Patient', 'Sex'])['SmokingStatus'].unique(\n    ).reset_index()\n"
+    },
+    {
+      "raw": "df_tmp",
+      "rewrite-ns": 73990,
+      "overhead-ns": 73990,
+      "exec-ns": 5848184,
+      "total-ns": 5922174,
+      "patts-hit": {},
+      "rewritten": "df_tmp\n"
+    },
+    {
+      "raw": "df_tmp['SmokingStatus'] = df_tmp['SmokingStatus'].str[0]\ndf_tmp['Sex'] = df_tmp['Sex'].str[0]",
+      "rewrite-ns": 187824,
+      "overhead-ns": 187824,
+      "exec-ns": 925507,
+      "total-ns": 1113331,
+      "patts-hit": {},
+      "rewritten": "df_tmp['SmokingStatus'] = df_tmp['SmokingStatus'].str[0]\ndf_tmp['Sex'] = df_tmp['Sex'].str[0]\n"
+    },
+    {
+      "raw": "df_tmp['SmokingStatus'].value_counts()",
+      "rewrite-ns": 394916,
+      "overhead-ns": 394916,
+      "exec-ns": 1031821,
+      "total-ns": 1426737,
+      "patts-hit": {},
+      "rewritten": "df_tmp['SmokingStatus'].value_counts()\n"
+    },
+    {
+      "raw": "df_tmp['Sex'].value_counts()",
+      "rewrite-ns": 384847,
+      "overhead-ns": 384847,
+      "exec-ns": 957294,
+      "total-ns": 1342141,
+      "patts-hit": {},
+      "rewritten": "df_tmp['Sex'].value_counts()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(1,2, figsize = (20,6), sharex=True)\n# sns.countplot(x='SmokingStatus',data=df_tmp,ax=ax[0])\n# sns.countplot(x='SmokingStatus',hue='Sex', data=df_tmp,ax=ax[1])\n# ax[0].title.set_text('Smoking Status')\n# ax[1].title.set_text('Smoking Status Vs Sex')\n# plt.show()",
+      "rewrite-ns": 14152,
+      "overhead-ns": 14152,
+      "exec-ns": 67534,
+      "total-ns": 81686,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 10533,
+      "overhead-ns": 10533,
+      "exec-ns": 59579,
+      "total-ns": 70112,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 9725,
+      "overhead-ns": 9725,
+      "exec-ns": 56115,
+      "total-ns": 65840,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "df_test.info()",
+      "rewrite-ns": 74131,
+      "overhead-ns": 74131,
+      "exec-ns": 8027391,
+      "total-ns": 8101522,
+      "patts-hit": {},
+      "rewritten": "df_test.info()\n"
+    },
+    {
+      "raw": "df_test",
+      "rewrite-ns": 45594,
+      "overhead-ns": 45594,
+      "exec-ns": 6383991,
+      "total-ns": 6429585,
+      "patts-hit": {},
+      "rewritten": "df_test\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 12065,
+      "overhead-ns": 12065,
+      "exec-ns": 71131,
+      "total-ns": 83196,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 5.612313343,
+  "max-disk-in-mb": 0
+}

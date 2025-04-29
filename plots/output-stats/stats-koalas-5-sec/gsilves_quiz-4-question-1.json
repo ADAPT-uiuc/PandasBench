@@ -1,0 +1,74 @@
+{
+  "max-mem-in-mb": 1362,
+  "max-mem-in-mb2": 158,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# Any results you write to the current directory are saved as output.",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2946020045
+    },
+    {
+      "raw": "NFL = pd.read_csv('./input/nfl_offense_cleaned.scaled.csv')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5587519230
+    },
+    {
+      "raw": "NFL.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 70726409
+    },
+    {
+      "raw": "NFL.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 731946702
+    },
+    {
+      "raw": "evaluate_lazy(NFL.sort_values('YDS', ascending=False).iloc[:5])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 258285282
+    },
+    {
+      "raw": "NFL.loc[NFL.COMP.idxmax()].PLAYER",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 10362203907
+    },
+    {
+      "raw": "evaluate_lazy(NFL.groupby(\"LONG\").max())",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 251276946
+    },
+    {
+      "raw": "evaluate_lazy(NFL.query('RATE > 158.2').loc[:, ['PLAYER']])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 122841838
+    },
+    {
+      "raw": "evaluate_lazy(NFL.mean().round(2))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2294699559
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# NFL.ATT.plot.hist()\nNFL.ATT",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 565052
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# NFL.POS.value_counts().plot.pie()\nNFL.POS.value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 44306167
+    }
+  ],
+  "total-time-in-sec": 22.670391137,
+  "max-disk-in-mb": 0
+}

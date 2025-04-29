@@ -1,0 +1,125 @@
+{
+  "max-mem-in-mb": 1104,
+  "max-mem-in-mb2": 2119,
+  "cells": [
+    {
+      "raw": "# modules we'll use\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import seaborn as sns\n# import datetime\n\n# read in our data\nearthquakes = pd.read_csv(\"./input/earthquake-database.scaled.csv\")\nlandslides = pd.read_csv(\"./input/catalog.scaled.csv\")\nvolcanos = pd.read_csv(\"./input/volcanic-eruptions-database.scaled.csv\")\n\n# set seed for reproducibility\nnp.random.seed(0)",
+      "rewrite-ns": 2273340,
+      "overhead-ns": 2273340,
+      "exec-ns": 5433459475,
+      "total-ns": 5435732815,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\nearthquakes = pd.read_csv('./input/earthquake-database.scaled.csv')\nlandslides = pd.read_csv('./input/catalog.scaled.csv')\nvolcanos = pd.read_csv('./input/volcanic-eruptions-database.scaled.csv')\nnp.random.seed(0)\n"
+    },
+    {
+      "raw": "# print the first few rows of the date column\nprint(landslides['date'].head())",
+      "rewrite-ns": 602849,
+      "overhead-ns": 602849,
+      "exec-ns": 1096156,
+      "total-ns": 1699005,
+      "patts-hit": {},
+      "rewritten": "print(landslides['date'].head())\n"
+    },
+    {
+      "raw": "# check the data type of our date column\nlandslides['date'].dtype",
+      "rewrite-ns": 337456,
+      "overhead-ns": 337456,
+      "exec-ns": 1093878,
+      "total-ns": 1431334,
+      "patts-hit": {},
+      "rewritten": "landslides['date'].dtype\n"
+    },
+    {
+      "raw": "# Your turn! Check the data type of the Date column in the earthquakes dataframe\n# (note the capital 'D' in date!)\nprint(\"Data Type of Date column in Earthquakes data:\",earthquakes['Date'].dtype)\n",
+      "rewrite-ns": 503557,
+      "overhead-ns": 503557,
+      "exec-ns": 364860,
+      "total-ns": 868417,
+      "patts-hit": {},
+      "rewritten": "print('Data Type of Date column in Earthquakes data:', earthquakes['Date'].\n    dtype)\n"
+    },
+    {
+      "raw": "# create a new column, date_parsed, with the parsed dates\nlandslides['date_parsed'] = pd.to_datetime(landslides['date'], format = \"%m/%d/%y\")",
+      "rewrite-ns": 672936,
+      "overhead-ns": 672936,
+      "exec-ns": 16635626,
+      "total-ns": 17308562,
+      "patts-hit": {},
+      "rewritten": "landslides['date_parsed'] = pd.to_datetime(landslides['date'], format=\n    '%m/%d/%y')\n"
+    },
+    {
+      "raw": "# print the first few rows\nlandslides['date_parsed'].head()",
+      "rewrite-ns": 410418,
+      "overhead-ns": 410418,
+      "exec-ns": 1029456,
+      "total-ns": 1439874,
+      "patts-hit": {},
+      "rewritten": "landslides['date_parsed'].head()\n"
+    },
+    {
+      "raw": "# Your turn! Create a new column, date_parsed, in the earthquakes\n# dataset that has correctly parsed dates in it. (Don't forget to \n# double-check that the dtype is correct!)\n# ALEX: make notebook run\n# earthquakes['Date']=pd.to_datetime(earthquakes['Date'],infer_datetime_format=True)\nearthquakes['Date']=pd.to_datetime(earthquakes['Date'],infer_datetime_format=True,utc=True)\nprint(earthquakes['Date'].dtype)\n",
+      "rewrite-ns": 1165020,
+      "overhead-ns": 1165020,
+      "exec-ns": 517946583,
+      "total-ns": 519111603,
+      "patts-hit": {},
+      "rewritten": "earthquakes['Date'] = pd.to_datetime(earthquakes['Date'],\n    infer_datetime_format=True, utc=True)\nprint(earthquakes['Date'].dtype)\n"
+    },
+    {
+      "raw": "# try to get the day of the month from the date column\n# ALEX: the first of the two lines below was added to get the notebook to run\nlandslides['date'] = pd.to_datetime(landslides['date'], infer_datetime_format=True)\nday_of_month_landslides = landslides['date'].dt.day",
+      "rewrite-ns": 1100471,
+      "overhead-ns": 1100471,
+      "exec-ns": 78742424,
+      "total-ns": 79842895,
+      "patts-hit": {},
+      "rewritten": "landslides['date'] = pd.to_datetime(landslides['date'],\n    infer_datetime_format=True)\nday_of_month_landslides = landslides['date'].dt.day\n"
+    },
+    {
+      "raw": "# get the day of the month from the date_parsed column\nday_of_month_landslides = landslides['date_parsed'].dt.day",
+      "rewrite-ns": 470104,
+      "overhead-ns": 470104,
+      "exec-ns": 5958612,
+      "total-ns": 6428716,
+      "patts-hit": {},
+      "rewritten": "day_of_month_landslides = landslides['date_parsed'].dt.day\n"
+    },
+    {
+      "raw": "# Your turn! get the day of the month from the date_parsed column\nday_of_month_earthquakes=earthquakes['Date'].dt.day\nprint(day_of_month_earthquakes[:10])\n",
+      "rewrite-ns": 822804,
+      "overhead-ns": 822804,
+      "exec-ns": 73027906,
+      "total-ns": 73850710,
+      "patts-hit": {},
+      "rewritten": "day_of_month_earthquakes = earthquakes['Date'].dt.day\nprint(day_of_month_earthquakes[:10])\n"
+    },
+    {
+      "raw": "# remove na's\nday_of_month_landslides = day_of_month_landslides.dropna()\n\n# plot the day of the month\n# ALEX: remove plotting\n# sns.distplot(day_of_month_landslides, kde=False, bins=31)",
+      "rewrite-ns": 384368,
+      "overhead-ns": 384368,
+      "exec-ns": 1307640,
+      "total-ns": 1692008,
+      "patts-hit": {},
+      "rewritten": "day_of_month_landslides = day_of_month_landslides.dropna()\n"
+    },
+    {
+      "raw": "# Your turn! Plot the days of the month from your\n# earthquake dataset and make sure they make sense.\n# remove na's\nday_of_month_earthquakes = day_of_month_earthquakes.dropna()\n\n# plot the day of the month\n# ALEX: remove plotting\n# sns.distplot(day_of_month_earthquakes, kde=False, bins=31)\n",
+      "rewrite-ns": 363394,
+      "overhead-ns": 363394,
+      "exec-ns": 7249048,
+      "total-ns": 7612442,
+      "patts-hit": {},
+      "rewritten": "day_of_month_earthquakes = day_of_month_earthquakes.dropna()\n"
+    },
+    {
+      "raw": "volcanos['Last Known Eruption'].sample(5)",
+      "rewrite-ns": 443974,
+      "overhead-ns": 443974,
+      "exec-ns": 3996188,
+      "total-ns": 4440162,
+      "patts-hit": {},
+      "rewritten": "volcanos['Last Known Eruption'].sample(5)\n"
+    }
+  ],
+  "total-time-in-sec": 6.151458543,
+  "max-disk-in-mb": 0
+}

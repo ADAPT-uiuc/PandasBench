@@ -1,0 +1,287 @@
+{
+  "max-mem-in-mb": 1193,
+  "max-mem-in-mb2": 1454,
+  "cells": [
+    {
+      "raw": "# ALEX: remove unused code\n# import time\n# start_time = time.time()\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\nfrom datetime import datetime\n# from pandas import Series\n# ALEX: remove ML code\n# from sklearn.ensemble import RandomForestRegressor\n\n# from subprocess import check_output",
+      "rewrite-ns": 809055,
+      "overhead-ns": 809055,
+      "exec-ns": 449004,
+      "total-ns": 1258059,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\nfrom datetime import datetime\n"
+    },
+    {
+      "raw": "train = pd.read_csv(\"./input/train.scaled.csv\")\ntest = pd.read_csv(\"./input/test.scaled.csv\")\n",
+      "rewrite-ns": 920541,
+      "overhead-ns": 920541,
+      "exec-ns": 3281766695,
+      "total-ns": 3282687236,
+      "patts-hit": {},
+      "rewritten": "train = pd.read_csv('./input/train.scaled.csv')\ntest = pd.read_csv('./input/test.scaled.csv')\n"
+    },
+    {
+      "raw": "train.isnull().sum().sum()",
+      "rewrite-ns": 599163,
+      "overhead-ns": 599163,
+      "exec-ns": 483680028,
+      "total-ns": 484279191,
+      "patts-hit": {},
+      "rewritten": "train.isnull().sum().sum()\n"
+    },
+    {
+      "raw": "train.columns",
+      "rewrite-ns": 86551,
+      "overhead-ns": 86551,
+      "exec-ns": 798075,
+      "total-ns": 884626,
+      "patts-hit": {},
+      "rewritten": "train.columns\n"
+    },
+    {
+      "raw": "test.columns",
+      "rewrite-ns": 59889,
+      "overhead-ns": 59889,
+      "exec-ns": 596687,
+      "total-ns": 656576,
+      "patts-hit": {},
+      "rewritten": "test.columns\n"
+    },
+    {
+      "raw": "month = lambda x: datetime.strptime(x, \"%Y-%m-%d %H:%M:%S\" ).month\nday_of_week = lambda x: datetime.strptime(x, \"%Y-%m-%d %H:%M:%S\" ).weekday()\nday = lambda x: datetime.strptime(x, \"%Y-%m-%d %H:%M:%S\" ).day\nhour = lambda x: datetime.strptime(x, \"%Y-%m-%d %H:%M:%S\" ).hour\nminute = lambda x: datetime.strptime(x, \"%Y-%m-%d %H:%M:%S\" ).minute\n\nseasons = [0,0,1,1,1,2]\nseason = lambda x: seasons[(datetime.strptime(x, \"%Y-%m-%d %H:%M:%S\" ).month-1)]",
+      "rewrite-ns": 3702555,
+      "overhead-ns": 3702555,
+      "exec-ns": 753746,
+      "total-ns": 4456301,
+      "patts-hit": {},
+      "rewritten": "month = lambda x: datetime.strptime(x, '%Y-%m-%d %H:%M:%S').month\nday_of_week = lambda x: datetime.strptime(x, '%Y-%m-%d %H:%M:%S').weekday()\nday = lambda x: datetime.strptime(x, '%Y-%m-%d %H:%M:%S').day\nhour = lambda x: datetime.strptime(x, '%Y-%m-%d %H:%M:%S').hour\nminute = lambda x: datetime.strptime(x, '%Y-%m-%d %H:%M:%S').minute\nseasons = [0, 0, 1, 1, 1, 2]\nseason = lambda x: seasons[datetime.strptime(x, '%Y-%m-%d %H:%M:%S').month - 1]\n"
+    },
+    {
+      "raw": "train['month'] = train['pickup_datetime'].map(month)\ntrain['day'] = train['pickup_datetime'].map(day)\ntrain['day_of_week'] = train['pickup_datetime'].map(day_of_week)\ntrain['hour'] = train['pickup_datetime'].map(hour)\ntrain['minute'] = train['pickup_datetime'].map(minute)\ntrain['season'] = train['pickup_datetime'].map(season)",
+      "rewrite-ns": 3053300,
+      "overhead-ns": 3053300,
+      "exec-ns": 53213631162,
+      "total-ns": 53216684462,
+      "patts-hit": {},
+      "rewritten": "train['month'] = train['pickup_datetime'].map(month)\ntrain['day'] = train['pickup_datetime'].map(day)\ntrain['day_of_week'] = train['pickup_datetime'].map(day_of_week)\ntrain['hour'] = train['pickup_datetime'].map(hour)\ntrain['minute'] = train['pickup_datetime'].map(minute)\ntrain['season'] = train['pickup_datetime'].map(season)\n"
+    },
+    {
+      "raw": "train['store_and_fwd_flag']=train['store_and_fwd_flag'].map( {'N': 0, 'Y': 1} ).astype(int)",
+      "rewrite-ns": 1113015,
+      "overhead-ns": 1113015,
+      "exec-ns": 124830015,
+      "total-ns": 125943030,
+      "patts-hit": {},
+      "rewritten": "train['store_and_fwd_flag'] = train['store_and_fwd_flag'].map({'N': 0, 'Y': 1}\n    ).astype(int)\n"
+    },
+    {
+      "raw": "test['month'] = test['pickup_datetime'].map(month)\ntest['day_of_week'] = test['pickup_datetime'].map(day_of_week)\ntest['day'] = test['pickup_datetime'].map(day)\ntest['hour'] = test['pickup_datetime'].map(hour)\ntest['minute'] = test['pickup_datetime'].map(minute)\ntest['season'] = test['pickup_datetime'].map(season)\n",
+      "rewrite-ns": 3057260,
+      "overhead-ns": 3057260,
+      "exec-ns": 22663292380,
+      "total-ns": 22666349640,
+      "patts-hit": {},
+      "rewritten": "test['month'] = test['pickup_datetime'].map(month)\ntest['day_of_week'] = test['pickup_datetime'].map(day_of_week)\ntest['day'] = test['pickup_datetime'].map(day)\ntest['hour'] = test['pickup_datetime'].map(hour)\ntest['minute'] = test['pickup_datetime'].map(minute)\ntest['season'] = test['pickup_datetime'].map(season)\n"
+    },
+    {
+      "raw": "test['store_and_fwd_flag']=test['store_and_fwd_flag'].map( {'N': 0, 'Y': 1} ).astype(int)\n",
+      "rewrite-ns": 1078627,
+      "overhead-ns": 1078627,
+      "exec-ns": 36556046,
+      "total-ns": 37634673,
+      "patts-hit": {},
+      "rewritten": "test['store_and_fwd_flag'] = test['store_and_fwd_flag'].map({'N': 0, 'Y': 1}\n    ).astype(int)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,5))\n# plt.subplot(1, 2, 1)\n# Series(train['month']).value_counts().sort_index().plot(kind = 'bar')\n# plt.xlabel(\"Month\")\n# plt.ylabel(\"Count\")\n# plt.title('Which month has the most rides? (train data)')\n# plt.subplot(1, 2, 2)\n# Series(test['month']).value_counts().sort_index().plot(kind = 'bar')\n# plt.xlabel(\"Month\")\n# plt.ylabel(\"Count\")\n# plt.title('Which month has the most rides? (test data)')\npd.Series(train['month']).value_counts().sort_index()\npd.Series(test['month']).value_counts().sort_index()",
+      "rewrite-ns": 1223251,
+      "overhead-ns": 1223251,
+      "exec-ns": 10176428,
+      "total-ns": 11399679,
+      "patts-hit": {},
+      "rewritten": "pd.Series(train['month']).value_counts().sort_index()\npd.Series(test['month']).value_counts().sort_index()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,5))\n# plt.subplot(1, 2, 1)\n# Series(train['day']).value_counts().sort_index().plot(kind = 'bar')\n# plt.xlabel(\"Day\")\n# plt.ylabel(\"Count\")\n# plt.title('Which day has the most rides?(train data)')\n# plt.subplot(1, 2, 2)\n# Series(test['day']).value_counts().sort_index().plot(kind = 'bar')\n# plt.xlabel(\"Day\")\n# plt.ylabel(\"Count\")\n# plt.title('Which day has the most rides?(test data)')\npd.Series(train['day']).value_counts().sort_index()\npd.Series(test['day']).value_counts().sort_index()",
+      "rewrite-ns": 2097395,
+      "overhead-ns": 2097395,
+      "exec-ns": 9285179,
+      "total-ns": 11382574,
+      "patts-hit": {},
+      "rewritten": "pd.Series(train['day']).value_counts().sort_index()\npd.Series(test['day']).value_counts().sort_index()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,5))\n# plt.subplot(1, 2, 1)\n# Series(train['day_of_week']).value_counts().sort_index().plot(kind = 'bar')\n# plt.xlabel(\"Day of week\")\n# plt.ylabel(\"Count\")\n# plt.title('Which day of week has the most rides? \\n (0 = Monday)-(train data)')\n# plt.subplot(1, 2, 2)\n# Series(test['day_of_week']).value_counts().sort_index().plot(kind = 'bar')\n# plt.xlabel(\"Day of week\")\n# plt.ylabel(\"Count\")\n# plt.title('Which day of week has the most rides? \\n (0 = Monday)-(test data)')\npd.Series(train['day_of_week']).value_counts().sort_index()\npd.Series(test['day_of_week']).value_counts().sort_index()",
+      "rewrite-ns": 1147214,
+      "overhead-ns": 1147214,
+      "exec-ns": 10170569,
+      "total-ns": 11317783,
+      "patts-hit": {},
+      "rewritten": "pd.Series(train['day_of_week']).value_counts().sort_index()\npd.Series(test['day_of_week']).value_counts().sort_index()\n"
+    },
+    {
+      "raw": "# ALEX: remove extra dependencies\n# from geopy.distance import great_circle\ndef distance(p_lat,p_long,d_lat,d_long):\n    pickup = (p_lat, p_long)\n    dropoff = (d_lat, d_long)\n# ALEX: remove extra dependencies\n#     distance_all=great_circle(pickup, dropoff).km\n#     return distance_all\n    return 50",
+      "rewrite-ns": 849128,
+      "overhead-ns": 849128,
+      "exec-ns": 332339,
+      "total-ns": 1181467,
+      "patts-hit": {},
+      "rewritten": "def distance(p_lat, p_long, d_lat, d_long):\n    pickup = p_lat, p_long\n    dropoff = d_lat, d_long\n    return 50\n"
+    },
+    {
+      "raw": "#for train data\nd_train = [distance(train['pickup_latitude'].values[i], train['pickup_longitude'].values[i],\n              train['dropoff_latitude'].values[i],train['dropoff_longitude'].values[i]) for i in range(len(train['pickup_latitude']))]\ntrain['distance_est']=d_train",
+      "rewrite-ns": 2082634,
+      "overhead-ns": 2082634,
+      "exec-ns": 13787787242,
+      "total-ns": 13789869876,
+      "patts-hit": {},
+      "rewritten": "d_train = [distance(train['pickup_latitude'].values[i], train[\n    'pickup_longitude'].values[i], train['dropoff_latitude'].values[i],\n    train['dropoff_longitude'].values[i]) for i in range(len(train[\n    'pickup_latitude']))]\ntrain['distance_est'] = d_train\n"
+    },
+    {
+      "raw": "train[\"d1\"]=train['distance_est']<=5\ntrain[\"d2\"]=train['distance_est'].between(5, 10, inclusive=False)\ntrain[\"d3\"]=train['distance_est'].between(10, 20, inclusive=False)\ntrain[\"d4\"]=train['distance_est'].between(20, 30, inclusive=False)\ntrain[\"d5\"]=train['distance_est'].between(30, 100, inclusive=False)\ntrain[\"d6\"]=train['distance_est']>100",
+      "rewrite-ns": 3242532,
+      "overhead-ns": 3242532,
+      "exec-ns": 11295217,
+      "total-ns": 14537749,
+      "patts-hit": {},
+      "rewritten": "train['d1'] = train['distance_est'] <= 5\ntrain['d2'] = train['distance_est'].between(5, 10, inclusive=False)\ntrain['d3'] = train['distance_est'].between(10, 20, inclusive=False)\ntrain['d4'] = train['distance_est'].between(20, 30, inclusive=False)\ntrain['d5'] = train['distance_est'].between(30, 100, inclusive=False)\ntrain['d6'] = train['distance_est'] > 100\n"
+    },
+    {
+      "raw": "#for test data\nd_test = [distance(test['pickup_latitude'].values[i], test['pickup_longitude'].values[i],\n              test['dropoff_latitude'].values[i],test['dropoff_longitude'].values[i]) for i in range(len(test['pickup_latitude']))]\ntest['distance_est']=d_test",
+      "rewrite-ns": 2105560,
+      "overhead-ns": 2105560,
+      "exec-ns": 5860767758,
+      "total-ns": 5862873318,
+      "patts-hit": {},
+      "rewritten": "d_test = [distance(test['pickup_latitude'].values[i], test[\n    'pickup_longitude'].values[i], test['dropoff_latitude'].values[i], test\n    ['dropoff_longitude'].values[i]) for i in range(len(test[\n    'pickup_latitude']))]\ntest['distance_est'] = d_test\n"
+    },
+    {
+      "raw": "test[\"d1\"]=test['distance_est']<=5\ntest[\"d2\"]=test['distance_est'].between(5, 10, inclusive=False)\ntest[\"d3\"]=test['distance_est'].between(10, 20, inclusive=False)\ntest[\"d4\"]=test['distance_est'].between(20, 30, inclusive=False)\ntest[\"d5\"]=test['distance_est'].between(30, 100, inclusive=False)\ntest[\"d6\"]=test['distance_est']>100",
+      "rewrite-ns": 8242549,
+      "overhead-ns": 8242549,
+      "exec-ns": 6891023,
+      "total-ns": 15133572,
+      "patts-hit": {},
+      "rewritten": "test['d1'] = test['distance_est'] <= 5\ntest['d2'] = test['distance_est'].between(5, 10, inclusive=False)\ntest['d3'] = test['distance_est'].between(10, 20, inclusive=False)\ntest['d4'] = test['distance_est'].between(20, 30, inclusive=False)\ntest['d5'] = test['distance_est'].between(30, 100, inclusive=False)\ntest['d6'] = test['distance_est'] > 100\n"
+    },
+    {
+      "raw": "#dimension reduction of pickup and dropoff (not sure about this step)\n# ALEX: remove ML code\n# from sklearn.decomposition import TruncatedSVD\n# tsvd = TruncatedSVD(n_components=1, random_state=1)",
+      "rewrite-ns": 16235,
+      "overhead-ns": 16235,
+      "exec-ns": 100617,
+      "total-ns": 116852,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#for train data\nframes_p_train=[train['pickup_latitude'],train['pickup_longitude']]\np_train=pd.concat(frames_p_train,axis=1)\n\nframes_d_train=[train['dropoff_latitude'],train['dropoff_longitude']]\nd_train=pd.concat(frames_d_train,axis=1)\n\n# ALEX: remove ML code\n# train['tsvd_p']=tsvd.fit_transform(p_train)\n# train['tsvd_d']=tsvd.fit_transform(d_train)\ntrain['tsvd_p'] = p_train.iloc[:,0]\ntrain['tsvd_d'] = d_train.iloc[:,0]",
+      "rewrite-ns": 2568908,
+      "overhead-ns": 2568908,
+      "exec-ns": 10983006,
+      "total-ns": 13551914,
+      "patts-hit": {},
+      "rewritten": "frames_p_train = [train['pickup_latitude'], train['pickup_longitude']]\np_train = pd.concat(frames_p_train, axis=1)\nframes_d_train = [train['dropoff_latitude'], train['dropoff_longitude']]\nd_train = pd.concat(frames_d_train, axis=1)\ntrain['tsvd_p'] = p_train.iloc[:, 0]\ntrain['tsvd_d'] = d_train.iloc[:, 0]\n"
+    },
+    {
+      "raw": "#for test data\nframes_p_test=[test['pickup_latitude'],test['pickup_longitude']]\np_test=pd.concat(frames_p_test,axis=1)\n\nframes_d_test=[test['dropoff_latitude'],test['dropoff_longitude']]\nd_test=pd.concat(frames_d_test,axis=1)\n\n# ALEX: remove ML code\n# test['tsvd_p']=tsvd.fit_transform(p_test)\n# test['tsvd_d']=tsvd.fit_transform(d_test)\ntest['tsvd_p'] = p_test.iloc[:,0]\ntest['tsvd_d'] = d_test.iloc[:,0]",
+      "rewrite-ns": 2577904,
+      "overhead-ns": 2577904,
+      "exec-ns": 11293860,
+      "total-ns": 13871764,
+      "patts-hit": {},
+      "rewritten": "frames_p_test = [test['pickup_latitude'], test['pickup_longitude']]\np_test = pd.concat(frames_p_test, axis=1)\nframes_d_test = [test['dropoff_latitude'], test['dropoff_longitude']]\nd_test = pd.concat(frames_d_test, axis=1)\ntest['tsvd_p'] = p_test.iloc[:, 0]\ntest['tsvd_d'] = d_test.iloc[:, 0]\n"
+    },
+    {
+      "raw": "import math\n\ndef calculate_initial_compass_bearing(pointA, pointB):\n    if (type(pointA) != tuple) or (type(pointB) != tuple):\n        raise TypeError(\"Only tuples are supported as arguments\")\n\n    lat1 = math.radians(pointA[0])\n    lat2 = math.radians(pointB[0])\n\n    diffLong = math.radians(pointB[1] - pointA[1])\n\n    x = math.sin(diffLong) * math.cos(lat2)\n    y = math.cos(lat1) * math.sin(lat2) - (math.sin(lat1)\n            * math.cos(lat2) * math.cos(diffLong))\n\n    initial_bearing = math.atan2(x, y)\n\n    # Now we have the initial bearing but math.atan2 return values\n    # from -180\u00b0 to + 180\u00b0 which is not what we want for a compass bearing\n    # The solution is to normalize the initial bearing as shown below\n    initial_bearing = math.degrees(initial_bearing)\n    compass_bearing = (initial_bearing + 360) % 360\n\n    return compass_bearing",
+      "rewrite-ns": 5153730,
+      "overhead-ns": 5153730,
+      "exec-ns": 926692,
+      "total-ns": 6080422,
+      "patts-hit": {},
+      "rewritten": "import math\ndef calculate_initial_compass_bearing(pointA, pointB):\n    if type(pointA) != tuple or type(pointB) != tuple:\n        raise TypeError('Only tuples are supported as arguments')\n    lat1 = math.radians(pointA[0])\n    lat2 = math.radians(pointB[0])\n    diffLong = math.radians(pointB[1] - pointA[1])\n    x = math.sin(diffLong) * math.cos(lat2)\n    y = math.cos(lat1) * math.sin(lat2) - math.sin(lat1) * math.cos(lat2\n        ) * math.cos(diffLong)\n    initial_bearing = math.atan2(x, y)\n    initial_bearing = math.degrees(initial_bearing)\n    compass_bearing = (initial_bearing + 360) % 360\n    return compass_bearing\n"
+    },
+    {
+      "raw": "#for train data\ntrain['direction']=[calculate_initial_compass_bearing((train['pickup_latitude'].loc[i],train['pickup_longitude'].loc[i]), \n                                  (train['dropoff_latitude'].loc[i],train['dropoff_longitude'].loc[i])) for i in range(len(train['pickup_latitude']))]",
+      "rewrite-ns": 2031571,
+      "overhead-ns": 2031571,
+      "exec-ns": 53034888096,
+      "total-ns": 53036919667,
+      "patts-hit": {},
+      "rewritten": "train['direction'] = [calculate_initial_compass_bearing((train[\n    'pickup_latitude'].loc[i], train['pickup_longitude'].loc[i]), (train[\n    'dropoff_latitude'].loc[i], train['dropoff_longitude'].loc[i])) for i in\n    range(len(train['pickup_latitude']))]\n"
+    },
+    {
+      "raw": "#for test data\ntest['direction']=[calculate_initial_compass_bearing((test['pickup_latitude'].loc[i],test['pickup_longitude'].loc[i]), \n                                  (test['dropoff_latitude'].loc[i],test['dropoff_longitude'].loc[i])) for i in range(len(test['pickup_latitude']))]",
+      "rewrite-ns": 2263044,
+      "overhead-ns": 2263044,
+      "exec-ns": 22746427269,
+      "total-ns": 22748690313,
+      "patts-hit": {},
+      "rewritten": "test['direction'] = [calculate_initial_compass_bearing((test[\n    'pickup_latitude'].loc[i], test['pickup_longitude'].loc[i]), (test[\n    'dropoff_latitude'].loc[i], test['dropoff_longitude'].loc[i])) for i in\n    range(len(test['pickup_latitude']))]\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.heatmap(train.corr())\n_ = train.corr()",
+      "rewrite-ns": 426861,
+      "overhead-ns": 426861,
+      "exec-ns": 1995617470,
+      "total-ns": 1996044331,
+      "patts-hit": {},
+      "rewritten": "_ = train.corr()\n"
+    },
+    {
+      "raw": "test_id=test[\"id\"]\ntest = test.drop(['id', 'pickup_datetime'], axis=1)\nX = train.drop(['id','trip_duration', 'pickup_datetime','dropoff_datetime'], axis=1)\nY = train['trip_duration']",
+      "rewrite-ns": 1616311,
+      "overhead-ns": 1616311,
+      "exec-ns": 117251357,
+      "total-ns": 118867668,
+      "patts-hit": {},
+      "rewritten": "test_id = test['id']\ntest = test.drop(['id', 'pickup_datetime'], axis=1)\nX = train.drop(['id', 'trip_duration', 'pickup_datetime',\n    'dropoff_datetime'], axis=1)\nY = train['trip_duration']\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# RF = RandomForestRegressor(verbose=True)\n# RF.fit(X, Y)",
+      "rewrite-ns": 21784,
+      "overhead-ns": 21784,
+      "exec-ns": 111600,
+      "total-ns": 133384,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "features_list = X.columns.values\n# ALEX: remove ML code\n# feature_importance = RF.feature_importances_\n# sorted_idx = np.argsort(feature_importance)\nfeature_importance = X.columns.values\nsorted_idx = np.argsort(feature_importance)\n \n# ALEX: remove plotting\n# plt.figure(figsize=(5,10))\n# plt.barh(range(len(sorted_idx)), feature_importance[sorted_idx], align='center')\n# plt.yticks(range(len(sorted_idx)), features_list[sorted_idx])\n# plt.xlabel('Importance')\n# plt.title('Feature importances')\n# plt.draw()\n# plt.show()\n_ = feature_importance[sorted_idx]\n_ = features_list[sorted_idx]",
+      "rewrite-ns": 1401344,
+      "overhead-ns": 1401344,
+      "exec-ns": 449101,
+      "total-ns": 1850445,
+      "patts-hit": {},
+      "rewritten": "features_list = X.columns.values\nfeature_importance = X.columns.values\nsorted_idx = np.argsort(feature_importance)\n_ = feature_importance[sorted_idx]\n_ = features_list[sorted_idx]\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# Y_pred = RF.predict(test)\nY_pred = Y",
+      "rewrite-ns": 218481,
+      "overhead-ns": 218481,
+      "exec-ns": 218398,
+      "total-ns": 436879,
+      "patts-hit": {},
+      "rewritten": "Y_pred = Y\n"
+    },
+    {
+      "raw": "sub = pd.DataFrame()\nsub['id'] = test_id\nsub['trip_duration'] = Y_pred\nsub.to_csv('RF.csv', index=False)",
+      "rewrite-ns": 1117767,
+      "overhead-ns": 1117767,
+      "exec-ns": 565853831,
+      "total-ns": 566971598,
+      "patts-hit": {},
+      "rewritten": "sub = pd.DataFrame()\nsub['id'] = test_id\nsub['trip_duration'] = Y_pred\nsub.to_csv('RF.csv', index=False)\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 21389,
+      "overhead-ns": 21389,
+      "exec-ns": 120660,
+      "total-ns": 142049,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 178.042207098,
+  "max-disk-in-mb": 0
+}

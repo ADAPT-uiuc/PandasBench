@@ -1,0 +1,332 @@
+{
+  "max-mem-in-mb": 820,
+  "max-mem-in-mb2": 870,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sn\ndf = pd.read_csv(\"./input/House_prediction.scaled.csv\")\ndf",
+      "rewrite-ns": 1030337,
+      "overhead-ns": 1030337,
+      "exec-ns": 660260012,
+      "total-ns": 661290349,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\ndf = pd.read_csv('./input/House_prediction.scaled.csv')\ndf\n"
+    },
+    {
+      "raw": "df.rename(columns={'parking spaces':'parking_spaces','hoa (R$)':'hoa','rent amount (R$)':'rent',\n                   'property tax (R$)':'property_tax','fire insurance (R$)':'fire_insurance','total (R$)':'total'},inplace = True)",
+      "rewrite-ns": 943236,
+      "overhead-ns": 943236,
+      "exec-ns": 673697,
+      "total-ns": 1616933,
+      "patts-hit": {},
+      "rewritten": "df.rename(columns={'parking spaces': 'parking_spaces', 'hoa (R$)': 'hoa',\n    'rent amount (R$)': 'rent', 'property tax (R$)': 'property_tax',\n    'fire insurance (R$)': 'fire_insurance', 'total (R$)': 'total'},\n    inplace=True)\n"
+    },
+    {
+      "raw": "df['floor'].replace(to_replace='-',value='0',inplace=True)\ndf",
+      "rewrite-ns": 603521,
+      "overhead-ns": 603521,
+      "exec-ns": 22259130,
+      "total-ns": 22862651,
+      "patts-hit": {},
+      "rewritten": "df['floor'].replace(to_replace='-', value='0', inplace=True)\ndf\n"
+    },
+    {
+      "raw": "df.sort_values(by=['city'],inplace=True)\ndf.reset_index(drop=True, inplace=True)\ndf",
+      "rewrite-ns": 847576,
+      "overhead-ns": 847576,
+      "exec-ns": 440328455,
+      "total-ns": 441176031,
+      "patts-hit": {},
+      "rewritten": "df.sort_values(by=['city'], inplace=True)\ndf.reset_index(drop=True, inplace=True)\ndf\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# import matplotlib.pyplot as plt\nimport numpy as np",
+      "rewrite-ns": 165119,
+      "overhead-ns": 165119,
+      "exec-ns": 294870,
+      "total-ns": 459989,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\n"
+    },
+    {
+      "raw": "df2=df.groupby(by=['city'])\ntype(df2)",
+      "rewrite-ns": 548968,
+      "overhead-ns": 548968,
+      "exec-ns": 688618,
+      "total-ns": 1237586,
+      "patts-hit": {},
+      "rewritten": "df2 = df.groupby(by=['city'])\ntype(df2)\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from scipy import stats",
+      "rewrite-ns": 13146,
+      "overhead-ns": 13146,
+      "exec-ns": 79568,
+      "total-ns": 92714,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n#df.groupby(['city']).apply(lambda x: x.mode())['rent'].unstack().plot(ax=ax,label='mode',legend=True)\n# ALEX: remove plotting\n# df.groupby(['city']).median()['rent'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['rent'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).median()['rent']\ndf.groupby(['city']).mean()['rent']\n",
+      "rewrite-ns": 1539986,
+      "overhead-ns": 1539986,
+      "exec-ns": 193288996,
+      "total-ns": 194828982,
+      "patts-hit": {},
+      "rewritten": "df.groupby(['city']).median()['rent']\ndf.groupby(['city']).mean()['rent']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n#df.groupby(['city']).apply(lambda x: x.mode())['rooms'].unstack().plot(ax=ax,label='mode',legend=True)\n# ALEX: remove plotting\n# df.groupby(['city']).median()['rooms'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['rooms'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).median()['rooms']\ndf.groupby(['city']).mean()['rooms']",
+      "rewrite-ns": 1204908,
+      "overhead-ns": 1204908,
+      "exec-ns": 181199152,
+      "total-ns": 182404060,
+      "patts-hit": {},
+      "rewritten": "df.groupby(['city']).median()['rooms']\ndf.groupby(['city']).mean()['rooms']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['hoa'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['hoa'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['hoa'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['hoa'].unstack()\ndf.groupby(['city']).median()['hoa']\ndf.groupby(['city']).mean()['hoa']",
+      "rewrite-ns": 1988527,
+      "overhead-ns": 1990621,
+      "exec-ns": 405813610,
+      "total-ns": 407802137,
+      "patts-hit": {},
+      "rewritten": "df.groupby(['city']).apply(lambda x: x.mode())['hoa'].unstack()\ndf.groupby(['city']).median()['hoa']\ndf.groupby(['city']).mean()['hoa']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n#df.groupby(['city']).apply(lambda x: x.mode())['property_tax'].unstack().plot(ax=ax,label='mode',legend=True)\n# ALEX: remove plotting\n# df.groupby(['city']).median()['property_tax'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['property_tax'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).median()['property_tax']\ndf.groupby(['city']).mean()['property_tax']",
+      "rewrite-ns": 1274672,
+      "overhead-ns": 1274672,
+      "exec-ns": 181326184,
+      "total-ns": 182600856,
+      "patts-hit": {},
+      "rewritten": "df.groupby(['city']).median()['property_tax']\ndf.groupby(['city']).mean()['property_tax']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['fire_insurance'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['fire_insurance'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['fire_insurance'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['fire_insurance'].unstack()\ndf.groupby(['city']).median()['fire_insurance']\ndf.groupby(['city']).mean()['fire_insurance']",
+      "rewrite-ns": 1948400,
+      "overhead-ns": 1950407,
+      "exec-ns": 396035475,
+      "total-ns": 397983875,
+      "patts-hit": {},
+      "rewritten": "df.groupby(['city']).apply(lambda x: x.mode())['fire_insurance'].unstack()\ndf.groupby(['city']).median()['fire_insurance']\ndf.groupby(['city']).mean()['fire_insurance']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['area'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['area'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['area'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['area'].unstack()\ndf.groupby(['city']).median()['area']\ndf.groupby(['city']).mean()['area']",
+      "rewrite-ns": 1936215,
+      "overhead-ns": 1938275,
+      "exec-ns": 397029120,
+      "total-ns": 398965335,
+      "patts-hit": {},
+      "rewritten": "df.groupby(['city']).apply(lambda x: x.mode())['area'].unstack()\ndf.groupby(['city']).median()['area']\ndf.groupby(['city']).mean()['area']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['parking_spaces'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['parking_spaces'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['parking_spaces'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['parking_spaces'].unstack()\ndf.groupby(['city']).median()['parking_spaces']\ndf.groupby(['city']).mean()['parking_spaces']",
+      "rewrite-ns": 1903996,
+      "overhead-ns": 1905956,
+      "exec-ns": 395913918,
+      "total-ns": 397817914,
+      "patts-hit": {},
+      "rewritten": "df.groupby(['city']).apply(lambda x: x.mode())['parking_spaces'].unstack()\ndf.groupby(['city']).median()['parking_spaces']\ndf.groupby(['city']).mean()['parking_spaces']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['bathroom'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['bathroom'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['bathroom'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['bathroom'].unstack()\ndf.groupby(['city']).median()['bathroom']\ndf.groupby(['city']).mean()['bathroom']",
+      "rewrite-ns": 1913040,
+      "overhead-ns": 1915044,
+      "exec-ns": 397839263,
+      "total-ns": 399752303,
+      "patts-hit": {},
+      "rewritten": "df.groupby(['city']).apply(lambda x: x.mode())['bathroom'].unstack()\ndf.groupby(['city']).median()['bathroom']\ndf.groupby(['city']).mean()['bathroom']\n"
+    },
+    {
+      "raw": "df['floor']=df['floor'].astype('int')\n# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['floor'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['floor'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['floor'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['floor'].unstack()\ndf.groupby(['city']).median()['floor']\ndf.groupby(['city']).mean()['floor']",
+      "rewrite-ns": 2373773,
+      "overhead-ns": 2375671,
+      "exec-ns": 480564875,
+      "total-ns": 482938648,
+      "patts-hit": {},
+      "rewritten": "df['floor'] = df['floor'].astype('int')\ndf.groupby(['city']).apply(lambda x: x.mode())['floor'].unstack()\ndf.groupby(['city']).median()['floor']\ndf.groupby(['city']).mean()['floor']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['total'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['total'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['total'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['total'].unstack()\ndf.groupby(['city']).median()['total']\ndf.groupby(['city']).mean()['total']",
+      "rewrite-ns": 1897790,
+      "overhead-ns": 1899704,
+      "exec-ns": 392468566,
+      "total-ns": 394366356,
+      "patts-hit": {},
+      "rewritten": "df.groupby(['city']).apply(lambda x: x.mode())['total'].unstack()\ndf.groupby(['city']).median()['total']\ndf.groupby(['city']).mean()['total']\n"
+    },
+    {
+      "raw": "#correlation between hoa,pt,fi with rent\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','rent'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# ALEX: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
+      "rewrite-ns": 947555,
+      "overhead-ns": 947555,
+      "exec-ns": 50571854,
+      "total-ns": 51519409,
+      "patts-hit": {},
+      "rewritten": "df_cor_rent = df.filter(['hoa', 'property_tax', 'fire_insurance', 'rent'],\n    axis=1)\ncorrMatrix = df_cor_rent.corr()\n"
+    },
+    {
+      "raw": "#correlation between hoa,pt,fi with area\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','area'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# ALEX: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
+      "rewrite-ns": 959769,
+      "overhead-ns": 959769,
+      "exec-ns": 43507705,
+      "total-ns": 44467474,
+      "patts-hit": {},
+      "rewritten": "df_cor_rent = df.filter(['hoa', 'property_tax', 'fire_insurance', 'area'],\n    axis=1)\ncorrMatrix = df_cor_rent.corr()\n"
+    },
+    {
+      "raw": "#correlation between hoa,pt,fi with floor\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','floor'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# ALEX: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
+      "rewrite-ns": 951294,
+      "overhead-ns": 951294,
+      "exec-ns": 43413354,
+      "total-ns": 44364648,
+      "patts-hit": {},
+      "rewritten": "df_cor_rent = df.filter(['hoa', 'property_tax', 'fire_insurance', 'floor'],\n    axis=1)\ncorrMatrix = df_cor_rent.corr()\n"
+    },
+    {
+      "raw": "#correlation between hoa,pt,fi with rooms\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','rooms'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# ALEX: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
+      "rewrite-ns": 961481,
+      "overhead-ns": 961481,
+      "exec-ns": 43525703,
+      "total-ns": 44487184,
+      "patts-hit": {},
+      "rewritten": "df_cor_rent = df.filter(['hoa', 'property_tax', 'fire_insurance', 'rooms'],\n    axis=1)\ncorrMatrix = df_cor_rent.corr()\n"
+    },
+    {
+      "raw": "#correlation between hoa,pt,fi with bathroom\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','bathroom'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# ALEX: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
+      "rewrite-ns": 963915,
+      "overhead-ns": 963915,
+      "exec-ns": 43552666,
+      "total-ns": 44516581,
+      "patts-hit": {},
+      "rewritten": "df_cor_rent = df.filter(['hoa', 'property_tax', 'fire_insurance',\n    'bathroom'], axis=1)\ncorrMatrix = df_cor_rent.corr()\n"
+    },
+    {
+      "raw": "#correlation between hoa,pt,fi with parking_spaces\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','parking_spaces'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# ALEX: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
+      "rewrite-ns": 958661,
+      "overhead-ns": 958661,
+      "exec-ns": 43533595,
+      "total-ns": 44492256,
+      "patts-hit": {},
+      "rewritten": "df_cor_rent = df.filter(['hoa', 'property_tax', 'fire_insurance',\n    'parking_spaces'], axis=1)\ncorrMatrix = df_cor_rent.corr()\n"
+    },
+    {
+      "raw": "#correlation between hoa,pt,fi with total\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','total'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# ALEX: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
+      "rewrite-ns": 944268,
+      "overhead-ns": 944268,
+      "exec-ns": 43488268,
+      "total-ns": 44432536,
+      "patts-hit": {},
+      "rewritten": "df_cor_rent = df.filter(['hoa', 'property_tax', 'fire_insurance', 'total'],\n    axis=1)\ncorrMatrix = df_cor_rent.corr()\n"
+    },
+    {
+      "raw": "# Manually catogerizing the 'city', 'furniture', 'animal' columns similar to ohe\n\ncitydummies=pd.get_dummies(df.city)\ncityjoined=pd.concat([df,citydummies],axis='columns')\ncityfinal=cityjoined.drop(['city','Campinas'], axis='columns')\nanimaldummies=pd.get_dummies(cityfinal.animal)\nanimalsjoined=pd.concat([cityfinal,animaldummies],axis='columns')\nanimalfinal = animalsjoined.drop(['animal','acept'],axis='columns')\nfurnituredummies = pd.get_dummies(animalfinal.furniture)\nfurniturejoined = pd.concat([animalfinal,furnituredummies],axis='columns')\ndf_final = furniturejoined.drop(['furniture','not furnished'],axis = 'columns')\ndf_final",
+      "rewrite-ns": 3920643,
+      "overhead-ns": 3920643,
+      "exec-ns": 258867987,
+      "total-ns": 262788630,
+      "patts-hit": {},
+      "rewritten": "citydummies = pd.get_dummies(df.city)\ncityjoined = pd.concat([df, citydummies], axis='columns')\ncityfinal = cityjoined.drop(['city', 'Campinas'], axis='columns')\nanimaldummies = pd.get_dummies(cityfinal.animal)\nanimalsjoined = pd.concat([cityfinal, animaldummies], axis='columns')\nanimalfinal = animalsjoined.drop(['animal', 'acept'], axis='columns')\nfurnituredummies = pd.get_dummies(animalfinal.furniture)\nfurniturejoined = pd.concat([animalfinal, furnituredummies], axis='columns')\ndf_final = furniturejoined.drop(['furniture', 'not furnished'], axis='columns')\ndf_final\n"
+    },
+    {
+      "raw": "df_final.rename(columns={'Belo Horizonte':'Belo','Porto Alegre':'Porto','Rio de Janeiro':'Rio','S\u00e3o Paulo':'Sao',\n                         'not acept':'not_acept'}, inplace = True)",
+      "rewrite-ns": 831776,
+      "overhead-ns": 831776,
+      "exec-ns": 648319,
+      "total-ns": 1480095,
+      "patts-hit": {},
+      "rewritten": "df_final.rename(columns={'Belo Horizonte': 'Belo', 'Porto Alegre': 'Porto',\n    'Rio de Janeiro': 'Rio', 'S\u00e3o Paulo': 'Sao', 'not acept': 'not_acept'},\n    inplace=True)\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.linear_model import LinearRegression\n# from sklearn.model_selection import train_test_split\n# model = LinearRegression()",
+      "rewrite-ns": 15417,
+      "overhead-ns": 15417,
+      "exec-ns": 87678,
+      "total-ns": 103095,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#X = df_final[['hoa','fire_insurance','property_tax']].values\nX = df_final[['fire_insurance']].values\nY = df_final[['rent']].values",
+      "rewrite-ns": 746790,
+      "overhead-ns": 746790,
+      "exec-ns": 38184485,
+      "total-ns": 38931275,
+      "patts-hit": {},
+      "rewritten": "X = df_final[['fire_insurance']].values\nY = df_final[['rent']].values\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_train, X_test, Y_train, Y_test = train_test_split(X,Y, test_size=0.2, random_state = 0)",
+      "rewrite-ns": 24127,
+      "overhead-ns": 24127,
+      "exec-ns": 109839,
+      "total-ns": 133966,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# model.fit(X_train, Y_train)",
+      "rewrite-ns": 15048,
+      "overhead-ns": 15048,
+      "exec-ns": 78679,
+      "total-ns": 93727,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# model.score(X_test,Y_test)",
+      "rewrite-ns": 11132,
+      "overhead-ns": 11132,
+      "exec-ns": 61921,
+      "total-ns": 73053,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# Y_pred = model.predict(X_test) \n# df_compare = pd.DataFrame({'actual':Y_test.flatten(), 'predicted':Y_pred.flatten()})\ndf_compare = pd.DataFrame({'actual':Y.flatten(), 'predicted':Y.flatten()})\ndf_compare\n# ALEX: remove plotting\n# df_compare.head(20).plot(kind='bar',figsize=(10,8))\n# plt.grid(which='major', linestyle='-', linewidth='0.5', color='green')\n# plt.grid(which='minor', linestyle=':', linewidth='0.5', color='black')\n# plt.show()\ndf_compare.head(20)",
+      "rewrite-ns": 858080,
+      "overhead-ns": 858080,
+      "exec-ns": 6300039,
+      "total-ns": 7158119,
+      "patts-hit": {},
+      "rewritten": "df_compare = pd.DataFrame({'actual': Y.flatten(), 'predicted': Y.flatten()})\ndf_compare\ndf_compare.head(20)\n"
+    },
+    {
+      "raw": "X = df_final[['hoa','fire_insurance','property_tax','floor','rooms','bathroom','area','floor','Rio','Sao','Porto','Belo','furnished','not_acept']].values\nY = df_final[['rent']].values",
+      "rewrite-ns": 1219131,
+      "overhead-ns": 1219131,
+      "exec-ns": 38937764,
+      "total-ns": 40156895,
+      "patts-hit": {},
+      "rewritten": "X = df_final[['hoa', 'fire_insurance', 'property_tax', 'floor', 'rooms',\n    'bathroom', 'area', 'floor', 'Rio', 'Sao', 'Porto', 'Belo', 'furnished',\n    'not_acept']].values\nY = df_final[['rent']].values\n"
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_train, X_test, Y_train, Y_test = train_test_split(X,Y, test_size=0.2, random_state = 0)\n# model.fit(X_train, Y_train)\n# model.score(X_test,Y_test)",
+      "rewrite-ns": 25448,
+      "overhead-ns": 25448,
+      "exec-ns": 115368,
+      "total-ns": 140816,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# Y_pred = model.predict(X_test) \n# df_compare = pd.DataFrame({'actual':Y_test.flatten(), 'predicted':Y_pred.flatten()})\ndf_compare = pd.DataFrame({'actual':Y.flatten(), 'predicted':Y.flatten()})\ndf_compare\n# ALEX: remove plotting\n# df_compare.head(20).plot(kind='bar',figsize=(10,8))\n# plt.grid(which='major', linestyle='-', linewidth='0.5', color='green')\n# plt.grid(which='minor', linestyle=':', linewidth='0.5', color='black')\n# plt.show()\ndf_compare.head(20)",
+      "rewrite-ns": 859733,
+      "overhead-ns": 859733,
+      "exec-ns": 6186251,
+      "total-ns": 7045984,
+      "patts-hit": {},
+      "rewritten": "df_compare = pd.DataFrame({'actual': Y.flatten(), 'predicted': Y.flatten()})\ndf_compare\ndf_compare.head(20)\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 13713,
+      "overhead-ns": 13713,
+      "exec-ns": 85036,
+      "total-ns": 98749,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 5.244681211,
+  "max-disk-in-mb": 0
+}

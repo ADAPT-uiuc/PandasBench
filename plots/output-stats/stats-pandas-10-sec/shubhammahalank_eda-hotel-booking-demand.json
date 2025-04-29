@@ -1,0 +1,116 @@
+{
+  "max-mem-in-mb": 911,
+  "max-mem-in-mb2": 981,
+  "cells": [
+    {
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport datetime\n\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# import folium\n# %matplotlib inline",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 413587
+    },
+    {
+      "raw": "hotel_bookings = pd.read_csv(\"./input/hotel_bookings.scaled.csv\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1314209739
+    },
+    {
+      "raw": "hotel_bookings.shape",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 400781
+    },
+    {
+      "raw": "hotel_bookings.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 740891118
+    },
+    {
+      "raw": "hotel_bookings.describe(include='all')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 767374955
+    },
+    {
+      "raw": "#Dropping feature \"company\" as it has 94% NULL.\nhotel_bookings = hotel_bookings.drop(axis='1',columns='company')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 99210688
+    },
+    {
+      "raw": "#Converting certain features to categorical form\ncategorical_features = ['hotel','is_canceled','arrival_date_week_number','meal','country','market_segment',\n                        'distribution_channel','is_repeated_guest','reserved_room_type','assigned_room_type',\n                        'deposit_type','agent','customer_type','reservation_status','arrival_date_month']\nhotel_bookings[categorical_features] = hotel_bookings[categorical_features].astype('category')\n\n# Converting reservation_status_date to datetime object\nhotel_bookings['reservation_status_date'] = hotel_bookings['reservation_status_date'].astype('datetime64[ns]')\n\n# Converting arrival date to datetime object\nMonthtoNum = {'January':1, 'February':2,'March':3,'April':4,'May':5,'June':6,'July':7,\n             'August':8,'September':9,'October':10,'November':11,'December':12}\n\nhotel_bookings['arrival_date'] = hotel_bookings.apply(lambda x:datetime.date(x['arrival_date_year'],\n                                                                             MonthtoNum[x['arrival_date_month']],\n                                                                             x['arrival_date_day_of_month']),\n                                                      axis = 1)\nhotel_bookings['arrival_date'] = hotel_bookings['arrival_date'].astype('datetime64[ns]')\n\nhotel_bookings.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 7842169978
+    },
+    {
+      "raw": "# Plot to show outlier in Average Daily Rate\n# ALEX: remove plotting\n# ax = sns.boxplot(x=hotel_bookings['adr'])\n_ = hotel_bookings['adr']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 297510
+    },
+    {
+      "raw": "hotel_bookings['adr'] = hotel_bookings['adr'].astype('int')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3030030
+    },
+    {
+      "raw": "# Deleting a record with ADR greater than 5000\nhotel_bookings = hotel_bookings[hotel_bookings['adr'] < 5000]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 91361532
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# ax = sns.boxplot(x=hotel_bookings['adr'])\n_ = hotel_bookings['adr']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 376885
+    },
+    {
+      "raw": "# The function generating the EDA for categorical data\n\ndef categorical_eda(df):\n    \"\"\"Given dataframe, generate EDA of categorical data\"\"\"\n    print(\"To check: Unique count of non-numeric data\")\n    print(df.select_dtypes(include=['category']).nunique())\n    # Plot count distribution of categorical data\n    \n    for col in df.select_dtypes(include='category').columns:\n        if df[col].nunique() < 20:\n# ALEX: remove plotting\n#             fig = sns.catplot(x=col, kind=\"count\", data=df)\n#             fig.set_xticklabels(rotation=90)\n#             plt.show()\n            pass\n        \n        \ncategorical_eda(hotel_bookings)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 73966195
+    },
+    {
+      "raw": "country_count = hotel_bookings['country'].value_counts()\ncountry_count_df = pd.DataFrame(country_count)\ncountry_count_df = country_count_df.reset_index()\ncountry_count_df.columns = ['country','booking_count']\ncountry_count_df = country_count_df[country_count_df['booking_count'] > 10]\n\n# ALEX: remove plotting\n# import plotly.express as px\n\n# fig = px.choropleth(country_count_df, locations=\"country\",\n#                     color=\"booking_count\",\n#                     hover_name=\"country\",\n#                     color_continuous_scale=px.colors.sequential.RdBu)\n# fig.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4064125
+    },
+    {
+      "raw": "reservation_df = hotel_bookings[['hotel','reservation_status']]\nreservation_df.groupby(['hotel']).count()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3445064
+    },
+    {
+      "raw": "hotel_bookings_1 = hotel_bookings[hotel_bookings['hotel'] == 'City Hotel']\nhotel_bookings_1['reservation_status'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 24781849
+    },
+    {
+      "raw": "hotel_bookings_2 = hotel_bookings[hotel_bookings['hotel'] == 'Resort Hotel']\nhotel_bookings_2['reservation_status'].value_counts()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 17758846
+    },
+    {
+      "raw": "# Percentage of Cancelation\nprint('Percentage of calculation in City Hotel: ',(32185/79329)*100)\nprint('Percentage of calculation in Resort Hotel: ',(10831/40060)*100)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 370136
+    },
+    {
+      "raw": "# import pandas as pd\nhotel_bookings = pd.read_csv(\"./input/hotel_bookings.scaled.csv\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1129174508
+    }
+  ],
+  "total-time-in-sec": 12.113297526,
+  "max-disk-in-mb": 0
+}

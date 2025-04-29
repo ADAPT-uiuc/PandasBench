@@ -1,0 +1,536 @@
+{
+  "max-mem-in-mb": 1415,
+  "max-mem-in-mb2": 468,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# plt.style.use(\"seaborn-whitegrid\")\n\n# import seaborn as sns\n\nfrom collections import Counter\n\nimport warnings\nwarnings.filterwarnings(\"ignore\")\n\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# Any results you write to the current directory are saved as output.",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3201400764
+    },
+    {
+      "raw": "train_df = pd.read_csv(\"./input/train.scaled.csv\")\ntest_df = pd.read_csv(\"./input/test.scaled.csv\")\ntest_PassengerId = test_df[\"PassengerId\"]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2768701334
+    },
+    {
+      "raw": "train_df.columns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 437400
+    },
+    {
+      "raw": "train_df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 892079
+    },
+    {
+      "raw": "train_df.describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 22214650
+    },
+    {
+      "raw": "train_df.info()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 94059024
+    },
+    {
+      "raw": "def bar_plot(variable):\n    \"\"\"\n        input: variable ex: \"Sex\"\n        output: bar plot & value count\n    \"\"\"\n    # get feature\n    var = train_df[variable]\n    # count number of categorical variable(value/sample)\n    varValue = var.value_counts()\n    \n    # visualize\n# ALEX: remove plotting\n#     plt.figure(figsize = (9,3))\n#     plt.bar(varValue.index, varValue)\n#     plt.xticks(varValue.index, varValue.index.values)\n#     plt.ylabel(\"Frequency\")\n#     plt.title(variable)\n#     plt.show()\n#     print(\"{}: \\n {}\".format(variable,varValue))\n    _ = varValue.index\n    _ = varValue.index\n    _ = varValue.index.values\n    _ = \"{}: \\n {}\".format(variable,varValue)\n    ",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1071038
+    },
+    {
+      "raw": "category1 = [\"Survived\",\"Sex\",\"Pclass\",\"Embarked\",\"SibSp\", \"Parch\"]\nfor c in category1:\n    bar_plot(c)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 644958268
+    },
+    {
+      "raw": "category2 = [\"Cabin\", \"Name\", \"Ticket\"]\nfor c in category2:\n    print(\"{} \\n\".format(train_df[c].value_counts()))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 452818621
+    },
+    {
+      "raw": "def plot_hist(variable):\n# ALEX: remove plotting\n#     plt.figure(figsize = (9,3))\n#     plt.hist(train_df[variable], bins = 50)\n#     plt.xlabel(variable)\n#     plt.ylabel(\"Frequency\")\n#     plt.title(\"{} distribution with hist\".format(variable))\n#     plt.show()\n    _ = train_df[variable]\n    _ = \"{} distribution with hist\".format(variable)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 637895
+    },
+    {
+      "raw": "numericVar = [\"Fare\", \"Age\",\"PassengerId\"]\nfor n in numericVar:\n    plot_hist(n)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3277308
+    },
+    {
+      "raw": "# Plcass vs Survived\ntrain_df[[\"Pclass\",\"Survived\"]].groupby([\"Pclass\"], as_index = False).mean().sort_values(by=\"Survived\",ascending = False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 91193745
+    },
+    {
+      "raw": "# Sex vs Survived\ntrain_df[[\"Sex\",\"Survived\"]].groupby([\"Sex\"], as_index = False).mean().sort_values(by=\"Survived\",ascending = False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 83832141
+    },
+    {
+      "raw": "# Sibsp vs Survived\ntrain_df[[\"SibSp\",\"Survived\"]].groupby([\"SibSp\"], as_index = False).mean().sort_values(by=\"Survived\",ascending = False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 71995335
+    },
+    {
+      "raw": "# Parch vs Survived\ntrain_df[[\"Parch\",\"Survived\"]].groupby([\"Parch\"], as_index = False).mean().sort_values(by=\"Survived\",ascending = False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 60084988
+    },
+    {
+      "raw": "def detect_outliers(df,features):\n    outlier_indices = []\n    \n    for c in features:\n        # 1st quartile\n        Q1 = np.percentile(df[c],25)\n        # 3rd quartile\n        Q3 = np.percentile(df[c],75)\n        # IQR\n        IQR = Q3 - Q1\n        # Outlier step\n        outlier_step = IQR * 1.5\n        # detect outlier and their indeces\n        outlier_list_col = df[(df[c] < Q1 - outlier_step) | (df[c] > Q3 + outlier_step)].index\n        # store indeces\n        outlier_indices.extend(outlier_list_col)\n    \n    outlier_indices = Counter(outlier_indices)\n    multiple_outliers = list(i for i, v in outlier_indices.items() if v > 2)\n    \n    return multiple_outliers",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2241426
+    },
+    {
+      "raw": "train_df.loc[detect_outliers(train_df,[\"Age\",\"SibSp\",\"Parch\",\"Fare\"])]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 324078524
+    },
+    {
+      "raw": "# drop outliers\ntrain_df = train_df.drop(detect_outliers(train_df,[\"Age\",\"SibSp\",\"Parch\",\"Fare\"]),axis = 0).reset_index(drop = True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 423296905
+    },
+    {
+      "raw": "train_df_len = len(train_df)\ntrain_df = pd.concat([train_df,test_df],axis = 0).reset_index(drop = True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 34857621
+    },
+    {
+      "raw": "train_df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5555401
+    },
+    {
+      "raw": "train_df.columns[train_df.isnull().any()]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 262197908
+    },
+    {
+      "raw": "train_df.isnull().sum()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 10843178
+    },
+    {
+      "raw": "train_df[train_df[\"Embarked\"].isnull()]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 12569554
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# train_df.boxplot(column=\"Fare\",by = \"Embarked\")\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 326079
+    },
+    {
+      "raw": "train_df[\"Embarked\"] = train_df[\"Embarked\"].fillna(\"C\")\ntrain_df[train_df[\"Embarked\"].isnull()]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 19588419
+    },
+    {
+      "raw": "train_df[train_df[\"Fare\"].isnull()]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 8808166
+    },
+    {
+      "raw": "train_df[\"Fare\"] = train_df[\"Fare\"].fillna(np.mean(train_df[train_df[\"Pclass\"] == 3][\"Fare\"]))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 155116800
+    },
+    {
+      "raw": "train_df[train_df[\"Fare\"].isnull()]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 11147522
+    },
+    {
+      "raw": "list1 = [\"SibSp\", \"Parch\", \"Age\", \"Fare\", \"Survived\"]\n# ALEX: remove plotting\n# sns.heatmap(train_df[list1].corr(), annot = True, fmt = \".2f\")\n# plt.show()\n_ = train_df[list1].corr()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 97639704
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.factorplot(x = \"SibSp\", y = \"Survived\", data = train_df, kind = \"bar\", size = 6)\n# g.set_ylabels(\"Survived Probability\")\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 348536
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.factorplot(x = \"Parch\", y = \"Survived\", kind = \"bar\", data = train_df, size = 6)\n# g.set_ylabels(\"Survived Probability\")\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 297989
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.factorplot(x = \"Pclass\", y = \"Survived\", data = train_df, kind = \"bar\", size = 6)\n# g.set_ylabels(\"Survived Probability\")\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 285604
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(train_df, col = \"Survived\")\n# g.map(sns.distplot, \"Age\", bins = 25)\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 294935
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(train_df, col = \"Survived\", row = \"Pclass\", size = 2)\n# g.map(plt.hist, \"Age\", bins = 25)\n# g.add_legend()\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 282508
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(train_df, row = \"Embarked\", size = 2)\n# g.map(sns.pointplot, \"Pclass\",\"Survived\",\"Sex\")\n# g.add_legend()\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 275862
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(train_df, row = \"Embarked\", col = \"Survived\", size = 2.3)\n# g.map(sns.barplot, \"Sex\", \"Fare\")\n# g.add_legend()\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 263421
+    },
+    {
+      "raw": "train_df[train_df[\"Age\"].isnull()]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 12092910
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.factorplot(x = \"Sex\", y = \"Age\", data = train_df, kind = \"box\")\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 327751
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.factorplot(x = \"Sex\", y = \"Age\", hue = \"Pclass\",data = train_df, kind = \"box\")\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 297094
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.factorplot(x = \"Parch\", y = \"Age\", data = train_df, kind = \"box\")\n# sns.factorplot(x = \"SibSp\", y = \"Age\", data = train_df, kind = \"box\")\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 283554
+    },
+    {
+      "raw": "#train_df[\"Sex\"] = [1 if i == \"male\" else 0 for i in train_df[\"Sex\"]]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 320104
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.heatmap(train_df[[\"Age\",\"Sex\",\"SibSp\",\"Parch\",\"Pclass\"]].corr(), annot = True)\n# plt.show()\n_ = train_df[[\"Age\",\"Sex\",\"SibSp\",\"Parch\",\"Pclass\"]].corr()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 138535897
+    },
+    {
+      "raw": "index_nan_age = list(train_df[\"Age\"][train_df[\"Age\"].isnull()].index)\nfor i in index_nan_age:\n    age_pred = train_df[\"Age\"][((train_df[\"SibSp\"] == train_df.iloc[i][\"SibSp\"]) &(train_df[\"Parch\"] == train_df.iloc[i][\"Parch\"])& (train_df[\"Pclass\"] == train_df.iloc[i][\"Pclass\"]))].median()\n    age_med = train_df[\"Age\"].median()\n    if not np.isnan(age_pred):\n        train_df[\"Age\"].iloc[i] = age_pred\n    else:\n        train_df[\"Age\"].iloc[i] = age_med",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 15764420624902
+    },
+    {
+      "raw": "train_df[train_df[\"Age\"].isnull()]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1709863331
+    },
+    {
+      "raw": "train_df[\"Name\"].head(10)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1898918
+    },
+    {
+      "raw": "name = train_df[\"Name\"]\ntrain_df[\"Title\"] = [i.split(\".\")[0].split(\",\")[-1].strip() for i in name]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 437453838
+    },
+    {
+      "raw": "train_df[\"Title\"].head(10)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2652727
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(x=\"Title\", data = train_df)\n# plt.xticks(rotation = 60)\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 227337
+    },
+    {
+      "raw": "# convert to categorical\ntrain_df[\"Title\"] = train_df[\"Title\"].replace([\"Lady\",\"the Countess\",\"Capt\",\"Col\",\"Don\",\"Dr\",\"Major\",\"Rev\",\"Sir\",\"Jonkheer\",\"Dona\"],\"other\")\ntrain_df[\"Title\"] = [0 if i == \"Master\" else 1 if i == \"Miss\" or i == \"Ms\" or i == \"Mlle\" or i == \"Mrs\" else 2 if i == \"Mr\" else 3 for i in train_df[\"Title\"]]\ntrain_df[\"Title\"].head(20)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 81616459
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(x=\"Title\", data = train_df)\n# plt.xticks(rotation = 60)\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 235755
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.factorplot(x = \"Title\", y = \"Survived\", data = train_df, kind = \"bar\")\n# g.set_xticklabels([\"Master\",\"Mrs\",\"Mr\",\"Other\"])\n# g.set_ylabels(\"Survival Probability\")\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 230623
+    },
+    {
+      "raw": "train_df.drop(labels = [\"Name\"], axis = 1, inplace = True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2715529
+    },
+    {
+      "raw": "train_df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3081156
+    },
+    {
+      "raw": "train_df = pd.get_dummies(train_df,columns=[\"Title\"])\ntrain_df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 43340245
+    },
+    {
+      "raw": "train_df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2295530
+    },
+    {
+      "raw": "train_df[\"Fsize\"] = train_df[\"SibSp\"] + train_df[\"Parch\"] + 1",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 10918766
+    },
+    {
+      "raw": "train_df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2851418
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.factorplot(x = \"Fsize\", y = \"Survived\", data = train_df, kind = \"bar\")\n# g.set_ylabels(\"Survival\")\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 308776
+    },
+    {
+      "raw": "train_df[\"family_size\"] = [1 if i < 5 else 0 for i in train_df[\"Fsize\"]]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 107796329
+    },
+    {
+      "raw": "train_df.head(10)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1816654
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(x = \"family_size\", data = train_df)\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 177668
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# g = sns.factorplot(x = \"family_size\", y = \"Survived\", data = train_df, kind = \"bar\")\n# g.set_ylabels(\"Survival\")\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 186367
+    },
+    {
+      "raw": "train_df = pd.get_dummies(train_df, columns= [\"family_size\"])\ntrain_df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 45609153
+    },
+    {
+      "raw": "train_df[\"Embarked\"].head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1672542
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(x = \"Embarked\", data = train_df)\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 172895
+    },
+    {
+      "raw": "train_df = pd.get_dummies(train_df, columns=[\"Embarked\"])\ntrain_df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 26721195
+    },
+    {
+      "raw": "train_df[\"Ticket\"].head(20)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2101603
+    },
+    {
+      "raw": "a = \"A/5. 2151\"\na.replace(\".\",\"\").replace(\"/\",\"\").strip().split(\" \")[0]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 407439
+    },
+    {
+      "raw": "tickets = []\nfor i in list(train_df.Ticket):\n    if not i.isdigit():\n        tickets.append(i.replace(\".\",\"\").replace(\"/\",\"\").strip().split(\" \")[0])\n    else:\n        tickets.append(\"x\")\ntrain_df[\"Ticket\"] = tickets",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 49055428
+    },
+    {
+      "raw": "train_df[\"Ticket\"].head(20)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1783627
+    },
+    {
+      "raw": "train_df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1881872
+    },
+    {
+      "raw": "train_df = pd.get_dummies(train_df, columns= [\"Ticket\"], prefix = \"T\")\ntrain_df.head(10)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 53144066
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.countplot(x = \"Pclass\", data = train_df)\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 185928
+    },
+    {
+      "raw": "train_df[\"Pclass\"] = train_df[\"Pclass\"].astype(\"category\")\ntrain_df = pd.get_dummies(train_df, columns= [\"Pclass\"])\ntrain_df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 58244830
+    },
+    {
+      "raw": "train_df[\"Sex\"] = train_df[\"Sex\"].astype(\"category\")\ntrain_df = pd.get_dummies(train_df, columns=[\"Sex\"])\ntrain_df.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 87669181
+    },
+    {
+      "raw": "train_df.drop(labels = [\"PassengerId\", \"Cabin\"], axis = 1, inplace = True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2236046
+    },
+    {
+      "raw": "train_df.columns",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 278516
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import train_test_split, StratifiedKFold, GridSearchCV\n# from sklearn.linear_model import LogisticRegression\n# from sklearn.svm import SVC\n# from sklearn.ensemble import RandomForestClassifier, VotingClassifier\n# from sklearn.neighbors import KNeighborsClassifier\n# from sklearn.tree import DecisionTreeClassifier\n# from sklearn.metrics import accuracy_score",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 177432
+    },
+    {
+      "raw": "train_df_len",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 234313
+    },
+    {
+      "raw": "test = train_df[train_df_len:]\ntest.drop(labels = [\"Survived\"],axis = 1, inplace = True)\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 3449204
+    },
+    {
+      "raw": "test.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1895437
+    },
+    {
+      "raw": "train = train_df[:train_df_len]\nX_train = train.drop(labels = \"Survived\", axis = 1)\ny_train = train[\"Survived\"]\n# ALEX: remove ML code\n# X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size = 0.33, random_state = 42)\n# print(\"X_train\",len(X_train))\n# print(\"X_test\",len(X_test))\n# print(\"y_train\",len(y_train))\n# print(\"y_test\",len(y_test))\nprint(\"test\",len(test))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4789542
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# logreg = LogisticRegression()\n# logreg.fit(X_train, y_train)\n# acc_log_train = round(logreg.score(X_train, y_train)*100,2) \n# acc_log_test = round(logreg.score(X_test,y_test)*100,2)\n# print(\"Training Accuracy: % {}\".format(acc_log_train))\n# print(\"Testing Accuracy: % {}\".format(acc_log_test))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 189187
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# random_state = 42\n# classifier = [DecisionTreeClassifier(random_state = random_state),\n#              SVC(random_state = random_state),\n#              RandomForestClassifier(random_state = random_state),\n#              LogisticRegression(random_state = random_state),\n#              KNeighborsClassifier()]\n\n# dt_param_grid = {\"min_samples_split\" : range(10,500,20),\n#                 \"max_depth\": range(1,20,2)}\n\n# svc_param_grid = {\"kernel\" : [\"rbf\"],\n#                  \"gamma\": [0.001, 0.01, 0.1, 1],\n#                  \"C\": [1,10,50,100,200,300,1000]}\n\n# rf_param_grid = {\"max_features\": [1,3,10],\n#                 \"min_samples_split\":[2,3,10],\n#                 \"min_samples_leaf\":[1,3,10],\n#                 \"bootstrap\":[False],\n#                 \"n_estimators\":[100,300],\n#                 \"criterion\":[\"gini\"]}\n\n# logreg_param_grid = {\"C\":np.logspace(-3,3,7),\n#                     \"penalty\": [\"l1\",\"l2\"]}\n\n# knn_param_grid = {\"n_neighbors\": np.linspace(1,19,10, dtype = int).tolist(),\n#                  \"weights\": [\"uniform\",\"distance\"],\n#                  \"metric\":[\"euclidean\",\"manhattan\"]}\n# classifier_param = [dt_param_grid,\n#                    svc_param_grid,\n#                    rf_param_grid,\n#                    logreg_param_grid,\n#                    knn_param_grid]",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 283028
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# cv_result = []\n# best_estimators = []\n# for i in range(len(classifier)):\n#     clf = GridSearchCV(classifier[i], param_grid=classifier_param[i], cv = StratifiedKFold(n_splits = 10), scoring = \"accuracy\", n_jobs = -1,verbose = 1)\n#     clf.fit(X_train,y_train)\n#     cv_result.append(clf.best_score_)\n#     best_estimators.append(clf.best_estimator_)\n#     print(cv_result[i])",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 176570
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# cv_results = pd.DataFrame({\"Cross Validation Means\":cv_result, \"ML Models\":[\"DecisionTreeClassifier\", \"SVM\",\"RandomForestClassifier\",\n#              \"LogisticRegression\",\n#              \"KNeighborsClassifier\"]})\n\n# g = sns.barplot(\"Cross Validation Means\", \"ML Models\", data = cv_results)\n# g.set_xlabel(\"Mean Accuracy\")\n# g.set_title(\"Cross Validation Scores\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 161418
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# votingC = VotingClassifier(estimators = [(\"dt\",best_estimators[0]),\n#                                         (\"rfc\",best_estimators[2]),\n#                                         (\"lr\",best_estimators[3])],\n#                                         voting = \"soft\", n_jobs = -1)\n# votingC = votingC.fit(X_train, y_train)\n# print(accuracy_score(votingC.predict(X_test),y_test))",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 166505
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# test_survived = pd.Series(votingC.predict(test), name = \"Survived\").astype(int)\n# results = pd.concat([test_PassengerId, test_survived],axis = 1)\n# results.to_csv(\"titanic.csv\", index = False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 146728
+    }
+  ],
+  "total-time-in-sec": 15776.192873975,
+  "max-disk-in-mb": 0
+}

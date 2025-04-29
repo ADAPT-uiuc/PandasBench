@@ -1,0 +1,338 @@
+{
+  "max-mem-in-mb": 1963,
+  "max-mem-in-mb2": 3025,
+  "cells": [
+    {
+      "raw": "# ALEX: remove plotting\n# import matplotlib.pyplot as plt # Bibilioteca util para criar gr\u00e1ficos\n# import pandas as pd # Bibilioteca para auxiliar a importar e maniular nossos dataframes\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove ML code\n# from sklearn.tree import DecisionTreeClassifier #respons\u00e1vel pela gera\u00e7\u00e3o do modelo \n# from sklearn.ensemble import RandomForestRegressor\n# from sklearn.ensemble import RandomForestClassifier\nimport numpy as np # Bibilioteca \u00fatil para realizar opera\u00e7\u00f5es matem\u00e1ticas\n# ALEX: remove plotting, ML code\n# import seaborn as sns # Bibilioteca utilizada para dar um toque especial nos gr\u00e1ficos\n# #import chardet   #Trabalha com leitura de arquivos, acredito que n ser\u00e1 necess\u00e1rio utiliza=l\u00e1\n# plt.style.use('ggplot') #Customiza\u00e7\u00e3o de gr\u00e1ficos\n# plt.style.use(\"seaborn-white\")\n# import os\n# from mpl_toolkits.mplot3d import Axes3D\n\n# import random\n# from sklearn.model_selection import train_test_split\n# from sklearn.metrics import accuracy_score\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list the files in the input directory\n\n# ALEX: remove path printing\n# import os\n# print(os.listdir(\"./input\"))\n\n# Any results you write to the current directory are saved as output.",
+      "rewrite-ns": 503483,
+      "overhead-ns": 503483,
+      "exec-ns": 275299,
+      "total-ns": 778782,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n"
+    },
+    {
+      "raw": "movies = pd.read_csv('./input/movie.scaled.csv')\nratings = pd.read_csv('./input/rating.scaled.csv')\n\nmovies.sort_values(by='movieId', inplace=True)\nmovies.reset_index(inplace=True, drop=True)\nratings.sort_values(by='movieId', inplace=True)\nratings.reset_index(inplace=True, drop=True)",
+      "rewrite-ns": 1961092,
+      "overhead-ns": 1961092,
+      "exec-ns": 11437052010,
+      "total-ns": 11439013102,
+      "patts-hit": {},
+      "rewritten": "movies = pd.read_csv('./input/movie.scaled.csv')\nratings = pd.read_csv('./input/rating.scaled.csv')\nmovies.sort_values(by='movieId', inplace=True)\nmovies.reset_index(inplace=True, drop=True)\nratings.sort_values(by='movieId', inplace=True)\nratings.reset_index(inplace=True, drop=True)\n"
+    },
+    {
+      "raw": "#Dimens\u00e3o  datasets\nprint(\"Dimens\u00e3o  dataset de movies\")\nprint(\"Colunas:\", movies.shape[1],\"\\nLinhas:\", movies.shape[0])\nprint(\"-\")\nprint(\"Dimens\u00e3o  dataset de ratings\")\nprint(\"Colunas:\", ratings.shape[1],\"\\nLinhas:\", ratings.shape[0])",
+      "rewrite-ns": 1518134,
+      "overhead-ns": 1518134,
+      "exec-ns": 581364,
+      "total-ns": 2099498,
+      "patts-hit": {},
+      "rewritten": "print('Dimens\u00e3o  dataset de movies')\nprint('Colunas:', movies.shape[1], '\\nLinhas:', movies.shape[0])\nprint('-')\nprint('Dimens\u00e3o  dataset de ratings')\nprint('Colunas:', ratings.shape[1], '\\nLinhas:', ratings.shape[0])\n"
+    },
+    {
+      "raw": "#Verificando os primeiros registros do conjunto de dados\nmovies.head()",
+      "rewrite-ns": 100987,
+      "overhead-ns": 100987,
+      "exec-ns": 5677117,
+      "total-ns": 5778104,
+      "patts-hit": {},
+      "rewritten": "movies.head()\n"
+    },
+    {
+      "raw": "ratings.head()",
+      "rewrite-ns": 92579,
+      "overhead-ns": 92579,
+      "exec-ns": 3670163,
+      "total-ns": 3762742,
+      "patts-hit": {},
+      "rewritten": "ratings.head()\n"
+    },
+    {
+      "raw": "ratings.dtypes",
+      "rewrite-ns": 60366,
+      "overhead-ns": 60366,
+      "exec-ns": 843007,
+      "total-ns": 903373,
+      "patts-hit": {},
+      "rewritten": "ratings.dtypes\n"
+    },
+    {
+      "raw": "movies.dtypes",
+      "rewrite-ns": 54699,
+      "overhead-ns": 54699,
+      "exec-ns": 762769,
+      "total-ns": 817468,
+      "patts-hit": {},
+      "rewritten": "movies.dtypes\n"
+    },
+    {
+      "raw": "ratings.info()",
+      "rewrite-ns": 82827,
+      "overhead-ns": 82827,
+      "exec-ns": 3653207,
+      "total-ns": 3736034,
+      "patts-hit": {},
+      "rewritten": "ratings.info()\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# ratings.skew()\nratings.skew(numeric_only=True)",
+      "rewrite-ns": 374517,
+      "overhead-ns": 374517,
+      "exec-ns": 632350421,
+      "total-ns": 632724938,
+      "patts-hit": {},
+      "rewritten": "ratings.skew(numeric_only=True)\n"
+    },
+    {
+      "raw": "# ALEX: make notebook run\n# movies.skew()\nmovies.skew(numeric_only=True)",
+      "rewrite-ns": 456399,
+      "overhead-ns": 456399,
+      "exec-ns": 1682676,
+      "total-ns": 2139075,
+      "patts-hit": {},
+      "rewritten": "movies.skew(numeric_only=True)\n"
+    },
+    {
+      "raw": "# Dividindo o t\u00edtulo e o ano de lan\u00e7amento em colunas separadas no dataframe de filmes\n#Convertertendo ano para timestamp.\n\nmovies['year'] = movies.title.str.extract(\"\\((\\d{4})\\)\", expand=True)\nmovies.year = pd.to_datetime(movies.year, format='%Y')\nmovies.year = movies.year.dt.year\nmovies.title = movies.title.str[:-7]",
+      "rewrite-ns": 2069826,
+      "overhead-ns": 2069826,
+      "exec-ns": 32906891,
+      "total-ns": 34976717,
+      "patts-hit": {},
+      "rewritten": "movies['year'] = movies.title.str.extract('\\\\((\\\\d{4})\\\\)', expand=True)\nmovies.year = pd.to_datetime(movies.year, format='%Y')\nmovies.year = movies.year.dt.year\nmovies.title = movies.title.str[:-7]\n"
+    },
+    {
+      "raw": "#f,ax = plt.subplots(figsize=(10,8))\n#sns.heatmap(ratings.corr(), annot=True, linewidths=.7, fmt= '.2f',ax=ax)\n#plt.show()",
+      "rewrite-ns": 15870,
+      "overhead-ns": 15870,
+      "exec-ns": 84513,
+      "total-ns": 100383,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#categorizando os g\u00eaneros de filmes corretamente. \n#Trabalhar mais tarde com + 20MM de linhas de strings consome muito recurso\ngenres_unique = pd.DataFrame(movies.genres.str.split('|').tolist()).stack().unique()\ngenres_unique = pd.DataFrame(genres_unique, columns=['genre']) \nmovies = movies.join(movies.genres.str.get_dummies().astype(bool))\nmovies.drop('genres', inplace=True, axis=1)",
+      "rewrite-ns": 2442019,
+      "overhead-ns": 2442019,
+      "exec-ns": 121955897,
+      "total-ns": 124397916,
+      "patts-hit": {},
+      "rewritten": "genres_unique = pd.DataFrame(movies.genres.str.split('|').tolist()).stack(\n    ).unique()\ngenres_unique = pd.DataFrame(genres_unique, columns=['genre'])\nmovies = movies.join(movies.genres.str.get_dummies().astype(bool))\nmovies.drop('genres', inplace=True, axis=1)\n"
+    },
+    {
+      "raw": "genres_unique",
+      "rewrite-ns": 67861,
+      "overhead-ns": 67861,
+      "exec-ns": 2455657,
+      "total-ns": 2523518,
+      "patts-hit": {},
+      "rewritten": "genres_unique\n"
+    },
+    {
+      "raw": "movies.head()",
+      "rewrite-ns": 105227,
+      "overhead-ns": 105227,
+      "exec-ns": 12624805,
+      "total-ns": 12730032,
+      "patts-hit": {},
+      "rewritten": "movies.head()\n"
+    },
+    {
+      "raw": "# Modificando o formato do registro de data e hora da avalia\u00e7\u00e3o\nratings.timestamp = pd.to_datetime(ratings.timestamp, infer_datetime_format=True)\nratings.timestamp = ratings.timestamp.dt.year",
+      "rewrite-ns": 978904,
+      "overhead-ns": 978904,
+      "exec-ns": 7858571405,
+      "total-ns": 7859550309,
+      "patts-hit": {},
+      "rewritten": "ratings.timestamp = pd.to_datetime(ratings.timestamp, infer_datetime_format\n    =True)\nratings.timestamp = ratings.timestamp.dt.year\n"
+    },
+    {
+      "raw": "ratings['timestamp'].unique()",
+      "rewrite-ns": 248037,
+      "overhead-ns": 248037,
+      "exec-ns": 72503287,
+      "total-ns": 72751324,
+      "patts-hit": {},
+      "rewritten": "ratings['timestamp'].unique()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.heatmap(movies.isnull(),yticklabels=False,cbar=False,cmap='viridis')\n# plt.show()\n_ = movies.isnull()",
+      "rewrite-ns": 405165,
+      "overhead-ns": 405165,
+      "exec-ns": 3377735,
+      "total-ns": 3782900,
+      "patts-hit": {},
+      "rewritten": "_ = movies.isnull()\n"
+    },
+    {
+      "raw": "#Contando valores nulos\nmovies.isnull().sum().sort_values(ascending=False).head(10)",
+      "rewrite-ns": 384773,
+      "overhead-ns": 384773,
+      "exec-ns": 5363824,
+      "total-ns": 5748597,
+      "patts-hit": {
+        "SortHead": 1
+      },
+      "rewritten": "dias.rewriter.sort_head(called_on=movies.isnull().sum(), by=None, n=10, asc\n    =False, orig=lambda _DIAS_x: _DIAS_x.sort_values(ascending=False).head(10))\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.heatmap(ratings.isnull(),yticklabels=False,cbar=False,cmap='viridis')\n# plt.show()\n_ = ratings.isnull()",
+      "rewrite-ns": 331623,
+      "overhead-ns": 331623,
+      "exec-ns": 23288982,
+      "total-ns": 23620605,
+      "patts-hit": {},
+      "rewritten": "_ = ratings.isnull()\n"
+    },
+    {
+      "raw": "#contando valores nulos\nratings.isnull().sum().sort_values(ascending=False).head(10)",
+      "rewrite-ns": 394115,
+      "overhead-ns": 394115,
+      "exec-ns": 64251336,
+      "total-ns": 64645451,
+      "patts-hit": {
+        "SortHead": 1
+      },
+      "rewritten": "dias.rewriter.sort_head(called_on=ratings.isnull().sum(), by=None, n=10,\n    asc=False, orig=lambda _DIAS_x: _DIAS_x.sort_values(ascending=False).\n    head(10))\n"
+    },
+    {
+      "raw": "# Removendo valores nulos do datasets movies\nmovies.dropna(inplace=True)",
+      "rewrite-ns": 424094,
+      "overhead-ns": 424094,
+      "exec-ns": 4929690,
+      "total-ns": 5353784,
+      "patts-hit": {},
+      "rewritten": "movies.dropna(inplace=True)\n"
+    },
+    {
+      "raw": "movies.isnull().sum().sort_values(ascending=False).head(10)",
+      "rewrite-ns": 345589,
+      "overhead-ns": 345589,
+      "exec-ns": 5438007,
+      "total-ns": 5783596,
+      "patts-hit": {
+        "SortHead": 1
+      },
+      "rewritten": "dias.rewriter.sort_head(called_on=movies.isnull().sum(), by=None, n=10, asc\n    =False, orig=lambda _DIAS_x: _DIAS_x.sort_values(ascending=False).head(10))\n"
+    },
+    {
+      "raw": "#df_mv_year = movies.groupby('movieId')['year']",
+      "rewrite-ns": 13574,
+      "overhead-ns": 13574,
+      "exec-ns": 77326,
+      "total-ns": 90900,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "dftmp = movies[['movieId', 'year']].groupby('year')\n\n# ALEX: remove plotting\n# fig, ax1 = plt.subplots(figsize=(15,8))\n# ax1.plot(dftmp.year.first(), dftmp.movieId.nunique(), \"b\")\n# ax1.grid(False)\n_ = dftmp.year.first()\n_ = dftmp.movieId.nunique()\n\ndftmp = ratings[['rating', 'timestamp']].groupby('timestamp')\n# ALEX: remove plotting\n# ax2 = ax1.twinx() #Plotando os dados de avalia\u00e7\u00f5es no eixo\n# ax2.plot(dftmp.timestamp.first(), dftmp.rating.count(), \"r\")\n# ax2.grid(False)\n\n# ax1.set_xlabel('Ano')\n# ax1.set_ylabel('N\u00famero de filmes liberados'); ax2.set_ylabel('N\u00famero de avalia\u00e7\u00f5es')\n# plt.title('Filmes por ano')\n# plt.show()\n_ = dftmp.timestamp.first()\n_ = dftmp.rating.count()",
+      "rewrite-ns": 2201923,
+      "overhead-ns": 2201923,
+      "exec-ns": 613636375,
+      "total-ns": 615838298,
+      "patts-hit": {},
+      "rewritten": "dftmp = movies[['movieId', 'year']].groupby('year')\n_ = dftmp.year.first()\n_ = dftmp.movieId.nunique()\ndftmp = ratings[['rating', 'timestamp']].groupby('timestamp')\n_ = dftmp.timestamp.first()\n_ = dftmp.rating.count()\n"
+    },
+    {
+      "raw": "# Distribution graphs (histogram/bar graph) of column data\ndef plotPerColumnDistribution(df, nGraphShown, nGraphPerRow):\n    nunique = df.nunique()\n    df = df[[col for col in df if nunique[col] > 1 and nunique[col] < 50]] # For displaying purposes, pick columns that have between 1 and 50 unique values\n    nRow, nCol = df.shape\n    columnNames = list(df)\n# ALEX: remove plotting\n#     nGraphRow = (nCol + nGraphPerRow - 1) / nGraphPerRow\n#     plt.figure(num = None, figsize = (6 * nGraphPerRow, 8 * nGraphRow), dpi = 80, facecolor = 'w', edgecolor = 'k')\n    for i in range(min(nCol, nGraphShown)):\n# ALEX: remove plotting\n#         plt.subplot(nGraphRow, nGraphPerRow, i + 1)\n        columnDf = df.iloc[:, i]\n        if (not np.issubdtype(type(columnDf.iloc[0]), np.number)):\n            valueCounts = columnDf.value_counts()\n# ALEX: remove plotting\n#             valueCounts.plot.bar()\n#         else:\n#             columnDf.hist()\n#         plt.ylabel('counts')\n#         plt.xticks(rotation = 90)\n#         plt.title(f'{columnNames[i]} (column {i})')\n#     plt.tight_layout(pad = 1.0, w_pad = 1.0, h_pad = 1.0)\n#     plt.show()",
+      "rewrite-ns": 3686915,
+      "overhead-ns": 3686915,
+      "exec-ns": 912115,
+      "total-ns": 4599030,
+      "patts-hit": {},
+      "rewritten": "def plotPerColumnDistribution(df, nGraphShown, nGraphPerRow):\n    nunique = df.nunique()\n    df = df[[col for col in df if nunique[col] > 1 and nunique[col] < 50]]\n    nRow, nCol = df.shape\n    columnNames = list(df)\n    for i in range(min(nCol, nGraphShown)):\n        columnDf = df.iloc[:, i]\n        if not np.issubdtype(type(columnDf.iloc[0]), np.number):\n            valueCounts = columnDf.value_counts()\n"
+    },
+    {
+      "raw": "# Scatter and density plots\n# ALEX: remove unused code\n# def plotScatterMatrix(df, plotSize, textSize):\n#     df = df.select_dtypes(include =[np.number]) # keep only numerical columns\n#     # Remove rows and columns that would lead to df being singular\n#     df = df.dropna('columns')\n#     df = df[[col for col in df if df[col].nunique() > 1]] # keep columns where there are more than 1 unique values\n#     columnNames = list(df)\n#     if len(columnNames) > 10: # reduce the number of columns for matrix inversion of kernel density plots\n#         columnNames = columnNames[:10]\n#     df = df[columnNames]\n#     ax = pd.plotting.scatter_matrix(df, alpha=0.75, figsize=[plotSize, plotSize], diagonal='kde')\n#     corrs = df.corr().values\n#     for i, j in zip(*plt.np.triu_indices_from(ax, k = 1)):\n#         ax[i, j].annotate('Corr. coef = %.3f' % corrs[i, j], (0.8, 0.2), xycoords='axes fraction', ha='center', va='center', size=textSize)\n#     plt.suptitle('Scatter and Density Plot')\n#     plt.show()",
+      "rewrite-ns": 18435,
+      "overhead-ns": 18435,
+      "exec-ns": 99720,
+      "total-ns": 118155,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#Distribui\u00e7\u00e3o dos dados de avalia\u00e7\u00e3o e ano\nplotPerColumnDistribution(ratings, 10, 5)",
+      "rewrite-ns": 349557,
+      "overhead-ns": 355361,
+      "exec-ns": 480114890,
+      "total-ns": 480464447,
+      "patts-hit": {},
+      "rewritten": "plotPerColumnDistribution(ratings, 10, 5)\n"
+    },
+    {
+      "raw": "ratings.columns",
+      "rewrite-ns": 84526,
+      "overhead-ns": 84526,
+      "exec-ns": 869737,
+      "total-ns": 954263,
+      "patts-hit": {},
+      "rewritten": "ratings.columns\n"
+    },
+    {
+      "raw": "#Quantidade de usu\u00e1rios\nratings['userId'].count()",
+      "rewrite-ns": 409352,
+      "overhead-ns": 409352,
+      "exec-ns": 13509285,
+      "total-ns": 13918637,
+      "patts-hit": {},
+      "rewritten": "ratings['userId'].count()\n"
+    },
+    {
+      "raw": "ratings.groupby('timestamp')['userId'].count()",
+      "rewrite-ns": 524240,
+      "overhead-ns": 524240,
+      "exec-ns": 191532162,
+      "total-ns": 192056402,
+      "patts-hit": {},
+      "rewritten": "ratings.groupby('timestamp')['userId'].count()\n"
+    },
+    {
+      "raw": "#Quantidade de usu\u00e1rios registrados por ano\n# ALEX: remove plotting\n# ratings.groupby('timestamp')['userId'].count().plot(figsize=(15,8), color=\"g\")\n# plt.ylabel(\"Qtd de usu\u00e1rios\")\n# plt.xlabel(\"Ano\")\n# plt.title(\"Contagem de usu\u00e1rios por ano\")\n# plt.show()\nratings.groupby('timestamp')['userId'].count()",
+      "rewrite-ns": 560081,
+      "overhead-ns": 560081,
+      "exec-ns": 189420842,
+      "total-ns": 189980923,
+      "patts-hit": {},
+      "rewritten": "ratings.groupby('timestamp')['userId'].count()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,5))\ndftmp = movies[['movieId', 'year']].groupby('year')\ndf = pd.DataFrame({'All_movies' : dftmp.movieId.nunique().cumsum()})\n\n#Histograma para cada g\u00eanero individual\nfor genre in genres_unique.genre:\n    dftmp = movies[movies[genre]][['movieId', 'year']].groupby('year')\n    df[genre]=dftmp.movieId.nunique().cumsum()\ndf.fillna(method='ffill', inplace=True)\n# ALEX: remove plotting\n# df.loc[:,df.columns!='All_movies'].plot.area(stacked=True, figsize=(15,8))\ndf.loc[:,df.columns!='All_movies']\n\n# Histograma de plotagem para todos os filmes\n# ALEX: remove plotting\n# plt.plot(df['All_movies'], marker='o', markerfacecolor='black')\n# plt.xlabel('Ano')\n# plt.ylabel('Acumulativo de filmes por g\u00eanero')\n# plt.title('Total de filmes por g\u00eanero') # Many movies have multiple genres, so counthere is higher than number of movies\n# plt.legend(loc=(1.05,0), ncol=2)\n# plt.show()\n\n# #  dispers\u00e3o simples do n\u00famero de filmes marcados com cada g\u00eanero\n# plt.figure(figsize=(15,8))\n# barlist = df.iloc[-1].sort_values().plot.bar()\n# barlist.patches[0].set_color('b')\n# plt.xticks(rotation='vertical')\n# plt.title('Filmes por g\u00eanero')\n# plt.xlabel('G\u00eanero')\n# plt.ylabel('N\u00famero de filmes')\n# plt.show()\n_ = df['All_movies']\n_ = df.iloc[-1].sort_values()",
+      "rewrite-ns": 4121003,
+      "overhead-ns": 4121003,
+      "exec-ns": 38870194,
+      "total-ns": 42991197,
+      "patts-hit": {},
+      "rewritten": "dftmp = movies[['movieId', 'year']].groupby('year')\ndf = pd.DataFrame({'All_movies': dftmp.movieId.nunique().cumsum()})\nfor genre in genres_unique.genre:\n    dftmp = movies[movies[genre]][['movieId', 'year']].groupby('year')\n    df[genre] = dftmp.movieId.nunique().cumsum()\ndf.fillna(method='ffill', inplace=True)\ndf.loc[:, df.columns != 'All_movies']\n_ = df['All_movies']\n_ = df.iloc[-1].sort_values()\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 14512,
+      "overhead-ns": 14512,
+      "exec-ns": 80259,
+      "total-ns": 94771,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "dftmp = ratings[['movieId','rating']].groupby('movieId').mean()\n\n# inicializando uma lista vazia para capturar estat\u00edsticas b\u00e1sicas por g\u00eanero\nrating_stats = []\n# Histograma geral do lote de todas as classifica\u00e7\u00f5es\n# ALEX: remove plotting\n# dftmp.hist(bins=25, grid=False, edgecolor='b', normed=True, label ='All genres', figsize=(15,8))\n\n# Histograma com linhas kde para melhor visibilidade por g\u00eanero\nfor genre in genres_unique.genre:\n    dftmp = movies[movies[genre]==True]\n    dftmp = ratings[ratings.set_index('movieId').index.isin(dftmp.set_index('movieId').index)]\n    dftmp = dftmp[['movieId','rating']].groupby('movieId').mean()\n# ALEX: remove plotting\n#     dftmp.rating.plot(grid=False, alpha=0.6, kind='kde', label=genre)\n    dftmp.rating\n    avg = dftmp.rating.mean()\n    std = dftmp.rating.std()\n    rating_stats.append((genre, avg, std))\n# ALEX: remove plotting\n# plt.legend(loc=(1.05,0), ncol=2)\n# plt.xlim(0,5)\n# plt.xlabel('Avalia\u00e7\u00f5es')\n# plt.ylabel('Densidade')\n# plt.title('Histograma de avalia\u00e7\u00e3o de filmes')\n# plt.show()",
+      "rewrite-ns": 3725557,
+      "overhead-ns": 3725557,
+      "exec-ns": 7549569664,
+      "total-ns": 7553295221,
+      "patts-hit": {},
+      "rewritten": "dftmp = ratings[['movieId', 'rating']].groupby('movieId').mean()\nrating_stats = []\nfor genre in genres_unique.genre:\n    dftmp = movies[movies[genre] == True]\n    dftmp = ratings[ratings.set_index('movieId').index.isin(dftmp.set_index\n        ('movieId').index)]\n    dftmp = dftmp[['movieId', 'rating']].groupby('movieId').mean()\n    dftmp.rating\n    avg = dftmp.rating.mean()\n    std = dftmp.rating.std()\n    rating_stats.append((genre, avg, std))\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 43194,
+      "overhead-ns": 43194,
+      "exec-ns": 196450,
+      "total-ns": 239644,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 29.402360136,
+  "max-disk-in-mb": 0
+}

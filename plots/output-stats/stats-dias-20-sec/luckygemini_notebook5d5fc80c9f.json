@@ -1,0 +1,98 @@
+{
+  "max-mem-in-mb": 6779,
+  "max-mem-in-mb2": 7971,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list the files in the input directory\n\n# ALEX: remove path printing\n# from subprocess import check_output\n# print(check_output([\"ls\", \"../input\"]).decode(\"utf8\"))\n\n# Any results you write to the current directory are saved as output.\n\n",
+      "rewrite-ns": 702523,
+      "overhead-ns": 702523,
+      "exec-ns": 384016,
+      "total-ns": 1086539,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# %matplotlib inline\n# plt.rcParams['figure.figsize'] = (10.0, 8.0) # set default size of plots",
+      "rewrite-ns": 21150,
+      "overhead-ns": 21150,
+      "exec-ns": 112121,
+      "total-ns": 133271,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "train_photos = pd.read_csv('./input/train_photo_to_biz_ids.scaled.csv')\n",
+      "rewrite-ns": 525771,
+      "overhead-ns": 525771,
+      "exec-ns": 9393205941,
+      "total-ns": 9393731712,
+      "patts-hit": {},
+      "rewritten": "train_photos = pd.read_csv('./input/train_photo_to_biz_ids.scaled.csv')\n"
+    },
+    {
+      "raw": "# ALEX: remove images\n# import os\nprint(''.join([str(train_photos.photo_id[0]),'.jpg']))\n\n# ALEX: remove images\n# from PIL import Image\n# im = Image.open(os.path.join('./input/','train_photos',''.join([str(train_photos.photo_id[5]),'.jpg'])))\n# plt.imshow(im)\n_ = str(train_photos.photo_id[5])\n\n\n#0: good_for_lunch\n#1: good_for_dinner\n#2: takes_reservations\n#3: outdoor_seating\n#4: restaurant_is_expensive\n#5: has_alcohol\n#6: has_table_service\n#7: ambience_is_classy\n#8: good_for_kids",
+      "rewrite-ns": 1310217,
+      "overhead-ns": 1310217,
+      "exec-ns": 711162,
+      "total-ns": 2021379,
+      "patts-hit": {},
+      "rewritten": "print(''.join([str(train_photos.photo_id[0]), '.jpg']))\n_ = str(train_photos.photo_id[5])\n"
+    },
+    {
+      "raw": "train_attributes = pd.read_csv('./input/train.scaled.csv')\n\nlist(train_attributes)",
+      "rewrite-ns": 596000,
+      "overhead-ns": 596000,
+      "exec-ns": 112244477,
+      "total-ns": 112840477,
+      "patts-hit": {},
+      "rewritten": "train_attributes = pd.read_csv('./input/train.scaled.csv')\nlist(train_attributes)\n"
+    },
+    {
+      "raw": "train_attributes['labels_list'] = train_attributes['labels'].str.split(' ')\ntrain_attributes['outdoor'] = train_attributes['labels'].str.contains('3')\noutdoor_businesses = train_attributes[train_attributes.outdoor==True].business_id.tolist()\noutdoor_photos = train_photos[train_photos.business_id.isin(outdoor_businesses)].photo_id.tolist()",
+      "rewrite-ns": 1940870,
+      "overhead-ns": 1940870,
+      "exec-ns": 3594545999,
+      "total-ns": 3596486869,
+      "patts-hit": {},
+      "rewritten": "train_attributes['labels_list'] = train_attributes['labels'].str.split(' ')\ntrain_attributes['outdoor'] = train_attributes['labels'].str.contains('3')\noutdoor_businesses = train_attributes[train_attributes.outdoor == True\n    ].business_id.tolist()\noutdoor_photos = train_photos[train_photos.business_id.isin(outdoor_businesses)\n    ].photo_id.tolist()\n"
+    },
+    {
+      "raw": "num_images_for_show = 5\n\nphotos_to_show = np.random.choice(outdoor_photos,num_images_for_show**2)\n\nfor x in range(num_images_for_show ** 2):\n        \n# ALEX: remove images\n#         plt.subplot(num_images_for_show, num_images_for_show, x+1)\n#         im = Image.open(os.path.join('./input/','train_photos',''.join([str(photos_to_show[x]),'.jpg'])))\n#         plt.imshow(im)\n#         plt.axis('off')\n    _ = str(photos_to_show[x])",
+      "rewrite-ns": 1625995,
+      "overhead-ns": 1625995,
+      "exec-ns": 2176385852,
+      "total-ns": 2178011847,
+      "patts-hit": {},
+      "rewritten": "num_images_for_show = 5\nphotos_to_show = np.random.choice(outdoor_photos, num_images_for_show ** 2)\nfor x in range(num_images_for_show ** 2):\n    _ = str(photos_to_show[x])\n"
+    },
+    {
+      "raw": "#0: good_for_lunch\n#1: good_for_dinner\n#2: takes_reservations\n#3: outdoor_seating\n#4: restaurant_is_expensive\n#5: has_alcohol\n#6: has_table_service\n#7: ambience_is_classy\n#8: good_for_kids\n\ntrain_attributes['labels_list'] = train_attributes['labels'].str.split(' ')\ntrain_attributes['kids'] = train_attributes['labels'].str.contains('8')\nkids_businesses = train_attributes[train_attributes.kids==True].business_id.tolist()\nkidsRes_photos = train_photos[train_photos.business_id.isin(kids_businesses)].photo_id.tolist()",
+      "rewrite-ns": 290753033,
+      "overhead-ns": 290753033,
+      "exec-ns": 4290990000,
+      "total-ns": 4581743033,
+      "patts-hit": {},
+      "rewritten": "train_attributes['labels_list'] = train_attributes['labels'].str.split(' ')\ntrain_attributes['kids'] = train_attributes['labels'].str.contains('8')\nkids_businesses = train_attributes[train_attributes.kids == True\n    ].business_id.tolist()\nkidsRes_photos = train_photos[train_photos.business_id.isin(kids_businesses)\n    ].photo_id.tolist()\n"
+    },
+    {
+      "raw": "num_images_for_show = 5\n\nphotos_to_show = np.random.choice(kidsRes_photos,num_images_for_show**2)\n\nfor x in range(num_images_for_show ** 2):\n        \n# ALEX: remove images\n#         plt.subplot(num_images_for_show, num_images_for_show, x+1)\n#         im = Image.open(os.path.join('./input/','train_photos',''.join([str(photos_to_show[x]),'.jpg'])))\n#         plt.imshow(im)\n#         plt.axis('off')\n    _ = str(photos_to_show[x])",
+      "rewrite-ns": 1506287,
+      "overhead-ns": 1506287,
+      "exec-ns": 2176717368,
+      "total-ns": 2178223655,
+      "patts-hit": {},
+      "rewritten": "num_images_for_show = 5\nphotos_to_show = np.random.choice(kidsRes_photos, num_images_for_show ** 2)\nfor x in range(num_images_for_show ** 2):\n    _ = str(photos_to_show[x])\n"
+    },
+    {
+      "raw": "#create a new dataset\n",
+      "rewrite-ns": 22518,
+      "overhead-ns": 22518,
+      "exec-ns": 118962,
+      "total-ns": 141480,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 22.044420262,
+  "max-disk-in-mb": 0
+}

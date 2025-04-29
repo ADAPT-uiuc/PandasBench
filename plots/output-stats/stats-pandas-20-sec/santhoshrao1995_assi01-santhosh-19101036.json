@@ -1,0 +1,224 @@
+{
+  "max-mem-in-mb": 2760,
+  "max-mem-in-mb2": 3007,
+  "cells": [
+    {
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sn\ndf = pd.read_csv(\"./input/House_prediction.scaled.csv\")\ndf",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2383585920
+    },
+    {
+      "raw": "df.rename(columns={'parking spaces':'parking_spaces','hoa (R$)':'hoa','rent amount (R$)':'rent',\n                   'property tax (R$)':'property_tax','fire insurance (R$)':'fire_insurance','total (R$)':'total'},inplace = True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1240197
+    },
+    {
+      "raw": "df['floor'].replace(to_replace='-',value='0',inplace=True)\ndf",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 52848758
+    },
+    {
+      "raw": "df.sort_values(by=['city'],inplace=True)\ndf.reset_index(drop=True, inplace=True)\ndf",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1801944411
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# import matplotlib.pyplot as plt\nimport numpy as np",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 278470
+    },
+    {
+      "raw": "df2=df.groupby(by=['city'])\ntype(df2)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 545005
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from scipy import stats",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 125591
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n#df.groupby(['city']).apply(lambda x: x.mode())['rent'].unstack().plot(ax=ax,label='mode',legend=True)\n# ALEX: remove plotting\n# df.groupby(['city']).median()['rent'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['rent'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).median()['rent']\ndf.groupby(['city']).mean()['rent']\n",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 811125115
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n#df.groupby(['city']).apply(lambda x: x.mode())['rooms'].unstack().plot(ax=ax,label='mode',legend=True)\n# ALEX: remove plotting\n# df.groupby(['city']).median()['rooms'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['rooms'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).median()['rooms']\ndf.groupby(['city']).mean()['rooms']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 811431818
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['hoa'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['hoa'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['hoa'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['hoa'].unstack()\ndf.groupby(['city']).median()['hoa']\ndf.groupby(['city']).mean()['hoa']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1664114835
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n#df.groupby(['city']).apply(lambda x: x.mode())['property_tax'].unstack().plot(ax=ax,label='mode',legend=True)\n# ALEX: remove plotting\n# df.groupby(['city']).median()['property_tax'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['property_tax'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).median()['property_tax']\ndf.groupby(['city']).mean()['property_tax']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 811372959
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['fire_insurance'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['fire_insurance'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['fire_insurance'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['fire_insurance'].unstack()\ndf.groupby(['city']).median()['fire_insurance']\ndf.groupby(['city']).mean()['fire_insurance']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1647936528
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['area'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['area'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['area'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['area'].unstack()\ndf.groupby(['city']).median()['area']\ndf.groupby(['city']).mean()['area']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1650948426
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['parking_spaces'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['parking_spaces'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['parking_spaces'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['parking_spaces'].unstack()\ndf.groupby(['city']).median()['parking_spaces']\ndf.groupby(['city']).mean()['parking_spaces']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1664247464
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['bathroom'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['bathroom'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['bathroom'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['bathroom'].unstack()\ndf.groupby(['city']).median()['bathroom']\ndf.groupby(['city']).mean()['bathroom']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1697601247
+    },
+    {
+      "raw": "df['floor']=df['floor'].astype('int')\n# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['floor'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['floor'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['floor'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['floor'].unstack()\ndf.groupby(['city']).median()['floor']\ndf.groupby(['city']).mean()['floor']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1986260178
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['total'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['total'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['total'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['total'].unstack()\ndf.groupby(['city']).median()['total']\ndf.groupby(['city']).mean()['total']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1615447150
+    },
+    {
+      "raw": "#correlation between hoa,pt,fi with rent\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','rent'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# ALEX: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 217493142
+    },
+    {
+      "raw": "#correlation between hoa,pt,fi with area\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','area'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# ALEX: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 214096601
+    },
+    {
+      "raw": "#correlation between hoa,pt,fi with floor\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','floor'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# ALEX: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 214706847
+    },
+    {
+      "raw": "#correlation between hoa,pt,fi with rooms\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','rooms'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# ALEX: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 214042303
+    },
+    {
+      "raw": "#correlation between hoa,pt,fi with bathroom\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','bathroom'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# ALEX: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 219008338
+    },
+    {
+      "raw": "#correlation between hoa,pt,fi with parking_spaces\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','parking_spaces'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# ALEX: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 214272232
+    },
+    {
+      "raw": "#correlation between hoa,pt,fi with total\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','total'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# ALEX: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 214083080
+    },
+    {
+      "raw": "# Manually catogerizing the 'city', 'furniture', 'animal' columns similar to ohe\n\ncitydummies=pd.get_dummies(df.city)\ncityjoined=pd.concat([df,citydummies],axis='columns')\ncityfinal=cityjoined.drop(['city','Campinas'], axis='columns')\nanimaldummies=pd.get_dummies(cityfinal.animal)\nanimalsjoined=pd.concat([cityfinal,animaldummies],axis='columns')\nanimalfinal = animalsjoined.drop(['animal','acept'],axis='columns')\nfurnituredummies = pd.get_dummies(animalfinal.furniture)\nfurniturejoined = pd.concat([animalfinal,furnituredummies],axis='columns')\ndf_final = furniturejoined.drop(['furniture','not furnished'],axis = 'columns')\ndf_final",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 992492644
+    },
+    {
+      "raw": "df_final.rename(columns={'Belo Horizonte':'Belo','Porto Alegre':'Porto','Rio de Janeiro':'Rio','S\u00e3o Paulo':'Sao',\n                         'not acept':'not_acept'}, inplace = True)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 817785
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.linear_model import LinearRegression\n# from sklearn.model_selection import train_test_split\n# model = LinearRegression()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 163232
+    },
+    {
+      "raw": "#X = df_final[['hoa','fire_insurance','property_tax']].values\nX = df_final[['fire_insurance']].values\nY = df_final[['rent']].values",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 151204507
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_train, X_test, Y_train, Y_test = train_test_split(X,Y, test_size=0.2, random_state = 0)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 199350
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# model.fit(X_train, Y_train)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 169785
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# model.score(X_test,Y_test)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 123063
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# Y_pred = model.predict(X_test) \n# df_compare = pd.DataFrame({'actual':Y_test.flatten(), 'predicted':Y_pred.flatten()})\ndf_compare = pd.DataFrame({'actual':Y.flatten(), 'predicted':Y.flatten()})\ndf_compare\n# ALEX: remove plotting\n# df_compare.head(20).plot(kind='bar',figsize=(10,8))\n# plt.grid(which='major', linestyle='-', linewidth='0.5', color='green')\n# plt.grid(which='minor', linestyle=':', linewidth='0.5', color='black')\n# plt.show()\ndf_compare.head(20)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 27992550
+    },
+    {
+      "raw": "X = df_final[['hoa','fire_insurance','property_tax','floor','rooms','bathroom','area','floor','Rio','Sao','Porto','Belo','furnished','not_acept']].values\nY = df_final[['rent']].values",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 154709842
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# X_train, X_test, Y_train, Y_test = train_test_split(X,Y, test_size=0.2, random_state = 0)\n# model.fit(X_train, Y_train)\n# model.score(X_test,Y_test)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 208262
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# Y_pred = model.predict(X_test) \n# df_compare = pd.DataFrame({'actual':Y_test.flatten(), 'predicted':Y_pred.flatten()})\ndf_compare = pd.DataFrame({'actual':Y.flatten(), 'predicted':Y.flatten()})\ndf_compare\n# ALEX: remove plotting\n# df_compare.head(20).plot(kind='bar',figsize=(10,8))\n# plt.grid(which='major', linestyle='-', linewidth='0.5', color='green')\n# plt.grid(which='minor', linestyle=':', linewidth='0.5', color='black')\n# plt.show()\ndf_compare.head(20)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 27744054
+    },
+    {
+      "raw": "",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 125838
+    }
+  ],
+  "total-time-in-sec": 21.464707527,
+  "max-disk-in-mb": 0
+}

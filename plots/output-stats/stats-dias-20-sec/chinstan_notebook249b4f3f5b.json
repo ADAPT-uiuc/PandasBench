@@ -1,0 +1,314 @@
+{
+  "max-mem-in-mb": 4880,
+  "max-mem-in-mb2": 6638,
+  "cells": [
+    {
+      "raw": "#imports \n\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting, ML code\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n\n# from sklearn.linear_model import LogisticRegression\n# from sklearn.svm import SVC, LinearSVC\n# from sklearn.ensemble import RandomForestClassifier\n# from sklearn.neighbors import KNeighborsClassifier\n# from sklearn.naive_bayes import GaussianNB",
+      "rewrite-ns": 687127,
+      "overhead-ns": 687127,
+      "exec-ns": 371037,
+      "total-ns": 1058164,
+      "patts-hit": {},
+      "rewritten": "exec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n"
+    },
+    {
+      "raw": "food_df = pd.read_csv(\"./input/en.openfoodfacts.org.products.scaled.tsv\", delimiter='\\t');\n#food_df = pd.read_csv(\"FoodFacts.csv\")\n\nfood_df.head()",
+      "rewrite-ns": 709776,
+      "overhead-ns": 709776,
+      "exec-ns": 19771283363,
+      "total-ns": 19771993139,
+      "patts-hit": {},
+      "rewritten": "food_df = pd.read_csv('./input/en.openfoodfacts.org.products.scaled.tsv',\n    delimiter='\\t')\nfood_df.head()\n"
+    },
+    {
+      "raw": "food_df.info()",
+      "rewrite-ns": 174278,
+      "overhead-ns": 174278,
+      "exec-ns": 6735110,
+      "total-ns": 6909388,
+      "patts-hit": {},
+      "rewritten": "food_df.info()\n"
+    },
+    {
+      "raw": "#split train/validate/test set\n\ntrain, validate, test = np.split(food_df.sample(frac=1), [int(.6*len(food_df)), int(.8*len(food_df))])\nprint(\"Train: %s\\nTest: %s\\nValidate: %s\" % (train.shape, test.shape, validate.shape))",
+      "rewrite-ns": 2189586,
+      "overhead-ns": 2189586,
+      "exec-ns": 2681055720,
+      "total-ns": 2683245306,
+      "patts-hit": {},
+      "rewritten": "train, validate, test = np.split(food_df.sample(frac=1), [int(0.6 * len(\n    food_df)), int(0.8 * len(food_df))])\nprint(\"\"\"Train: %s\nTest: %s\nValidate: %s\"\"\" % (train.shape, test.shape,\n    validate.shape))\n"
+    },
+    {
+      "raw": "#still working on this so I wanted to practice with a small dataset\ndf = validate\na, b = np.split(df.sample(frac=1), [int(.1*len(df))])\na.shape",
+      "rewrite-ns": 1322468,
+      "overhead-ns": 1322468,
+      "exec-ns": 545299380,
+      "total-ns": 546621848,
+      "patts-hit": {},
+      "rewritten": "df = validate\na, b = np.split(df.sample(frac=1), [int(0.1 * len(df))])\na.shape\n"
+    },
+    {
+      "raw": "a.head()",
+      "rewrite-ns": 127723,
+      "overhead-ns": 127723,
+      "exec-ns": 39134897,
+      "total-ns": 39262620,
+      "patts-hit": {},
+      "rewritten": "a.head()\n"
+    },
+    {
+      "raw": "#clean data\n#remove from entry data that has empty values in the energy\na = a[~pd.isnull(a['energy_100g'])]\na.drop([\"code\", \"url\", \"creator\", \"created_t\", \"created_datetime\", \"last_modified_t\", \"last_modified_datetime\"], axis=1)\na.describe()",
+      "rewrite-ns": 1357856,
+      "overhead-ns": 1357856,
+      "exec-ns": 194917793,
+      "total-ns": 196275649,
+      "patts-hit": {},
+      "rewritten": "a = a[~pd.isnull(a['energy_100g'])]\na.drop(['code', 'url', 'creator', 'created_t', 'created_datetime',\n    'last_modified_t', 'last_modified_datetime'], axis=1)\na.describe()\n"
+    },
+    {
+      "raw": "## analyze data \n# which features are available in the dataset? \nprint(a.columns.values)",
+      "rewrite-ns": 403295,
+      "overhead-ns": 403295,
+      "exec-ns": 577826,
+      "total-ns": 981121,
+      "patts-hit": {},
+      "rewritten": "print(a.columns.values)\n"
+    },
+    {
+      "raw": "a.describe(exclude=['O'])",
+      "rewrite-ns": 142834,
+      "overhead-ns": 142834,
+      "exec-ns": 172579990,
+      "total-ns": 172722824,
+      "patts-hit": {},
+      "rewritten": "a.describe(exclude=['O'])\n"
+    },
+    {
+      "raw": "#analyze data, get foods with only grades a, b, c, d, e\n#get only their carb/protein/fat as preliminary analysis\n\nonly_a = a.loc[a['nutrition_grade_fr'] == 'a']\nonly_b = a.loc[a['nutrition_grade_fr'] == 'b']\nonly_c = a.loc[a['nutrition_grade_fr'] == 'c']\nonly_d = a.loc[a['nutrition_grade_fr'] == 'd']\nonly_e = a.loc[a['nutrition_grade_fr'] == 'e']\n\nmac_only_a = only_a[['carbohydrates_100g', 'proteins_100g', 'fat_100g']]\nmac_only_b = only_b[['carbohydrates_100g', 'proteins_100g', 'fat_100g']]\nmac_only_c = only_c[['carbohydrates_100g', 'proteins_100g', 'fat_100g']]\nmac_only_d = only_d[['carbohydrates_100g', 'proteins_100g', 'fat_100g']]\nmac_only_e = only_e[['carbohydrates_100g', 'proteins_100g', 'fat_100g']]",
+      "rewrite-ns": 4272237,
+      "overhead-ns": 4272237,
+      "exec-ns": 28651326,
+      "total-ns": 32923563,
+      "patts-hit": {},
+      "rewritten": "only_a = a.loc[a['nutrition_grade_fr'] == 'a']\nonly_b = a.loc[a['nutrition_grade_fr'] == 'b']\nonly_c = a.loc[a['nutrition_grade_fr'] == 'c']\nonly_d = a.loc[a['nutrition_grade_fr'] == 'd']\nonly_e = a.loc[a['nutrition_grade_fr'] == 'e']\nmac_only_a = only_a[['carbohydrates_100g', 'proteins_100g', 'fat_100g']]\nmac_only_b = only_b[['carbohydrates_100g', 'proteins_100g', 'fat_100g']]\nmac_only_c = only_c[['carbohydrates_100g', 'proteins_100g', 'fat_100g']]\nmac_only_d = only_d[['carbohydrates_100g', 'proteins_100g', 'fat_100g']]\nmac_only_e = only_e[['carbohydrates_100g', 'proteins_100g', 'fat_100g']]\n"
+    },
+    {
+      "raw": "mac_only_a.describe()",
+      "rewrite-ns": 111784,
+      "overhead-ns": 111784,
+      "exec-ns": 17300732,
+      "total-ns": 17412516,
+      "patts-hit": {},
+      "rewritten": "mac_only_a.describe()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting, get notebook to run\n# order = sorted(a.nutrition_grade_fr.unique()[1:])\n# ax = sns.boxplot(x=\"nutrition_grade_fr\", y=\"fat_100g\", data=a, order=order)\n_ = a.nutrition_grade_fr.unique()[1:]",
+      "rewrite-ns": 565631,
+      "overhead-ns": 565631,
+      "exec-ns": 532176,
+      "total-ns": 1097807,
+      "patts-hit": {},
+      "rewritten": "_ = a.nutrition_grade_fr.unique()[1:]\n"
+    },
+    {
+      "raw": "#order = sorted(a.nutrition_grade_fr.unique()[1:])\n# ALEX: remove plotting\n# order = [\"a\", \"b\", \"c\", \"d\", \"e\"]\n# ax = sns.boxplot(x=\"nutrition_grade_fr\", y=\"sugars_100g\", data=a, order=order)\n# sns.plt.title('Sugar vs Grade')",
+      "rewrite-ns": 17735,
+      "overhead-ns": 17735,
+      "exec-ns": 88014,
+      "total-ns": 105749,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# ax = sns.boxplot(x=\"nutrition_grade_fr\", y=\"sugars_100g\", data=a, order=order)\n# sns.plt.title('Fat vs Grade')\n",
+      "rewrite-ns": 17854,
+      "overhead-ns": 17854,
+      "exec-ns": 85596,
+      "total-ns": 103450,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# ax = sns.boxplot(x=\"nutrition_grade_fr\", y=\"proteins_100g\", data=a, order=order)\n# sns.plt.title('Protein vs Grade')\n",
+      "rewrite-ns": 16898,
+      "overhead-ns": 16898,
+      "exec-ns": 81327,
+      "total-ns": 98225,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 17149,
+      "overhead-ns": 17149,
+      "exec-ns": 84611,
+      "total-ns": 101760,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 15407,
+      "overhead-ns": 15407,
+      "exec-ns": 79721,
+      "total-ns": 95128,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 14386,
+      "overhead-ns": 14386,
+      "exec-ns": 78989,
+      "total-ns": 93375,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 15387,
+      "overhead-ns": 15387,
+      "exec-ns": 80361,
+      "total-ns": 95748,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 15402,
+      "overhead-ns": 15402,
+      "exec-ns": 80460,
+      "total-ns": 95862,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 16893,
+      "overhead-ns": 16893,
+      "exec-ns": 82898,
+      "total-ns": 99791,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 16186,
+      "overhead-ns": 16186,
+      "exec-ns": 81578,
+      "total-ns": 97764,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 15414,
+      "overhead-ns": 15414,
+      "exec-ns": 83067,
+      "total-ns": 98481,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 15942,
+      "overhead-ns": 15942,
+      "exec-ns": 85474,
+      "total-ns": 101416,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 15707,
+      "overhead-ns": 15707,
+      "exec-ns": 81263,
+      "total-ns": 96970,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 16314,
+      "overhead-ns": 16314,
+      "exec-ns": 87839,
+      "total-ns": 104153,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 16604,
+      "overhead-ns": 16604,
+      "exec-ns": 84869,
+      "total-ns": 101473,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 16549,
+      "overhead-ns": 16549,
+      "exec-ns": 83880,
+      "total-ns": 100429,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 17093,
+      "overhead-ns": 17093,
+      "exec-ns": 84129,
+      "total-ns": 101222,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 16946,
+      "overhead-ns": 16946,
+      "exec-ns": 95078,
+      "total-ns": 112024,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 18003,
+      "overhead-ns": 18003,
+      "exec-ns": 88382,
+      "total-ns": 106385,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 18948,
+      "overhead-ns": 18948,
+      "exec-ns": 85302,
+      "total-ns": 104250,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 16603,
+      "overhead-ns": 16603,
+      "exec-ns": 84730,
+      "total-ns": 101333,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 16050,
+      "overhead-ns": 16050,
+      "exec-ns": 84913,
+      "total-ns": 100963,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 23.472719896,
+  "max-disk-in-mb": 0
+}

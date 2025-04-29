@@ -1,0 +1,269 @@
+{
+  "max-mem-in-mb": 111,
+  "max-mem-in-mb2": 114,
+  "cells": [
+    {
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\npd.set_option('display.max_columns', 50)\n\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n\n# import warnings\n# warnings.filterwarnings('ignore')",
+      "rewrite-ns": 1088065,
+      "overhead-ns": 1088065,
+      "exec-ns": 497676,
+      "total-ns": 1585741,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\npd.set_option('display.max_columns', 50)\n"
+    },
+    {
+      "raw": "bigg_boss = pd.read_csv('./input/Bigg_Boss_India.scaled.csv', encoding = \"ISO-8859-1\")\nnRow, nCol = bigg_boss.shape\nprint(f'There are {nRow} rows and {nCol} columns')",
+      "rewrite-ns": 1705964,
+      "overhead-ns": 1705964,
+      "exec-ns": 10707407,
+      "total-ns": 12413371,
+      "patts-hit": {},
+      "rewritten": "bigg_boss = pd.read_csv('./input/Bigg_Boss_India.scaled.csv', encoding=\n    'ISO-8859-1')\nnRow, nCol = bigg_boss.shape\nprint(f'There are {nRow} rows and {nCol} columns')\n"
+    },
+    {
+      "raw": "bigg_boss.head(5)",
+      "rewrite-ns": 140158,
+      "overhead-ns": 140158,
+      "exec-ns": 11675422,
+      "total-ns": 11815580,
+      "patts-hit": {},
+      "rewritten": "bigg_boss.head(5)\n"
+    },
+    {
+      "raw": "bigg_boss.tail(10).T",
+      "rewrite-ns": 533593,
+      "overhead-ns": 533593,
+      "exec-ns": 6213499,
+      "total-ns": 6747092,
+      "patts-hit": {},
+      "rewritten": "bigg_boss.tail(10).T\n"
+    },
+    {
+      "raw": "bigg_boss.sample(10)",
+      "rewrite-ns": 137950,
+      "overhead-ns": 137950,
+      "exec-ns": 13164673,
+      "total-ns": 13302623,
+      "patts-hit": {},
+      "rewritten": "bigg_boss.sample(10)\n"
+    },
+    {
+      "raw": "bigg_boss.info()",
+      "rewrite-ns": 115535,
+      "overhead-ns": 115535,
+      "exec-ns": 9507690,
+      "total-ns": 9623225,
+      "patts-hit": {},
+      "rewritten": "bigg_boss.info()\n"
+    },
+    {
+      "raw": "bigg_boss.describe()",
+      "rewrite-ns": 119478,
+      "overhead-ns": 119478,
+      "exec-ns": 33905615,
+      "total-ns": 34025093,
+      "patts-hit": {},
+      "rewritten": "bigg_boss.describe()\n"
+    },
+    {
+      "raw": "# Unique values in each column\nfor col in bigg_boss.columns:\n    print(\"Number of unique values in\", col,\"-\", bigg_boss[col].nunique())",
+      "rewrite-ns": 1095102,
+      "overhead-ns": 1095102,
+      "exec-ns": 3031371,
+      "total-ns": 4126473,
+      "patts-hit": {},
+      "rewritten": "for col in bigg_boss.columns:\n    print('Number of unique values in', col, '-', bigg_boss[col].nunique())\n"
+    },
+    {
+      "raw": "# Number of seasons in all Indian languages\nprint(bigg_boss.groupby('Language')['Season Number'].nunique().sum())\n\n# 35 seasons happened (including current seasons)",
+      "rewrite-ns": 947688,
+      "overhead-ns": 947688,
+      "exec-ns": 1219783,
+      "total-ns": 2167471,
+      "patts-hit": {},
+      "rewritten": "print(bigg_boss.groupby('Language')['Season Number'].nunique().sum())\n"
+    },
+    {
+      "raw": "# Number of seasons in each Indian language\nprint(bigg_boss.groupby('Language')['Season Number'].nunique().nlargest(10))",
+      "rewrite-ns": 992457,
+      "overhead-ns": 992457,
+      "exec-ns": 1849631,
+      "total-ns": 2842088,
+      "patts-hit": {},
+      "rewritten": "print(bigg_boss.groupby('Language')['Season Number'].nunique().nlargest(10))\n"
+    },
+    {
+      "raw": "# Total number of Bigg Boss housemates\n# ALEX: remove plotting\n# fig = plt.figure(figsize=(10,4))\n# ax = sns.countplot(x='Language', data=bigg_boss)\n# ax.set_title('Bigg Boss Series - Indian Language')\n# for t in ax.patches:\n#     if (np.isnan(float(t.get_height()))):\n#         ax.annotate(0, (t.get_x(), 0))\n#     else:\n#         ax.annotate(str(format(int(t.get_height()), ',d')), (t.get_x(), t.get_height()*1.01))",
+      "rewrite-ns": 23440,
+      "overhead-ns": 23440,
+      "exec-ns": 107538,
+      "total-ns": 130978,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# Number of normal entries and wild card entries\nprint(bigg_boss['Wild Card'].value_counts(), \"\\n\")\nprint(round(bigg_boss['Wild Card'].value_counts(normalize=True)*100))\n# ALEX: remove plotting\n# sns.countplot(x='Wild Card', data=bigg_boss)",
+      "rewrite-ns": 1581417,
+      "overhead-ns": 1581417,
+      "exec-ns": 2214354,
+      "total-ns": 3795771,
+      "patts-hit": {},
+      "rewritten": "print(bigg_boss['Wild Card'].value_counts(), '\\n')\nprint(round(bigg_boss['Wild Card'].value_counts(normalize=True) * 100))\n"
+    },
+    {
+      "raw": "# Common people has many professions, so clubbing them into one category\n# ALEX: make notebook run\n# bigg_boss.loc[bigg_boss['Profession'].str.contains('Commoner'),'Profession']='Commoner'\nbigg_boss.loc[bigg_boss['Profession'].str.contains('Commoner', na=False),'Profession']='Commoner'",
+      "rewrite-ns": 1166222,
+      "overhead-ns": 1166222,
+      "exec-ns": 1469766,
+      "total-ns": 2635988,
+      "patts-hit": {},
+      "rewritten": "bigg_boss.loc[bigg_boss['Profession'].str.contains('Commoner', na=False),\n    'Profession'] = 'Commoner'\n"
+    },
+    {
+      "raw": "# Participant's Profession\nprint(bigg_boss['Profession'].value_counts())\n# ALEX: remove plotting\n# fig = plt.figure(figsize=(25,8))\n# sns.countplot(x='Profession', data=bigg_boss)\n# plt.xticks(rotation=90)",
+      "rewrite-ns": 632703,
+      "overhead-ns": 632703,
+      "exec-ns": 1484777,
+      "total-ns": 2117480,
+      "patts-hit": {},
+      "rewritten": "print(bigg_boss['Profession'].value_counts())\n"
+    },
+    {
+      "raw": "# Broadcastor\n# ALEX: remove plotting\n# fig = plt.figure(figsize=(20,5))\n# ax = sns.countplot(x='Broadcasted By', data=bigg_boss, palette='RdBu')\n# ax.set_title('Bigg Boss Series - Indian Broadcastor & Total Number of Housemates')\n# for t in ax.patches:\n#     if (np.isnan(float(t.get_height()))):\n#         ax.annotate(0, (t.get_x(), 0))\n#     else:\n#         ax.annotate(str(format(int(t.get_height()), ',d')), (t.get_x(), t.get_height()*1.01))",
+      "rewrite-ns": 22862,
+      "overhead-ns": 22862,
+      "exec-ns": 108150,
+      "total-ns": 131012,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "bigg_boss.groupby('Host Name')['Season Number'].nunique().nlargest(25)",
+      "rewrite-ns": 891194,
+      "overhead-ns": 891194,
+      "exec-ns": 2353078,
+      "total-ns": 3244272,
+      "patts-hit": {},
+      "rewritten": "bigg_boss.groupby('Host Name')['Season Number'].nunique().nlargest(25)\n"
+    },
+    {
+      "raw": "# Housemate's Gender\nprint(bigg_boss['Gender'].value_counts())",
+      "rewrite-ns": 666861,
+      "overhead-ns": 666861,
+      "exec-ns": 1067647,
+      "total-ns": 1734508,
+      "patts-hit": {},
+      "rewritten": "print(bigg_boss['Gender'].value_counts())\n"
+    },
+    {
+      "raw": "# Maximum TRP of Bigg Boss Hindi/India seasons\nprint(\"Maximum TRP\",bigg_boss['Average TRP'].max(), \"\\n\")\nprint(bigg_boss.loc[bigg_boss['Average TRP']==bigg_boss['Average TRP'].max()][[\"Language\",\"Season Number\"]].head(1).to_string(index=False))",
+      "rewrite-ns": 2402345,
+      "overhead-ns": 2402345,
+      "exec-ns": 2521589,
+      "total-ns": 4923934,
+      "patts-hit": {},
+      "rewritten": "print('Maximum TRP', bigg_boss['Average TRP'].max(), '\\n')\nprint(bigg_boss.loc[bigg_boss['Average TRP'] == bigg_boss['Average TRP'].\n    max()][['Language', 'Season Number']].head(1).to_string(index=False))\n"
+    },
+    {
+      "raw": "# Longest season of Bigg Boss Hindi/India seasons\nprint(\"Longest season\",bigg_boss['Season Length'].max(), \"days \\n\")\nprint(bigg_boss.loc[bigg_boss['Season Length']==bigg_boss['Season Length'].max()][[\"Language\",\"Season Number\"]].head(1).to_string(index=False))",
+      "rewrite-ns": 2408832,
+      "overhead-ns": 2408832,
+      "exec-ns": 2439991,
+      "total-ns": 4848823,
+      "patts-hit": {},
+      "rewritten": "print('Longest season', bigg_boss['Season Length'].max(), 'days \\n')\nprint(bigg_boss.loc[bigg_boss['Season Length'] == bigg_boss['Season Length'\n    ].max()][['Language', 'Season Number']].head(1).to_string(index=False))\n"
+    },
+    {
+      "raw": "# All BB Winners\nbigg_boss.loc[bigg_boss.Winner==1]",
+      "rewrite-ns": 656898,
+      "overhead-ns": 656898,
+      "exec-ns": 36309843,
+      "total-ns": 36966741,
+      "patts-hit": {},
+      "rewritten": "bigg_boss.loc[bigg_boss.Winner == 1]\n"
+    },
+    {
+      "raw": "# Profession of BB Season Winners\nbigg_boss.loc[bigg_boss.Winner==1,'Profession'].value_counts()",
+      "rewrite-ns": 946166,
+      "overhead-ns": 946166,
+      "exec-ns": 1801348,
+      "total-ns": 2747514,
+      "patts-hit": {},
+      "rewritten": "bigg_boss.loc[bigg_boss.Winner == 1, 'Profession'].value_counts()\n"
+    },
+    {
+      "raw": "# Gender of Season title Winners\nprint(bigg_boss.loc[bigg_boss.Winner==1,'Gender'].value_counts(),'\\n')\n\n# In percentage\nprint(round(bigg_boss.loc[bigg_boss.Winner==1,'Gender'].value_counts(normalize=True)*100))",
+      "rewrite-ns": 2481429,
+      "overhead-ns": 2481429,
+      "exec-ns": 2735196,
+      "total-ns": 5216625,
+      "patts-hit": {},
+      "rewritten": "print(bigg_boss.loc[bigg_boss.Winner == 1, 'Gender'].value_counts(), '\\n')\nprint(round(bigg_boss.loc[bigg_boss.Winner == 1, 'Gender'].value_counts(\n    normalize=True) * 100))\n"
+    },
+    {
+      "raw": "# Entry type of the Season Winners\nbigg_boss.loc[bigg_boss.Winner==1,'Wild Card'].value_counts()",
+      "rewrite-ns": 926254,
+      "overhead-ns": 926254,
+      "exec-ns": 1750722,
+      "total-ns": 2676976,
+      "patts-hit": {},
+      "rewritten": "bigg_boss.loc[bigg_boss.Winner == 1, 'Wild Card'].value_counts()\n"
+    },
+    {
+      "raw": "# No re-entered contestant won Bigg Boss title\n# ALEX: make notebook run\n# bigg_boss.loc[bigg_boss.Winner==1,'Number of re-entries'].value_counts()\nbigg_boss.loc[bigg_boss.Winner==1,'Number of Re-entries'].value_counts()",
+      "rewrite-ns": 936930,
+      "overhead-ns": 936930,
+      "exec-ns": 1837982,
+      "total-ns": 2774912,
+      "patts-hit": {},
+      "rewritten": "bigg_boss.loc[bigg_boss.Winner == 1, 'Number of Re-entries'].value_counts()\n"
+    },
+    {
+      "raw": "# Number of eliminations or evictions faced by the Bigg Boss competition winners\nbigg_boss.loc[bigg_boss.Winner==1,'Number of Evictions Faced'].value_counts().sort_index()\n\n# Number of eliminations faced - Number of Winners",
+      "rewrite-ns": 1084970,
+      "overhead-ns": 1084970,
+      "exec-ns": 2311353,
+      "total-ns": 3396323,
+      "patts-hit": {},
+      "rewritten": "bigg_boss.loc[bigg_boss.Winner == 1, 'Number of Evictions Faced'].value_counts(\n    ).sort_index()\n"
+    },
+    {
+      "raw": "# Bigg Boss winners Number of times elected as Captain\n# ALEX: make notebook run\n# bigg_boss.loc[bigg_boss.Winner==1,'Number of times elected as Captain'].value_counts().sort_index()\nbigg_boss.loc[bigg_boss.Winner==1,'Number of Times Elected as Captain'].value_counts().sort_index()\n\n# Number of times elected as Captain   - Number of winners",
+      "rewrite-ns": 1070386,
+      "overhead-ns": 1070386,
+      "exec-ns": 2076978,
+      "total-ns": 3147364,
+      "patts-hit": {},
+      "rewritten": "bigg_boss.loc[bigg_boss.Winner == 1, 'Number of Times Elected as Captain'\n    ].value_counts().sort_index()\n"
+    },
+    {
+      "raw": "# ALEX: remove pandas profiling\n# import pandas_profiling\n# pandas_profiling.ProfileReport(bigg_boss)",
+      "rewrite-ns": 20899,
+      "overhead-ns": 20899,
+      "exec-ns": 109063,
+      "total-ns": 129962,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 17247,
+      "overhead-ns": 17247,
+      "exec-ns": 97716,
+      "total-ns": 114963,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 17070,
+      "overhead-ns": 17070,
+      "exec-ns": 92414,
+      "total-ns": 109484,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 0.179492387,
+  "max-disk-in-mb": 0
+}

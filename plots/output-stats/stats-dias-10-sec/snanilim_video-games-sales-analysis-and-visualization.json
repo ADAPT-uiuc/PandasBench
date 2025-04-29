@@ -1,0 +1,606 @@
+{
+  "max-mem-in-mb": 1398,
+  "max-mem-in-mb2": 1729,
+  "cells": [
+    {
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove ML code\n# import scipy.stats as st\npd.set_option('display.max_columns', None)\n\nimport math\n\n# ALEX: remove plotting, ML code\n# import matplotlib.pyplot as plt\n# %matplotlib inline\n\n# import seaborn as sns\n# sns.set_style('whitegrid')\n\n# import missingno as msno\n\n# from sklearn.preprocessing import StandardScaler\n# from scipy import stats\n\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))",
+      "rewrite-ns": 1202532,
+      "overhead-ns": 1202532,
+      "exec-ns": 548355,
+      "total-ns": 1750887,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\npd.set_option('display.max_columns', None)\nimport math\n"
+    },
+    {
+      "raw": "data = pd.read_csv('./input/vgsales.scaled.csv')\ndata.head()",
+      "rewrite-ns": 588432,
+      "overhead-ns": 588432,
+      "exec-ns": 4136949933,
+      "total-ns": 4137538365,
+      "patts-hit": {},
+      "rewritten": "data = pd.read_csv('./input/vgsales.scaled.csv')\ndata.head()\n"
+    },
+    {
+      "raw": "drop_row_index = data[data['Year'] > 2015].index\ndata = data.drop(drop_row_index)",
+      "rewrite-ns": 996311,
+      "overhead-ns": 996311,
+      "exec-ns": 294906760,
+      "total-ns": 295903071,
+      "patts-hit": {},
+      "rewritten": "drop_row_index = data[data['Year'] > 2015].index\ndata = data.drop(drop_row_index)\n"
+    },
+    {
+      "raw": "data.shape",
+      "rewrite-ns": 87467,
+      "overhead-ns": 87467,
+      "exec-ns": 667635,
+      "total-ns": 755102,
+      "patts-hit": {},
+      "rewritten": "data.shape\n"
+    },
+    {
+      "raw": "data.info()",
+      "rewrite-ns": 103721,
+      "overhead-ns": 103721,
+      "exec-ns": 3566735,
+      "total-ns": 3670456,
+      "patts-hit": {},
+      "rewritten": "data.info()\n"
+    },
+    {
+      "raw": "# data.describe()",
+      "rewrite-ns": 14141,
+      "overhead-ns": 14141,
+      "exec-ns": 77026,
+      "total-ns": 91167,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# data.describe(include=['object', 'bool'])",
+      "rewrite-ns": 11021,
+      "overhead-ns": 11021,
+      "exec-ns": 63186,
+      "total-ns": 74207,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "data.isnull().sum()",
+      "rewrite-ns": 393528,
+      "overhead-ns": 393528,
+      "exec-ns": 1467991648,
+      "total-ns": 1468385176,
+      "patts-hit": {},
+      "rewritten": "data.isnull().sum()\n"
+    },
+    {
+      "raw": "data['Genre'].value_counts()",
+      "rewrite-ns": 445176,
+      "overhead-ns": 445176,
+      "exec-ns": 191451583,
+      "total-ns": 191896759,
+      "patts-hit": {},
+      "rewritten": "data['Genre'].value_counts()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.countplot(x=\"Genre\", data=data, order = data['Genre'].value_counts().index)\n# plt.xticks(rotation=90)\n_ = data['Genre'].value_counts().index",
+      "rewrite-ns": 541522,
+      "overhead-ns": 541522,
+      "exec-ns": 166721002,
+      "total-ns": 167262524,
+      "patts-hit": {},
+      "rewritten": "_ = data['Genre'].value_counts().index\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.countplot(x=\"Year\", data=data, order = data.groupby(by=['Year'])['Name'].count().sort_values(ascending=False).index)\n# plt.xticks(rotation=90)\n_ = data.groupby(by=['Year'])['Name'].count().sort_values(ascending=False).index",
+      "rewrite-ns": 945305,
+      "overhead-ns": 945305,
+      "exec-ns": 176031513,
+      "total-ns": 176976818,
+      "patts-hit": {},
+      "rewritten": "_ = data.groupby(by=['Year'])['Name'].count().sort_values(ascending=False\n    ).index\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(30, 10))\n# sns.countplot(x=\"Year\", data=data, hue='Genre', order=data.Year.value_counts().iloc[:5].index)\n# plt.xticks(size=16, rotation=90)\n_ = data.Year.value_counts().iloc[:5].index",
+      "rewrite-ns": 1468670,
+      "overhead-ns": 1468670,
+      "exec-ns": 33708079,
+      "total-ns": 35176749,
+      "patts-hit": {},
+      "rewritten": "_ = data.Year.value_counts().iloc[:5].index\n"
+    },
+    {
+      "raw": "data_year = data.groupby(by=['Year'])['Global_Sales'].sum()\ndata_year = data_year.reset_index()\n# data_year.sort_values(by=['Global_Sales'], ascending=False)",
+      "rewrite-ns": 956277,
+      "overhead-ns": 956277,
+      "exec-ns": 66095378,
+      "total-ns": 67051655,
+      "patts-hit": {},
+      "rewritten": "data_year = data.groupby(by=['Year'])['Global_Sales'].sum()\ndata_year = data_year.reset_index()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.barplot(x=\"Year\", y=\"Global_Sales\", data=data_year)\n# plt.xticks(rotation=90)",
+      "rewrite-ns": 20338,
+      "overhead-ns": 20338,
+      "exec-ns": 108560,
+      "total-ns": 128898,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "year_max_df = data.groupby(['Year', 'Genre']).size().reset_index(name='count')\nyear_max_idx = year_max_df.groupby(['Year'])['count'].transform(max) == year_max_df['count']\nyear_max_genre = year_max_df[year_max_idx].reset_index(drop=True)\nyear_max_genre = year_max_genre.drop_duplicates(subset=[\"Year\", \"count\"], keep='last').reset_index(drop=True)\n# year_max_genre",
+      "rewrite-ns": 2719080,
+      "overhead-ns": 2719080,
+      "exec-ns": 334556017,
+      "total-ns": 337275097,
+      "patts-hit": {},
+      "rewritten": "year_max_df = data.groupby(['Year', 'Genre']).size().reset_index(name='count')\nyear_max_idx = year_max_df.groupby(['Year'])['count'].transform(max\n    ) == year_max_df['count']\nyear_max_genre = year_max_df[year_max_idx].reset_index(drop=True)\nyear_max_genre = year_max_genre.drop_duplicates(subset=['Year', 'count'],\n    keep='last').reset_index(drop=True)\n"
+    },
+    {
+      "raw": "genre = year_max_genre['Genre'].values\n# genre[0]",
+      "rewrite-ns": 404932,
+      "overhead-ns": 404932,
+      "exec-ns": 340469,
+      "total-ns": 745401,
+      "patts-hit": {},
+      "rewritten": "genre = year_max_genre['Genre'].values\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(30, 15))\n# g = sns.barplot(x='Year', y='count', data=year_max_genre)\nindex = 0\nfor value in year_max_genre['count'].values:\n#     print(asd)\n# ALEX: remove plotting\n#     g.text(index, value + 5, str(genre[index] + '----' +str(value)), color='#000', size=14, rotation= 90, ha=\"center\")\n    _ = str(genre[index] + '----' +str(value))\n    index += 1\n\n\n\n\n# ALEX: remove plotting\n# plt.xticks(rotation=90)\n# plt.show()",
+      "rewrite-ns": 1297729,
+      "overhead-ns": 1297729,
+      "exec-ns": 471706,
+      "total-ns": 1769435,
+      "patts-hit": {},
+      "rewritten": "index = 0\nfor value in year_max_genre['count'].values:\n    _ = str(genre[index] + '----' + str(value))\n    index += 1\n"
+    },
+    {
+      "raw": "year_sale_dx = data.groupby(by=['Year', 'Genre'])['Global_Sales'].sum().reset_index()\nyear_sale = year_sale_dx.groupby(by=['Year'])['Global_Sales'].transform(max) == year_sale_dx['Global_Sales']\nyear_sale_max = year_sale_dx[year_sale].reset_index(drop=True)\n# year_sale_max",
+      "rewrite-ns": 2163144,
+      "overhead-ns": 2163144,
+      "exec-ns": 333056887,
+      "total-ns": 335220031,
+      "patts-hit": {},
+      "rewritten": "year_sale_dx = data.groupby(by=['Year', 'Genre'])['Global_Sales'].sum(\n    ).reset_index()\nyear_sale = year_sale_dx.groupby(by=['Year'])['Global_Sales'].transform(max\n    ) == year_sale_dx['Global_Sales']\nyear_sale_max = year_sale_dx[year_sale].reset_index(drop=True)\n"
+    },
+    {
+      "raw": "genre = year_sale_max['Genre']",
+      "rewrite-ns": 351034,
+      "overhead-ns": 351034,
+      "exec-ns": 321967,
+      "total-ns": 673001,
+      "patts-hit": {},
+      "rewritten": "genre = year_sale_max['Genre']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(30, 18))\n# g = sns.barplot(x='Year', y='Global_Sales', data=year_sale_max)\nindex = 0\nfor value in year_sale_max['Global_Sales']:\n# ALEX: remove plotting\n#     g.text(index, value + 1, str(genre[index] + '----' +str(round(value, 2))), color='#000', size=14, rotation= 90, ha=\"center\")\n    _ = str(genre[index] + '----' +str(round(value, 2)))\n    index += 1\n\n# ALEX: remove plotting\n# plt.xticks(rotation=90)\n# plt.show()",
+      "rewrite-ns": 1328307,
+      "overhead-ns": 1328307,
+      "exec-ns": 588847,
+      "total-ns": 1917154,
+      "patts-hit": {},
+      "rewritten": "index = 0\nfor value in year_sale_max['Global_Sales']:\n    _ = str(genre[index] + '----' + str(round(value, 2)))\n    index += 1\n"
+    },
+    {
+      "raw": "data_genre = data.groupby(by=['Genre'])['Global_Sales'].sum()\ndata_genre = data_genre.reset_index()\ndata_genre = data_genre.sort_values(by=['Global_Sales'], ascending=False)\n# data_genre",
+      "rewrite-ns": 1318046,
+      "overhead-ns": 1318046,
+      "exec-ns": 204841682,
+      "total-ns": 206159728,
+      "patts-hit": {},
+      "rewritten": "data_genre = data.groupby(by=['Genre'])['Global_Sales'].sum()\ndata_genre = data_genre.reset_index()\ndata_genre = data_genre.sort_values(by=['Global_Sales'], ascending=False)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.barplot(x=\"Genre\", y=\"Global_Sales\", data=data_genre)\n# plt.xticks(rotation=90)",
+      "rewrite-ns": 21046,
+      "overhead-ns": 21046,
+      "exec-ns": 106023,
+      "total-ns": 127069,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "data_platform = data.groupby(by=['Platform'])['Global_Sales'].sum()\ndata_platform = data_platform.reset_index()\ndata_platform = data_platform.sort_values(by=['Global_Sales'], ascending=False)\n# data_platform",
+      "rewrite-ns": 1379165,
+      "overhead-ns": 1379165,
+      "exec-ns": 187859260,
+      "total-ns": 189238425,
+      "patts-hit": {},
+      "rewritten": "data_platform = data.groupby(by=['Platform'])['Global_Sales'].sum()\ndata_platform = data_platform.reset_index()\ndata_platform = data_platform.sort_values(by=['Global_Sales'], ascending=False)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.barplot(x=\"Platform\", y=\"Global_Sales\", data=data_platform)\n# plt.xticks(rotation=90)",
+      "rewrite-ns": 21191,
+      "overhead-ns": 21191,
+      "exec-ns": 108034,
+      "total-ns": 129225,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "top_game_sale = data.head(20)\ntop_game_sale = top_game_sale[['Name', 'Year', 'Genre', 'Global_Sales']]\ntop_game_sale = top_game_sale.sort_values(by=['Global_Sales'], ascending=False)\n# top_game_sale",
+      "rewrite-ns": 1267773,
+      "overhead-ns": 1267773,
+      "exec-ns": 1255065,
+      "total-ns": 2522838,
+      "patts-hit": {},
+      "rewritten": "top_game_sale = data.head(20)\ntop_game_sale = top_game_sale[['Name', 'Year', 'Genre', 'Global_Sales']]\ntop_game_sale = top_game_sale.sort_values(by=['Global_Sales'], ascending=False)\n"
+    },
+    {
+      "raw": "name = top_game_sale['Name']\nyear = top_game_sale['Year']\ny = np.arange(0, 20)",
+      "rewrite-ns": 882945,
+      "overhead-ns": 882945,
+      "exec-ns": 379091,
+      "total-ns": 1262036,
+      "patts-hit": {},
+      "rewritten": "name = top_game_sale['Name']\nyear = top_game_sale['Year']\ny = np.arange(0, 20)\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(30, 18))\n# g = sns.barplot(x='Name', y='Global_Sales', data=top_game_sale)\nindex = 0\nfor value in top_game_sale['Global_Sales']:\n# ALEX: remove plotting\n#     g.text(index, value - 18, name[index], color='#000', size=14, rotation= 90, ha=\"center\")\n    _ = name[index]\n    index += 1\n\n# ALEX: remove plotting\n# plt.xticks(y, top_game_sale['Year'], fontsize=14, rotation=90)\n# plt.xlabel('Release Year')\n# plt.show()\n_ = top_game_sale['Year']",
+      "rewrite-ns": 1139841,
+      "overhead-ns": 1139841,
+      "exec-ns": 485773,
+      "total-ns": 1625614,
+      "patts-hit": {},
+      "rewritten": "index = 0\nfor value in top_game_sale['Global_Sales']:\n    _ = name[index]\n    index += 1\n_ = top_game_sale['Year']\n"
+    },
+    {
+      "raw": "comp_genre = data[['Genre', 'NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales']]\n# comp_genre\ncomp_map = comp_genre.groupby(by=['Genre']).sum()\n# comp_map",
+      "rewrite-ns": 970998,
+      "overhead-ns": 970998,
+      "exec-ns": 277160256,
+      "total-ns": 278131254,
+      "patts-hit": {},
+      "rewritten": "comp_genre = data[['Genre', 'NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales']]\ncomp_map = comp_genre.groupby(by=['Genre']).sum()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.set(font_scale=1)\n# sns.heatmap(comp_map, annot=True, fmt = '.1f')\n\n# plt.xticks(fontsize=14)\n# plt.yticks(fontsize=14)\n# plt.show()",
+      "rewrite-ns": 23937,
+      "overhead-ns": 23937,
+      "exec-ns": 116982,
+      "total-ns": 140919,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "comp_table = comp_map.reset_index()\ncomp_table = pd.melt(comp_table, id_vars=['Genre'], value_vars=['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales'], var_name='Sale_Area', value_name='Sale_Price')\ncomp_table.head()",
+      "rewrite-ns": 1248094,
+      "overhead-ns": 1248094,
+      "exec-ns": 4163058,
+      "total-ns": 5411152,
+      "patts-hit": {},
+      "rewritten": "comp_table = comp_map.reset_index()\ncomp_table = pd.melt(comp_table, id_vars=['Genre'], value_vars=['NA_Sales',\n    'EU_Sales', 'JP_Sales', 'Other_Sales'], var_name='Sale_Area',\n    value_name='Sale_Price')\ncomp_table.head()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.barplot(x='Genre', y='Sale_Price', hue='Sale_Area', data=comp_table)",
+      "rewrite-ns": 13856,
+      "overhead-ns": 13856,
+      "exec-ns": 73508,
+      "total-ns": 87364,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "comp_platform = data[['Platform', 'NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales']]\ncomp_platform.head()",
+      "rewrite-ns": 572142,
+      "overhead-ns": 572142,
+      "exec-ns": 60789909,
+      "total-ns": 61362051,
+      "patts-hit": {},
+      "rewritten": "comp_platform = data[['Platform', 'NA_Sales', 'EU_Sales', 'JP_Sales',\n    'Other_Sales']]\ncomp_platform.head()\n"
+    },
+    {
+      "raw": "comp_platform = comp_platform.groupby(by=['Platform']).sum().reset_index()",
+      "rewrite-ns": 718708,
+      "overhead-ns": 718708,
+      "exec-ns": 202539280,
+      "total-ns": 203257988,
+      "patts-hit": {},
+      "rewritten": "comp_platform = comp_platform.groupby(by=['Platform']).sum().reset_index()\n"
+    },
+    {
+      "raw": "# comp_table = comp_map.reset_index()\ncomp_table = pd.melt(comp_platform, id_vars=['Platform'], value_vars=['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales'], var_name='Sale_Area', value_name='Sale_Price')\ncomp_table.head()",
+      "rewrite-ns": 1005191,
+      "overhead-ns": 1005191,
+      "exec-ns": 3747560,
+      "total-ns": 4752751,
+      "patts-hit": {},
+      "rewritten": "comp_table = pd.melt(comp_platform, id_vars=['Platform'], value_vars=[\n    'NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales'], var_name=\n    'Sale_Area', value_name='Sale_Price')\ncomp_table.head()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(30, 15))\n# sns.barplot(x='Platform', y='Sale_Price', hue='Sale_Area', data=comp_table)\n# plt.xticks(fontsize=14)\n# plt.yticks(fontsize=14)\n# plt.show()",
+      "rewrite-ns": 15923,
+      "overhead-ns": 15923,
+      "exec-ns": 78995,
+      "total-ns": 94918,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "top_publisher = data.groupby(by=['Publisher'])['Year'].count().sort_values(ascending=False).head(20)\ntop_publisher = pd.DataFrame(top_publisher).reset_index()\n# top_publisher",
+      "rewrite-ns": 911480,
+      "overhead-ns": 911480,
+      "exec-ns": 239052175,
+      "total-ns": 239963655,
+      "patts-hit": {
+        "SortHead": 1
+      },
+      "rewritten": "top_publisher = dias.rewriter.sort_head(called_on=data.groupby(by=[\n    'Publisher'])['Year'].count(), by=None, n=20, asc=False, orig=lambda\n    _DIAS_x: _DIAS_x.sort_values(ascending=False).head(20))\ntop_publisher = pd.DataFrame(top_publisher).reset_index()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.countplot(x=\"Publisher\", data=data, order = data.groupby(by=['Publisher'])['Year'].count().sort_values(ascending=False).iloc[:20].index)\n# plt.xticks(rotation=90)\n_ = data.groupby(by=['Publisher'])['Year'].count().sort_values(ascending=False).iloc[:20].index",
+      "rewrite-ns": 1114446,
+      "overhead-ns": 1114446,
+      "exec-ns": 233359146,
+      "total-ns": 234473592,
+      "patts-hit": {},
+      "rewritten": "_ = data.groupby(by=['Publisher'])['Year'].count().sort_values(ascending=False\n    ).iloc[:20].index\n"
+    },
+    {
+      "raw": "sale_pbl = data[['Publisher', 'Global_Sales']]\nsale_pbl = sale_pbl.groupby('Publisher')['Global_Sales'].sum().sort_values(ascending=False).head(20)\nsale_pbl = pd.DataFrame(sale_pbl).reset_index()\n# sale_pbl",
+      "rewrite-ns": 1192937,
+      "overhead-ns": 1192937,
+      "exec-ns": 274875486,
+      "total-ns": 276068423,
+      "patts-hit": {
+        "SortHead": 1
+      },
+      "rewritten": "sale_pbl = data[['Publisher', 'Global_Sales']]\nsale_pbl = dias.rewriter.sort_head(called_on=sale_pbl.groupby('Publisher')[\n    'Global_Sales'].sum(), by=None, n=20, asc=False, orig=lambda _DIAS_x:\n    _DIAS_x.sort_values(ascending=False).head(20))\nsale_pbl = pd.DataFrame(sale_pbl).reset_index()\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.barplot(x='Publisher', y='Global_Sales', data=sale_pbl)\n# plt.xticks(rotation=90)",
+      "rewrite-ns": 22327,
+      "overhead-ns": 22327,
+      "exec-ns": 110031,
+      "total-ns": 132358,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "comp_publisher = data[['Publisher', 'NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales', 'Global_Sales']]\ncomp_publisher.head()",
+      "rewrite-ns": 658291,
+      "overhead-ns": 658291,
+      "exec-ns": 70077953,
+      "total-ns": 70736244,
+      "patts-hit": {},
+      "rewritten": "comp_publisher = data[['Publisher', 'NA_Sales', 'EU_Sales', 'JP_Sales',\n    'Other_Sales', 'Global_Sales']]\ncomp_publisher.head()\n"
+    },
+    {
+      "raw": "comp_publisher = comp_publisher.groupby(by=['Publisher']).sum().reset_index().sort_values(by=['Global_Sales'], ascending=False)\ncomp_publisher = comp_publisher.head(20)\n# comp_publisher",
+      "rewrite-ns": 1306830,
+      "overhead-ns": 1306830,
+      "exec-ns": 261751091,
+      "total-ns": 263057921,
+      "patts-hit": {},
+      "rewritten": "comp_publisher = comp_publisher.groupby(by=['Publisher']).sum().reset_index(\n    ).sort_values(by=['Global_Sales'], ascending=False)\ncomp_publisher = comp_publisher.head(20)\n"
+    },
+    {
+      "raw": "comp_publisher = pd.melt(comp_publisher, id_vars=['Publisher'], value_vars=['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales'], var_name='Sale_Area', value_name='Sale_Price')\ncomp_publisher",
+      "rewrite-ns": 959980,
+      "overhead-ns": 959980,
+      "exec-ns": 9490288,
+      "total-ns": 10450268,
+      "patts-hit": {},
+      "rewritten": "comp_publisher = pd.melt(comp_publisher, id_vars=['Publisher'], value_vars=\n    ['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales'], var_name=\n    'Sale_Area', value_name='Sale_Price')\ncomp_publisher\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(30, 15))\n# sns.barplot(x='Publisher', y='Sale_Price', hue='Sale_Area', data=comp_publisher)\n# plt.xticks(fontsize=14, rotation=90)\n# plt.yticks(fontsize=14)\n# plt.show()",
+      "rewrite-ns": 18057,
+      "overhead-ns": 18057,
+      "exec-ns": 87394,
+      "total-ns": 105451,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "top_publisher =  data[['Year', 'Publisher']]\ntop_publisher_df = top_publisher.groupby(by=['Year', 'Publisher']).size().reset_index(name='Count')\ntop_publisher_idx =  top_publisher_df.groupby(by=['Year'])['Count'].transform(max) == top_publisher_df['Count']\ntop_publisher_count = top_publisher_df[top_publisher_idx].reset_index(drop=True)\ntop_publisher_count  = top_publisher_count.drop_duplicates(subset=[\"Year\", \"Count\"], keep='last').reset_index(drop=True)\n# top_publisher_count",
+      "rewrite-ns": 3094398,
+      "overhead-ns": 3094398,
+      "exec-ns": 403832081,
+      "total-ns": 406926479,
+      "patts-hit": {},
+      "rewritten": "top_publisher = data[['Year', 'Publisher']]\ntop_publisher_df = top_publisher.groupby(by=['Year', 'Publisher']).size(\n    ).reset_index(name='Count')\ntop_publisher_idx = top_publisher_df.groupby(by=['Year'])['Count'].transform(\n    max) == top_publisher_df['Count']\ntop_publisher_count = top_publisher_df[top_publisher_idx].reset_index(drop=True\n    )\ntop_publisher_count = top_publisher_count.drop_duplicates(subset=['Year',\n    'Count'], keep='last').reset_index(drop=True)\n"
+    },
+    {
+      "raw": "publisher= top_publisher_count['Publisher']",
+      "rewrite-ns": 345974,
+      "overhead-ns": 345974,
+      "exec-ns": 320492,
+      "total-ns": 666466,
+      "patts-hit": {},
+      "rewritten": "publisher = top_publisher_count['Publisher']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(30, 15))\n# g = sns.barplot(x='Year', y='Count', data=top_publisher_count)\nindex = 0\nfor value in top_publisher_count['Count'].values:\n#     print(asd)\n# ALEX: remove plotting\n#     g.text(index, value + 5, str(publisher[index] + '----' +str(value)), color='#000', size=14, rotation= 90, ha=\"center\")\n    _ = str(publisher[index] + '----' +str(value))\n    index += 1\n\n\n\n\n# ALEX: remove plotting\n# plt.xticks(rotation=90)\n# plt.show()",
+      "rewrite-ns": 1278921,
+      "overhead-ns": 1278921,
+      "exec-ns": 574241,
+      "total-ns": 1853162,
+      "patts-hit": {},
+      "rewritten": "index = 0\nfor value in top_publisher_count['Count'].values:\n    _ = str(publisher[index] + '----' + str(value))\n    index += 1\n"
+    },
+    {
+      "raw": "# data.head()",
+      "rewrite-ns": 12205,
+      "overhead-ns": 12205,
+      "exec-ns": 77148,
+      "total-ns": 89353,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "top_sale_reg = data[['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales']]\n# pd.DataFrame(top_sale_reg.sum(), columns=['a', 'b'])\ntop_sale_reg = top_sale_reg.sum().reset_index()\ntop_sale_reg = top_sale_reg.rename(columns={\"index\": \"region\", 0: \"sale\"})\ntop_sale_reg",
+      "rewrite-ns": 1318890,
+      "overhead-ns": 1318890,
+      "exec-ns": 60569368,
+      "total-ns": 61888258,
+      "patts-hit": {},
+      "rewritten": "top_sale_reg = data[['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales']]\ntop_sale_reg = top_sale_reg.sum().reset_index()\ntop_sale_reg = top_sale_reg.rename(columns={'index': 'region', (0): 'sale'})\ntop_sale_reg\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12, 8))\n# sns.barplot(x='region', y='sale', data = top_sale_reg)",
+      "rewrite-ns": 19961,
+      "overhead-ns": 19961,
+      "exec-ns": 99321,
+      "total-ns": 119282,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "labels = top_sale_reg['region']\nsizes = top_sale_reg['sale']",
+      "rewrite-ns": 576908,
+      "overhead-ns": 576908,
+      "exec-ns": 340938,
+      "total-ns": 917846,
+      "patts-hit": {},
+      "rewritten": "labels = top_sale_reg['region']\nsizes = top_sale_reg['sale']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10, 8))\n# plt.pie(sizes, labels=labels, autopct='%1.1f%%', shadow=True, startangle=90)",
+      "rewrite-ns": 13176,
+      "overhead-ns": 13176,
+      "exec-ns": 73728,
+      "total-ns": 86904,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# sns.distplot(data['NA_Sales'],  kde=False, fit=stats.gamma);\n# sns.distplot(data['EU_Sales'],  kde=False, fit=stats.gamma);\n# ALEX: remove plotting\n# plt.figure(figsize=(25,30))\nsales_columns = ['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales', 'Global_Sales']\nfor i, column in enumerate(sales_columns):\n# ALEX: remove plotting\n#     plt.subplot(3,2,i+1)\n#     sns.distplot(data[column], bins=20, kde=False, fit=stats.gamma)\n    _ = data[column]",
+      "rewrite-ns": 1027544,
+      "overhead-ns": 1027544,
+      "exec-ns": 366857,
+      "total-ns": 1394401,
+      "patts-hit": {},
+      "rewritten": "sales_columns = ['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales',\n    'Global_Sales']\nfor i, column in enumerate(sales_columns):\n    _ = data[column]\n"
+    },
+    {
+      "raw": "data_hist_log = data.copy()",
+      "rewrite-ns": 330275,
+      "overhead-ns": 330275,
+      "exec-ns": 146535335,
+      "total-ns": 146865610,
+      "patts-hit": {},
+      "rewritten": "data_hist_log = data.copy()\n"
+    },
+    {
+      "raw": "data_hist_log = data_hist_log[data_hist_log.NA_Sales != 0]\ndata_hist_log = data_hist_log[data_hist_log.EU_Sales != 0]\ndata_hist_log = data_hist_log[data_hist_log.Other_Sales != 0]\ndata_hist_log = data_hist_log[data_hist_log.JP_Sales != 0]\ndata_hist_log = data_hist_log[data_hist_log.Global_Sales != 0]",
+      "rewrite-ns": 2053736,
+      "overhead-ns": 2053736,
+      "exec-ns": 550417149,
+      "total-ns": 552470885,
+      "patts-hit": {},
+      "rewritten": "data_hist_log = data_hist_log[data_hist_log.NA_Sales != 0]\ndata_hist_log = data_hist_log[data_hist_log.EU_Sales != 0]\ndata_hist_log = data_hist_log[data_hist_log.Other_Sales != 0]\ndata_hist_log = data_hist_log[data_hist_log.JP_Sales != 0]\ndata_hist_log = data_hist_log[data_hist_log.Global_Sales != 0]\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(25,30))\nsales_columns = ['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales', 'Global_Sales']\nfor i, column in enumerate(sales_columns):\n# ALEX: remove plotting\n#     plt.subplot(3,2,i+1)\n#     sns.distplot(np.log(data_hist_log[column]), bins=20, kde=False, fit=stats.gamma)\n    _ = np.log(data_hist_log[column])",
+      "rewrite-ns": 1291378,
+      "overhead-ns": 1291378,
+      "exec-ns": 4829387,
+      "total-ns": 6120765,
+      "patts-hit": {},
+      "rewritten": "sales_columns = ['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales',\n    'Global_Sales']\nfor i, column in enumerate(sales_columns):\n    _ = np.log(data_hist_log[column])\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(13,10))\n# sns.heatmap(data.corr(), cmap = \"Blues\", annot=True, linewidth=3)\n_ = data.corr()",
+      "rewrite-ns": 366834,
+      "overhead-ns": 366834,
+      "exec-ns": 604188440,
+      "total-ns": 604555274,
+      "patts-hit": {},
+      "rewritten": "_ = data.corr()\n"
+    },
+    {
+      "raw": "data_pair = data.loc[:,[\"Year\",\"Platform\", \"Genre\", \"NA_Sales\",\"EU_Sales\", \"Other_Sales\"]]\ndata_pair",
+      "rewrite-ns": 983065,
+      "overhead-ns": 983065,
+      "exec-ns": 88581459,
+      "total-ns": 89564524,
+      "patts-hit": {},
+      "rewritten": "data_pair = data.loc[:, ['Year', 'Platform', 'Genre', 'NA_Sales',\n    'EU_Sales', 'Other_Sales']]\ndata_pair\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.pairplot(data_pair, hue='Genre')",
+      "rewrite-ns": 21135,
+      "overhead-ns": 21135,
+      "exec-ns": 101729,
+      "total-ns": 122864,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "data_pair_log = data_pair.copy()",
+      "rewrite-ns": 367625,
+      "overhead-ns": 367625,
+      "exec-ns": 76821902,
+      "total-ns": 77189527,
+      "patts-hit": {},
+      "rewritten": "data_pair_log = data_pair.copy()\n"
+    },
+    {
+      "raw": "sale_columns = ['NA_Sales', 'EU_Sales', 'Other_Sales']",
+      "rewrite-ns": 382085,
+      "overhead-ns": 382085,
+      "exec-ns": 288445,
+      "total-ns": 670530,
+      "patts-hit": {},
+      "rewritten": "sale_columns = ['NA_Sales', 'EU_Sales', 'Other_Sales']\n"
+    },
+    {
+      "raw": "# for column in sale_columns:\n#     if 0 in data[column].unique():\n#         pass\n#     else:\n#         data_pair_log[column] = np.log(data_pair_log[column])\n# #         data_pair_log.head()",
+      "rewrite-ns": 14929,
+      "overhead-ns": 14929,
+      "exec-ns": 82353,
+      "total-ns": 97282,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "data_pair_log = data_pair_log[data_pair_log.NA_Sales != 0]\ndata_pair_log = data_pair_log[data_pair_log.EU_Sales != 0]\ndata_pair_log = data_pair_log[data_pair_log.Other_Sales != 0]",
+      "rewrite-ns": 1257538,
+      "overhead-ns": 1257538,
+      "exec-ns": 259723773,
+      "total-ns": 260981311,
+      "patts-hit": {},
+      "rewritten": "data_pair_log = data_pair_log[data_pair_log.NA_Sales != 0]\ndata_pair_log = data_pair_log[data_pair_log.EU_Sales != 0]\ndata_pair_log = data_pair_log[data_pair_log.Other_Sales != 0]\n"
+    },
+    {
+      "raw": "data_pair_log",
+      "rewrite-ns": 88915,
+      "overhead-ns": 88915,
+      "exec-ns": 3824079,
+      "total-ns": 3912994,
+      "patts-hit": {},
+      "rewritten": "data_pair_log\n"
+    },
+    {
+      "raw": "data_pair_log['NA_Sales'] = np.log(data_pair_log['NA_Sales']);\ndata_pair_log['EU_Sales'] = np.log(data_pair_log['EU_Sales']);\ndata_pair_log['Other_Sales'] = np.log(data_pair_log['Other_Sales']);",
+      "rewrite-ns": 1528584,
+      "overhead-ns": 1528584,
+      "exec-ns": 45890745,
+      "total-ns": 47419329,
+      "patts-hit": {},
+      "rewritten": "data_pair_log['NA_Sales'] = np.log(data_pair_log['NA_Sales'])\ndata_pair_log['EU_Sales'] = np.log(data_pair_log['EU_Sales'])\ndata_pair_log['Other_Sales'] = np.log(data_pair_log['Other_Sales'])\n"
+    },
+    {
+      "raw": "# sns.pairplot(data_pair_log, hue='Genre',  diag_kind = 'kde',\n#              plot_kws = {'alpha': 0.6, 's': 80, 'edgecolor': 'k'},\n#              size = 4)\n\n# ALEX: remove plotting\n# sns.pairplot(data_pair_log, hue='Genre',  palette=\"husl\")",
+      "rewrite-ns": 21346,
+      "overhead-ns": 21346,
+      "exec-ns": 100937,
+      "total-ns": 122283,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 12807,
+      "overhead-ns": 12807,
+      "exec-ns": 73981,
+      "total-ns": 86788,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 11.537675314,
+  "max-disk-in-mb": 0
+}

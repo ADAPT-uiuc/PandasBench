@@ -1,0 +1,179 @@
+{
+  "max-mem-in-mb": 8418,
+  "max-mem-in-mb2": 13574,
+  "cells": [
+    {
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# Any results you write to the current directory are saved as output.",
+      "rewrite-ns": 495671,
+      "overhead-ns": 495671,
+      "exec-ns": 273748,
+      "total-ns": 769419,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
+    },
+    {
+      "raw": "# ALEX: remove path printing\n# import os\n# os.getcwd()",
+      "rewrite-ns": 11622,
+      "overhead-ns": 11622,
+      "exec-ns": 66867,
+      "total-ns": 78489,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove sys calls\n# os.chdir(\"./input\")",
+      "rewrite-ns": 9811,
+      "overhead-ns": 9811,
+      "exec-ns": 58434,
+      "total-ns": 68245,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.preprocessing import LabelEncoder\n# from sklearn import metrics",
+      "rewrite-ns": 9585,
+      "overhead-ns": 9585,
+      "exec-ns": 54035,
+      "total-ns": 63620,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove ML code\n# from sklearn.metrics import mean_squared_error\n# import lightgbm as lgb\n# from sklearn.model_selection import train_test_split",
+      "rewrite-ns": 9848,
+      "overhead-ns": 9848,
+      "exec-ns": 53975,
+      "total-ns": 63823,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "#########Reading all the files#########\ntrain_df=pd.read_csv('./input/train.scaled.csv')\ntest_df=pd.read_csv('./input/test.scaled.csv')\nweather_train_df=pd.read_csv('./input/weather_train.scaled.csv')\nweather_test_df=pd.read_csv('./input/weather_test.scaled.csv')\nbuilding_meta_df=pd.read_csv('./input/building_metadata.scaled.csv')",
+      "rewrite-ns": 1509322,
+      "overhead-ns": 1509322,
+      "exec-ns": 13308581690,
+      "total-ns": 13310091012,
+      "patts-hit": {},
+      "rewritten": "train_df = pd.read_csv('./input/train.scaled.csv')\ntest_df = pd.read_csv('./input/test.scaled.csv')\nweather_train_df = pd.read_csv('./input/weather_train.scaled.csv')\nweather_test_df = pd.read_csv('./input/weather_test.scaled.csv')\nbuilding_meta_df = pd.read_csv('./input/building_metadata.scaled.csv')\n"
+    },
+    {
+      "raw": "train_df.shape \ntrain_df.head()",
+      "rewrite-ns": 209598,
+      "overhead-ns": 209598,
+      "exec-ns": 6210178,
+      "total-ns": 6419776,
+      "patts-hit": {},
+      "rewritten": "train_df.shape\ntrain_df.head()\n"
+    },
+    {
+      "raw": "######### Converting time stamp to datetime formats##########\ntrain_df['timestamp'] = pd.to_datetime(train_df['timestamp'])\ntest_df['timestamp'] = pd.to_datetime(test_df['timestamp'])\nweather_train_df['timestamp'] = pd.to_datetime(weather_train_df['timestamp'])\nweather_test_df['timestamp'] = pd.to_datetime(weather_test_df['timestamp'])\n    \nbuilding_meta_df['primary_use'] = building_meta_df['primary_use'].astype('category')",
+      "rewrite-ns": 2510294,
+      "overhead-ns": 2510294,
+      "exec-ns": 4242433697,
+      "total-ns": 4244943991,
+      "patts-hit": {},
+      "rewritten": "train_df['timestamp'] = pd.to_datetime(train_df['timestamp'])\ntest_df['timestamp'] = pd.to_datetime(test_df['timestamp'])\nweather_train_df['timestamp'] = pd.to_datetime(weather_train_df['timestamp'])\nweather_test_df['timestamp'] = pd.to_datetime(weather_test_df['timestamp'])\nbuilding_meta_df['primary_use'] = building_meta_df['primary_use'].astype(\n    'category')\n"
+    },
+    {
+      "raw": "########### Merging data frames - step1 #################\ntemp_df = train_df[['building_id']]\ntemp_df = temp_df.merge(building_meta_df, on=['building_id'], how='left')\ndel temp_df['building_id']\ntrain_df = pd.concat([train_df, temp_df], axis=1)\n\ntemp_df = test_df[['building_id']]\ntemp_df = temp_df.merge(building_meta_df, on=['building_id'], how='left')\n\ndel temp_df['building_id']\ntest_df = pd.concat([test_df, temp_df], axis=1)\ndel temp_df, building_meta_df",
+      "rewrite-ns": 3161169,
+      "overhead-ns": 3161169,
+      "exec-ns": 6137986683,
+      "total-ns": 6141147852,
+      "patts-hit": {},
+      "rewritten": "temp_df = train_df[['building_id']]\ntemp_df = temp_df.merge(building_meta_df, on=['building_id'], how='left')\ndel temp_df['building_id']\ntrain_df = pd.concat([train_df, temp_df], axis=1)\ntemp_df = test_df[['building_id']]\ntemp_df = temp_df.merge(building_meta_df, on=['building_id'], how='left')\ndel temp_df['building_id']\ntest_df = pd.concat([test_df, temp_df], axis=1)\ndel temp_df, building_meta_df\n"
+    },
+    {
+      "raw": "############Merging data frames step-2 ################\ntemp_df = train_df[['site_id','timestamp']]\ntemp_df = temp_df.merge(weather_train_df, on=['site_id','timestamp'], how='left')\n\ndel temp_df['site_id'], temp_df['timestamp']\ntrain_df = pd.concat([train_df, temp_df], axis=1)\n\ntemp_df = test_df[['site_id','timestamp']]\ntemp_df = temp_df.merge(weather_test_df, on=['site_id','timestamp'], how='left')\n\ndel temp_df['site_id'], temp_df['timestamp']\ntest_df = pd.concat([test_df, temp_df], axis=1)\n\ndel temp_df, weather_train_df, weather_test_df",
+      "rewrite-ns": 3644865,
+      "overhead-ns": 3644865,
+      "exec-ns": 10017264300,
+      "total-ns": 10020909165,
+      "patts-hit": {},
+      "rewritten": "temp_df = train_df[['site_id', 'timestamp']]\ntemp_df = temp_df.merge(weather_train_df, on=['site_id', 'timestamp'], how=\n    'left')\ndel temp_df['site_id'], temp_df['timestamp']\ntrain_df = pd.concat([train_df, temp_df], axis=1)\ntemp_df = test_df[['site_id', 'timestamp']]\ntemp_df = temp_df.merge(weather_test_df, on=['site_id', 'timestamp'], how=\n    'left')\ndel temp_df['site_id'], temp_df['timestamp']\ntest_df = pd.concat([test_df, temp_df], axis=1)\ndel temp_df, weather_train_df, weather_test_df\n"
+    },
+    {
+      "raw": "train_df.head()",
+      "rewrite-ns": 206177,
+      "overhead-ns": 206177,
+      "exec-ns": 11987924,
+      "total-ns": 12194101,
+      "patts-hit": {},
+      "rewritten": "train_df.head()\n"
+    },
+    {
+      "raw": "test_df.head()",
+      "rewrite-ns": 93889,
+      "overhead-ns": 93889,
+      "exec-ns": 10160927,
+      "total-ns": 10254816,
+      "patts-hit": {},
+      "rewritten": "test_df.head()\n"
+    },
+    {
+      "raw": "train_df.shape",
+      "rewrite-ns": 57427,
+      "overhead-ns": 57427,
+      "exec-ns": 75467877,
+      "total-ns": 75525304,
+      "patts-hit": {},
+      "rewritten": "train_df.shape\n"
+    },
+    {
+      "raw": "evaluate_lazy(train_df.describe())\n#test_df.describe()",
+      "rewrite-ns": 426438,
+      "overhead-ns": 426438,
+      "exec-ns": 9881134356,
+      "total-ns": 9881560794,
+      "patts-hit": {},
+      "rewritten": "evaluate_lazy(train_df.describe())\n"
+    },
+    {
+      "raw": "########To check the Missing values count by columns wise#################\nprint(evaluate_lazy(train_df.isnull().sum()))\nprint(evaluate_lazy(test_df.isnull().sum()))\n",
+      "rewrite-ns": 1031545,
+      "overhead-ns": 1031545,
+      "exec-ns": 964911053,
+      "total-ns": 965942598,
+      "patts-hit": {},
+      "rewritten": "print(evaluate_lazy(train_df.isnull().sum()))\nprint(evaluate_lazy(test_df.isnull().sum()))\n"
+    },
+    {
+      "raw": "###########Missing value imputation for both train and test data sets manually ###############\ntrain_df['floor_count'] = train_df['floor_count'].fillna(-999).astype(np.int16)\ntest_df['floor_count'] = test_df['floor_count'].fillna(-999).astype(np.int16)\ntrain_df['year_built'] = train_df['year_built'].fillna(-999).astype(np.int16)\ntest_df['year_built'] = test_df['year_built'].fillna(-999).astype(np.int16)\n",
+      "rewrite-ns": 2941573,
+      "overhead-ns": 2941573,
+      "exec-ns": 882325417,
+      "total-ns": 885266990,
+      "patts-hit": {},
+      "rewritten": "train_df['floor_count'] = train_df['floor_count'].fillna(-999).astype(np.int16)\ntest_df['floor_count'] = test_df['floor_count'].fillna(-999).astype(np.int16)\ntrain_df['year_built'] = train_df['year_built'].fillna(-999).astype(np.int16)\ntest_df['year_built'] = test_df['year_built'].fillna(-999).astype(np.int16)\n"
+    },
+    {
+      "raw": "train_df['air_temperature']=train_df['air_temperature'].fillna(-999).astype(np.int16)\ntrain_df['cloud_coverage']=train_df['cloud_coverage'].fillna(-999).astype(np.int16)\ntrain_df['dew_temperature']=train_df['dew_temperature'].fillna(-999).astype(np.int16)\ntrain_df['precip_depth_1_hr']=train_df['precip_depth_1_hr'].fillna(-999).astype(np.int16)\ntrain_df['sea_level_pressure']=train_df['sea_level_pressure'].fillna(-999).astype(np.int16)\ntrain_df['wind_direction']=train_df['wind_direction'].fillna(-999).astype(np.int16)\ntrain_df['wind_speed']=train_df['wind_speed'].fillna(-999).astype(np.int16)\n\ntest_df['air_temperature']=test_df['air_temperature'].fillna(-999).astype(np.int16)\ntest_df['cloud_coverage']=test_df['cloud_coverage'].fillna(-999).astype(np.int16)\ntest_df['dew_temperature']=test_df['dew_temperature'].fillna(-999).astype(np.int16)\ntest_df['precip_depth_1_hr']=test_df['precip_depth_1_hr'].fillna(-999).astype(np.int16)\ntest_df['sea_level_pressure']=test_df['sea_level_pressure'].fillna(-999).astype(np.int16)\ntest_df['wind_direction']=test_df['wind_direction'].fillna(-999).astype(np.int16)\ntest_df['wind_speed']=test_df['wind_speed'].fillna(-999).astype(np.int16)",
+      "rewrite-ns": 9917073,
+      "overhead-ns": 9917073,
+      "exec-ns": 5448049233,
+      "total-ns": 5457966306,
+      "patts-hit": {},
+      "rewritten": "train_df['air_temperature'] = train_df['air_temperature'].fillna(-999).astype(\n    np.int16)\ntrain_df['cloud_coverage'] = train_df['cloud_coverage'].fillna(-999).astype(np\n    .int16)\ntrain_df['dew_temperature'] = train_df['dew_temperature'].fillna(-999).astype(\n    np.int16)\ntrain_df['precip_depth_1_hr'] = train_df['precip_depth_1_hr'].fillna(-999\n    ).astype(np.int16)\ntrain_df['sea_level_pressure'] = train_df['sea_level_pressure'].fillna(-999\n    ).astype(np.int16)\ntrain_df['wind_direction'] = train_df['wind_direction'].fillna(-999).astype(np\n    .int16)\ntrain_df['wind_speed'] = train_df['wind_speed'].fillna(-999).astype(np.int16)\ntest_df['air_temperature'] = test_df['air_temperature'].fillna(-999).astype(np\n    .int16)\ntest_df['cloud_coverage'] = test_df['cloud_coverage'].fillna(-999).astype(np\n    .int16)\ntest_df['dew_temperature'] = test_df['dew_temperature'].fillna(-999).astype(np\n    .int16)\ntest_df['precip_depth_1_hr'] = test_df['precip_depth_1_hr'].fillna(-999\n    ).astype(np.int16)\ntest_df['sea_level_pressure'] = test_df['sea_level_pressure'].fillna(-999\n    ).astype(np.int16)\ntest_df['wind_direction'] = test_df['wind_direction'].fillna(-999).astype(np\n    .int16)\ntest_df['wind_speed'] = test_df['wind_speed'].fillna(-999).astype(np.int16)\n"
+    },
+    {
+      "raw": "print(evaluate_lazy(train_df.isnull().sum()))",
+      "rewrite-ns": 595211,
+      "overhead-ns": 595211,
+      "exec-ns": 230545271,
+      "total-ns": 231140482,
+      "patts-hit": {},
+      "rewritten": "print(evaluate_lazy(train_df.isnull().sum()))\n"
+    },
+    {
+      "raw": "",
+      "rewrite-ns": 21263,
+      "overhead-ns": 21263,
+      "exec-ns": 117369,
+      "total-ns": 138632,
+      "patts-hit": {},
+      "rewritten": ""
+    }
+  ],
+  "total-time-in-sec": 51.244545415,
+  "max-disk-in-mb": 0
+}

@@ -1,0 +1,116 @@
+{
+  "max-mem-in-mb": 111,
+  "max-mem-in-mb2": 115,
+  "cells": [
+    {
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove profiling\n# import pandas_profiling as pp\n# from pandas_profiling import ProfileReport",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 373004
+    },
+    {
+      "raw": "# ALEX: remove profiling\n# pp.__version__",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 196511
+    },
+    {
+      "raw": "traindf = pd.read_csv('./input/train.scaled.csv').set_index('PassengerId')\ntestdf = pd.read_csv('./input/test.scaled.csv').set_index('PassengerId')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 8412827
+    },
+    {
+      "raw": "traindf.head(3)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 443098
+    },
+    {
+      "raw": "testdf.head(3)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 385293
+    },
+    {
+      "raw": "df = pd.concat([traindf, testdf], axis=0, sort=False)\ndf",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 1733066
+    },
+    {
+      "raw": "# Thanks to: \n# https://www.kaggle.com/mauricef/titanic\n# https://www.kaggle.com/vbmokin/titanic-top-3-one-line-of-the-prediction-code\n\ndf['Title'] = df.Name.str.split(',').str[1].str.split('.').str[0].str.strip()\ndf['IsWomanOrBoy'] = ((df.Title == 'Master') | (df.Sex == 'female'))\ndf['LastName'] = df.Name.str.split(',').str[0]\n\n# Use transform on the 'Survived' column directly for 'WomanOrBoyCount'\ndf['WomanOrBoyCount'] = df.groupby('LastName')['Survived'].transform(lambda s: s[df.IsWomanOrBoy].fillna(0).count())\ndf['WomanOrBoyCount'] = np.where(df.IsWomanOrBoy, df.WomanOrBoyCount - 1, df.WomanOrBoyCount)\n\n# Use transform on the 'Survived' column directly for 'FamilySurvivedCount'\ndf['FamilySurvivedCount'] = df.groupby('LastName')['Survived'].transform(lambda s: s[df.IsWomanOrBoy].fillna(0).sum())\ndf['FamilySurvivedCount'] = np.where(df.IsWomanOrBoy, df.FamilySurvivedCount - df.Survived.fillna(0), df.FamilySurvivedCount)\n\n# Calculate 'WomanOrBoySurvived'\ndf['WomanOrBoySurvived'] = df['FamilySurvivedCount'] / df['WomanOrBoyCount'].replace(0, np.nan)\ndf.WomanOrBoyCount = df.WomanOrBoyCount.replace(np.nan, 0)\ndf['Alone'] = (df.WomanOrBoyCount == 0)\n\n#Thanks to: https://www.kaggle.com/kpacocha/top-6-titanic-machine-learning-from-disaster\n#\"Title\" improvement\ndf['Title'] = df['Title'].replace('Ms','Miss')\ndf['Title'] = df['Title'].replace('Mlle','Miss')\ndf['Title'] = df['Title'].replace('Mme','Mrs')\n# Embarked\ndf['Embarked'] = df['Embarked'].fillna('S')\n\n# Thanks to https://www.kaggle.com/erinsweet/simpledetect\n# Fare\nmed_fare = df.groupby(['Pclass', 'Parch', 'SibSp'])['Fare'].median().loc[3, 0, 0]\ndf['Fare'] = df['Fare'].fillna(med_fare)\n\n# Create a function to fill missing values in 'Age'\ndef fill_age_na(group):\n    return group.fillna(group.median())\n\n# Apply the function to fill missing values in 'Age'\ndf['Age'] = df.groupby(['Sex', 'Pclass', 'Title'])['Age'].transform(fill_age_na)\n\n# Family_Size\ndf['Family_Size'] = df['SibSp'] + df['Parch'] + 1\n\n#Thanks to https://www.kaggle.com/kpacocha/top-6-titanic-machine-learning-from-disaster\n# Cabin, Deck\ndf['Deck'] = df['Cabin'].apply(lambda s: s[0] if pd.notnull(s) else 'M')\ndf.loc[(df['Deck'] == 'T'), 'Deck'] = 'A'\n\ndf.WomanOrBoySurvived = df.WomanOrBoySurvived.fillna(0)\ndf.WomanOrBoyCount = df.WomanOrBoyCount.fillna(0)\ndf.FamilySurvivedCount = df.FamilySurvivedCount.fillna(0)\ndf.Alone = df.Alone.fillna(0)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 598403494
+    },
+    {
+      "raw": "df",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 310527
+    },
+    {
+      "raw": "train_x, test_x = df.loc[traindf.index], df.loc[testdf.index]\ntest_x = test_x.drop('Survived', axis=1)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 2673306
+    },
+    {
+      "raw": "train_x.head(3)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 423318
+    },
+    {
+      "raw": "test_x.head(3)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 382302
+    },
+    {
+      "raw": "train_x.describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 16493308
+    },
+    {
+      "raw": "test_x.describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 14513244
+    },
+    {
+      "raw": "# ALEX: remove profiling\n# ProfileReport(train_x, title='Pandas Profiling Report for training dataset', html={'style':{'full_width':True}})",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 186046
+    },
+    {
+      "raw": "# %%time\n# profile = train_x.profile_report(title='Pandas Profiling Report for training dataset')\n# profile.to_file(output_file=\"train_profile.html\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 176381
+    },
+    {
+      "raw": "# ALEX: remove profiling\n# %%time\n# profile = ProfileReport(train_x, title='Pandas Profiling Report for training dataset', minimal=True)\n# profile.to_file(output_file=\"train_short_profile.html\")",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 177420
+    },
+    {
+      "raw": "# ALEX: remove profiling\n# ProfileReport(test_x, title='Pandas Profiling Report for test dataset')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 165393
+    },
+    {
+      "raw": "# The one line of the code for prediction\ntest_x = pd.concat([test_x.WomanOrBoySurvived.fillna(0), test_x.Alone, \\\n                    test_x.Sex.replace({'male': 0, 'female': 1})], axis=1)\npd.DataFrame({'Survived': (((test_x.WomanOrBoySurvived <= 0.2381) & (test_x.Sex > 0.5) & (test_x.Alone > 0.5)) | \\\n                        ((test_x.WomanOrBoySurvived > 0.2381) & \\\n                       ~((test_x.WomanOrBoySurvived > 0.55) & (test_x.WomanOrBoySurvived <= 0.633)))).astype(int)}, index=testdf.index).reset_index().to_csv('submission.csv', index=False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 6039116
+    }
+  ],
+  "total-time-in-sec": 0.651487654,
+  "max-disk-in-mb": 0
+}

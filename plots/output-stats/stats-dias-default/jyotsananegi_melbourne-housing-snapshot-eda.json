@@ -1,0 +1,253 @@
+{
+  "max-mem-in-mb": 126,
+  "max-mem-in-mb2": 129,
+  "cells": [
+    {
+      "raw": "# importing libraries\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\nfrom datetime import datetime # datetime processing\n\n# Data visualisation\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n\n# setting path of the dataset\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n",
+      "rewrite-ns": 792152,
+      "overhead-ns": 792152,
+      "exec-ns": 444084,
+      "total-ns": 1236236,
+      "patts-hit": {},
+      "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\nfrom datetime import datetime\n"
+    },
+    {
+      "raw": "melb_house = pd.read_csv(\"./input/melb_data.scaled.csv\")\n\n# checking the columns\nmelb_house.head()",
+      "rewrite-ns": 576909,
+      "overhead-ns": 576909,
+      "exec-ns": 60679863,
+      "total-ns": 61256772,
+      "patts-hit": {},
+      "rewritten": "melb_house = pd.read_csv('./input/melb_data.scaled.csv')\nmelb_house.head()\n"
+    },
+    {
+      "raw": "melb_house.shape",
+      "rewrite-ns": 85593,
+      "overhead-ns": 85593,
+      "exec-ns": 717460,
+      "total-ns": 803053,
+      "patts-hit": {},
+      "rewritten": "melb_house.shape\n"
+    },
+    {
+      "raw": "melb_house.info()",
+      "rewrite-ns": 118017,
+      "overhead-ns": 118017,
+      "exec-ns": 18172380,
+      "total-ns": 18290397,
+      "patts-hit": {},
+      "rewritten": "melb_house.info()\n"
+    },
+    {
+      "raw": "# checking for unique entries\n\nunique_val = []\nfor i in melb_house.columns:\n    u = melb_house[i].nunique()\n    unique_val.append(u)\n    \npd.DataFrame({\"No. of unique values\": unique_val}, index=melb_house.columns)",
+      "rewrite-ns": 2028688,
+      "overhead-ns": 2028688,
+      "exec-ns": 11889630,
+      "total-ns": 13918318,
+      "patts-hit": {},
+      "rewritten": "unique_val = []\nfor i in melb_house.columns:\n    u = melb_house[i].nunique()\n    unique_val.append(u)\npd.DataFrame({'No. of unique values': unique_val}, index=melb_house.columns)\n"
+    },
+    {
+      "raw": "# Working dataset\ndataset = melb_house.copy()",
+      "rewrite-ns": 451613,
+      "overhead-ns": 451613,
+      "exec-ns": 935429,
+      "total-ns": 1387042,
+      "patts-hit": {},
+      "rewritten": "dataset = melb_house.copy()\n"
+    },
+    {
+      "raw": "# plot of missing value\n# ALEX: remove plotting\n# plt.figure(figsize=(9,5))\n# sns.heatmap(dataset.isnull(),yticklabels=False, cbar=False, cmap=\"Paired\");\n# plt.title(\"Heatmap of Missing Values\");\n_ = dataset.isnull()",
+      "rewrite-ns": 432505,
+      "overhead-ns": 432505,
+      "exec-ns": 12303519,
+      "total-ns": 12736024,
+      "patts-hit": {},
+      "rewritten": "_ = dataset.isnull()\n"
+    },
+    {
+      "raw": "# Features with missing values\nmiss = dataset.isnull().sum().sort_values(ascending = False).head(5)\nmiss_per = (miss/len(dataset))*100\n\n# Percentage of missing values\npd.DataFrame({'No. missing values': miss, '% of missind data': miss_per.values})",
+      "rewrite-ns": 1741657,
+      "overhead-ns": 1741657,
+      "exec-ns": 17927975,
+      "total-ns": 19669632,
+      "patts-hit": {
+        "SortHead": 1
+      },
+      "rewritten": "miss = dias.rewriter.sort_head(called_on=dataset.isnull().sum(), by=None, n\n    =5, asc=False, orig=lambda _DIAS_x: _DIAS_x.sort_values(ascending=False\n    ).head(5))\nmiss_per = miss / len(dataset) * 100\npd.DataFrame({'No. missing values': miss, '% of missind data': miss_per.values}\n    )\n"
+    },
+    {
+      "raw": "dataset['Car'].value_counts()",
+      "rewrite-ns": 528501,
+      "overhead-ns": 528501,
+      "exec-ns": 1979884,
+      "total-ns": 2508385,
+      "patts-hit": {},
+      "rewritten": "dataset['Car'].value_counts()\n"
+    },
+    {
+      "raw": "# Filling null value\ndataset['Car'].fillna(0, inplace = True)\n\n# confimation after filling the null values\nprint(\"Null values before replacement :\", melb_house['Car'].isnull().sum())\nprint(\"Null values after replacement :\", dataset['Car'].isnull().sum())",
+      "rewrite-ns": 2061766,
+      "overhead-ns": 2061766,
+      "exec-ns": 1361222,
+      "total-ns": 3422988,
+      "patts-hit": {},
+      "rewritten": "dataset['Car'].fillna(0, inplace=True)\nprint('Null values before replacement :', melb_house['Car'].isnull().sum())\nprint('Null values after replacement :', dataset['Car'].isnull().sum())\n"
+    },
+    {
+      "raw": "dataset['CouncilArea'].value_counts()",
+      "rewrite-ns": 526918,
+      "overhead-ns": 526918,
+      "exec-ns": 2092713,
+      "total-ns": 2619631,
+      "patts-hit": {},
+      "rewritten": "dataset['CouncilArea'].value_counts()\n"
+    },
+    {
+      "raw": "# Filling the null value \ndataset['CouncilArea'].fillna('Unavailable', inplace = True)\n\n\n# confimation after filling the null values\nprint(\"Null values before replacement :\", melb_house['CouncilArea'].isnull().sum())\nprint(\"Null values after replacement :\", dataset['CouncilArea'].isnull().sum())",
+      "rewrite-ns": 2184159,
+      "overhead-ns": 2184159,
+      "exec-ns": 2820477,
+      "total-ns": 5004636,
+      "patts-hit": {},
+      "rewritten": "dataset['CouncilArea'].fillna('Unavailable', inplace=True)\nprint('Null values before replacement :', melb_house['CouncilArea'].isnull(\n    ).sum())\nprint('Null values after replacement :', dataset['CouncilArea'].isnull().sum())\n"
+    },
+    {
+      "raw": "# Filling the null value \ndataset['YearBuilt'].fillna(\"Unknown\", inplace=True)\n\n# confimation after filling the null values\nprint(\"Null values before replacement :\", melb_house['YearBuilt'].isnull().sum())\nprint(\"Null values after replacement :\", dataset['YearBuilt'].isnull().sum())",
+      "rewrite-ns": 2085252,
+      "overhead-ns": 2085252,
+      "exec-ns": 2787906,
+      "total-ns": 4873158,
+      "patts-hit": {},
+      "rewritten": "dataset['YearBuilt'].fillna('Unknown', inplace=True)\nprint('Null values before replacement :', melb_house['YearBuilt'].isnull().\n    sum())\nprint('Null values after replacement :', dataset['YearBuilt'].isnull().sum())\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize = (5, 5))\n# sns.distplot(dataset['BuildingArea']);\n_ = dataset['BuildingArea']",
+      "rewrite-ns": 425711,
+      "overhead-ns": 425711,
+      "exec-ns": 358109,
+      "total-ns": 783820,
+      "patts-hit": {},
+      "rewritten": "_ = dataset['BuildingArea']\n"
+    },
+    {
+      "raw": "# Filling the null value \ndataset['BuildingArea'].fillna(0, inplace = True)\n\n# confimation after filling the null values\nprint(\"Null values before replacement :\", melb_house['BuildingArea'].isnull().sum())\nprint(\"Null values after replacement :\", dataset['BuildingArea'].isnull().sum())",
+      "rewrite-ns": 2080584,
+      "overhead-ns": 2080584,
+      "exec-ns": 1386365,
+      "total-ns": 3466949,
+      "patts-hit": {},
+      "rewritten": "dataset['BuildingArea'].fillna(0, inplace=True)\nprint('Null values before replacement :', melb_house['BuildingArea'].isnull\n    ().sum())\nprint('Null values after replacement :', dataset['BuildingArea'].isnull().sum()\n    )\n"
+    },
+    {
+      "raw": "# log transformation of price\ndataset['Price_trans'] = np.log(dataset['Price'])\n\n# plot of price\n# ALEX: remove plotting\n# plt.figure(figsize=(10, 5))\n# plt.subplots_adjust(wspace=0.5)\n# plt.suptitle(\"Distribution of Price\", fontsize=14)\n\n# plt.subplot(1,2,1)\n# p1 = sns.kdeplot(dataset['Price']);\n# p1.title.set_text(\"Before Transfromation\")\n\n# plt.subplot(1,2,2)\n# p2 = sns.kdeplot(dataset['Price_trans']);\n# p2.title.set_text(\"After log Transformation\")\n_ = dataset['Price']\n_ = dataset['Price_trans']",
+      "rewrite-ns": 1405961,
+      "overhead-ns": 1405961,
+      "exec-ns": 1126250,
+      "total-ns": 2532211,
+      "patts-hit": {},
+      "rewritten": "dataset['Price_trans'] = np.log(dataset['Price'])\n_ = dataset['Price']\n_ = dataset['Price_trans']\n"
+    },
+    {
+      "raw": "# Grouping the numerical data\nnum =  dataset.select_dtypes(exclude=\"object\")\nnum = num.drop(['Price'], axis=1)\n\n# Distributions of numrical data\n# ALEX: remove plotting\n# plt.figure(figsize=(15, 13))\n# plt.subplots_adjust(hspace=0.4, wspace=0.3)\n\n# j=1\n\nfor i in list(num.columns):\n# ALEX: remove plotting\n#     plt.subplot(4,3,j)\n#     sns.distplot(dataset[i])\n#     j+=1\n    _ = dataset[i]\n    \n# ALEX: remove plotting\n# plt.suptitle(\"Distribution of Numerical Data\", fontsize=15);\n",
+      "rewrite-ns": 1765067,
+      "overhead-ns": 1765067,
+      "exec-ns": 4490431,
+      "total-ns": 6255498,
+      "patts-hit": {},
+      "rewritten": "num = dataset.select_dtypes(exclude='object')\nnum = num.drop(['Price'], axis=1)\nfor i in list(num.columns):\n    _ = dataset[i]\n"
+    },
+    {
+      "raw": "\n# ALEX: remove plotting\n# plt.figure(figsize=(15, 5))\n# plt.subplots_adjust(wspace=0.5)\n\n# plt.subplot(1,2,1)\n# ax1 = sns.countplot(x=dataset['Type'], palette='Accent');\n# ax1.title.set_text(\"Plot of House Type\")\n\n# plt.subplot(1,2,2)\n# ax2= sns.countplot(x=dataset['Method'], palette='Accent');\n# ax2.title.set_text(\"Plot of Method of Selling\")\n_ = dataset['Type']\n_ = dataset['Method']\n    ",
+      "rewrite-ns": 722848,
+      "overhead-ns": 722848,
+      "exec-ns": 417270,
+      "total-ns": 1140118,
+      "patts-hit": {},
+      "rewritten": "_ = dataset['Type']\n_ = dataset['Method']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10, 5))\n# sns.countplot(y = dataset['Regionname']);\n# plt.ylabel(\"Region Name\", fontsize=12);\n# plt.xlabel(\"Count\", fontsize=12);\n_ = dataset['Regionname']",
+      "rewrite-ns": 389734,
+      "overhead-ns": 389734,
+      "exec-ns": 459690,
+      "total-ns": 849424,
+      "patts-hit": {},
+      "rewritten": "_ = dataset['Regionname']\n"
+    },
+    {
+      "raw": "# checking for top 10 seller\n# ALEX: remove plotting\n# dataset['SellerG'].value_counts().head(10).plot(kind='bar', color='brown');\n_ = dataset['SellerG'].value_counts().head(10)\n\n# plot for top seller\n# ALEX: remove plotting\n# plt.title(\"Top 10 Estate Agents\", fontsize=14);",
+      "rewrite-ns": 769793,
+      "overhead-ns": 769793,
+      "exec-ns": 1387340,
+      "total-ns": 2157133,
+      "patts-hit": {},
+      "rewritten": "_ = dataset['SellerG'].value_counts().head(10)\n"
+    },
+    {
+      "raw": "# coverting date into datetime format\ndataset['Date'] = pd.to_datetime(dataset['Date'])\nyear = dataset['Date'].map(lambda x: datetime.strftime(x, '%Y'))\ndataset['year'] = year\nmonth = dataset['Date'].map(lambda x: datetime.strftime(x, '%b'))\ndataset['month'] = month\n\n# plot of each month\n# ALEX: remove plotting\n# plt.figure(figsize = (12, 4))\n# sns.countplot(x=dataset['month'], hue=dataset['year'], palette='Set1');\n_ = dataset['month']\n_ = dataset['year']",
+      "rewrite-ns": 3734299,
+      "overhead-ns": 3734299,
+      "exec-ns": 78265114,
+      "total-ns": 81999413,
+      "patts-hit": {},
+      "rewritten": "dataset['Date'] = pd.to_datetime(dataset['Date'])\nyear = dataset['Date'].map(lambda x: datetime.strftime(x, '%Y'))\ndataset['year'] = year\nmonth = dataset['Date'].map(lambda x: datetime.strftime(x, '%b'))\ndataset['month'] = month\n_ = dataset['month']\n_ = dataset['year']\n"
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10, 5))\n# sns.boxplot(x = 'Rooms', y = \"Price_trans\", data=dataset);\n# plt.ylabel(\"Price\");",
+      "rewrite-ns": 15376,
+      "overhead-ns": 15376,
+      "exec-ns": 79284,
+      "total-ns": 94660,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 5))\n# plt.subplots_adjust(wspace=0.3)\n\n# plt.subplot(1,2,1)\n# sns.boxplot(x = 'Type', y = \"Price_trans\", data=dataset, palette='Set3');\n# plt.ylabel(\"Price\");\n\n# plt.subplot(1,2,2)\n# sns.boxplot(x = 'Method', y = \"Price_trans\", data=dataset, palette='Set3');\n# plt.ylabel(\"Price\");",
+      "rewrite-ns": 15666,
+      "overhead-ns": 15666,
+      "exec-ns": 73695,
+      "total-ns": 89361,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 5))\n# sns.boxenplot(x = 'Car', y = \"Price_trans\", data=dataset);\n# plt.ylabel(\"Price\");",
+      "rewrite-ns": 13219,
+      "overhead-ns": 13219,
+      "exec-ns": 67923,
+      "total-ns": 81142,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.lmplot(x=\"Landsize\", y='Price_trans', data=dataset);\n# plt.ylabel(\"Price\");\n# plt.xticks(rotation=15);",
+      "rewrite-ns": 12923,
+      "overhead-ns": 12923,
+      "exec-ns": 63475,
+      "total-ns": 76398,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.scatterplot(x='Distance', y='Price_trans', data=dataset);\n# plt.ylabel(\"Price\");",
+      "rewrite-ns": 12851,
+      "overhead-ns": 12851,
+      "exec-ns": 63458,
+      "total-ns": 76309,
+      "patts-hit": {},
+      "rewritten": ""
+    },
+    {
+      "raw": "# Dataset of Metropolitan area\nrm = dataset[dataset['Regionname'].map(lambda x: 'Metropolitan' in x)]\n\n# Dataset of Victoria area\nrv = dataset[dataset['Regionname'].map(lambda x: 'Victoria' in x)]\n\n# plots of both region\n# ALEX: remove plotting\n# plt.figure(figsize=(15, 5))\n\n# plt.subplot(1,2,1)\n# ar1 = sns.scatterplot(x='Distance', y='Price_trans', data=rm, color='orange');\n# plt.ylabel(\"Price\");\n# ar1.title.set_text(\"Metropolitan\");\n\n# plt.subplot(1,2,2)\n# ar2 = sns.scatterplot(x='Distance', y='Price_trans', data=rv, color=\"green\");\n# plt.ylabel(\"Price\");\n# ar2.title.set_text('Victoria');",
+      "rewrite-ns": 1442371,
+      "overhead-ns": 1442371,
+      "exec-ns": 8045874,
+      "total-ns": 9488245,
+      "patts-hit": {},
+      "rewritten": "rm = dataset[dataset['Regionname'].map(lambda x: 'Metropolitan' in x)]\nrv = dataset[dataset['Regionname'].map(lambda x: 'Victoria' in x)]\n"
+    }
+  ],
+  "total-time-in-sec": 0.256816953,
+  "max-disk-in-mb": 0
+}

@@ -1,0 +1,92 @@
+{
+  "max-mem-in-mb": 1151,
+  "max-mem-in-mb2": 1240,
+  "cells": [
+    {
+      "raw": "# import pandas as pd # data processing, CSV file I/O\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sns # plotting\n# from sklearn.linear_model import LogisticRegression # Logistic regression",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 219256
+    },
+    {
+      "raw": "train = pd.read_csv(\"./input/train.scaled.csv\")\ntest = pd.read_csv(\"./input/test.scaled.csv\")\n\ntrain.isnull().any()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 5260176858
+    },
+    {
+      "raw": "train.head()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 446007
+    },
+    {
+      "raw": "train.describe()",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 576024801
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# ax = sns.countplot(x='type', data=train, palette='Set3')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 182191
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# ax = sns.countplot(x='color', data=train, palette='Set3')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 123621
+    },
+    {
+      "raw": "id_list = list(train['id']) # Create list of 'id' column in case we need it later\n# ALEX: make notebook run\n# train = train.drop('id', 1) # Drop 'id' column\ntrain = train.drop('id', axis=1) # Drop 'id' column\n\n# Create dictionaries for 'type' and 'color' variables\n\ntype_dict = {'Ghoul': 0,\n            'Goblin': 1,\n            'Ghost': 2}\n\ncolor_dict = {'clear': 0,\n             'green': 1,\n             'black': 2,\n             'white': 3,\n             'blue': 4,\n             'blood': 5}\n\n# Use dictionaries to re-map values categorical variables\n\ntrain['type'] = train['type'].map(type_dict).astype(float)\ntrain['color'] = train['color'].map(color_dict).astype(float)\n\ntest['color'] = test['color'].map(color_dict).astype(float)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 908883431
+    },
+    {
+      "raw": "# ALEX: remove plotting\n# sns.pairplot(train, hue='type', palette='Set3') \n\n#Legend label text shows (0, 1, 2); any tips on how to change legend text are more than welcome!",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 192756
+    },
+    {
+      "raw": "train.corr(method='pearson')",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 514822765
+    },
+    {
+      "raw": "train = pd.concat([train, pd.get_dummies(train['color'], prefix = 'color')], axis=1) # Create dummies\n# ALEX: make notebook run\n# train = train.drop('color', 1) # Drop 'color' column\ntrain = train.drop('color', axis=1) # Drop 'color' column\n\ntest = pd.concat([test, pd.get_dummies(test['color'], prefix = 'color')], axis=1) # Create dummies\n# ALEX: make notebook run\n# test = test.drop('color', 1) # Drop 'color' column\ntest = test.drop('color', axis=1) # Drop 'color' column",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 525795977
+    },
+    {
+      "raw": "# List of columns we are using in the model\n\nfeature_cols = ['bone_length', \n                'rotting_flesh', \n                'hair_length', \n                'has_soul', \n                'color_0.0',\n                'color_1.0',\n                'color_2.0',\n                'color_3.0',\n                'color_4.0',\n                'color_5.0']",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 393733
+    },
+    {
+      "raw": "X = train.loc[:, feature_cols] # Set independent variables\ny = train.type # Set outcome variable\n\n# ALEX: remove ML code\n# logreg = LogisticRegression()\n# logreg.fit(X, y) # Fit model",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 55596013
+    },
+    {
+      "raw": "X_test = test.loc[:, feature_cols]\n# ALEX: remove ML code\n# new_type_pred = logreg.predict(X_test) # Use fitted model to predict outcome in test df\nnew_type_pred = train.type",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 78833993
+    },
+    {
+      "raw": "# Create submission df\n\nsubmission = pd.DataFrame({'id': test.id, 'type': new_type_pred})\n\n# Convert 'type' variable back to string variable\n\ntype_dict_sub = {0: 'Ghoul',\n            1: 'Goblin',\n            2: 'Ghost'}\n\nsubmission['type'] = submission['type'].map(type_dict_sub).astype(object)\n\n# Write submission file to CSV\n\nsubmission.to_csv('submission.csv', index=False)",
+      "external_calls": {},
+      "all_calls": {},
+      "total-ns": 4551702007
+    }
+  ],
+  "total-time-in-sec": 12.473393409,
+  "max-disk-in-mb": 0
+}
