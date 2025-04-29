@@ -16,7 +16,8 @@ original username and kernel slug. So, for example, we have
 to
 [https://www.kaggle.com/code/akgauravin/gun-violence-data-exploration-and-plotting](https://www.kaggle.com/code/akgauravin/gun-violence-data-exploration-and-plotting).
 - `scripts/` contains utilities used when setting up the benchmark.
-- `plots/` and `runner/explore` contains the code used to generate the plots found in the PandasBench paper.
+- `plots/` (and `explore/data_analyze.ipynb`) contains the code used to generate
+  the plots found in the PandasBench paper.
 
 # Setup
 
