@@ -1,3 +1,5 @@
+# This Dockerfile assumes that ./scripts/docker_data_setup.sh has run already and the data are under notebooks/
+
 FROM python:3.10.16-slim
 
 WORKDIR /home/ubuntu/
