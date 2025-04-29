@@ -6,7 +6,7 @@ SHELL ["/bin/bash", "-c"]
 
 COPY . ./PandasBench
 
-COPY ./runner/requirements.txt .
+COPY ./requirements.txt .
 
 RUN apt-get update -q \
     && apt-get install -qy time openjdk-17-jdk-headless \
