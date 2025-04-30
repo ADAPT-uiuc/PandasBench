@@ -73,5 +73,7 @@ try:
     print(i + 1)
     print(f"--- RUNNING: {kernel_user}/{kernel_slug}")
     succ = run_nb.run_nb_paper(full_path, args.lib if should_run_nb_body else '', args.num_cores, add_on, scale_factor, args.scale_input_and_exit)
+    if should_run_nb_body and succ:
+      res = subprocess.run(["mv", "stats.json", f"stats/{kernel_user}_{kernel_slug}.json"])
 except KeyboardInterrupt:
   pass
