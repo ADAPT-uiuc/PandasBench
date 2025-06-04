@@ -167,4 +167,6 @@ To add a new Pandas API implementation, in `setup_import_lib.py` add an "library
 
 # Publications
 
-Coming soon.
+- [PandasBench: A Benchmark for the Pandas API](https://arxiv.org/abs/2506.02345)<br/>
+[Alex Broihier](https://alex-d-b.github.io/), [Stefanos Baziotis](https://sbaziotis.com/), [Daniel Kang](https://ddkang.github.io/), [Charith Mendis](https://charithmendis.com/)<br/>
+Arxiv, 2025
