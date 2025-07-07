@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 113,
   "cells": [
     {
-      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# Any results you write to the current directory are saved as output.",
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# FIRST-AUTHOR: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# Any results you write to the current directory are saved as output.",
       "rewrite-ns": 691334,
       "overhead-ns": 691334,
       "exec-ns": 382453,
@@ -84,7 +84,7 @@
       "rewritten": "evaluate_lazy(NFL.mean().round(2))\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# NFL.ATT.plot.hist()\nNFL.ATT",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# NFL.ATT.plot.hist()\nNFL.ATT",
       "rewrite-ns": 80261,
       "overhead-ns": 80261,
       "exec-ns": 1793615,
@@ -93,7 +93,7 @@
       "rewritten": "NFL.ATT\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# NFL.POS.value_counts().plot.pie()\nNFL.POS.value_counts()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# NFL.POS.value_counts().plot.pie()\nNFL.POS.value_counts()",
       "rewrite-ns": 447224,
       "overhead-ns": 447224,
       "exec-ns": 1503761,

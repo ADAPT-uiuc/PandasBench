@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 218,
   "cells": [
     {
-      "raw": "import re\nimport string\nimport numpy as np \nimport random\n# import pandas as pd \nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# %matplotlib inline\n# from plotly import graph_objs as go\n# import plotly.express as px\n# import plotly.figure_factory as ff\nfrom collections import Counter\n\n# ALEX: remove plotting, ML code\n# from PIL import Image\n# from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator\n\n\n# import nltk\n# from nltk.corpus import stopwords\n\nfrom tqdm import tqdm\n# ALEX: remove ML code\n# import os\n# import nltk\n# import spacy\n# import random\n# from spacy.util import compounding\n# from spacy.util import minibatch\n\n# import warnings\n# warnings.filterwarnings(\"ignore\")\n\n# ALEX: remove path\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# Any results you write to the current directory are saved as output.\n# ALEX: make notebook work with runner\nfrom IPython.display import display",
+      "raw": "import re\nimport string\nimport numpy as np \nimport random\n# import pandas as pd \nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# %matplotlib inline\n# from plotly import graph_objs as go\n# import plotly.express as px\n# import plotly.figure_factory as ff\nfrom collections import Counter\n\n# FIRST-AUTHOR: remove plotting, ML code\n# from PIL import Image\n# from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator\n\n\n# import nltk\n# from nltk.corpus import stopwords\n\nfrom tqdm import tqdm\n# FIRST-AUTHOR: remove ML code\n# import os\n# import nltk\n# import spacy\n# import random\n# from spacy.util import compounding\n# from spacy.util import minibatch\n\n# import warnings\n# warnings.filterwarnings(\"ignore\")\n\n# FIRST-AUTHOR: remove path\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# Any results you write to the current directory are saved as output.\n# FIRST-AUTHOR: make notebook work with runner\nfrom IPython.display import display",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 3249628434
@@ -57,19 +57,19 @@
       "total-ns": 12430762
     },
     {
-      "raw": "temp = train.groupby('sentiment').count()['text'].reset_index().sort_values(by='text',ascending=False)\n# ALEX: remove table styling\ntemp # .style.background_gradient(cmap='Purples')",
+      "raw": "temp = train.groupby('sentiment').count()['text'].reset_index().sort_values(by='text',ascending=False)\n# FIRST-AUTHOR: remove table styling\ntemp # .style.background_gradient(cmap='Purples')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 119489990
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,6))\n# sns.countplot(x='sentiment',data=train)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12,6))\n# sns.countplot(x='sentiment',data=train)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 270945
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig = go.Figure(go.Funnelarea(\n#     text =temp.sentiment,\n#     values = temp.text,\n#     title = {\"position\": \"top center\", \"text\": \"Funnel-Chart of Sentiment Distribution\"}\n#     ))\n# fig.show()\n_ = temp.sentiment\n_ = temp.text",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig = go.Figure(go.Funnelarea(\n#     text =temp.sentiment,\n#     values = temp.text,\n#     title = {\"position\": \"top center\", \"text\": \"Funnel-Chart of Sentiment Distribution\"}\n#     ))\n# fig.show()\n_ = temp.sentiment\n_ = temp.text",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 4193675
@@ -105,37 +105,37 @@
       "total-ns": 1632283
     },
     {
-      "raw": "hist_data = [train['Num_words_ST'],train['Num_word_text']]\n\ngroup_labels = ['Selected_Text', 'Text']\n\n# Create distplot with custom bin_size\n# ALEX: remove plotting\n# fig = ff.create_distplot(hist_data, group_labels,show_curve=False)\n# fig.update_layout(title_text='Distribution of Number Of words')\n# fig.update_layout(\n#     autosize=False,\n#     width=900,\n#     height=700,\n#     paper_bgcolor=\"LightSteelBlue\",\n# )\n# fig.show()",
+      "raw": "hist_data = [train['Num_words_ST'],train['Num_word_text']]\n\ngroup_labels = ['Selected_Text', 'Text']\n\n# Create distplot with custom bin_size\n# FIRST-AUTHOR: remove plotting\n# fig = ff.create_distplot(hist_data, group_labels,show_curve=False)\n# fig.update_layout(title_text='Distribution of Number Of words')\n# fig.update_layout(\n#     autosize=False,\n#     width=900,\n#     height=700,\n#     paper_bgcolor=\"LightSteelBlue\",\n# )\n# fig.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 2607555
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,6))\n# p1=sns.kdeplot(train['Num_words_ST'], shade=True, color=\"r\").set_title('Kernel Distribution of Number Of words')\n# p1=sns.kdeplot(train['Num_word_text'], shade=True, color=\"b\")\n_ = train['Num_words_ST']\n_ = train['Num_word_text']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12,6))\n# p1=sns.kdeplot(train['Num_words_ST'], shade=True, color=\"r\").set_title('Kernel Distribution of Number Of words')\n# p1=sns.kdeplot(train['Num_word_text'], shade=True, color=\"b\")\n_ = train['Num_words_ST']\n_ = train['Num_word_text']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 2149208
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,6))\n# p1=sns.kdeplot(train[train['sentiment']=='positive']['difference_in_words'], shade=True, color=\"b\").set_title('Kernel Distribution of Difference in Number Of words')\n# p2=sns.kdeplot(train[train['sentiment']=='negative']['difference_in_words'], shade=True, color=\"r\")\n_ = train[train['sentiment']=='positive']['difference_in_words']\n_ = train[train['sentiment']=='negative']['difference_in_words']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12,6))\n# p1=sns.kdeplot(train[train['sentiment']=='positive']['difference_in_words'], shade=True, color=\"b\").set_title('Kernel Distribution of Difference in Number Of words')\n# p2=sns.kdeplot(train[train['sentiment']=='negative']['difference_in_words'], shade=True, color=\"r\")\n_ = train[train['sentiment']=='positive']['difference_in_words']\n_ = train[train['sentiment']=='negative']['difference_in_words']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 92896138
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,6))\n# sns.distplot(train[train['sentiment']=='neutral']['difference_in_words'],kde=False)\n_ = train[train['sentiment']=='neutral']['difference_in_words']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12,6))\n# sns.distplot(train[train['sentiment']=='neutral']['difference_in_words'],kde=False)\n_ = train[train['sentiment']=='neutral']['difference_in_words']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 114566370
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,6))\n# p1=sns.kdeplot(train[train['sentiment']=='positive']['jaccard_score'], shade=True, color=\"b\").set_title('KDE of Jaccard Scores across different Sentiments')\n# p2=sns.kdeplot(train[train['sentiment']=='negative']['jaccard_score'], shade=True, color=\"r\")\n# plt.legend(labels=['positive','negative'])\n_ = train[train['sentiment']=='positive']['jaccard_score']\n_ = train[train['sentiment']=='negative']['jaccard_score']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12,6))\n# p1=sns.kdeplot(train[train['sentiment']=='positive']['jaccard_score'], shade=True, color=\"b\").set_title('KDE of Jaccard Scores across different Sentiments')\n# p2=sns.kdeplot(train[train['sentiment']=='negative']['jaccard_score'], shade=True, color=\"r\")\n# plt.legend(labels=['positive','negative'])\n_ = train[train['sentiment']=='positive']['jaccard_score']\n_ = train[train['sentiment']=='negative']['jaccard_score']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 175476557
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,6))\n# sns.distplot(train[train['sentiment']=='neutral']['jaccard_score'],kde=False)\n_ = train[train['sentiment']=='neutral']['jaccard_score']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12,6))\n# sns.distplot(train[train['sentiment']=='neutral']['jaccard_score'],kde=False)\n_ = train[train['sentiment']=='neutral']['jaccard_score']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 111087451
@@ -147,7 +147,7 @@
       "total-ns": 21898667
     },
     {
-      "raw": "# ALEX: make notebook run\n# k.groupby('sentiment').mean()['jaccard_score']\nk.groupby('sentiment').mean(numeric_only=True)['jaccard_score']",
+      "raw": "# FIRST-AUTHOR: make notebook run\n# k.groupby('sentiment').mean()['jaccard_score']\nk.groupby('sentiment').mean(numeric_only=True)['jaccard_score']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 180014341
@@ -177,7 +177,7 @@
       "total-ns": 1803047
     },
     {
-      "raw": "train['temp_list'] = train['selected_text'].apply(lambda x:str(x).split())\ntop = Counter([item for sublist in train['temp_list'] for item in sublist])\ntemp = pd.DataFrame(top.most_common(20))\ntemp.columns = ['Common_words','count']\n# ALEX: remove table styling\ntemp # .style.background_gradient(cmap='Blues')",
+      "raw": "train['temp_list'] = train['selected_text'].apply(lambda x:str(x).split())\ntop = Counter([item for sublist in train['temp_list'] for item in sublist])\ntemp = pd.DataFrame(top.most_common(20))\ntemp.columns = ['Common_words','count']\n# FIRST-AUTHOR: remove table styling\ntemp # .style.background_gradient(cmap='Blues')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 221381981
@@ -189,19 +189,19 @@
       "total-ns": 375991
     },
     {
-      "raw": "def remove_stopword(x):\n# ALEX: make notebook run\n#     return [y for y in x if y not in stopwords.words('english')]\n    return [y for y in x if y not in ['i', 'me', 'my', 'myself', 'we', 'our', 'ours',\n                                      'ourselves', 'you', \"you're\", \"you've\", \"you'll\",\n                                      \"you'd\", 'your', 'yours', 'yourself', 'yourselves',\n                                      'he', 'him', 'his', 'himself', 'she', \"she's\", 'her',\n                                      'hers', 'herself', 'it', \"it's\", 'its', 'itself', 'they',\n                                      'them', 'their', 'theirs', 'themselves', 'what', 'which',\n                                      'who', 'whom', 'this', 'that', \"that'll\", 'these',\n                                      'those', 'am', 'is', 'are', 'was', 'were', 'be',\n                                      'been', 'being', 'have', 'has', 'had', 'having', 'do',\n                                      'does', 'did', 'doing', 'a', 'an', 'the', 'and', 'but',\n                                      'if', 'or', 'because', 'as', 'until', 'while', 'of', 'at',\n                                      'by', 'for', 'with', 'about', 'against', 'between', 'into',\n                                      'through', 'during', 'before', 'after', 'above',\n                                      'below', 'to', 'from', 'up', 'down', 'in', 'out', 'on',\n                                      'off', 'over', 'under', 'again', 'further', 'then', 'once',\n                                      'here', 'there', 'when', 'where', 'why', 'how', 'all', 'any',\n                                      'both', 'each', 'few', 'more', 'most', 'other', 'some',\n                                      'such', 'no', 'nor', 'not', 'only', 'own', 'same', 'so',\n                                      'than', 'too', 'very', 's', 't', 'can', 'will', 'just',\n                                      'don', \"don't\", 'should', \"should've\", 'now', 'd', 'll',\n                                      'm', 'o', 're', 've', 'y', 'ain', 'aren', \"aren't\", 'couldn',\n                                      \"couldn't\", 'didn', \"didn't\", 'doesn', \"doesn't\", 'hadn',\n                                      \"hadn't\", 'hasn', \"hasn't\", 'haven', \"haven't\", 'isn',\n                                      \"isn't\", 'ma', 'mightn', \"mightn't\", 'mustn', \"mustn't\",\n                                      'needn', \"needn't\", 'shan', \"shan't\", 'shouldn', \"shouldn't\",\n                                      'wasn', \"wasn't\", 'weren', \"weren't\", 'won', \"won't\", 'wouldn', \"wouldn't\"]]\ntrain['temp_list'] = train['temp_list'].apply(lambda x:remove_stopword(x))",
+      "raw": "def remove_stopword(x):\n# FIRST-AUTHOR: make notebook run\n#     return [y for y in x if y not in stopwords.words('english')]\n    return [y for y in x if y not in ['i', 'me', 'my', 'myself', 'we', 'our', 'ours',\n                                      'ourselves', 'you', \"you're\", \"you've\", \"you'll\",\n                                      \"you'd\", 'your', 'yours', 'yourself', 'yourselves',\n                                      'he', 'him', 'his', 'himself', 'she', \"she's\", 'her',\n                                      'hers', 'herself', 'it', \"it's\", 'its', 'itself', 'they',\n                                      'them', 'their', 'theirs', 'themselves', 'what', 'which',\n                                      'who', 'whom', 'this', 'that', \"that'll\", 'these',\n                                      'those', 'am', 'is', 'are', 'was', 'were', 'be',\n                                      'been', 'being', 'have', 'has', 'had', 'having', 'do',\n                                      'does', 'did', 'doing', 'a', 'an', 'the', 'and', 'but',\n                                      'if', 'or', 'because', 'as', 'until', 'while', 'of', 'at',\n                                      'by', 'for', 'with', 'about', 'against', 'between', 'into',\n                                      'through', 'during', 'before', 'after', 'above',\n                                      'below', 'to', 'from', 'up', 'down', 'in', 'out', 'on',\n                                      'off', 'over', 'under', 'again', 'further', 'then', 'once',\n                                      'here', 'there', 'when', 'where', 'why', 'how', 'all', 'any',\n                                      'both', 'each', 'few', 'more', 'most', 'other', 'some',\n                                      'such', 'no', 'nor', 'not', 'only', 'own', 'same', 'so',\n                                      'than', 'too', 'very', 's', 't', 'can', 'will', 'just',\n                                      'don', \"don't\", 'should', \"should've\", 'now', 'd', 'll',\n                                      'm', 'o', 're', 've', 'y', 'ain', 'aren', \"aren't\", 'couldn',\n                                      \"couldn't\", 'didn', \"didn't\", 'doesn', \"doesn't\", 'hadn',\n                                      \"hadn't\", 'hasn', \"hasn't\", 'haven', \"haven't\", 'isn',\n                                      \"isn't\", 'ma', 'mightn', \"mightn't\", 'mustn', \"mustn't\",\n                                      'needn', \"needn't\", 'shan', \"shan't\", 'shouldn', \"shouldn't\",\n                                      'wasn', \"wasn't\", 'weren', \"weren't\", 'won', \"won't\", 'wouldn', \"wouldn't\"]]\ntrain['temp_list'] = train['temp_list'].apply(lambda x:remove_stopword(x))",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 32188237
     },
     {
-      "raw": "top = Counter([item for sublist in train['temp_list'] for item in sublist])\ntemp = pd.DataFrame(top.most_common(20))\ntemp = temp.iloc[1:,:]\ntemp.columns = ['Common_words','count']\n# ALEX: remove table styling\ntemp # .style.background_gradient(cmap='Purples')",
+      "raw": "top = Counter([item for sublist in train['temp_list'] for item in sublist])\ntemp = pd.DataFrame(top.most_common(20))\ntemp = temp.iloc[1:,:]\ntemp.columns = ['Common_words','count']\n# FIRST-AUTHOR: remove table styling\ntemp # .style.background_gradient(cmap='Purples')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 78376966
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig = px.treemap(temp, path=['Common_words'], values='count',title='Tree of Most Common Words')\n# fig.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig = px.treemap(temp, path=['Common_words'], values='count',title='Tree of Most Common Words')\n# fig.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 325219
@@ -213,13 +213,13 @@
       "total-ns": 65696559
     },
     {
-      "raw": "top = Counter([item for sublist in train['temp_list1'] for item in sublist])\ntemp = pd.DataFrame(top.most_common(25))\ntemp = temp.iloc[1:,:]\ntemp.columns = ['Common_words','count']\n# ALEX: remove table styling\ntemp # .style.background_gradient(cmap='Blues')",
+      "raw": "top = Counter([item for sublist in train['temp_list1'] for item in sublist])\ntemp = pd.DataFrame(top.most_common(25))\ntemp = temp.iloc[1:,:]\ntemp.columns = ['Common_words','count']\n# FIRST-AUTHOR: remove table styling\ntemp # .style.background_gradient(cmap='Blues')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 133098484
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig = px.bar(temp, x=\"count\", y=\"Common_words\", title='Commmon Words in Text', orientation='h', \n#              width=700, height=700,color='Common_words')\n# fig.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig = px.bar(temp, x=\"count\", y=\"Common_words\", title='Commmon Words in Text', orientation='h', \n#              width=700, height=700,color='Common_words')\n# fig.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 316443
@@ -231,7 +231,7 @@
       "total-ns": 55659084
     },
     {
-      "raw": "#MosT common positive words\ntop = Counter([item for sublist in Positive_sent['temp_list'] for item in sublist])\ntemp_positive = pd.DataFrame(top.most_common(20))\ntemp_positive.columns = ['Common_words','count']\n# ALEX: remove table styling\ntemp_positive # .style.background_gradient(cmap='Greens')",
+      "raw": "#MosT common positive words\ntop = Counter([item for sublist in Positive_sent['temp_list'] for item in sublist])\ntemp_positive = pd.DataFrame(top.most_common(20))\ntemp_positive.columns = ['Common_words','count']\n# FIRST-AUTHOR: remove table styling\ntemp_positive # .style.background_gradient(cmap='Greens')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 208548545
@@ -243,7 +243,7 @@
       "total-ns": 458489
     },
     {
-      "raw": "#MosT common negative words\ntop = Counter([item for sublist in Negative_sent['temp_list'] for item in sublist])\ntemp_negative = pd.DataFrame(top.most_common(20))\ntemp_negative = temp_negative.iloc[1:,:]\ntemp_negative.columns = ['Common_words','count']\n# ALEX: remove table styling\ntemp_negative # .style.background_gradient(cmap='Reds')",
+      "raw": "#MosT common negative words\ntop = Counter([item for sublist in Negative_sent['temp_list'] for item in sublist])\ntemp_negative = pd.DataFrame(top.most_common(20))\ntemp_negative = temp_negative.iloc[1:,:]\ntemp_negative.columns = ['Common_words','count']\n# FIRST-AUTHOR: remove table styling\ntemp_negative # .style.background_gradient(cmap='Reds')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 69352226
@@ -255,7 +255,7 @@
       "total-ns": 283053
     },
     {
-      "raw": "#MosT common Neutral words\ntop = Counter([item for sublist in Neutral_sent['temp_list'] for item in sublist])\ntemp_neutral = pd.DataFrame(top.most_common(20))\ntemp_neutral = temp_neutral.loc[1:,:]\ntemp_neutral.columns = ['Common_words','count']\n# ALEX: remove table styling\ntemp_neutral # .style.background_gradient(cmap='Reds')",
+      "raw": "#MosT common Neutral words\ntop = Counter([item for sublist in Neutral_sent['temp_list'] for item in sublist])\ntemp_neutral = pd.DataFrame(top.most_common(20))\ntemp_neutral = temp_neutral.loc[1:,:]\ntemp_neutral.columns = ['Common_words','count']\n# FIRST-AUTHOR: remove table styling\ntemp_neutral # .style.background_gradient(cmap='Reds')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 85410996
@@ -285,7 +285,7 @@
       "total-ns": 1791180
     },
     {
-      "raw": "Unique_Positive= words_unique('positive', 20, raw_text)\nprint(\"The top 20 unique words in Positive Tweets are:\")\n# ALEX: remove table styling\nUnique_Positive # .style.background_gradient(cmap='Greens')",
+      "raw": "Unique_Positive= words_unique('positive', 20, raw_text)\nprint(\"The top 20 unique words in Positive Tweets are:\")\n# FIRST-AUTHOR: remove table styling\nUnique_Positive # .style.background_gradient(cmap='Greens')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 10511657693
@@ -297,55 +297,55 @@
       "total-ns": 201166
     },
     {
-      "raw": "# from palettable.colorbrewer.qualitative import Pastel1_7\n# ALEX: remove plotting\n# plt.figure(figsize=(16,10))\n# my_circle=plt.Circle((0,0), 0.7, color='white')\n# plt.pie(Unique_Positive['count'], labels=Unique_Positive.words) # , colors=Pastel1_7.hex_colors)\n# p=plt.gcf()\n# p.gca().add_artist(my_circle)\n# plt.title('DoNut Plot Of Unique Positive Words')\n# plt.show()\n_ = Unique_Positive['count']",
+      "raw": "# from palettable.colorbrewer.qualitative import Pastel1_7\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(16,10))\n# my_circle=plt.Circle((0,0), 0.7, color='white')\n# plt.pie(Unique_Positive['count'], labels=Unique_Positive.words) # , colors=Pastel1_7.hex_colors)\n# p=plt.gcf()\n# p.gca().add_artist(my_circle)\n# plt.title('DoNut Plot Of Unique Positive Words')\n# plt.show()\n_ = Unique_Positive['count']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1431373
     },
     {
-      "raw": "Unique_Negative= words_unique('negative', 10, raw_text)\nprint(\"The top 10 unique words in Negative Tweets are:\")\n# ALEX: remove table styling\nUnique_Negative # .style.background_gradient(cmap='Reds')",
+      "raw": "Unique_Negative= words_unique('negative', 10, raw_text)\nprint(\"The top 10 unique words in Negative Tweets are:\")\n# FIRST-AUTHOR: remove table styling\nUnique_Negative # .style.background_gradient(cmap='Reds')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 9279384174
     },
     {
-      "raw": "# from palettable.colorbrewer.qualitative import Pastel1_7\n# ALEX: remove plotting\n# plt.figure(figsize=(16,10))\n# my_circle=plt.Circle((0,0), 0.7, color='white')\n# plt.rcParams['text.color'] = 'black'\n# plt.pie(Unique_Negative['count'], labels=Unique_Negative.words) # , colors=Pastel1_7.hex_colors)\n# p=plt.gcf()\n# p.gca().add_artist(my_circle)\n# plt.title('DoNut Plot Of Unique Negative Words')\n# plt.show()\n_ = Unique_Negative['count']",
+      "raw": "# from palettable.colorbrewer.qualitative import Pastel1_7\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(16,10))\n# my_circle=plt.Circle((0,0), 0.7, color='white')\n# plt.rcParams['text.color'] = 'black'\n# plt.pie(Unique_Negative['count'], labels=Unique_Negative.words) # , colors=Pastel1_7.hex_colors)\n# p=plt.gcf()\n# p.gca().add_artist(my_circle)\n# plt.title('DoNut Plot Of Unique Negative Words')\n# plt.show()\n_ = Unique_Negative['count']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1073105
     },
     {
-      "raw": "Unique_Neutral= words_unique('neutral', 10, raw_text)\nprint(\"The top 10 unique words in Neutral Tweets are:\")\n# ALEX: remove plotting\nUnique_Neutral # .style.background_gradient(cmap='Oranges')",
+      "raw": "Unique_Neutral= words_unique('neutral', 10, raw_text)\nprint(\"The top 10 unique words in Neutral Tweets are:\")\n# FIRST-AUTHOR: remove plotting\nUnique_Neutral # .style.background_gradient(cmap='Oranges')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 8429492669
     },
     {
-      "raw": "# from palettable.colorbrewer.qualitative import Pastel1_7\n# ALEX: remove plotting\n# plt.figure(figsize=(16,10))\n# my_circle=plt.Circle((0,0), 0.7, color='white')\n# plt.pie(Unique_Neutral['count'], labels=Unique_Neutral.words) # , colors=Pastel1_7.hex_colors)\n# p=plt.gcf()\n# p.gca().add_artist(my_circle)\n# plt.title('DoNut Plot Of Unique Neutral Words')\n# plt.show()\nUnique_Neutral['count']",
+      "raw": "# from palettable.colorbrewer.qualitative import Pastel1_7\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(16,10))\n# my_circle=plt.Circle((0,0), 0.7, color='white')\n# plt.pie(Unique_Neutral['count'], labels=Unique_Neutral.words) # , colors=Pastel1_7.hex_colors)\n# p=plt.gcf()\n# p.gca().add_artist(my_circle)\n# plt.title('DoNut Plot Of Unique Neutral Words')\n# plt.show()\nUnique_Neutral['count']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1060823
     },
     {
-      "raw": "# ALEX: remove plotting\n# def plot_wordcloud(text, mask=None, max_words=200, max_font_size=100, figure_size=(24.0,16.0), color = 'white',\n#                    title = None, title_size=40, image_color=False):\n#     stopwords = set(STOPWORDS)\n#     more_stopwords = {'u', \"im\"}\n#     stopwords = stopwords.union(more_stopwords)\n\n#     wordcloud = WordCloud(background_color=color,\n#                     stopwords = stopwords,\n#                     max_words = max_words,\n#                     max_font_size = max_font_size, \n#                     random_state = 42,\n#                     width=400, \n#                     height=200,\n#                     mask = mask)\n#     wordcloud.generate(str(text))\n    \n#     plt.figure(figsize=figure_size)\n#     if image_color:\n#         image_colors = ImageColorGenerator(mask);\n#         plt.imshow(wordcloud.recolor(color_func=image_colors), interpolation=\"bilinear\");\n#         plt.title(title, fontdict={'size': title_size,  \n#                                   'verticalalignment': 'bottom'})\n#     else:\n#         plt.imshow(wordcloud);\n#         plt.title(title, fontdict={'size': title_size, 'color': 'black', \n#                                   'verticalalignment': 'bottom'})\n#     plt.axis('off');\n#     plt.tight_layout()  \n# d = '/kaggle/input/masks-for-wordclouds/'",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# def plot_wordcloud(text, mask=None, max_words=200, max_font_size=100, figure_size=(24.0,16.0), color = 'white',\n#                    title = None, title_size=40, image_color=False):\n#     stopwords = set(STOPWORDS)\n#     more_stopwords = {'u', \"im\"}\n#     stopwords = stopwords.union(more_stopwords)\n\n#     wordcloud = WordCloud(background_color=color,\n#                     stopwords = stopwords,\n#                     max_words = max_words,\n#                     max_font_size = max_font_size, \n#                     random_state = 42,\n#                     width=400, \n#                     height=200,\n#                     mask = mask)\n#     wordcloud.generate(str(text))\n    \n#     plt.figure(figsize=figure_size)\n#     if image_color:\n#         image_colors = ImageColorGenerator(mask);\n#         plt.imshow(wordcloud.recolor(color_func=image_colors), interpolation=\"bilinear\");\n#         plt.title(title, fontdict={'size': title_size,  \n#                                   'verticalalignment': 'bottom'})\n#     else:\n#         plt.imshow(wordcloud);\n#         plt.title(title, fontdict={'size': title_size, 'color': 'black', \n#                                   'verticalalignment': 'bottom'})\n#     plt.axis('off');\n#     plt.tight_layout()  \n# d = '/kaggle/input/masks-for-wordclouds/'",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 292507
     },
     {
-      "raw": "# ALEX: remove plotting\n# pos_mask = np.array(Image.open(d+ 'twitter_mask.png'))\n# plot_wordcloud(Neutral_sent.text,mask=pos_mask,color='white',max_font_size=100,title_size=30,title=\"WordCloud of Neutral Tweets\")\n_ = Neutral_sent.text",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# pos_mask = np.array(Image.open(d+ 'twitter_mask.png'))\n# plot_wordcloud(Neutral_sent.text,mask=pos_mask,color='white',max_font_size=100,title_size=30,title=\"WordCloud of Neutral Tweets\")\n_ = Neutral_sent.text",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 10952907
     },
     {
-      "raw": "# ALEX: remove plotting\n# plot_wordcloud(Positive_sent.text,mask=pos_mask,title=\"Word Cloud Of Positive tweets\",title_size=30)\n_ = Positive_sent.text",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plot_wordcloud(Positive_sent.text,mask=pos_mask,title=\"Word Cloud Of Positive tweets\",title_size=30)\n_ = Positive_sent.text",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 10648119
     },
     {
-      "raw": "# ALEX: remove plotting\n# plot_wordcloud(Negative_sent.text,mask=pos_mask,title=\"Word Cloud of Negative Tweets\",color='white',title_size=30)\n_ = Negative_sent.text",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plot_wordcloud(Negative_sent.text,mask=pos_mask,title=\"Word Cloud of Negative Tweets\",color='white',title_size=30)\n_ = Negative_sent.text",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 11675015
@@ -375,13 +375,13 @@
       "total-ns": 722703
     },
     {
-      "raw": "# pass model = nlp if you want to train on top of existing model \n\n# ALEX: remove ML code\n# def train(train_data, output_dir, n_iter=20, model=None):\n#     \"\"\"Load the model, set up the pipeline and train the entity recognizer.\"\"\"\n#     \"\"\n#     if model is not None:\n#         nlp = spacy.load(output_dir)  # load existing spaCy model\n#         print(\"Loaded model '%s'\" % model)\n#     else:\n#         nlp = spacy.blank(\"en\")  # create blank Language class\n#         print(\"Created blank 'en' model\")\n    \n#     # create the built-in pipeline components and add them to the pipeline\n#     # nlp.create_pipe works for built-ins that are registered with spaCy\n#     if \"ner\" not in nlp.pipe_names:\n#         ner = nlp.create_pipe(\"ner\")\n#         nlp.add_pipe(ner, last=True)\n#     # otherwise, get it so we can add labels\n#     else:\n#         ner = nlp.get_pipe(\"ner\")\n    \n#     # add labels\n#     for _, annotations in train_data:\n#         for ent in annotations.get(\"entities\"):\n#             ner.add_label(ent[2])\n\n#     # get names of other pipes to disable them during training\n#     other_pipes = [pipe for pipe in nlp.pipe_names if pipe != \"ner\"]\n#     with nlp.disable_pipes(*other_pipes):  # only train NER\n#         # sizes = compounding(1.0, 4.0, 1.001)\n#         # batch up the examples using spaCy's minibatch\n#         if model is None:\n#             nlp.begin_training()\n#         else:\n#             nlp.resume_training()\n\n\n#         for itn in tqdm(range(n_iter)):\n#             random.shuffle(train_data)\n#             batches = minibatch(train_data, size=compounding(4.0, 500.0, 1.001))    \n#             losses = {}\n#             for batch in batches:\n#                 texts, annotations = zip(*batch)\n#                 nlp.update(texts,  # batch of texts\n#                             annotations,  # batch of annotations\n#                             drop=0.5,   # dropout - make it harder to memorise data\n#                             losses=losses, \n#                             )\n#             print(\"Losses\", losses)\n#     save_model(output_dir, nlp, 'st_ner')",
+      "raw": "# pass model = nlp if you want to train on top of existing model \n\n# FIRST-AUTHOR: remove ML code\n# def train(train_data, output_dir, n_iter=20, model=None):\n#     \"\"\"Load the model, set up the pipeline and train the entity recognizer.\"\"\"\n#     \"\"\n#     if model is not None:\n#         nlp = spacy.load(output_dir)  # load existing spaCy model\n#         print(\"Loaded model '%s'\" % model)\n#     else:\n#         nlp = spacy.blank(\"en\")  # create blank Language class\n#         print(\"Created blank 'en' model\")\n    \n#     # create the built-in pipeline components and add them to the pipeline\n#     # nlp.create_pipe works for built-ins that are registered with spaCy\n#     if \"ner\" not in nlp.pipe_names:\n#         ner = nlp.create_pipe(\"ner\")\n#         nlp.add_pipe(ner, last=True)\n#     # otherwise, get it so we can add labels\n#     else:\n#         ner = nlp.get_pipe(\"ner\")\n    \n#     # add labels\n#     for _, annotations in train_data:\n#         for ent in annotations.get(\"entities\"):\n#             ner.add_label(ent[2])\n\n#     # get names of other pipes to disable them during training\n#     other_pipes = [pipe for pipe in nlp.pipe_names if pipe != \"ner\"]\n#     with nlp.disable_pipes(*other_pipes):  # only train NER\n#         # sizes = compounding(1.0, 4.0, 1.001)\n#         # batch up the examples using spaCy's minibatch\n#         if model is None:\n#             nlp.begin_training()\n#         else:\n#             nlp.resume_training()\n\n\n#         for itn in tqdm(range(n_iter)):\n#             random.shuffle(train_data)\n#             batches = minibatch(train_data, size=compounding(4.0, 500.0, 1.001))    \n#             losses = {}\n#             for batch in batches:\n#                 texts, annotations = zip(*batch)\n#                 nlp.update(texts,  # batch of texts\n#                             annotations,  # batch of annotations\n#                             drop=0.5,   # dropout - make it harder to memorise data\n#                             losses=losses, \n#                             )\n#             print(\"Losses\", losses)\n#     save_model(output_dir, nlp, 'st_ner')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 391213
     },
     {
-      "raw": "# ALEX: remove ML code\n# def get_model_out_path(sentiment):\n#     '''\n#     Returns Model output path\n#     '''\n#     model_out_path = None\n#     if sentiment == 'positive':\n#         model_out_path = 'models/model_pos'\n#     elif sentiment == 'negative':\n#         model_out_path = 'models/model_neg'\n#     return model_out_path",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# def get_model_out_path(sentiment):\n#     '''\n#     Returns Model output path\n#     '''\n#     model_out_path = None\n#     if sentiment == 'positive':\n#         model_out_path = 'models/model_pos'\n#     elif sentiment == 'negative':\n#         model_out_path = 'models/model_neg'\n#     return model_out_path",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 198372
@@ -393,25 +393,25 @@
       "total-ns": 753708
     },
     {
-      "raw": "sentiment = 'positive'\n\ntrain_data = get_training_data(sentiment)\n# ALEX: remove ML code\n# model_path = get_model_out_path(sentiment)\n# # For DEmo Purposes I have taken 3 iterations you can train the model as you want\n# train(train_data, model_path, n_iter=3, model=None)",
+      "raw": "sentiment = 'positive'\n\ntrain_data = get_training_data(sentiment)\n# FIRST-AUTHOR: remove ML code\n# model_path = get_model_out_path(sentiment)\n# # For DEmo Purposes I have taken 3 iterations you can train the model as you want\n# train(train_data, model_path, n_iter=3, model=None)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 309067129166
     },
     {
-      "raw": "sentiment = 'negative'\n\ntrain_data = get_training_data(sentiment)\n# ALEX: remove ML\n# model_path = get_model_out_path(sentiment)\n\n# train(train_data, model_path, n_iter=3, model=None)",
+      "raw": "sentiment = 'negative'\n\ntrain_data = get_training_data(sentiment)\n# FIRST-AUTHOR: remove ML\n# model_path = get_model_out_path(sentiment)\n\n# train(train_data, model_path, n_iter=3, model=None)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 300388864293
     },
     {
-      "raw": "# ALEX: remove ML code\n# def predict_entities(text, model):\n#     doc = model(text)\n#     ent_array = []\n#     for ent in doc.ents:\n#         start = text.find(ent.text)\n#         end = start + len(ent.text)\n#         new_int = [start, end, ent.label_]\n#         if new_int not in ent_array:\n#             ent_array.append([start, end, ent.label_])\n#     selected_text = text[ent_array[0][0]: ent_array[0][1]] if len(ent_array) > 0 else text\n#     return selected_text",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# def predict_entities(text, model):\n#     doc = model(text)\n#     ent_array = []\n#     for ent in doc.ents:\n#         start = text.find(ent.text)\n#         end = start + len(ent.text)\n#         new_int = [start, end, ent.label_]\n#         if new_int not in ent_array:\n#             ent_array.append([start, end, ent.label_])\n#     selected_text = text[ent_array[0][0]: ent_array[0][1]] if len(ent_array) > 0 else text\n#     return selected_text",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 609636
     },
     {
-      "raw": "# ALEX: remove ML\n# selected_texts = []\n# MODELS_BASE_PATH = './input/tse-spacy-model/models/'\n\n# if MODELS_BASE_PATH is not None:\n#     print(\"Loading Models  from \", MODELS_BASE_PATH)\n#     model_pos = spacy.load(MODELS_BASE_PATH + 'model_pos')\n#     model_neg = spacy.load(MODELS_BASE_PATH + 'model_neg')\n        \n#     for index, row in df_test.iterrows():\n#         text = row.text\n#         output_str = \"\"\n#         if row.sentiment == 'neutral' or len(text.split()) <= 2:\n#             selected_texts.append(text)\n#         elif row.sentiment == 'positive':\n#             selected_texts.append(predict_entities(text, model_pos))\n#         else:\n#             selected_texts.append(predict_entities(text, model_neg))\n\nselected_texts = [': you get to go home and i have to go to work' for _ in range(len(df_test))]\n\ndf_test['selected_text'] = selected_texts",
+      "raw": "# FIRST-AUTHOR: remove ML\n# selected_texts = []\n# MODELS_BASE_PATH = './input/tse-spacy-model/models/'\n\n# if MODELS_BASE_PATH is not None:\n#     print(\"Loading Models  from \", MODELS_BASE_PATH)\n#     model_pos = spacy.load(MODELS_BASE_PATH + 'model_pos')\n#     model_neg = spacy.load(MODELS_BASE_PATH + 'model_neg')\n        \n#     for index, row in df_test.iterrows():\n#         text = row.text\n#         output_str = \"\"\n#         if row.sentiment == 'neutral' or len(text.split()) <= 2:\n#             selected_texts.append(text)\n#         elif row.sentiment == 'positive':\n#             selected_texts.append(predict_entities(text, model_pos))\n#         else:\n#             selected_texts.append(predict_entities(text, model_neg))\n\nselected_texts = [': you get to go home and i have to go to work' for _ in range(len(df_test))]\n\ndf_test['selected_text'] = selected_texts",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 5323792

@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 6127,
   "cells": [
     {
-      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# Any results you write to the current directory are saved as output.",
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# FIRST-AUTHOR: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# Any results you write to the current directory are saved as output.",
       "rewrite-ns": 695763,
       "overhead-ns": 695763,
       "exec-ns": 380251,
@@ -12,7 +12,7 @@
       "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
     },
     {
-      "raw": "# ALEX: remove path printing\n# import os\n# os.getcwd()",
+      "raw": "# FIRST-AUTHOR: remove path printing\n# import os\n# os.getcwd()",
       "rewrite-ns": 20862,
       "overhead-ns": 20862,
       "exec-ns": 109084,
@@ -21,7 +21,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove sys calls\n# os.chdir(\"./input\")",
+      "raw": "# FIRST-AUTHOR: remove sys calls\n# os.chdir(\"./input\")",
       "rewrite-ns": 18859,
       "overhead-ns": 18859,
       "exec-ns": 96132,
@@ -30,7 +30,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.preprocessing import LabelEncoder\n# from sklearn import metrics",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.preprocessing import LabelEncoder\n# from sklearn import metrics",
       "rewrite-ns": 18064,
       "overhead-ns": 18064,
       "exec-ns": 90006,
@@ -39,7 +39,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.metrics import mean_squared_error\n# import lightgbm as lgb\n# from sklearn.model_selection import train_test_split",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.metrics import mean_squared_error\n# import lightgbm as lgb\n# from sklearn.model_selection import train_test_split",
       "rewrite-ns": 17349,
       "overhead-ns": 17349,
       "exec-ns": 89178,

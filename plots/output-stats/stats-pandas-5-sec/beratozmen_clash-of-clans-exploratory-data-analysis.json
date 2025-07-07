@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 1238,
   "cells": [
     {
-      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt",
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 378414
@@ -27,13 +27,13 @@
       "total-ns": 693512944
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,5))\n# sns.heatmap(df.isnull(),yticklabels=False,cbar=False,cmap='viridis')\n_ = df.isnull()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(10,5))\n# sns.heatmap(df.isnull(),yticklabels=False,cbar=False,cmap='viridis')\n_ = df.isnull()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 670376801
     },
     {
-      "raw": "missing_count = df['clan_location'].isnull().sum()\n\nnon_missing_count = len(df) - missing_count\n\n# ALEX: remove plotting\n# labels = ['Missing Data', 'Non-Missing Data']\n# sizes = [missing_count, non_missing_count]\n# colors = ['lightcoral', 'lightgreen']\n# explode = (0.1, 0)  # Explode the \"Missing Data\" slice for emphasis\n\n# plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', startangle=140)\n# plt.title('Missing Data in \"clan_location\" Column')\n# plt.axis('equal')  # Equal aspect ratio ensures the pie chart is circular\n\n# plt.show()",
+      "raw": "missing_count = df['clan_location'].isnull().sum()\n\nnon_missing_count = len(df) - missing_count\n\n# FIRST-AUTHOR: remove plotting\n# labels = ['Missing Data', 'Non-Missing Data']\n# sizes = [missing_count, non_missing_count]\n# colors = ['lightcoral', 'lightgreen']\n# explode = (0.1, 0)  # Explode the \"Missing Data\" slice for emphasis\n\n# plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', startangle=140)\n# plt.title('Missing Data in \"clan_location\" Column')\n# plt.axis('equal')  # Equal aspect ratio ensures the pie chart is circular\n\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 27986905
@@ -51,13 +51,13 @@
       "total-ns": 32373030
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.set(style=\"darkgrid\")\n# plt.figure(figsize=(20, 6))\n\n# sns.countplot(data=df, x='clan_location', order=df['clan_location'].value_counts().head(20).index)\n# plt.xticks(rotation=45)  #for better readability\n# plt.title('Count of Clan Locations')\n# plt.xlabel('Clan Location')\n# plt.ylabel('Count')\n\n# plt.show()\n_ = df['clan_location'].value_counts().head(20).index",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.set(style=\"darkgrid\")\n# plt.figure(figsize=(20, 6))\n\n# sns.countplot(data=df, x='clan_location', order=df['clan_location'].value_counts().head(20).index)\n# plt.xticks(rotation=45)  #for better readability\n# plt.title('Count of Clan Locations')\n# plt.xlabel('Clan Location')\n# plt.ylabel('Count')\n\n# plt.show()\n_ = df['clan_location'].value_counts().head(20).index",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 33800213
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.set(style=\"whitegrid\")\n# plt.figure(figsize=(5, 7))\n\n# sns.countplot(data=df, x='isFamilyFriendly', palette=\"pastel\")\n\n# plt.title('Family-Friendly vs. Not Family-Friendly Clans')\n# plt.xlabel('Is Family-Friendly')\n# plt.ylabel('Count')\n\n# # Annotate the bars with counts\n# ax = plt.gca()\n# for p in ax.patches:\n#     ax.annotate(f'{p.get_height()}', (p.get_x() + p.get_width() / 2., p.get_height()), ha='center', va='bottom')\n\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.set(style=\"whitegrid\")\n# plt.figure(figsize=(5, 7))\n\n# sns.countplot(data=df, x='isFamilyFriendly', palette=\"pastel\")\n\n# plt.title('Family-Friendly vs. Not Family-Friendly Clans')\n# plt.xlabel('Is Family-Friendly')\n# plt.ylabel('Count')\n\n# # Annotate the bars with counts\n# ax = plt.gca()\n# for p in ax.patches:\n#     ax.annotate(f'{p.get_height()}', (p.get_x() + p.get_width() / 2., p.get_height()), ha='center', va='bottom')\n\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 167030
@@ -69,13 +69,13 @@
       "total-ns": 4048551
     },
     {
-      "raw": "bins = [0, 6, 12, 18, 24, 30, 36]  # Group levels 1-6, 7-12, 13-18, and so on\n\n# Group the clan levels and create a new column to represent the groups\ndf['clan_level_group'] = pd.cut(df['clan_level'], bins=bins, labels=['1-6', '7-12', '13-18', '19-24', '25-30', '31-36'])\n\n# ALEX: remove plotting\n# sns.set(style=\"whitegrid\")\n# plt.figure(figsize=(15, 6))\n\n# # Create a countplot to visualize the grouped clan levels\n# sns.countplot(data=df, x='clan_level_group', palette=\"pastel\", order=['1-6', '7-12', '13-18', '19-24', '25-30', '31-36'])\n\n# plt.title('Count of Clans in Grouped Clan Levels')\n# plt.xlabel('Clan Level Group')\n# plt.ylabel('Count')\n\n# plt.show()",
+      "raw": "bins = [0, 6, 12, 18, 24, 30, 36]  # Group levels 1-6, 7-12, 13-18, and so on\n\n# Group the clan levels and create a new column to represent the groups\ndf['clan_level_group'] = pd.cut(df['clan_level'], bins=bins, labels=['1-6', '7-12', '13-18', '19-24', '25-30', '31-36'])\n\n# FIRST-AUTHOR: remove plotting\n# sns.set(style=\"whitegrid\")\n# plt.figure(figsize=(15, 6))\n\n# # Create a countplot to visualize the grouped clan levels\n# sns.countplot(data=df, x='clan_level_group', palette=\"pastel\", order=['1-6', '7-12', '13-18', '19-24', '25-30', '31-36'])\n\n# plt.title('Count of Clans in Grouped Clan Levels')\n# plt.xlabel('Clan Level Group')\n# plt.ylabel('Count')\n\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 12558218
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.set(style=\"whitegrid\")\n# plt.figure(figsize=(15, 15))\n# sns.lmplot(data=df, x='clan_level', y='war_wins', palette=\"pastel\")\n\n# plt.title('Correlation between Clan Level and War Wins')\n# plt.xlabel('Clan Level')\n# plt.ylabel('War Wins')\n\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.set(style=\"whitegrid\")\n# plt.figure(figsize=(15, 15))\n# sns.lmplot(data=df, x='clan_level', y='war_wins', palette=\"pastel\")\n\n# plt.title('Correlation between Clan Level and War Wins')\n# plt.xlabel('Clan Level')\n# plt.ylabel('War Wins')\n\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 177010
@@ -87,13 +87,13 @@
       "total-ns": 36558229
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.set(style=\"whitegrid\")\n# plt.figure(figsize=(20, 6))\n\n# sns.countplot(data=df, x='capital_league', palette=\"pastel\", order=df['capital_league'].value_counts().index)\n\n# plt.title('Distribution of Clans in Leagues')\n# plt.xlabel('Capital League')\n# plt.ylabel('Count')\n\n# plt.xticks(rotation=45)\n\n# plt.show()\n_ = df['capital_league'].value_counts().index",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.set(style=\"whitegrid\")\n# plt.figure(figsize=(20, 6))\n\n# sns.countplot(data=df, x='capital_league', palette=\"pastel\", order=df['capital_league'].value_counts().index)\n\n# plt.title('Distribution of Clans in Leagues')\n# plt.xlabel('Capital League')\n# plt.ylabel('Count')\n\n# plt.xticks(rotation=45)\n\n# plt.show()\n_ = df['capital_league'].value_counts().index",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 37706061
     },
     {
-      "raw": "df_ranked = df[df['capital_league'] != 'Unranked']\n# ALEX: remove plotting\n# sns.set(style=\"whitegrid\")\n# plt.figure(figsize=(20, 6))\n\n# sns.countplot(data=df_ranked, x='capital_league', palette=\"pastel\", order=df_ranked['capital_league'].value_counts().index)\n\n# plt.title('Distribution of Clans in Ranked Leagues (Excluding \"unranked\")')\n# plt.xlabel('Capital League')\n# plt.ylabel('Count')\n\n# plt.xticks(rotation=45)\n\n# plt.show()\n_ = df_ranked['capital_league'].value_counts().index",
+      "raw": "df_ranked = df[df['capital_league'] != 'Unranked']\n# FIRST-AUTHOR: remove plotting\n# sns.set(style=\"whitegrid\")\n# plt.figure(figsize=(20, 6))\n\n# sns.countplot(data=df_ranked, x='capital_league', palette=\"pastel\", order=df_ranked['capital_league'].value_counts().index)\n\n# plt.title('Distribution of Clans in Ranked Leagues (Excluding \"unranked\")')\n# plt.xlabel('Capital League')\n# plt.ylabel('Count')\n\n# plt.xticks(rotation=45)\n\n# plt.show()\n_ = df_ranked['capital_league'].value_counts().index",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 54735927
@@ -105,7 +105,7 @@
       "total-ns": 688037124
     },
     {
-      "raw": "selected_columns = ['clan_level', 'clan_points', 'clan_builder_base_points', 'clan_versus_points',\n                    'required_trophies', 'war_win_streak', 'war_wins', 'war_ties', 'war_losses',\n                    'num_members', 'required_builder_base_trophies','required_versus_trophies', \n                    'required_townhall_level', 'clan_capital_hall_level','clan_capital_points', \n                    'mean_member_level', 'mean_member_trophies',\n                    ]\n\ncorrelation_matrix = df[selected_columns].corr()\n\n# ALEX: remove plotting\n# plt.figure(figsize=(20, 20))\n\n# # Create a heatmap\n# sns.heatmap(correlation_matrix, annot=True, fmt=\".2f\", cmap='coolwarm', linewidths=0.5, square=True)\n\n# plt.title('Correlation Map of Selected Columns')\n# plt.show()",
+      "raw": "selected_columns = ['clan_level', 'clan_points', 'clan_builder_base_points', 'clan_versus_points',\n                    'required_trophies', 'war_win_streak', 'war_wins', 'war_ties', 'war_losses',\n                    'num_members', 'required_builder_base_trophies','required_versus_trophies', \n                    'required_townhall_level', 'clan_capital_hall_level','clan_capital_points', \n                    'mean_member_level', 'mean_member_trophies',\n                    ]\n\ncorrelation_matrix = df[selected_columns].corr()\n\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(20, 20))\n\n# # Create a heatmap\n# sns.heatmap(correlation_matrix, annot=True, fmt=\".2f\", cmap='coolwarm', linewidths=0.5, square=True)\n\n# plt.title('Correlation Map of Selected Columns')\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 753812468

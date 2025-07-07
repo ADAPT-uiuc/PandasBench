@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 1604,
   "cells": [
     {
-      "raw": "'''Import basic modules.'''\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n\n\n# ALEX: remove plotting, ML code, extra display code\n# '''Customize visualization\n# Seaborn and matplotlib visualization.'''\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# sns.set_style(\"whitegrid\")\n# %matplotlib inline\n\n# '''Plotly visualization .'''\n# import plotly.offline as py\n# from plotly.offline import iplot, init_notebook_mode\n# import plotly.graph_objs as go\n# py.init_notebook_mode(connected = True) # Required to use plotly offline in jupyter notebook\n\n# import cufflinks as cf #importing plotly and cufflinks in offline mode  \n# import plotly.offline  \n# cf.go_offline()  \n# cf.set_config_file(offline=False, world_readable=True)\n\n# '''Display markdown formatted output like bold, italic bold etc.'''\n# from IPython.display import Markdown,HTML\n# import matplotlib.gridspec as gridspec # to do the grid of plots\n\n# from sklearn.feature_extraction.text import TfidfVectorizer\n# from sklearn.metrics.pairwise import linear_kernel\n# from sklearn.feature_extraction.text import CountVectorizer\n# from sklearn.metrics.pairwise import cosine_similarity\n\n# def bold(string):\n#     display(Markdown(string))",
+      "raw": "'''Import basic modules.'''\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n\n\n# FIRST-AUTHOR: remove plotting, ML code, extra display code\n# '''Customize visualization\n# Seaborn and matplotlib visualization.'''\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# sns.set_style(\"whitegrid\")\n# %matplotlib inline\n\n# '''Plotly visualization .'''\n# import plotly.offline as py\n# from plotly.offline import iplot, init_notebook_mode\n# import plotly.graph_objs as go\n# py.init_notebook_mode(connected = True) # Required to use plotly offline in jupyter notebook\n\n# import cufflinks as cf #importing plotly and cufflinks in offline mode  \n# import plotly.offline  \n# cf.go_offline()  \n# cf.set_config_file(offline=False, world_readable=True)\n\n# '''Display markdown formatted output like bold, italic bold etc.'''\n# from IPython.display import Markdown,HTML\n# import matplotlib.gridspec as gridspec # to do the grid of plots\n\n# from sklearn.feature_extraction.text import TfidfVectorizer\n# from sklearn.metrics.pairwise import linear_kernel\n# from sklearn.feature_extraction.text import CountVectorizer\n# from sklearn.metrics.pairwise import cosine_similarity\n\n# def bold(string):\n#     display(Markdown(string))",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 745719
@@ -21,49 +21,49 @@
       "total-ns": 13644138053
     },
     {
-      "raw": "# ALEX: remove extra display code\n# display(HTML(f\"\"\"\n   \n#         <ul class=\"list-group\">\n#           <li class=\"list-group-item disabled\" aria-disabled=\"true\"><h4>Dataset preview</h4></li>\n#           <li class=\"list-group-item\"><h4>Number of rows in the dataset: <span class=\"label label-primary\">{ netdata.shape[0]:,}</span></h4></li>\n#           <li class=\"list-group-item\"> <h4>Number of columns in the dataset: <span class=\"label label-primary\">{netdata.shape[1]}</span></h4></li>\n#           <li class=\"list-group-item\"><h4>Number of unique types in the dataset: <span class=\"label label-success\">{ netdata['type'].nunique():,}</span></h4></li>\n#         </ul>\n  \n#     \"\"\"))\n_ = netdata.shape[0]\n_ = netdata.shape[1]\n_ = netdata['type'].nunique()",
+      "raw": "# FIRST-AUTHOR: remove extra display code\n# display(HTML(f\"\"\"\n   \n#         <ul class=\"list-group\">\n#           <li class=\"list-group-item disabled\" aria-disabled=\"true\"><h4>Dataset preview</h4></li>\n#           <li class=\"list-group-item\"><h4>Number of rows in the dataset: <span class=\"label label-primary\">{ netdata.shape[0]:,}</span></h4></li>\n#           <li class=\"list-group-item\"> <h4>Number of columns in the dataset: <span class=\"label label-primary\">{netdata.shape[1]}</span></h4></li>\n#           <li class=\"list-group-item\"><h4>Number of unique types in the dataset: <span class=\"label label-success\">{ netdata['type'].nunique():,}</span></h4></li>\n#         </ul>\n  \n#     \"\"\"))\n_ = netdata.shape[0]\n_ = netdata.shape[1]\n_ = netdata['type'].nunique()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 18080364
     },
     {
-      "raw": "temp = netdata['rating'].value_counts()\ndf = pd.DataFrame({'rating': temp.index,\n                   'values': temp.values\n                  })\n# ALEX: remove plotting\n# df.iplot(kind='pie',labels='rating',values='values', title='Distribution of ratings in data')",
+      "raw": "temp = netdata['rating'].value_counts()\ndf = pd.DataFrame({'rating': temp.index,\n                   'values': temp.values\n                  })\n# FIRST-AUTHOR: remove plotting\n# df.iplot(kind='pie',labels='rating',values='values', title='Distribution of ratings in data')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 27027217
     },
     {
-      "raw": "#Credits: https://www.kaggle.com/shivamb/a-visual-and-insightful-journey-donorschoose/data\n\nt = netdata['month_added'].value_counts()\n\nlObjectsALLcnts = list(t.values)\n\nlObjectsALLlbls = list(t.index)\n# ALEX: remove plotting and non dataframe code\n# mapp1 = {1:'Jan',2:'Feb',3:'Mar',4:'Apr',5:'May',6:'Jun',7:'Jul',8:'Aug',9:'Sep',10:'Oct',11:'Nov',12:'Dec'}\n# lObjectsALLlbls = [mapp1[x] for x in lObjectsALLlbls]\n\n# iN = len(lObjectsALLcnts)\n# arrCnts = np.array(lObjectsALLcnts)\n\n# theta=np.arange(0, 2*np.pi, 2*np.pi/iN)\n# width = (2*np.pi)/iN *0.5\n# bottom = 50\n\n# fig = plt.figure(figsize=(8,8))\n# ax = fig.add_axes([0.2, 0.1, 1, 0.9], polar=True)\n# fig.suptitle('Month released', fontsize=16)\n# bars = ax.bar(theta, arrCnts, width=width, bottom=bottom, color='#eb6951')\n# plt.axis('off')\n\n# rotations = np.rad2deg(theta)\n# for x, bar, rotation, label in zip(theta, bars, rotations, lObjectsALLlbls):\n#     lab = ax.text(x,bottom+bar.get_height() , label, ha='left', va='center', rotation=rotation, rotation_mode=\"anchor\",)   \n# plt.show()",
+      "raw": "#Credits: https://www.kaggle.com/shivamb/a-visual-and-insightful-journey-donorschoose/data\n\nt = netdata['month_added'].value_counts()\n\nlObjectsALLcnts = list(t.values)\n\nlObjectsALLlbls = list(t.index)\n# FIRST-AUTHOR: remove plotting and non dataframe code\n# mapp1 = {1:'Jan',2:'Feb',3:'Mar',4:'Apr',5:'May',6:'Jun',7:'Jul',8:'Aug',9:'Sep',10:'Oct',11:'Nov',12:'Dec'}\n# lObjectsALLlbls = [mapp1[x] for x in lObjectsALLlbls]\n\n# iN = len(lObjectsALLcnts)\n# arrCnts = np.array(lObjectsALLcnts)\n\n# theta=np.arange(0, 2*np.pi, 2*np.pi/iN)\n# width = (2*np.pi)/iN *0.5\n# bottom = 50\n\n# fig = plt.figure(figsize=(8,8))\n# ax = fig.add_axes([0.2, 0.1, 1, 0.9], polar=True)\n# fig.suptitle('Month released', fontsize=16)\n# bars = ax.bar(theta, arrCnts, width=width, bottom=bottom, color='#eb6951')\n# plt.axis('off')\n\n# rotations = np.rad2deg(theta)\n# for x, bar, rotation, label in zip(theta, bars, rotations, lObjectsALLlbls):\n#     lab = ax.text(x,bottom+bar.get_height() , label, ha='left', va='center', rotation=rotation, rotation_mode=\"anchor\",)   \n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 5691926
     },
     {
-      "raw": "df1=netdata[netdata['type']=='TV Show']\ndf2=netdata[netdata['type']=='Movie']\n\ndf1=df1.groupby('date_added')['title'].nunique().sort_values()\ndf2=df2.groupby('date_added')['title'].nunique().sort_values()\n\n# ALEX: remove plotting\n# trace1 = go.Scatter(\n#     x = df1.index,\n#     y = df1.values,\n#     mode = 'markers',\n#     name = 'Tv shows'\n# )\n\n# trace2 = go.Scatter(\n#     x = df2.index,\n#     y = df2.values,\n#     mode = 'markers',\n#     name = 'Movies'\n# )\n\n# layout = go.Layout(template= \"plotly_dark\", title = 'TV Shows', xaxis = dict(title = 'Years'))\n# fig = go.Figure(data = [trace1,trace2], layout = layout)\n# fig.show()\n_ = df1.index\n_ = df1.values\n_ = df2.index\n_ = df2.values",
+      "raw": "df1=netdata[netdata['type']=='TV Show']\ndf2=netdata[netdata['type']=='Movie']\n\ndf1=df1.groupby('date_added')['title'].nunique().sort_values()\ndf2=df2.groupby('date_added')['title'].nunique().sort_values()\n\n# FIRST-AUTHOR: remove plotting\n# trace1 = go.Scatter(\n#     x = df1.index,\n#     y = df1.values,\n#     mode = 'markers',\n#     name = 'Tv shows'\n# )\n\n# trace2 = go.Scatter(\n#     x = df2.index,\n#     y = df2.values,\n#     mode = 'markers',\n#     name = 'Movies'\n# )\n\n# layout = go.Layout(template= \"plotly_dark\", title = 'TV Shows', xaxis = dict(title = 'Years'))\n# fig = go.Figure(data = [trace1,trace2], layout = layout)\n# fig.show()\n_ = df1.index\n_ = df1.values\n_ = df2.index\n_ = df2.values",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 191663478
     },
     {
-      "raw": "# ALEX: remove extra display code\n# pd.crosstab(netdata.type,netdata.year_added,margins=True).style.background_gradient(cmap='summer_r')\npd.crosstab(netdata.type,netdata.year_added,margins=True)",
+      "raw": "# FIRST-AUTHOR: remove extra display code\n# pd.crosstab(netdata.type,netdata.year_added,margins=True).style.background_gradient(cmap='summer_r')\npd.crosstab(netdata.type,netdata.year_added,margins=True)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 201659543
     },
     {
-      "raw": "# ALEX: remove extra display code\n# pd.crosstab(netdata.type,netdata.season_count,margins=True).style.background_gradient(cmap='RdYlGn')\npd.crosstab(netdata.type,netdata.season_count,margins=True)\n",
+      "raw": "# FIRST-AUTHOR: remove extra display code\n# pd.crosstab(netdata.type,netdata.season_count,margins=True).style.background_gradient(cmap='RdYlGn')\npd.crosstab(netdata.type,netdata.season_count,margins=True)\n",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 292085802
     },
     {
-      "raw": "# ALEX: remove plotting\n# f,ax=plt.subplots(1,1,figsize=(10,5))\n# netdata[netdata['type']=='Movie'].duration.plot.hist(ax=ax,bins=20,edgecolor='black',color='red')\n# ax.set_title('Movie')\n_ = netdata[netdata['type']=='Movie'].duration",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# f,ax=plt.subplots(1,1,figsize=(10,5))\n# netdata[netdata['type']=='Movie'].duration.plot.hist(ax=ax,bins=20,edgecolor='black',color='red')\n# ax.set_title('Movie')\n_ = netdata[netdata['type']=='Movie'].duration",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 65635447
     },
     {
-      "raw": "cols=['country','type','year_added','season_count','release_year','rating','duration','month_added']\n\n# ALEX: remove plotting\n# sns.heatmap(netdata[cols].corr(),annot=True,cmap='RdYlGn',linewidths=0.2)\n# fig=plt.gcf()\n# fig.set_size_inches(10,8)\n# plt.show()\n_ = netdata[cols].corr()",
+      "raw": "cols=['country','type','year_added','season_count','release_year','rating','duration','month_added']\n\n# FIRST-AUTHOR: remove plotting\n# sns.heatmap(netdata[cols].corr(),annot=True,cmap='RdYlGn',linewidths=0.2)\n# fig=plt.gcf()\n# fig.set_size_inches(10,8)\n# plt.show()\n_ = netdata[cols].corr()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 53303610
@@ -75,13 +75,13 @@
       "total-ns": 3042927864
     },
     {
-      "raw": "#Define a TF-IDF Vectorizer Object. Remove all english stop words such as 'the', 'a'\n# ALEX: remove ML code\n# tfidf = TfidfVectorizer(stop_words='english')\n\n# #Construct the required TF-IDF matrix by fitting and transforming the data\n# tfidf_matrix = tfidf.fit_transform(filterdata['description'])\n\n# #Output the shape of tfidf_matrix\n# tfidf_matrix.shape",
+      "raw": "#Define a TF-IDF Vectorizer Object. Remove all english stop words such as 'the', 'a'\n# FIRST-AUTHOR: remove ML code\n# tfidf = TfidfVectorizer(stop_words='english')\n\n# #Construct the required TF-IDF matrix by fitting and transforming the data\n# tfidf_matrix = tfidf.fit_transform(filterdata['description'])\n\n# #Output the shape of tfidf_matrix\n# tfidf_matrix.shape",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 233681
     },
     {
-      "raw": "# Compute the cosine similarity matrix\n# ALEX: remove ML code\n# cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)",
+      "raw": "# Compute the cosine similarity matrix\n# FIRST-AUTHOR: remove ML code\n# cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 188849
@@ -93,7 +93,7 @@
       "total-ns": 16117109
     },
     {
-      "raw": "# Function that takes in movie title as input and outputs most similar movies\n# ALEX: remove ML code\n# def get_recommendations(title, cosine_sim=cosine_sim):\ndef get_recommendations(title):\n\n    \n    # Get the index of the movie that matches the title\n    idx = indices[title]\n\n    # Get the pairwsie similarity scores of all movies with that movie\n# ALEX: remove ML code\n#     sim_scores = list(enumerate(cosine_sim[idx]))\n\n#     # Sort the movies based on the similarity scores\n#     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)\n\n#     # Get the scores of the 10 most similar movies\n#     sim_scores = sim_scores[1:11]\n\n#     # Get the movie indices\n#     movie_indices = [i[0] for i in sim_scores]\n\n#     # Return the top 10 most similar movies\n#     return filterdata['title'].iloc[movie_indices]\n",
+      "raw": "# Function that takes in movie title as input and outputs most similar movies\n# FIRST-AUTHOR: remove ML code\n# def get_recommendations(title, cosine_sim=cosine_sim):\ndef get_recommendations(title):\n\n    \n    # Get the index of the movie that matches the title\n    idx = indices[title]\n\n    # Get the pairwsie similarity scores of all movies with that movie\n# FIRST-AUTHOR: remove ML code\n#     sim_scores = list(enumerate(cosine_sim[idx]))\n\n#     # Sort the movies based on the similarity scores\n#     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)\n\n#     # Get the scores of the 10 most similar movies\n#     sim_scores = sim_scores[1:11]\n\n#     # Get the movie indices\n#     movie_indices = [i[0] for i in sim_scores]\n\n#     # Return the top 10 most similar movies\n#     return filterdata['title'].iloc[movie_indices]\n",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 396334
@@ -111,19 +111,19 @@
       "total-ns": 7016790030
     },
     {
-      "raw": "# ALEX: remove ML code\n# count = CountVectorizer(stop_words='english')\n# count_matrix = count.fit_transform(filterdata['meta'])\n_ = filterdata['meta']",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# count = CountVectorizer(stop_words='english')\n# count_matrix = count.fit_transform(filterdata['meta'])\n_ = filterdata['meta']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 596646
     },
     {
-      "raw": "# ALEX: remove ML code\n# cosine_sim2 = cosine_similarity(count_matrix, count_matrix)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# cosine_sim2 = cosine_similarity(count_matrix, count_matrix)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 189888
     },
     {
-      "raw": "# ALEX: remove ML code\n# get_recommendations('The Matrix',cosine_sim+cosine_sim2)\nget_recommendations('The Matrix')",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# get_recommendations('The Matrix',cosine_sim+cosine_sim2)\nget_recommendations('The Matrix')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 7747110

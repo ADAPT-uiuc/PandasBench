@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 1185,
   "cells": [
     {
-      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sns\n# sns.set_style('darkgrid')\n# import matplotlib.pyplot as plt\n# %matplotlib inline\n\n# import warnings\n# warnings.filterwarnings(\"ignore\", category=FutureWarning)\n\n# from scipy import stats\n# import pylab",
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting\n# import seaborn as sns\n# sns.set_style('darkgrid')\n# import matplotlib.pyplot as plt\n# %matplotlib inline\n\n# import warnings\n# warnings.filterwarnings(\"ignore\", category=FutureWarning)\n\n# from scipy import stats\n# import pylab",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 3243838522
@@ -75,61 +75,61 @@
       "total-ns": 824688
     },
     {
-      "raw": "# ALEX: remove plotting\n# def num_combined_plot(data, x, y):\n#     fig, axes = plt.subplots(1, 2, figsize=(15, 6))\n\n#     # Plot the histogram with KDE\n#     sns.histplot(data=data, x=x, kde=True, ax=axes[0], color='coral')\n    \n#     # Plot the scatterplot with a correlation line\n#     sns.regplot(data=data, x=x, y=y, ax=axes[1], color='teal', \n#                 scatter_kws={'edgecolor': 'white'}, line_kws={\"color\": \"coral\"})\n\n#     # Calculate the correlation coefficient\n#     corr_coeff = data[[x, y]].corr().iloc[0, 1]\n\n#     # Annotate the correlation coefficient on the scatter plot\n#     axes[1].annotate(f'Correlation : {corr_coeff:.2f}', xy=(0.65, 0.9), xycoords='axes fraction', fontsize=14, color='coral')\n\n#     # Adjust plot aesthetics\n#     sns.despine(bottom=True, left=True)\n#     axes[0].set(xlabel=f'{x}', ylabel='Frequency', title=f'{x} Distribution')\n#     axes[1].set(xlabel=f'{x}', ylabel=f'{y}', title=f'{x} vs {y}')\n#     axes[1].yaxis.set_label_position(\"right\")\n#     axes[1].yaxis.tick_right()\n\n#     plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# def num_combined_plot(data, x, y):\n#     fig, axes = plt.subplots(1, 2, figsize=(15, 6))\n\n#     # Plot the histogram with KDE\n#     sns.histplot(data=data, x=x, kde=True, ax=axes[0], color='coral')\n    \n#     # Plot the scatterplot with a correlation line\n#     sns.regplot(data=data, x=x, y=y, ax=axes[1], color='teal', \n#                 scatter_kws={'edgecolor': 'white'}, line_kws={\"color\": \"coral\"})\n\n#     # Calculate the correlation coefficient\n#     corr_coeff = data[[x, y]].corr().iloc[0, 1]\n\n#     # Annotate the correlation coefficient on the scatter plot\n#     axes[1].annotate(f'Correlation : {corr_coeff:.2f}', xy=(0.65, 0.9), xycoords='axes fraction', fontsize=14, color='coral')\n\n#     # Adjust plot aesthetics\n#     sns.despine(bottom=True, left=True)\n#     axes[0].set(xlabel=f'{x}', ylabel='Frequency', title=f'{x} Distribution')\n#     axes[1].set(xlabel=f'{x}', ylabel=f'{y}', title=f'{x} vs {y}')\n#     axes[1].yaxis.set_label_position(\"right\")\n#     axes[1].yaxis.tick_right()\n\n#     plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 535041
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12, 8))\n\n# # Create a heatmap\n# sns.heatmap(df[numeric_columns].corr(), annot=True, cmap='Spectral', linewidths=0.5,fmt=\".2f\")\n# plt.title('Correlation Heatmap', fontsize=15)\n# plt.show()\n_ = df[numeric_columns].corr()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12, 8))\n\n# # Create a heatmap\n# sns.heatmap(df[numeric_columns].corr(), annot=True, cmap='Spectral', linewidths=0.5,fmt=\".2f\")\n# plt.title('Correlation Heatmap', fontsize=15)\n# plt.show()\n_ = df[numeric_columns].corr()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1192543600
     },
     {
-      "raw": "# ALEX: remove plotting\n# num_combined_plot(df,'sqft_lot','price')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# num_combined_plot(df,'sqft_lot','price')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 323772
     },
     {
-      "raw": "# ALEX: remove plotting\n# num_combined_plot(df,'sqft_lot15','price')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# num_combined_plot(df,'sqft_lot15','price')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 322835
     },
     {
-      "raw": "# ALEX: remove plotting\n# num_combined_plot(df,'sqft_living','price')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# num_combined_plot(df,'sqft_living','price')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 398834
     },
     {
-      "raw": "# ALEX: remove plotting\n# num_combined_plot(df,'sqft_living15','price')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# num_combined_plot(df,'sqft_living15','price')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 371892
     },
     {
-      "raw": "# ALEX: remove plotting\n# num_combined_plot(df,'sqft_above','price')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# num_combined_plot(df,'sqft_above','price')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 334707
     },
     {
-      "raw": "# ALEX: remove plotting\n# num_combined_plot(df,'sqft_basement','price')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# num_combined_plot(df,'sqft_basement','price')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 324052
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(8,5))\n# sns.histplot(data=df, x='price', kde=True, color='coral')\n# plt.xlabel('Price ($)')\n# plt.ylabel('Frequency') \n# plt.title('Price Distribution')\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(8,5))\n# sns.histplot(data=df, x='price', kde=True, color='coral')\n# plt.xlabel('Price ($)')\n# plt.ylabel('Frequency') \n# plt.title('Price Distribution')\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 348951
     },
     {
-      "raw": "def create_subplot_grid(data, x, y):\n    # Create subplots\n# ALEX: remove plotting\n#     fig, axes = plt.subplots(1, 3, figsize=(15, 5))\n\n#     # Plot the countplot with percentages\n#     sns.countplot(data=data, x=x, ax=axes[0], palette='Set2')\n#     axes[0].set(title=f'{x} Frequency')\n#     axes[0].tick_params(axis='x', rotation=90)\n#     axes[0].set_ylabel('Count (%)')\n    \n    # Calculate and annotate the percentages\n    total = len(data)\n# ALEX: remove plotting\n#     for p in axes[0].patches:\n#         percentage = '{:.1f}%'.format(100 * p.get_height() / total)\n#         x_ = p.get_x() + p.get_width() / 2\n#         y_ = p.get_height()\n#         axes[0].annotate(percentage, (x_, y_), ha='center', va='bottom')\n\n#     # Plot the boxplot\n#     sns.boxplot(data=data, x=x, y=y, ax=axes[1], palette='Set2')\n#     axes[1].set(title=f'Price vs. {x}')\n#     axes[1].tick_params(axis='x', rotation=90)\n\n#     # Plot the scatterplot with colors based on x\n#     sns.scatterplot(data=data, x=x, y=y, ax=axes[2], hue=x, palette='Set2')\n#     axes[2].set(title=f'{y} vs. {x}')\n#     axes[2].tick_params(axis='x', rotation=90)\n#     axes[2].yaxis.set_label_position(\"right\")\n    \n#     # Add the regression line to the scatterplot\n#     sns.regplot(data=data, x=x, y=y, ax=axes[2], color='coral', scatter=False)\n#     axes[2].get_legend().remove()\n\n#     plt.tight_layout()\n#     plt.show()",
+      "raw": "def create_subplot_grid(data, x, y):\n    # Create subplots\n# FIRST-AUTHOR: remove plotting\n#     fig, axes = plt.subplots(1, 3, figsize=(15, 5))\n\n#     # Plot the countplot with percentages\n#     sns.countplot(data=data, x=x, ax=axes[0], palette='Set2')\n#     axes[0].set(title=f'{x} Frequency')\n#     axes[0].tick_params(axis='x', rotation=90)\n#     axes[0].set_ylabel('Count (%)')\n    \n    # Calculate and annotate the percentages\n    total = len(data)\n# FIRST-AUTHOR: remove plotting\n#     for p in axes[0].patches:\n#         percentage = '{:.1f}%'.format(100 * p.get_height() / total)\n#         x_ = p.get_x() + p.get_width() / 2\n#         y_ = p.get_height()\n#         axes[0].annotate(percentage, (x_, y_), ha='center', va='bottom')\n\n#     # Plot the boxplot\n#     sns.boxplot(data=data, x=x, y=y, ax=axes[1], palette='Set2')\n#     axes[1].set(title=f'Price vs. {x}')\n#     axes[1].tick_params(axis='x', rotation=90)\n\n#     # Plot the scatterplot with colors based on x\n#     sns.scatterplot(data=data, x=x, y=y, ax=axes[2], hue=x, palette='Set2')\n#     axes[2].set(title=f'{y} vs. {x}')\n#     axes[2].tick_params(axis='x', rotation=90)\n#     axes[2].yaxis.set_label_position(\"right\")\n    \n#     # Add the regression line to the scatterplot\n#     sns.regplot(data=data, x=x, y=y, ax=axes[2], color='coral', scatter=False)\n#     axes[2].get_legend().remove()\n\n#     plt.tight_layout()\n#     plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 802439
@@ -177,259 +177,259 @@
       "total-ns": 556563
     },
     {
-      "raw": "# Create the scatter plot with a color gradient for price\n# ALEX: remove plotting\n# plt.figure(figsize=(15, 7))\n# sns.scatterplot(x='lat', y='price', data=df, hue='price', palette='husl')\n# plt.xlabel('Latitude', fontsize=14)\n# plt.ylabel('Price', fontsize=14)\n# plt.title('Latitude vs. Price (Color Gradient)', fontsize=16)\n# plt.show()",
+      "raw": "# Create the scatter plot with a color gradient for price\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15, 7))\n# sns.scatterplot(x='lat', y='price', data=df, hue='price', palette='husl')\n# plt.xlabel('Latitude', fontsize=14)\n# plt.ylabel('Price', fontsize=14)\n# plt.title('Latitude vs. Price (Color Gradient)', fontsize=16)\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 373102
     },
     {
-      "raw": "# Create the scatter plot with a color gradient for price\n# ALEX: remove plotting\n# plt.figure(figsize=(15, 7))\n# sns.scatterplot(x='long', y='price', data=df, hue='price', palette='husl')\n# plt.xlabel('Longitude', fontsize=14)\n# plt.ylabel('Price', fontsize=14)\n# plt.title('Longitude vs. Price (Color Gradient)', fontsize=16)\n# plt.show()",
+      "raw": "# Create the scatter plot with a color gradient for price\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15, 7))\n# sns.scatterplot(x='long', y='price', data=df, hue='price', palette='husl')\n# plt.xlabel('Longitude', fontsize=14)\n# plt.ylabel('Price', fontsize=14)\n# plt.title('Longitude vs. Price (Color Gradient)', fontsize=16)\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 344650
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 5))\n# sns.lineplot(x='yr_built', y='price', data=df, color='teal', lw=5, marker='o', markerfacecolor='red')\n# plt.title('Price depending on yr_built', fontsize=17)\n# plt.xlabel('yr_built', fontsize=14)\n# plt.ylabel('price', fontsize=14)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15, 5))\n# sns.lineplot(x='yr_built', y='price', data=df, color='teal', lw=5, marker='o', markerfacecolor='red')\n# plt.title('Price depending on yr_built', fontsize=17)\n# plt.xlabel('yr_built', fontsize=14)\n# plt.ylabel('price', fontsize=14)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 338879
     },
     {
-      "raw": "# Count the number of houses that have been renovated (non-zero 'yr_renovated').\nrenovated_count = len(df[df['yr_renovated'] != 0])\n\n# Calculate the total number of houses.\ntotal_houses = len(df)\n\n# Calculate the percentage of houses that have been renovated.\npercentage_renovated = (renovated_count / total_houses) * 100\n\n# Create a pie chart.\n# ALEX: remove plotting\n# labels = ['Renovated', 'Not Renovated']\nsizes = [percentage_renovated, 100 - percentage_renovated]\n# ALEX: remove plotting\n# explode = (0.1, 0)  \n\n# plt.figure(figsize=(15, 6))\n# plt.subplot(1, 2, 1)\n# plt.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=0, explode=explode, colors=['lightcoral', 'lightgreen'])\n# plt.title('Percentage of Houses Renovated')\n# plt.axis('equal')\n\n# # Create the line plot showing the relationship between price and the year of renovation.\n# plt.subplot(1, 2, 2)\n# sns.lineplot(x='yr_renovated', y='price', data=df[df['yr_renovated'] != 0], color='teal', lw=5, marker='o', markerfacecolor='red')\n# plt.title('Price depending on yr_renovated', fontsize=17)\n# plt.xlabel('yr_renovated', fontsize=14)\n# plt.ylabel('price', fontsize=14)\n\n# plt.tight_layout()\n\n# plt.show()\n_ = df[df['yr_renovated'] != 0]",
+      "raw": "# Count the number of houses that have been renovated (non-zero 'yr_renovated').\nrenovated_count = len(df[df['yr_renovated'] != 0])\n\n# Calculate the total number of houses.\ntotal_houses = len(df)\n\n# Calculate the percentage of houses that have been renovated.\npercentage_renovated = (renovated_count / total_houses) * 100\n\n# Create a pie chart.\n# FIRST-AUTHOR: remove plotting\n# labels = ['Renovated', 'Not Renovated']\nsizes = [percentage_renovated, 100 - percentage_renovated]\n# FIRST-AUTHOR: remove plotting\n# explode = (0.1, 0)  \n\n# plt.figure(figsize=(15, 6))\n# plt.subplot(1, 2, 1)\n# plt.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=0, explode=explode, colors=['lightcoral', 'lightgreen'])\n# plt.title('Percentage of Houses Renovated')\n# plt.axis('equal')\n\n# # Create the line plot showing the relationship between price and the year of renovation.\n# plt.subplot(1, 2, 2)\n# sns.lineplot(x='yr_renovated', y='price', data=df[df['yr_renovated'] != 0], color='teal', lw=5, marker='o', markerfacecolor='red')\n# plt.title('Price depending on yr_renovated', fontsize=17)\n# plt.xlabel('yr_renovated', fontsize=14)\n# plt.ylabel('price', fontsize=14)\n\n# plt.tight_layout()\n\n# plt.show()\n_ = df[df['yr_renovated'] != 0]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 363491129
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 7))\n# sns.scatterplot(data=df, x='sqft_living', y='price', hue='grade', palette='RdYlGn_r')\n# plt.xlabel('Living Space (sqft)', fontsize=12)\n# plt.ylabel('Price', fontsize=12)\n# plt.title('Scatter Plot of Price vs. Living Space by Grade', fontsize=15)\n# plt.legend(title='Grade', fontsize=14, title_fontsize=14)\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15, 7))\n# sns.scatterplot(data=df, x='sqft_living', y='price', hue='grade', palette='RdYlGn_r')\n# plt.xlabel('Living Space (sqft)', fontsize=12)\n# plt.ylabel('Price', fontsize=12)\n# plt.title('Scatter Plot of Price vs. Living Space by Grade', fontsize=15)\n# plt.legend(title='Grade', fontsize=14, title_fontsize=14)\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 368355
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 7))\n# sns.scatterplot(data=df, x='sqft_living', y='price', hue='bathrooms', palette='RdYlGn_r')\n# plt.xlabel('Living Space (sqft)', fontsize=12)\n# plt.ylabel('Price', fontsize=12)\n# plt.title('Scatter Plot of Price vs. Living Space by Number of Bathrooms', fontsize=15)\n# plt.legend(title='Bathrooms', fontsize=14, title_fontsize=14)\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15, 7))\n# sns.scatterplot(data=df, x='sqft_living', y='price', hue='bathrooms', palette='RdYlGn_r')\n# plt.xlabel('Living Space (sqft)', fontsize=12)\n# plt.ylabel('Price', fontsize=12)\n# plt.title('Scatter Plot of Price vs. Living Space by Number of Bathrooms', fontsize=15)\n# plt.legend(title='Bathrooms', fontsize=14, title_fontsize=14)\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 363376
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 7))\n# sns.scatterplot(data=df, x='yr_built', y='price', hue=df['yr_renovated'].apply(lambda x: 'Yes' if x > 0 else 'No'))\n# plt.xlabel('Year Built', fontsize=12)\n# plt.ylabel('Price', fontsize=12)\n# plt.title('Scatter Plot of Price vs. Year Built (Renovated vs. Not Renovated)', fontsize=15)\n# plt.legend(title='Renovated', fontsize=14, title_fontsize=14)\n# plt.show()\n_ = df['yr_renovated'].apply(lambda x: 'Yes' if x > 0 else 'No')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15, 7))\n# sns.scatterplot(data=df, x='yr_built', y='price', hue=df['yr_renovated'].apply(lambda x: 'Yes' if x > 0 else 'No'))\n# plt.xlabel('Year Built', fontsize=12)\n# plt.ylabel('Price', fontsize=12)\n# plt.title('Scatter Plot of Price vs. Year Built (Renovated vs. Not Renovated)', fontsize=15)\n# plt.legend(title='Renovated', fontsize=14, title_fontsize=14)\n# plt.show()\n_ = df['yr_renovated'].apply(lambda x: 'Yes' if x > 0 else 'No')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 157228063
     },
     {
-      "raw": "# Train Test Split\n# ALEX: remove ML code\n# from sklearn.model_selection import train_test_split\n# X_train,X_test,y_train,y_test = train_test_split(df.iloc[:,1:19],df.iloc[:,0],test_size=0.3, random_state=0)\n\n# # Converting y_train, y_test back to DataFrame\n# y_train = pd.DataFrame(y_train)\n# y_test = pd.DataFrame(y_test)\n\n# X_train.shape,y_train.shape,X_test.shape,y_test.shape\n_ = df.iloc[:,1:19]\n_ = df.iloc[:,0]",
+      "raw": "# Train Test Split\n# FIRST-AUTHOR: remove ML code\n# from sklearn.model_selection import train_test_split\n# X_train,X_test,y_train,y_test = train_test_split(df.iloc[:,1:19],df.iloc[:,0],test_size=0.3, random_state=0)\n\n# # Converting y_train, y_test back to DataFrame\n# y_train = pd.DataFrame(y_train)\n# y_test = pd.DataFrame(y_test)\n\n# X_train.shape,y_train.shape,X_test.shape,y_test.shape\n_ = df.iloc[:,1:19]\n_ = df.iloc[:,0]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 2551189
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig,axes = plt.subplots(5,2,figsize=(15,15))\n\n# def plot_two(feat,i,j):\n#     sns.boxplot(x=X_train[feat],color='yellow', width=0.5, flierprops={'marker': 'o', 'markerfacecolor': 'red', 'markersize': 3.5}, ax=axes[i,j])\n#     axes[i, j].set_title(feat)\n#     axes[i, j].set_xlabel('')\n\n# for i,feat in enumerate(numeric_columns):\n#     j = i%2 #0 or 1\n#     plot_two(feat,i//2,j)\n#     warnings.filterwarnings(\"ignore\", category=UserWarning)\n\n# fig.suptitle('Box Plots for Numerical Variables', fontsize=16)\n# plt.tight_layout()\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig,axes = plt.subplots(5,2,figsize=(15,15))\n\n# def plot_two(feat,i,j):\n#     sns.boxplot(x=X_train[feat],color='yellow', width=0.5, flierprops={'marker': 'o', 'markerfacecolor': 'red', 'markersize': 3.5}, ax=axes[i,j])\n#     axes[i, j].set_title(feat)\n#     axes[i, j].set_xlabel('')\n\n# for i,feat in enumerate(numeric_columns):\n#     j = i%2 #0 or 1\n#     plot_two(feat,i//2,j)\n#     warnings.filterwarnings(\"ignore\", category=UserWarning)\n\n# fig.suptitle('Box Plots for Numerical Variables', fontsize=16)\n# plt.tight_layout()\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 388009
     },
     {
-      "raw": "# During EDA It was observed Categoric Feature - Bedroom had outlier\n# ALEX: remove ML code\n# X_train['bedrooms'] = np.where(X_train['bedrooms'] > 11, 11, X_train['bedrooms'])\n# X_test['bedrooms'] = np.where(X_test['bedrooms'] > 11, 11, X_test['bedrooms'])",
+      "raw": "# During EDA It was observed Categoric Feature - Bedroom had outlier\n# FIRST-AUTHOR: remove ML code\n# X_train['bedrooms'] = np.where(X_train['bedrooms'] > 11, 11, X_train['bedrooms'])\n# X_test['bedrooms'] = np.where(X_test['bedrooms'] > 11, 11, X_test['bedrooms'])",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 300539
     },
     {
-      "raw": "def log_transformation(data,column):\n# ALEX: remove plotting\n#     plt.figure(figsize=(22,6))\n\n#     plt.subplot(141)\n#     sns.histplot(data[column],kde=True,color='red');\n\n#     plt.subplot(142)\n#     stats.probplot(data[column], dist=\"norm\", plot=pylab) ;\n\n#     plt.subplot(143)\n#     sns.histplot(np.log(data[column]),color=\"green\",kde=True);\n\n#     plt.subplot(144)\n#     stats.probplot(np.log(data[column]), dist=\"norm\", plot=pylab) ;\n    _ = data[column]\n    _ = data[column]\n    _ = np.log(data[column])\n    _ = np.log(data[column])\n    \n    data[column] = np.log(data[column])",
+      "raw": "def log_transformation(data,column):\n# FIRST-AUTHOR: remove plotting\n#     plt.figure(figsize=(22,6))\n\n#     plt.subplot(141)\n#     sns.histplot(data[column],kde=True,color='red');\n\n#     plt.subplot(142)\n#     stats.probplot(data[column], dist=\"norm\", plot=pylab) ;\n\n#     plt.subplot(143)\n#     sns.histplot(np.log(data[column]),color=\"green\",kde=True);\n\n#     plt.subplot(144)\n#     stats.probplot(np.log(data[column]), dist=\"norm\", plot=pylab) ;\n    _ = data[column]\n    _ = data[column]\n    _ = np.log(data[column])\n    _ = np.log(data[column])\n    \n    data[column] = np.log(data[column])",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 942941
     },
     {
-      "raw": "# ALEX: remove ML code\n# log_transformation(X_train,'sqft_living')",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# log_transformation(X_train,'sqft_living')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 308574
     },
     {
-      "raw": "# ALEX: remove ML code\n# log_transformation(X_train,'sqft_living15')",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# log_transformation(X_train,'sqft_living15')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 308699
     },
     {
-      "raw": "# ALEX: remove ML code\n# log_transformation(X_train,'sqft_above')",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# log_transformation(X_train,'sqft_above')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 324648
     },
     {
-      "raw": "# ALEX: remove ML code\n# log_transformation(y_train,'price')",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# log_transformation(y_train,'price')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 300342
     },
     {
-      "raw": "# Independent Variable\n# ALEX: remove ML code\n# X_test['sqft_living'] = np.log(X_test['sqft_living'])\n# X_test['sqft_living15'] = np.log(X_test['sqft_living15'])\n# X_test['sqft_above'] = np.log(X_test['sqft_above'])\n\n# # Dependent Variabel\n# y_test['price'] = np.log(y_test['price'])",
+      "raw": "# Independent Variable\n# FIRST-AUTHOR: remove ML code\n# X_test['sqft_living'] = np.log(X_test['sqft_living'])\n# X_test['sqft_living15'] = np.log(X_test['sqft_living15'])\n# X_test['sqft_above'] = np.log(X_test['sqft_above'])\n\n# # Dependent Variabel\n# y_test['price'] = np.log(y_test['price'])",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 325067
     },
     {
-      "raw": "def box_cox_transformation(data,column):\n# ALEX: remove plotting\n#     plt.figure(figsize=(22,6))\n\n#     plt.subplot(141)\n#     sns.histplot(data[column],kde=True,color='red');\n\n#     plt.subplot(142)\n#     stats.probplot(data[column], dist=\"norm\", plot=pylab) ;\n    \n#     from sklearn.preprocessing import PowerTransformer \n#     boxcox = PowerTransformer(method='box-cox') \n#     data[column] = boxcox.fit_transform(data[[column]])\n\n#     plt.subplot(143)\n#     sns.histplot(data[column],color=\"green\",kde=True);\n\n#     plt.subplot(144)\n#     stats.probplot(data[column], dist=\"norm\", plot=pylab) ;\n    _ = data[column]\n    _ = data[column]\n    data[column] = data[column]\n    _ = data[column]\n    _ = data[column]",
+      "raw": "def box_cox_transformation(data,column):\n# FIRST-AUTHOR: remove plotting\n#     plt.figure(figsize=(22,6))\n\n#     plt.subplot(141)\n#     sns.histplot(data[column],kde=True,color='red');\n\n#     plt.subplot(142)\n#     stats.probplot(data[column], dist=\"norm\", plot=pylab) ;\n    \n#     from sklearn.preprocessing import PowerTransformer \n#     boxcox = PowerTransformer(method='box-cox') \n#     data[column] = boxcox.fit_transform(data[[column]])\n\n#     plt.subplot(143)\n#     sns.histplot(data[column],color=\"green\",kde=True);\n\n#     plt.subplot(144)\n#     stats.probplot(data[column], dist=\"norm\", plot=pylab) ;\n    _ = data[column]\n    _ = data[column]\n    data[column] = data[column]\n    _ = data[column]\n    _ = data[column]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 870072
     },
     {
-      "raw": "# ALEX: remove ML code\n# box_cox_transformation(X_train,'sqft_lot')",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# box_cox_transformation(X_train,'sqft_lot')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 302706
     },
     {
-      "raw": "# ALEX: remove ML code\n# box_cox_transformation(X_train,'sqft_lot15')",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# box_cox_transformation(X_train,'sqft_lot15')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 293899
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.preprocessing import PowerTransformer \n# boxcox = PowerTransformer(method='box-cox') \n\n# X_test['sqft_lot'] = boxcox.fit_transform(X_test[['sqft_lot']])\n# X_test['sqft_lot15'] = boxcox.fit_transform(X_test[['sqft_lot15']])",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.preprocessing import PowerTransformer \n# boxcox = PowerTransformer(method='box-cox') \n\n# X_test['sqft_lot'] = boxcox.fit_transform(X_test[['sqft_lot']])\n# X_test['sqft_lot15'] = boxcox.fit_transform(X_test[['sqft_lot15']])",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 338064
     },
     {
-      "raw": "# ALEX: remove ML code\n# Scaling_Features = ['sqft_basement','lat','long']",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# Scaling_Features = ['sqft_basement','lat','long']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 296011
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearnp.preprocessing import MinMaxScaler\n# scaler = MinMaxScaler()",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearnp.preprocessing import MinMaxScaler\n# scaler = MinMaxScaler()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 302985
     },
     {
-      "raw": "# ALEX: remove ML code\n# X_train[Scaling_Features] = scaler.fit_transform(X_train[Scaling_Features]) # fit the scaler to the train set, and then transform it\n# X_test[Scaling_Features] = scaler.transform(X_test[Scaling_Features]) # transform the test set",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# X_train[Scaling_Features] = scaler.fit_transform(X_train[Scaling_Features]) # fit the scaler to the train set, and then transform it\n# X_test[Scaling_Features] = scaler.transform(X_test[Scaling_Features]) # transform the test set",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 310405
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.preprocessing import KBinsDiscretizer\n\n# est = KBinsDiscretizer(n_bins=6, encode='ordinal', strategy='uniform')\n# X_train['yr_built']= est.fit_transform(X_train[['yr_built']])\n# X_test['yr_built']= est.fit_transform(X_test[['yr_built']])",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.preprocessing import KBinsDiscretizer\n\n# est = KBinsDiscretizer(n_bins=6, encode='ordinal', strategy='uniform')\n# X_train['yr_built']= est.fit_transform(X_train[['yr_built']])\n# X_test['yr_built']= est.fit_transform(X_test[['yr_built']])",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 324323
     },
     {
-      "raw": "# ALEX: remove ML code\n# def custom_binning(year):\n#     if year == 0:\n#         return 0\n#     elif 1934 <= year <= 1950:\n#         return 1\n#     elif 1951 <= year <= 1970:\n#         return 2\n#     elif 1971 <= year <= 1990:\n#         return 3\n#     elif 1991 <= year <= 2010:\n#         return 4\n#     else:\n#         return 5\n\n# # Apply the custom binning function to the yr_renovated column\n# X_train['yr_renovated'] = X_train['yr_renovated'].apply(custom_binning)\n# X_test['yr_renovated'] = X_test['yr_renovated'].apply(custom_binning)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# def custom_binning(year):\n#     if year == 0:\n#         return 0\n#     elif 1934 <= year <= 1950:\n#         return 1\n#     elif 1951 <= year <= 1970:\n#         return 2\n#     elif 1971 <= year <= 1990:\n#         return 3\n#     elif 1991 <= year <= 2010:\n#         return 4\n#     else:\n#         return 5\n\n# # Apply the custom binning function to the yr_renovated column\n# X_train['yr_renovated'] = X_train['yr_renovated'].apply(custom_binning)\n# X_test['yr_renovated'] = X_test['yr_renovated'].apply(custom_binning)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 375355
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.preprocessing import LabelEncoder\n# le = LabelEncoder()\n\n# X_train['zipcode'] = le.fit_transform(X_train['zipcode'])\n# X_test['zipcode'] = le.fit_transform(X_test['zipcode'])",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.preprocessing import LabelEncoder\n# le = LabelEncoder()\n\n# X_train['zipcode'] = le.fit_transform(X_train['zipcode'])\n# X_test['zipcode'] = le.fit_transform(X_test['zipcode'])",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 316776
     },
     {
-      "raw": "# ALEX: remove ML code\n# def evaluate_linear_regression(model, X_train, y_train, X_test, y_test):\n#     # Predict on training and testing data\n#     train_pred = model.predict(X_train)\n#     test_pred = model.predict(X_test)\n    \n#     # Calculate R-squared (R2) for training and testing data\n#     r2_train = r2_score(y_train, train_pred)\n#     r2_test = r2_score(y_test, test_pred)\n    \n#     # Calculate RMSE (Root Mean Square Error) for training and testing data\n#     rmse_test = np.sqrt(mean_squared_error(y_test, test_pred))\n    \n#     # Return the evaluation metrics\n#     print(\"R-squared (R2) Train:\", r2_train)\n#     print(\"R-squared (R2) Test:\", r2_test)\n#     print(\"RMSE Test:\", rmse_test)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# def evaluate_linear_regression(model, X_train, y_train, X_test, y_test):\n#     # Predict on training and testing data\n#     train_pred = model.predict(X_train)\n#     test_pred = model.predict(X_test)\n    \n#     # Calculate R-squared (R2) for training and testing data\n#     r2_train = r2_score(y_train, train_pred)\n#     r2_test = r2_score(y_test, test_pred)\n    \n#     # Calculate RMSE (Root Mean Square Error) for training and testing data\n#     rmse_test = np.sqrt(mean_squared_error(y_test, test_pred))\n    \n#     # Return the evaluation metrics\n#     print(\"R-squared (R2) Train:\", r2_train)\n#     print(\"R-squared (R2) Test:\", r2_test)\n#     print(\"RMSE Test:\", rmse_test)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 379881
     },
     {
-      "raw": "# ALEX: remove ML code, plotting\n# def plot_coefficients(model):\n#     # Get coefficients and corresponding feature names\n#     coefficients = model.coef_.ravel()\n\n#     # Feature names (your provided feature names)\n#     feature_names = X_train.columns\n\n#     # Create a DataFrame to store the coefficients and feature names\n#     coefficients_df = pd.DataFrame({'Feature': feature_names, 'Coefficient': coefficients})\n\n#     # Calculate absolute coefficients and sort by absolute coefficient value\n#     coefficients_df['Absolute_Coefficient'] = coefficients_df['Coefficient'].abs()\n#     coefficients_df = coefficients_df.sort_values(by='Absolute_Coefficient', ascending=False)\n\n#     # Create a bar plot with rank labels\n#     plt.figure(figsize=(10, 6))\n#     sns.barplot(data=coefficients_df, x='Feature', y='Coefficient', palette='Spectral_r')\n#     plt.xlabel('Feature')\n#     plt.ylabel('Coefficient')\n#     plt.title('Ridge Regression Coefficients (Ranked by Absolute Value)')\n#     plt.xticks(rotation=90)  # Rotate x-axis labels for better readability\n\n#     # Add rank labels to the plot\n#     for i, rank in enumerate(range(1, len(coefficients_df) + 1)):\n#         plt.text(i, coefficients_df['Coefficient'].iloc[i], f'{rank}', horizontalalignment='center')\n\n#     plt.tight_layout()\n\n#     # Display the plot\n#     plt.show()",
+      "raw": "# FIRST-AUTHOR: remove ML code, plotting\n# def plot_coefficients(model):\n#     # Get coefficients and corresponding feature names\n#     coefficients = model.coef_.ravel()\n\n#     # Feature names (your provided feature names)\n#     feature_names = X_train.columns\n\n#     # Create a DataFrame to store the coefficients and feature names\n#     coefficients_df = pd.DataFrame({'Feature': feature_names, 'Coefficient': coefficients})\n\n#     # Calculate absolute coefficients and sort by absolute coefficient value\n#     coefficients_df['Absolute_Coefficient'] = coefficients_df['Coefficient'].abs()\n#     coefficients_df = coefficients_df.sort_values(by='Absolute_Coefficient', ascending=False)\n\n#     # Create a bar plot with rank labels\n#     plt.figure(figsize=(10, 6))\n#     sns.barplot(data=coefficients_df, x='Feature', y='Coefficient', palette='Spectral_r')\n#     plt.xlabel('Feature')\n#     plt.ylabel('Coefficient')\n#     plt.title('Ridge Regression Coefficients (Ranked by Absolute Value)')\n#     plt.xticks(rotation=90)  # Rotate x-axis labels for better readability\n\n#     # Add rank labels to the plot\n#     for i, rank in enumerate(range(1, len(coefficients_df) + 1)):\n#         plt.text(i, coefficients_df['Coefficient'].iloc[i], f'{rank}', horizontalalignment='center')\n\n#     plt.tight_layout()\n\n#     # Display the plot\n#     plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 375630
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.metrics import r2_score,mean_squared_error",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.metrics import r2_score,mean_squared_error",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 260660
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.linear_model import LinearRegression\n\n# # Perform Linear Regression\n# linear_model = LinearRegression()\n# linear_model.fit(X_train,y_train)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.linear_model import LinearRegression\n\n# # Perform Linear Regression\n# linear_model = LinearRegression()\n# linear_model.fit(X_train,y_train)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 283897
     },
     {
-      "raw": "# Evaluate linar Regression\n# ALEX: remove ML code\n# train_pred = linear_model.predict(X_train)\n# test_pred = linear_model.predict(X_test)",
+      "raw": "# Evaluate linar Regression\n# FIRST-AUTHOR: remove ML code\n# train_pred = linear_model.predict(X_train)\n# test_pred = linear_model.predict(X_test)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 271969
     },
     {
-      "raw": "# ALEX: remove ML code\n# evaluate_linear_regression(linear_model, X_train, y_train, X_test, y_test)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# evaluate_linear_regression(linear_model, X_train, y_train, X_test, y_test)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 259855
     },
     {
-      "raw": "# ALEX: remove ML code, plotting\n# plot_coefficients(linear_model)",
+      "raw": "# FIRST-AUTHOR: remove ML code, plotting\n# plot_coefficients(linear_model)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 255268
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import GridSearchCV\n# from sklearn.linear_model import Ridge\n\n# ridge_model = Ridge()\n\n# # Define a range of alpha values to search\n# param_grid = {'alpha': [0.001, 0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, \n#                         0.6, 0.7, 0.8, 0.9, 1.0, 2.0, 3.0, 4.0, 5.0, \n#                         6.0, 7.0, 8.0, 9.0, 10.0, 20, 50, 100, 500, 1000]}\n\n# # Perform hyperparameter tuning with GridSearchCV\n# grid_search = GridSearchCV(ridge_model, param_grid, cv=5, scoring='neg_mean_squared_error')\n# grid_search.fit(X_train, y_train)\n\n# # Get the best alpha value\n# best_alpha_ridge = grid_search.best_params_['alpha']\n# print(\"Best Parameter (alpha):\", best_alpha_ridge)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.model_selection import GridSearchCV\n# from sklearn.linear_model import Ridge\n\n# ridge_model = Ridge()\n\n# # Define a range of alpha values to search\n# param_grid = {'alpha': [0.001, 0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, \n#                         0.6, 0.7, 0.8, 0.9, 1.0, 2.0, 3.0, 4.0, 5.0, \n#                         6.0, 7.0, 8.0, 9.0, 10.0, 20, 50, 100, 500, 1000]}\n\n# # Perform hyperparameter tuning with GridSearchCV\n# grid_search = GridSearchCV(ridge_model, param_grid, cv=5, scoring='neg_mean_squared_error')\n# grid_search.fit(X_train, y_train)\n\n# # Get the best alpha value\n# best_alpha_ridge = grid_search.best_params_['alpha']\n# print(\"Best Parameter (alpha):\", best_alpha_ridge)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 335894
     },
     {
-      "raw": "# Fitting the Model\n# ALEX: remove ML code\n# ridge_model = Ridge(alpha=best_alpha_ridge)\n# ridge_model.fit(X_train, y_train)\n\n# # Predicttion\n# ridge_train_pred = ridge_model.predict(X_train)\n# ridge_test_pred = ridge_model.predict(X_test)",
+      "raw": "# Fitting the Model\n# FIRST-AUTHOR: remove ML code\n# ridge_model = Ridge(alpha=best_alpha_ridge)\n# ridge_model.fit(X_train, y_train)\n\n# # Predicttion\n# ridge_train_pred = ridge_model.predict(X_train)\n# ridge_test_pred = ridge_model.predict(X_test)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 460931
     },
     {
-      "raw": "# ALEX: remove ML code\n# evaluate_linear_regression(ridge_model, X_train, y_train, X_test, y_test)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# evaluate_linear_regression(ridge_model, X_train, y_train, X_test, y_test)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 508435
     },
     {
-      "raw": "# ALEX: remove ML code, plotting\n# plot_coefficients(ridge_model)",
+      "raw": "# FIRST-AUTHOR: remove ML code, plotting\n# plot_coefficients(ridge_model)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 261040
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.linear_model import Lasso\n# from sklearn.model_selection import GridSearchCV\n# lasso_model = Lasso()\n# param_grid = {'alpha': [0.001, 0.01, 0.05, 0.1, \n#  0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 2.0, 3.0, \n#  4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 20, 50, 100, 500, 1000 ]}\n\n# grid_search = GridSearchCV(lasso_model, param_grid, cv=5,scoring='neg_mean_squared_error')\n# grid_search.fit(X_train, y_train)\n\n# best_alpha_lasso = grid_search.best_params_['alpha']\n# print(\"Best Parameter (alpha):\", best_alpha_lasso)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.linear_model import Lasso\n# from sklearn.model_selection import GridSearchCV\n# lasso_model = Lasso()\n# param_grid = {'alpha': [0.001, 0.01, 0.05, 0.1, \n#  0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 2.0, 3.0, \n#  4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 20, 50, 100, 500, 1000 ]}\n\n# grid_search = GridSearchCV(lasso_model, param_grid, cv=5,scoring='neg_mean_squared_error')\n# grid_search.fit(X_train, y_train)\n\n# best_alpha_lasso = grid_search.best_params_['alpha']\n# print(\"Best Parameter (alpha):\", best_alpha_lasso)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 325926
     },
     {
-      "raw": "# ALEX: remove ML code\n# lasso_model = Lasso(alpha=best_alpha_lasso)\n# lasso_model.fit(X_train, y_train)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# lasso_model = Lasso(alpha=best_alpha_lasso)\n# lasso_model.fit(X_train, y_train)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 269870
     },
     {
-      "raw": "# Evaluate linar Regression\n# ALEX: remove ML code\n# lasso_train_pred = lasso_model.predict(X_train)\n# lasso_test_pred = lasso_model.predict(X_test)",
+      "raw": "# Evaluate linar Regression\n# FIRST-AUTHOR: remove ML code\n# lasso_train_pred = lasso_model.predict(X_train)\n# lasso_test_pred = lasso_model.predict(X_test)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 261788
     },
     {
-      "raw": "# ALEX: remove ML code\n# evaluate_linear_regression(lasso_model, X_train, y_train, X_test, y_test)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# evaluate_linear_regression(lasso_model, X_train, y_train, X_test, y_test)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 264475
     },
     {
-      "raw": "# ALEX: remove ML code, plotting\n# plot_coefficients(lasso_model)",
+      "raw": "# FIRST-AUTHOR: remove ML code, plotting\n# plot_coefficients(lasso_model)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 277049
     },
     {
-      "raw": "# ALEX: remove ML code\n# feature_names = X_train.columns # Defining the Feature Names\ncoefficients_df = pd.DataFrame()\n\n# Create DataFrames for each model's coefficients and feature names\n# ALEX: remove ML code, plotting\n# linear_coefficients = pd.DataFrame({'Feature': feature_names, 'Linear Coefficient': linear_model.coef_.ravel()})\n# ridge_coefficients = pd.DataFrame({'Feature': feature_names, 'Ridge Coefficient': ridge_model.coef_.ravel()})\n# lasso_coefficients = pd.DataFrame({'Feature': feature_names, 'Lasso Coefficient': lasso_model.coef_.ravel()})\n\n# # Merge the DataFrames based on the 'Feature' column\n# coefficients_df = linear_coefficients.merge(ridge_coefficients, on='Feature').merge(lasso_coefficients, on='Feature')\n# ticks = range(len(feature_names))  \n# labels = feature_names  \n\n# # Create a line plot for the coefficients\n# plt.figure(figsize=(15, 9))\n# plt.plot(ticks, coefficients_df['Linear Coefficient'], marker='o', label='Linear Coefficient')\n# plt.plot(ticks, coefficients_df['Ridge Coefficient'], marker='x', label='Ridge Coefficient')\n# plt.plot(ticks, coefficients_df['Lasso Coefficient'], marker='*', label='Lasso Coefficient')\n# plt.xticks(ticks, labels, rotation=90, fontsize=15)\n# plt.xlabel('Feature',fontsize=12)\n# plt.ylabel('Coefficient',fontsize=12)\n# plt.title('Regression Coefficients',fontsize=15)\n# plt.tight_layout()\n# plt.legend(loc='upper left',fontsize=14,labelspacing=1.5)  \n\n# # Add a horizontal red line at zero\n# plt.axhline(0, color='red', linestyle='--', linewidth=1.7)\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# feature_names = X_train.columns # Defining the Feature Names\ncoefficients_df = pd.DataFrame()\n\n# Create DataFrames for each model's coefficients and feature names\n# FIRST-AUTHOR: remove ML code, plotting\n# linear_coefficients = pd.DataFrame({'Feature': feature_names, 'Linear Coefficient': linear_model.coef_.ravel()})\n# ridge_coefficients = pd.DataFrame({'Feature': feature_names, 'Ridge Coefficient': ridge_model.coef_.ravel()})\n# lasso_coefficients = pd.DataFrame({'Feature': feature_names, 'Lasso Coefficient': lasso_model.coef_.ravel()})\n\n# # Merge the DataFrames based on the 'Feature' column\n# coefficients_df = linear_coefficients.merge(ridge_coefficients, on='Feature').merge(lasso_coefficients, on='Feature')\n# ticks = range(len(feature_names))  \n# labels = feature_names  \n\n# # Create a line plot for the coefficients\n# plt.figure(figsize=(15, 9))\n# plt.plot(ticks, coefficients_df['Linear Coefficient'], marker='o', label='Linear Coefficient')\n# plt.plot(ticks, coefficients_df['Ridge Coefficient'], marker='x', label='Ridge Coefficient')\n# plt.plot(ticks, coefficients_df['Lasso Coefficient'], marker='*', label='Lasso Coefficient')\n# plt.xticks(ticks, labels, rotation=90, fontsize=15)\n# plt.xlabel('Feature',fontsize=12)\n# plt.ylabel('Coefficient',fontsize=12)\n# plt.title('Regression Coefficients',fontsize=15)\n# plt.tight_layout()\n# plt.legend(loc='upper left',fontsize=14,labelspacing=1.5)  \n\n# # Add a horizontal red line at zero\n# plt.axhline(0, color='red', linestyle='--', linewidth=1.7)\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1318671

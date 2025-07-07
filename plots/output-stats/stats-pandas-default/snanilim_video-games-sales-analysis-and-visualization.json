@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 118,
   "cells": [
     {
-      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove ML code\n# import scipy.stats as st\npd.set_option('display.max_columns', None)\n\nimport math\n\n# ALEX: remove plotting, ML code\n# import matplotlib.pyplot as plt\n# %matplotlib inline\n\n# import seaborn as sns\n# sns.set_style('whitegrid')\n\n# import missingno as msno\n\n# from sklearn.preprocessing import StandardScaler\n# from scipy import stats\n\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))",
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove ML code\n# import scipy.stats as st\npd.set_option('display.max_columns', None)\n\nimport math\n\n# FIRST-AUTHOR: remove plotting, ML code\n# import matplotlib.pyplot as plt\n# %matplotlib inline\n\n# import seaborn as sns\n# sns.set_style('whitegrid')\n\n# import missingno as msno\n\n# from sklearn.preprocessing import StandardScaler\n# from scipy import stats\n\n\n# FIRST-AUTHOR: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 571023
@@ -57,19 +57,19 @@
       "total-ns": 1431766
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.countplot(x=\"Genre\", data=data, order = data['Genre'].value_counts().index)\n# plt.xticks(rotation=90)\n_ = data['Genre'].value_counts().index",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.countplot(x=\"Genre\", data=data, order = data['Genre'].value_counts().index)\n# plt.xticks(rotation=90)\n_ = data['Genre'].value_counts().index",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1377994
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.countplot(x=\"Year\", data=data, order = data.groupby(by=['Year'])['Name'].count().sort_values(ascending=False).index)\n# plt.xticks(rotation=90)\n_ = data.groupby(by=['Year'])['Name'].count().sort_values(ascending=False).index",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.countplot(x=\"Year\", data=data, order = data.groupby(by=['Year'])['Name'].count().sort_values(ascending=False).index)\n# plt.xticks(rotation=90)\n_ = data.groupby(by=['Year'])['Name'].count().sort_values(ascending=False).index",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 2057062
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(30, 10))\n# sns.countplot(x=\"Year\", data=data, hue='Genre', order=data.Year.value_counts().iloc[:5].index)\n# plt.xticks(size=16, rotation=90)\n_ = data.Year.value_counts().iloc[:5].index",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(30, 10))\n# sns.countplot(x=\"Year\", data=data, hue='Genre', order=data.Year.value_counts().iloc[:5].index)\n# plt.xticks(size=16, rotation=90)\n_ = data.Year.value_counts().iloc[:5].index",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 975080
@@ -81,7 +81,7 @@
       "total-ns": 2003375
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.barplot(x=\"Year\", y=\"Global_Sales\", data=data_year)\n# plt.xticks(rotation=90)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.barplot(x=\"Year\", y=\"Global_Sales\", data=data_year)\n# plt.xticks(rotation=90)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 201464
@@ -99,7 +99,7 @@
       "total-ns": 402130
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(30, 15))\n# g = sns.barplot(x='Year', y='count', data=year_max_genre)\nindex = 0\nfor value in year_max_genre['count'].values:\n#     print(asd)\n# ALEX: remove plotting\n#     g.text(index, value + 5, str(genre[index] + '----' +str(value)), color='#000', size=14, rotation= 90, ha=\"center\")\n    _ = str(genre[index] + '----' +str(value))\n    index += 1\n\n\n\n\n# ALEX: remove plotting\n# plt.xticks(rotation=90)\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(30, 15))\n# g = sns.barplot(x='Year', y='count', data=year_max_genre)\nindex = 0\nfor value in year_max_genre['count'].values:\n#     print(asd)\n# FIRST-AUTHOR: remove plotting\n#     g.text(index, value + 5, str(genre[index] + '----' +str(value)), color='#000', size=14, rotation= 90, ha=\"center\")\n    _ = str(genre[index] + '----' +str(value))\n    index += 1\n\n\n\n\n# FIRST-AUTHOR: remove plotting\n# plt.xticks(rotation=90)\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 737842
@@ -117,7 +117,7 @@
       "total-ns": 399294
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(30, 18))\n# g = sns.barplot(x='Year', y='Global_Sales', data=year_sale_max)\nindex = 0\nfor value in year_sale_max['Global_Sales']:\n# ALEX: remove plotting\n#     g.text(index, value + 1, str(genre[index] + '----' +str(round(value, 2))), color='#000', size=14, rotation= 90, ha=\"center\")\n    _ = str(genre[index] + '----' +str(round(value, 2)))\n    index += 1\n\n# ALEX: remove plotting\n# plt.xticks(rotation=90)\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(30, 18))\n# g = sns.barplot(x='Year', y='Global_Sales', data=year_sale_max)\nindex = 0\nfor value in year_sale_max['Global_Sales']:\n# FIRST-AUTHOR: remove plotting\n#     g.text(index, value + 1, str(genre[index] + '----' +str(round(value, 2))), color='#000', size=14, rotation= 90, ha=\"center\")\n    _ = str(genre[index] + '----' +str(round(value, 2)))\n    index += 1\n\n# FIRST-AUTHOR: remove plotting\n# plt.xticks(rotation=90)\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 867317
@@ -129,7 +129,7 @@
       "total-ns": 2868188
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.barplot(x=\"Genre\", y=\"Global_Sales\", data=data_genre)\n# plt.xticks(rotation=90)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.barplot(x=\"Genre\", y=\"Global_Sales\", data=data_genre)\n# plt.xticks(rotation=90)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 201710
@@ -141,7 +141,7 @@
       "total-ns": 2768841
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.barplot(x=\"Platform\", y=\"Global_Sales\", data=data_platform)\n# plt.xticks(rotation=90)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.barplot(x=\"Platform\", y=\"Global_Sales\", data=data_platform)\n# plt.xticks(rotation=90)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 200843
@@ -159,7 +159,7 @@
       "total-ns": 569906
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(30, 18))\n# g = sns.barplot(x='Name', y='Global_Sales', data=top_game_sale)\nindex = 0\nfor value in top_game_sale['Global_Sales']:\n# ALEX: remove plotting\n#     g.text(index, value - 18, name[index], color='#000', size=14, rotation= 90, ha=\"center\")\n    _ = name[index]\n    index += 1\n\n# ALEX: remove plotting\n# plt.xticks(y, top_game_sale['Year'], fontsize=14, rotation=90)\n# plt.xlabel('Release Year')\n# plt.show()\n_ = top_game_sale['Year']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(30, 18))\n# g = sns.barplot(x='Name', y='Global_Sales', data=top_game_sale)\nindex = 0\nfor value in top_game_sale['Global_Sales']:\n# FIRST-AUTHOR: remove plotting\n#     g.text(index, value - 18, name[index], color='#000', size=14, rotation= 90, ha=\"center\")\n    _ = name[index]\n    index += 1\n\n# FIRST-AUTHOR: remove plotting\n# plt.xticks(y, top_game_sale['Year'], fontsize=14, rotation=90)\n# plt.xlabel('Release Year')\n# plt.show()\n_ = top_game_sale['Year']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 779339
@@ -171,7 +171,7 @@
       "total-ns": 3752170
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.set(font_scale=1)\n# sns.heatmap(comp_map, annot=True, fmt = '.1f')\n\n# plt.xticks(fontsize=14)\n# plt.yticks(fontsize=14)\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.set(font_scale=1)\n# sns.heatmap(comp_map, annot=True, fmt = '.1f')\n\n# plt.xticks(fontsize=14)\n# plt.yticks(fontsize=14)\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 217528
@@ -183,7 +183,7 @@
       "total-ns": 3458976
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.barplot(x='Genre', y='Sale_Price', hue='Sale_Area', data=comp_table)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.barplot(x='Genre', y='Sale_Price', hue='Sale_Area', data=comp_table)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 197222
@@ -207,7 +207,7 @@
       "total-ns": 2993111
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(30, 15))\n# sns.barplot(x='Platform', y='Sale_Price', hue='Sale_Area', data=comp_table)\n# plt.xticks(fontsize=14)\n# plt.yticks(fontsize=14)\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(30, 15))\n# sns.barplot(x='Platform', y='Sale_Price', hue='Sale_Area', data=comp_table)\n# plt.xticks(fontsize=14)\n# plt.yticks(fontsize=14)\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 209077
@@ -219,7 +219,7 @@
       "total-ns": 3093310
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.countplot(x=\"Publisher\", data=data, order = data.groupby(by=['Publisher'])['Year'].count().sort_values(ascending=False).iloc[:20].index)\n# plt.xticks(rotation=90)\n_ = data.groupby(by=['Publisher'])['Year'].count().sort_values(ascending=False).iloc[:20].index",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.countplot(x=\"Publisher\", data=data, order = data.groupby(by=['Publisher'])['Year'].count().sort_values(ascending=False).iloc[:20].index)\n# plt.xticks(rotation=90)\n_ = data.groupby(by=['Publisher'])['Year'].count().sort_values(ascending=False).iloc[:20].index",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 2407289
@@ -231,7 +231,7 @@
       "total-ns": 3996146
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.barplot(x='Publisher', y='Global_Sales', data=sale_pbl)\n# plt.xticks(rotation=90)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15, 10))\n# sns.barplot(x='Publisher', y='Global_Sales', data=sale_pbl)\n# plt.xticks(rotation=90)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 200282
@@ -255,7 +255,7 @@
       "total-ns": 2965422
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(30, 15))\n# sns.barplot(x='Publisher', y='Sale_Price', hue='Sale_Area', data=comp_publisher)\n# plt.xticks(fontsize=14, rotation=90)\n# plt.yticks(fontsize=14)\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(30, 15))\n# sns.barplot(x='Publisher', y='Sale_Price', hue='Sale_Area', data=comp_publisher)\n# plt.xticks(fontsize=14, rotation=90)\n# plt.yticks(fontsize=14)\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 212560
@@ -273,7 +273,7 @@
       "total-ns": 403596
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(30, 15))\n# g = sns.barplot(x='Year', y='Count', data=top_publisher_count)\nindex = 0\nfor value in top_publisher_count['Count'].values:\n#     print(asd)\n# ALEX: remove plotting\n#     g.text(index, value + 5, str(publisher[index] + '----' +str(value)), color='#000', size=14, rotation= 90, ha=\"center\")\n    _ = str(publisher[index] + '----' +str(value))\n    index += 1\n\n\n\n\n# ALEX: remove plotting\n# plt.xticks(rotation=90)\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(30, 15))\n# g = sns.barplot(x='Year', y='Count', data=top_publisher_count)\nindex = 0\nfor value in top_publisher_count['Count'].values:\n#     print(asd)\n# FIRST-AUTHOR: remove plotting\n#     g.text(index, value + 5, str(publisher[index] + '----' +str(value)), color='#000', size=14, rotation= 90, ha=\"center\")\n    _ = str(publisher[index] + '----' +str(value))\n    index += 1\n\n\n\n\n# FIRST-AUTHOR: remove plotting\n# plt.xticks(rotation=90)\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 836792
@@ -291,7 +291,7 @@
       "total-ns": 2888485
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12, 8))\n# sns.barplot(x='region', y='sale', data = top_sale_reg)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12, 8))\n# sns.barplot(x='region', y='sale', data = top_sale_reg)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 195980
@@ -303,13 +303,13 @@
       "total-ns": 479440
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10, 8))\n# plt.pie(sizes, labels=labels, autopct='%1.1f%%', shadow=True, startangle=90)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(10, 8))\n# plt.pie(sizes, labels=labels, autopct='%1.1f%%', shadow=True, startangle=90)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 183737
     },
     {
-      "raw": "# sns.distplot(data['NA_Sales'],  kde=False, fit=stats.gamma);\n# sns.distplot(data['EU_Sales'],  kde=False, fit=stats.gamma);\n# ALEX: remove plotting\n# plt.figure(figsize=(25,30))\nsales_columns = ['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales', 'Global_Sales']\nfor i, column in enumerate(sales_columns):\n# ALEX: remove plotting\n#     plt.subplot(3,2,i+1)\n#     sns.distplot(data[column], bins=20, kde=False, fit=stats.gamma)\n    _ = data[column]",
+      "raw": "# sns.distplot(data['NA_Sales'],  kde=False, fit=stats.gamma);\n# sns.distplot(data['EU_Sales'],  kde=False, fit=stats.gamma);\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(25,30))\nsales_columns = ['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales', 'Global_Sales']\nfor i, column in enumerate(sales_columns):\n# FIRST-AUTHOR: remove plotting\n#     plt.subplot(3,2,i+1)\n#     sns.distplot(data[column], bins=20, kde=False, fit=stats.gamma)\n    _ = data[column]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 544869
@@ -327,13 +327,13 @@
       "total-ns": 5900987
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(25,30))\nsales_columns = ['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales', 'Global_Sales']\nfor i, column in enumerate(sales_columns):\n# ALEX: remove plotting\n#     plt.subplot(3,2,i+1)\n#     sns.distplot(np.log(data_hist_log[column]), bins=20, kde=False, fit=stats.gamma)\n    _ = np.log(data_hist_log[column])",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(25,30))\nsales_columns = ['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales', 'Global_Sales']\nfor i, column in enumerate(sales_columns):\n# FIRST-AUTHOR: remove plotting\n#     plt.subplot(3,2,i+1)\n#     sns.distplot(np.log(data_hist_log[column]), bins=20, kde=False, fit=stats.gamma)\n    _ = np.log(data_hist_log[column])",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1211045
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(13,10))\n# sns.heatmap(data.corr(), cmap = \"Blues\", annot=True, linewidth=3)\n_ = data.corr()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(13,10))\n# sns.heatmap(data.corr(), cmap = \"Blues\", annot=True, linewidth=3)\n_ = data.corr()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 3651497
@@ -345,7 +345,7 @@
       "total-ns": 1482194
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.pairplot(data_pair, hue='Genre')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.pairplot(data_pair, hue='Genre')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 185497
@@ -387,7 +387,7 @@
       "total-ns": 1744878
     },
     {
-      "raw": "# sns.pairplot(data_pair_log, hue='Genre',  diag_kind = 'kde',\n#              plot_kws = {'alpha': 0.6, 's': 80, 'edgecolor': 'k'},\n#              size = 4)\n\n# ALEX: remove plotting\n# sns.pairplot(data_pair_log, hue='Genre',  palette=\"husl\")",
+      "raw": "# sns.pairplot(data_pair_log, hue='Genre',  diag_kind = 'kde',\n#              plot_kws = {'alpha': 0.6, 's': 80, 'edgecolor': 'k'},\n#              size = 4)\n\n# FIRST-AUTHOR: remove plotting\n# sns.pairplot(data_pair_log, hue='Genre',  palette=\"husl\")",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 207314

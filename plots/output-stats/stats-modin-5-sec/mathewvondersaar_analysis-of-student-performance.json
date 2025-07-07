@@ -3,13 +3,13 @@
   "max-mem-in-mb2": 1099,
   "cells": [
     {
-      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt #plotting!\n# import seaborn as sns #cute messing with style\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt #plotting!\n# import seaborn as sns #cute messing with style\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# FIRST-AUTHOR: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 3392551322
     },
     {
-      "raw": "# ALEX: removed plotting\n# %matplotlib inline\n# sns.set_style('darkgrid')\ndf = pd.read_csv('./input/highereducationstudentsperformanceevaluation/DATA (1).scaled.csv')\ndf.head()",
+      "raw": "# FIRST-AUTHOR: removed plotting\n# %matplotlib inline\n# sns.set_style('darkgrid')\ndf = pd.read_csv('./input/highereducationstudentsperformanceevaluation/DATA (1).scaled.csv')\ndf.head()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 3285804419
@@ -39,25 +39,25 @@
       "total-ns": 146959767
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(16, 12))\n# sns.heatmap(df_clean.drop('GPA', axis=1).corr(), cmap='YlGnBu', annot=True, fmt='.2f', vmin=0);\n_ = df_clean.drop('GPA', axis=1).corr()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(16, 12))\n# sns.heatmap(df_clean.drop('GPA', axis=1).corr(), cmap='YlGnBu', annot=True, fmt='.2f', vmin=0);\n_ = df_clean.drop('GPA', axis=1).corr()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 185943154
     },
     {
-      "raw": "# ALEX: remove plotting\n# df_clean.hist(alpha = 0.7, figsize=(12,10), bins=5);",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# df_clean.hist(alpha = 0.7, figsize=(12,10), bins=5);",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 410717
     },
     {
-      "raw": "# ALEX: remove plotting\n# %matplotlib inline\n# sns.set_style('darkgrid')\ndf = pd.read_csv('./input/highereducationstudentsperformanceevaluation/DATA (1).scaled.csv')\ndf.head()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# %matplotlib inline\n# sns.set_style('darkgrid')\ndf = pd.read_csv('./input/highereducationstudentsperformanceevaluation/DATA (1).scaled.csv')\ndf.head()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 528666411
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(16, 12))\n# sns.heatmap(df.drop('30', axis=1).corr(), cmap='YlGnBu', annot=True, fmt='.2f', vmin=0);\n_ = df.drop('30', axis=1).corr()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(16, 12))\n# sns.heatmap(df.drop('30', axis=1).corr(), cmap='YlGnBu', annot=True, fmt='.2f', vmin=0);\n_ = df.drop('30', axis=1).corr()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 427732179
@@ -69,7 +69,7 @@
       "total-ns": 208713824
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(16, 12))\n# sns.heatmap(df_cut.drop('30', axis=1).corr(), cmap='YlGnBu', annot=True, fmt='.2f', vmin=0);\n_ = df_cut.drop('30', axis=1).corr()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(16, 12))\n# sns.heatmap(df_cut.drop('30', axis=1).corr(), cmap='YlGnBu', annot=True, fmt='.2f', vmin=0);\n_ = df_cut.drop('30', axis=1).corr()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 279067312
@@ -81,19 +81,19 @@
       "total-ns": 2859445
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(16, 12))\n# sns.heatmap(df_cut.drop('PAST_GPA', axis=1).corr(), cmap='YlGnBu', annot=True, fmt='.2f', vmin=0);\n_ = df_cut.drop('PAST_GPA', axis=1).corr()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(16, 12))\n# sns.heatmap(df_cut.drop('PAST_GPA', axis=1).corr(), cmap='YlGnBu', annot=True, fmt='.2f', vmin=0);\n_ = df_cut.drop('PAST_GPA', axis=1).corr()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 328307008
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(16, 12))\n# sns.heatmap(df_cut.drop('PAST_GPA', axis=1).corr(), cmap='YlGnBu', annot=True, fmt='.2f', vmin=0);\n_ = df_cut.drop('PAST_GPA', axis=1).corr()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(16, 12))\n# sns.heatmap(df_cut.drop('PAST_GPA', axis=1).corr(), cmap='YlGnBu', annot=True, fmt='.2f', vmin=0);\n_ = df_cut.drop('PAST_GPA', axis=1).corr()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 553678614
     },
     {
-      "raw": "# ALEX: remove plotting\n# df_cut.hist(alpha = 0.7, figsize=(12,10), bins=5);",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# df_cut.hist(alpha = 0.7, figsize=(12,10), bins=5);",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 317557

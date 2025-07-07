@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 973,
   "cells": [
     {
-      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list the files in the input directory\n\n# ALEX: remove path printing\n# from subprocess import check_output\n# print(check_output([\"ls\", \"../input\"]).decode(\"utf8\"))\n\n# Any results you write to the current directory are saved as output.\n# ALEX: make notebook work with runner\nfrom IPython.display import display",
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list the files in the input directory\n\n# FIRST-AUTHOR: remove path printing\n# from subprocess import check_output\n# print(check_output([\"ls\", \"../input\"]).decode(\"utf8\"))\n\n# Any results you write to the current directory are saved as output.\n# FIRST-AUTHOR: make notebook work with runner\nfrom IPython.display import display",
       "rewrite-ns": 810198,
       "overhead-ns": 810198,
       "exec-ns": 447970,
@@ -48,7 +48,7 @@
       "rewritten": "display(trainData.describe().round(2))\ndisplay(trainData.describe(include=['O']))\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# trainData.Sex.value_counts(normalize=True).plot(kind=\"bar\", title=\"Sex\")\n# plt.show()\n# trainData.Pclass.value_counts().plot(kind=\"barh\", title=\"Pclass\")\n# plt.show()\n# trainData.Fare.plot(kind=\"density\", title=\"Fare\", xlim=(0,800))\n# plt.show()\ntrainData.Sex.value_counts(normalize=True)\ntrainData.Pclass.value_counts()\ntrainData.Fare",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# trainData.Sex.value_counts(normalize=True).plot(kind=\"bar\", title=\"Sex\")\n# plt.show()\n# trainData.Pclass.value_counts().plot(kind=\"barh\", title=\"Pclass\")\n# plt.show()\n# trainData.Fare.plot(kind=\"density\", title=\"Fare\", xlim=(0,800))\n# plt.show()\ntrainData.Sex.value_counts(normalize=True)\ntrainData.Pclass.value_counts()\ntrainData.Fare",
       "rewrite-ns": 800503,
       "overhead-ns": 800503,
       "exec-ns": 20228989,
@@ -75,7 +75,7 @@
       "rewritten": "trainData[['PassengerId', 'Survived', 'Pclass', 'Age', 'SibSp', 'Parch',\n    'Fare', 'IsMale']].corrwith(trainData.Survived).round(4) * 100\n"
     },
     {
-      "raw": "testFeatures = [\"IsMale\", \"Pclass\", \"Fare\"]\n# ALEX: make notebook run\n# X = trainData[testFeatures].fillna(0).as_matrix()\n# Y = trainData[\"Survived\"].fillna(0).as_matrix()\nX = trainData[testFeatures].fillna(0).to_numpy()\nY = trainData[\"Survived\"].fillna(0).to_numpy()",
+      "raw": "testFeatures = [\"IsMale\", \"Pclass\", \"Fare\"]\n# FIRST-AUTHOR: make notebook run\n# X = trainData[testFeatures].fillna(0).as_matrix()\n# Y = trainData[\"Survived\"].fillna(0).as_matrix()\nX = trainData[testFeatures].fillna(0).to_numpy()\nY = trainData[\"Survived\"].fillna(0).to_numpy()",
       "rewrite-ns": 1432872,
       "overhead-ns": 1432872,
       "exec-ns": 34317855,
@@ -84,7 +84,7 @@
       "rewritten": "testFeatures = ['IsMale', 'Pclass', 'Fare']\nX = trainData[testFeatures].fillna(0).to_numpy()\nY = trainData['Survived'].fillna(0).to_numpy()\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn import tree\n# dtree = tree.DecisionTreeClassifier(max_depth=3)\n# dtree.fit(X, Y) #ALL OF THE MAGIC HAPPENS RIGHT HERE LADIES AND GENTLEMEN AND OTHERS",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn import tree\n# dtree = tree.DecisionTreeClassifier(max_depth=3)\n# dtree.fit(X, Y) #ALL OF THE MAGIC HAPPENS RIGHT HERE LADIES AND GENTLEMEN AND OTHERS",
       "rewrite-ns": 21354,
       "overhead-ns": 21354,
       "exec-ns": 106946,
@@ -93,7 +93,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# import graphviz\n# dot_data = tree.export_graphviz(dtree, out_file=None, feature_names=testFeatures)\n# graph = graphviz.Source(dot_data)\n# graph",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# import graphviz\n# dot_data = tree.export_graphviz(dtree, out_file=None, feature_names=testFeatures)\n# graph = graphviz.Source(dot_data)\n# graph",
       "rewrite-ns": 13560,
       "overhead-ns": 13560,
       "exec-ns": 76099,
@@ -102,7 +102,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code, make notebook run\n# testData[\"Survived\"] = dtree.predict(testData[testFeatures].fillna(0).as_matrix())\ntestData[\"Survived\"] = testData[testFeatures].fillna(0).to_numpy()[:,1]",
+      "raw": "# FIRST-AUTHOR: remove ML code, make notebook run\n# testData[\"Survived\"] = dtree.predict(testData[testFeatures].fillna(0).as_matrix())\ntestData[\"Survived\"] = testData[testFeatures].fillna(0).to_numpy()[:,1]",
       "rewrite-ns": 911706,
       "overhead-ns": 911706,
       "exec-ns": 15447977,
@@ -111,7 +111,7 @@
       "rewritten": "testData['Survived'] = testData[testFeatures].fillna(0).to_numpy()[:, 1]\n"
     },
     {
-      "raw": "predictions = testData[[\"PassengerId\", \"Survived\"]]\npredictions.to_csv(\"dtree_predictions.csv\", index=False)\n# ALEX: remove path printing\n# print(check_output([\"ls\", \".\"]).decode(\"utf8\"))",
+      "raw": "predictions = testData[[\"PassengerId\", \"Survived\"]]\npredictions.to_csv(\"dtree_predictions.csv\", index=False)\n# FIRST-AUTHOR: remove path printing\n# print(check_output([\"ls\", \".\"]).decode(\"utf8\"))",
       "rewrite-ns": 812895,
       "overhead-ns": 812895,
       "exec-ns": 1124993031,

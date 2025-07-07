@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 2119,
   "cells": [
     {
-      "raw": "# modules we'll use\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import seaborn as sns\n# import datetime\n\n# read in our data\nearthquakes = pd.read_csv(\"./input/earthquake-database.scaled.csv\")\nlandslides = pd.read_csv(\"./input/catalog.scaled.csv\")\nvolcanos = pd.read_csv(\"./input/volcanic-eruptions-database.scaled.csv\")\n\n# set seed for reproducibility\nnp.random.seed(0)",
+      "raw": "# modules we'll use\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# FIRST-AUTHOR: remove plotting\n# import seaborn as sns\n# import datetime\n\n# read in our data\nearthquakes = pd.read_csv(\"./input/earthquake-database.scaled.csv\")\nlandslides = pd.read_csv(\"./input/catalog.scaled.csv\")\nvolcanos = pd.read_csv(\"./input/volcanic-eruptions-database.scaled.csv\")\n\n# set seed for reproducibility\nnp.random.seed(0)",
       "rewrite-ns": 2273340,
       "overhead-ns": 2273340,
       "exec-ns": 5433459475,
@@ -57,7 +57,7 @@
       "rewritten": "landslides['date_parsed'].head()\n"
     },
     {
-      "raw": "# Your turn! Create a new column, date_parsed, in the earthquakes\n# dataset that has correctly parsed dates in it. (Don't forget to \n# double-check that the dtype is correct!)\n# ALEX: make notebook run\n# earthquakes['Date']=pd.to_datetime(earthquakes['Date'],infer_datetime_format=True)\nearthquakes['Date']=pd.to_datetime(earthquakes['Date'],infer_datetime_format=True,utc=True)\nprint(earthquakes['Date'].dtype)\n",
+      "raw": "# Your turn! Create a new column, date_parsed, in the earthquakes\n# dataset that has correctly parsed dates in it. (Don't forget to \n# double-check that the dtype is correct!)\n# FIRST-AUTHOR: make notebook run\n# earthquakes['Date']=pd.to_datetime(earthquakes['Date'],infer_datetime_format=True)\nearthquakes['Date']=pd.to_datetime(earthquakes['Date'],infer_datetime_format=True,utc=True)\nprint(earthquakes['Date'].dtype)\n",
       "rewrite-ns": 1165020,
       "overhead-ns": 1165020,
       "exec-ns": 517946583,
@@ -66,7 +66,7 @@
       "rewritten": "earthquakes['Date'] = pd.to_datetime(earthquakes['Date'],\n    infer_datetime_format=True, utc=True)\nprint(earthquakes['Date'].dtype)\n"
     },
     {
-      "raw": "# try to get the day of the month from the date column\n# ALEX: the first of the two lines below was added to get the notebook to run\nlandslides['date'] = pd.to_datetime(landslides['date'], infer_datetime_format=True)\nday_of_month_landslides = landslides['date'].dt.day",
+      "raw": "# try to get the day of the month from the date column\n# FIRST-AUTHOR: the first of the two lines below was added to get the notebook to run\nlandslides['date'] = pd.to_datetime(landslides['date'], infer_datetime_format=True)\nday_of_month_landslides = landslides['date'].dt.day",
       "rewrite-ns": 1100471,
       "overhead-ns": 1100471,
       "exec-ns": 78742424,
@@ -93,7 +93,7 @@
       "rewritten": "day_of_month_earthquakes = earthquakes['Date'].dt.day\nprint(day_of_month_earthquakes[:10])\n"
     },
     {
-      "raw": "# remove na's\nday_of_month_landslides = day_of_month_landslides.dropna()\n\n# plot the day of the month\n# ALEX: remove plotting\n# sns.distplot(day_of_month_landslides, kde=False, bins=31)",
+      "raw": "# remove na's\nday_of_month_landslides = day_of_month_landslides.dropna()\n\n# plot the day of the month\n# FIRST-AUTHOR: remove plotting\n# sns.distplot(day_of_month_landslides, kde=False, bins=31)",
       "rewrite-ns": 384368,
       "overhead-ns": 384368,
       "exec-ns": 1307640,
@@ -102,7 +102,7 @@
       "rewritten": "day_of_month_landslides = day_of_month_landslides.dropna()\n"
     },
     {
-      "raw": "# Your turn! Plot the days of the month from your\n# earthquake dataset and make sure they make sense.\n# remove na's\nday_of_month_earthquakes = day_of_month_earthquakes.dropna()\n\n# plot the day of the month\n# ALEX: remove plotting\n# sns.distplot(day_of_month_earthquakes, kde=False, bins=31)\n",
+      "raw": "# Your turn! Plot the days of the month from your\n# earthquake dataset and make sure they make sense.\n# remove na's\nday_of_month_earthquakes = day_of_month_earthquakes.dropna()\n\n# plot the day of the month\n# FIRST-AUTHOR: remove plotting\n# sns.distplot(day_of_month_earthquakes, kde=False, bins=31)\n",
       "rewrite-ns": 363394,
       "overhead-ns": 363394,
       "exec-ns": 7249048,

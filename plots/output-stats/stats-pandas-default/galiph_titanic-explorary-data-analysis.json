@@ -3,13 +3,13 @@
   "max-mem-in-mb2": 113,
   "cells": [
     {
-      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt",
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# FIRST-AUTHOR: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 370622
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.metrics import accuracy_score, classification_report, confusion_matrix\n# from sklearn.linear_model import LogisticRegression\n# from sklearn.model_selection import train_test_split\n# from sklearn.preprocessing import StandardScaler\n# from sklearn.neighbors import KNeighborsClassifier\n# from sklearn.pipeline import Pipeline\n# from sklearn.svm import SVC",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.metrics import accuracy_score, classification_report, confusion_matrix\n# from sklearn.linear_model import LogisticRegression\n# from sklearn.model_selection import train_test_split\n# from sklearn.preprocessing import StandardScaler\n# from sklearn.neighbors import KNeighborsClassifier\n# from sklearn.pipeline import Pipeline\n# from sklearn.svm import SVC",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 219103
@@ -27,37 +27,37 @@
       "total-ns": 3875698
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.heatmap(titanic.isnull(),yticklabels=False,cbar=False,cmap='viridis')\n# plt.show()\n_ = titanic.isnull()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.heatmap(titanic.isnull(),yticklabels=False,cbar=False,cmap='viridis')\n# plt.show()\n_ = titanic.isnull()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 920567
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.countplot(x='Survived',data=titanic,palette='RdBu_r');",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.countplot(x='Survived',data=titanic,palette='RdBu_r');",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 167897
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.countplot(x='Survived',hue='Sex',data=titanic,palette='RdBu_r');",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.countplot(x='Survived',hue='Sex',data=titanic,palette='RdBu_r');",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 165154
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.countplot(x='Survived',hue='Pclass',data=titanic,palette='viridis');",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.countplot(x='Survived',hue='Pclass',data=titanic,palette='viridis');",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 155191
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.countplot(x='Pclass',hue='Survived',data=titanic,palette='viridis');",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.countplot(x='Pclass',hue='Survived',data=titanic,palette='viridis');",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 151042
     },
     {
-      "raw": "# ALEX: remove plotting\n# titanic[titanic.Survived == 0].hist(\"Age\", bins=20)\n# plt.show()\ntitanic[titanic.Survived == 0]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# titanic[titanic.Survived == 0].hist(\"Age\", bins=20)\n# plt.show()\ntitanic[titanic.Survived == 0]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 950807
@@ -75,7 +75,7 @@
       "total-ns": 17215118
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15,5))\n# sns.barplot(x=titanic['Title'], y=titanic['Age']);\n# plt.show()\n_ = titanic['Title']\n_ = titanic['Age']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15,5))\n# sns.barplot(x=titanic['Title'], y=titanic['Age']);\n# plt.show()\n_ = titanic['Title']\n_ = titanic['Age']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 488135
@@ -93,7 +93,7 @@
       "total-ns": 377906
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.swarmplot(x = 'Ages', y=\"value\", hue=\"Survived\", data=titanic_melted)\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.swarmplot(x = 'Ages', y=\"value\", hue=\"Survived\", data=titanic_melted)\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 178162

@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 7337,
   "cells": [
     {
-      "raw": "# http://stackoverflow.com/questions/22233488/pandas-drop-a-level-from-a-multi-level-column-index\n# http://pandas.pydata.org/pandas-docs/version/0.18.1/visualization.html\n# http://stackoverflow.com/questions/34233347/pandas-plot-how-to-control-the-bar-width-and-the-gaps\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt\n# import colorsys\n# %matplotlib inline\n\n# ALEX: remove path printing\n# from subprocess import check_output\n# print(check_output([\"ls\", \"./input\"]).decode(\"utf8\"))\n\n# Any results you write to the current directory are saved as output.",
+      "raw": "# http://stackoverflow.com/questions/22233488/pandas-drop-a-level-from-a-multi-level-column-index\n# http://pandas.pydata.org/pandas-docs/version/0.18.1/visualization.html\n# http://stackoverflow.com/questions/34233347/pandas-plot-how-to-control-the-bar-width-and-the-gaps\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt\n# import colorsys\n# %matplotlib inline\n\n# FIRST-AUTHOR: remove path printing\n# from subprocess import check_output\n# print(check_output([\"ls\", \"./input\"]).decode(\"utf8\"))\n\n# Any results you write to the current directory are saved as output.",
       "rewrite-ns": 510400,
       "overhead-ns": 510400,
       "exec-ns": 278252,
@@ -66,7 +66,7 @@
       "rewritten": "total = pass_[['year', 'black', 'hispanic', 'white', 'asian']].groupby(['year']\n    ).agg(['sum'])\ntotal = total[['black', 'hispanic', 'white', 'asian']].reset_index()\ntotal.columns = total.columns.droplevel()\ntotal.columns = ['year', 'black', 'hispanic', 'white', 'asian']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# total.plot.bar(x = 'year',figsize=(10,6),linewidth=0.75,width=0.7)\n# plt.title('Participants in the AP Computer Science Exam by Race,1999-2013')\n# you can use the width parameter to set the gap",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# total.plot.bar(x = 'year',figsize=(10,6),linewidth=0.75,width=0.7)\n# plt.title('Participants in the AP Computer Science Exam by Race,1999-2013')\n# you can use the width parameter to set the gap",
       "rewrite-ns": 22915,
       "overhead-ns": 22915,
       "exec-ns": 104844,
@@ -84,7 +84,7 @@
       "rewritten": "columns = ['year', 'black_passed', 'hispanic_passed', 'white_passed',\n    'asian_passed']\npass_copy = pass_[['year', 'black_passed', 'hispanic_passed',\n    'white_passed', 'asian_passed']].copy()\nfor col in columns:\n    pass_copy[col] = pd.to_numeric(pass_copy[col], errors='coerce')\npass_copy = pass_copy[['year', 'black_passed', 'hispanic_passed',\n    'white_passed', 'asian_passed']].fillna(0)\npass_rate = pass_copy[['year', 'black_passed', 'hispanic_passed',\n    'white_passed', 'asian_passed']].groupby(['year']).agg(['sum'])\npass_rate = pass_rate[['black_passed', 'hispanic_passed', 'white_passed',\n    'asian_passed']].reset_index()\npass_rate.columns = pass_rate.columns.droplevel()\npass_rate.columns = ['year', 'black', 'hispanic', 'white', 'asian']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# pass_rate.plot.bar(x='year',figsize=(10,6),linewidth=0.75,width=0.7)\n# plt.title('Pass Rate')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# pass_rate.plot.bar(x='year',figsize=(10,6),linewidth=0.75,width=0.7)\n# plt.title('Pass Rate')",
       "rewrite-ns": 23321,
       "overhead-ns": 23321,
       "exec-ns": 102870,
@@ -93,7 +93,7 @@
       "rewritten": ""
     },
     {
-      "raw": "gender_pass = pass_[['year','black_male','black_female','white_male',\n                     'white_female','hispanic_male','hispanic_female',\n                     'asian_male','asian_female']].groupby(['year']).agg(['sum'])\ngender_pass = gender_pass.reset_index()\ngender_pass.columns = gender_pass.columns.droplevel()\ngender_pass.columns = ['year','black_male','black_female','white_male',\n                     'white_female','hispanic_male','hispanic_female',\n                     'asian_male','asian_female']\n# ALEX: remove plotting\n# gender_pass.plot.bar(x='year',figsize=(10,6),linewidth=0.8)\n# plt.title('Male vs Female')",
+      "raw": "gender_pass = pass_[['year','black_male','black_female','white_male',\n                     'white_female','hispanic_male','hispanic_female',\n                     'asian_male','asian_female']].groupby(['year']).agg(['sum'])\ngender_pass = gender_pass.reset_index()\ngender_pass.columns = gender_pass.columns.droplevel()\ngender_pass.columns = ['year','black_male','black_female','white_male',\n                     'white_female','hispanic_male','hispanic_female',\n                     'asian_male','asian_female']\n# FIRST-AUTHOR: remove plotting\n# gender_pass.plot.bar(x='year',figsize=(10,6),linewidth=0.8)\n# plt.title('Male vs Female')",
       "rewrite-ns": 2287819,
       "overhead-ns": 2287819,
       "exec-ns": 429308411,
@@ -120,7 +120,7 @@
       "rewritten": "historical['1999'] = pd.to_numeric(historical['1999'], errors='coerce')\nhistorical.drop(['Pop'], axis=1, inplace=True)\n"
     },
     {
-      "raw": "hm = historical.set_index('state')\n# ALEX: remove plotting\n# fig,ax = plt.subplots(figsize=(10,6))\n# sns.heatmap(hm,ax=ax)\n# plt.title('exam taken per state per year')",
+      "raw": "hm = historical.set_index('state')\n# FIRST-AUTHOR: remove plotting\n# fig,ax = plt.subplots(figsize=(10,6))\n# sns.heatmap(hm,ax=ax)\n# plt.title('exam taken per state per year')",
       "rewrite-ns": 468654,
       "overhead-ns": 468654,
       "exec-ns": 102372257,

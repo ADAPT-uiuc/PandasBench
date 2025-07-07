@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 3710,
   "cells": [
     {
-      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# FIRST-AUTHOR: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
       "rewrite-ns": 509337,
       "overhead-ns": 509337,
       "exec-ns": 322243,
@@ -75,7 +75,7 @@
       "rewritten": "evaluate_lazy(df.describe())\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# import plotly.express as px\n\n# %matplotlib inline",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# import plotly.express as px\n\n# %matplotlib inline",
       "rewrite-ns": 28258,
       "overhead-ns": 28258,
       "exec-ns": 110479,
@@ -84,7 +84,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig = px.histogram(df, x=\"Age\", nbins= 20, marginal=\"rug\",text_auto = True)\n# fig.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig = px.histogram(df, x=\"Age\", nbins= 20, marginal=\"rug\",text_auto = True)\n# fig.show()",
       "rewrite-ns": 15997,
       "overhead-ns": 15997,
       "exec-ns": 77716,
@@ -93,7 +93,7 @@
       "rewritten": ""
     },
     {
-      "raw": "gender_counts = df['Gender'].value_counts()\n# ALEX: remove plotting\n# fig = px.pie(data_frame=df, names=gender_counts.index, values=gender_counts.values)\n# fig.update_traces(textposition='inside', textinfo='percent+label')\n# fig.show()\n_ = gender_counts.index\n_ = gender_counts.values",
+      "raw": "gender_counts = df['Gender'].value_counts()\n# FIRST-AUTHOR: remove plotting\n# fig = px.pie(data_frame=df, names=gender_counts.index, values=gender_counts.values)\n# fig.update_traces(textposition='inside', textinfo='percent+label')\n# fig.show()\n_ = gender_counts.index\n_ = gender_counts.values",
       "rewrite-ns": 956503,
       "overhead-ns": 956503,
       "exec-ns": 253070543,
@@ -102,7 +102,7 @@
       "rewritten": "gender_counts = df['Gender'].value_counts()\n_ = gender_counts.index\n_ = gender_counts.values\n"
     },
     {
-      "raw": "category_data = df['Category'].value_counts()\n# ALEX: remove plotting\n# fig = px.pie(data_frame=df, names=category_data.index, values=category_data.values)\n# fig.update_traces(textposition='inside', textinfo='percent+label')\n# fig.show()\n_ = category_data.index\n_ = category_data.values\n",
+      "raw": "category_data = df['Category'].value_counts()\n# FIRST-AUTHOR: remove plotting\n# fig = px.pie(data_frame=df, names=category_data.index, values=category_data.values)\n# fig.update_traces(textposition='inside', textinfo='percent+label')\n# fig.show()\n_ = category_data.index\n_ = category_data.values\n",
       "rewrite-ns": 874703,
       "overhead-ns": 874703,
       "exec-ns": 253091932,
@@ -120,7 +120,7 @@
       "rewritten": "df.columns\n"
     },
     {
-      "raw": "sold_items = df['Item Purchased'].value_counts().sort_values(ascending = False)\n\n# ALEX: remove plotting\n# fig = px.bar(sold_items, x = sold_items.index, y = sold_items.values, \n#              title=\"Highest selling Items\", labels={\"y\":\"Quantity\"})\n# fig.show()\n_ = sold_items.index\n_ = sold_items.values\n",
+      "raw": "sold_items = df['Item Purchased'].value_counts().sort_values(ascending = False)\n\n# FIRST-AUTHOR: remove plotting\n# fig = px.bar(sold_items, x = sold_items.index, y = sold_items.values, \n#              title=\"Highest selling Items\", labels={\"y\":\"Quantity\"})\n# fig.show()\n_ = sold_items.index\n_ = sold_items.values\n",
       "rewrite-ns": 1134568,
       "overhead-ns": 1134568,
       "exec-ns": 254157631,
@@ -129,7 +129,7 @@
       "rewritten": "sold_items = df['Item Purchased'].value_counts().sort_values(ascending=False)\n_ = sold_items.index\n_ = sold_items.values\n"
     },
     {
-      "raw": "var = df.groupby(['Item Purchased', 'Gender']).size().reset_index(name='Customer Count')\nsorted_var = var.sort_values(by='Item Purchased', ascending=False)\n\n# ALEX: remove plotting\n# fig = px.bar(sorted_var, \n#              x='Item Purchased', \n#              y='Customer Count', \n#              color='Gender',\n#              title='Most Purchased Items by Gender',\n#              labels={'Customer Count': 'Count of Customers'})\n\n# fig.update_traces(hovertemplate='Item=%{x}<br>Count of Customers=%{y}', \n#                   texttemplate='%{y}', \n#                   textposition='inside')\n\n# fig.update_layout(yaxis_title='Count of Customers')\n\n# fig.show()\n",
+      "raw": "var = df.groupby(['Item Purchased', 'Gender']).size().reset_index(name='Customer Count')\nsorted_var = var.sort_values(by='Item Purchased', ascending=False)\n\n# FIRST-AUTHOR: remove plotting\n# fig = px.bar(sorted_var, \n#              x='Item Purchased', \n#              y='Customer Count', \n#              color='Gender',\n#              title='Most Purchased Items by Gender',\n#              labels={'Customer Count': 'Count of Customers'})\n\n# fig.update_traces(hovertemplate='Item=%{x}<br>Count of Customers=%{y}', \n#                   texttemplate='%{y}', \n#                   textposition='inside')\n\n# fig.update_layout(yaxis_title='Count of Customers')\n\n# fig.show()\n",
       "rewrite-ns": 1233647,
       "overhead-ns": 1233647,
       "exec-ns": 539883902,
@@ -138,7 +138,7 @@
       "rewritten": "var = df.groupby(['Item Purchased', 'Gender']).size().reset_index(name=\n    'Customer Count')\nsorted_var = var.sort_values(by='Item Purchased', ascending=False)\n"
     },
     {
-      "raw": "var = df.groupby('Category')['Purchase Amount (USD)'].sum().reset_index().sort_values(by='Purchase Amount (USD)',ascending=False)\n\n# ALEX: remove plotting\n# fig = px.bar(var, x='Category', y = 'Purchase Amount (USD)')\n\n# fig.show()",
+      "raw": "var = df.groupby('Category')['Purchase Amount (USD)'].sum().reset_index().sort_values(by='Purchase Amount (USD)',ascending=False)\n\n# FIRST-AUTHOR: remove plotting\n# fig = px.bar(var, x='Category', y = 'Purchase Amount (USD)')\n\n# fig.show()",
       "rewrite-ns": 1040164,
       "overhead-ns": 1040164,
       "exec-ns": 239465764,
@@ -147,7 +147,7 @@
       "rewritten": "var = df.groupby('Category')['Purchase Amount (USD)'].sum().reset_index(\n    ).sort_values(by='Purchase Amount (USD)', ascending=False)\n"
     },
     {
-      "raw": "var = df.groupby('Location')['Purchase Amount (USD)'].sum().reset_index().sort_values(by='Purchase Amount (USD)',ascending=False).head(10)\n\n# ALEX: remove plotting\n# fig = px.bar(var, x='Location', y = 'Purchase Amount (USD)')\n\n# fig.show()",
+      "raw": "var = df.groupby('Location')['Purchase Amount (USD)'].sum().reset_index().sort_values(by='Purchase Amount (USD)',ascending=False).head(10)\n\n# FIRST-AUTHOR: remove plotting\n# fig = px.bar(var, x='Location', y = 'Purchase Amount (USD)')\n\n# fig.show()",
       "rewrite-ns": 486602,
       "overhead-ns": 486602,
       "exec-ns": 274625089,
@@ -158,7 +158,7 @@
       "rewritten": "var = dias.rewriter.sort_head(called_on=df.groupby('Location')[\n    'Purchase Amount (USD)'].sum().reset_index(), by=\n    'Purchase Amount (USD)', n=10, asc=False, orig=lambda _DIAS_x: _DIAS_x.\n    sort_values(by='Purchase Amount (USD)', ascending=False).head(10))\n"
     },
     {
-      "raw": "size_count = df['Size'].value_counts()\n\n# ALEX: remove plotting\n# fig = px.bar(size_count, x=size_count.index, y=size_count.values, labels = {'y':'Number of Occurances'})\n# fig.show()\n_ = size_count.index\n_ = size_count.values",
+      "raw": "size_count = df['Size'].value_counts()\n\n# FIRST-AUTHOR: remove plotting\n# fig = px.bar(size_count, x=size_count.index, y=size_count.values, labels = {'y':'Number of Occurances'})\n# fig.show()\n_ = size_count.index\n_ = size_count.values",
       "rewrite-ns": 903236,
       "overhead-ns": 903236,
       "exec-ns": 205290692,
@@ -167,7 +167,7 @@
       "rewritten": "size_count = df['Size'].value_counts()\n_ = size_count.index\n_ = size_count.values\n"
     },
     {
-      "raw": "color_count = df['Color'].value_counts().head(10)\n\n# ALEX: remove plotting\n# fig = px.bar(color_count, x = color_count.index, y = color_count.values, labels = {'y':'Number of Occurances'})\n# fig.show()\n_ = color_count.index\n_ = color_count.values",
+      "raw": "color_count = df['Color'].value_counts().head(10)\n\n# FIRST-AUTHOR: remove plotting\n# fig = px.bar(color_count, x = color_count.index, y = color_count.values, labels = {'y':'Number of Occurances'})\n# fig.show()\n_ = color_count.index\n_ = color_count.values",
       "rewrite-ns": 1034365,
       "overhead-ns": 1034365,
       "exec-ns": 253805704,
@@ -185,7 +185,7 @@
       "rewritten": "df.columns\n"
     },
     {
-      "raw": "\nseason_data = df['Season'].value_counts()\n# ALEX: remove plotting\n# fig = px.pie(data_frame=df, names=season_data.index, values=season_data.values)\n# fig.update_traces(textposition='inside', textinfo='percent+label')\n# fig.show()\n_ = season_data.index\n_ = season_data.values\n",
+      "raw": "\nseason_data = df['Season'].value_counts()\n# FIRST-AUTHOR: remove plotting\n# fig = px.pie(data_frame=df, names=season_data.index, values=season_data.values)\n# fig.update_traces(textposition='inside', textinfo='percent+label')\n# fig.show()\n_ = season_data.index\n_ = season_data.values\n",
       "rewrite-ns": 879937,
       "overhead-ns": 879937,
       "exec-ns": 254129376,
@@ -194,7 +194,7 @@
       "rewritten": "season_data = df['Season'].value_counts()\n_ = season_data.index\n_ = season_data.values\n"
     },
     {
-      "raw": "subs_count = df['Subscription Status'].value_counts()\n\n# ALEX: remove plotting\n# fig = px.bar(subs_count, x = subs_count.index, y = subs_count.values, labels = {'y':'Number of Customers'})\n# fig.show()\n_ = subs_count.index\n_ = subs_count.values",
+      "raw": "subs_count = df['Subscription Status'].value_counts()\n\n# FIRST-AUTHOR: remove plotting\n# fig = px.bar(subs_count, x = subs_count.index, y = subs_count.values, labels = {'y':'Number of Customers'})\n# fig.show()\n_ = subs_count.index\n_ = subs_count.values",
       "rewrite-ns": 904739,
       "overhead-ns": 904739,
       "exec-ns": 253896219,
@@ -203,7 +203,7 @@
       "rewritten": "subs_count = df['Subscription Status'].value_counts()\n_ = subs_count.index\n_ = subs_count.values\n"
     },
     {
-      "raw": "shipping_count = df['Shipping Type'].value_counts()\n\n# ALEX: remove plotting\n# fig = px.bar(shipping_count, x = shipping_count.index, y = shipping_count.values, labels = {'y':'Shipped packages'})\n# fig.show()\n_ = shipping_count.index\n_ = shipping_count.values",
+      "raw": "shipping_count = df['Shipping Type'].value_counts()\n\n# FIRST-AUTHOR: remove plotting\n# fig = px.bar(shipping_count, x = shipping_count.index, y = shipping_count.values, labels = {'y':'Shipped packages'})\n# fig.show()\n_ = shipping_count.index\n_ = shipping_count.values",
       "rewrite-ns": 964349,
       "overhead-ns": 964349,
       "exec-ns": 252476634,
@@ -212,7 +212,7 @@
       "rewritten": "shipping_count = df['Shipping Type'].value_counts()\n_ = shipping_count.index\n_ = shipping_count.values\n"
     },
     {
-      "raw": "disc_count = df['Discount Applied'].value_counts()\n\n# ALEX: remove plotting\n# fig = px.bar(disc_count, x = disc_count.index, y = disc_count.values, labels = {'y':'Number of customers'})\n# fig.show()\n_ = disc_count.index\n_ = disc_count.values",
+      "raw": "disc_count = df['Discount Applied'].value_counts()\n\n# FIRST-AUTHOR: remove plotting\n# fig = px.bar(disc_count, x = disc_count.index, y = disc_count.values, labels = {'y':'Number of customers'})\n# fig.show()\n_ = disc_count.index\n_ = disc_count.values",
       "rewrite-ns": 871759,
       "overhead-ns": 871759,
       "exec-ns": 252659352,

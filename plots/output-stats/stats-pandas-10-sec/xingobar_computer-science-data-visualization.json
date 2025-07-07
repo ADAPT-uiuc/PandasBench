@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 3828,
   "cells": [
     {
-      "raw": "# http://stackoverflow.com/questions/22233488/pandas-drop-a-level-from-a-multi-level-column-index\n# http://pandas.pydata.org/pandas-docs/version/0.18.1/visualization.html\n# http://stackoverflow.com/questions/34233347/pandas-plot-how-to-control-the-bar-width-and-the-gaps\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt\n# import colorsys\n# %matplotlib inline\n\n# ALEX: remove path printing\n# from subprocess import check_output\n# print(check_output([\"ls\", \"./input\"]).decode(\"utf8\"))\n\n# Any results you write to the current directory are saved as output.",
+      "raw": "# http://stackoverflow.com/questions/22233488/pandas-drop-a-level-from-a-multi-level-column-index\n# http://pandas.pydata.org/pandas-docs/version/0.18.1/visualization.html\n# http://stackoverflow.com/questions/34233347/pandas-plot-how-to-control-the-bar-width-and-the-gaps\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt\n# import colorsys\n# %matplotlib inline\n\n# FIRST-AUTHOR: remove path printing\n# from subprocess import check_output\n# print(check_output([\"ls\", \"./input\"]).decode(\"utf8\"))\n\n# Any results you write to the current directory are saved as output.",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 436409
@@ -45,7 +45,7 @@
       "total-ns": 105868663
     },
     {
-      "raw": "# ALEX: remove plotting\n# total.plot.bar(x = 'year',figsize=(10,6),linewidth=0.75,width=0.7)\n# plt.title('Participants in the AP Computer Science Exam by Race,1999-2013')\n# you can use the width parameter to set the gap",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# total.plot.bar(x = 'year',figsize=(10,6),linewidth=0.75,width=0.7)\n# plt.title('Participants in the AP Computer Science Exam by Race,1999-2013')\n# you can use the width parameter to set the gap",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 180238
@@ -57,13 +57,13 @@
       "total-ns": 3781199753
     },
     {
-      "raw": "# ALEX: remove plotting\n# pass_rate.plot.bar(x='year',figsize=(10,6),linewidth=0.75,width=0.7)\n# plt.title('Pass Rate')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# pass_rate.plot.bar(x='year',figsize=(10,6),linewidth=0.75,width=0.7)\n# plt.title('Pass Rate')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 180031
     },
     {
-      "raw": "gender_pass = pass_[['year','black_male','black_female','white_male',\n                     'white_female','hispanic_male','hispanic_female',\n                     'asian_male','asian_female']].groupby(['year']).agg(['sum'])\ngender_pass = gender_pass.reset_index()\ngender_pass.columns = gender_pass.columns.droplevel()\ngender_pass.columns = ['year','black_male','black_female','white_male',\n                     'white_female','hispanic_male','hispanic_female',\n                     'asian_male','asian_female']\n# ALEX: remove plotting\n# gender_pass.plot.bar(x='year',figsize=(10,6),linewidth=0.8)\n# plt.title('Male vs Female')",
+      "raw": "gender_pass = pass_[['year','black_male','black_female','white_male',\n                     'white_female','hispanic_male','hispanic_female',\n                     'asian_male','asian_female']].groupby(['year']).agg(['sum'])\ngender_pass = gender_pass.reset_index()\ngender_pass.columns = gender_pass.columns.droplevel()\ngender_pass.columns = ['year','black_male','black_female','white_male',\n                     'white_female','hispanic_male','hispanic_female',\n                     'asian_male','asian_female']\n# FIRST-AUTHOR: remove plotting\n# gender_pass.plot.bar(x='year',figsize=(10,6),linewidth=0.8)\n# plt.title('Male vs Female')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 170644168
@@ -81,7 +81,7 @@
       "total-ns": 520591671
     },
     {
-      "raw": "hm = historical.set_index('state')\n# ALEX: remove plotting\n# fig,ax = plt.subplots(figsize=(10,6))\n# sns.heatmap(hm,ax=ax)\n# plt.title('exam taken per state per year')",
+      "raw": "hm = historical.set_index('state')\n# FIRST-AUTHOR: remove plotting\n# fig,ax = plt.subplots(figsize=(10,6))\n# sns.heatmap(hm,ax=ax)\n# plt.title('exam taken per state per year')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 17775063

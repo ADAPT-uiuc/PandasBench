@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 1551,
   "cells": [
     {
-      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove profiling\n# import pandas_profiling as pp\n# from pandas_profiling import ProfileReport",
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove profiling\n# import pandas_profiling as pp\n# from pandas_profiling import ProfileReport",
       "rewrite-ns": 696414,
       "overhead-ns": 696414,
       "exec-ns": 412846,
@@ -12,7 +12,7 @@
       "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
     },
     {
-      "raw": "# ALEX: remove profiling\n# pp.__version__",
+      "raw": "# FIRST-AUTHOR: remove profiling\n# pp.__version__",
       "rewrite-ns": 20516,
       "overhead-ns": 20516,
       "exec-ns": 108108,
@@ -122,7 +122,7 @@
       "rewritten": "test_x.describe()\n"
     },
     {
-      "raw": "# ALEX: remove profiling\n# ProfileReport(train_x, title='Pandas Profiling Report for training dataset', html={'style':{'full_width':True}})",
+      "raw": "# FIRST-AUTHOR: remove profiling\n# ProfileReport(train_x, title='Pandas Profiling Report for training dataset', html={'style':{'full_width':True}})",
       "rewrite-ns": 21759,
       "overhead-ns": 21759,
       "exec-ns": 109097,
@@ -140,7 +140,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove profiling\n# %%time\n# profile = ProfileReport(train_x, title='Pandas Profiling Report for training dataset', minimal=True)\n# profile.to_file(output_file=\"train_short_profile.html\")",
+      "raw": "# FIRST-AUTHOR: remove profiling\n# %%time\n# profile = ProfileReport(train_x, title='Pandas Profiling Report for training dataset', minimal=True)\n# profile.to_file(output_file=\"train_short_profile.html\")",
       "rewrite-ns": 16334,
       "overhead-ns": 16334,
       "exec-ns": 82465,
@@ -149,7 +149,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove profiling\n# ProfileReport(test_x, title='Pandas Profiling Report for test dataset')",
+      "raw": "# FIRST-AUTHOR: remove profiling\n# ProfileReport(test_x, title='Pandas Profiling Report for test dataset')",
       "rewrite-ns": 12839,
       "overhead-ns": 12839,
       "exec-ns": 69889,

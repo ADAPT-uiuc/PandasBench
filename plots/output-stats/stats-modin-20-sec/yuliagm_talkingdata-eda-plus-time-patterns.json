@@ -3,13 +3,13 @@
   "max-mem-in-mb2": 1118,
   "cells": [
     {
-      "raw": "import numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import datetime\n# import os\n# #print(os.listdir(\"../input\"))\n\n# import time\n\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# %matplotlib inline",
+      "raw": "import numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting\n# import datetime\n# import os\n# #print(os.listdir(\"../input\"))\n\n# import time\n\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# %matplotlib inline",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 3124344123
     },
     {
-      "raw": "#make wider graphs\n# ALEX: remove plotting\n# sns.set(rc={'figure.figsize':(12,5)});\n# plt.figure(figsize=(12,5));",
+      "raw": "#make wider graphs\n# FIRST-AUTHOR: remove plotting\n# sns.set(rc={'figure.figsize':(12,5)});\n# plt.figure(figsize=(12,5));",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 248565
@@ -51,7 +51,7 @@
       "total-ns": 819406758
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10, 6))\ncols = ['ip', 'app', 'device', 'os', 'channel']\nuniques = [len(train[col].unique()) for col in cols]\n# ALEX: remove plotting\n# sns.set(font_scale=1.2)\n# ax = sns.barplot(cols, uniques, log=True)\n# ax.set(xlabel='Feature', ylabel='log(unique count)', title='Number of unique values per feature (from 10,000,000 samples)')\n# for p, uniq in zip(ax.patches, uniques):\n#     height = p.get_height()\n#     ax.text(p.get_x()+p.get_width()/2.,\n#             height + 10,\n#             uniq,\n#             ha=\"center\") \n# for col, uniq in zip(cols, uniques):\n#     ax.text(col, uniq, uniq, color='black', ha=\"center\")",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(10, 6))\ncols = ['ip', 'app', 'device', 'os', 'channel']\nuniques = [len(train[col].unique()) for col in cols]\n# FIRST-AUTHOR: remove plotting\n# sns.set(font_scale=1.2)\n# ax = sns.barplot(cols, uniques, log=True)\n# ax.set(xlabel='Feature', ylabel='log(unique count)', title='Number of unique values per feature (from 10,000,000 samples)')\n# for p, uniq in zip(ax.patches, uniques):\n#     height = p.get_height()\n#     ax.text(p.get_x()+p.get_width()/2.,\n#             height + 10,\n#             uniq,\n#             ha=\"center\") \n# for col, uniq in zip(cols, uniques):\n#     ax.text(col, uniq, uniq, color='black', ha=\"center\")",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1526892558
@@ -69,7 +69,7 @@
       "total-ns": 7409846514
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(6,6))\n#sns.set(font_scale=1.2)\nmean = (train.is_attributed.values == 1).mean()\n# ALEX: remove plotting\n# ax = sns.barplot(['App Downloaded (1)', 'Not Downloaded (0)'], [mean, 1-mean])\n# ax.set(ylabel='Proportion', title='App Downloaded vs Not Downloaded')\n# for p, uniq in zip(ax.patches, [mean, 1-mean]):\n#     height = p.get_height()\n#     ax.text(p.get_x()+p.get_width()/2.,\n#             height+0.01,\n#             '{}%'.format(round(uniq * 100, 2)),\n#             ha=\"center\")",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(6,6))\n#sns.set(font_scale=1.2)\nmean = (train.is_attributed.values == 1).mean()\n# FIRST-AUTHOR: remove plotting\n# ax = sns.barplot(['App Downloaded (1)', 'Not Downloaded (0)'], [mean, 1-mean])\n# ax.set(ylabel='Proportion', title='App Downloaded vs Not Downloaded')\n# for p, uniq in zip(ax.patches, [mean, 1-mean]):\n#     height = p.get_height()\n#     ax.text(p.get_x()+p.get_width()/2.,\n#             height+0.01,\n#             '{}%'.format(round(uniq * 100, 2)),\n#             ha=\"center\")",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 198753276
@@ -105,19 +105,19 @@
       "total-ns": 141184516
     },
     {
-      "raw": "proportion = train[['ip', 'is_attributed']].groupby('ip', as_index=False).mean().sort_values('is_attributed', ascending=False)\ncounts = train[['ip', 'is_attributed']].groupby('ip', as_index=False).count().sort_values('is_attributed', ascending=False)\nmerge = counts.merge(proportion, on='ip', how='left')\nmerge.columns = ['ip', 'click_count', 'prop_downloaded']\n\n# ALEX: remove plotting\n# ax = merge[:300].plot(secondary_y='prop_downloaded')\n# plt.title('Conversion Rates over Counts of 300 Most Popular IPs')\n# ax.set(ylabel='Count of clicks')\n# plt.ylabel('Proportion Downloaded')\n# plt.show()\nmerge[:300]\n\nprint('Counversion Rates over Counts of Most Popular IPs')\nprint(merge[:20])\n",
+      "raw": "proportion = train[['ip', 'is_attributed']].groupby('ip', as_index=False).mean().sort_values('is_attributed', ascending=False)\ncounts = train[['ip', 'is_attributed']].groupby('ip', as_index=False).count().sort_values('is_attributed', ascending=False)\nmerge = counts.merge(proportion, on='ip', how='left')\nmerge.columns = ['ip', 'click_count', 'prop_downloaded']\n\n# FIRST-AUTHOR: remove plotting\n# ax = merge[:300].plot(secondary_y='prop_downloaded')\n# plt.title('Conversion Rates over Counts of 300 Most Popular IPs')\n# ax.set(ylabel='Count of clicks')\n# plt.ylabel('Proportion Downloaded')\n# plt.show()\nmerge[:300]\n\nprint('Counversion Rates over Counts of Most Popular IPs')\nprint(merge[:20])\n",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 2027314337
     },
     {
-      "raw": "proportion = train[['app', 'is_attributed']].groupby('app', as_index=False).mean().sort_values('is_attributed', ascending=False)\ncounts = train[['app', 'is_attributed']].groupby('app', as_index=False).count().sort_values('is_attributed', ascending=False)\nmerge = counts.merge(proportion, on='app', how='left')\nmerge.columns = ['app', 'click_count', 'prop_downloaded']\n\n# ALEX: remove plotting\n# ax = merge[:100].plot(secondary_y='prop_downloaded')\n# plt.title('Conversion Rates over Counts of 100 Most Popular Apps')\n# ax.set(ylabel='Count of clicks')\n# plt.ylabel('Proportion Downloaded')\n# plt.show()\nmerge[:100]\n\nprint('Counversion Rates over Counts of Most Popular Apps')\nprint(merge[:20])",
+      "raw": "proportion = train[['app', 'is_attributed']].groupby('app', as_index=False).mean().sort_values('is_attributed', ascending=False)\ncounts = train[['app', 'is_attributed']].groupby('app', as_index=False).count().sort_values('is_attributed', ascending=False)\nmerge = counts.merge(proportion, on='app', how='left')\nmerge.columns = ['app', 'click_count', 'prop_downloaded']\n\n# FIRST-AUTHOR: remove plotting\n# ax = merge[:100].plot(secondary_y='prop_downloaded')\n# plt.title('Conversion Rates over Counts of 100 Most Popular Apps')\n# ax.set(ylabel='Count of clicks')\n# plt.ylabel('Proportion Downloaded')\n# plt.show()\nmerge[:100]\n\nprint('Counversion Rates over Counts of Most Popular Apps')\nprint(merge[:20])",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 2427525771
     },
     {
-      "raw": "proportion = train[['os', 'is_attributed']].groupby('os', as_index=False).mean().sort_values('is_attributed', ascending=False)\ncounts = train[['os', 'is_attributed']].groupby('os', as_index=False).count().sort_values('is_attributed', ascending=False)\nmerge = counts.merge(proportion, on='os', how='left')\nmerge.columns = ['os', 'click_count', 'prop_downloaded']\n\n# ALEX: remove plotting\n# ax = merge[:100].plot(secondary_y='prop_downloaded')\n# plt.title('Conversion Rates over Counts of 100 Most Popular Operating Systems')\n# ax.set(ylabel='Count of clicks')\n# plt.ylabel('Proportion Downloaded')\n# plt.show()\nmerge[:100]\n\nprint('Counversion Rates over Counts of Most Popular Operating Systems')\nprint(merge[:20])",
+      "raw": "proportion = train[['os', 'is_attributed']].groupby('os', as_index=False).mean().sort_values('is_attributed', ascending=False)\ncounts = train[['os', 'is_attributed']].groupby('os', as_index=False).count().sort_values('is_attributed', ascending=False)\nmerge = counts.merge(proportion, on='os', how='left')\nmerge.columns = ['os', 'click_count', 'prop_downloaded']\n\n# FIRST-AUTHOR: remove plotting\n# ax = merge[:100].plot(secondary_y='prop_downloaded')\n# plt.title('Conversion Rates over Counts of 100 Most Popular Operating Systems')\n# ax.set(ylabel='Count of clicks')\n# plt.ylabel('Proportion Downloaded')\n# plt.show()\nmerge[:100]\n\nprint('Counversion Rates over Counts of Most Popular Operating Systems')\nprint(merge[:20])",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 2504874200
@@ -129,7 +129,7 @@
       "total-ns": 1506522227
     },
     {
-      "raw": "proportion = train[['channel', 'is_attributed']].groupby('channel', as_index=False).mean().sort_values('is_attributed', ascending=False)\ncounts = train[['channel', 'is_attributed']].groupby('channel', as_index=False).count().sort_values('is_attributed', ascending=False)\nmerge = counts.merge(proportion, on='channel', how='left')\nmerge.columns = ['channel', 'click_count', 'prop_downloaded']\n\n# ALEX: remove plotting\n# ax = merge[:100].plot(secondary_y='prop_downloaded')\n# plt.title('Conversion Rates over Counts of 100 Most Popular Apps')\n# ax.set(ylabel='Count of clicks')\n# plt.ylabel('Proportion Downloaded')\n# plt.show()\nmerge[:100]\n\nprint('Counversion Rates over Counts of Most Popular Channels')\nprint(merge[:20])",
+      "raw": "proportion = train[['channel', 'is_attributed']].groupby('channel', as_index=False).mean().sort_values('is_attributed', ascending=False)\ncounts = train[['channel', 'is_attributed']].groupby('channel', as_index=False).count().sort_values('is_attributed', ascending=False)\nmerge = counts.merge(proportion, on='channel', how='left')\nmerge.columns = ['channel', 'click_count', 'prop_downloaded']\n\n# FIRST-AUTHOR: remove plotting\n# ax = merge[:100].plot(secondary_y='prop_downloaded')\n# plt.title('Conversion Rates over Counts of 100 Most Popular Apps')\n# ax.set(ylabel='Count of clicks')\n# plt.ylabel('Proportion Downloaded')\n# plt.show()\nmerge[:100]\n\nprint('Counversion Rates over Counts of Most Popular Channels')\nprint(merge[:20])",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 2460021788
@@ -153,7 +153,7 @@
       "total-ns": 13339077
     },
     {
-      "raw": "#round the time to nearest hour\ntrain_smp['click_rnd']=train_smp['click_time'].dt.round('H')  \n\n#check for hourly patterns\n# ALEX: remove plotting\n# train_smp[['click_rnd','is_attributed']].groupby(['click_rnd'], as_index=True).count().plot()\n# plt.title('HOURLY CLICK FREQUENCY');\n# plt.ylabel('Number of Clicks');\ntrain_smp[['click_rnd','is_attributed']].groupby(['click_rnd'], as_index=True).count()\n\n# ALEX: remove plotting\n# train_smp[['click_rnd','is_attributed']].groupby(['click_rnd'], as_index=True).mean().plot()\n# plt.title('HOURLY CONVERSION RATIO');\n# plt.ylabel('Converted Ratio');\ntrain_smp[['click_rnd','is_attributed']].groupby(['click_rnd'], as_index=True).mean()",
+      "raw": "#round the time to nearest hour\ntrain_smp['click_rnd']=train_smp['click_time'].dt.round('H')  \n\n#check for hourly patterns\n# FIRST-AUTHOR: remove plotting\n# train_smp[['click_rnd','is_attributed']].groupby(['click_rnd'], as_index=True).count().plot()\n# plt.title('HOURLY CLICK FREQUENCY');\n# plt.ylabel('Number of Clicks');\ntrain_smp[['click_rnd','is_attributed']].groupby(['click_rnd'], as_index=True).count()\n\n# FIRST-AUTHOR: remove plotting\n# train_smp[['click_rnd','is_attributed']].groupby(['click_rnd'], as_index=True).mean().plot()\n# plt.title('HOURLY CONVERSION RATIO');\n# plt.ylabel('Converted Ratio');\ntrain_smp[['click_rnd','is_attributed']].groupby(['click_rnd'], as_index=True).mean()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1553014030
@@ -171,25 +171,25 @@
       "total-ns": 3138599
     },
     {
-      "raw": "# ALEX: remove plotting\n# train_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=True).count().plot(kind='bar', color='#a675a1')\n# plt.title('HOURLY CLICK FREQUENCY Barplot');\n# plt.ylabel('Number of Clicks');\ntrain_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=True).count()\n\n# ALEX: remove plotting\n# train_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=True).count().plot(color='#a675a1')\n# plt.title('HOURLY CLICK FREQUENCY Lineplot');\n# plt.ylabel('Number of Clicks');\ntrain_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=True).count()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# train_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=True).count().plot(kind='bar', color='#a675a1')\n# plt.title('HOURLY CLICK FREQUENCY Barplot');\n# plt.ylabel('Number of Clicks');\ntrain_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=True).count()\n\n# FIRST-AUTHOR: remove plotting\n# train_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=True).count().plot(color='#a675a1')\n# plt.title('HOURLY CLICK FREQUENCY Lineplot');\n# plt.ylabel('Number of Clicks');\ntrain_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=True).count()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 132968520
     },
     {
-      "raw": "# ALEX: remove plotting\n# train_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=True).mean().plot(kind='bar', color='#75a1a6')\n# plt.title('HOURLY CONVERSION RATIO Barplot');\n# plt.ylabel('Converted Ratio');\ntrain_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=True).mean()\n\n# ALEX: remove plotting\n# train_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=True).mean().plot( color='#75a1a6')\n# plt.title('HOURLY CONVERSION RATIO Lineplot');\n# plt.ylabel('Converted Ratio');\ntrain_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=True).mean()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# train_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=True).mean().plot(kind='bar', color='#75a1a6')\n# plt.title('HOURLY CONVERSION RATIO Barplot');\n# plt.ylabel('Converted Ratio');\ntrain_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=True).mean()\n\n# FIRST-AUTHOR: remove plotting\n# train_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=True).mean().plot( color='#75a1a6')\n# plt.title('HOURLY CONVERSION RATIO Lineplot');\n# plt.ylabel('Converted Ratio');\ntrain_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=True).mean()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 3160532896
     },
     {
-      "raw": "#adapted from https://stackoverflow.com/questions/9103166/multiple-axis-in-matplotlib-with-different-scales\n#smonek's answer\n\n\ngroup = train_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=False).mean()\nx = group['click_hour']\nymean = group['is_attributed']\ngroup = train_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=False).count()\nycount = group['is_attributed']\n\n\n# ALEX: remove plotting\n# fig = plt.figure()\n# host = fig.add_subplot(111)\n\n# par1 = host.twinx()\n\n# host.set_xlabel(\"Time\")\n# host.set_ylabel(\"Proportion Converted\")\n# par1.set_ylabel(\"Click Count\")\n\n# #color1 = plt.cm.viridis(0)\n# #color2 = plt.cm.viridis(0.5)\n# color1 = '#75a1a6'\n# color2 = '#a675a1'\n\n# p1, = host.plot(x, ymean, color=color1,label=\"Proportion Converted\")\n# p2, = par1.plot(x, ycount, color=color2, label=\"Click Count\")\n\n# lns = [p1, p2]\n# host.legend(handles=lns, loc='best')\n\n# host.yaxis.label.set_color(p1.get_color())\n# par1.yaxis.label.set_color(p2.get_color())\n\n# plt.savefig(\"pyplot_multiple_y-axis.png\", bbox_inches='tight')",
+      "raw": "#adapted from https://stackoverflow.com/questions/9103166/multiple-axis-in-matplotlib-with-different-scales\n#smonek's answer\n\n\ngroup = train_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=False).mean()\nx = group['click_hour']\nymean = group['is_attributed']\ngroup = train_smp[['click_hour','is_attributed']].groupby(['click_hour'], as_index=False).count()\nycount = group['is_attributed']\n\n\n# FIRST-AUTHOR: remove plotting\n# fig = plt.figure()\n# host = fig.add_subplot(111)\n\n# par1 = host.twinx()\n\n# host.set_xlabel(\"Time\")\n# host.set_ylabel(\"Proportion Converted\")\n# par1.set_ylabel(\"Click Count\")\n\n# #color1 = plt.cm.viridis(0)\n# #color2 = plt.cm.viridis(0.5)\n# color1 = '#75a1a6'\n# color2 = '#a675a1'\n\n# p1, = host.plot(x, ymean, color=color1,label=\"Proportion Converted\")\n# p2, = par1.plot(x, ycount, color=color2, label=\"Click Count\")\n\n# lns = [p1, p2]\n# host.legend(handles=lns, loc='best')\n\n# host.yaxis.label.set_color(p1.get_color())\n# par1.yaxis.label.set_color(p2.get_color())\n\n# plt.savefig(\"pyplot_multiple_y-axis.png\", bbox_inches='tight')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1716247652
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.barplot('click_hour', 'is_attributed', data=train_smp)\n# plt.title('HOURLY CONVERSION RATIO');\n# plt.ylabel('Converted Ratio');",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.barplot('click_hour', 'is_attributed', data=train_smp)\n# plt.title('HOURLY CONVERSION RATIO');\n# plt.ylabel('Converted Ratio');",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 409139

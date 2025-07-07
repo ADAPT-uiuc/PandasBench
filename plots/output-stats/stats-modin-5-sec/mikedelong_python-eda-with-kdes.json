@@ -21,19 +21,19 @@
       "total-ns": 5662579
     },
     {
-      "raw": "# ALEX: remove plotting\n# from seaborn import kdeplot\n# kdeplot(data=df, x='Age', hue='Gender')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# from seaborn import kdeplot\n# kdeplot(data=df, x='Age', hue='Gender')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 486700
     },
     {
-      "raw": "# ALEX: remove plotting\n# from matplotlib.pyplot import subplots\n# _, ax = subplots(figsize=(12, 12), ncols=2, nrows=2,  )\ncolumns = [key for key, value in df.nunique().to_dict().items() if value < 10]\nfor index, column in enumerate(columns):\n    df[column].value_counts() # .plot(ax=ax.ravel()[index], kind='bar', legend=True)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# from matplotlib.pyplot import subplots\n# _, ax = subplots(figsize=(12, 12), ncols=2, nrows=2,  )\ncolumns = [key for key, value in df.nunique().to_dict().items() if value < 10]\nfor index, column in enumerate(columns):\n    df[column].value_counts() # .plot(ax=ax.ravel()[index], kind='bar', legend=True)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 3660497514
     },
     {
-      "raw": "# ALEX: remove plotting\n# kdeplot(data=df, x='Passenger ID', hue='Flight Status')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# kdeplot(data=df, x='Passenger ID', hue='Flight Status')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 201064

@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 1109,
   "cells": [
     {
-      "raw": "# importing libraries\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\nfrom datetime import datetime # datetime processing\n\n# Data visualisation\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n\n# setting path of the dataset\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n",
+      "raw": "# importing libraries\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\nfrom datetime import datetime # datetime processing\n\n# Data visualisation\n# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n\n# setting path of the dataset\n# FIRST-AUTHOR: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n",
       "rewrite-ns": 573111,
       "overhead-ns": 573111,
       "exec-ns": 316249,
@@ -57,7 +57,7 @@
       "rewritten": "dataset = melb_house.copy()\n"
     },
     {
-      "raw": "# plot of missing value\n# ALEX: remove plotting\n# plt.figure(figsize=(9,5))\n# sns.heatmap(dataset.isnull(),yticklabels=False, cbar=False, cmap=\"Paired\");\n# plt.title(\"Heatmap of Missing Values\");\n_ = dataset.isnull()",
+      "raw": "# plot of missing value\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(9,5))\n# sns.heatmap(dataset.isnull(),yticklabels=False, cbar=False, cmap=\"Paired\");\n# plt.title(\"Heatmap of Missing Values\");\n_ = dataset.isnull()",
       "rewrite-ns": 371541,
       "overhead-ns": 371541,
       "exec-ns": 712804277,
@@ -122,7 +122,7 @@
       "rewritten": "dataset['YearBuilt'].fillna('Unknown', inplace=True)\nprint('Null values before replacement :', melb_house['YearBuilt'].isnull().\n    sum())\nprint('Null values after replacement :', dataset['YearBuilt'].isnull().sum())\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize = (5, 5))\n# sns.distplot(dataset['BuildingArea']);\n_ = dataset['BuildingArea']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize = (5, 5))\n# sns.distplot(dataset['BuildingArea']);\n_ = dataset['BuildingArea']",
       "rewrite-ns": 354835,
       "overhead-ns": 354835,
       "exec-ns": 337272,
@@ -140,7 +140,7 @@
       "rewritten": "dataset['BuildingArea'].fillna(0, inplace=True)\nprint('Null values before replacement :', melb_house['BuildingArea'].isnull\n    ().sum())\nprint('Null values after replacement :', dataset['BuildingArea'].isnull().sum()\n    )\n"
     },
     {
-      "raw": "# log transformation of price\ndataset['Price_trans'] = np.log(dataset['Price'])\n\n# plot of price\n# ALEX: remove plotting\n# plt.figure(figsize=(10, 5))\n# plt.subplots_adjust(wspace=0.5)\n# plt.suptitle(\"Distribution of Price\", fontsize=14)\n\n# plt.subplot(1,2,1)\n# p1 = sns.kdeplot(dataset['Price']);\n# p1.title.set_text(\"Before Transfromation\")\n\n# plt.subplot(1,2,2)\n# p2 = sns.kdeplot(dataset['Price_trans']);\n# p2.title.set_text(\"After log Transformation\")\n_ = dataset['Price']\n_ = dataset['Price_trans']",
+      "raw": "# log transformation of price\ndataset['Price_trans'] = np.log(dataset['Price'])\n\n# plot of price\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(10, 5))\n# plt.subplots_adjust(wspace=0.5)\n# plt.suptitle(\"Distribution of Price\", fontsize=14)\n\n# plt.subplot(1,2,1)\n# p1 = sns.kdeplot(dataset['Price']);\n# p1.title.set_text(\"Before Transfromation\")\n\n# plt.subplot(1,2,2)\n# p2 = sns.kdeplot(dataset['Price_trans']);\n# p2.title.set_text(\"After log Transformation\")\n_ = dataset['Price']\n_ = dataset['Price_trans']",
       "rewrite-ns": 1042126,
       "overhead-ns": 1042126,
       "exec-ns": 3821261,
@@ -149,7 +149,7 @@
       "rewritten": "dataset['Price_trans'] = np.log(dataset['Price'])\n_ = dataset['Price']\n_ = dataset['Price_trans']\n"
     },
     {
-      "raw": "# Grouping the numerical data\nnum =  dataset.select_dtypes(exclude=\"object\")\nnum = num.drop(['Price'], axis=1)\n\n# Distributions of numrical data\n# ALEX: remove plotting\n# plt.figure(figsize=(15, 13))\n# plt.subplots_adjust(hspace=0.4, wspace=0.3)\n\n# j=1\n\nfor i in list(num.columns):\n# ALEX: remove plotting\n#     plt.subplot(4,3,j)\n#     sns.distplot(dataset[i])\n#     j+=1\n    _ = dataset[i]\n    \n# ALEX: remove plotting\n# plt.suptitle(\"Distribution of Numerical Data\", fontsize=15);\n",
+      "raw": "# Grouping the numerical data\nnum =  dataset.select_dtypes(exclude=\"object\")\nnum = num.drop(['Price'], axis=1)\n\n# Distributions of numrical data\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15, 13))\n# plt.subplots_adjust(hspace=0.4, wspace=0.3)\n\n# j=1\n\nfor i in list(num.columns):\n# FIRST-AUTHOR: remove plotting\n#     plt.subplot(4,3,j)\n#     sns.distplot(dataset[i])\n#     j+=1\n    _ = dataset[i]\n    \n# FIRST-AUTHOR: remove plotting\n# plt.suptitle(\"Distribution of Numerical Data\", fontsize=15);\n",
       "rewrite-ns": 1331590,
       "overhead-ns": 1331590,
       "exec-ns": 111957187,
@@ -158,7 +158,7 @@
       "rewritten": "num = dataset.select_dtypes(exclude='object')\nnum = num.drop(['Price'], axis=1)\nfor i in list(num.columns):\n    _ = dataset[i]\n"
     },
     {
-      "raw": "\n# ALEX: remove plotting\n# plt.figure(figsize=(15, 5))\n# plt.subplots_adjust(wspace=0.5)\n\n# plt.subplot(1,2,1)\n# ax1 = sns.countplot(x=dataset['Type'], palette='Accent');\n# ax1.title.set_text(\"Plot of House Type\")\n\n# plt.subplot(1,2,2)\n# ax2= sns.countplot(x=dataset['Method'], palette='Accent');\n# ax2.title.set_text(\"Plot of Method of Selling\")\n_ = dataset['Type']\n_ = dataset['Method']\n    ",
+      "raw": "\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15, 5))\n# plt.subplots_adjust(wspace=0.5)\n\n# plt.subplot(1,2,1)\n# ax1 = sns.countplot(x=dataset['Type'], palette='Accent');\n# ax1.title.set_text(\"Plot of House Type\")\n\n# plt.subplot(1,2,2)\n# ax2= sns.countplot(x=dataset['Method'], palette='Accent');\n# ax2.title.set_text(\"Plot of Method of Selling\")\n_ = dataset['Type']\n_ = dataset['Method']\n    ",
       "rewrite-ns": 589665,
       "overhead-ns": 589665,
       "exec-ns": 401737,
@@ -167,7 +167,7 @@
       "rewritten": "_ = dataset['Type']\n_ = dataset['Method']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10, 5))\n# sns.countplot(y = dataset['Regionname']);\n# plt.ylabel(\"Region Name\", fontsize=12);\n# plt.xlabel(\"Count\", fontsize=12);\n_ = dataset['Regionname']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(10, 5))\n# sns.countplot(y = dataset['Regionname']);\n# plt.ylabel(\"Region Name\", fontsize=12);\n# plt.xlabel(\"Count\", fontsize=12);\n_ = dataset['Regionname']",
       "rewrite-ns": 303268,
       "overhead-ns": 303268,
       "exec-ns": 403490,
@@ -176,7 +176,7 @@
       "rewritten": "_ = dataset['Regionname']\n"
     },
     {
-      "raw": "# checking for top 10 seller\n# ALEX: remove plotting\n# dataset['SellerG'].value_counts().head(10).plot(kind='bar', color='brown');\n_ = dataset['SellerG'].value_counts().head(10)\n\n# plot for top seller\n# ALEX: remove plotting\n# plt.title(\"Top 10 Estate Agents\", fontsize=14);",
+      "raw": "# checking for top 10 seller\n# FIRST-AUTHOR: remove plotting\n# dataset['SellerG'].value_counts().head(10).plot(kind='bar', color='brown');\n_ = dataset['SellerG'].value_counts().head(10)\n\n# plot for top seller\n# FIRST-AUTHOR: remove plotting\n# plt.title(\"Top 10 Estate Agents\", fontsize=14);",
       "rewrite-ns": 584272,
       "overhead-ns": 584272,
       "exec-ns": 40644215,
@@ -185,7 +185,7 @@
       "rewritten": "_ = dataset['SellerG'].value_counts().head(10)\n"
     },
     {
-      "raw": "# coverting date into datetime format\ndataset['Date'] = pd.to_datetime(dataset['Date'])\nyear = dataset['Date'].map(lambda x: datetime.strftime(x, '%Y'))\ndataset['year'] = year\nmonth = dataset['Date'].map(lambda x: datetime.strftime(x, '%b'))\ndataset['month'] = month\n\n# plot of each month\n# ALEX: remove plotting\n# plt.figure(figsize = (12, 4))\n# sns.countplot(x=dataset['month'], hue=dataset['year'], palette='Set1');\n_ = dataset['month']\n_ = dataset['year']",
+      "raw": "# coverting date into datetime format\ndataset['Date'] = pd.to_datetime(dataset['Date'])\nyear = dataset['Date'].map(lambda x: datetime.strftime(x, '%Y'))\ndataset['year'] = year\nmonth = dataset['Date'].map(lambda x: datetime.strftime(x, '%b'))\ndataset['month'] = month\n\n# plot of each month\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize = (12, 4))\n# sns.countplot(x=dataset['month'], hue=dataset['year'], palette='Set1');\n_ = dataset['month']\n_ = dataset['year']",
       "rewrite-ns": 2806273,
       "overhead-ns": 2806273,
       "exec-ns": 5913663335,
@@ -194,7 +194,7 @@
       "rewritten": "dataset['Date'] = pd.to_datetime(dataset['Date'])\nyear = dataset['Date'].map(lambda x: datetime.strftime(x, '%Y'))\ndataset['year'] = year\nmonth = dataset['Date'].map(lambda x: datetime.strftime(x, '%b'))\ndataset['month'] = month\n_ = dataset['month']\n_ = dataset['year']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10, 5))\n# sns.boxplot(x = 'Rooms', y = \"Price_trans\", data=dataset);\n# plt.ylabel(\"Price\");",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(10, 5))\n# sns.boxplot(x = 'Rooms', y = \"Price_trans\", data=dataset);\n# plt.ylabel(\"Price\");",
       "rewrite-ns": 21883,
       "overhead-ns": 21883,
       "exec-ns": 109256,
@@ -203,7 +203,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 5))\n# plt.subplots_adjust(wspace=0.3)\n\n# plt.subplot(1,2,1)\n# sns.boxplot(x = 'Type', y = \"Price_trans\", data=dataset, palette='Set3');\n# plt.ylabel(\"Price\");\n\n# plt.subplot(1,2,2)\n# sns.boxplot(x = 'Method', y = \"Price_trans\", data=dataset, palette='Set3');\n# plt.ylabel(\"Price\");",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15, 5))\n# plt.subplots_adjust(wspace=0.3)\n\n# plt.subplot(1,2,1)\n# sns.boxplot(x = 'Type', y = \"Price_trans\", data=dataset, palette='Set3');\n# plt.ylabel(\"Price\");\n\n# plt.subplot(1,2,2)\n# sns.boxplot(x = 'Method', y = \"Price_trans\", data=dataset, palette='Set3');\n# plt.ylabel(\"Price\");",
       "rewrite-ns": 16671,
       "overhead-ns": 16671,
       "exec-ns": 84386,
@@ -212,7 +212,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15, 5))\n# sns.boxenplot(x = 'Car', y = \"Price_trans\", data=dataset);\n# plt.ylabel(\"Price\");",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15, 5))\n# sns.boxenplot(x = 'Car', y = \"Price_trans\", data=dataset);\n# plt.ylabel(\"Price\");",
       "rewrite-ns": 11411,
       "overhead-ns": 11411,
       "exec-ns": 65825,
@@ -221,7 +221,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.lmplot(x=\"Landsize\", y='Price_trans', data=dataset);\n# plt.ylabel(\"Price\");\n# plt.xticks(rotation=15);",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.lmplot(x=\"Landsize\", y='Price_trans', data=dataset);\n# plt.ylabel(\"Price\");\n# plt.xticks(rotation=15);",
       "rewrite-ns": 10627,
       "overhead-ns": 10627,
       "exec-ns": 59640,
@@ -230,7 +230,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.scatterplot(x='Distance', y='Price_trans', data=dataset);\n# plt.ylabel(\"Price\");",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.scatterplot(x='Distance', y='Price_trans', data=dataset);\n# plt.ylabel(\"Price\");",
       "rewrite-ns": 9518,
       "overhead-ns": 9518,
       "exec-ns": 55306,
@@ -239,7 +239,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# Dataset of Metropolitan area\nrm = dataset[dataset['Regionname'].map(lambda x: 'Metropolitan' in x)]\n\n# Dataset of Victoria area\nrv = dataset[dataset['Regionname'].map(lambda x: 'Victoria' in x)]\n\n# plots of both region\n# ALEX: remove plotting\n# plt.figure(figsize=(15, 5))\n\n# plt.subplot(1,2,1)\n# ar1 = sns.scatterplot(x='Distance', y='Price_trans', data=rm, color='orange');\n# plt.ylabel(\"Price\");\n# ar1.title.set_text(\"Metropolitan\");\n\n# plt.subplot(1,2,2)\n# ar2 = sns.scatterplot(x='Distance', y='Price_trans', data=rv, color=\"green\");\n# plt.ylabel(\"Price\");\n# ar2.title.set_text('Victoria');",
+      "raw": "# Dataset of Metropolitan area\nrm = dataset[dataset['Regionname'].map(lambda x: 'Metropolitan' in x)]\n\n# Dataset of Victoria area\nrv = dataset[dataset['Regionname'].map(lambda x: 'Victoria' in x)]\n\n# plots of both region\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15, 5))\n\n# plt.subplot(1,2,1)\n# ar1 = sns.scatterplot(x='Distance', y='Price_trans', data=rm, color='orange');\n# plt.ylabel(\"Price\");\n# ar1.title.set_text(\"Metropolitan\");\n\n# plt.subplot(1,2,2)\n# ar2 = sns.scatterplot(x='Distance', y='Price_trans', data=rv, color=\"green\");\n# plt.ylabel(\"Price\");\n# ar2.title.set_text('Victoria');",
       "rewrite-ns": 1499723,
       "overhead-ns": 1499723,
       "exec-ns": 622316501,

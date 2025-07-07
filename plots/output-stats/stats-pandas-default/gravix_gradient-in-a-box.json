@@ -3,13 +3,13 @@
   "max-mem-in-mb2": 645,
   "cells": [
     {
-      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\npd.set_option('display.max_columns', 100)\npd.set_option('display.max_rows', 100)\n\nimport numpy as np\n\n# ALEX: remove plotting\n# import os\n\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n\nimport ast\n\nimport re\n\n# ALEX: remove ML code\n# from sklearn.feature_extraction.text import TfidfVectorizer\n# from sklearn.model_selection import train_test_split\n# from sklearn.preprocessing import LabelEncoder\n\n# import xgboost as xgb\n\nfrom collections import Counter\n",
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\npd.set_option('display.max_columns', 100)\npd.set_option('display.max_rows', 100)\n\nimport numpy as np\n\n# FIRST-AUTHOR: remove plotting\n# import os\n\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n\nimport ast\n\nimport re\n\n# FIRST-AUTHOR: remove ML code\n# from sklearn.feature_extraction.text import TfidfVectorizer\n# from sklearn.model_selection import train_test_split\n# from sklearn.preprocessing import LabelEncoder\n\n# import xgboost as xgb\n\nfrom collections import Counter\n",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 706115
     },
     {
-      "raw": "# ALEX: remove path printing\n# print(os.listdir(\"./input\"))",
+      "raw": "# FIRST-AUTHOR: remove path printing\n# print(os.listdir(\"./input\"))",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 181457
@@ -69,7 +69,7 @@
       "total-ns": 138208704
     },
     {
-      "raw": "columns_to_categorize = ['belongs_to_collection', 'status', 'original_language', 'homepage_base', 'homepage_extension']\ncolumns_to_categorize += additional_label_encoding_columns\n\nfor c in columns_to_categorize:\n# ALEX: remove ML code\n#     print(c)\n#     le = LabelEncoder()\n#     le.fit_transform(train[c])\n#     test[c] = test[c].map(lambda s: 'unknown' if s not in le.classes_ else s)\n#     le.classes_ = np.append(le.classes_, 'unknown')\n#     train[c] = le.transform(train[c])\n#     test[c] = le.transform(test[c])\n    test[c] = test[c].map(lambda s: 'unknown')\n",
+      "raw": "columns_to_categorize = ['belongs_to_collection', 'status', 'original_language', 'homepage_base', 'homepage_extension']\ncolumns_to_categorize += additional_label_encoding_columns\n\nfor c in columns_to_categorize:\n# FIRST-AUTHOR: remove ML code\n#     print(c)\n#     le = LabelEncoder()\n#     le.fit_transform(train[c])\n#     test[c] = test[c].map(lambda s: 'unknown' if s not in le.classes_ else s)\n#     le.classes_ = np.append(le.classes_, 'unknown')\n#     train[c] = le.transform(train[c])\n#     test[c] = le.transform(test[c])\n    test[c] = test[c].map(lambda s: 'unknown')\n",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 30270290
@@ -81,7 +81,7 @@
       "total-ns": 115890140
     },
     {
-      "raw": "# ALEX: remove ML code\n# features_to_vectorize = ['genres', 'production_countries', 'production_companies', 'Keywords', 'cast', 'crew']\n\n# for f in features_to_vectorize[1:]:\n#     print(f)\n#     vectorizer = TfidfVectorizer(use_idf = False)\n#     vectorized_features = vectorizer.fit_transform(train[f])\n#     vectorized_features_names = [f + '_' + v for v in vectorizer.get_feature_names()]\n\n#     vectorized_features_sparse = pd.SparseDataFrame([ pd.SparseSeries(vectorized_features[i].toarray().ravel()) \n#                               for i in np.arange(vectorized_features.shape[0]) ], columns = vectorized_features_names)\n\n#     train = pd.concat([train, vectorized_features_sparse], axis = 1)\n    \n#     vectorized_features = vectorizer.transform(test[f])\n#     vectorized_features_sparse = pd.SparseDataFrame([ pd.SparseSeries(vectorized_features[i].toarray().ravel()) \n#                               for i in np.arange(vectorized_features.shape[0]) ], columns = vectorized_features_names)\n    \n#     test = pd.concat([test, vectorized_features_sparse], axis = 1)\n    \n#     train.drop(f, inplace = True, axis = 1)\n#     test.drop(f, inplace = True, axis = 1)\n    ",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# features_to_vectorize = ['genres', 'production_countries', 'production_companies', 'Keywords', 'cast', 'crew']\n\n# for f in features_to_vectorize[1:]:\n#     print(f)\n#     vectorizer = TfidfVectorizer(use_idf = False)\n#     vectorized_features = vectorizer.fit_transform(train[f])\n#     vectorized_features_names = [f + '_' + v for v in vectorizer.get_feature_names()]\n\n#     vectorized_features_sparse = pd.SparseDataFrame([ pd.SparseSeries(vectorized_features[i].toarray().ravel()) \n#                               for i in np.arange(vectorized_features.shape[0]) ], columns = vectorized_features_names)\n\n#     train = pd.concat([train, vectorized_features_sparse], axis = 1)\n    \n#     vectorized_features = vectorizer.transform(test[f])\n#     vectorized_features_sparse = pd.SparseDataFrame([ pd.SparseSeries(vectorized_features[i].toarray().ravel()) \n#                               for i in np.arange(vectorized_features.shape[0]) ], columns = vectorized_features_names)\n    \n#     test = pd.concat([test, vectorized_features_sparse], axis = 1)\n    \n#     train.drop(f, inplace = True, axis = 1)\n#     test.drop(f, inplace = True, axis = 1)\n    ",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 274079
@@ -93,37 +93,37 @@
       "total-ns": 1007771
     },
     {
-      "raw": "# ALEX: remove ML code\n# target_column = 'revenue'\n\n# train_set, validate_set = train_test_split(train, test_size = 0.2, random_state = 1)\n\n# x_train = train_set.drop([target_column], axis = 1).copy()\n# y_train = train_set[target_column].copy()\n\n# x_validate = validate_set.drop([target_column], axis = 1).copy()\n# y_validate = validate_set[target_column].copy()\n\n# x_total = train.drop([target_column], axis = 1).copy()\n# y_total = train[target_column].copy()\n\n# x_test = test.copy()",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# target_column = 'revenue'\n\n# train_set, validate_set = train_test_split(train, test_size = 0.2, random_state = 1)\n\n# x_train = train_set.drop([target_column], axis = 1).copy()\n# y_train = train_set[target_column].copy()\n\n# x_validate = validate_set.drop([target_column], axis = 1).copy()\n# y_validate = validate_set[target_column].copy()\n\n# x_total = train.drop([target_column], axis = 1).copy()\n# y_total = train[target_column].copy()\n\n# x_test = test.copy()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 172630
     },
     {
-      "raw": "# ALEX: remove ML code\n# import lightgbm as lgb\n\n# params_lgb = {'drop_rate': [0.09777484320779173], 'feature_fraction': [0.6087324102659581],\n#               'lambda_l1': [0.03915143495854047], 'lambda_l2': [26.68081917087524],\n#               'learning_rate': [0.013231541159028165],\n#               'max_drop': [67.0], 'min_data_in_leaf': [1.0],\n#               'num_leaves': [32.0], 'num_trees': [1370.0]}\n\n# params_lgb = {k:v[0] for k,v in params_lgb.items()}\n\n\n# lg = lgb.LGBMRegressor(\n#                         objective = 'regression',\n#                         metric = 'rmse',\n#                         early_stopping_round = 50,\n#                         drop_rate = params_lgb['drop_rate'],\n#                         feature_fraction = params_lgb['feature_fraction'],\n#                         lambda_l1 = params_lgb['lambda_l1'],\n#                         lambda_l2 = params_lgb['lambda_l2'],\n#                         learning_rate = params_lgb['learning_rate'],\n#                         max_drop = int(params_lgb['max_drop']),\n#                         min_data_in_leaf = int(params_lgb['min_data_in_leaf']),\n#                         num_leaves = int(params_lgb['num_leaves']),\n#                         num_trees = int(params_lgb['num_trees']))\n\n# lg.fit(x_train, y_train.values, eval_set=[(x_train, y_train), (x_validate, y_validate)])",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# import lightgbm as lgb\n\n# params_lgb = {'drop_rate': [0.09777484320779173], 'feature_fraction': [0.6087324102659581],\n#               'lambda_l1': [0.03915143495854047], 'lambda_l2': [26.68081917087524],\n#               'learning_rate': [0.013231541159028165],\n#               'max_drop': [67.0], 'min_data_in_leaf': [1.0],\n#               'num_leaves': [32.0], 'num_trees': [1370.0]}\n\n# params_lgb = {k:v[0] for k,v in params_lgb.items()}\n\n\n# lg = lgb.LGBMRegressor(\n#                         objective = 'regression',\n#                         metric = 'rmse',\n#                         early_stopping_round = 50,\n#                         drop_rate = params_lgb['drop_rate'],\n#                         feature_fraction = params_lgb['feature_fraction'],\n#                         lambda_l1 = params_lgb['lambda_l1'],\n#                         lambda_l2 = params_lgb['lambda_l2'],\n#                         learning_rate = params_lgb['learning_rate'],\n#                         max_drop = int(params_lgb['max_drop']),\n#                         min_data_in_leaf = int(params_lgb['min_data_in_leaf']),\n#                         num_leaves = int(params_lgb['num_leaves']),\n#                         num_trees = int(params_lgb['num_trees']))\n\n# lg.fit(x_train, y_train.values, eval_set=[(x_train, y_train), (x_validate, y_validate)])",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 214025
     },
     {
-      "raw": "# ALEX: remove ML code\n# feature_importance = pd.DataFrame(lg.feature_importances_, columns = ['importance'])\n# feature_importance['feature'] = train.columns[:-1]\n# feature_importance.sort_values(by='importance', inplace = True, ascending = False)\n# feature_importance.reset_index(drop = True, inplace = True)\n# feature_importance\n_ = train.columns[:-1]",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# feature_importance = pd.DataFrame(lg.feature_importances_, columns = ['importance'])\n# feature_importance['feature'] = train.columns[:-1]\n# feature_importance.sort_values(by='importance', inplace = True, ascending = False)\n# feature_importance.reset_index(drop = True, inplace = True)\n# feature_importance\n_ = train.columns[:-1]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 299351
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(10, 15))\n# sns.barplot(y = 'feature', x = 'importance', data = feature_importance[0:20])",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig, ax = plt.subplots(figsize=(10, 15))\n# sns.barplot(y = 'feature', x = 'importance', data = feature_importance[0:20])",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 110324
     },
     {
-      "raw": "# ALEX: remove ML code\n# lg = lgb.LGBMRegressor(\n#                         objective = 'regression',\n#                         metric = 'rmse',\n#                         early_stopping_round = 50,\n#                         drop_rate = params_lgb['drop_rate'],\n#                         feature_fraction = params_lgb['feature_fraction'],\n#                         lambda_l1 = params_lgb['lambda_l1'],\n#                         lambda_l2 = params_lgb['lambda_l2'],\n#                         learning_rate = params_lgb['learning_rate'],\n#                         max_drop = int(params_lgb['max_drop']),\n#                         min_data_in_leaf = int(params_lgb['min_data_in_leaf']),\n#                         num_leaves = int(params_lgb['num_leaves']),\n#                         num_trees = 592)\n\n# lg.fit(x_total, y_total.values, eval_set=[(x_train, y_train), (x_validate, y_validate)])",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# lg = lgb.LGBMRegressor(\n#                         objective = 'regression',\n#                         metric = 'rmse',\n#                         early_stopping_round = 50,\n#                         drop_rate = params_lgb['drop_rate'],\n#                         feature_fraction = params_lgb['feature_fraction'],\n#                         lambda_l1 = params_lgb['lambda_l1'],\n#                         lambda_l2 = params_lgb['lambda_l2'],\n#                         learning_rate = params_lgb['learning_rate'],\n#                         max_drop = int(params_lgb['max_drop']),\n#                         min_data_in_leaf = int(params_lgb['min_data_in_leaf']),\n#                         num_leaves = int(params_lgb['num_leaves']),\n#                         num_trees = 592)\n\n# lg.fit(x_total, y_total.values, eval_set=[(x_train, y_train), (x_validate, y_validate)])",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 156610
     },
     {
-      "raw": "# ALEX: remove ML code\n# y_test_p = pd.Series(lg.predict(x_test))\n# submission['revenue'] = np.expm1(y_test_p)\n# submission.to_csv(\"submission.csv\", index = False)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# y_test_p = pd.Series(lg.predict(x_test))\n# submission['revenue'] = np.expm1(y_test_p)\n# submission.to_csv(\"submission.csv\", index = False)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 114599

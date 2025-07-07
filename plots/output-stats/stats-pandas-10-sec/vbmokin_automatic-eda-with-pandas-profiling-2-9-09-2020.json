@@ -3,13 +3,13 @@
   "max-mem-in-mb2": 1553,
   "cells": [
     {
-      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove profiling\n# import pandas_profiling as pp\n# from pandas_profiling import ProfileReport",
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove profiling\n# import pandas_profiling as pp\n# from pandas_profiling import ProfileReport",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 369772
     },
     {
-      "raw": "# ALEX: remove profiling\n# pp.__version__",
+      "raw": "# FIRST-AUTHOR: remove profiling\n# pp.__version__",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 189718
@@ -81,7 +81,7 @@
       "total-ns": 108289560
     },
     {
-      "raw": "# ALEX: remove profiling\n# ProfileReport(train_x, title='Pandas Profiling Report for training dataset', html={'style':{'full_width':True}})",
+      "raw": "# FIRST-AUTHOR: remove profiling\n# ProfileReport(train_x, title='Pandas Profiling Report for training dataset', html={'style':{'full_width':True}})",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 271791
@@ -93,13 +93,13 @@
       "total-ns": 174877
     },
     {
-      "raw": "# ALEX: remove profiling\n# %%time\n# profile = ProfileReport(train_x, title='Pandas Profiling Report for training dataset', minimal=True)\n# profile.to_file(output_file=\"train_short_profile.html\")",
+      "raw": "# FIRST-AUTHOR: remove profiling\n# %%time\n# profile = ProfileReport(train_x, title='Pandas Profiling Report for training dataset', minimal=True)\n# profile.to_file(output_file=\"train_short_profile.html\")",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 157251
     },
     {
-      "raw": "# ALEX: remove profiling\n# ProfileReport(test_x, title='Pandas Profiling Report for test dataset')",
+      "raw": "# FIRST-AUTHOR: remove profiling\n# ProfileReport(test_x, title='Pandas Profiling Report for test dataset')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 129181

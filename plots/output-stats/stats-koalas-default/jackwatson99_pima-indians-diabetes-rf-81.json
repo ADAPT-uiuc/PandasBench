@@ -27,7 +27,7 @@
       "total-ns": 2211696819
     },
     {
-      "raw": "# ALEX: evaluate lazy computation\nevaluate_lazy(train_df.describe())",
+      "raw": "# FIRST-AUTHOR: evaluate lazy computation\nevaluate_lazy(train_df.describe())",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 284480307
@@ -39,13 +39,13 @@
       "total-ns": 837435059
     },
     {
-      "raw": "# ALEX: evaluate lazy computation\nevaluate_lazy(train_df.describe())",
+      "raw": "# FIRST-AUTHOR: evaluate lazy computation\nevaluate_lazy(train_df.describe())",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 201257005
     },
     {
-      "raw": "# ALEX: remove plotting\n# import seaborn as sb\n# import matplotlib.pyplot as plt",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# import seaborn as sb\n# import matplotlib.pyplot as plt",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 261091
@@ -57,31 +57,31 @@
       "total-ns": 221506
     },
     {
-      "raw": "corr_matrix = train_df.corr()\n# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize = (10,8))\n# sb.heatmap(corr_matrix, annot = True, fmt='.2g', vmin = -1,\n#             vmax = 1, center = 0, cmap = 'coolwarm')\nevaluate_lazy(corr_matrix)",
+      "raw": "corr_matrix = train_df.corr()\n# FIRST-AUTHOR: remove plotting\n# fig, ax = plt.subplots(figsize = (10,8))\n# sb.heatmap(corr_matrix, annot = True, fmt='.2g', vmin = -1,\n#             vmax = 1, center = 0, cmap = 'coolwarm')\nevaluate_lazy(corr_matrix)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 456100544
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import train_test_split\n# from sklearn.ensemble import RandomForestClassifier\n# from sklearn.model_selection import GridSearchCV\n# from sklearn.metrics import accuracy_score",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.model_selection import train_test_split\n# from sklearn.ensemble import RandomForestClassifier\n# from sklearn.model_selection import GridSearchCV\n# from sklearn.metrics import accuracy_score",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 278100
     },
     {
-      "raw": "# ALEX: remove ML code\n# x_train, x_test, y_train, y_test = train_test_split(train_df.drop('Outcome', axis=1), train_df['Outcome'], \n#                                                   test_size = 0.2)\nevaluate_lazy(train_df.drop('Outcome', axis=1))\nevaluate_lazy(train_df['Outcome'])",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# x_train, x_test, y_train, y_test = train_test_split(train_df.drop('Outcome', axis=1), train_df['Outcome'], \n#                                                   test_size = 0.2)\nevaluate_lazy(train_df.drop('Outcome', axis=1))\nevaluate_lazy(train_df['Outcome'])",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 30300540
     },
     {
-      "raw": "# ALEX: remove ML code\n# print(x_train.shape, y_train.shape)\n# print(x_test.shape, y_test.shape)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# print(x_train.shape, y_train.shape)\n# print(x_test.shape, y_test.shape)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 225981
     },
     {
-      "raw": "# ALEX: remove ML code\n# model = RandomForestClassifier(n_estimators=250, max_features='auto',\n#                               max_depth = 6, criterion='entropy')\n# model.fit(x_train, y_train)\n# y_pred = model.predict(x_test)\n# print(\"Accuracy score of Random Forest: \", (accuracy_score(y_pred, y_test))*100)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# model = RandomForestClassifier(n_estimators=250, max_features='auto',\n#                               max_depth = 6, criterion='entropy')\n# model.fit(x_train, y_train)\n# y_pred = model.predict(x_test)\n# print(\"Accuracy score of Random Forest: \", (accuracy_score(y_pred, y_test))*100)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 224352

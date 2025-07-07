@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 3139,
   "cells": [
     {
-      "raw": "import numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))",
+      "raw": "import numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt\n\n# FIRST-AUTHOR: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 3404396061
@@ -39,13 +39,13 @@
       "total-ns": 9928455737
     },
     {
-      "raw": "# ALEX: remove plotting\n# df_seoul.plot(x='date')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# df_seoul.plot(x='date')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 261300
     },
     {
-      "raw": "corr = df_seoul.corr()\n# ALEX: remove plotting\n# f, ax = plt.subplots(figsize=(11, 9))\n# cmap = sns.diverging_palette(220, 10, as_cmap=True)\n# sns.heatmap(corr, cmap=cmap, vmax=1, center=0,\n#             square=True, linewidths=.5, cbar_kws={\"shrink\": .5})",
+      "raw": "corr = df_seoul.corr()\n# FIRST-AUTHOR: remove plotting\n# f, ax = plt.subplots(figsize=(11, 9))\n# cmap = sns.diverging_palette(220, 10, as_cmap=True)\n# sns.heatmap(corr, cmap=cmap, vmax=1, center=0,\n#             square=True, linewidths=.5, cbar_kws={\"shrink\": .5})",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 53821399
@@ -63,13 +63,13 @@
       "total-ns": 46562883748
     },
     {
-      "raw": "# ALEX: remove plotting\n# df_seoul['PM10_class'].value_counts().plot(kind=\"bar\")\ndf_seoul['PM10_class'].value_counts()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# df_seoul['PM10_class'].value_counts().plot(kind=\"bar\")\ndf_seoul['PM10_class'].value_counts()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 197255999
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.jointplot(x=df_seoul[\"CO\"], y=df_seoul[\"NO2\"], kind='kde', xlim=(0,1),ylim=(0,0.13), color='g')\n# plt.show()\n_ = df_seoul[\"CO\"]\n_ = df_seoul[\"NO2\"]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.jointplot(x=df_seoul[\"CO\"], y=df_seoul[\"NO2\"], kind='kde', xlim=(0,1),ylim=(0,0.13), color='g')\n# plt.show()\n_ = df_seoul[\"CO\"]\n_ = df_seoul[\"NO2\"]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 2670687

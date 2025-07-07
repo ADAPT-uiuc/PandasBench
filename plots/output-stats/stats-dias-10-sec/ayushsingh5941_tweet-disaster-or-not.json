@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 160,
   "cells": [
     {
-      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\nimport re\n# ALEX: remove ML code\n# from nltk.stem import WordNetLemmatizer\n# from nltk.corpus import names, stopwords\nimport unicodedata\n# from sklearn.model_selection import train_test_split\n# from sklearn.feature_extraction.text import TfidfVectorizer\n# from sklearn.pipeline import Pipeline\n# from sklearn.metrics import classification_report\n# from sklearn.linear_model import LogisticRegression",
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\nimport re\n# FIRST-AUTHOR: remove ML code\n# from nltk.stem import WordNetLemmatizer\n# from nltk.corpus import names, stopwords\nimport unicodedata\n# from sklearn.model_selection import train_test_split\n# from sklearn.feature_extraction.text import TfidfVectorizer\n# from sklearn.pipeline import Pipeline\n# from sklearn.metrics import classification_report\n# from sklearn.linear_model import LogisticRegression",
       "rewrite-ns": 874383,
       "overhead-ns": 874383,
       "exec-ns": 478246,
@@ -129,7 +129,7 @@
       "rewritten": "tweet_train_df.drop(['target', 'location', 'keyword', 'id'], axis=1,\n    inplace=True)\ntweet_test_df.drop(['location', 'keyword', 'id'], axis=1, inplace=True)\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# lemmetizer = WordNetLemmatizer()",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# lemmetizer = WordNetLemmatizer()",
       "rewrite-ns": 23416,
       "overhead-ns": 23416,
       "exec-ns": 126777,
@@ -138,7 +138,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# all_names = set(names.words())",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# all_names = set(names.words())",
       "rewrite-ns": 18904,
       "overhead-ns": 18904,
       "exec-ns": 100914,
@@ -147,7 +147,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# stop_words = set(stopwords.words('english'))",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# stop_words = set(stopwords.words('english'))",
       "rewrite-ns": 17865,
       "overhead-ns": 17865,
       "exec-ns": 94020,
@@ -156,7 +156,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# tf_idf = TfidfVectorizer(min_df=0.1, max_df=0.7)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# tf_idf = TfidfVectorizer(min_df=0.1, max_df=0.7)",
       "rewrite-ns": 16905,
       "overhead-ns": 16905,
       "exec-ns": 91168,
@@ -165,7 +165,7 @@
       "rewritten": ""
     },
     {
-      "raw": "def cleaned_string(string):\n    # Removing all the digits\n    string = re.sub(r'\\d', '', string)\n    \n    # Removing accented data\n    string = unicodedata.normalize('NFKD', string).encode('ascii', 'ignore').decode('utf-8', 'ignore')\n    \n    # Removing Mentions\n    string = re.sub(r'@\\w+', ' ', string)\n    \n    # Removing links \n    string = re.sub(r'(https?:\\/\\/)?([\\da-zA-Z\\.-\\/\\#\\:]+)\\.([\\da-zA-Z\\.\\/\\:\\#]{0,9})([\\/\\w \\.-\\/\\:\\#]*)', ' ', string)\n    \n    # Removing all the digits special caharacters\n    string = re.sub(r'\\W', ' ', string)\n        \n    \n    # Removing double whitespaces\n    string = re.sub(r'\\s+', ' ', string, flags=re.I)\n    \n\n    \n    string = string.strip()\n    \n    #Removing all Single characters\n    string = re.sub(r'\\^[a-zA-Z]\\s+','' , string)\n    \n    \n    # Lemmetizing the string and removing stop words\n    string = string.split()\n# ALEX: remove ML code\n#     string = [lemmetizer.lemmatize(word) for word in string if word not in stop_words and word not in all_names]\n    string = ' '.join(string)\n    \n    # Lowercasing all data\n    string = string.lower()\n        \n    return string",
+      "raw": "def cleaned_string(string):\n    # Removing all the digits\n    string = re.sub(r'\\d', '', string)\n    \n    # Removing accented data\n    string = unicodedata.normalize('NFKD', string).encode('ascii', 'ignore').decode('utf-8', 'ignore')\n    \n    # Removing Mentions\n    string = re.sub(r'@\\w+', ' ', string)\n    \n    # Removing links \n    string = re.sub(r'(https?:\\/\\/)?([\\da-zA-Z\\.-\\/\\#\\:]+)\\.([\\da-zA-Z\\.\\/\\:\\#]{0,9})([\\/\\w \\.-\\/\\:\\#]*)', ' ', string)\n    \n    # Removing all the digits special caharacters\n    string = re.sub(r'\\W', ' ', string)\n        \n    \n    # Removing double whitespaces\n    string = re.sub(r'\\s+', ' ', string, flags=re.I)\n    \n\n    \n    string = string.strip()\n    \n    #Removing all Single characters\n    string = re.sub(r'\\^[a-zA-Z]\\s+','' , string)\n    \n    \n    # Lemmetizing the string and removing stop words\n    string = string.split()\n# FIRST-AUTHOR: remove ML code\n#     string = [lemmetizer.lemmatize(word) for word in string if word not in stop_words and word not in all_names]\n    string = ' '.join(string)\n    \n    # Lowercasing all data\n    string = string.lower()\n        \n    return string",
       "rewrite-ns": 5528721,
       "overhead-ns": 5528721,
       "exec-ns": 1164148,
@@ -237,7 +237,7 @@
       "rewritten": "tweet_cleaned_train_df.head()\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# X_train, X_valid, y_train, y_valid = train_test_split(tweet_cleaned_train_df['text'], target,random_state = 0)\n_ = tweet_cleaned_train_df['text']\n",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# X_train, X_valid, y_train, y_valid = train_test_split(tweet_cleaned_train_df['text'], target,random_state = 0)\n_ = tweet_cleaned_train_df['text']\n",
       "rewrite-ns": 330396,
       "overhead-ns": 330396,
       "exec-ns": 275564,
@@ -246,7 +246,7 @@
       "rewritten": "_ = tweet_cleaned_train_df['text']\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# catboost = LogisticRegression()",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# catboost = LogisticRegression()",
       "rewrite-ns": 12517,
       "overhead-ns": 12517,
       "exec-ns": 65250,
@@ -255,7 +255,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# pipeline_sgd = Pipeline([\n#     ('tfidf',  TfidfVectorizer()),\n#     ('nb', catboost,)\n# ])",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# pipeline_sgd = Pipeline([\n#     ('tfidf',  TfidfVectorizer()),\n#     ('nb', catboost,)\n# ])",
       "rewrite-ns": 11160,
       "overhead-ns": 11160,
       "exec-ns": 59227,
@@ -264,7 +264,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# model = pipeline_sgd.fit(X_train, y_train)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# model = pipeline_sgd.fit(X_train, y_train)",
       "rewrite-ns": 9972,
       "overhead-ns": 9972,
       "exec-ns": 57109,
@@ -273,7 +273,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# y_predict = model.predict(X_valid)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# y_predict = model.predict(X_valid)",
       "rewrite-ns": 9810,
       "overhead-ns": 9810,
       "exec-ns": 54119,
@@ -282,7 +282,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# print(classification_report(y_valid, y_predict))",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# print(classification_report(y_valid, y_predict))",
       "rewrite-ns": 9453,
       "overhead-ns": 9453,
       "exec-ns": 53502,
@@ -291,7 +291,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# y_pred_test = model.predict(tweet_cleaned_test_df['text'])\ny_pred_test = tweet_cleaned_test_df['text']",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# y_pred_test = model.predict(tweet_cleaned_test_df['text'])\ny_pred_test = tweet_cleaned_test_df['text']",
       "rewrite-ns": 293907,
       "overhead-ns": 293907,
       "exec-ns": 242222,
@@ -300,7 +300,7 @@
       "rewritten": "y_pred_test = tweet_cleaned_test_df['text']\n"
     },
     {
-      "raw": "# Saving result on test set\n# ALEX: remove ML code\noutput = pd.DataFrame({'Id': Id,\n                       'target': y_pred_test})\n\noutput.to_csv(r'submission.csv', index=False)",
+      "raw": "# Saving result on test set\n# FIRST-AUTHOR: remove ML code\noutput = pd.DataFrame({'Id': Id,\n                       'target': y_pred_test})\n\noutput.to_csv(r'submission.csv', index=False)",
       "rewrite-ns": 876759,
       "overhead-ns": 876759,
       "exec-ns": 74577912,

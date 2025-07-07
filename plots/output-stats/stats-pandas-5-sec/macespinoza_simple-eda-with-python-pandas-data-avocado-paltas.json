@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 1213,
   "cells": [
     {
-      "raw": "import numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting, ML code, path printing\n# import seaborn as sns \n\n# from sklearn.metrics import mean_absolute_error\n# from sklearn.preprocessing import LabelEncoder\n\n# import plotly\n# from plotly.offline import init_notebook_mode, iplot\n# import plotly.graph_objs as go\n# init_notebook_mode(connected=True)\n# import matplotlib.pyplot as plt\n# import pylab as pl\n# sns.set(font_scale = 0.7)\n# import os\n# print(os.listdir(\"./input\"))\n",
+      "raw": "import numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting, ML code, path printing\n# import seaborn as sns \n\n# from sklearn.metrics import mean_absolute_error\n# from sklearn.preprocessing import LabelEncoder\n\n# import plotly\n# from plotly.offline import init_notebook_mode, iplot\n# import plotly.graph_objs as go\n# init_notebook_mode(connected=True)\n# import matplotlib.pyplot as plt\n# import pylab as pl\n# sns.set(font_scale = 0.7)\n# import os\n# print(os.listdir(\"./input\"))\n",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 449935
@@ -45,7 +45,7 @@
       "total-ns": 119315
     },
     {
-      "raw": "import itertools\n# ALEX: remove plotting\n# plt.subplots(figsize=(28,20))\ntime_spent=['Small Bags','Large Bags','XLarge Bags','XLarge Bags']\nlength=len(time_spent)\nfor i,j in itertools.zip_longest(time_spent,range(length)):\n# ALEX: remove plotting\n#     plt.subplot((length/2),2,j+1)\n#     plt.subplots_adjust(wspace=0.2,hspace=0.5)\n#     dataCorrecta[i].hist(bins=18,edgecolor='black')\n#     plt.axvline(dataCorrecta[i].mean(),linestyle='dashed',color='r')\n#     plt.title(i,size=20)\n#     plt.xlabel('Tama\u00f1o de la bolsa')\n#     plt.ylabel('cantidad de bolsas')\n    dataCorrecta[i]\n    _ = dataCorrecta[i].mean()\n# ALEX: remove plotting\n# plt.show()",
+      "raw": "import itertools\n# FIRST-AUTHOR: remove plotting\n# plt.subplots(figsize=(28,20))\ntime_spent=['Small Bags','Large Bags','XLarge Bags','XLarge Bags']\nlength=len(time_spent)\nfor i,j in itertools.zip_longest(time_spent,range(length)):\n# FIRST-AUTHOR: remove plotting\n#     plt.subplot((length/2),2,j+1)\n#     plt.subplots_adjust(wspace=0.2,hspace=0.5)\n#     dataCorrecta[i].hist(bins=18,edgecolor='black')\n#     plt.axvline(dataCorrecta[i].mean(),linestyle='dashed',color='r')\n#     plt.title(i,size=20)\n#     plt.xlabel('Tama\u00f1o de la bolsa')\n#     plt.ylabel('cantidad de bolsas')\n    dataCorrecta[i]\n    _ = dataCorrecta[i].mean()\n# FIRST-AUTHOR: remove plotting\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 7109635
@@ -57,25 +57,25 @@
       "total-ns": 65943100
     },
     {
-      "raw": "import itertools\n# ALEX: remove plotting\n# plt.subplots(figsize=(25,16))\ntime_spent=['Small Bags','Large Bags','XLarge Bags','XLarge Bags']\nlength=len(time_spent)\nfor i,j in itertools.zip_longest(time_spent,range(length)):\n# ALEX: remove plotting\n#     plt.subplot((length/2),2,j+1)\n#     plt.subplots_adjust(wspace=0.2,hspace=0.5)\n#     dataCorrecta[i].hist(bins=18,edgecolor='black')\n#     plt.axvline(dataCorrecta[i].mean(),linestyle='dashed',color='r')\n#     plt.title(i,size=20)\n#     plt.xlabel('Tama\u00f1o de la bolsa')\n#     plt.ylabel('cantidad de bolsas')\n    dataCorrecta[i]\n    _ = dataCorrecta[i].mean()\n# ALEX: remove plotting\n# plt.show()",
+      "raw": "import itertools\n# FIRST-AUTHOR: remove plotting\n# plt.subplots(figsize=(25,16))\ntime_spent=['Small Bags','Large Bags','XLarge Bags','XLarge Bags']\nlength=len(time_spent)\nfor i,j in itertools.zip_longest(time_spent,range(length)):\n# FIRST-AUTHOR: remove plotting\n#     plt.subplot((length/2),2,j+1)\n#     plt.subplots_adjust(wspace=0.2,hspace=0.5)\n#     dataCorrecta[i].hist(bins=18,edgecolor='black')\n#     plt.axvline(dataCorrecta[i].mean(),linestyle='dashed',color='r')\n#     plt.title(i,size=20)\n#     plt.xlabel('Tama\u00f1o de la bolsa')\n#     plt.ylabel('cantidad de bolsas')\n    dataCorrecta[i]\n    _ = dataCorrecta[i].mean()\n# FIRST-AUTHOR: remove plotting\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 6693219
     },
     {
-      "raw": "# ALEX: remove plotting\n# pl.figure(figsize=(12,5))\n# pl.title(\"Distribution Price\")\n# ax = sns.distplot(dataCorrecta[\"AveragePrice\"], color = 'g')\n_ = dataCorrecta[\"AveragePrice\"]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# pl.figure(figsize=(12,5))\n# pl.title(\"Distribution Price\")\n# ax = sns.distplot(dataCorrecta[\"AveragePrice\"], color = 'g')\n_ = dataCorrecta[\"AveragePrice\"]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 307196
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.boxplot(y=\"type\", x=\"AveragePrice\", data=dataCorrecta, palette = 'Set3')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.boxplot(y=\"type\", x=\"AveragePrice\", data=dataCorrecta, palette = 'Set3')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 125123
     },
     {
-      "raw": "conventional = dataCorrecta[dataCorrecta.type==\"conventional\"]\norganic = dataCorrecta[dataCorrecta.type==\"organic\"]\n\ngroupBy1_price = conventional.groupby('Date').mean()\n# ALEX: remove plotting\n# scatter1 = go.Scatter(x=groupBy1_price.AveragePrice.index, y=groupBy1_price.AveragePrice, name=\"Conventional\")\n_ = groupBy1_price.AveragePrice.index\n_ = groupBy1_price.AveragePrice\n\ngroupBy2_price = organic.groupby('Date').mean()\n# ALEX: remove plotting\n# scatter2 = go.Scatter(x=groupBy2_price.AveragePrice.index, y=groupBy2_price.AveragePrice, name=\"Organic\")\n_ = groupBy2_price.AveragePrice.index\n_ = groupBy2_price.AveragePrice\n\n# ALEX: remove plotting\n# data = [scatter1, scatter2]\n# layout=go.Layout(title=\"Time Series Plot for Mean Daily Price of Conventional and Organic Avocados\", xaxis={'title':'Date'}, yaxis={'title':'Prices'})\n# figure=go.Figure(data=data,layout=layout)\n# iplot(figure)",
+      "raw": "conventional = dataCorrecta[dataCorrecta.type==\"conventional\"]\norganic = dataCorrecta[dataCorrecta.type==\"organic\"]\n\ngroupBy1_price = conventional.groupby('Date').mean()\n# FIRST-AUTHOR: remove plotting\n# scatter1 = go.Scatter(x=groupBy1_price.AveragePrice.index, y=groupBy1_price.AveragePrice, name=\"Conventional\")\n_ = groupBy1_price.AveragePrice.index\n_ = groupBy1_price.AveragePrice\n\ngroupBy2_price = organic.groupby('Date').mean()\n# FIRST-AUTHOR: remove plotting\n# scatter2 = go.Scatter(x=groupBy2_price.AveragePrice.index, y=groupBy2_price.AveragePrice, name=\"Organic\")\n_ = groupBy2_price.AveragePrice.index\n_ = groupBy2_price.AveragePrice\n\n# FIRST-AUTHOR: remove plotting\n# data = [scatter1, scatter2]\n# layout=go.Layout(title=\"Time Series Plot for Mean Daily Price of Conventional and Organic Avocados\", xaxis={'title':'Date'}, yaxis={'title':'Prices'})\n# figure=go.Figure(data=data,layout=layout)\n# iplot(figure)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 169980083
@@ -111,25 +111,25 @@
       "total-ns": 34818122
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(1, 1, figsize=(10,6))\n# sns.boxplot(x='year',y='AveragePrice',data=dataCorrecta,color='red')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig, ax = plt.subplots(1, 1, figsize=(10,6))\n# sns.boxplot(x='year',y='AveragePrice',data=dataCorrecta,color='red')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 111676
     },
     {
-      "raw": "#Analizamos el comportamiento de los procesio por region de las paltas organicos\nmask = dataCorrecta['type']=='organic'\n# ALEX: remove plotting\n# g = sns.factorplot('AveragePrice','region',data=dataCorrecta[mask],\n#                    hue='year',\n#                    height=13,\n#                    aspect=0.8,\n#                    palette='magma',\n#                    join=False,\n#               )\n_ = dataCorrecta[mask]",
+      "raw": "#Analizamos el comportamiento de los procesio por region de las paltas organicos\nmask = dataCorrecta['type']=='organic'\n# FIRST-AUTHOR: remove plotting\n# g = sns.factorplot('AveragePrice','region',data=dataCorrecta[mask],\n#                    hue='year',\n#                    height=13,\n#                    aspect=0.8,\n#                    palette='magma',\n#                    join=False,\n#               )\n_ = dataCorrecta[mask]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 64149528
     },
     {
-      "raw": "#Analizamos el comportamiento de los procesio por region de las paltas convencionales\nmask = dataCorrecta['type']=='conventional'\n# ALEX: remove plotting\n# g = sns.factorplot('AveragePrice','region',data=dataCorrecta[mask],\n#                    hue='year',\n#                    height=13,\n#                    aspect=0.8,\n#                    palette='magma',\n#                    join=False,\n#               )\n_ = dataCorrecta[mask]",
+      "raw": "#Analizamos el comportamiento de los procesio por region de las paltas convencionales\nmask = dataCorrecta['type']=='conventional'\n# FIRST-AUTHOR: remove plotting\n# g = sns.factorplot('AveragePrice','region',data=dataCorrecta[mask],\n#                    hue='year',\n#                    height=13,\n#                    aspect=0.8,\n#                    palette='magma',\n#                    join=False,\n#               )\n_ = dataCorrecta[mask]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 53639142
     },
     {
-      "raw": "# ALEX: remove ML code\n# label = LabelEncoder()\n# dicts = {}\n\n# label.fit(dataCorrecta.type.drop_duplicates()) \n# dicts['type'] = list(label.classes_)\n# dataCorrecta.type = label.transform(dataCorrecta.type) ",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# label = LabelEncoder()\n# dicts = {}\n\n# label.fit(dataCorrecta.type.drop_duplicates()) \n# dicts['type'] = list(label.classes_)\n# dataCorrecta.type = label.transform(dataCorrecta.type) ",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 217839
@@ -141,7 +141,7 @@
       "total-ns": 35377023
     },
     {
-      "raw": "#Realizamos una tabla de correlacion, para conocer el nivel de relacion entre los campos y entre nuestro target\ncols = ['AveragePrice','Total Volume','4046','4225','4770','Total Bags','Small Bags','Large Bags','XLarge Bags','year','type']\n# ALEX: remove plotting\n# sns.set(font_scale = 1.5)\ncorr = dataCorrecta[cols].corr('spearman')\n# ALEX: remove plotting\n# plt.figure(figsize = ( 14 , 14 )) \n# sns.heatmap(corr,annot=True,fmt='.2f',cmap=\"YlGnBu\");",
+      "raw": "#Realizamos una tabla de correlacion, para conocer el nivel de relacion entre los campos y entre nuestro target\ncols = ['AveragePrice','Total Volume','4046','4225','4770','Total Bags','Small Bags','Large Bags','XLarge Bags','year','type']\n# FIRST-AUTHOR: remove plotting\n# sns.set(font_scale = 1.5)\ncorr = dataCorrecta[cols].corr('spearman')\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize = ( 14 , 14 )) \n# sns.heatmap(corr,annot=True,fmt='.2f',cmap=\"YlGnBu\");",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1003464306
@@ -243,13 +243,13 @@
       "total-ns": 1898327
     },
     {
-      "raw": "# ALEX: remove plotting\n# %config InlineBackend.figure_format = 'svg'\n# sns.set(font_scale = 1)\n# sns.distplot(targer_train);",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# %config InlineBackend.figure_format = 'svg'\n# sns.set(font_scale = 1)\n# sns.distplot(targer_train);",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 139235
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.set(font_scale = 1)\n# sns.distplot(np.log1p(targer_train));\n_ = np.log1p(targer_train)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.set(font_scale = 1)\n# sns.distplot(np.log1p(targer_train));\n_ = np.log1p(targer_train)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 3028397
@@ -261,49 +261,49 @@
       "total-ns": 263277
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import train_test_split\n# X_train,X_test,y_train,y_test = train_test_split(data_train,targer_train,test_size=0.2)\n# print(X_train.shape,y_train.shape)\n# print(X_test.shape,y_test.shape)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.model_selection import train_test_split\n# X_train,X_test,y_train,y_test = train_test_split(data_train,targer_train,test_size=0.2)\n# print(X_train.shape,y_train.shape)\n# print(X_test.shape,y_test.shape)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 123158
     },
     {
-      "raw": "#Probamos con un modelo simple Ridge\n# ALEX: remove ML code\n# from sklearn.linear_model import Ridge\n# ridge = Ridge(random_state=17)\n# ridge.fit(X_train, y_train);\n# ridge_pred = ridge.predict(X_test)",
+      "raw": "#Probamos con un modelo simple Ridge\n# FIRST-AUTHOR: remove ML code\n# from sklearn.linear_model import Ridge\n# ridge = Ridge(random_state=17)\n# ridge.fit(X_train, y_train);\n# ridge_pred = ridge.predict(X_test)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 119138
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.set(font_scale = 1)\n# plt.hist(y_test, bins=50, alpha=.5, color='red', label='true', range=(0,4));\n# plt.hist(ridge_pred, bins=50, alpha=.5, color='green', label='pred', range=(0,4));\n# plt.legend();",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.set(font_scale = 1)\n# plt.hist(y_test, bins=50, alpha=.5, color='red', label='true', range=(0,4));\n# plt.hist(ridge_pred, bins=50, alpha=.5, color='green', label='pred', range=(0,4));\n# plt.legend();",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 111311
     },
     {
-      "raw": "# ALEX: remove ML code\n# mean_absolute_error(y_test, ridge_pred)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# mean_absolute_error(y_test, ridge_pred)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 94075
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import train_test_split\n# from sklearn.metrics import accuracy_score\n# from sklearn.tree import DecisionTreeRegressor\n# from sklearn.ensemble import RandomForestRegressor\n# from sklearn.neighbors import KNeighborsRegressor\n# from sklearn.svm import SVR\n# from sklearn.ensemble import AdaBoostRegressor\n# from sklearn.ensemble import GradientBoostingRegressor\n# from xgboost import XGBRegressor\n# from catboost import CatBoostRegressor\n# from sklearn.linear_model import Lasso,Ridge,BayesianRidge,ElasticNet,HuberRegressor,LinearRegression,LogisticRegression,SGDRegressor\n# from sklearn.metrics import mean_squared_error\n# import numpy as np\n# import warnings\n# warnings.filterwarnings(\"ignore\")\n\n# # print X_train.shape, X_test.shape\n\n# classifiers = [['DecisionTree :',DecisionTreeRegressor()],\n#                ['RandomForest :',RandomForestRegressor()],\n#                ['KNeighbours :', KNeighborsRegressor(n_neighbors = 2)],\n#                ['SVM :', SVR()],\n#                ['AdaBoostClassifier :', AdaBoostRegressor()],\n#                ['GradientBoostingClassifier: ', GradientBoostingRegressor()],\n#                ['Xgboost: ', XGBRegressor()],\n#                ['CatBoost: ', CatBoostRegressor(logging_level='Silent')],\n#                ['Lasso: ', Lasso()],\n#                ['Ridge: ', Ridge(random_state=17)],\n#                ['BayesianRidge: ', BayesianRidge()],\n#                ['ElasticNet: ', ElasticNet()],\n#                ['HuberRegressor: ', HuberRegressor()]]\n\n# print(\"Accuracy Results...\")\n\n\n# for name,classifier in classifiers:\n#     classifier = classifier\n#     classifier.fit(X_train, y_train)\n#     predictions = classifier.predict(X_test)\n#     print(name, (np.sqrt(mean_squared_error(y_test, predictions))))",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.model_selection import train_test_split\n# from sklearn.metrics import accuracy_score\n# from sklearn.tree import DecisionTreeRegressor\n# from sklearn.ensemble import RandomForestRegressor\n# from sklearn.neighbors import KNeighborsRegressor\n# from sklearn.svm import SVR\n# from sklearn.ensemble import AdaBoostRegressor\n# from sklearn.ensemble import GradientBoostingRegressor\n# from xgboost import XGBRegressor\n# from catboost import CatBoostRegressor\n# from sklearn.linear_model import Lasso,Ridge,BayesianRidge,ElasticNet,HuberRegressor,LinearRegression,LogisticRegression,SGDRegressor\n# from sklearn.metrics import mean_squared_error\n# import numpy as np\n# import warnings\n# warnings.filterwarnings(\"ignore\")\n\n# # print X_train.shape, X_test.shape\n\n# classifiers = [['DecisionTree :',DecisionTreeRegressor()],\n#                ['RandomForest :',RandomForestRegressor()],\n#                ['KNeighbours :', KNeighborsRegressor(n_neighbors = 2)],\n#                ['SVM :', SVR()],\n#                ['AdaBoostClassifier :', AdaBoostRegressor()],\n#                ['GradientBoostingClassifier: ', GradientBoostingRegressor()],\n#                ['Xgboost: ', XGBRegressor()],\n#                ['CatBoost: ', CatBoostRegressor(logging_level='Silent')],\n#                ['Lasso: ', Lasso()],\n#                ['Ridge: ', Ridge(random_state=17)],\n#                ['BayesianRidge: ', BayesianRidge()],\n#                ['ElasticNet: ', ElasticNet()],\n#                ['HuberRegressor: ', HuberRegressor()]]\n\n# print(\"Accuracy Results...\")\n\n\n# for name,classifier in classifiers:\n#     classifier = classifier\n#     classifier.fit(X_train, y_train)\n#     predictions = classifier.predict(X_test)\n#     print(name, (np.sqrt(mean_squared_error(y_test, predictions))))",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 263007
     },
     {
-      "raw": "# ALEX: remove ML code\n# classifier = RandomForestRegressor()\n# classifier.fit(X_train, y_train)\n# predictions = classifier.predict(X_test)\n",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# classifier = RandomForestRegressor()\n# classifier.fit(X_train, y_train)\n# predictions = classifier.predict(X_test)\n",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 104496
     },
     {
-      "raw": "# ALEX: remove ML code\n# mean_absolute_error(y_test, predictions)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# mean_absolute_error(y_test, predictions)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 92977
     },
     {
-      "raw": "# ALEX: remove ML code\n# sns.set(font_scale = 1)\n# data = pd.DataFrame({'Y Test':y_test , 'Pred':predictions},columns=['Y Test','Pred'])\n# sns.lmplot(x='Y Test',y='Pred',data=data,palette='rainbow')\n# data.head()",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# sns.set(font_scale = 1)\n# data = pd.DataFrame({'Y Test':y_test , 'Pred':predictions},columns=['Y Test','Pred'])\n# sns.lmplot(x='Y Test',y='Pred',data=data,palette='rainbow')\n# data.head()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 105213

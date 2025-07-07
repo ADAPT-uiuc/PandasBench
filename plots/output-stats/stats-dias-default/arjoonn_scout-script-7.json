@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 119,
   "cells": [
     {
-      "raw": "import numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting, path printing\n# import seaborn as sns\n# %pylab inline\n# from subprocess import check_output\n# print(check_output([\"ls\", \"../input\"]).decode(\"utf8\"))\n",
+      "raw": "import numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting, path printing\n# import seaborn as sns\n# %pylab inline\n# from subprocess import check_output\n# print(check_output([\"ls\", \"../input\"]).decode(\"utf8\"))\n",
       "rewrite-ns": 675631,
       "overhead-ns": 675631,
       "exec-ns": 440595,
@@ -176,7 +176,7 @@
       "rewritten": "print(to_drop)\ndata = df.drop(to_drop, axis=1)\ndata.info()\n"
     },
     {
-      "raw": "# Thos who have shought treatment\nx, y = data.drop('treatment', axis=1), data.treatment\n\n# ALEX: remove ML code\n# from sklearn.ensemble import RandomForestClassifier\n# from sklearn.model_selection import cross_val_score\n# model = RandomForestClassifier(n_jobs=-1, n_estimators=200, class_weight='balanced')\n# scores = cross_val_score(model, x, y, scoring='roc_auc', cv=5)\n# print(scores.mean())",
+      "raw": "# Thos who have shought treatment\nx, y = data.drop('treatment', axis=1), data.treatment\n\n# FIRST-AUTHOR: remove ML code\n# from sklearn.ensemble import RandomForestClassifier\n# from sklearn.model_selection import cross_val_score\n# model = RandomForestClassifier(n_jobs=-1, n_estimators=200, class_weight='balanced')\n# scores = cross_val_score(model, x, y, scoring='roc_auc', cv=5)\n# print(scores.mean())",
       "rewrite-ns": 986001,
       "overhead-ns": 986001,
       "exec-ns": 3874634,
@@ -185,7 +185,7 @@
       "rewritten": "x, y = data.drop('treatment', axis=1), data.treatment\n"
     },
     {
-      "raw": "# Family history\nx, y = data.drop('family_history', axis=1), data.family_history\n# ALEX: remove ML code\n# model = RandomForestClassifier(n_jobs=-1, n_estimators=200, class_weight='balanced')\n# scores = cross_val_score(model, x, y, scoring='roc_auc', cv=5)\n# print(scores.mean())",
+      "raw": "# Family history\nx, y = data.drop('family_history', axis=1), data.family_history\n# FIRST-AUTHOR: remove ML code\n# model = RandomForestClassifier(n_jobs=-1, n_estimators=200, class_weight='balanced')\n# scores = cross_val_score(model, x, y, scoring='roc_auc', cv=5)\n# print(scores.mean())",
       "rewrite-ns": 962296,
       "overhead-ns": 962296,
       "exec-ns": 3471374,

@@ -12,7 +12,7 @@
       "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
     },
     {
-      "raw": "#load the data\n# ALEX: remove IPython commands\n# !cp -r ../input/sgp-buildings/* ./",
+      "raw": "#load the data\n# FIRST-AUTHOR: remove IPython commands\n# !cp -r ../input/sgp-buildings/* ./",
       "rewrite-ns": 22833,
       "overhead-ns": 22833,
       "exec-ns": 118331,
@@ -111,7 +111,7 @@
       "rewritten": "pca.sort_values('kWh/ca/yr', ascending=False)\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# import seaborn as sb\n# sb.barplot(x='kWh/ca/yr',y='property type',data=pca.sort_values('kWh/ca/yr',ascending=False))\n_ = pca.sort_values('kWh/ca/yr',ascending=False)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# import seaborn as sb\n# sb.barplot(x='kWh/ca/yr',y='property type',data=pca.sort_values('kWh/ca/yr',ascending=False))\n_ = pca.sort_values('kWh/ca/yr',ascending=False)",
       "rewrite-ns": 436509,
       "overhead-ns": 436509,
       "exec-ns": 1349275,
@@ -129,7 +129,7 @@
       "rewritten": "pca['kWh/ca/yr'].sum()\n"
     },
     {
-      "raw": "weekly_hrs = 168\nm2_factors = dict(zip(list(pca['property type']),list(pca['m2/ca'])))\nusage_factors = {\n    'residential':(12*7+4*2)/weekly_hrs,\n    'Office':0.35*40/weekly_hrs,\n    'Retail':0.15*40/weekly_hrs,\n    'Mixed Development':0.05*40/weekly_hrs,\n    'education':0.25*40*9/12/weekly_hrs,\n    'Hotel':0.05*40/weekly_hrs,\n    'healthcare':0.05*40/weekly_hrs,\n    'transport':0.02*40/weekly_hrs,\n    'sports rec':0,\n    'civil / community':0,\n}\nout_of_home_hrs = 16/weekly_hrs #excludes time in transit\nout_of_home = ['Retail','Mixed Development','healthcare','transport',\n          'sports rec','civil / community']\n# ALEX: make notebook run with data scaling\nout_of_home = [elem for elem in out_of_home if elem in m2_factors]\nout_of_home_m2 = dict(zip(out_of_home,[m2_factors[x] for x in out_of_home]))\ntotal_ooh_m2 = sum(out_of_home_m2.values())\n\nfor f in out_of_home:\n    usage_factors[f] = usage_factors[f] + out_of_home_hrs*out_of_home_m2[f]/total_ooh_m2\nusage_factors",
+      "raw": "weekly_hrs = 168\nm2_factors = dict(zip(list(pca['property type']),list(pca['m2/ca'])))\nusage_factors = {\n    'residential':(12*7+4*2)/weekly_hrs,\n    'Office':0.35*40/weekly_hrs,\n    'Retail':0.15*40/weekly_hrs,\n    'Mixed Development':0.05*40/weekly_hrs,\n    'education':0.25*40*9/12/weekly_hrs,\n    'Hotel':0.05*40/weekly_hrs,\n    'healthcare':0.05*40/weekly_hrs,\n    'transport':0.02*40/weekly_hrs,\n    'sports rec':0,\n    'civil / community':0,\n}\nout_of_home_hrs = 16/weekly_hrs #excludes time in transit\nout_of_home = ['Retail','Mixed Development','healthcare','transport',\n          'sports rec','civil / community']\n# FIRST-AUTHOR: make notebook run with data scaling\nout_of_home = [elem for elem in out_of_home if elem in m2_factors]\nout_of_home_m2 = dict(zip(out_of_home,[m2_factors[x] for x in out_of_home]))\ntotal_ooh_m2 = sum(out_of_home_m2.values())\n\nfor f in out_of_home:\n    usage_factors[f] = usage_factors[f] + out_of_home_hrs*out_of_home_m2[f]/total_ooh_m2\nusage_factors",
       "rewrite-ns": 6489077,
       "overhead-ns": 6489077,
       "exec-ns": 4193332,
@@ -147,7 +147,7 @@
       "rewritten": "hours_per_year = 24 * 365\nusg = pd.DataFrame({'hrs/ca': usage_factors})\nusg.index.name = 'property type'\ndf = pd.merge(pca, usg.reset_index(), on='property type')\ndf['W/ca'] = df['kWh/ca/yr'] / (df['hrs/ca'] * hours_per_year) * 1000\ndf.sort_values('W/ca', ascending=False)\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sb.barplot(x='W/ca',y='property type',\n#            data=df.drop(df[df['property type']=='Hotel'].index).sort_values('W/ca',ascending=False))\n_ = df.drop(df[df['property type']=='Hotel'].index).sort_values('W/ca',ascending=False)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sb.barplot(x='W/ca',y='property type',\n#            data=df.drop(df[df['property type']=='Hotel'].index).sort_values('W/ca',ascending=False))\n_ = df.drop(df[df['property type']=='Hotel'].index).sort_values('W/ca',ascending=False)",
       "rewrite-ns": 928965,
       "overhead-ns": 928965,
       "exec-ns": 3292772,

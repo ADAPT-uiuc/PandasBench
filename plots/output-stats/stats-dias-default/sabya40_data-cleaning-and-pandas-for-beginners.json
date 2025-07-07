@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 123,
   "cells": [
     {
-      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sns\nimport re\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# %matplotlib inline\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 5GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting\n# import seaborn as sns\nimport re\n# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# %matplotlib inline\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# FIRST-AUTHOR: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 5GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
       "rewrite-ns": 581148,
       "overhead-ns": 581148,
       "exec-ns": 291042,
@@ -147,7 +147,7 @@
       "rewritten": "totalsum = flkart_data.groupby('Month').sum()\ntotalsum\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# months = range(1, 7)\n# plt.bar(months, totalsum['Discounted_Price'])\n# plt.xticks(months)\n# plt.xlabel(\"Months\")\n# plt.ylabel('Sales in INR')\n# plt.show()\n_ = totalsum['Discounted_Price']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# months = range(1, 7)\n# plt.bar(months, totalsum['Discounted_Price'])\n# plt.xticks(months)\n# plt.xlabel(\"Months\")\n# plt.ylabel('Sales in INR')\n# plt.show()\n_ = totalsum['Discounted_Price']",
       "rewrite-ns": 310985,
       "overhead-ns": 310985,
       "exec-ns": 239875,
@@ -183,7 +183,7 @@
       "rewritten": "flkart_data.head()\n"
     },
     {
-      "raw": "hours = [hour for hour, df in flkart_data.groupby('Hour')]\n\n# ALEX: remove plotting\n# plt.plot(hours, flkart_data.groupby(['Hour']).count())\n# plt.xticks(hours)\n# plt.xlabel('Hour')\n# plt.ylabel('Number of Orders')\n# plt.grid()\n# plt.show()\n_ = flkart_data.groupby(['Hour']).count()",
+      "raw": "hours = [hour for hour, df in flkart_data.groupby('Hour')]\n\n# FIRST-AUTHOR: remove plotting\n# plt.plot(hours, flkart_data.groupby(['Hour']).count())\n# plt.xticks(hours)\n# plt.xlabel('Hour')\n# plt.ylabel('Number of Orders')\n# plt.grid()\n# plt.show()\n_ = flkart_data.groupby(['Hour']).count()",
       "rewrite-ns": 1121019,
       "overhead-ns": 1121019,
       "exec-ns": 4658373,
@@ -201,7 +201,7 @@
       "rewritten": "dups_category = flkart_data.pivot_table(index=['Category'], aggfunc='size')\n"
     },
     {
-      "raw": "print(dups_category.nlargest(6))\n\n# ALEX: remove plotting\n# x =list(range(1,7))\n\n# fig, ax = plt.subplots()\n# bar = sns.barplot(data=flkart_data, x=x , y=dups_category.nlargest(6), edgecolor=\"white\")\n# ax.set_xticklabels([\"Clothes\", \"Jewel\", 'Mobile&Accessories', 'Home Decor', 'Footwear', 'Tools&Hardware'], rotation=90)\n# plt.show();\n_ = dups_category.nlargest(6)",
+      "raw": "print(dups_category.nlargest(6))\n\n# FIRST-AUTHOR: remove plotting\n# x =list(range(1,7))\n\n# fig, ax = plt.subplots()\n# bar = sns.barplot(data=flkart_data, x=x , y=dups_category.nlargest(6), edgecolor=\"white\")\n# ax.set_xticklabels([\"Clothes\", \"Jewel\", 'Mobile&Accessories', 'Home Decor', 'Footwear', 'Tools&Hardware'], rotation=90)\n# plt.show();\n_ = dups_category.nlargest(6)",
       "rewrite-ns": 722436,
       "overhead-ns": 722436,
       "exec-ns": 1444527,
@@ -210,7 +210,7 @@
       "rewritten": "print(dups_category.nlargest(6))\n_ = dups_category.nlargest(6)\n"
     },
     {
-      "raw": "# So our target is to look after duplicates rows\ndups_product = flkart_data.pivot_table(index=['Product_Name'], aggfunc='size')\n\nprint(dups_product.nlargest(10))\n# ALEX: remove plotting\n# items = range(10)\n\n# x =list(range(1,11))\n# fig, ax = plt.subplots()\n# bar = sns.barplot(data=flkart_data, x=x , y=dups_category.nlargest(10), edgecolor=\"white\")\n# plt.show();\n_ = dups_category.nlargest(10)\n",
+      "raw": "# So our target is to look after duplicates rows\ndups_product = flkart_data.pivot_table(index=['Product_Name'], aggfunc='size')\n\nprint(dups_product.nlargest(10))\n# FIRST-AUTHOR: remove plotting\n# items = range(10)\n\n# x =list(range(1,11))\n# fig, ax = plt.subplots()\n# bar = sns.barplot(data=flkart_data, x=x , y=dups_category.nlargest(10), edgecolor=\"white\")\n# plt.show();\n_ = dups_category.nlargest(10)\n",
       "rewrite-ns": 1183064,
       "overhead-ns": 1183064,
       "exec-ns": 5682801,

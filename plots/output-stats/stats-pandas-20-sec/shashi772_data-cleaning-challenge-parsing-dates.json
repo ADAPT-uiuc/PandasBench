@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 8333,
   "cells": [
     {
-      "raw": "# modules we'll use\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import seaborn as sns\n# import datetime\n\n# read in our data\nearthquakes = pd.read_csv(\"./input/earthquake-database.scaled.csv\")\nlandslides = pd.read_csv(\"./input/catalog.scaled.csv\")\nvolcanos = pd.read_csv(\"./input/volcanic-eruptions-database.scaled.csv\")\n\n# set seed for reproducibility\nnp.random.seed(0)",
+      "raw": "# modules we'll use\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# FIRST-AUTHOR: remove plotting\n# import seaborn as sns\n# import datetime\n\n# read in our data\nearthquakes = pd.read_csv(\"./input/earthquake-database.scaled.csv\")\nlandslides = pd.read_csv(\"./input/catalog.scaled.csv\")\nvolcanos = pd.read_csv(\"./input/volcanic-eruptions-database.scaled.csv\")\n\n# set seed for reproducibility\nnp.random.seed(0)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 20086847969
@@ -39,13 +39,13 @@
       "total-ns": 407645
     },
     {
-      "raw": "# Your turn! Create a new column, date_parsed, in the earthquakes\n# dataset that has correctly parsed dates in it. (Don't forget to \n# double-check that the dtype is correct!)\n# ALEX: make notebook run\n# earthquakes['Date']=pd.to_datetime(earthquakes['Date'],infer_datetime_format=True)\nearthquakes['Date']=pd.to_datetime(earthquakes['Date'],infer_datetime_format=True,utc=True)\nprint(earthquakes['Date'].dtype)\n",
+      "raw": "# Your turn! Create a new column, date_parsed, in the earthquakes\n# dataset that has correctly parsed dates in it. (Don't forget to \n# double-check that the dtype is correct!)\n# FIRST-AUTHOR: make notebook run\n# earthquakes['Date']=pd.to_datetime(earthquakes['Date'],infer_datetime_format=True)\nearthquakes['Date']=pd.to_datetime(earthquakes['Date'],infer_datetime_format=True,utc=True)\nprint(earthquakes['Date'].dtype)\n",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 2045391139
     },
     {
-      "raw": "# try to get the day of the month from the date column\n# ALEX: the first of the two lines below was added to get the notebook to run\nlandslides['date'] = pd.to_datetime(landslides['date'], infer_datetime_format=True)\nday_of_month_landslides = landslides['date'].dt.day",
+      "raw": "# try to get the day of the month from the date column\n# FIRST-AUTHOR: the first of the two lines below was added to get the notebook to run\nlandslides['date'] = pd.to_datetime(landslides['date'], infer_datetime_format=True)\nday_of_month_landslides = landslides['date'].dt.day",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 201611397
@@ -63,13 +63,13 @@
       "total-ns": 299860371
     },
     {
-      "raw": "# remove na's\nday_of_month_landslides = day_of_month_landslides.dropna()\n\n# plot the day of the month\n# ALEX: remove plotting\n# sns.distplot(day_of_month_landslides, kde=False, bins=31)",
+      "raw": "# remove na's\nday_of_month_landslides = day_of_month_landslides.dropna()\n\n# plot the day of the month\n# FIRST-AUTHOR: remove plotting\n# sns.distplot(day_of_month_landslides, kde=False, bins=31)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 4248747
     },
     {
-      "raw": "# Your turn! Plot the days of the month from your\n# earthquake dataset and make sure they make sense.\n# remove na's\nday_of_month_earthquakes = day_of_month_earthquakes.dropna()\n\n# plot the day of the month\n# ALEX: remove plotting\n# sns.distplot(day_of_month_earthquakes, kde=False, bins=31)\n",
+      "raw": "# Your turn! Plot the days of the month from your\n# earthquake dataset and make sure they make sense.\n# remove na's\nday_of_month_earthquakes = day_of_month_earthquakes.dropna()\n\n# plot the day of the month\n# FIRST-AUTHOR: remove plotting\n# sns.distplot(day_of_month_earthquakes, kde=False, bins=31)\n",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 8080033

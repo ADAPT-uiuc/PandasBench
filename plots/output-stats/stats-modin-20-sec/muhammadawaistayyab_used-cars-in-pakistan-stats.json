@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 695,
   "cells": [
     {
-      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n\n# ALEX: remove plotting code\n# pd.plotting.register_matplotlib_converters()\n# import matplotlib.pyplot as plt\n# %matplotlib inline\n# import seaborn as sns",
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n\n# FIRST-AUTHOR: remove plotting code\n# pd.plotting.register_matplotlib_converters()\n# import matplotlib.pyplot as plt\n# %matplotlib inline\n# import seaborn as sns",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 3362222449

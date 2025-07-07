@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 4282,
   "cells": [
     {
-      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import plotly.express as px\n# import plotly as plty\n# import seaborn as sns\n# import plotly.graph_objs as go\n# from plotly.offline import iplot\n# from plotly.subplots import make_subplots\n# import plotly.io as pio\n# import os\n# %matplotlib inline\n",
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# import plotly.express as px\n# import plotly as plty\n# import seaborn as sns\n# import plotly.graph_objs as go\n# from plotly.offline import iplot\n# from plotly.subplots import make_subplots\n# import plotly.io as pio\n# import os\n# %matplotlib inline\n",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 402868
@@ -69,7 +69,7 @@
       "total-ns": 540837
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(1,2, figsize = (20,6), sharex=True)\n# sns.countplot(x='SmokingStatus',data=df_tmp,ax=ax[0])\n# sns.countplot(x='SmokingStatus',hue='Sex', data=df_tmp,ax=ax[1])\n# ax[0].title.set_text('Smoking Status')\n# ax[1].title.set_text('Smoking Status Vs Sex')\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig, ax = plt.subplots(1,2, figsize = (20,6), sharex=True)\n# sns.countplot(x='SmokingStatus',data=df_tmp,ax=ax[0])\n# sns.countplot(x='SmokingStatus',hue='Sex', data=df_tmp,ax=ax[1])\n# ax[0].title.set_text('Smoking Status')\n# ax[1].title.set_text('Smoking Status Vs Sex')\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 141061

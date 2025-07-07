@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 228,
   "cells": [
     {
-      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 5GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# FIRST-AUTHOR: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 5GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 3413552575
@@ -87,7 +87,7 @@
       "total-ns": 54653472
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig = plt.figure(figsize = (25,16))\nfor i,inverter in enumerate(inverters,1):\n# ALEX: remove plotting\n#     plt.subplot(6,4,i)\n#     plt.yscale(\"log\")\n#     gen_data.loc[(gen_data[\"Date\"] == \"2020-05-15\") &  (gen_data[\"SOURCE_KEY\"] == inverter),\"DC_POWER\"].plot(label = inverter + \" DC\")\n#     gen_data.loc[(gen_data[\"Date\"] == \"2020-05-15\") & (gen_data[\"SOURCE_KEY\"] == inverter),\"AC_POWER\"].plot(label = inverter + \" AC\")\n#     plt.legend()\n    gen_data.loc[(gen_data[\"Date\"] == \"2020-05-15\") &  (gen_data[\"SOURCE_KEY\"] == inverter),\"DC_POWER\"]\n    gen_data.loc[(gen_data[\"Date\"] == \"2020-05-15\") & (gen_data[\"SOURCE_KEY\"] == inverter),\"AC_POWER\"]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig = plt.figure(figsize = (25,16))\nfor i,inverter in enumerate(inverters,1):\n# FIRST-AUTHOR: remove plotting\n#     plt.subplot(6,4,i)\n#     plt.yscale(\"log\")\n#     gen_data.loc[(gen_data[\"Date\"] == \"2020-05-15\") &  (gen_data[\"SOURCE_KEY\"] == inverter),\"DC_POWER\"].plot(label = inverter + \" DC\")\n#     gen_data.loc[(gen_data[\"Date\"] == \"2020-05-15\") & (gen_data[\"SOURCE_KEY\"] == inverter),\"AC_POWER\"].plot(label = inverter + \" AC\")\n#     plt.legend()\n    gen_data.loc[(gen_data[\"Date\"] == \"2020-05-15\") &  (gen_data[\"SOURCE_KEY\"] == inverter),\"DC_POWER\"]\n    gen_data.loc[(gen_data[\"Date\"] == \"2020-05-15\") & (gen_data[\"SOURCE_KEY\"] == inverter),\"AC_POWER\"]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 6497300634
@@ -135,7 +135,7 @@
       "total-ns": 696121
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig = plt.figure(figsize = (30,25))\ninverter_daily_power = {}\nfor i,(inverter,data) in enumerate(split_by_inverters.items(),1):\n# ALEX: remove plotting\n#     plt.subplot(6,4,i)\n    inverter_daily_power[inverter] = data.groupby(\"Date\").sum()[\"DC_POWER\"]\n# ALEX: remove plotting\n#     inverter_daily_power[inverter].plot(label = inverter)\n#     plt.legend()\n    inverter_daily_power[inverter]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig = plt.figure(figsize = (30,25))\ninverter_daily_power = {}\nfor i,(inverter,data) in enumerate(split_by_inverters.items(),1):\n# FIRST-AUTHOR: remove plotting\n#     plt.subplot(6,4,i)\n    inverter_daily_power[inverter] = data.groupby(\"Date\").sum()[\"DC_POWER\"]\n# FIRST-AUTHOR: remove plotting\n#     inverter_daily_power[inverter].plot(label = inverter)\n#     plt.legend()\n    inverter_daily_power[inverter]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1294132675
@@ -159,13 +159,13 @@
       "total-ns": 1430067
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig = plt.figure(figsize = (18,4))\n# plt.subplot(131)\n# weather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"), \"IRRADIATION\"].plot(legend = True)\n# #plt.legend()\n# plt.subplot(132)\n# weather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"),\"AMBIENT_TEMPERATURE\"].plot(legend = True)\n# plt.subplot(133)\n# weather_data.loc[(weather_data[\"Date\"] == \"2020-05-15 00:00:00\"),\"MODULE_TEMPERATURE\"].plot(legend = True)\nweather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"), \"IRRADIATION\"]\nweather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"),\"AMBIENT_TEMPERATURE\"]\nweather_data.loc[(weather_data[\"Date\"] == \"2020-05-15 00:00:00\"),\"MODULE_TEMPERATURE\"]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig = plt.figure(figsize = (18,4))\n# plt.subplot(131)\n# weather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"), \"IRRADIATION\"].plot(legend = True)\n# #plt.legend()\n# plt.subplot(132)\n# weather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"),\"AMBIENT_TEMPERATURE\"].plot(legend = True)\n# plt.subplot(133)\n# weather_data.loc[(weather_data[\"Date\"] == \"2020-05-15 00:00:00\"),\"MODULE_TEMPERATURE\"].plot(legend = True)\nweather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"), \"IRRADIATION\"]\nweather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"),\"AMBIENT_TEMPERATURE\"]\nweather_data.loc[(weather_data[\"Date\"] == \"2020-05-15 00:00:00\"),\"MODULE_TEMPERATURE\"]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 250601653
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.scatterplot(x = weather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"),\"AMBIENT_TEMPERATURE\"], y =weather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"),\"MODULE_TEMPERATURE\"])\n_ = weather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"),\"AMBIENT_TEMPERATURE\"]\n_ = weather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"),\"MODULE_TEMPERATURE\"]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.scatterplot(x = weather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"),\"AMBIENT_TEMPERATURE\"], y =weather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"),\"MODULE_TEMPERATURE\"])\n_ = weather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"),\"AMBIENT_TEMPERATURE\"]\n_ = weather_data.loc[(weather_data[\"Date\"] == \"2020-05-15\"),\"MODULE_TEMPERATURE\"]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 57651694
@@ -201,7 +201,7 @@
       "total-ns": 440147
     },
     {
-      "raw": "weather_data[\"date\"] = weather_data.index.map(lambda x : x.date())\ndaily_irradiation = weather_data.groupby(\"date\").sum()[\"IRRADIATION\"]\n# ALEX: remove plotting\n# sns.scatterplot(x = daily_irradiation, y = inverter_daily_power[\"1BY6WEcLGh8j5v7\"])\n_ = inverter_daily_power[\"1BY6WEcLGh8j5v7\"]",
+      "raw": "weather_data[\"date\"] = weather_data.index.map(lambda x : x.date())\ndaily_irradiation = weather_data.groupby(\"date\").sum()[\"IRRADIATION\"]\n# FIRST-AUTHOR: remove plotting\n# sns.scatterplot(x = daily_irradiation, y = inverter_daily_power[\"1BY6WEcLGh8j5v7\"])\n_ = inverter_daily_power[\"1BY6WEcLGh8j5v7\"]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 130473116
@@ -213,7 +213,7 @@
       "total-ns": 110062076
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize = (12,6))\n# max_temps.plot(label = \"Maximum Temperature\")\n# min_temps.plot(label = \"Minimum Temperature\")\n# plt.legend()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize = (12,6))\n# max_temps.plot(label = \"Maximum Temperature\")\n# min_temps.plot(label = \"Minimum Temperature\")\n# plt.legend()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 243945
@@ -225,7 +225,7 @@
       "total-ns": 1254536063
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.scatterplot(daily_irradiation,diff_temps)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.scatterplot(daily_irradiation,diff_temps)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 397218
@@ -243,7 +243,7 @@
       "total-ns": 7525418
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.scatterplot(daily_irradiation,diff_temps)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.scatterplot(daily_irradiation,diff_temps)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 350708
@@ -267,37 +267,37 @@
       "total-ns": 51653466
     },
     {
-      "raw": "total_power[\"Date\"] = total_power.index.map(lambda x : x.date())\n# ALEX: remove plotting\n# fig = plt.figure()\n# total_power.groupby(\"Date\").sum().plot()\n# plt.yscale(\"log\")\ntotal_power.groupby(\"Date\").sum()",
+      "raw": "total_power[\"Date\"] = total_power.index.map(lambda x : x.date())\n# FIRST-AUTHOR: remove plotting\n# fig = plt.figure()\n# total_power.groupby(\"Date\").sum().plot()\n# plt.yscale(\"log\")\ntotal_power.groupby(\"Date\").sum()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 369967522
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.regplot(x = weather_data.groupby(\"Date\")[\"IRRADIATION\"].sum(), y = total_power.groupby(\"Date\")[\"DC_POWER\"].sum())\n_ = weather_data.groupby(\"Date\")[\"IRRADIATION\"].sum()\n_ = total_power.groupby(\"Date\")[\"DC_POWER\"].sum()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.regplot(x = weather_data.groupby(\"Date\")[\"IRRADIATION\"].sum(), y = total_power.groupby(\"Date\")[\"DC_POWER\"].sum())\n_ = weather_data.groupby(\"Date\")[\"IRRADIATION\"].sum()\n_ = total_power.groupby(\"Date\")[\"DC_POWER\"].sum()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 212328418
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.linear_model import LinearRegression\n# model = LinearRegression()\n# model.fit(weather_data.groupby(\"Date\")[\"IRRADIATION\"].sum().values.reshape(-1,1),total_power.groupby(\"Date\")[\"DC_POWER\"].sum())\n# model.intercept_,model.coef_\n_ = weather_data.groupby(\"Date\")[\"IRRADIATION\"].sum().values.reshape(-1,1)\n_ = total_power.groupby(\"Date\")[\"DC_POWER\"].sum()",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.linear_model import LinearRegression\n# model = LinearRegression()\n# model.fit(weather_data.groupby(\"Date\")[\"IRRADIATION\"].sum().values.reshape(-1,1),total_power.groupby(\"Date\")[\"DC_POWER\"].sum())\n# model.intercept_,model.coef_\n_ = weather_data.groupby(\"Date\")[\"IRRADIATION\"].sum().values.reshape(-1,1)\n_ = total_power.groupby(\"Date\")[\"DC_POWER\"].sum()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 130534719
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.regplot(x = total_power.groupby(\"Date\")[\"DC_POWER\"].sum(),y = total_power.groupby(\"Date\")[\"AC_POWER\"].sum())\n_ = total_power.groupby(\"Date\")[\"DC_POWER\"].sum()\n_ = total_power.groupby(\"Date\")[\"AC_POWER\"].sum()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.regplot(x = total_power.groupby(\"Date\")[\"DC_POWER\"].sum(),y = total_power.groupby(\"Date\")[\"AC_POWER\"].sum())\n_ = total_power.groupby(\"Date\")[\"DC_POWER\"].sum()\n_ = total_power.groupby(\"Date\")[\"AC_POWER\"].sum()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 132363712
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.linear_model import LinearRegression",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.linear_model import LinearRegression",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 456447
     },
     {
-      "raw": "# ALEX: remove ML code\n# a = LinearRegression()\n# a.fit(total_power.groupby(\"Date\")[\"DC_POWER\"].sum().values.reshape(-1,1),total_power.groupby(\"Date\")[\"AC_POWER\"].sum())\n# a.intercept_,a.coef_\n_ = total_power.groupby(\"Date\")[\"DC_POWER\"].sum().values.reshape(-1,1)\n_ = total_power.groupby(\"Date\")[\"AC_POWER\"].sum()",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# a = LinearRegression()\n# a.fit(total_power.groupby(\"Date\")[\"DC_POWER\"].sum().values.reshape(-1,1),total_power.groupby(\"Date\")[\"AC_POWER\"].sum())\n# a.intercept_,a.coef_\n_ = total_power.groupby(\"Date\")[\"DC_POWER\"].sum().values.reshape(-1,1)\n_ = total_power.groupby(\"Date\")[\"AC_POWER\"].sum()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 104057035
@@ -327,7 +327,7 @@
       "total-ns": 265051971
     },
     {
-      "raw": "inverters = gen_data_2[\"SOURCE_KEY\"].unique()\n# ALEX: remove plotting\n# fig = plt.figure(figsize = (25,16))\nfor i,inverter in enumerate(inverters,1):\n# ALEX: remove plotting\n#     plt.subplot(6,4,i)\n#     plt.yscale(\"log\")\n#     gen_data_2.loc[(gen_data_2[\"Date\"] == pd.to_datetime(\"2020-05-15\")) &  (gen_data_2[\"SOURCE_KEY\"] == inverter),\"DC_POWER\"].plot(label = inverter + \" DC\")\n#     gen_data_2.loc[(gen_data_2[\"Date\"] == pd.to_datetime(\"2020-05-15\")) & (gen_data_2[\"SOURCE_KEY\"] == inverter),\"AC_POWER\"].plot(label = inverter + \" AC\")\n#     plt.legend()\n    gen_data_2.loc[(gen_data_2[\"Date\"] == pd.to_datetime(\"2020-05-15\")) &  (gen_data_2[\"SOURCE_KEY\"] == inverter),\"DC_POWER\"]\n    gen_data_2.loc[(gen_data_2[\"Date\"] == pd.to_datetime(\"2020-05-15\")) & (gen_data_2[\"SOURCE_KEY\"] == inverter),\"AC_POWER\"]",
+      "raw": "inverters = gen_data_2[\"SOURCE_KEY\"].unique()\n# FIRST-AUTHOR: remove plotting\n# fig = plt.figure(figsize = (25,16))\nfor i,inverter in enumerate(inverters,1):\n# FIRST-AUTHOR: remove plotting\n#     plt.subplot(6,4,i)\n#     plt.yscale(\"log\")\n#     gen_data_2.loc[(gen_data_2[\"Date\"] == pd.to_datetime(\"2020-05-15\")) &  (gen_data_2[\"SOURCE_KEY\"] == inverter),\"DC_POWER\"].plot(label = inverter + \" DC\")\n#     gen_data_2.loc[(gen_data_2[\"Date\"] == pd.to_datetime(\"2020-05-15\")) & (gen_data_2[\"SOURCE_KEY\"] == inverter),\"AC_POWER\"].plot(label = inverter + \" AC\")\n#     plt.legend()\n    gen_data_2.loc[(gen_data_2[\"Date\"] == pd.to_datetime(\"2020-05-15\")) &  (gen_data_2[\"SOURCE_KEY\"] == inverter),\"DC_POWER\"]\n    gen_data_2.loc[(gen_data_2[\"Date\"] == pd.to_datetime(\"2020-05-15\")) & (gen_data_2[\"SOURCE_KEY\"] == inverter),\"AC_POWER\"]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 55218775090
@@ -351,19 +351,19 @@
       "total-ns": 127462878
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.regplot(x = weather_data_2.groupby(\"Date\")[\"IRRADIATION\"].sum(),y = total_power_2.groupby(\"Date\").sum()[\"DC_POWER\"])\n_ = weather_data_2.groupby(\"Date\")[\"IRRADIATION\"].sum()\n_ = total_power_2.groupby(\"Date\").sum()[\"DC_POWER\"]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.regplot(x = weather_data_2.groupby(\"Date\")[\"IRRADIATION\"].sum(),y = total_power_2.groupby(\"Date\").sum()[\"DC_POWER\"])\n_ = weather_data_2.groupby(\"Date\")[\"IRRADIATION\"].sum()\n_ = total_power_2.groupby(\"Date\").sum()[\"DC_POWER\"]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 178728642
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.regplot(x = total_power_2.groupby(\"Date\").sum()[\"DC_POWER\"], y = total_power_2.groupby(\"Date\").sum()[\"AC_POWER\"])\n_ = total_power_2.groupby(\"Date\").sum()[\"DC_POWER\"]\n_ = total_power_2.groupby(\"Date\").sum()[\"AC_POWER\"]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.regplot(x = total_power_2.groupby(\"Date\").sum()[\"DC_POWER\"], y = total_power_2.groupby(\"Date\").sum()[\"AC_POWER\"])\n_ = total_power_2.groupby(\"Date\").sum()[\"DC_POWER\"]\n_ = total_power_2.groupby(\"Date\").sum()[\"AC_POWER\"]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 98126907
     },
     {
-      "raw": "# ALEX: remove ML code\n# model_2 = LinearRegression()\n# model_2.fit(total_power_2.groupby(\"Date\").sum()[\"DC_POWER\"].values.reshape(-1,1), y = total_power_2.groupby(\"Date\").sum()[\"AC_POWER\"])\n# model_2.coef_,model_2.intercept_\n_ = total_power_2.groupby(\"Date\").sum()[\"DC_POWER\"].values.reshape(-1,1)\n_ = total_power_2.groupby(\"Date\").sum()[\"AC_POWER\"]",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# model_2 = LinearRegression()\n# model_2.fit(total_power_2.groupby(\"Date\").sum()[\"DC_POWER\"].values.reshape(-1,1), y = total_power_2.groupby(\"Date\").sum()[\"AC_POWER\"])\n# model_2.coef_,model_2.intercept_\n_ = total_power_2.groupby(\"Date\").sum()[\"DC_POWER\"].values.reshape(-1,1)\n_ = total_power_2.groupby(\"Date\").sum()[\"AC_POWER\"]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 132340784

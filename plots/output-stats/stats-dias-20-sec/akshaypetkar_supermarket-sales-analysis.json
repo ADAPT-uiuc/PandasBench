@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 4111,
   "cells": [
     {
-      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns",
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns",
       "rewrite-ns": 503576,
       "overhead-ns": 503576,
       "exec-ns": 279379,
@@ -75,7 +75,7 @@
       "rewritten": "Category_count = merge['Category Name'].value_counts()\nevaluate_lazy(Category_count)\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(8,6))\n# colors = ['blue', 'green', 'red', 'purple', 'orange', 'yellow']\n# plt.bar(Category_count.index, Category_count.values, color = colors)\n# plt.title(\"Category wise Order Count\")\n# plt.xticks(rotation=90)\n# plt.show()\nCategory_count.index\nCategory_count.values",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(8,6))\n# colors = ['blue', 'green', 'red', 'purple', 'orange', 'yellow']\n# plt.bar(Category_count.index, Category_count.values, color = colors)\n# plt.title(\"Category wise Order Count\")\n# plt.xticks(rotation=90)\n# plt.show()\nCategory_count.index\nCategory_count.values",
       "rewrite-ns": 102048,
       "overhead-ns": 102048,
       "exec-ns": 246348103,
@@ -93,7 +93,7 @@
       "rewritten": "top_10_products = merge['Item Name'].value_counts()[:10]\nevaluate_lazy(top_10_products)\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,6))\n# colors = ['red', 'green', 'blue', 'yellow', 'purple', 'orange', 'pink', 'teal', 'brown', 'gray']\n\n# plt.bar(top_10_products.index, top_10_products.values, color = colors)\n# plt.title(\"Top 10 Products by its Order count\")\n# plt.xticks(rotation=90)\n# plt.show()\ntop_10_products.index\ntop_10_products.values",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(10,6))\n# colors = ['red', 'green', 'blue', 'yellow', 'purple', 'orange', 'pink', 'teal', 'brown', 'gray']\n\n# plt.bar(top_10_products.index, top_10_products.values, color = colors)\n# plt.title(\"Top 10 Products by its Order count\")\n# plt.xticks(rotation=90)\n# plt.show()\ntop_10_products.index\ntop_10_products.values",
       "rewrite-ns": 101523,
       "overhead-ns": 101523,
       "exec-ns": 632634,
@@ -122,7 +122,7 @@
       "rewritten": "Item_sales = dias.rewriter.sort_head(called_on=merge.groupby('Item Name',\n    as_index=False)['Sales'].sum(), by='Sales', n=10, asc=False, orig=lambda\n    _DIAS_x: _DIAS_x.sort_values(by='Sales', ascending=False).head(10))\nevaluate_lazy(Item_sales)\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,8))\n# ab=sns.barplot(x='Item Name',y='Sales',data=Item_sales)\n# ab.bar_label(ab.containers[0])\n# plt.title('Top 10 Products by its Sales')\n# plt.xlabel('Product Name')\n# plt.ylabel('Sales')\n# plt.xticks(rotation=90)\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(10,8))\n# ab=sns.barplot(x='Item Name',y='Sales',data=Item_sales)\n# ab.bar_label(ab.containers[0])\n# plt.title('Top 10 Products by its Sales')\n# plt.xlabel('Product Name')\n# plt.ylabel('Sales')\n# plt.xticks(rotation=90)\n# plt.show()",
       "rewrite-ns": 23707,
       "overhead-ns": 23707,
       "exec-ns": 96286,
@@ -149,7 +149,7 @@
       "rewritten": "Year_wise_sales = merge.groupby('Year')['Sales'].sum()\nevaluate_lazy(Year_wise_sales)\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(6,6))\n# plt.pie(Year_wise_sales,autopct ='%.2f%%',labels =Year_wise_sales.index)\n# plt.title('Year Wise Sales')\n# plt.show()\nevaluate_lazy(Year_wise_sales.index)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(6,6))\n# plt.pie(Year_wise_sales,autopct ='%.2f%%',labels =Year_wise_sales.index)\n# plt.title('Year Wise Sales')\n# plt.show()\nevaluate_lazy(Year_wise_sales.index)",
       "rewrite-ns": 362947,
       "overhead-ns": 362947,
       "exec-ns": 710510,
@@ -194,7 +194,7 @@
       "rewritten": "merge = merge.drop(['Date'], axis=1)\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.preprocessing import LabelEncoder\n# le =LabelEncoder()",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.preprocessing import LabelEncoder\n# le =LabelEncoder()",
       "rewrite-ns": 23703,
       "overhead-ns": 23703,
       "exec-ns": 117203,
@@ -212,7 +212,7 @@
       "rewritten": "categorical_columns = merge.select_dtypes(include=['object']).columns\n"
     },
     {
-      "raw": "# Converting all categorical columns into numeric\nfor col in categorical_columns:\n# ALEX: remove ML code\n#     merge[col] = le.fit_transform(merge[col])\n    merge[col] = merge[col]\n    \nmerge.head()",
+      "raw": "# Converting all categorical columns into numeric\nfor col in categorical_columns:\n# FIRST-AUTHOR: remove ML code\n#     merge[col] = le.fit_transform(merge[col])\n    merge[col] = merge[col]\n    \nmerge.head()",
       "rewrite-ns": 667768,
       "overhead-ns": 667768,
       "exec-ns": 1763866922,
@@ -239,7 +239,7 @@
       "rewritten": "y = merge['Sale or Return']\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import train_test_split",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.model_selection import train_test_split",
       "rewrite-ns": 19465,
       "overhead-ns": 19465,
       "exec-ns": 104737,
@@ -248,7 +248,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# Split data into train and test datasets\n# ALEX: remove ML code\n# x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)",
+      "raw": "# Split data into train and test datasets\n# FIRST-AUTHOR: remove ML code\n# x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)",
       "rewrite-ns": 16590,
       "overhead-ns": 16590,
       "exec-ns": 91550,
@@ -257,7 +257,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# len(x_train)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# len(x_train)",
       "rewrite-ns": 13487,
       "overhead-ns": 13487,
       "exec-ns": 76739,
@@ -266,7 +266,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# len(x_test)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# len(x_test)",
       "rewrite-ns": 12420,
       "overhead-ns": 12420,
       "exec-ns": 73618,
@@ -275,7 +275,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.ensemble import RandomForestClassifier\n# model =RandomForestClassifier()",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.ensemble import RandomForestClassifier\n# model =RandomForestClassifier()",
       "rewrite-ns": 13116,
       "overhead-ns": 13116,
       "exec-ns": 70743,
@@ -284,7 +284,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# model.fit(x_train,y_train)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# model.fit(x_train,y_train)",
       "rewrite-ns": 11484,
       "overhead-ns": 11484,
       "exec-ns": 69448,
@@ -293,7 +293,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# model.predict(x_test)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# model.predict(x_test)",
       "rewrite-ns": 12329,
       "overhead-ns": 12329,
       "exec-ns": 71985,
@@ -302,7 +302,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import cross_val_score",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.model_selection import cross_val_score",
       "rewrite-ns": 13060,
       "overhead-ns": 13060,
       "exec-ns": 70719,
@@ -311,7 +311,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# score =cross_val_score(RandomForestClassifier(),x,y)\n# score",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# score =cross_val_score(RandomForestClassifier(),x,y)\n# score",
       "rewrite-ns": 12375,
       "overhead-ns": 12375,
       "exec-ns": 69510,
@@ -320,7 +320,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# score.mean()",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# score.mean()",
       "rewrite-ns": 12325,
       "overhead-ns": 12325,
       "exec-ns": 69055,

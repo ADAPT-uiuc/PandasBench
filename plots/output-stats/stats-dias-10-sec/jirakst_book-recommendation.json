@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 1121,
   "cells": [
     {
-      "raw": "# Basic\nimport numpy as np \n# import pandas as pd \nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt \n\n# # System\n# import warnings\n# import os\n# warnings.filterwarnings(\"ignore\")\n# %matplotlib inline\n\n# ALEX: remove path printing\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))",
+      "raw": "# Basic\nimport numpy as np \n# import pandas as pd \nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt \n\n# # System\n# import warnings\n# import os\n# warnings.filterwarnings(\"ignore\")\n# %matplotlib inline\n\n# FIRST-AUTHOR: remove path printing\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))",
       "rewrite-ns": 705393,
       "overhead-ns": 705393,
       "exec-ns": 404268,
@@ -219,7 +219,7 @@
       "rewritten": "print('Missing data [%]')\nround(data.isnull().sum() / len(data) * 100, 4)\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.distplot(data['Age'].dropna(), kde=False)\n_ = data['Age'].dropna()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.distplot(data['Age'].dropna(), kde=False)\n_ = data['Age'].dropna()",
       "rewrite-ns": 568253,
       "overhead-ns": 568253,
       "exec-ns": 6318634,
@@ -246,7 +246,7 @@
       "rewritten": "data['Book-Rating'] = data['Book-Rating'].replace([0], None)\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.countplot(x='Book-Rating', data=data)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.countplot(x='Book-Rating', data=data)",
       "rewrite-ns": 14277,
       "overhead-ns": 14277,
       "exec-ns": 80847,
@@ -264,7 +264,7 @@
       "rewritten": "print('Average book rating: ', round(data['Book-Rating'].mean(), 2))\n"
     },
     {
-      "raw": "# Publication by Year\nyear = pd.to_numeric(data['Year-Of-Publication'], 'coerce').fillna(2099, downcast = 'infer')\n# ALEX: remove plotting\n# sns.distplot(year, kde=False, hist_kws={\"range\": [1945,2020]})",
+      "raw": "# Publication by Year\nyear = pd.to_numeric(data['Year-Of-Publication'], 'coerce').fillna(2099, downcast = 'infer')\n# FIRST-AUTHOR: remove plotting\n# sns.distplot(year, kde=False, hist_kws={\"range\": [1945,2020]})",
       "rewrite-ns": 763398,
       "overhead-ns": 763398,
       "exec-ns": 1015485,
@@ -554,7 +554,7 @@
       "rewritten": "liked['Rating-Mean'] = liked['Rating-Mean'].round(2)\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# liked['Rating-Count'].hist()\nliked['Rating-Count']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# liked['Rating-Count'].hist()\nliked['Rating-Count']",
       "rewrite-ns": 245304,
       "overhead-ns": 245304,
       "exec-ns": 1038122,
@@ -668,7 +668,7 @@
       "rewritten": "dias.rewriter.sort_head(called_on=top_p, by='Rating-Count', n=10, asc=False,\n    orig=lambda _DIAS_x: _DIAS_x.sort_values(by='Rating-Count', ascending=\n    False).head(10))\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# from tqdm import tqdm\n# from gensim.models import Word2Vec \nimport random",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# from tqdm import tqdm\n# from gensim.models import Word2Vec \nimport random",
       "rewrite-ns": 121784,
       "overhead-ns": 121784,
       "exec-ns": 179550,
@@ -695,7 +695,7 @@
       "rewritten": "random.shuffle(users)\nusers_train = [users[i] for i in range(round(0.9 * len(users)))]\ntrain_df = df[df['User-ID'].isin(users_train)]\nvalidation_df = df[~df['User-ID'].isin(users_train)]\n"
     },
     {
-      "raw": "# list to capture purchase history of the customers\nreads_train = []\n\n# populate the list with the product codes\n# ALEX: remove extra display code\n# for i in tqdm(users_train):\nfor i in users_train:\n    temp = train_df[train_df[\"User-ID\"] == i][\"ISBN\"].tolist()\n    reads_train.append(temp)",
+      "raw": "# list to capture purchase history of the customers\nreads_train = []\n\n# populate the list with the product codes\n# FIRST-AUTHOR: remove extra display code\n# for i in tqdm(users_train):\nfor i in users_train:\n    temp = train_df[train_df[\"User-ID\"] == i][\"ISBN\"].tolist()\n    reads_train.append(temp)",
       "rewrite-ns": 1239906,
       "overhead-ns": 1239906,
       "exec-ns": 739096474,
@@ -704,7 +704,7 @@
       "rewritten": "reads_train = []\nfor i in users_train:\n    temp = train_df[train_df['User-ID'] == i]['ISBN'].tolist()\n    reads_train.append(temp)\n"
     },
     {
-      "raw": "# list to capture purchase history of the customers\nreads_val = []\n\n# populate the list with the product codes\n# ALEX: remove extra display code\n# for i in tqdm(validation_df['User-ID'].unique()):\nfor i in validation_df['User-ID'].unique():\n    temp = validation_df[validation_df[\"User-ID\"] == i][\"ISBN\"].tolist()\n    reads_val.append(temp)",
+      "raw": "# list to capture purchase history of the customers\nreads_val = []\n\n# populate the list with the product codes\n# FIRST-AUTHOR: remove extra display code\n# for i in tqdm(validation_df['User-ID'].unique()):\nfor i in validation_df['User-ID'].unique():\n    temp = validation_df[validation_df[\"User-ID\"] == i][\"ISBN\"].tolist()\n    reads_val.append(temp)",
       "rewrite-ns": 1555640,
       "overhead-ns": 1555640,
       "exec-ns": 66637025,
@@ -713,7 +713,7 @@
       "rewritten": "reads_val = []\nfor i in validation_df['User-ID'].unique():\n    temp = validation_df[validation_df['User-ID'] == i]['ISBN'].tolist()\n    reads_val.append(temp)\n"
     },
     {
-      "raw": "# train word2vec model\n# ALEX: remove ML code\n# model = Word2Vec(window = 10, sg = 1, hs = 0,\n#                  negative = 10, # for negative sampling\n#                  alpha=0.03, min_alpha=0.0007,\n#                  seed = 14)\n\n# model.build_vocab(reads_train, progress_per=200)\n\n# model.train(reads_train, total_examples = model.corpus_count, \n#             epochs=10, report_delay=1)",
+      "raw": "# train word2vec model\n# FIRST-AUTHOR: remove ML code\n# model = Word2Vec(window = 10, sg = 1, hs = 0,\n#                  negative = 10, # for negative sampling\n#                  alpha=0.03, min_alpha=0.0007,\n#                  seed = 14)\n\n# model.build_vocab(reads_train, progress_per=200)\n\n# model.train(reads_train, total_examples = model.corpus_count, \n#             epochs=10, report_delay=1)",
       "rewrite-ns": 19058,
       "overhead-ns": 19058,
       "exec-ns": 101362,
@@ -722,7 +722,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# model.init_sims(replace=True)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# model.init_sims(replace=True)",
       "rewrite-ns": 12161,
       "overhead-ns": 12161,
       "exec-ns": 71821,
@@ -731,7 +731,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# print(model)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# print(model)",
       "rewrite-ns": 10704,
       "overhead-ns": 10704,
       "exec-ns": 60021,
@@ -740,7 +740,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# extract all vectors\n# ALEX: remove ML code\n# X = model[model.wv.vocab]\n\n# X.shape",
+      "raw": "# extract all vectors\n# FIRST-AUTHOR: remove ML code\n# X = model[model.wv.vocab]\n\n# X.shape",
       "rewrite-ns": 10155,
       "overhead-ns": 10155,
       "exec-ns": 58225,
@@ -749,7 +749,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code, plotting\n# import umap\n\n# cluster_embedding = umap.UMAP(n_neighbors=30, min_dist=0.0,\n#                               n_components=2, random_state=42).fit_transform(X)\n\n# plt.figure(figsize=(10,9))\n# plt.scatter(cluster_embedding[:, 0], cluster_embedding[:, 1], s=3, cmap='Spectral')",
+      "raw": "# FIRST-AUTHOR: remove ML code, plotting\n# import umap\n\n# cluster_embedding = umap.UMAP(n_neighbors=30, min_dist=0.0,\n#                               n_components=2, random_state=42).fit_transform(X)\n\n# plt.figure(figsize=(10,9))\n# plt.scatter(cluster_embedding[:, 0], cluster_embedding[:, 1], s=3, cmap='Spectral')",
       "rewrite-ns": 11235,
       "overhead-ns": 11235,
       "exec-ns": 53935,
@@ -785,7 +785,7 @@
       "rewritten": "books_dict['0345339703']\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# def similar_books(v, n = 15):\n    \n#     # extract most similar products for the input vector\n#     ms = model.similar_by_vector(v, topn= n+1)[1:]\n    \n#     # extract name and similarity score of the similar products\n#     new_ms = []\n#     for j in ms:\n#         pair = (books_dict[j[0]][0], j[1])\n#         new_ms.append(pair)\n        \n#     return new_ms ",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# def similar_books(v, n = 15):\n    \n#     # extract most similar products for the input vector\n#     ms = model.similar_by_vector(v, topn= n+1)[1:]\n    \n#     # extract name and similarity score of the similar products\n#     new_ms = []\n#     for j in ms:\n#         pair = (books_dict[j[0]][0], j[1])\n#         new_ms.append(pair)\n        \n#     return new_ms ",
       "rewrite-ns": 14638,
       "overhead-ns": 14638,
       "exec-ns": 74001,
@@ -794,7 +794,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# Recommend\n# ALEX: remove ML code\n# similar_books(model['0345339703'])",
+      "raw": "# Recommend\n# FIRST-AUTHOR: remove ML code\n# similar_books(model['0345339703'])",
       "rewrite-ns": 10735,
       "overhead-ns": 10735,
       "exec-ns": 59983,

@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 173,
   "cells": [
     {
-      "raw": "import numpy as np\n# ALEX: remove plotting\n# import seaborn as sns\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])",
+      "raw": "import numpy as np\n# FIRST-AUTHOR: remove plotting\n# import seaborn as sns\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 3374086781
@@ -33,13 +33,13 @@
       "total-ns": 95474228
     },
     {
-      "raw": "# ALEX: make notebook run\n# df.mean()\ndf.mean(numeric_only=True)",
+      "raw": "# FIRST-AUTHOR: make notebook run\n# df.mean()\ndf.mean(numeric_only=True)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 9898831
     },
     {
-      "raw": "# ALEX: make notebook run\n# df.std()\ndf.std(numeric_only=True)",
+      "raw": "# FIRST-AUTHOR: make notebook run\n# df.std()\ndf.std(numeric_only=True)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 8499340
@@ -51,13 +51,13 @@
       "total-ns": 10353289
     },
     {
-      "raw": "# ALEX: make notebook run\n# df.corr()\ndf.corr(numeric_only=True)",
+      "raw": "# FIRST-AUTHOR: make notebook run\n# df.corr()\ndf.corr(numeric_only=True)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 35040286
     },
     {
-      "raw": "# ALEX: make notebook run\n# corr = df.corr()\ncorr = df.corr(numeric_only=True)\n# ALEX: remove plotting\n# sns.heatmap(corr, \n#             xticklabels=corr.columns.values,\n#             yticklabels=corr.columns.values);\n_ = corr.columns.values\n_ = corr.columns.values",
+      "raw": "# FIRST-AUTHOR: make notebook run\n# corr = df.corr()\ncorr = df.corr(numeric_only=True)\n# FIRST-AUTHOR: remove plotting\n# sns.heatmap(corr, \n#             xticklabels=corr.columns.values,\n#             yticklabels=corr.columns.values);\n_ = corr.columns.values\n_ = corr.columns.values",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 35577816
@@ -75,19 +75,19 @@
       "total-ns": 23702396
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.scatterplot(x=\"sepal.width\", y=\"sepal.length\", data=df, color=\"magenta\");",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.scatterplot(x=\"sepal.width\", y=\"sepal.length\", data=df, color=\"magenta\");",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 211181
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.jointplot(x=\"sepal.width\", y=\"sepal.length\", data=df, color=\"magenta\");",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.jointplot(x=\"sepal.width\", y=\"sepal.length\", data=df, color=\"magenta\");",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 281930
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.scatterplot(x=\"sepal.width\", y=\"sepal.length\", hue=\"variety\", data=df);",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.scatterplot(x=\"sepal.width\", y=\"sepal.length\", hue=\"variety\", data=df);",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 199015
@@ -99,55 +99,55 @@
       "total-ns": 116588639
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.violinplot(y = \"sepal.width\", data = df);",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.violinplot(y = \"sepal.width\", data = df);",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 280098
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.distplot(df[\"sepal.width\"], bins=16, color=\"blue\");\n_ = df[\"sepal.width\"]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.distplot(df[\"sepal.width\"], bins=16, color=\"blue\");\n_ = df[\"sepal.width\"]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1315594
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.violinplot(x = \"variety\", y = \"sepal.length\", data = df);",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.violinplot(x = \"variety\", y = \"sepal.length\", data = df);",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 190791
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.countplot(x = \"variety\", data = df);",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.countplot(x = \"variety\", data = df);",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 181521
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.jointplot(x = df[\"sepal.width\"], y = df[\"sepal.length\"], color = \"purple\");\n_ = df[\"sepal.width\"]\n_ = df[\"sepal.length\"]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.jointplot(x = df[\"sepal.width\"], y = df[\"sepal.length\"], color = \"purple\");\n_ = df[\"sepal.width\"]\n_ = df[\"sepal.length\"]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 2145361
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.jointplot(x = df[\"sepal.width\"], y = df[\"sepal.length\"],kind=\"kde\", color = \"purple\");\n_ = df[\"sepal.width\"]\n_ = df[\"sepal.length\"]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.jointplot(x = df[\"sepal.width\"], y = df[\"sepal.length\"],kind=\"kde\", color = \"purple\");\n_ = df[\"sepal.width\"]\n_ = df[\"sepal.length\"]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1968334
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.scatterplot(x=\"petal.width\", y=\"petal.length\", data=df);",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.scatterplot(x=\"petal.width\", y=\"petal.length\", data=df);",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 176049
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.scatterplot(x=\"petal.width\", y=\"petal.length\",hue=\"variety\", data=df);",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.scatterplot(x=\"petal.width\", y=\"petal.length\",hue=\"variety\", data=df);",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 167750
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.lmplot(x=\"petal.width\", y=\"petal.length\", data=df);",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.lmplot(x=\"petal.width\", y=\"petal.length\", data=df);",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 162419

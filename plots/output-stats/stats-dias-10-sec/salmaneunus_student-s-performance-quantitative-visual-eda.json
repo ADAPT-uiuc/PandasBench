@@ -39,7 +39,7 @@
       "rewritten": "print(sp)\n"
     },
     {
-      "raw": "# ALEX: remove non Pandas code\n# import datetime\n\n# x = datetime.datetime.now()",
+      "raw": "# FIRST-AUTHOR: remove non Pandas code\n# import datetime\n\n# x = datetime.datetime.now()",
       "rewrite-ns": 15319,
       "overhead-ns": 15319,
       "exec-ns": 78532,
@@ -48,7 +48,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove non Pandas code\n# x",
+      "raw": "# FIRST-AUTHOR: remove non Pandas code\n# x",
       "rewrite-ns": 11109,
       "overhead-ns": 11109,
       "exec-ns": 61229,
@@ -174,7 +174,7 @@
       "rewritten": "course_completed = sp.loc[sp['writing score'] >= 50, 'test preparation course']\ncourse_completed\ncourse_completed\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# All_scores.plot()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# All_scores.plot()",
       "rewrite-ns": 21561,
       "overhead-ns": 21561,
       "exec-ns": 106585,
@@ -183,7 +183,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# All_scores[\"math score\"].plot()\nAll_scores[\"math score\"]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# All_scores[\"math score\"].plot()\nAll_scores[\"math score\"]",
       "rewrite-ns": 301377,
       "overhead-ns": 301377,
       "exec-ns": 1140131,
@@ -192,7 +192,7 @@
       "rewritten": "All_scores['math score']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# All_scores.plot.scatter(x=\"reading score\",y=\"writing score\",alpha=0.5)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# All_scores.plot.scatter(x=\"reading score\",y=\"writing score\",alpha=0.5)",
       "rewrite-ns": 13038,
       "overhead-ns": 13038,
       "exec-ns": 72888,
@@ -201,7 +201,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# sp.plot.box()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sp.plot.box()",
       "rewrite-ns": 11564,
       "overhead-ns": 11564,
       "exec-ns": 63850,
@@ -210,7 +210,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# axs = sp.plot.area(figsize=(20,16),subplots = True)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# axs = sp.plot.area(figsize=(20,16),subplots = True)",
       "rewrite-ns": 10607,
       "overhead-ns": 10607,
       "exec-ns": 60340,
@@ -219,7 +219,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# fig, axs = plt.subplots(figsize=(20,16));\n\n# sp.plot.area(ax=axs);\n\n# axs.set_ylabel(\"Scores for different Subjects\");\n\n# fig.savefig(\"Scores.png\")",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# fig, axs = plt.subplots(figsize=(20,16));\n\n# sp.plot.area(ax=axs);\n\n# axs.set_ylabel(\"Scores for different Subjects\");\n\n# fig.savefig(\"Scores.png\")",
       "rewrite-ns": 11542,
       "overhead-ns": 11542,
       "exec-ns": 61037,
@@ -300,7 +300,7 @@
       "rewritten": "a = sp[['race/ethnicity', 'math score', 'reading score', 'writing score']\n    ].groupby('race/ethnicity').mean()\na\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# a.plot()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# a.plot()",
       "rewrite-ns": 21406,
       "overhead-ns": 21406,
       "exec-ns": 106061,
@@ -318,7 +318,7 @@
       "rewritten": "b = sp[['parental level of education', 'math score', 'reading score',\n    'writing score']].groupby('parental level of education').mean()\nb\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# b.plot(figsize=(20,16))",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# b.plot(figsize=(20,16))",
       "rewrite-ns": 21163,
       "overhead-ns": 21163,
       "exec-ns": 105522,
@@ -336,7 +336,7 @@
       "rewritten": "c = sp[['lunch', 'math score', 'reading score', 'writing score']].groupby(\n    'lunch').mean()\nc\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# c.plot()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# c.plot()",
       "rewrite-ns": 20990,
       "overhead-ns": 20990,
       "exec-ns": 104920,

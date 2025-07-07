@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 2213,
   "cells": [
     {
-      "raw": "import numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))",
+      "raw": "import numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt\n\n# FIRST-AUTHOR: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))",
       "rewrite-ns": 693148,
       "overhead-ns": 693148,
       "exec-ns": 411313,
@@ -57,7 +57,7 @@
       "rewritten": "df_seoul = df_summary.groupby(['date'], as_index=False).agg({'SO2': 'mean',\n    'NO2': 'mean', 'O3': 'mean', 'CO': 'mean', 'PM10': 'mean', 'PM2.5': 'mean'}\n    )\ndf_seoul.head()\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# df_seoul.plot(x='date')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# df_seoul.plot(x='date')",
       "rewrite-ns": 20702,
       "overhead-ns": 20702,
       "exec-ns": 149199,
@@ -66,7 +66,7 @@
       "rewritten": ""
     },
     {
-      "raw": "corr = df_seoul.corr()\n# ALEX: remove plotting\n# f, ax = plt.subplots(figsize=(11, 9))\n# cmap = sns.diverging_palette(220, 10, as_cmap=True)\n# sns.heatmap(corr, cmap=cmap, vmax=1, center=0,\n#             square=True, linewidths=.5, cbar_kws={\"shrink\": .5})",
+      "raw": "corr = df_seoul.corr()\n# FIRST-AUTHOR: remove plotting\n# f, ax = plt.subplots(figsize=(11, 9))\n# cmap = sns.diverging_palette(220, 10, as_cmap=True)\n# sns.heatmap(corr, cmap=cmap, vmax=1, center=0,\n#             square=True, linewidths=.5, cbar_kws={\"shrink\": .5})",
       "rewrite-ns": 397123,
       "overhead-ns": 397123,
       "exec-ns": 790835,
@@ -93,7 +93,7 @@
       "rewritten": "for idx, row in df_seoul.iterrows():\n    pm10 = row[5]\n    _class = -1\n    if pm10 < 0:\n        continue\n    elif pm10 < 30:\n        _class = 0\n    elif pm10 < 80:\n        _class = 1\n    elif pm10 < 150:\n        _class = 2\n    else:\n        _class = 3\n    df_seoul.loc[idx, 'PM10_class'] = _class\ndf_seoul.head()\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# df_seoul['PM10_class'].value_counts().plot(kind=\"bar\")\ndf_seoul['PM10_class'].value_counts()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# df_seoul['PM10_class'].value_counts().plot(kind=\"bar\")\ndf_seoul['PM10_class'].value_counts()",
       "rewrite-ns": 409960,
       "overhead-ns": 409960,
       "exec-ns": 1134165,
@@ -102,7 +102,7 @@
       "rewritten": "df_seoul['PM10_class'].value_counts()\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.jointplot(x=df_seoul[\"CO\"], y=df_seoul[\"NO2\"], kind='kde', xlim=(0,1),ylim=(0,0.13), color='g')\n# plt.show()\n_ = df_seoul[\"CO\"]\n_ = df_seoul[\"NO2\"]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.jointplot(x=df_seoul[\"CO\"], y=df_seoul[\"NO2\"], kind='kde', xlim=(0,1),ylim=(0,0.13), color='g')\n# plt.show()\n_ = df_seoul[\"CO\"]\n_ = df_seoul[\"NO2\"]",
       "rewrite-ns": 568367,
       "overhead-ns": 568367,
       "exec-ns": 315628,

@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 1473,
   "cells": [
     {
-      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns \nimport warnings\nwarnings.filterwarnings(\"ignore\")",
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns \nimport warnings\nwarnings.filterwarnings(\"ignore\")",
       "rewrite-ns": 1150576,
       "overhead-ns": 1150576,
       "exec-ns": 521873,
@@ -48,7 +48,7 @@
       "rewritten": "print(\n    'The average person kills {:.4f} players, 99% of people have {} kills or less, while the most kills ever recorded is {}.'\n    .format(train['kills'].mean(), train['kills'].quantile(0.99), train[\n    'kills'].max()))\n"
     },
     {
-      "raw": "data = train.copy()\ndata.loc[data['kills'] > data['kills'].quantile(0.99)] = '8+'\n# ALEX: remove plotting\n# plt.figure(figsize=(15,10))\n# sns.countplot(data['kills'].astype('str').sort_values())\n# plt.title(\"Kill Count\",fontsize=15)\n# plt.show()\n_ = data['kills'].astype('str').sort_values()",
+      "raw": "data = train.copy()\ndata.loc[data['kills'] > data['kills'].quantile(0.99)] = '8+'\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15,10))\n# sns.countplot(data['kills'].astype('str').sort_values())\n# plt.title(\"Kill Count\",fontsize=15)\n# plt.show()\n_ = data['kills'].astype('str').sort_values()",
       "rewrite-ns": 1566893,
       "overhead-ns": 1566893,
       "exec-ns": 827162049,
@@ -57,7 +57,7 @@
       "rewritten": "data = train.copy()\ndata.loc[data['kills'] > data['kills'].quantile(0.99)] = '8+'\n_ = data['kills'].astype('str').sort_values()\n"
     },
     {
-      "raw": "data = train.copy()\ndata = data[data['kills']==0]\n# ALEX: remove plotting\n# plt.figure(figsize=(15,10))\n# plt.title(\"Damage Dealt by 0 killers\",fontsize=15)\n# sns.distplot(data['damageDealt'])\n# plt.show()\n_ = data['damageDealt']",
+      "raw": "data = train.copy()\ndata = data[data['kills']==0]\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15,10))\n# plt.title(\"Damage Dealt by 0 killers\",fontsize=15)\n# sns.distplot(data['damageDealt'])\n# plt.show()\n_ = data['damageDealt']",
       "rewrite-ns": 1158989,
       "overhead-ns": 1158989,
       "exec-ns": 205626718,
@@ -75,7 +75,7 @@
       "rewritten": "print('{} players ({:.4f}%) have won without a single kill!'.format(len(\n    data[data['winPlacePerc'] == 1]), 100 * len(data[data['winPlacePerc'] ==\n    1]) / len(train)))\ndata1 = train[train['damageDealt'] == 0].copy()\nprint('{} players ({:.4f}%) have won without dealing damage!'.format(len(\n    data1[data1['winPlacePerc'] == 1]), 100 * len(data1[data1[\n    'winPlacePerc'] == 1]) / len(train)))\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.jointplot(x=\"winPlacePerc\", y=\"kills\", data=train, height=10, ratio=3, color=\"r\")\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.jointplot(x=\"winPlacePerc\", y=\"kills\", data=train, height=10, ratio=3, color=\"r\")\n# plt.show()",
       "rewrite-ns": 21408,
       "overhead-ns": 21408,
       "exec-ns": 107492,
@@ -84,7 +84,7 @@
       "rewritten": ""
     },
     {
-      "raw": "kills = train.copy()\n\nkills['killsCategories'] = pd.cut(kills['kills'], [-1, 0, 2, 5, 10, 60], labels=['0_kills','1-2_kills', '3-5_kills', '6-10_kills', '10+_kills'])\n\n# ALEX: remove plotting\n# plt.figure(figsize=(15,8))\n# sns.boxplot(x=\"killsCategories\", y=\"winPlacePerc\", data=kills)\n# plt.show()",
+      "raw": "kills = train.copy()\n\nkills['killsCategories'] = pd.cut(kills['kills'], [-1, 0, 2, 5, 10, 60], labels=['0_kills','1-2_kills', '3-5_kills', '6-10_kills', '10+_kills'])\n\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15,8))\n# sns.boxplot(x=\"killsCategories\", y=\"winPlacePerc\", data=kills)\n# plt.show()",
       "rewrite-ns": 1525471,
       "overhead-ns": 1525471,
       "exec-ns": 53946632,
@@ -102,7 +102,7 @@
       "rewritten": "print(\n    'The average person walks for {:.1f}m, 99% of people have walked {}m or less, while the marathoner champion walked for {}m.'\n    .format(train['walkDistance'].mean(), train['walkDistance'].quantile(\n    0.99), train['walkDistance'].max()))\n"
     },
     {
-      "raw": "data = train.copy()\ndata = data[data['walkDistance'] < train['walkDistance'].quantile(0.99)]\n# ALEX: remove plotting\n# plt.figure(figsize=(15,10))\n# plt.title(\"Walking Distance Distribution\",fontsize=15)\n# sns.distplot(data['walkDistance'])\n# plt.show()\n_ = data['walkDistance']",
+      "raw": "data = train.copy()\ndata = data[data['walkDistance'] < train['walkDistance'].quantile(0.99)]\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15,10))\n# plt.title(\"Walking Distance Distribution\",fontsize=15)\n# sns.distplot(data['walkDistance'])\n# plt.show()\n_ = data['walkDistance']",
       "rewrite-ns": 1277494,
       "overhead-ns": 1277494,
       "exec-ns": 137612805,
@@ -120,7 +120,7 @@
       "rewritten": "print(\n    '{} players ({:.4f}%) walked 0 meters. This means that they die before even taking a step or they are afk (more possible).'\n    .format(len(data[data['walkDistance'] == 0]), 100 * len(data1[data1[\n    'walkDistance'] == 0]) / len(train)))\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.jointplot(x=\"winPlacePerc\", y=\"walkDistance\",  data=train, height=10, ratio=3, color=\"lime\")\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.jointplot(x=\"winPlacePerc\", y=\"walkDistance\",  data=train, height=10, ratio=3, color=\"lime\")\n# plt.show()",
       "rewrite-ns": 19236,
       "overhead-ns": 19236,
       "exec-ns": 103173,
@@ -138,7 +138,7 @@
       "rewritten": "print(\n    'The average person drives for {:.1f}m, 99% of people have drived {}m or less, while the formula 1 champion drived for {}m.'\n    .format(train['rideDistance'].mean(), train['rideDistance'].quantile(\n    0.99), train['rideDistance'].max()))\n"
     },
     {
-      "raw": "data = train.copy()\ndata = data[data['rideDistance'] < train['rideDistance'].quantile(0.9)]\n# ALEX: remove plotting\n# plt.figure(figsize=(15,10))\n# plt.title(\"Ride Distance Distribution\",fontsize=15)\n# sns.distplot(data['rideDistance'])\n# plt.show()\n_ = data['rideDistance']",
+      "raw": "data = train.copy()\ndata = data[data['rideDistance'] < train['rideDistance'].quantile(0.9)]\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15,10))\n# plt.title(\"Ride Distance Distribution\",fontsize=15)\n# sns.distplot(data['rideDistance'])\n# plt.show()\n_ = data['rideDistance']",
       "rewrite-ns": 1266755,
       "overhead-ns": 1266755,
       "exec-ns": 129963695,
@@ -156,7 +156,7 @@
       "rewritten": "print(\n    \"{} players ({:.4f}%) drived for 0 meters. This means that they don't have a driving licence yet.\"\n    .format(len(data[data['rideDistance'] == 0]), 100 * len(data1[data1[\n    'rideDistance'] == 0]) / len(train)))\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.jointplot(x=\"winPlacePerc\", y=\"rideDistance\", data=train, height=10, ratio=3, color=\"y\")\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.jointplot(x=\"winPlacePerc\", y=\"rideDistance\", data=train, height=10, ratio=3, color=\"y\")\n# plt.show()",
       "rewrite-ns": 22675,
       "overhead-ns": 22675,
       "exec-ns": 114514,
@@ -165,7 +165,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# f,ax1 = plt.subplots(figsize =(20,10))\n# sns.pointplot(x='vehicleDestroys',y='winPlacePerc',data=data,color='#606060',alpha=0.8)\n# plt.xlabel('Number of Vehicle Destroys',fontsize = 15,color='blue')\n# plt.ylabel('Win Percentage',fontsize = 15,color='blue')\n# plt.title('Vehicle Destroys/ Win Ratio',fontsize = 20,color='blue')\n# plt.grid()\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# f,ax1 = plt.subplots(figsize =(20,10))\n# sns.pointplot(x='vehicleDestroys',y='winPlacePerc',data=data,color='#606060',alpha=0.8)\n# plt.xlabel('Number of Vehicle Destroys',fontsize = 15,color='blue')\n# plt.ylabel('Win Percentage',fontsize = 15,color='blue')\n# plt.title('Vehicle Destroys/ Win Ratio',fontsize = 20,color='blue')\n# plt.grid()\n# plt.show()",
       "rewrite-ns": 17397,
       "overhead-ns": 17397,
       "exec-ns": 83082,
@@ -183,7 +183,7 @@
       "rewritten": "print(\n    'The average person swims for {:.1f}m, 99% of people have swimemd {}m or less, while the olympic champion swimmed for {}m.'\n    .format(train['swimDistance'].mean(), train['swimDistance'].quantile(\n    0.99), train['swimDistance'].max()))\n"
     },
     {
-      "raw": "data = train.copy()\ndata = data[data['swimDistance'] < train['swimDistance'].quantile(0.95)]\n# ALEX: remove plotting\n# plt.figure(figsize=(15,10))\n# plt.title(\"Swim Distance Distribution\",fontsize=15)\n# sns.distplot(data['swimDistance'])\n# plt.show()\n_ = data['swimDistance']",
+      "raw": "data = train.copy()\ndata = data[data['swimDistance'] < train['swimDistance'].quantile(0.95)]\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15,10))\n# plt.title(\"Swim Distance Distribution\",fontsize=15)\n# sns.distplot(data['swimDistance'])\n# plt.show()\n_ = data['swimDistance']",
       "rewrite-ns": 1251936,
       "overhead-ns": 1251936,
       "exec-ns": 127879303,
@@ -192,7 +192,7 @@
       "rewritten": "data = train.copy()\ndata = data[data['swimDistance'] < train['swimDistance'].quantile(0.95)]\n_ = data['swimDistance']\n"
     },
     {
-      "raw": "swim = train.copy()\n\nswim['swimDistance'] = pd.cut(swim['swimDistance'], [-1, 0, 5, 20, 5286], labels=['0m','1-5m', '6-20m', '20m+'])\n\n# ALEX: remove plotting\n# plt.figure(figsize=(15,8))\n# sns.boxplot(x=\"swimDistance\", y=\"winPlacePerc\", data=swim)\n# plt.show()",
+      "raw": "swim = train.copy()\n\nswim['swimDistance'] = pd.cut(swim['swimDistance'], [-1, 0, 5, 20, 5286], labels=['0m','1-5m', '6-20m', '20m+'])\n\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15,8))\n# sns.boxplot(x=\"swimDistance\", y=\"winPlacePerc\", data=swim)\n# plt.show()",
       "rewrite-ns": 1409581,
       "overhead-ns": 1409581,
       "exec-ns": 53997353,
@@ -210,7 +210,7 @@
       "rewritten": "print(\n    'The average person uses {:.1f} heal items, 99% of people use {} or less, while the doctor used {}.'\n    .format(train['heals'].mean(), train['heals'].quantile(0.99), train[\n    'heals'].max()))\nprint(\n    'The average person uses {:.1f} boost items, 99% of people use {} or less, while the doctor used {}.'\n    .format(train['boosts'].mean(), train['boosts'].quantile(0.99), train[\n    'boosts'].max()))\n"
     },
     {
-      "raw": "data = train.copy()\ndata = data[data['heals'] < data['heals'].quantile(0.99)]\ndata = data[data['boosts'] < data['boosts'].quantile(0.99)]\n\n# ALEX: remove plotting\n# f,ax1 = plt.subplots(figsize =(20,10))\n# sns.pointplot(x='heals',y='winPlacePerc',data=data,color='lime',alpha=0.8)\n# sns.pointplot(x='boosts',y='winPlacePerc',data=data,color='blue',alpha=0.8)\n# plt.text(4,0.6,'Heals',color='lime',fontsize = 17,style = 'italic')\n# plt.text(4,0.55,'Boosts',color='blue',fontsize = 17,style = 'italic')\n# plt.xlabel('Number of heal/boost items',fontsize = 15,color='blue')\n# plt.ylabel('Win Percentage',fontsize = 15,color='blue')\n# plt.title('Heals vs Boosts',fontsize = 20,color='blue')\n# plt.grid()\n# plt.show()",
+      "raw": "data = train.copy()\ndata = data[data['heals'] < data['heals'].quantile(0.99)]\ndata = data[data['boosts'] < data['boosts'].quantile(0.99)]\n\n# FIRST-AUTHOR: remove plotting\n# f,ax1 = plt.subplots(figsize =(20,10))\n# sns.pointplot(x='heals',y='winPlacePerc',data=data,color='lime',alpha=0.8)\n# sns.pointplot(x='boosts',y='winPlacePerc',data=data,color='blue',alpha=0.8)\n# plt.text(4,0.6,'Heals',color='lime',fontsize = 17,style = 'italic')\n# plt.text(4,0.55,'Boosts',color='blue',fontsize = 17,style = 'italic')\n# plt.xlabel('Number of heal/boost items',fontsize = 15,color='blue')\n# plt.ylabel('Win Percentage',fontsize = 15,color='blue')\n# plt.title('Heals vs Boosts',fontsize = 20,color='blue')\n# plt.grid()\n# plt.show()",
       "rewrite-ns": 1777944,
       "overhead-ns": 1777944,
       "exec-ns": 211185618,
@@ -219,7 +219,7 @@
       "rewritten": "data = train.copy()\ndata = data[data['heals'] < data['heals'].quantile(0.99)]\ndata = data[data['boosts'] < data['boosts'].quantile(0.99)]\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.jointplot(x=\"winPlacePerc\", y=\"heals\", data=train, height=10, ratio=3, color=\"lime\")\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.jointplot(x=\"winPlacePerc\", y=\"heals\", data=train, height=10, ratio=3, color=\"lime\")\n# plt.show()",
       "rewrite-ns": 23009,
       "overhead-ns": 23009,
       "exec-ns": 118637,
@@ -228,7 +228,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.jointplot(x=\"winPlacePerc\", y=\"boosts\", data=train, height=10, ratio=3, color=\"blue\")\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.jointplot(x=\"winPlacePerc\", y=\"boosts\", data=train, height=10, ratio=3, color=\"blue\")\n# plt.show()",
       "rewrite-ns": 14055,
       "overhead-ns": 14055,
       "exec-ns": 78827,
@@ -246,7 +246,7 @@
       "rewritten": "solos = train[train['numGroups'] > 50]\nduos = train[(train['numGroups'] > 25) & (train['numGroups'] <= 50)]\nsquads = train[train['numGroups'] <= 25]\nprint(\n    'There are {} ({:.2f}%) solo games, {} ({:.2f}%) duo games and {} ({:.2f}%) squad games.'\n    .format(len(solos), 100 * len(solos) / len(train), len(duos), 100 * len\n    (duos) / len(train), len(squads), 100 * len(squads) / len(train)))\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# f,ax1 = plt.subplots(figsize =(20,10))\n# sns.pointplot(x='kills',y='winPlacePerc',data=solos,color='black',alpha=0.8)\n# sns.pointplot(x='kills',y='winPlacePerc',data=duos,color='#CC0000',alpha=0.8)\n# sns.pointplot(x='kills',y='winPlacePerc',data=squads,color='#3399FF',alpha=0.8)\n# plt.text(37,0.6,'Solos',color='black',fontsize = 17,style = 'italic')\n# plt.text(37,0.55,'Duos',color='#CC0000',fontsize = 17,style = 'italic')\n# plt.text(37,0.5,'Squads',color='#3399FF',fontsize = 17,style = 'italic')\n# plt.xlabel('Number of kills',fontsize = 15,color='blue')\n# plt.ylabel('Win Percentage',fontsize = 15,color='blue')\n# plt.title('Solo vs Duo vs Squad Kills',fontsize = 20,color='blue')\n# plt.grid()\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# f,ax1 = plt.subplots(figsize =(20,10))\n# sns.pointplot(x='kills',y='winPlacePerc',data=solos,color='black',alpha=0.8)\n# sns.pointplot(x='kills',y='winPlacePerc',data=duos,color='#CC0000',alpha=0.8)\n# sns.pointplot(x='kills',y='winPlacePerc',data=squads,color='#3399FF',alpha=0.8)\n# plt.text(37,0.6,'Solos',color='black',fontsize = 17,style = 'italic')\n# plt.text(37,0.55,'Duos',color='#CC0000',fontsize = 17,style = 'italic')\n# plt.text(37,0.5,'Squads',color='#3399FF',fontsize = 17,style = 'italic')\n# plt.xlabel('Number of kills',fontsize = 15,color='blue')\n# plt.ylabel('Win Percentage',fontsize = 15,color='blue')\n# plt.title('Solo vs Duo vs Squad Kills',fontsize = 20,color='blue')\n# plt.grid()\n# plt.show()",
       "rewrite-ns": 24692,
       "overhead-ns": 24692,
       "exec-ns": 114477,
@@ -255,7 +255,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# f,ax1 = plt.subplots(figsize =(20,10))\n# sns.pointplot(x='DBNOs',y='winPlacePerc',data=duos,color='#CC0000',alpha=0.8)\n# sns.pointplot(x='DBNOs',y='winPlacePerc',data=squads,color='#3399FF',alpha=0.8)\n# sns.pointplot(x='assists',y='winPlacePerc',data=duos,color='#FF6666',alpha=0.8)\n# sns.pointplot(x='assists',y='winPlacePerc',data=squads,color='#CCE5FF',alpha=0.8)\n# sns.pointplot(x='revives',y='winPlacePerc',data=duos,color='#660000',alpha=0.8)\n# sns.pointplot(x='revives',y='winPlacePerc',data=squads,color='#000066',alpha=0.8)\n# plt.text(14,0.5,'Duos - Assists',color='#FF6666',fontsize = 17,style = 'italic')\n# plt.text(14,0.45,'Duos - DBNOs',color='#CC0000',fontsize = 17,style = 'italic')\n# plt.text(14,0.4,'Duos - Revives',color='#660000',fontsize = 17,style = 'italic')\n# plt.text(14,0.35,'Squads - Assists',color='#CCE5FF',fontsize = 17,style = 'italic')\n# plt.text(14,0.3,'Squads - DBNOs',color='#3399FF',fontsize = 17,style = 'italic')\n# plt.text(14,0.25,'Squads - Revives',color='#000066',fontsize = 17,style = 'italic')\n# plt.xlabel('Number of DBNOs/Assits/Revives',fontsize = 15,color='blue')\n# plt.ylabel('Win Percentage',fontsize = 15,color='blue')\n# plt.title('Duo vs Squad DBNOs, Assists, and Revives',fontsize = 20,color='blue')\n# plt.grid()\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# f,ax1 = plt.subplots(figsize =(20,10))\n# sns.pointplot(x='DBNOs',y='winPlacePerc',data=duos,color='#CC0000',alpha=0.8)\n# sns.pointplot(x='DBNOs',y='winPlacePerc',data=squads,color='#3399FF',alpha=0.8)\n# sns.pointplot(x='assists',y='winPlacePerc',data=duos,color='#FF6666',alpha=0.8)\n# sns.pointplot(x='assists',y='winPlacePerc',data=squads,color='#CCE5FF',alpha=0.8)\n# sns.pointplot(x='revives',y='winPlacePerc',data=duos,color='#660000',alpha=0.8)\n# sns.pointplot(x='revives',y='winPlacePerc',data=squads,color='#000066',alpha=0.8)\n# plt.text(14,0.5,'Duos - Assists',color='#FF6666',fontsize = 17,style = 'italic')\n# plt.text(14,0.45,'Duos - DBNOs',color='#CC0000',fontsize = 17,style = 'italic')\n# plt.text(14,0.4,'Duos - Revives',color='#660000',fontsize = 17,style = 'italic')\n# plt.text(14,0.35,'Squads - Assists',color='#CCE5FF',fontsize = 17,style = 'italic')\n# plt.text(14,0.3,'Squads - DBNOs',color='#3399FF',fontsize = 17,style = 'italic')\n# plt.text(14,0.25,'Squads - Revives',color='#000066',fontsize = 17,style = 'italic')\n# plt.xlabel('Number of DBNOs/Assits/Revives',fontsize = 15,color='blue')\n# plt.ylabel('Win Percentage',fontsize = 15,color='blue')\n# plt.title('Duo vs Squad DBNOs, Assists, and Revives',fontsize = 20,color='blue')\n# plt.grid()\n# plt.show()",
       "rewrite-ns": 18878,
       "overhead-ns": 18878,
       "exec-ns": 77522,
@@ -264,7 +264,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# f,ax = plt.subplots(figsize=(15, 15))\n# sns.heatmap(train.corr(), annot=True, linewidths=.5, fmt= '.1f',ax=ax)\n# plt.show()\n_ = train.corr()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# f,ax = plt.subplots(figsize=(15, 15))\n# sns.heatmap(train.corr(), annot=True, linewidths=.5, fmt= '.1f',ax=ax)\n# plt.show()\n_ = train.corr()",
       "rewrite-ns": 364626,
       "overhead-ns": 364626,
       "exec-ns": 954393631,
@@ -273,7 +273,7 @@
       "rewritten": "_ = train.corr()\n"
     },
     {
-      "raw": "k = 5 #number of variables for heatmap\n# ALEX: remove plotting\n# f,ax = plt.subplots(figsize=(11, 11))\ncols = train.corr().nlargest(k, 'winPlacePerc')['winPlacePerc'].index\ncm = np.corrcoef(train[cols].values.T)\n# ALEX: remove plotting\n# sns.set(font_scale=1.25)\n# hm = sns.heatmap(cm, cbar=True, annot=True, square=True, fmt='.2f', annot_kws={'size': 10}, yticklabels=cols.values, xticklabels=cols.values)\n# plt.show()\n_ = cols.values\n_ = cols.values",
+      "raw": "k = 5 #number of variables for heatmap\n# FIRST-AUTHOR: remove plotting\n# f,ax = plt.subplots(figsize=(11, 11))\ncols = train.corr().nlargest(k, 'winPlacePerc')['winPlacePerc'].index\ncm = np.corrcoef(train[cols].values.T)\n# FIRST-AUTHOR: remove plotting\n# sns.set(font_scale=1.25)\n# hm = sns.heatmap(cm, cbar=True, annot=True, square=True, fmt='.2f', annot_kws={'size': 10}, yticklabels=cols.values, xticklabels=cols.values)\n# plt.show()\n_ = cols.values\n_ = cols.values",
       "rewrite-ns": 1725536,
       "overhead-ns": 1725536,
       "exec-ns": 972841406,
@@ -282,7 +282,7 @@
       "rewritten": "k = 5\ncols = train.corr().nlargest(k, 'winPlacePerc')['winPlacePerc'].index\ncm = np.corrcoef(train[cols].values.T)\n_ = cols.values\n_ = cols.values\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.set()\ncols = ['winPlacePerc', 'walkDistance', 'boosts', 'weaponsAcquired', 'damageDealt', 'killPlace']\n# sns.pairplot(train[cols], size = 2.5)\n# plt.show()\n_ = train[cols]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.set()\ncols = ['winPlacePerc', 'walkDistance', 'boosts', 'weaponsAcquired', 'damageDealt', 'killPlace']\n# sns.pairplot(train[cols], size = 2.5)\n# plt.show()\n_ = train[cols]",
       "rewrite-ns": 756907,
       "overhead-ns": 756907,
       "exec-ns": 5262322,
@@ -300,7 +300,7 @@
       "rewritten": "train['playersJoined'] = train.groupby('matchId')['matchId'].transform('count')\n"
     },
     {
-      "raw": "data = train.copy()\ndata = data[data['playersJoined']>49]\n# ALEX: remove plotting\n# plt.figure(figsize=(15,10))\n# sns.countplot(data['playersJoined'])\n# plt.title(\"Players Joined\",fontsize=15)\n# plt.show()\n_ = data['playersJoined']",
+      "raw": "data = train.copy()\ndata = data[data['playersJoined']>49]\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15,10))\n# sns.countplot(data['playersJoined'])\n# plt.title(\"Players Joined\",fontsize=15)\n# plt.show()\n_ = data['playersJoined']",
       "rewrite-ns": 1058336,
       "overhead-ns": 1058336,
       "exec-ns": 136100634,

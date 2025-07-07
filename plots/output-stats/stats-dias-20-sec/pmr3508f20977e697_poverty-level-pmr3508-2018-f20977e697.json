@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 2168,
   "cells": [
     {
-      "raw": "from datetime import date\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import matplotlib.pyplot as graphic\n\n# from math import sqrt, factorial, log, ceil\n# from sklearn.neighbors import KNeighborsClassifier\n# from sklearn.model_selection import cross_val_score\n\n# from sklearn.model_selection import train_test_split\n# from sklearn.preprocessing import LabelEncoder\n\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# import random \n# import warnings\n# import operator\n# warnings.filterwarnings(\"ignore\")",
+      "raw": "from datetime import date\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as graphic\n\n# from math import sqrt, factorial, log, ceil\n# from sklearn.neighbors import KNeighborsClassifier\n# from sklearn.model_selection import cross_val_score\n\n# from sklearn.model_selection import train_test_split\n# from sklearn.preprocessing import LabelEncoder\n\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# import random \n# import warnings\n# import operator\n# warnings.filterwarnings(\"ignore\")",
       "rewrite-ns": 817974,
       "overhead-ns": 817974,
       "exec-ns": 441922,
@@ -39,7 +39,7 @@
       "rewritten": "train.describe()\n"
     },
     {
-      "raw": "from collections import OrderedDict\n\n# ALEX: remove plotting\n# plt.figure(figsize = (15, 12))\n# plt.style.use('fivethirtyeight')\n\ncolors = OrderedDict({1: 'red', 2: 'orange', 3: 'yellow', 4: 'green'})\npoverty_mapping = OrderedDict({1: 'extreme', 2: 'moderate', 3: 'vulnerable', 4: 'non vulnerable'})\n\nfor i, col in enumerate(train.select_dtypes('float')):\n# ALEX: remove plotting\n#     ax = plt.subplot(4, 2, i + 1)\n    for poverty_level, color in colors.items():\n# ALEX: remove plotting\n#         sns.kdeplot(train.loc[train['Target'] == poverty_level, col].dropna(), \n#                     ax = ax, color = color, label = poverty_mapping[poverty_level])\n        _ = train.loc[train['Target'] == poverty_level, col].dropna()\n\n# ALEX: remove plotting\n#     plt.title(f'{col.capitalize()} Distribution'); plt.xlabel(f'{col}'); plt.ylabel('Density')\n    _ = col.capitalize()\n\n# ALEX: remove plotting\n# plt.subplots_adjust(top = 2)",
+      "raw": "from collections import OrderedDict\n\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize = (15, 12))\n# plt.style.use('fivethirtyeight')\n\ncolors = OrderedDict({1: 'red', 2: 'orange', 3: 'yellow', 4: 'green'})\npoverty_mapping = OrderedDict({1: 'extreme', 2: 'moderate', 3: 'vulnerable', 4: 'non vulnerable'})\n\nfor i, col in enumerate(train.select_dtypes('float')):\n# FIRST-AUTHOR: remove plotting\n#     ax = plt.subplot(4, 2, i + 1)\n    for poverty_level, color in colors.items():\n# FIRST-AUTHOR: remove plotting\n#         sns.kdeplot(train.loc[train['Target'] == poverty_level, col].dropna(), \n#                     ax = ax, color = color, label = poverty_mapping[poverty_level])\n        _ = train.loc[train['Target'] == poverty_level, col].dropna()\n\n# FIRST-AUTHOR: remove plotting\n#     plt.title(f'{col.capitalize()} Distribution'); plt.xlabel(f'{col}'); plt.ylabel('Density')\n    _ = col.capitalize()\n\n# FIRST-AUTHOR: remove plotting\n# plt.subplots_adjust(top = 2)",
       "rewrite-ns": 3100934,
       "overhead-ns": 3100934,
       "exec-ns": 22999705,
@@ -66,7 +66,7 @@
       "rewritten": "mapping = {'yes': 1, 'no': 0}\nfor df in [train, test]:\n    df['dependency'] = df['dependency'].replace(mapping).astype(np.float64)\n    df['edjefa'] = df['edjefa'].replace(mapping).astype(np.float64)\n    df['edjefe'] = df['edjefe'].replace(mapping).astype(np.float64)\ntrain[['dependency', 'edjefa', 'edjefe']].describe()\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize = (8, 8))\n\nfor i, col in enumerate(['dependency', 'edjefa', 'edjefe']):\n# ALEX: remove plotting\n#     ax = plt.subplot(3, 1, i + 1)\n \n    for poverty_level, color in colors.items():\n        \n# ALEX: remove plotting\n#         sns.kdeplot(train.loc[train['Target'] == poverty_level, col].dropna(), \n#                     ax = ax, color = color, label = poverty_mapping[poverty_level])\n        _ = train.loc[train['Target'] == poverty_level, col].dropna()\n        \n# ALEX: remove plotting\n#     plt.title(f'{col.capitalize()} Distribution'); plt.xlabel(f'{col}'); plt.ylabel('Density')\n\n# plt.subplots_adjust(top = 2)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize = (8, 8))\n\nfor i, col in enumerate(['dependency', 'edjefa', 'edjefe']):\n# FIRST-AUTHOR: remove plotting\n#     ax = plt.subplot(3, 1, i + 1)\n \n    for poverty_level, color in colors.items():\n        \n# FIRST-AUTHOR: remove plotting\n#         sns.kdeplot(train.loc[train['Target'] == poverty_level, col].dropna(), \n#                     ax = ax, color = color, label = poverty_mapping[poverty_level])\n        _ = train.loc[train['Target'] == poverty_level, col].dropna()\n        \n# FIRST-AUTHOR: remove plotting\n#     plt.title(f'{col.capitalize()} Distribution'); plt.xlabel(f'{col}'); plt.ylabel('Density')\n\n# plt.subplots_adjust(top = 2)",
       "rewrite-ns": 1671317,
       "overhead-ns": 1671317,
       "exec-ns": 8441676,
@@ -102,7 +102,7 @@
       "rewritten": "households_leader = train.groupby('idhogar')['parentesco1'].sum()\nhouseholds_no_head = train.loc[train['idhogar'].isin(households_leader[\n    households_leader == 0].index), :]\nhouseholds_no_head_equal = households_no_head.groupby('idhogar')['Target'\n    ].apply(lambda x: x.nunique() == 1)\n"
     },
     {
-      "raw": "for household in not_equal.index:\n# ALEX: make notebook run with input scaling\n#     true_target = int(train[(train['idhogar'] == household) & (train['parentesco1'] == 1.0)]['Target'])\n    true_target = int(train[(train['idhogar'] == household) & (train['parentesco1'] == 1.0)].iloc[0]['Target'])\n    train.loc[train['idhogar'] == household, 'Target'] = true_target\n    \nall_equal = train.groupby('idhogar')['Target'].apply(lambda x: x.nunique() == 1)\nnot_equal = all_equal[all_equal != True]",
+      "raw": "for household in not_equal.index:\n# FIRST-AUTHOR: make notebook run with input scaling\n#     true_target = int(train[(train['idhogar'] == household) & (train['parentesco1'] == 1.0)]['Target'])\n    true_target = int(train[(train['idhogar'] == household) & (train['parentesco1'] == 1.0)].iloc[0]['Target'])\n    train.loc[train['idhogar'] == household, 'Target'] = true_target\n    \nall_equal = train.groupby('idhogar')['Target'].apply(lambda x: x.nunique() == 1)\nnot_equal = all_equal[all_equal != True]",
       "rewrite-ns": 3130235,
       "overhead-ns": 3130235,
       "exec-ns": 862660046,
@@ -122,7 +122,7 @@
       "rewritten": "print('\\n Missing Values')\nmissing = pd.DataFrame(data.isnull().sum()).rename(columns={(0): 'total'})\nmissing['percent'] = missing['total'] / len(data)\ndias.rewriter.sort_head(called_on=missing, by='percent', n=10, asc=False,\n    orig=lambda _DIAS_x: _DIAS_x.sort_values('percent', ascending=False).\n    head(10)).drop('Target')\n"
     },
     {
-      "raw": "def plot_value_counts(df, col, heads_only = False):\n    if heads_only:\n        df = df.loc[df['parentesco1'] == 1].copy()\n        \n# ALEX: remove plotting\n#     plt.figure(figsize = (8, 6))\n#     df[col].value_counts().sort_index().plot.bar(color = 'blue',\n#                                                  edgecolor = 'k',\n#                                                  linewidth = 2)\n#     plt.xlabel(f'{col}'); plt.title(f'{col} Value Counts'); plt.ylabel('Count')\n#     plt.show();\n    df[col].value_counts().sort_index()",
+      "raw": "def plot_value_counts(df, col, heads_only = False):\n    if heads_only:\n        df = df.loc[df['parentesco1'] == 1].copy()\n        \n# FIRST-AUTHOR: remove plotting\n#     plt.figure(figsize = (8, 6))\n#     df[col].value_counts().sort_index().plot.bar(color = 'blue',\n#                                                  edgecolor = 'k',\n#                                                  linewidth = 2)\n#     plt.xlabel(f'{col}'); plt.title(f'{col} Value Counts'); plt.ylabel('Count')\n#     plt.show();\n    df[col].value_counts().sort_index()",
       "rewrite-ns": 1399758,
       "overhead-ns": 1399758,
       "exec-ns": 443512,
@@ -142,7 +142,7 @@
       "rewritten": "_DIAS_ser = data['v18q1']\nif type(_DIAS_ser) != pd.Series:\n    data['v18q1'] = data['v18q1'].fillna(0)\nelse:\n    data['v18q1'].fillna(0, inplace=True)\n"
     },
     {
-      "raw": "own_variables = [x for x in data if x.startswith('tipo')]\n# ALEX: remove plotting\n# data.loc[data['v2a1'].isnull(), own_variables].sum().plot.bar(figsize = (8, 6),\n#                                                                         color = 'blue',\n#                                                               edgecolor = 'k', linewidth = 2);\n# plt.xticks([0, 1, 2, 3, 4],\n#            ['Owns and Paid Off', 'Owns and Paying', 'Rented', 'Precarious', 'Other'],\n#           rotation = 60)\n# plt.title('Home Ownership Status for Households Missing Rent Payments', size = 18);\ndata.loc[data['v2a1'].isnull(), own_variables].sum()",
+      "raw": "own_variables = [x for x in data if x.startswith('tipo')]\n# FIRST-AUTHOR: remove plotting\n# data.loc[data['v2a1'].isnull(), own_variables].sum().plot.bar(figsize = (8, 6),\n#                                                                         color = 'blue',\n#                                                               edgecolor = 'k', linewidth = 2);\n# plt.xticks([0, 1, 2, 3, 4],\n#            ['Owns and Paid Off', 'Owns and Paying', 'Rented', 'Precarious', 'Other'],\n#           rotation = 60)\n# plt.title('Home Ownership Status for Households Missing Rent Payments', size = 18);\ndata.loc[data['v2a1'].isnull(), own_variables].sum()",
       "rewrite-ns": 1261046,
       "overhead-ns": 1261046,
       "exec-ns": 342378731,
@@ -313,7 +313,7 @@
       "rewritten": "def combine_features(data, cols=[], name=''):\n    df = data.copy()\n    for i, col in enumerate(cols):\n        print(i + 1, col)\n    df[cols] = df[cols].multiply([i for i in range(1, len(cols) + 1)], axis=1)\n    df[name] = df[cols].sum(axis=1)\n    df.drop(cols, axis=1, inplace=True)\n    return df\n"
     },
     {
-      "raw": "heads = combine_features(heads, cols=[col for col in heads.columns if col.startswith('lugar')], name='region')\nprint('Region count by target.');\n# ALEX: remove plotting\n# sns.factorplot(\"region\", col=\"Target\", col_wrap=4, data=heads, kind=\"count\");",
+      "raw": "heads = combine_features(heads, cols=[col for col in heads.columns if col.startswith('lugar')], name='region')\nprint('Region count by target.');\n# FIRST-AUTHOR: remove plotting\n# sns.factorplot(\"region\", col=\"Target\", col_wrap=4, data=heads, kind=\"count\");",
       "rewrite-ns": 988861,
       "overhead-ns": 988861,
       "exec-ns": 83259159,
@@ -322,7 +322,7 @@
       "rewritten": "heads = combine_features(heads, cols=[col for col in heads.columns if col.\n    startswith('lugar')], name='region')\nprint('Region count by target.')\n"
     },
     {
-      "raw": "heads = combine_features(heads, cols=[col for col in heads.columns if col.startswith('tipovivi')], name='home_own')\nprint('Home ownership type count by target.');\n# ALEX: remove plotting\n# sns.factorplot(\"home_own\", col=\"Target\", col_wrap=4, data=heads, kind=\"count\");",
+      "raw": "heads = combine_features(heads, cols=[col for col in heads.columns if col.startswith('tipovivi')], name='home_own')\nprint('Home ownership type count by target.');\n# FIRST-AUTHOR: remove plotting\n# sns.factorplot(\"home_own\", col=\"Target\", col_wrap=4, data=heads, kind=\"count\");",
       "rewrite-ns": 1016724,
       "overhead-ns": 1016724,
       "exec-ns": 69072968,
@@ -414,7 +414,7 @@
       "rewritten": "train_labels = np.array(list(final[final['Target'].notnull()]['Target'].\n    astype(np.uint8)))\nSPLIT = final[final['Target'].notnull()].drop(columns=['Id', 'idhogar'])\nFINALtest = final[final['Target'].isnull()]\nsubmission_base = FINALtest[['Id', 'idhogar']].copy()\nFINALtest = FINALtest.drop(columns=['Id', 'idhogar', 'Target'])\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# train, test = train_test_split(SPLIT, test_size=0.2)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# train, test = train_test_split(SPLIT, test_size=0.2)",
       "rewrite-ns": 26508,
       "overhead-ns": 26508,
       "exec-ns": 126909,
@@ -432,7 +432,7 @@
       "rewritten": "neighbors = [3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35]\nXtrain = train\nYtrain = train.Target\nXtest = test\nYtest = test.Target\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# print('With CV = 3:')\n# cv_scores = []\n\n# for k in neighbors:\n#     knn = KNeighborsClassifier(n_neighbors=k)\n#     scores = cross_val_score(knn, Xtrain, Ytrain, cv=3, scoring='accuracy')\n#     cv_scores.append(scores.mean())\n    \n    \n# MSE = [1 - x for x in cv_scores]\n# optimal_k = neighbors[MSE.index(min(MSE))]\n# print(\"The optimal number of neighbors is %d\" % optimal_k)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# print('With CV = 3:')\n# cv_scores = []\n\n# for k in neighbors:\n#     knn = KNeighborsClassifier(n_neighbors=k)\n#     scores = cross_val_score(knn, Xtrain, Ytrain, cv=3, scoring='accuracy')\n#     cv_scores.append(scores.mean())\n    \n    \n# MSE = [1 - x for x in cv_scores]\n# optimal_k = neighbors[MSE.index(min(MSE))]\n# print(\"The optimal number of neighbors is %d\" % optimal_k)",
       "rewrite-ns": 17178,
       "overhead-ns": 17178,
       "exec-ns": 81637,
@@ -441,7 +441,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.plot(neighbors, MSE)\n# plt.xlabel('Number of Neighbors K')\n# plt.ylabel('Misclassification Error')\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.plot(neighbors, MSE)\n# plt.xlabel('Number of Neighbors K')\n# plt.ylabel('Misclassification Error')\n# plt.show()",
       "rewrite-ns": 12921,
       "overhead-ns": 12921,
       "exec-ns": 73816,
@@ -450,7 +450,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# print('With CV = 5:')\n# cv_scores = []\n\n# for k in neighbors:\n#     knn = KNeighborsClassifier(n_neighbors=k)\n#     scores = cross_val_score(knn, Xtrain, Ytrain, cv=5, scoring='accuracy')\n#     cv_scores.append(scores.mean())\n    \n    \n# MSE = [1 - x for x in cv_scores]\n# optimal_k = neighbors[MSE.index(min(MSE))]\n# print(\"The optimal number of neighbors is %d\" % optimal_k)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# print('With CV = 5:')\n# cv_scores = []\n\n# for k in neighbors:\n#     knn = KNeighborsClassifier(n_neighbors=k)\n#     scores = cross_val_score(knn, Xtrain, Ytrain, cv=5, scoring='accuracy')\n#     cv_scores.append(scores.mean())\n    \n    \n# MSE = [1 - x for x in cv_scores]\n# optimal_k = neighbors[MSE.index(min(MSE))]\n# print(\"The optimal number of neighbors is %d\" % optimal_k)",
       "rewrite-ns": 12655,
       "overhead-ns": 12655,
       "exec-ns": 62326,
@@ -459,7 +459,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.plot(neighbors, MSE)\n# plt.xlabel('Number of Neighbors K')\n# plt.ylabel('Misclassification Error')\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.plot(neighbors, MSE)\n# plt.xlabel('Number of Neighbors K')\n# plt.ylabel('Misclassification Error')\n# plt.show()",
       "rewrite-ns": 10840,
       "overhead-ns": 10840,
       "exec-ns": 60195,
@@ -468,7 +468,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# print('With CV = 10:')\n# cv_scores = []\n\n# for k in neighbors:\n#     knn = KNeighborsClassifier(n_neighbors=k)\n#     scores = cross_val_score(knn, Xtrain, Ytrain, cv=10, scoring='accuracy')\n#     cv_scores.append(scores.mean())\n    \n    \n# MSE = [1 - x for x in cv_scores]\n# optimal_k = neighbors[MSE.index(min(MSE))]\n# print(\"The optimal number of neighbors is %d\" % optimal_k)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# print('With CV = 10:')\n# cv_scores = []\n\n# for k in neighbors:\n#     knn = KNeighborsClassifier(n_neighbors=k)\n#     scores = cross_val_score(knn, Xtrain, Ytrain, cv=10, scoring='accuracy')\n#     cv_scores.append(scores.mean())\n    \n    \n# MSE = [1 - x for x in cv_scores]\n# optimal_k = neighbors[MSE.index(min(MSE))]\n# print(\"The optimal number of neighbors is %d\" % optimal_k)",
       "rewrite-ns": 11917,
       "overhead-ns": 11917,
       "exec-ns": 60307,
@@ -477,7 +477,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.plot(neighbors, MSE)\n# plt.xlabel('Number of Neighbors K')\n# plt.ylabel('Misclassification Error')\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.plot(neighbors, MSE)\n# plt.xlabel('Number of Neighbors K')\n# plt.ylabel('Misclassification Error')\n# plt.show()",
       "rewrite-ns": 10568,
       "overhead-ns": 10568,
       "exec-ns": 59391,
@@ -486,7 +486,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# print('With CV = 15:')\n# cv_scores = []\n\n# for k in neighbors:\n#     knn = KNeighborsClassifier(n_neighbors=k)\n#     scores = cross_val_score(knn, Xtrain, Ytrain, cv=15, scoring='accuracy')\n#     cv_scores.append(scores.mean())\n    \n    \n# MSE = [1 - x for x in cv_scores]\n# optimal_k = neighbors[MSE.index(min(MSE))]\n# print(\"The optimal number of neighbors is %d\" % optimal_k)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# print('With CV = 15:')\n# cv_scores = []\n\n# for k in neighbors:\n#     knn = KNeighborsClassifier(n_neighbors=k)\n#     scores = cross_val_score(knn, Xtrain, Ytrain, cv=15, scoring='accuracy')\n#     cv_scores.append(scores.mean())\n    \n    \n# MSE = [1 - x for x in cv_scores]\n# optimal_k = neighbors[MSE.index(min(MSE))]\n# print(\"The optimal number of neighbors is %d\" % optimal_k)",
       "rewrite-ns": 11809,
       "overhead-ns": 11809,
       "exec-ns": 57519,
@@ -495,7 +495,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.plot(neighbors, MSE)\n# plt.xlabel('Number of Neighbors K')\n# plt.ylabel('Misclassification Error')\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.plot(neighbors, MSE)\n# plt.xlabel('Number of Neighbors K')\n# plt.ylabel('Misclassification Error')\n# plt.show()",
       "rewrite-ns": 10699,
       "overhead-ns": 10699,
       "exec-ns": 57512,
@@ -504,7 +504,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# print('With CV = 20:')\n# cv_scores = []\n\n# for k in neighbors:\n#     knn = KNeighborsClassifier(n_neighbors=k)\n#     scores = cross_val_score(knn, Xtrain, Ytrain, cv=20, scoring='accuracy')\n#     cv_scores.append(scores.mean())\n    \n    \n# MSE = [1 - x for x in cv_scores]\n# optimal_k = neighbors[MSE.index(min(MSE))]\n# print(\"The optimal number of neighbors is %d\" % optimal_k)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# print('With CV = 20:')\n# cv_scores = []\n\n# for k in neighbors:\n#     knn = KNeighborsClassifier(n_neighbors=k)\n#     scores = cross_val_score(knn, Xtrain, Ytrain, cv=20, scoring='accuracy')\n#     cv_scores.append(scores.mean())\n    \n    \n# MSE = [1 - x for x in cv_scores]\n# optimal_k = neighbors[MSE.index(min(MSE))]\n# print(\"The optimal number of neighbors is %d\" % optimal_k)",
       "rewrite-ns": 12050,
       "overhead-ns": 12050,
       "exec-ns": 52886,
@@ -513,7 +513,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.plot(neighbors, MSE)\n# plt.xlabel('Number of Neighbors K')\n# plt.ylabel('Misclassification Error')\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.plot(neighbors, MSE)\n# plt.xlabel('Number of Neighbors K')\n# plt.ylabel('Misclassification Error')\n# plt.show()",
       "rewrite-ns": 9930,
       "overhead-ns": 9930,
       "exec-ns": 52353,
@@ -522,7 +522,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# knn = KNeighborsClassifier(n_neighbors=7)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# knn = KNeighborsClassifier(n_neighbors=7)",
       "rewrite-ns": 10400,
       "overhead-ns": 10400,
       "exec-ns": 63820,
@@ -531,7 +531,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# knn.fit(Xtrain,Ytrain)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# knn.fit(Xtrain,Ytrain)",
       "rewrite-ns": 10069,
       "overhead-ns": 10069,
       "exec-ns": 57826,
@@ -540,7 +540,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# scores = cross_val_score(knn, Xtrain, Ytrain, cv=10)\n# scores",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# scores = cross_val_score(knn, Xtrain, Ytrain, cv=10)\n# scores",
       "rewrite-ns": 9653,
       "overhead-ns": 9653,
       "exec-ns": 57102,
@@ -549,7 +549,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# YtestPred = knn.predict(Xtest)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# YtestPred = knn.predict(Xtest)",
       "rewrite-ns": 9433,
       "overhead-ns": 9433,
       "exec-ns": 74221,
@@ -558,7 +558,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.metrics import accuracy_score\n# accuracy_score(Ytest,YtestPred)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.metrics import accuracy_score\n# accuracy_score(Ytest,YtestPred)",
       "rewrite-ns": 9653,
       "overhead-ns": 9653,
       "exec-ns": 57597,
@@ -585,7 +585,7 @@
       "rewritten": "FINALtest.dtypes\n"
     },
     {
-      "raw": "XFINALtest = FINALtest\n# ALEX: remove ML code\n# YFINALtestPred = knn.predict(XFINALtest)",
+      "raw": "XFINALtest = FINALtest\n# FIRST-AUTHOR: remove ML code\n# YFINALtestPred = knn.predict(XFINALtest)",
       "rewrite-ns": 218930,
       "overhead-ns": 218930,
       "exec-ns": 184570,
@@ -594,7 +594,7 @@
       "rewritten": "XFINALtest = FINALtest\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# YFINALtestPred",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# YFINALtestPred",
       "rewrite-ns": 11542,
       "overhead-ns": 11542,
       "exec-ns": 69052,
@@ -603,7 +603,7 @@
       "rewritten": ""
     },
     {
-      "raw": "pred = pd.DataFrame(submission_base)\n# ALEX: remove ML code\n# pred[\"Target\"] = YFINALtestPred",
+      "raw": "pred = pd.DataFrame(submission_base)\n# FIRST-AUTHOR: remove ML code\n# pred[\"Target\"] = YFINALtestPred",
       "rewrite-ns": 390037,
       "overhead-ns": 390037,
       "exec-ns": 206926,

@@ -423,7 +423,7 @@
       "total-ns": 2227367288
     },
     {
-      "raw": "# Include the necessary packages fro analysisi and visualization\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# %matplotlib inline",
+      "raw": "# Include the necessary packages fro analysisi and visualization\n# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# %matplotlib inline",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 328486
@@ -435,19 +435,19 @@
       "total-ns": 24254230
     },
     {
-      "raw": "#Obtain the relationships between columns\n# ALEX: remove plotting\n# sns.pairplot(job_data)",
+      "raw": "#Obtain the relationships between columns\n# FIRST-AUTHOR: remove plotting\n# sns.pairplot(job_data)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 295916
     },
     {
-      "raw": "industry_salary = [\n    round(job_data.loc[job_data[\"industry\"]==\"Biotech & Pharmaceuticals\",\"avg_salary_estimate\"].mean(), 2),\n    round(job_data.loc[job_data[\"industry\"]==\"IT Services\",\"avg_salary_estimate\"].mean(), 2),\n    round(job_data.loc[job_data[\"industry\"]==\"Computer Hardware & Software\",\"avg_salary_estimate\"].mean(), 2),\n    round(job_data.loc[job_data[\"industry\"]==\"Aerospace & Defense\",\"avg_salary_estimate\"].mean(), 2),\n    round(job_data.loc[job_data[\"industry\"]==\"Enterprise Software & Network Solutions\",\"avg_salary_estimate\"].mean(), 2)\n]\n\ntop_paying_industries = [\n    \"Biotech & Pharmaceuticals\",\n    \"IT Services\",\n    \"Computer Hardware & Software\",\n    \"Aerospace & Defense\",\n    \"Enterprise Software & Network Solutions\"\n]\n\n# ALEX: remove plotting\n# plt.bar(top_paying_industries, industry_salary)\n# plt.ylim(110, 140)\n# plt.xlabel(\"Job Industry\")\n# plt.ylabel(\"Average Salary\")\n\n# # Rotate the x-axis labels by 70 degrees\n# plt.xticks(rotation=70)\n\n# plt.show()",
+      "raw": "industry_salary = [\n    round(job_data.loc[job_data[\"industry\"]==\"Biotech & Pharmaceuticals\",\"avg_salary_estimate\"].mean(), 2),\n    round(job_data.loc[job_data[\"industry\"]==\"IT Services\",\"avg_salary_estimate\"].mean(), 2),\n    round(job_data.loc[job_data[\"industry\"]==\"Computer Hardware & Software\",\"avg_salary_estimate\"].mean(), 2),\n    round(job_data.loc[job_data[\"industry\"]==\"Aerospace & Defense\",\"avg_salary_estimate\"].mean(), 2),\n    round(job_data.loc[job_data[\"industry\"]==\"Enterprise Software & Network Solutions\",\"avg_salary_estimate\"].mean(), 2)\n]\n\ntop_paying_industries = [\n    \"Biotech & Pharmaceuticals\",\n    \"IT Services\",\n    \"Computer Hardware & Software\",\n    \"Aerospace & Defense\",\n    \"Enterprise Software & Network Solutions\"\n]\n\n# FIRST-AUTHOR: remove plotting\n# plt.bar(top_paying_industries, industry_salary)\n# plt.ylim(110, 140)\n# plt.xlabel(\"Job Industry\")\n# plt.ylabel(\"Average Salary\")\n\n# # Rotate the x-axis labels by 70 degrees\n# plt.xticks(rotation=70)\n\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 278544422
     },
     {
-      "raw": "# Let's start by analyzing the average salary for job postings\n# ALEX: remove plotting\n# sns.boxplot(x=job_data['avg_salary_estimate'])\n_ = job_data['avg_salary_estimate']",
+      "raw": "# Let's start by analyzing the average salary for job postings\n# FIRST-AUTHOR: remove plotting\n# sns.boxplot(x=job_data['avg_salary_estimate'])\n_ = job_data['avg_salary_estimate']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1649426
@@ -465,19 +465,19 @@
       "total-ns": 11134059
     },
     {
-      "raw": "# Make a comparison between the years the company has been in the market and the avg. salary.\n# ALEX: remove plotting\n# sns.lmplot(x='years_in_market',y='avg_salary_estimate',data=df)\n",
+      "raw": "# Make a comparison between the years the company has been in the market and the avg. salary.\n# FIRST-AUTHOR: remove plotting\n# sns.lmplot(x='years_in_market',y='avg_salary_estimate',data=df)\n",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 294801
     },
     {
-      "raw": "# Generate a heatmap based on the numerical columns of the dataframe\n# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(10,10)) \nmatrix = np.triu(df.select_dtypes(include=[np.number]).corr())\n# ALEX: remove plotting\n# sns.heatmap(df.select_dtypes(include=[np.number]).corr(),annot=True, fmt='.1g', vmin=-1, vmax=1, center= 0,  ax=ax)\n_ = df.select_dtypes(include=[np.number]).corr()",
+      "raw": "# Generate a heatmap based on the numerical columns of the dataframe\n# FIRST-AUTHOR: remove plotting\n# fig, ax = plt.subplots(figsize=(10,10)) \nmatrix = np.triu(df.select_dtypes(include=[np.number]).corr())\n# FIRST-AUTHOR: remove plotting\n# sns.heatmap(df.select_dtypes(include=[np.number]).corr(),annot=True, fmt='.1g', vmin=-1, vmax=1, center= 0,  ax=ax)\n_ = df.select_dtypes(include=[np.number]).corr()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 123897806
     },
     {
-      "raw": "# Check the sector values\n# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(10,10)) \n# chart = sns.barplot(x=df.sector.value_counts().index, y=df.sector.value_counts())\n# _= chart.set_xticklabels(chart.get_xticklabels(), rotation=75)\n_ = df.sector.value_counts().index\n_ = df.sector.value_counts()",
+      "raw": "# Check the sector values\n# FIRST-AUTHOR: remove plotting\n# fig, ax = plt.subplots(figsize=(10,10)) \n# chart = sns.barplot(x=df.sector.value_counts().index, y=df.sector.value_counts())\n# _= chart.set_xticklabels(chart.get_xticklabels(), rotation=75)\n_ = df.sector.value_counts().index\n_ = df.sector.value_counts()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 121776027

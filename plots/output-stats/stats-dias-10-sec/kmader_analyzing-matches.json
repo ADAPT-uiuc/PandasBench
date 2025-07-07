@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 585,
   "cells": [
     {
-      "raw": "import os\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt\nimport numpy as np\n# ALEX: remove extra dependencies\n# from pydicom import read_file\n# from matplotlib.collections import PatchCollection\n# from matplotlib.patches import Rectangle, Circle\nfrom IPython.display import display\n# ALEX: remove extra dependencies\n# import networkx as nx\ndef create_graph_from_df(in_df, ):\n# ALEX: remove extra dependencies\n#     g = nx.Graph()\n    for _, c_row in in_df.iterrows():\n#         g.add_edge(c_row['annotator_x'], c_row['annotator_y'], \n#                    weight = c_row['iou'], \n#                    label = '{:2.0f}%'.format(100*c_row['iou']))\n        _ = c_row['annotator_x']\n        _ = c_row['annotator_y'], \n        _ = c_row['iou'], \n        _ = 100*c_row['iou']\n# ALEX: remove extra dependencies\n#     return g\n# def show_graph(g, figsize = (20, 20)):\n#     fig, ax1 = plt.subplots(1, 1, figsize = figsize)\n#     ax1.axis('off')\n#     edge_labels = nx.get_edge_attributes(g,'label')\n#     n_pos = nx.spring_layout(g)\n#     nx.draw_networkx(g, \n#                      pos=n_pos, \n#                      ax = ax1);\n#     nx.draw_networkx_edge_labels(g, \n#                      pos=n_pos, \n#                      edge_labels = edge_labels,\n#                      ax = ax1);\n#     return fig\nbase_csv_dir = './input/'\nbase_dcm_dir = './input/'",
+      "raw": "import os\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt\nimport numpy as np\n# FIRST-AUTHOR: remove extra dependencies\n# from pydicom import read_file\n# from matplotlib.collections import PatchCollection\n# from matplotlib.patches import Rectangle, Circle\nfrom IPython.display import display\n# FIRST-AUTHOR: remove extra dependencies\n# import networkx as nx\ndef create_graph_from_df(in_df, ):\n# FIRST-AUTHOR: remove extra dependencies\n#     g = nx.Graph()\n    for _, c_row in in_df.iterrows():\n#         g.add_edge(c_row['annotator_x'], c_row['annotator_y'], \n#                    weight = c_row['iou'], \n#                    label = '{:2.0f}%'.format(100*c_row['iou']))\n        _ = c_row['annotator_x']\n        _ = c_row['annotator_y'], \n        _ = c_row['iou'], \n        _ = 100*c_row['iou']\n# FIRST-AUTHOR: remove extra dependencies\n#     return g\n# def show_graph(g, figsize = (20, 20)):\n#     fig, ax1 = plt.subplots(1, 1, figsize = figsize)\n#     ax1.axis('off')\n#     edge_labels = nx.get_edge_attributes(g,'label')\n#     n_pos = nx.spring_layout(g)\n#     nx.draw_networkx(g, \n#                      pos=n_pos, \n#                      ax = ax1);\n#     nx.draw_networkx_edge_labels(g, \n#                      pos=n_pos, \n#                      edge_labels = edge_labels,\n#                      ax = ax1);\n#     return fig\nbase_csv_dir = './input/'\nbase_dcm_dir = './input/'",
       "rewrite-ns": 3373823,
       "overhead-ns": 3373823,
       "exec-ns": 971570,
@@ -30,7 +30,7 @@
       "rewritten": "grp_df = single_annot_df.groupby(['anatomy', 'seriesUID'])\nfor _, (c_group, c_df) in zip(range(1), grp_df):\n    print(c_group)\n    display(c_df)\n    pass\n"
     },
     {
-      "raw": "g = create_graph_from_df(c_df)\n# ALEX: remove extra dependencies\n# show_graph(g);",
+      "raw": "g = create_graph_from_df(c_df)\n# FIRST-AUTHOR: remove extra dependencies\n# show_graph(g);",
       "rewrite-ns": 354981,
       "overhead-ns": 354981,
       "exec-ns": 108041783,
@@ -39,7 +39,7 @@
       "rewritten": "g = create_graph_from_df(c_df)\n"
     },
     {
-      "raw": "g = create_graph_from_df(single_annot_df.query('anatomy == \"Liver\"'))\n# ALEX: remove extra dependencies\n# show_graph(g, figsize = (40, 40));",
+      "raw": "g = create_graph_from_df(single_annot_df.query('anatomy == \"Liver\"'))\n# FIRST-AUTHOR: remove extra dependencies\n# show_graph(g, figsize = (40, 40));",
       "rewrite-ns": 495079,
       "overhead-ns": 495079,
       "exec-ns": 3216544526,
@@ -48,7 +48,7 @@
       "rewritten": "g = create_graph_from_df(single_annot_df.query('anatomy == \"Liver\"'))\n"
     },
     {
-      "raw": "g = create_graph_from_df(single_annot_df.query('anatomy == \"Ovarian\"'))\n# ALEX: remove extra dependencies\n# show_graph(g, figsize = (40, 40));",
+      "raw": "g = create_graph_from_df(single_annot_df.query('anatomy == \"Ovarian\"'))\n# FIRST-AUTHOR: remove extra dependencies\n# show_graph(g, figsize = (40, 40));",
       "rewrite-ns": 501612,
       "overhead-ns": 501612,
       "exec-ns": 3533070849,
@@ -66,7 +66,7 @@
       "rewritten": "avg_annot_df = single_annot_df.groupby(['annotator_x', 'annotator_y']).agg({\n    'iou': 'mean', 'seriesUID': 'count'}).reset_index()\navg_annot_df.sample(2)\n"
     },
     {
-      "raw": "g = create_graph_from_df(avg_annot_df)\n# ALEX: remove extra dependencies\n# show_graph(g, figsize = (40, 40));",
+      "raw": "g = create_graph_from_df(avg_annot_df)\n# FIRST-AUTHOR: remove extra dependencies\n# show_graph(g, figsize = (40, 40));",
       "rewrite-ns": 340391,
       "overhead-ns": 340391,
       "exec-ns": 37589014,
@@ -95,7 +95,7 @@
       "rewritten": "clean_annot_df = single_annot_df[~dias.rewriter.fuse_isin(df=\n    single_annot_df, col_name='annotator_x', s1=worst_annot, s2=worst_annot)]\nclean_full_annot_df = annot_df[~dias.rewriter.fuse_isin(df=annot_df,\n    col_name='annotator_x', s1=worst_annot, s2=worst_annot)]\nprint(single_annot_df.shape[0], '->', clean_annot_df.shape[0])\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# clean_full_annot_df.groupby(\n#     ['anatomy', 'seriesUID']).agg(\n#     {'iou': 'mean', 'annotator_x': 'count'}).reset_index().sort_values(\n#     'annotator_x', ascending = False)['annotator_x'].hist()\nclean_full_annot_df.groupby(\n    ['anatomy', 'seriesUID']).agg(\n    {'iou': 'mean', 'annotator_x': 'count'}).reset_index().sort_values(\n    'annotator_x', ascending = False)['annotator_x']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# clean_full_annot_df.groupby(\n#     ['anatomy', 'seriesUID']).agg(\n#     {'iou': 'mean', 'annotator_x': 'count'}).reset_index().sort_values(\n#     'annotator_x', ascending = False)['annotator_x'].hist()\nclean_full_annot_df.groupby(\n    ['anatomy', 'seriesUID']).agg(\n    {'iou': 'mean', 'annotator_x': 'count'}).reset_index().sort_values(\n    'annotator_x', ascending = False)['annotator_x']",
       "rewrite-ns": 1183058,
       "overhead-ns": 1183058,
       "exec-ns": 245384653,
@@ -113,7 +113,7 @@
       "rewritten": "filt_annot = lambda cut_off: clean_full_annot_df.query('iou>{}'.format(cut_off)\n    ).groupby(['anatomy', 'seriesUID']).agg({'iou': 'mean', 'annotator_x':\n    'count'}).reset_index().sort_values('annotator_x', ascending=False)\ncut_off = np.linspace(15, 100, 10, dtype=int)[:-1]\nout_df_list = []\nfor n_cut_off in cut_off:\n    c_df = filt_annot(n_cut_off / 100.0)\n    c_df['cutoff'] = n_cut_off\n    out_df_list += [c_df]\nout_df = pd.concat(out_df_list)\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# import seaborn as sns\n# sns.factorplot(x = 'cutoff', \n#                y = 'annotator_x', \n#                hue = 'anatomy', \n#                data = out_df,\n#                kind = 'swarm',\n#               size = 6)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# import seaborn as sns\n# sns.factorplot(x = 'cutoff', \n#                y = 'annotator_x', \n#                hue = 'anatomy', \n#                data = out_df,\n#                kind = 'swarm',\n#               size = 6)",
       "rewrite-ns": 18464,
       "overhead-ns": 18464,
       "exec-ns": 104064,
@@ -122,7 +122,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.factorplot(x = 'cutoff', \n#                y = 'annotator_x', \n#                hue = 'anatomy', \n#                data = out_df,\n#                kind = 'violin',\n#                col = 'anatomy',\n#                col_wrap = 2,\n#               size = 8)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.factorplot(x = 'cutoff', \n#                y = 'annotator_x', \n#                hue = 'anatomy', \n#                data = out_df,\n#                kind = 'violin',\n#                col = 'anatomy',\n#                col_wrap = 2,\n#               size = 8)",
       "rewrite-ns": 14442,
       "overhead-ns": 14442,
       "exec-ns": 75584,
@@ -140,7 +140,7 @@
       "rewritten": "all_df_out = []\nfor annot_per_case in range(2, 10):\n    c_df = out_df.query('annotator_x>={}'.format(annot_per_case)).groupby([\n        'cutoff', 'anatomy']).apply(lambda c_rows: pd.Series({\n        'total_annotations': np.sum(c_rows['annotator_x']), 'total_cases':\n        np.unique(c_rows['seriesUID']).shape[0]})).reset_index()\n    c_df['annot_per_case_cutoff'] = annot_per_case\n    all_df_out += [c_df]\nall_df = pd.concat(all_df_out)\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.factorplot(x = 'annot_per_case_cutoff', \n#                y = 'total_cases', \n#                hue = 'cutoff', \n#                data = all_df,\n#                col = 'anatomy',\n#                col_wrap = 2,\n#                sharey = False,\n#               size = 8)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.factorplot(x = 'annot_per_case_cutoff', \n#                y = 'total_cases', \n#                hue = 'cutoff', \n#                data = all_df,\n#                col = 'anatomy',\n#                col_wrap = 2,\n#                sharey = False,\n#               size = 8)",
       "rewrite-ns": 14371,
       "overhead-ns": 14371,
       "exec-ns": 70330,
@@ -149,7 +149,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.factorplot(x = 'annot_per_case_cutoff', \n#                y = 'total_cases', \n#                hue = 'anatomy', \n#                data = all_df,\n#                col = 'cutoff',\n#                col_wrap = 3,\n#                sharey = False,\n#               size = 8)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.factorplot(x = 'annot_per_case_cutoff', \n#                y = 'total_cases', \n#                hue = 'anatomy', \n#                data = all_df,\n#                col = 'cutoff',\n#                col_wrap = 3,\n#                sharey = False,\n#               size = 8)",
       "rewrite-ns": 13082,
       "overhead-ns": 13082,
       "exec-ns": 63316,
@@ -167,7 +167,7 @@
       "rewritten": "total_annotation_count = {k['anatomy']: (k['count'], k['cases']) for k in\n    pd.read_csv('./input/CrowdsCureCancer2017Annotations.scaled.csv').\n    groupby('anatomy').apply(lambda x: pd.Series({'count': x.shape[0],\n    'cases': np.unique(x['seriesUID']).shape[0]})).reset_index().T.to_dict(\n    ).values()}\ntotal_annotation_count\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig, m_axs = plt.subplots(2, 2, figsize = (20, 20))\n# for (c_organ, c_df), ax1 in zip(all_df.groupby('anatomy'), m_axs.flatten()):\nfor c_organ, c_df in all_df.groupby('anatomy'):\n    X, x_vals = c_df['annot_per_case_cutoff'].factorize()\n    Y, y_vals = c_df['cutoff'].factorize()\n    c_mat = np.zeros((X.max()+1, Y.max()+1), dtype = 'int')\n    c_mat[X, Y] = c_df['total_cases'].values.astype(int)\n# ALEX: remove plotting\n#     ax1 = sns.heatmap(c_mat.T, annot = True, fmt = 'd', ax = ax1)\n#     ax1.set_xticklabels(x_vals)\n#     ax1.set_yticklabels(y_vals)\n#     ax1.set_xlabel('Annotations Per Case')\n#     ax1.set_ylabel('Minimum Agreement (DICE %)')\n#     ax1.set_title('{0}: Patients: {2}, Annotations: {1}'.format(c_organ, *total_annotation_count[c_organ]))\n    _ = c_mat.T\n    _ = total_annotation_count[c_organ]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig, m_axs = plt.subplots(2, 2, figsize = (20, 20))\n# for (c_organ, c_df), ax1 in zip(all_df.groupby('anatomy'), m_axs.flatten()):\nfor c_organ, c_df in all_df.groupby('anatomy'):\n    X, x_vals = c_df['annot_per_case_cutoff'].factorize()\n    Y, y_vals = c_df['cutoff'].factorize()\n    c_mat = np.zeros((X.max()+1, Y.max()+1), dtype = 'int')\n    c_mat[X, Y] = c_df['total_cases'].values.astype(int)\n# FIRST-AUTHOR: remove plotting\n#     ax1 = sns.heatmap(c_mat.T, annot = True, fmt = 'd', ax = ax1)\n#     ax1.set_xticklabels(x_vals)\n#     ax1.set_yticklabels(y_vals)\n#     ax1.set_xlabel('Annotations Per Case')\n#     ax1.set_ylabel('Minimum Agreement (DICE %)')\n#     ax1.set_title('{0}: Patients: {2}, Annotations: {1}'.format(c_organ, *total_annotation_count[c_organ]))\n    _ = c_mat.T\n    _ = total_annotation_count[c_organ]",
       "rewrite-ns": 3217905,
       "overhead-ns": 3217905,
       "exec-ns": 2145280,

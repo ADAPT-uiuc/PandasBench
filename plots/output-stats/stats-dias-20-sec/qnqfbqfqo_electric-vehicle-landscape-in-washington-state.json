@@ -12,7 +12,7 @@
       "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
     },
     {
-      "raw": "# import pandas as pd\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\ndf = pd.read_csv('./input/Electric_Vehicle_Population_Data.scaled.csv')",
+      "raw": "# import pandas as pd\n# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\ndf = pd.read_csv('./input/Electric_Vehicle_Population_Data.scaled.csv')",
       "rewrite-ns": 368303,
       "overhead-ns": 368303,
       "exec-ns": 17901283322,
@@ -30,7 +30,7 @@
       "rewritten": "print(df.head())\nprint(df.info())\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# df['Model Year'].hist()\n# plt.xlabel('Model Year')\n# plt.ylabel('Count')\n# plt.title('Distribution of Model Year')\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# df['Model Year'].hist()\n# plt.xlabel('Model Year')\n# plt.ylabel('Count')\n# plt.title('Distribution of Model Year')\n# plt.show()",
       "rewrite-ns": 18032,
       "overhead-ns": 18032,
       "exec-ns": 105090,
@@ -66,7 +66,7 @@
       "rewritten": "groupby_make = df.groupby('Make')['Electric Range'].mean()\nprint(evaluate_lazy(groupby_make))\n"
     },
     {
-      "raw": "# Select only numeric columns from the DataFrame\nnumeric_df = df.select_dtypes(include=['float64', 'int64'])\n\n# Create a correlation heatmap for the numeric columns\n# ALEX: remove plotting\n# sns.heatmap(numeric_df.corr(), annot=True, cmap='coolwarm')\n# plt.title('Correlation Heatmap')\n# plt.show()\nevaluate_lazy(numeric_df.corr())\n",
+      "raw": "# Select only numeric columns from the DataFrame\nnumeric_df = df.select_dtypes(include=['float64', 'int64'])\n\n# Create a correlation heatmap for the numeric columns\n# FIRST-AUTHOR: remove plotting\n# sns.heatmap(numeric_df.corr(), annot=True, cmap='coolwarm')\n# plt.title('Correlation Heatmap')\n# plt.show()\nevaluate_lazy(numeric_df.corr())\n",
       "rewrite-ns": 891884,
       "overhead-ns": 891884,
       "exec-ns": 1537614443,

@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 162,
   "cells": [
     {
-      "raw": "\nimport numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# %matplotlib inline\ndf=pd.read_csv('./input/911.scaled.csv')\ndf.info()\n",
+      "raw": "\nimport numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n\n# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# %matplotlib inline\ndf=pd.read_csv('./input/911.scaled.csv')\ndf.info()\n",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 11726300653
@@ -45,7 +45,7 @@
       "total-ns": 3226140909
     },
     {
-      "raw": "# ALEX: remove plotting\n# import seaborn as sns\n# sns.countplot(x='Reason',data=df,palette='viridis')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# import seaborn as sns\n# sns.countplot(x='Reason',data=df,palette='viridis')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 310972
@@ -99,13 +99,13 @@
       "total-ns": 50709240
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.countplot(x='day of week',data=df,palette='viridis',hue='Reason')\n# plt.legend(bbox_to_anchor=(1.05,1),loc=2)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.countplot(x='day of week',data=df,palette='viridis',hue='Reason')\n# plt.legend(bbox_to_anchor=(1.05,1),loc=2)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 286612
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.countplot(x='month',data=df,palette='viridis',hue='Reason')\n# plt.legend(bbox_to_anchor=(1.05,1),loc=2)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.countplot(x='month',data=df,palette='viridis',hue='Reason')\n# plt.legend(bbox_to_anchor=(1.05,1),loc=2)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 258907
@@ -123,13 +123,13 @@
       "total-ns": 44690552
     },
     {
-      "raw": "# ALEX: remove plotting\n# byMonth['lat'].plot()\nevaluate_lazy(byMonth['lat'])",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# byMonth['lat'].plot()\nevaluate_lazy(byMonth['lat'])",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 646631
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.lmplot(x='month',y='twp',data=byMonth.reset_index())\nevaluate_lazy(byMonth.reset_index())",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.lmplot(x='month',y='twp',data=byMonth.reset_index())\nevaluate_lazy(byMonth.reset_index())",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 127492840
@@ -141,7 +141,7 @@
       "total-ns": 829404297
     },
     {
-      "raw": "# ALEX: remove plotting\n# df.groupby('date').count()['lat'].plot()\n# plt.tight_layout()\nevaluate_lazy(df.groupby('date').count()['lat'])",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# df.groupby('date').count()['lat'].plot()\n# plt.tight_layout()\nevaluate_lazy(df.groupby('date').count()['lat'])",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 113332709
@@ -153,25 +153,25 @@
       "total-ns": 7309580796
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.heatmap(dayHour,cmap='viridis')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.heatmap(dayHour,cmap='viridis')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 254236
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.clustermap(dayHour,cmap='viridis')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.clustermap(dayHour,cmap='viridis')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 226925
     },
     {
-      "raw": "dayMonth=df.groupby(by=['day of week','month']).count()['Reason'].unstack()\n# ALEX: remove plotting\n# sns.clustermap(dayMonth,cmap='viridis')",
+      "raw": "dayMonth=df.groupby(by=['day of week','month']).count()['Reason'].unstack()\n# FIRST-AUTHOR: remove plotting\n# sns.clustermap(dayMonth,cmap='viridis')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1790486569
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.heatmap(dayMonth,cmap='viridis')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.heatmap(dayMonth,cmap='viridis')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 254871

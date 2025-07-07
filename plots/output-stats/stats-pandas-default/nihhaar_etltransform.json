@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 119,
   "cells": [
     {
-      "raw": "import os\nimport numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n\n# ALEX: remove path printing\n# print(os.listdir(\"./input\"))",
+      "raw": "import os\nimport numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n\n# FIRST-AUTHOR: remove path printing\n# print(os.listdir(\"./input\"))",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 285594
@@ -39,25 +39,25 @@
       "total-ns": 4746464
     },
     {
-      "raw": "# ALEX: make notebook run\n# pd.cut(df['# num_pages'], [-1, 100, 200, 300]).head()\npd.cut(df['  num_pages'], [-1, 100, 200, 300]).head()",
+      "raw": "# FIRST-AUTHOR: make notebook run\n# pd.cut(df['# num_pages'], [-1, 100, 200, 300]).head()\npd.cut(df['  num_pages'], [-1, 100, 200, 300]).head()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1620704
     },
     {
-      "raw": "# ALEX: make notebook run\n# range_df = df.groupby(pd.cut(df['# num_pages'], [-1, 100, 200, 300]))\nrange_df = df.groupby(pd.cut(df['  num_pages'], [-1, 100, 200, 300]))\nrange_df = range_df[['ratings_count']]\nrange_df.sum().reset_index()",
+      "raw": "# FIRST-AUTHOR: make notebook run\n# range_df = df.groupby(pd.cut(df['# num_pages'], [-1, 100, 200, 300]))\nrange_df = df.groupby(pd.cut(df['  num_pages'], [-1, 100, 200, 300]))\nrange_df = range_df[['ratings_count']]\nrange_df.sum().reset_index()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 4062268
     },
     {
-      "raw": "# ALEX: make notebook run\n# df.groupby(['authors'])['# num_pages'].max().reset_index()\ndf.groupby(['authors'])['  num_pages'].max().reset_index()",
+      "raw": "# FIRST-AUTHOR: make notebook run\n# df.groupby(['authors'])['# num_pages'].max().reset_index()\ndf.groupby(['authors'])['  num_pages'].max().reset_index()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 4866971
     },
     {
-      "raw": "# ALEX: make notebook run\n# avg_df = df.groupby(['authors'])['# num_pages'].mean().reset_index()\n# avg_df['# num_pages'] = avg_df['# num_pages'].astype('int64')\navg_df = df.groupby(['authors'])['  num_pages'].mean().reset_index()\navg_df['  num_pages'] = avg_df['  num_pages'].astype('int64')\navg_df",
+      "raw": "# FIRST-AUTHOR: make notebook run\n# avg_df = df.groupby(['authors'])['# num_pages'].mean().reset_index()\n# avg_df['# num_pages'] = avg_df['# num_pages'].astype('int64')\navg_df = df.groupby(['authors'])['  num_pages'].mean().reset_index()\navg_df['  num_pages'] = avg_df['  num_pages'].astype('int64')\navg_df",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 5187695

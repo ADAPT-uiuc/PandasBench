@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 2109,
   "cells": [
     {
-      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt\n# %matplotlib inline",
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# FIRST-AUTHOR: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt\n# %matplotlib inline",
       "rewrite-ns": 685759,
       "overhead-ns": 685759,
       "exec-ns": 405551,
@@ -57,7 +57,7 @@
       "rewritten": "print('number of numeric columns: ' + str(len(df.select_dtypes(['int64',\n    'float64']).columns)))\nprint('number of categorical columns: ' + str(len(df.select_dtypes([\n    'object']).columns)))\n"
     },
     {
-      "raw": "#correlation to SalePrice\n# ALEX: remove plotting\n# plt.figure(figsize=(12,6))\n# df.corr()['SalePrice'].drop('SalePrice').sort_values().plot(kind='bar')\ndf.corr()['SalePrice'].drop('SalePrice').sort_values()",
+      "raw": "#correlation to SalePrice\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12,6))\n# df.corr()['SalePrice'].drop('SalePrice').sort_values().plot(kind='bar')\ndf.corr()['SalePrice'].drop('SalePrice').sort_values()",
       "rewrite-ns": 660667,
       "overhead-ns": 660667,
       "exec-ns": 1050024408,
@@ -66,7 +66,7 @@
       "rewritten": "df.corr()['SalePrice'].drop('SalePrice').sort_values()\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.jointplot(x='OverallQual', y='SalePrice', data=df)\n\n# sns.jointplot(x='GrLivArea', y='SalePrice', data=df)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.jointplot(x='OverallQual', y='SalePrice', data=df)\n\n# sns.jointplot(x='GrLivArea', y='SalePrice', data=df)",
       "rewrite-ns": 23078,
       "overhead-ns": 23078,
       "exec-ns": 110223,
@@ -93,7 +93,7 @@
       "rewritten": "fill_none = ['MiscFeature', 'Alley', 'Fence', 'FireplaceQu', 'GarageType',\n    'GarageCond', 'GarageQual', 'GarageFinish', 'BsmtCond', 'BsmtFinType1',\n    'BsmtFinType2', 'BsmtExposure', 'BsmtQual', 'MasVnrType']\nfeatures[fill_none] = features[fill_none].fillna('None', inplace=False)\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.scatterplot(x='PoolArea',y='SalePrice',data=df.fillna('Missing'),hue='PoolQC')\n_ = df.fillna('Missing')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.scatterplot(x='PoolArea',y='SalePrice',data=df.fillna('Missing'),hue='PoolQC')\n_ = df.fillna('Missing')",
       "rewrite-ns": 515972,
       "overhead-ns": 515972,
       "exec-ns": 1268372486,
@@ -129,7 +129,7 @@
       "rewritten": "missing_num = features.select_dtypes(['int64', 'float64']).isnull().sum(\n    ).sort_values(ascending=False)\nmissing_num[missing_num > 0]\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# df.plot(x='LotFrontage',y='LotArea',kind='scatter')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# df.plot(x='LotFrontage',y='LotArea',kind='scatter')",
       "rewrite-ns": 20865,
       "overhead-ns": 20865,
       "exec-ns": 107514,
@@ -174,7 +174,7 @@
       "rewritten": "fill_zero = ['GarageArea', 'GarageCars', 'MasVnrArea', 'BsmtFullBath',\n    'BsmtHalfBath', 'BsmtFinSF1', 'BsmtFinSF2', 'BsmtUnfSF', 'TotalBsmtSF']\nfeatures[fill_zero] = features[fill_zero].fillna(0)\n"
     },
     {
-      "raw": "# focusing on first row, and found some point does not follow the trend\n# ALEX: remove plotting\n# sns.pairplot(df[['SalePrice','GrLivArea','1stFlrSF','TotalBsmtSF','LotFrontage','LotArea']].dropna())\n_ = df[['SalePrice','GrLivArea','1stFlrSF','TotalBsmtSF','LotFrontage','LotArea']].dropna()",
+      "raw": "# focusing on first row, and found some point does not follow the trend\n# FIRST-AUTHOR: remove plotting\n# sns.pairplot(df[['SalePrice','GrLivArea','1stFlrSF','TotalBsmtSF','LotFrontage','LotArea']].dropna())\n_ = df[['SalePrice','GrLivArea','1stFlrSF','TotalBsmtSF','LotFrontage','LotArea']].dropna()",
       "rewrite-ns": 755490,
       "overhead-ns": 755490,
       "exec-ns": 61100937,
@@ -228,7 +228,7 @@
       "rewritten": "features.drop('Id', axis=1, inplace=True)\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# df.plot(x='LowQualFinSF',y='SalePrice',kind='scatter')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# df.plot(x='LowQualFinSF',y='SalePrice',kind='scatter')",
       "rewrite-ns": 22296,
       "overhead-ns": 22296,
       "exec-ns": 107553,
@@ -246,7 +246,7 @@
       "rewritten": "features['LowQualFinSF'] = features['LowQualFinSF'].apply(lambda x: 'Y' if \n    x > 0 else 'N')\n"
     },
     {
-      "raw": "#before take square root\n# ALEX: remove plotting\n# sns.jointplot(x=df['GrLivArea'],y=df['SalePrice'].apply(np.log1p),data=df,kind='reg')\n_ = df['GrLivArea']\n_ = df['SalePrice'].apply(np.log1p)",
+      "raw": "#before take square root\n# FIRST-AUTHOR: remove plotting\n# sns.jointplot(x=df['GrLivArea'],y=df['SalePrice'].apply(np.log1p),data=df,kind='reg')\n_ = df['GrLivArea']\n_ = df['SalePrice'].apply(np.log1p)",
       "rewrite-ns": 832765,
       "overhead-ns": 832765,
       "exec-ns": 1266001,
@@ -255,7 +255,7 @@
       "rewritten": "_ = df['GrLivArea']\n_ = df['SalePrice'].apply(np.log1p)\n"
     },
     {
-      "raw": "#after take square root\n# ALEX: remove plotting\n# sns.jointplot(x=df['GrLivArea']**0.5,y=df['SalePrice'].apply(np.log1p),data=df,kind='reg')\n_ = df['GrLivArea']**0.5\n_ = df['SalePrice'].apply(np.log1p)",
+      "raw": "#after take square root\n# FIRST-AUTHOR: remove plotting\n# sns.jointplot(x=df['GrLivArea']**0.5,y=df['SalePrice'].apply(np.log1p),data=df,kind='reg')\n_ = df['GrLivArea']**0.5\n_ = df['SalePrice'].apply(np.log1p)",
       "rewrite-ns": 907412,
       "overhead-ns": 907412,
       "exec-ns": 6575737,
@@ -318,7 +318,7 @@
       "rewritten": "X_train.shape\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.linear_model import RidgeCV\n# reg = RidgeCV()\n# reg.fit(X_train,np.log1p(y_train))\n_ = np.log1p(y_train)\n#reg.fit(X_train,y_train)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.linear_model import RidgeCV\n# reg = RidgeCV()\n# reg.fit(X_train,np.log1p(y_train))\n_ = np.log1p(y_train)\n#reg.fit(X_train,y_train)",
       "rewrite-ns": 416373,
       "overhead-ns": 416373,
       "exec-ns": 1213732,
@@ -327,7 +327,7 @@
       "rewritten": "_ = np.log1p(y_train)\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import cross_val_score\n# log_rms = np.sqrt(-np.mean(cross_val_score(reg, X_train,np.log1p(y_train), cv=5,scoring='neg_mean_squared_error')))\n# #log_rms = np.sqrt(-np.mean(cross_val_score(reg, X_train,y_train, cv=5,scoring='neg_mean_squared_log_error')))\n# print(f'RMLS : {log_rms}')\n_ = np.log1p(y_train)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.model_selection import cross_val_score\n# log_rms = np.sqrt(-np.mean(cross_val_score(reg, X_train,np.log1p(y_train), cv=5,scoring='neg_mean_squared_error')))\n# #log_rms = np.sqrt(-np.mean(cross_val_score(reg, X_train,y_train, cv=5,scoring='neg_mean_squared_log_error')))\n# print(f'RMLS : {log_rms}')\n_ = np.log1p(y_train)",
       "rewrite-ns": 374399,
       "overhead-ns": 374399,
       "exec-ns": 1133550,
@@ -336,7 +336,7 @@
       "rewritten": "_ = np.log1p(y_train)\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# pred = np.expm1(reg.predict(X_train))\npred = np.expm1(y_train.to_numpy())\n#pred = reg.predict(X_train)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# pred = np.expm1(reg.predict(X_train))\npred = np.expm1(y_train.to_numpy())\n#pred = reg.predict(X_train)",
       "rewrite-ns": 477053,
       "overhead-ns": 477053,
       "exec-ns": 1807555,
@@ -345,7 +345,7 @@
       "rewritten": "pred = np.expm1(y_train.to_numpy())\n"
     },
     {
-      "raw": "comparison = pd.DataFrame({'prediction':pred.reshape(pred.shape[0],),'actual':y_train,'error':pred.reshape(pred.shape[0],)-y_train})\n# ALEX: remove plotting\n# sns.distplot(comparison['error'])\n_ = comparison['error']",
+      "raw": "comparison = pd.DataFrame({'prediction':pred.reshape(pred.shape[0],),'actual':y_train,'error':pred.reshape(pred.shape[0],)-y_train})\n# FIRST-AUTHOR: remove plotting\n# sns.distplot(comparison['error'])\n_ = comparison['error']",
       "rewrite-ns": 1577313,
       "overhead-ns": 1577313,
       "exec-ns": 3916370,
@@ -354,7 +354,7 @@
       "rewritten": "comparison = pd.DataFrame({'prediction': pred.reshape(pred.shape[0]),\n    'actual': y_train, 'error': pred.reshape(pred.shape[0]) - y_train})\n_ = comparison['error']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# comparison.plot(x='prediction',y='error',kind='scatter')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# comparison.plot(x='prediction',y='error',kind='scatter')",
       "rewrite-ns": 17052,
       "overhead-ns": 17052,
       "exec-ns": 86949,
@@ -363,7 +363,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# comparison.plot(x='prediction',y='actual',kind='scatter')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# comparison.plot(x='prediction',y='actual',kind='scatter')",
       "rewrite-ns": 14744,
       "overhead-ns": 14744,
       "exec-ns": 78352,
@@ -372,7 +372,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# output result for submission\n# ALEX: remove ML code\n# pred = np.expm1(reg.predict(X_test))\npred = np.expm1(y_train.to_numpy())\n# ALEX: make notebook run\n# pred = pd.DataFrame(pred.reshape(1459, ))\npred = pd.DataFrame(pred.reshape(pred.shape[0], ))\noutput = pd.concat([df_test['Id'],pred],axis=1).rename(columns={0:'SalePrice'})\noutput.to_csv('submission.csv',index=False)",
+      "raw": "# output result for submission\n# FIRST-AUTHOR: remove ML code\n# pred = np.expm1(reg.predict(X_test))\npred = np.expm1(y_train.to_numpy())\n# FIRST-AUTHOR: make notebook run\n# pred = pd.DataFrame(pred.reshape(1459, ))\npred = pd.DataFrame(pred.reshape(pred.shape[0], ))\noutput = pd.concat([df_test['Id'],pred],axis=1).rename(columns={0:'SalePrice'})\noutput.to_csv('submission.csv',index=False)",
       "rewrite-ns": 2231514,
       "overhead-ns": 2231514,
       "exec-ns": 286565401,
@@ -381,7 +381,7 @@
       "rewritten": "pred = np.expm1(y_train.to_numpy())\npred = pd.DataFrame(pred.reshape(pred.shape[0]))\noutput = pd.concat([df_test['Id'], pred], axis=1).rename(columns={(0):\n    'SalePrice'})\noutput.to_csv('submission.csv', index=False)\n"
     },
     {
-      "raw": "steps = ['Control','Outliers','Log_y','Modification','Non-linearity','Collinearity']\nrmls = [0.15494899171649665,0.14154336306738766,0.11543537404168344,0.11479554199015254,0.11394995795225088,0.11326714995779572]\nscores = pd.DataFrame({'steps':steps,'rmls':rmls})\n\n# ALEX: remove plotting\n# scores.plot(x='steps',y='rmls',marker='o',rot=90)\n# plt.xlabel('Preprocessing Actions',fontsize=14)\n# plt.ylabel('RMLS',fontsize=14)\n# plt.title('RMLS Changing wrt to Preprocessing Actions',fontsize=16)",
+      "raw": "steps = ['Control','Outliers','Log_y','Modification','Non-linearity','Collinearity']\nrmls = [0.15494899171649665,0.14154336306738766,0.11543537404168344,0.11479554199015254,0.11394995795225088,0.11326714995779572]\nscores = pd.DataFrame({'steps':steps,'rmls':rmls})\n\n# FIRST-AUTHOR: remove plotting\n# scores.plot(x='steps',y='rmls',marker='o',rot=90)\n# plt.xlabel('Preprocessing Actions',fontsize=14)\n# plt.ylabel('RMLS',fontsize=14)\n# plt.title('RMLS Changing wrt to Preprocessing Actions',fontsize=16)",
       "rewrite-ns": 1354685,
       "overhead-ns": 1354685,
       "exec-ns": 755102,

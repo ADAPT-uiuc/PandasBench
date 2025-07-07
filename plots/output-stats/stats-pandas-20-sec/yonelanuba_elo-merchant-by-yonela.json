@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 4351,
   "cells": [
     {
-      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# plt.style.use('fivethirtyeight') \n# %matplotlib inline\n\n\n# import warnings\nimport datetime\nimport calendar\n# ALEX: remove additional imports\n# from datetime import time\n# from dateutil.relativedelta import relativedelta\n\n# # to ignore future warnings\n# warnings.simplefilter(action = 'ignore', category = FutureWarning)\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list the files in the input directory\n\n# ALEX: remove path printing\n# import os\n# print(os.listdir(\"./input\"))\ntrain = pd.read_csv('./input/train.scaled.csv')\ntest = pd.read_csv('./input/test.scaled.csv')\n# Any results you write to the current directory are saved as output.",
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# plt.style.use('fivethirtyeight') \n# %matplotlib inline\n\n\n# import warnings\nimport datetime\nimport calendar\n# FIRST-AUTHOR: remove additional imports\n# from datetime import time\n# from dateutil.relativedelta import relativedelta\n\n# # to ignore future warnings\n# warnings.simplefilter(action = 'ignore', category = FutureWarning)\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list the files in the input directory\n\n# FIRST-AUTHOR: remove path printing\n# import os\n# print(os.listdir(\"./input\"))\ntrain = pd.read_csv('./input/train.scaled.csv')\ntest = pd.read_csv('./input/test.scaled.csv')\n# Any results you write to the current directory are saved as output.",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 86041907
@@ -57,13 +57,13 @@
       "total-ns": 601037
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.distplot(train.target.values, kde = False)\n_ = train.target.values",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.distplot(train.target.values, kde = False)\n_ = train.target.values",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 455031
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.violinplot(x = \"target\", data=train)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.violinplot(x = \"target\", data=train)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 120648
@@ -105,13 +105,13 @@
       "total-ns": 302840
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.set()\n# sns.pairplot(train, kind='scatter', size = 2, diag_kind='kde')\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.set()\n# sns.pairplot(train, kind='scatter', size = 2, diag_kind='kde')\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 134857
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize = (7,5))\n# plt.scatter(x= train.feature_1, y = train.target)\n# plt.title('Feature_1', size = 15)\n\n# plt.figure(figsize = (7,5))\n# plt.scatter(x = train.feature_2, y = train.target)\n# plt.title('Feature_2')\n\n# plt.figure(figsize = (7,5))\n# plt.scatter(x = train.feature_3, y = train.target)\n# plt.title('Feature_3')\n_ = train.feature_1\n_ = train.target\n_ = train.feature_2\n_ = train.target\n_ = train.feature_3\n_ = train.target",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize = (7,5))\n# plt.scatter(x= train.feature_1, y = train.target)\n# plt.title('Feature_1', size = 15)\n\n# plt.figure(figsize = (7,5))\n# plt.scatter(x = train.feature_2, y = train.target)\n# plt.title('Feature_2')\n\n# plt.figure(figsize = (7,5))\n# plt.scatter(x = train.feature_3, y = train.target)\n# plt.title('Feature_3')\n_ = train.feature_1\n_ = train.target\n_ = train.feature_2\n_ = train.target\n_ = train.feature_3\n_ = train.target",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 567937
@@ -123,13 +123,13 @@
       "total-ns": 3520925
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize = (7,5))\n# plt.scatter(x= train.feature_1, y = train.target)\n# plt.title('Feature_1', size = 15)\n\n# plt.figure(figsize = (7,5))\n# plt.scatter(x = train.feature_2, y = train.target)\n# plt.title('Feature_2')\n\n# plt.figure(figsize = (7,5))\n# plt.scatter(x = train.feature_3, y = train.target)\n# plt.title('Feature_3')\n_ = train.feature_1\n_ = train.target\n_ = train.feature_2\n_ = train.target\n_ = train.feature_3\n_ = train.target",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize = (7,5))\n# plt.scatter(x= train.feature_1, y = train.target)\n# plt.title('Feature_1', size = 15)\n\n# plt.figure(figsize = (7,5))\n# plt.scatter(x = train.feature_2, y = train.target)\n# plt.title('Feature_2')\n\n# plt.figure(figsize = (7,5))\n# plt.scatter(x = train.feature_3, y = train.target)\n# plt.title('Feature_3')\n_ = train.feature_1\n_ = train.target\n_ = train.feature_2\n_ = train.target\n_ = train.feature_3\n_ = train.target",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 593056
     },
     {
-      "raw": "# ALEX: make notebook run\n# correlation = train.corr()\ncorrelation = train.corr(numeric_only=True)",
+      "raw": "# FIRST-AUTHOR: make notebook run\n# correlation = train.corr()\ncorrelation = train.corr(numeric_only=True)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 4796249
@@ -153,25 +153,25 @@
       "total-ns": 8250160
     },
     {
-      "raw": "train = train[train.target > -10]\n# ALEX: remove plotting\n# sns.pairplot(train[['feature_1', 'feature_2', 'feature_3', 'target']])\n_ = train[['feature_1', 'feature_2', 'feature_3', 'target']]",
+      "raw": "train = train[train.target > -10]\n# FIRST-AUTHOR: remove plotting\n# sns.pairplot(train[['feature_1', 'feature_2', 'feature_3', 'target']])\n_ = train[['feature_1', 'feature_2', 'feature_3', 'target']]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 3508778
     },
     {
-      "raw": "# ALEX: remove plotting\n# f, axes = plt.subplots(1,figsize = (12,6))\n# sns.distplot(train.feature_1, ax = axes, kde = False, color = 'green', bins = 10).set_title('Train data')\n# axes.set(ylabel = 'Card Counts')\n# axes.set_xticks(np.arange(1,6,1))\n# plt.show()\n_ = train.feature_1",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# f, axes = plt.subplots(1,figsize = (12,6))\n# sns.distplot(train.feature_1, ax = axes, kde = False, color = 'green', bins = 10).set_title('Train data')\n# axes.set(ylabel = 'Card Counts')\n# axes.set_xticks(np.arange(1,6,1))\n# plt.show()\n_ = train.feature_1",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 290023
     },
     {
-      "raw": "# ALEX: remove plotting\n# f, axes = plt.subplots(1,figsize = (12,6))\n# sns.distplot(train.feature_2, ax = axes, kde = False, color = 'green', bins = 10).set_title('Train data')\n# axes.set(ylabel = 'Card Counts')\n# axes.set_xticks(np.arange(1,6,1))\n# plt.show()\n_ = train.feature_2",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# f, axes = plt.subplots(1,figsize = (12,6))\n# sns.distplot(train.feature_2, ax = axes, kde = False, color = 'green', bins = 10).set_title('Train data')\n# axes.set(ylabel = 'Card Counts')\n# axes.set_xticks(np.arange(1,6,1))\n# plt.show()\n_ = train.feature_2",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 259328
     },
     {
-      "raw": "# ALEX: remove plotting\n# f, axes = plt.subplots(1,figsize = (12,6))\n# sns.distplot(train.feature_3, ax = axes, kde = False, color = 'green', bins = 10).set_title('Train data')\n# axes.set(ylabel = 'Card Counts')\n# axes.set_xticks(np.arange(1,6,1))\n# plt.show()\n_ = train.feature_3",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# f, axes = plt.subplots(1,figsize = (12,6))\n# sns.distplot(train.feature_3, ax = axes, kde = False, color = 'green', bins = 10).set_title('Train data')\n# axes.set(ylabel = 'Card Counts')\n# axes.set_xticks(np.arange(1,6,1))\n# plt.show()\n_ = train.feature_3",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 260159
@@ -183,7 +183,7 @@
       "total-ns": 126462
     },
     {
-      "raw": "# ALEX: remove plotting\n# train.groupby('first_active_month').count()['card_id'].plot(figsize = (15,5), title = 'Count of First Active Month in Train set', color = 'r')\n# plt.show()\ntrain.groupby('first_active_month').count()['card_id']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# train.groupby('first_active_month').count()['card_id'].plot(figsize = (15,5), title = 'Count of First Active Month in Train set', color = 'r')\n# plt.show()\ntrain.groupby('first_active_month').count()['card_id']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 7218219
@@ -459,13 +459,13 @@
       "total-ns": 5101640
     },
     {
-      "raw": "# ALEX: remove plotting\n# ax = sns.lineplot(x = \"purchase_month\", y = \"target\", \n#                   markers = True, dashes = False, data = data)\n# plt.xticks(rotation = 45)\n# ax.set_title('Target Variable Changes over Purchase Month')\n# ax.set_xlabel('Purchase Month')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# ax = sns.lineplot(x = \"purchase_month\", y = \"target\", \n#                   markers = True, dashes = False, data = data)\n# plt.xticks(rotation = 45)\n# ax.set_title('Target Variable Changes over Purchase Month')\n# ax.set_xlabel('Purchase Month')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 138555
     },
     {
-      "raw": "# ALEX: remove plotting\n# ax = sns.lineplot(x = \"first_active_month2\", y = \"target\", \n#                   markers = True, dashes = False, data = data)\n# plt.xticks(rotation = 45)\n# ax.set_title('Target Variable Changes over the First Active Month')\n# ax.set_xlabel('First Active Month')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# ax = sns.lineplot(x = \"first_active_month2\", y = \"target\", \n#                   markers = True, dashes = False, data = data)\n# plt.xticks(rotation = 45)\n# ax.set_title('Target Variable Changes over the First Active Month')\n# ax.set_xlabel('First Active Month')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 130839
@@ -519,7 +519,7 @@
       "total-ns": 72699
     },
     {
-      "raw": "# ALEX: make notebook run\n# correlation_data = data.corr()\ncorrelation_data = data.corr(numeric_only=True)",
+      "raw": "# FIRST-AUTHOR: make notebook run\n# correlation_data = data.corr()\ncorrelation_data = data.corr(numeric_only=True)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 7549368
@@ -795,7 +795,7 @@
       "total-ns": 62357
     },
     {
-      "raw": "# ALEX: remove ML code\n# from xgboost import XGBRegressor",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from xgboost import XGBRegressor",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 127618
@@ -819,7 +819,7 @@
       "total-ns": 399583
     },
     {
-      "raw": "# ALEX: remove ML code\n# xgb = XGBRegressor()",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# xgb = XGBRegressor()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 121082
@@ -867,25 +867,25 @@
       "total-ns": 106241
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.linear_model import Lasso",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.linear_model import Lasso",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 152429
     },
     {
-      "raw": "# ALEX: remove ML code\n# lassoreg = Lasso(alpha = 1.0, normalize = True, max_iter=1e5)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# lassoreg = Lasso(alpha = 1.0, normalize = True, max_iter=1e5)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 128852
     },
     {
-      "raw": "# ALEX: remove ML code\n# model_lasso = lassoreg.fit(X,y)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# model_lasso = lassoreg.fit(X,y)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 116654
     },
     {
-      "raw": "# ALEX:  remove ML code\n# pred_lasso = model_lasso.predict(test_app)\npred_lasso = y",
+      "raw": "# FIRST-AUTHOR:  remove ML code\n# pred_lasso = model_lasso.predict(test_app)\npred_lasso = y",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 207064
@@ -927,37 +927,37 @@
       "total-ns": 38832303
     },
     {
-      "raw": "# ALEX: remove ML code\n# import lightgbm as lgb",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# import lightgbm as lgb",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 149068
     },
     {
-      "raw": "# ALEX: remove ML code\n# params = {\n#         \"objective\" : \"regression\",\n#         \"metric\" : \"rmse\",\n#         \"num_leaves\" : 30,\n#         \"min_child_weight\" : 50,\n#         \"learning_rate\" : 0.05,\n#         \"bagging_fraction\" : 0.7,\n#         \"feature_fraction\" : 0.7,\n#         \"bagging_seed\" : 2018,\n#         \"verbosity\" : -1\n#     }",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# params = {\n#         \"objective\" : \"regression\",\n#         \"metric\" : \"rmse\",\n#         \"num_leaves\" : 30,\n#         \"min_child_weight\" : 50,\n#         \"learning_rate\" : 0.05,\n#         \"bagging_fraction\" : 0.7,\n#         \"feature_fraction\" : 0.7,\n#         \"bagging_seed\" : 2018,\n#         \"verbosity\" : -1\n#     }",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 173559
     },
     {
-      "raw": "# ALEX: remove ML code\n# train_set = lgb.Dataset(X, label = y.values)\n_ = y.values",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# train_set = lgb.Dataset(X, label = y.values)\n_ = y.values",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 236219
     },
     {
-      "raw": "# ALEX: remove ML code\n# val_set = lgb.Dataset(X)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# val_set = lgb.Dataset(X)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 121511
     },
     {
-      "raw": "# ALEX: remove ML code\n# lgb_model = lgb.train(params, train_set,valid_sets= val_set, early_stopping_rounds=1000,verbose_eval=1000, num_boost_round=1000)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# lgb_model = lgb.train(params, train_set,valid_sets= val_set, early_stopping_rounds=1000,verbose_eval=1000, num_boost_round=1000)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 115930
     },
     {
-      "raw": "# ALEX: remove ML code\n# lgb_pred = lgb_model.predict(test_app)\nlgb_pred = y.values",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# lgb_pred = lgb_model.predict(test_app)\nlgb_pred = y.values",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 207775
@@ -975,31 +975,31 @@
       "total-ns": 38430881
     },
     {
-      "raw": "# ALEX: remove ML code\n# import xgboost as xgb",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# import xgboost as xgb",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 143179
     },
     {
-      "raw": "# ALEX: remove ML code\n# dtrain = xgb.DMatrix(X, label = y.values)\n# dtest = xgb.DMatrix(test_app)\n_ = y.values",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# dtrain = xgb.DMatrix(X, label = y.values)\n# dtest = xgb.DMatrix(test_app)\n_ = y.values",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 223517
     },
     {
-      "raw": "# ALEX: remove ML code\n# xgb_params = {'learning_rate':0.001, \n#               'n_estimators':1000,\n#               'max_depth':4,\n#               'min_child_weight':6,\n#               'gamma':0,\n#               'subsample':0.8,\n#               'colsample_bytree':0.8,\n#               'objective':'binary:logistic',\n#               'nthread':4,\n#               'scale_pos_weight':1,\n#               'seed':27,\n#               'silent':1\n#               }",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# xgb_params = {'learning_rate':0.001, \n#               'n_estimators':1000,\n#               'max_depth':4,\n#               'min_child_weight':6,\n#               'gamma':0,\n#               'subsample':0.8,\n#               'colsample_bytree':0.8,\n#               'objective':'binary:logistic',\n#               'nthread':4,\n#               'scale_pos_weight':1,\n#               'seed':27,\n#               'silent':1\n#               }",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 178310
     },
     {
-      "raw": "# ALEX: remove ML code\n# xgb_model = xgb.train(params = {'silent':1, 'learning_rate':0.1, 'n_estimators':1000, 'min_child_weight':5},dtrain=dtrain, verbose_eval = False, num_boost_round=100)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# xgb_model = xgb.train(params = {'silent':1, 'learning_rate':0.1, 'n_estimators':1000, 'min_child_weight':5},dtrain=dtrain, verbose_eval = False, num_boost_round=100)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 118249
     },
     {
-      "raw": "# ALEX: remove ML code\n# xgb_pred = xgb_model.predict(dtest)\nxgb_pred = y.values",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# xgb_pred = xgb_model.predict(dtest)\nxgb_pred = y.values",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 201869

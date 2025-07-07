@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 871,
   "cells": [
     {
-      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns",
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 366687
@@ -27,43 +27,43 @@
       "total-ns": 524850566
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.distplot(df['price'])\nevaluate_lazy(df['price'])",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.distplot(df['price'])\nevaluate_lazy(df['price'])",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 380356
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.countplot(df['bedrooms'])\nevaluate_lazy(df['bedrooms'])",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.countplot(df['bedrooms'])\nevaluate_lazy(df['bedrooms'])",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 289033
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='price',y='sqft_living',data=df)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='price',y='sqft_living',data=df)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 120872
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.boxplot(x='bedrooms',y='price',data=df)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.boxplot(x='bedrooms',y='price',data=df)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 95965
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='price',y='long',data=df)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='price',y='long',data=df)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 96608
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='price',y='lat',data=df)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='price',y='lat',data=df)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 98292
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='long',y='lat',data=df,hue='price')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='long',y='lat',data=df,hue='price')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 101917
@@ -87,13 +87,13 @@
       "total-ns": 236519076
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='long',y='lat',\n#                 data=non_top_1_perc,hue='price',\n#                 palette='RdYlGn',edgecolor=None,alpha=0.2)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='long',y='lat',\n#                 data=non_top_1_perc,hue='price',\n#                 palette='RdYlGn',edgecolor=None,alpha=0.2)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 204889
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.boxplot(x='waterfront',y='price',data=df)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.boxplot(x='waterfront',y='price',data=df)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 151102
@@ -141,25 +141,25 @@
       "total-ns": 1313577176
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.boxplot(x='year',y='price',data=df)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.boxplot(x='year',y='price',data=df)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 186675
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.boxplot(x='month',y='price',data=df)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.boxplot(x='month',y='price',data=df)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 130921
     },
     {
-      "raw": "# ALEX: remove plotting\n# df.groupby('month').mean()['price'].plot()\nevaluate_lazy(df.groupby('month').mean()['price'])",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# df.groupby('month').mean()['price'].plot()\nevaluate_lazy(df.groupby('month').mean()['price'])",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 95328240
     },
     {
-      "raw": "# ALEX: remove plotting\n# df.groupby('year').mean()['price'].plot()\nevaluate_lazy(df.groupby('year').mean()['price'])",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# df.groupby('year').mean()['price'].plot()\nevaluate_lazy(df.groupby('year').mean()['price'])",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 121114028
@@ -213,115 +213,115 @@
       "total-ns": 47903340
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import train_test_split",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.model_selection import train_test_split",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 177481
     },
     {
-      "raw": "# ALEX: remove ML code\n# X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.3,random_state=101)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.3,random_state=101)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 131952
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.preprocessing import MinMaxScaler",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.preprocessing import MinMaxScaler",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 98234
     },
     {
-      "raw": "# ALEX: remove ML code\n# scaler = MinMaxScaler()",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# scaler = MinMaxScaler()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 94779
     },
     {
-      "raw": "# ALEX: remove ML code\n# X_train= scaler.fit_transform(X_train)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# X_train= scaler.fit_transform(X_train)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 91650
     },
     {
-      "raw": "# ALEX: remove ML code\n# X_test = scaler.transform(X_test)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# X_test = scaler.transform(X_test)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 90856
     },
     {
-      "raw": "# ALEX: remove ML code\n# X_train.shape",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# X_train.shape",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 92016
     },
     {
-      "raw": "# ALEX: remove ML code\n# X_test.shape",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# X_test.shape",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 90711
     },
     {
-      "raw": "# ALEX: remove ML code\n# from tensorflow.keras.models import Sequential\n# from tensorflow.keras.layers import Dense, Activation\n# from tensorflow.keras.optimizers import Adam",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from tensorflow.keras.models import Sequential\n# from tensorflow.keras.layers import Dense, Activation\n# from tensorflow.keras.optimizers import Adam",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 107981
     },
     {
-      "raw": "# ALEX: remove ML code\n# model = Sequential()\n\n# model.add(Dense(19,activation='relu'))\n# model.add(Dense(19,activation='relu'))\n# model.add(Dense(19,activation='relu'))\n# model.add(Dense(19,activation='relu'))\n# model.add(Dense(1))\n\n# model.compile(optimizer='adam',loss='mse')",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# model = Sequential()\n\n# model.add(Dense(19,activation='relu'))\n# model.add(Dense(19,activation='relu'))\n# model.add(Dense(19,activation='relu'))\n# model.add(Dense(19,activation='relu'))\n# model.add(Dense(1))\n\n# model.compile(optimizer='adam',loss='mse')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 123133
     },
     {
-      "raw": "# ALEX: remove ML code\n# model.fit(x=X_train,y=y_train.values,\n#           validation_data=(X_test,y_test.values),\n#           batch_size=128,epochs=400)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# model.fit(x=X_train,y=y_train.values,\n#           validation_data=(X_test,y_test.values),\n#           batch_size=128,epochs=400)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 100581
     },
     {
-      "raw": "# ALEX: remove ML code\n# losses = pd.DataFrame(model.history.history)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# losses = pd.DataFrame(model.history.history)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 90028
     },
     {
-      "raw": "# ALEX: remove ML code\n# losses.plot()",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# losses.plot()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 90845
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.metrics import mean_squared_error,mean_absolute_error,explained_variance_score",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.metrics import mean_squared_error,mean_absolute_error,explained_variance_score",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 91660
     },
     {
-      "raw": "# ALEX: remove ML code\n# X_test",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# X_test",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 88704
     },
     {
-      "raw": "# ALEX: remove ML code\n# predictions = model.predict(X_test)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# predictions = model.predict(X_test)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 88890
     },
     {
-      "raw": "# ALEX: remove ML code\n# mean_absolute_error(y_test,predictions)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# mean_absolute_error(y_test,predictions)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 87786
     },
     {
-      "raw": "# ALEX: remove ML code\n# np.sqrt(mean_squared_error(y_test,predictions))",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# np.sqrt(mean_squared_error(y_test,predictions))",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 87044
     },
     {
-      "raw": "# ALEX: remove ML code\n# explained_variance_score(y_test,predictions)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# explained_variance_score(y_test,predictions)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 87490
@@ -339,7 +339,7 @@
       "total-ns": 23584493
     },
     {
-      "raw": "# Our predictions\n# ALEX: remove plotting\n# plt.scatter(y_test,predictions)\n\n# # Perfect predictions\n# plt.plot(y_test,y_test,'r')",
+      "raw": "# Our predictions\n# FIRST-AUTHOR: remove plotting\n# plt.scatter(y_test,predictions)\n\n# # Perfect predictions\n# plt.plot(y_test,y_test,'r')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 178220
@@ -351,7 +351,7 @@
       "total-ns": 47966263
     },
     {
-      "raw": "# ALEX: remove ML code\n# single_house = scaler.transform(single_house.values.reshape(-1, 19))\nsingle_house.values.reshape(-1, 19)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# single_house = scaler.transform(single_house.values.reshape(-1, 19))\nsingle_house.values.reshape(-1, 19)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 337401
@@ -363,7 +363,7 @@
       "total-ns": 242329
     },
     {
-      "raw": "# ALEX: remove ML code\n# model.predict(single_house)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# model.predict(single_house)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 124028

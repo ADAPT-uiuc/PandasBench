@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 173,
   "cells": [
     {
-      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting, ML code\n# import statsmodels.api as sm\n# import seaborn as sns\n# from statsmodels.tsa.seasonal import seasonal_decompose\n# from statsmodels.tsa.stattools import adfuller\n# from statsmodels.graphics.tsaplots import plot_acf,plot_pacf\n# from pandas.plotting import autocorrelation_plot\n# from statsmodels.tsa.arima_model import ARIMA\n# from pandas.tseries.offsets import DateOffset\n\n# import matplotlib.pyplot as plt\n# %matplotlib inline\n\n# Suppress warnings \nimport warnings\nwarnings.filterwarnings('ignore')",
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting, ML code\n# import statsmodels.api as sm\n# import seaborn as sns\n# from statsmodels.tsa.seasonal import seasonal_decompose\n# from statsmodels.tsa.stattools import adfuller\n# from statsmodels.graphics.tsaplots import plot_acf,plot_pacf\n# from pandas.plotting import autocorrelation_plot\n# from statsmodels.tsa.arima_model import ARIMA\n# from pandas.tseries.offsets import DateOffset\n\n# import matplotlib.pyplot as plt\n# %matplotlib inline\n\n# Suppress warnings \nimport warnings\nwarnings.filterwarnings('ignore')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 3384298572
@@ -51,7 +51,7 @@
       "total-ns": 48498736
     },
     {
-      "raw": "# ALEX: remove plotting\n# df_new.boxplot('Val', rot = 80, fontsize = '12',grid = True);",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# df_new.boxplot('Val', rot = 80, fontsize = '12',grid = True);",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 295972
@@ -63,7 +63,7 @@
       "total-ns": 1667440
     },
     {
-      "raw": "# ALEX: remove plotting\n# time_series.rolling(12).mean().plot(label = '12 Months Rolling Mean', figsize = (16,10))\n# time_series.rolling(12).std().plot(label = '12 Months Rolling Std')\n# time_series.plot()\n# plt.legend();\ntime_series.rolling(12).mean()\ntime_series.rolling(12).std()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# time_series.rolling(12).mean().plot(label = '12 Months Rolling Mean', figsize = (16,10))\n# time_series.rolling(12).std().plot(label = '12 Months Rolling Std')\n# time_series.plot()\n# plt.legend();\ntime_series.rolling(12).mean()\ntime_series.rolling(12).std()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 9469377

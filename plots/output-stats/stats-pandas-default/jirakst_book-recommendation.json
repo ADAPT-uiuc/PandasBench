@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 1809,
   "cells": [
     {
-      "raw": "# Basic\nimport numpy as np \n# import pandas as pd \nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt \n\n# # System\n# import warnings\n# import os\n# warnings.filterwarnings(\"ignore\")\n# %matplotlib inline\n\n# ALEX: remove path printing\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))",
+      "raw": "# Basic\nimport numpy as np \n# import pandas as pd \nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt \n\n# # System\n# import warnings\n# import os\n# warnings.filterwarnings(\"ignore\")\n# %matplotlib inline\n\n# FIRST-AUTHOR: remove path printing\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 430132
@@ -147,7 +147,7 @@
       "total-ns": 837531372
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.distplot(data['Age'].dropna(), kde=False)\n_ = data['Age'].dropna()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.distplot(data['Age'].dropna(), kde=False)\n_ = data['Age'].dropna()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 9481875
@@ -165,7 +165,7 @@
       "total-ns": 16571225
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.countplot(x='Book-Rating', data=data)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.countplot(x='Book-Rating', data=data)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 145523
@@ -177,7 +177,7 @@
       "total-ns": 48870756
     },
     {
-      "raw": "# Publication by Year\nyear = pd.to_numeric(data['Year-Of-Publication'], 'coerce').fillna(2099, downcast = 'infer')\n# ALEX: remove plotting\n# sns.distplot(year, kde=False, hist_kws={\"range\": [1945,2020]})",
+      "raw": "# Publication by Year\nyear = pd.to_numeric(data['Year-Of-Publication'], 'coerce').fillna(2099, downcast = 'infer')\n# FIRST-AUTHOR: remove plotting\n# sns.distplot(year, kde=False, hist_kws={\"range\": [1945,2020]})",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 195731361
@@ -369,7 +369,7 @@
       "total-ns": 459213
     },
     {
-      "raw": "# ALEX: remove plotting\n# liked['Rating-Count'].hist()\nliked['Rating-Count']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# liked['Rating-Count'].hist()\nliked['Rating-Count']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 215090
@@ -441,7 +441,7 @@
       "total-ns": 538617
     },
     {
-      "raw": "# ALEX: remove plotting\n# from tqdm import tqdm\n# from gensim.models import Word2Vec \nimport random",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# from tqdm import tqdm\n# from gensim.models import Word2Vec \nimport random",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 167322
@@ -459,43 +459,43 @@
       "total-ns": 17007940
     },
     {
-      "raw": "# list to capture purchase history of the customers\nreads_train = []\n\n# populate the list with the product codes\n# ALEX: remove extra display code\n# for i in tqdm(users_train):\nfor i in users_train:\n    temp = train_df[train_df[\"User-ID\"] == i][\"ISBN\"].tolist()\n    reads_train.append(temp)",
+      "raw": "# list to capture purchase history of the customers\nreads_train = []\n\n# populate the list with the product codes\n# FIRST-AUTHOR: remove extra display code\n# for i in tqdm(users_train):\nfor i in users_train:\n    temp = train_df[train_df[\"User-ID\"] == i][\"ISBN\"].tolist()\n    reads_train.append(temp)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1269403474
     },
     {
-      "raw": "# list to capture purchase history of the customers\nreads_val = []\n\n# populate the list with the product codes\n# ALEX: remove extra display code\n# for i in tqdm(validation_df['User-ID'].unique()):\nfor i in validation_df['User-ID'].unique():\n    temp = validation_df[validation_df[\"User-ID\"] == i][\"ISBN\"].tolist()\n    reads_val.append(temp)",
+      "raw": "# list to capture purchase history of the customers\nreads_val = []\n\n# populate the list with the product codes\n# FIRST-AUTHOR: remove extra display code\n# for i in tqdm(validation_df['User-ID'].unique()):\nfor i in validation_df['User-ID'].unique():\n    temp = validation_df[validation_df[\"User-ID\"] == i][\"ISBN\"].tolist()\n    reads_val.append(temp)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 104307439
     },
     {
-      "raw": "# train word2vec model\n# ALEX: remove ML code\n# model = Word2Vec(window = 10, sg = 1, hs = 0,\n#                  negative = 10, # for negative sampling\n#                  alpha=0.03, min_alpha=0.0007,\n#                  seed = 14)\n\n# model.build_vocab(reads_train, progress_per=200)\n\n# model.train(reads_train, total_examples = model.corpus_count, \n#             epochs=10, report_delay=1)",
+      "raw": "# train word2vec model\n# FIRST-AUTHOR: remove ML code\n# model = Word2Vec(window = 10, sg = 1, hs = 0,\n#                  negative = 10, # for negative sampling\n#                  alpha=0.03, min_alpha=0.0007,\n#                  seed = 14)\n\n# model.build_vocab(reads_train, progress_per=200)\n\n# model.train(reads_train, total_examples = model.corpus_count, \n#             epochs=10, report_delay=1)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 181896
     },
     {
-      "raw": "# ALEX: remove ML code\n# model.init_sims(replace=True)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# model.init_sims(replace=True)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 117827
     },
     {
-      "raw": "# ALEX: remove ML code\n# print(model)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# print(model)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 103733
     },
     {
-      "raw": "# extract all vectors\n# ALEX: remove ML code\n# X = model[model.wv.vocab]\n\n# X.shape",
+      "raw": "# extract all vectors\n# FIRST-AUTHOR: remove ML code\n# X = model[model.wv.vocab]\n\n# X.shape",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 105693
     },
     {
-      "raw": "# ALEX: remove ML code, plotting\n# import umap\n\n# cluster_embedding = umap.UMAP(n_neighbors=30, min_dist=0.0,\n#                               n_components=2, random_state=42).fit_transform(X)\n\n# plt.figure(figsize=(10,9))\n# plt.scatter(cluster_embedding[:, 0], cluster_embedding[:, 1], s=3, cmap='Spectral')",
+      "raw": "# FIRST-AUTHOR: remove ML code, plotting\n# import umap\n\n# cluster_embedding = umap.UMAP(n_neighbors=30, min_dist=0.0,\n#                               n_components=2, random_state=42).fit_transform(X)\n\n# plt.figure(figsize=(10,9))\n# plt.scatter(cluster_embedding[:, 0], cluster_embedding[:, 1], s=3, cmap='Spectral')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 117197
@@ -519,13 +519,13 @@
       "total-ns": 213549
     },
     {
-      "raw": "# ALEX: remove ML code\n# def similar_books(v, n = 15):\n    \n#     # extract most similar products for the input vector\n#     ms = model.similar_by_vector(v, topn= n+1)[1:]\n    \n#     # extract name and similarity score of the similar products\n#     new_ms = []\n#     for j in ms:\n#         pair = (books_dict[j[0]][0], j[1])\n#         new_ms.append(pair)\n        \n#     return new_ms ",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# def similar_books(v, n = 15):\n    \n#     # extract most similar products for the input vector\n#     ms = model.similar_by_vector(v, topn= n+1)[1:]\n    \n#     # extract name and similarity score of the similar products\n#     new_ms = []\n#     for j in ms:\n#         pair = (books_dict[j[0]][0], j[1])\n#         new_ms.append(pair)\n        \n#     return new_ms ",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 165474
     },
     {
-      "raw": "# Recommend\n# ALEX: remove ML code\n# similar_books(model['0345339703'])",
+      "raw": "# Recommend\n# FIRST-AUTHOR: remove ML code\n# similar_books(model['0345339703'])",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 111086

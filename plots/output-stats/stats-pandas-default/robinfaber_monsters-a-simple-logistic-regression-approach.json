@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 112,
   "cells": [
     {
-      "raw": "# import pandas as pd # data processing, CSV file I/O\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sns # plotting\n# from sklearn.linear_model import LogisticRegression # Logistic regression",
+      "raw": "# import pandas as pd # data processing, CSV file I/O\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting\n# import seaborn as sns # plotting\n# from sklearn.linear_model import LogisticRegression # Logistic regression",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 317881
@@ -27,25 +27,25 @@
       "total-ns": 9156963
     },
     {
-      "raw": "# ALEX: remove plotting\n# ax = sns.countplot(x='type', data=train, palette='Set3')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# ax = sns.countplot(x='type', data=train, palette='Set3')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 185046
     },
     {
-      "raw": "# ALEX: remove plotting\n# ax = sns.countplot(x='color', data=train, palette='Set3')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# ax = sns.countplot(x='color', data=train, palette='Set3')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 167733
     },
     {
-      "raw": "id_list = list(train['id']) # Create list of 'id' column in case we need it later\n# ALEX: make notebook run\n# train = train.drop('id', 1) # Drop 'id' column\ntrain = train.drop('id', axis=1) # Drop 'id' column\n\n# Create dictionaries for 'type' and 'color' variables\n\ntype_dict = {'Ghoul': 0,\n            'Goblin': 1,\n            'Ghost': 2}\n\ncolor_dict = {'clear': 0,\n             'green': 1,\n             'black': 2,\n             'white': 3,\n             'blue': 4,\n             'blood': 5}\n\n# Use dictionaries to re-map values categorical variables\n\ntrain['type'] = train['type'].map(type_dict).astype(float)\ntrain['color'] = train['color'].map(color_dict).astype(float)\n\ntest['color'] = test['color'].map(color_dict).astype(float)",
+      "raw": "id_list = list(train['id']) # Create list of 'id' column in case we need it later\n# FIRST-AUTHOR: make notebook run\n# train = train.drop('id', 1) # Drop 'id' column\ntrain = train.drop('id', axis=1) # Drop 'id' column\n\n# Create dictionaries for 'type' and 'color' variables\n\ntype_dict = {'Ghoul': 0,\n            'Goblin': 1,\n            'Ghost': 2}\n\ncolor_dict = {'clear': 0,\n             'green': 1,\n             'black': 2,\n             'white': 3,\n             'blue': 4,\n             'blood': 5}\n\n# Use dictionaries to re-map values categorical variables\n\ntrain['type'] = train['type'].map(type_dict).astype(float)\ntrain['color'] = train['color'].map(color_dict).astype(float)\n\ntest['color'] = test['color'].map(color_dict).astype(float)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 4329931
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.pairplot(train, hue='type', palette='Set3') \n\n#Legend label text shows (0, 1, 2); any tips on how to change legend text are more than welcome!",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.pairplot(train, hue='type', palette='Set3') \n\n#Legend label text shows (0, 1, 2); any tips on how to change legend text are more than welcome!",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 189081
@@ -57,7 +57,7 @@
       "total-ns": 739138
     },
     {
-      "raw": "train = pd.concat([train, pd.get_dummies(train['color'], prefix = 'color')], axis=1) # Create dummies\n# ALEX: make notebook run\n# train = train.drop('color', 1) # Drop 'color' column\ntrain = train.drop('color', axis=1) # Drop 'color' column\n\ntest = pd.concat([test, pd.get_dummies(test['color'], prefix = 'color')], axis=1) # Create dummies\n# ALEX: make notebook run\n# test = test.drop('color', 1) # Drop 'color' column\ntest = test.drop('color', axis=1) # Drop 'color' column",
+      "raw": "train = pd.concat([train, pd.get_dummies(train['color'], prefix = 'color')], axis=1) # Create dummies\n# FIRST-AUTHOR: make notebook run\n# train = train.drop('color', 1) # Drop 'color' column\ntrain = train.drop('color', axis=1) # Drop 'color' column\n\ntest = pd.concat([test, pd.get_dummies(test['color'], prefix = 'color')], axis=1) # Create dummies\n# FIRST-AUTHOR: make notebook run\n# test = test.drop('color', 1) # Drop 'color' column\ntest = test.drop('color', axis=1) # Drop 'color' column",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 3714562
@@ -69,13 +69,13 @@
       "total-ns": 407620
     },
     {
-      "raw": "X = train.loc[:, feature_cols] # Set independent variables\ny = train.type # Set outcome variable\n\n# ALEX: remove ML code\n# logreg = LogisticRegression()\n# logreg.fit(X, y) # Fit model",
+      "raw": "X = train.loc[:, feature_cols] # Set independent variables\ny = train.type # Set outcome variable\n\n# FIRST-AUTHOR: remove ML code\n# logreg = LogisticRegression()\n# logreg.fit(X, y) # Fit model",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1120935
     },
     {
-      "raw": "X_test = test.loc[:, feature_cols]\n# ALEX: remove ML code\n# new_type_pred = logreg.predict(X_test) # Use fitted model to predict outcome in test df\nnew_type_pred = train.type",
+      "raw": "X_test = test.loc[:, feature_cols]\n# FIRST-AUTHOR: remove ML code\n# new_type_pred = logreg.predict(X_test) # Use fitted model to predict outcome in test df\nnew_type_pred = train.type",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1048326

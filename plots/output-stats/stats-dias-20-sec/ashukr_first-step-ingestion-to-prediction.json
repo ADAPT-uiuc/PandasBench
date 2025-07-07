@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 8198,
   "cells": [
     {
-      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting, ML code\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# from sklearn.tree import DecisionTreeRegressor\n# from sklearn.model_selection import train_test_split\n# from sklearn.linear_model import LinearRegression\n# from sklearn.metrics import mean_squared_error\n# from sklearn.preprocessing import scale\n# from math import sqrt",
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting, ML code\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# from sklearn.tree import DecisionTreeRegressor\n# from sklearn.model_selection import train_test_split\n# from sklearn.linear_model import LinearRegression\n# from sklearn.metrics import mean_squared_error\n# from sklearn.preprocessing import scale\n# from math import sqrt",
       "rewrite-ns": 685169,
       "overhead-ns": 685169,
       "exec-ns": 397642,
@@ -129,7 +129,7 @@
       "rewritten": "total = train_data_num_space.isnull().sum().sort_values(ascending=False)\npercent = (train_data_num_space.isnull().sum() / train_data_num_space.\n    isnull().count()).sort_values(ascending=False)\nmissing_data = pd.concat([total, percent], axis=1, keys=['Total', 'Percent'])\nmissing_data.head(20)\n"
     },
     {
-      "raw": "#saleprice correlation matrix\ncorrmat = train_data_num_space.corr()\nk = 15 #number of variables for heatmap\n# ALEX: remove plotting\n# f, ax = plt.subplots(figsize=(12, 9))\ncols = corrmat.nlargest(k, 'SalePrice')['SalePrice'].index\ncm = np.corrcoef(train_data_num_space[cols].values.T)\n# ALEX: remove plotting\n# sns.set(font_scale=1.25)\n# hm = sns.heatmap(cm, cbar=True, annot=True, square=True, fmt='.2f', annot_kws={'size': 10}, yticklabels=cols.values, xticklabels=cols.values)\n# plt.show()\n_ = cols.values\n_ = cols.values\n",
+      "raw": "#saleprice correlation matrix\ncorrmat = train_data_num_space.corr()\nk = 15 #number of variables for heatmap\n# FIRST-AUTHOR: remove plotting\n# f, ax = plt.subplots(figsize=(12, 9))\ncols = corrmat.nlargest(k, 'SalePrice')['SalePrice'].index\ncm = np.corrcoef(train_data_num_space[cols].values.T)\n# FIRST-AUTHOR: remove plotting\n# sns.set(font_scale=1.25)\n# hm = sns.heatmap(cm, cbar=True, annot=True, square=True, fmt='.2f', annot_kws={'size': 10}, yticklabels=cols.values, xticklabels=cols.values)\n# plt.show()\n_ = cols.values\n_ = cols.values\n",
       "rewrite-ns": 1908467,
       "overhead-ns": 1908467,
       "exec-ns": 2187431225,
@@ -147,7 +147,7 @@
       "rewritten": "total = train_data_num_building.isnull().sum().sort_values(ascending=False)\npercent = (train_data_num_building.isnull().sum() / train_data_num_building\n    .isnull().count()).sort_values(ascending=False)\nmissing_data = pd.concat([total, percent], axis=1, keys=['Total', 'Percent'])\nmissing_data.head(20)\n"
     },
     {
-      "raw": "# great there is\n# now we will look at the correlation\ncorrmat = train_data_num_building.corr()\nk = 15 #number of variables for heatmap\n# ALEX: remove plotting\n# f, ax = plt.subplots(figsize=(12, 9))\ncols = corrmat.nlargest(k, 'SalePrice')['SalePrice'].index\ncm = np.corrcoef(train_data_num_building[cols].values.T)\n# ALEX: remove plotting\n# sns.set(font_scale=1.25)\n# hm = sns.heatmap(cm, cbar=True, annot=True, square=True, fmt='.2f', annot_kws={'size': 10}, yticklabels=cols.values, xticklabels=cols.values)\n# plt.show()\n_ = cols.values\n_ = cols.values\n",
+      "raw": "# great there is\n# now we will look at the correlation\ncorrmat = train_data_num_building.corr()\nk = 15 #number of variables for heatmap\n# FIRST-AUTHOR: remove plotting\n# f, ax = plt.subplots(figsize=(12, 9))\ncols = corrmat.nlargest(k, 'SalePrice')['SalePrice'].index\ncm = np.corrcoef(train_data_num_building[cols].values.T)\n# FIRST-AUTHOR: remove plotting\n# sns.set(font_scale=1.25)\n# hm = sns.heatmap(cm, cbar=True, annot=True, square=True, fmt='.2f', annot_kws={'size': 10}, yticklabels=cols.values, xticklabels=cols.values)\n# plt.show()\n_ = cols.values\n_ = cols.values\n",
       "rewrite-ns": 1897347,
       "overhead-ns": 1897347,
       "exec-ns": 3760884810,
@@ -165,7 +165,7 @@
       "rewritten": "total = train_data_num_neighbourhood.isnull().sum().sort_values(ascending=False\n    )\npercent = (train_data_num_neighbourhood.isnull().sum() /\n    train_data_num_neighbourhood.isnull().count()).sort_values(ascending=False)\nmissing_data = pd.concat([total, percent], axis=1, keys=['Total', 'Percent'])\nmissing_data.head(20)\n"
     },
     {
-      "raw": "# great there is no null value\n# now we will look at the correlation\ncorrmat = train_data_num_neighbourhood.corr()\nk = 15 #number of variables for heatmap\n# ALEX: remove plotting\n# f, ax = plt.subplots(figsize=(12, 9))\ncols = corrmat.nlargest(k, 'SalePrice')['SalePrice'].index\ncm = np.corrcoef(train_data_num_neighbourhood[cols].values.T)\n# ALEX: remove plotting\n# sns.set(font_scale=1.25)\n# hm = sns.heatmap(cm, cbar=True, annot=True, square=True, fmt='.2f', annot_kws={'size': 10}, yticklabels=cols.values, xticklabels=cols.values)\n# plt.show()\n_ = cols.values\n_ = cols.values\n",
+      "raw": "# great there is no null value\n# now we will look at the correlation\ncorrmat = train_data_num_neighbourhood.corr()\nk = 15 #number of variables for heatmap\n# FIRST-AUTHOR: remove plotting\n# f, ax = plt.subplots(figsize=(12, 9))\ncols = corrmat.nlargest(k, 'SalePrice')['SalePrice'].index\ncm = np.corrcoef(train_data_num_neighbourhood[cols].values.T)\n# FIRST-AUTHOR: remove plotting\n# sns.set(font_scale=1.25)\n# hm = sns.heatmap(cm, cbar=True, annot=True, square=True, fmt='.2f', annot_kws={'size': 10}, yticklabels=cols.values, xticklabels=cols.values)\n# plt.show()\n_ = cols.values\n_ = cols.values\n",
       "rewrite-ns": 1877989,
       "overhead-ns": 1877989,
       "exec-ns": 105374947,
@@ -192,7 +192,7 @@
       "rewritten": "selected_train_data = train_data[selected_features]\n"
     },
     {
-      "raw": "#scatterplot\n# ALEX: remove plotting\n# sns.set()\ncols = ['SalePrice', 'OverallQual', 'GrLivArea', 'GarageArea', 'TotalBsmtSF', 'FullBath', 'OpenPorchSF','BsmtFinSF1']\n# ALEX: remove plotting\n# sns.pairplot(selected_train_data[cols], size = 2.5)\n# plt.show();\n_ = selected_train_data[cols]",
+      "raw": "#scatterplot\n# FIRST-AUTHOR: remove plotting\n# sns.set()\ncols = ['SalePrice', 'OverallQual', 'GrLivArea', 'GarageArea', 'TotalBsmtSF', 'FullBath', 'OpenPorchSF','BsmtFinSF1']\n# FIRST-AUTHOR: remove plotting\n# sns.pairplot(selected_train_data[cols], size = 2.5)\n# plt.show();\n_ = selected_train_data[cols]",
       "rewrite-ns": 822149,
       "overhead-ns": 822149,
       "exec-ns": 54902688,
@@ -210,7 +210,7 @@
       "rewritten": "selected_train_data.head()\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# Scaled_selected_train_data  = scale(selected_train_data)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# Scaled_selected_train_data  = scale(selected_train_data)",
       "rewrite-ns": 22495,
       "overhead-ns": 22495,
       "exec-ns": 98511,
@@ -219,7 +219,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# Scaled_selected_train_data[:5,:]",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# Scaled_selected_train_data[:5,:]",
       "rewrite-ns": 19967,
       "overhead-ns": 19967,
       "exec-ns": 92203,
@@ -228,7 +228,7 @@
       "rewritten": ""
     },
     {
-      "raw": "X = selected_train_data[['OpenPorchSF','BsmtFinSF1','GarageArea','GrLivArea','OverallQual','TotalBsmtSF','FullBath']]\n# ALEX: remove ML code\n# X=scale(X)",
+      "raw": "X = selected_train_data[['OpenPorchSF','BsmtFinSF1','GarageArea','GrLivArea','OverallQual','TotalBsmtSF','FullBath']]\n# FIRST-AUTHOR: remove ML code\n# X=scale(X)",
       "rewrite-ns": 636911,
       "overhead-ns": 636911,
       "exec-ns": 46235664,
@@ -246,7 +246,7 @@
       "rewritten": "Y = selected_train_data['SalePrice']\nY.head()\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.33, random_state=324)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.33, random_state=324)",
       "rewrite-ns": 21242,
       "overhead-ns": 21242,
       "exec-ns": 98328,
@@ -255,7 +255,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# regressor = LinearRegression(normalize=False)\n# regressor.fit(X_train, y_train)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# regressor = LinearRegression(normalize=False)\n# regressor.fit(X_train, y_train)",
       "rewrite-ns": 17664,
       "overhead-ns": 17664,
       "exec-ns": 92197,
@@ -264,7 +264,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# y_prediction = regressor.predict(X_test)\n# y_prediction",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# y_prediction = regressor.predict(X_test)\n# y_prediction",
       "rewrite-ns": 18552,
       "overhead-ns": 18552,
       "exec-ns": 86751,
@@ -273,7 +273,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# RMSE = sqrt(mean_squared_error(y_true = y_test, y_pred = y_prediction))",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# RMSE = sqrt(mean_squared_error(y_true = y_test, y_pred = y_prediction))",
       "rewrite-ns": 17743,
       "overhead-ns": 17743,
       "exec-ns": 85967,
@@ -282,7 +282,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# print(RMSE)\n# y_test.shape",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# print(RMSE)\n# y_test.shape",
       "rewrite-ns": 17923,
       "overhead-ns": 17923,
       "exec-ns": 85731,
@@ -291,7 +291,7 @@
       "rewritten": ""
     },
     {
-      "raw": "\n# ALEX: remove ML code\n# regressor = DecisionTreeRegressor()\n# regressor.fit(X_train, y_train)",
+      "raw": "\n# FIRST-AUTHOR: remove ML code\n# regressor = DecisionTreeRegressor()\n# regressor.fit(X_train, y_train)",
       "rewrite-ns": 18060,
       "overhead-ns": 18060,
       "exec-ns": 83938,
@@ -300,7 +300,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# y_prediction = regressor.predict(X_test)\n# y_prediction",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# y_prediction = regressor.predict(X_test)\n# y_prediction",
       "rewrite-ns": 19245,
       "overhead-ns": 19245,
       "exec-ns": 90298,
@@ -309,7 +309,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# RMSE = sqrt(mean_squared_error(y_true = y_test, y_pred = y_prediction))",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# RMSE = sqrt(mean_squared_error(y_true = y_test, y_pred = y_prediction))",
       "rewrite-ns": 17893,
       "overhead-ns": 17893,
       "exec-ns": 87385,
@@ -318,7 +318,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# RMSE",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# RMSE",
       "rewrite-ns": 17109,
       "overhead-ns": 17109,
       "exec-ns": 84179,

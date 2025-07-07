@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 123,
   "cells": [
     {
-      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import seaborn as sn\ndf = pd.read_csv(\"./input/House_prediction.scaled.csv\")\ndf",
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting\n# import seaborn as sn\ndf = pd.read_csv(\"./input/House_prediction.scaled.csv\")\ndf",
       "rewrite-ns": 747723,
       "overhead-ns": 747723,
       "exec-ns": 21190532,
@@ -39,7 +39,7 @@
       "rewritten": "df.sort_values(by=['city'], inplace=True)\ndf.reset_index(drop=True, inplace=True)\ndf\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# import matplotlib.pyplot as plt\nimport numpy as np",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\nimport numpy as np",
       "rewrite-ns": 135756,
       "overhead-ns": 135756,
       "exec-ns": 202800,
@@ -57,7 +57,7 @@
       "rewritten": "df2 = df.groupby(by=['city'])\ntype(df2)\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# from scipy import stats",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from scipy import stats",
       "rewrite-ns": 11824,
       "overhead-ns": 11824,
       "exec-ns": 65158,
@@ -66,7 +66,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n#df.groupby(['city']).apply(lambda x: x.mode())['rent'].unstack().plot(ax=ax,label='mode',legend=True)\n# ALEX: remove plotting\n# df.groupby(['city']).median()['rent'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['rent'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).median()['rent']\ndf.groupby(['city']).mean()['rent']\n",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n#df.groupby(['city']).apply(lambda x: x.mode())['rent'].unstack().plot(ax=ax,label='mode',legend=True)\n# FIRST-AUTHOR: remove plotting\n# df.groupby(['city']).median()['rent'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['rent'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).median()['rent']\ndf.groupby(['city']).mean()['rent']\n",
       "rewrite-ns": 1407534,
       "overhead-ns": 1407534,
       "exec-ns": 4968285,
@@ -75,7 +75,7 @@
       "rewritten": "df.groupby(['city']).median()['rent']\ndf.groupby(['city']).mean()['rent']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n#df.groupby(['city']).apply(lambda x: x.mode())['rooms'].unstack().plot(ax=ax,label='mode',legend=True)\n# ALEX: remove plotting\n# df.groupby(['city']).median()['rooms'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['rooms'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).median()['rooms']\ndf.groupby(['city']).mean()['rooms']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n#df.groupby(['city']).apply(lambda x: x.mode())['rooms'].unstack().plot(ax=ax,label='mode',legend=True)\n# FIRST-AUTHOR: remove plotting\n# df.groupby(['city']).median()['rooms'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['rooms'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).median()['rooms']\ndf.groupby(['city']).mean()['rooms']",
       "rewrite-ns": 1047428,
       "overhead-ns": 1047428,
       "exec-ns": 4678060,
@@ -84,7 +84,7 @@
       "rewritten": "df.groupby(['city']).median()['rooms']\ndf.groupby(['city']).mean()['rooms']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['hoa'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['hoa'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['hoa'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['hoa'].unstack()\ndf.groupby(['city']).median()['hoa']\ndf.groupby(['city']).mean()['hoa']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['hoa'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['hoa'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['hoa'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['hoa'].unstack()\ndf.groupby(['city']).median()['hoa']\ndf.groupby(['city']).mean()['hoa']",
       "rewrite-ns": 1878979,
       "overhead-ns": 1880705,
       "exec-ns": 19488135,
@@ -93,7 +93,7 @@
       "rewritten": "df.groupby(['city']).apply(lambda x: x.mode())['hoa'].unstack()\ndf.groupby(['city']).median()['hoa']\ndf.groupby(['city']).mean()['hoa']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n#df.groupby(['city']).apply(lambda x: x.mode())['property_tax'].unstack().plot(ax=ax,label='mode',legend=True)\n# ALEX: remove plotting\n# df.groupby(['city']).median()['property_tax'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['property_tax'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).median()['property_tax']\ndf.groupby(['city']).mean()['property_tax']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n#df.groupby(['city']).apply(lambda x: x.mode())['property_tax'].unstack().plot(ax=ax,label='mode',legend=True)\n# FIRST-AUTHOR: remove plotting\n# df.groupby(['city']).median()['property_tax'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['property_tax'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).median()['property_tax']\ndf.groupby(['city']).mean()['property_tax']",
       "rewrite-ns": 1029238,
       "overhead-ns": 1029238,
       "exec-ns": 4668054,
@@ -102,7 +102,7 @@
       "rewritten": "df.groupby(['city']).median()['property_tax']\ndf.groupby(['city']).mean()['property_tax']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['fire_insurance'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['fire_insurance'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['fire_insurance'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['fire_insurance'].unstack()\ndf.groupby(['city']).median()['fire_insurance']\ndf.groupby(['city']).mean()['fire_insurance']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['fire_insurance'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['fire_insurance'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['fire_insurance'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['fire_insurance'].unstack()\ndf.groupby(['city']).median()['fire_insurance']\ndf.groupby(['city']).mean()['fire_insurance']",
       "rewrite-ns": 1846713,
       "overhead-ns": 1848424,
       "exec-ns": 19073750,
@@ -111,7 +111,7 @@
       "rewritten": "df.groupby(['city']).apply(lambda x: x.mode())['fire_insurance'].unstack()\ndf.groupby(['city']).median()['fire_insurance']\ndf.groupby(['city']).mean()['fire_insurance']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['area'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['area'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['area'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['area'].unstack()\ndf.groupby(['city']).median()['area']\ndf.groupby(['city']).mean()['area']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['area'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['area'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['area'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['area'].unstack()\ndf.groupby(['city']).median()['area']\ndf.groupby(['city']).mean()['area']",
       "rewrite-ns": 1845264,
       "overhead-ns": 1846923,
       "exec-ns": 18784058,
@@ -120,7 +120,7 @@
       "rewritten": "df.groupby(['city']).apply(lambda x: x.mode())['area'].unstack()\ndf.groupby(['city']).median()['area']\ndf.groupby(['city']).mean()['area']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['parking_spaces'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['parking_spaces'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['parking_spaces'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['parking_spaces'].unstack()\ndf.groupby(['city']).median()['parking_spaces']\ndf.groupby(['city']).mean()['parking_spaces']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['parking_spaces'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['parking_spaces'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['parking_spaces'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['parking_spaces'].unstack()\ndf.groupby(['city']).median()['parking_spaces']\ndf.groupby(['city']).mean()['parking_spaces']",
       "rewrite-ns": 1805932,
       "overhead-ns": 1807630,
       "exec-ns": 18720013,
@@ -129,7 +129,7 @@
       "rewritten": "df.groupby(['city']).apply(lambda x: x.mode())['parking_spaces'].unstack()\ndf.groupby(['city']).median()['parking_spaces']\ndf.groupby(['city']).mean()['parking_spaces']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['bathroom'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['bathroom'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['bathroom'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['bathroom'].unstack()\ndf.groupby(['city']).median()['bathroom']\ndf.groupby(['city']).mean()['bathroom']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['bathroom'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['bathroom'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['bathroom'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['bathroom'].unstack()\ndf.groupby(['city']).median()['bathroom']\ndf.groupby(['city']).mean()['bathroom']",
       "rewrite-ns": 1799830,
       "overhead-ns": 1801586,
       "exec-ns": 18784514,
@@ -138,7 +138,7 @@
       "rewritten": "df.groupby(['city']).apply(lambda x: x.mode())['bathroom'].unstack()\ndf.groupby(['city']).median()['bathroom']\ndf.groupby(['city']).mean()['bathroom']\n"
     },
     {
-      "raw": "df['floor']=df['floor'].astype('int')\n# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['floor'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['floor'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['floor'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['floor'].unstack()\ndf.groupby(['city']).median()['floor']\ndf.groupby(['city']).mean()['floor']",
+      "raw": "df['floor']=df['floor'].astype('int')\n# FIRST-AUTHOR: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['floor'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['floor'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['floor'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['floor'].unstack()\ndf.groupby(['city']).median()['floor']\ndf.groupby(['city']).mean()['floor']",
       "rewrite-ns": 2255658,
       "overhead-ns": 2257306,
       "exec-ns": 19855383,
@@ -147,7 +147,7 @@
       "rewritten": "df['floor'] = df['floor'].astype('int')\ndf.groupby(['city']).apply(lambda x: x.mode())['floor'].unstack()\ndf.groupby(['city']).median()['floor']\ndf.groupby(['city']).mean()['floor']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['total'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['total'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['total'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['total'].unstack()\ndf.groupby(['city']).median()['total']\ndf.groupby(['city']).mean()['total']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig, ax = plt.subplots(figsize=(15,7))\n# df.groupby(['city']).apply(lambda x: x.mode())['total'].unstack().plot(ax=ax,label='mode',legend=True)\n# df.groupby(['city']).median()['total'].plot(ax=ax,label=\"median\",legend=True)\n# df.groupby(['city']).mean()['total'].plot(ax=ax,label='mean',legend=True)\ndf.groupby(['city']).apply(lambda x: x.mode())['total'].unstack()\ndf.groupby(['city']).median()['total']\ndf.groupby(['city']).mean()['total']",
       "rewrite-ns": 1801477,
       "overhead-ns": 1803290,
       "exec-ns": 18583849,
@@ -156,7 +156,7 @@
       "rewritten": "df.groupby(['city']).apply(lambda x: x.mode())['total'].unstack()\ndf.groupby(['city']).median()['total']\ndf.groupby(['city']).mean()['total']\n"
     },
     {
-      "raw": "#correlation between hoa,pt,fi with rent\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','rent'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# ALEX: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
+      "raw": "#correlation between hoa,pt,fi with rent\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','rent'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# FIRST-AUTHOR: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
       "rewrite-ns": 861331,
       "overhead-ns": 861331,
       "exec-ns": 1236776,
@@ -165,7 +165,7 @@
       "rewritten": "df_cor_rent = df.filter(['hoa', 'property_tax', 'fire_insurance', 'rent'],\n    axis=1)\ncorrMatrix = df_cor_rent.corr()\n"
     },
     {
-      "raw": "#correlation between hoa,pt,fi with area\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','area'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# ALEX: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
+      "raw": "#correlation between hoa,pt,fi with area\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','area'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# FIRST-AUTHOR: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
       "rewrite-ns": 843693,
       "overhead-ns": 843693,
       "exec-ns": 1208538,
@@ -174,7 +174,7 @@
       "rewritten": "df_cor_rent = df.filter(['hoa', 'property_tax', 'fire_insurance', 'area'],\n    axis=1)\ncorrMatrix = df_cor_rent.corr()\n"
     },
     {
-      "raw": "#correlation between hoa,pt,fi with floor\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','floor'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# ALEX: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
+      "raw": "#correlation between hoa,pt,fi with floor\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','floor'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# FIRST-AUTHOR: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
       "rewrite-ns": 846506,
       "overhead-ns": 846506,
       "exec-ns": 1198704,
@@ -183,7 +183,7 @@
       "rewritten": "df_cor_rent = df.filter(['hoa', 'property_tax', 'fire_insurance', 'floor'],\n    axis=1)\ncorrMatrix = df_cor_rent.corr()\n"
     },
     {
-      "raw": "#correlation between hoa,pt,fi with rooms\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','rooms'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# ALEX: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
+      "raw": "#correlation between hoa,pt,fi with rooms\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','rooms'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# FIRST-AUTHOR: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
       "rewrite-ns": 842779,
       "overhead-ns": 842779,
       "exec-ns": 1207998,
@@ -192,7 +192,7 @@
       "rewritten": "df_cor_rent = df.filter(['hoa', 'property_tax', 'fire_insurance', 'rooms'],\n    axis=1)\ncorrMatrix = df_cor_rent.corr()\n"
     },
     {
-      "raw": "#correlation between hoa,pt,fi with bathroom\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','bathroom'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# ALEX: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
+      "raw": "#correlation between hoa,pt,fi with bathroom\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','bathroom'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# FIRST-AUTHOR: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
       "rewrite-ns": 850385,
       "overhead-ns": 850385,
       "exec-ns": 1201651,
@@ -201,7 +201,7 @@
       "rewritten": "df_cor_rent = df.filter(['hoa', 'property_tax', 'fire_insurance',\n    'bathroom'], axis=1)\ncorrMatrix = df_cor_rent.corr()\n"
     },
     {
-      "raw": "#correlation between hoa,pt,fi with parking_spaces\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','parking_spaces'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# ALEX: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
+      "raw": "#correlation between hoa,pt,fi with parking_spaces\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','parking_spaces'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# FIRST-AUTHOR: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
       "rewrite-ns": 844171,
       "overhead-ns": 844171,
       "exec-ns": 1212772,
@@ -210,7 +210,7 @@
       "rewritten": "df_cor_rent = df.filter(['hoa', 'property_tax', 'fire_insurance',\n    'parking_spaces'], axis=1)\ncorrMatrix = df_cor_rent.corr()\n"
     },
     {
-      "raw": "#correlation between hoa,pt,fi with total\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','total'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# ALEX: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
+      "raw": "#correlation between hoa,pt,fi with total\ndf_cor_rent = df.filter(['hoa','property_tax','fire_insurance','total'], axis=1)\ncorrMatrix=df_cor_rent.corr()\n# FIRST-AUTHOR: remove plotting\n# sn.heatmap(corrMatrix, annot=True)\n# plt.show()",
       "rewrite-ns": 850958,
       "overhead-ns": 850958,
       "exec-ns": 1204529,
@@ -237,7 +237,7 @@
       "rewritten": "df_final.rename(columns={'Belo Horizonte': 'Belo', 'Porto Alegre': 'Porto',\n    'Rio de Janeiro': 'Rio', 'S\u00e3o Paulo': 'Sao', 'not acept': 'not_acept'},\n    inplace=True)\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.linear_model import LinearRegression\n# from sklearn.model_selection import train_test_split\n# model = LinearRegression()",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.linear_model import LinearRegression\n# from sklearn.model_selection import train_test_split\n# model = LinearRegression()",
       "rewrite-ns": 12282,
       "overhead-ns": 12282,
       "exec-ns": 64050,
@@ -255,7 +255,7 @@
       "rewritten": "X = df_final[['fire_insurance']].values\nY = df_final[['rent']].values\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# X_train, X_test, Y_train, Y_test = train_test_split(X,Y, test_size=0.2, random_state = 0)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# X_train, X_test, Y_train, Y_test = train_test_split(X,Y, test_size=0.2, random_state = 0)",
       "rewrite-ns": 12714,
       "overhead-ns": 12714,
       "exec-ns": 65277,
@@ -264,7 +264,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# model.fit(X_train, Y_train)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# model.fit(X_train, Y_train)",
       "rewrite-ns": 10856,
       "overhead-ns": 10856,
       "exec-ns": 59562,
@@ -273,7 +273,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# model.score(X_test,Y_test)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# model.score(X_test,Y_test)",
       "rewrite-ns": 10429,
       "overhead-ns": 10429,
       "exec-ns": 58235,
@@ -282,7 +282,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# Y_pred = model.predict(X_test) \n# df_compare = pd.DataFrame({'actual':Y_test.flatten(), 'predicted':Y_pred.flatten()})\ndf_compare = pd.DataFrame({'actual':Y.flatten(), 'predicted':Y.flatten()})\ndf_compare\n# ALEX: remove plotting\n# df_compare.head(20).plot(kind='bar',figsize=(10,8))\n# plt.grid(which='major', linestyle='-', linewidth='0.5', color='green')\n# plt.grid(which='minor', linestyle=':', linewidth='0.5', color='black')\n# plt.show()\ndf_compare.head(20)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# Y_pred = model.predict(X_test) \n# df_compare = pd.DataFrame({'actual':Y_test.flatten(), 'predicted':Y_pred.flatten()})\ndf_compare = pd.DataFrame({'actual':Y.flatten(), 'predicted':Y.flatten()})\ndf_compare\n# FIRST-AUTHOR: remove plotting\n# df_compare.head(20).plot(kind='bar',figsize=(10,8))\n# plt.grid(which='major', linestyle='-', linewidth='0.5', color='green')\n# plt.grid(which='minor', linestyle=':', linewidth='0.5', color='black')\n# plt.show()\ndf_compare.head(20)",
       "rewrite-ns": 772300,
       "overhead-ns": 772300,
       "exec-ns": 2623340,
@@ -300,7 +300,7 @@
       "rewritten": "X = df_final[['hoa', 'fire_insurance', 'property_tax', 'floor', 'rooms',\n    'bathroom', 'area', 'floor', 'Rio', 'Sao', 'Porto', 'Belo', 'furnished',\n    'not_acept']].values\nY = df_final[['rent']].values\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# X_train, X_test, Y_train, Y_test = train_test_split(X,Y, test_size=0.2, random_state = 0)\n# model.fit(X_train, Y_train)\n# model.score(X_test,Y_test)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# X_train, X_test, Y_train, Y_test = train_test_split(X,Y, test_size=0.2, random_state = 0)\n# model.fit(X_train, Y_train)\n# model.score(X_test,Y_test)",
       "rewrite-ns": 12945,
       "overhead-ns": 12945,
       "exec-ns": 66052,
@@ -309,7 +309,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# Y_pred = model.predict(X_test) \n# df_compare = pd.DataFrame({'actual':Y_test.flatten(), 'predicted':Y_pred.flatten()})\ndf_compare = pd.DataFrame({'actual':Y.flatten(), 'predicted':Y.flatten()})\ndf_compare\n# ALEX: remove plotting\n# df_compare.head(20).plot(kind='bar',figsize=(10,8))\n# plt.grid(which='major', linestyle='-', linewidth='0.5', color='green')\n# plt.grid(which='minor', linestyle=':', linewidth='0.5', color='black')\n# plt.show()\ndf_compare.head(20)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# Y_pred = model.predict(X_test) \n# df_compare = pd.DataFrame({'actual':Y_test.flatten(), 'predicted':Y_pred.flatten()})\ndf_compare = pd.DataFrame({'actual':Y.flatten(), 'predicted':Y.flatten()})\ndf_compare\n# FIRST-AUTHOR: remove plotting\n# df_compare.head(20).plot(kind='bar',figsize=(10,8))\n# plt.grid(which='major', linestyle='-', linewidth='0.5', color='green')\n# plt.grid(which='minor', linestyle=':', linewidth='0.5', color='black')\n# plt.show()\ndf_compare.head(20)",
       "rewrite-ns": 779410,
       "overhead-ns": 779410,
       "exec-ns": 2634009,

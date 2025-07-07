@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 2276,
   "cells": [
     {
-      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path search\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# FIRST-AUTHOR: remove path search\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
       "rewrite-ns": 688264,
       "overhead-ns": 688264,
       "exec-ns": 394973,
@@ -12,7 +12,7 @@
       "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
     },
     {
-      "raw": "# importing the necessary libraries for EDA on Airline Dataset | Kaggle Dataset\n\n# import pandas as pd \n# import numpy as np\n# ALEX: remove plotting\n# import plotly.express as px\n# import seaborn as sns\n# import matplotlib.pyplot as plt",
+      "raw": "# importing the necessary libraries for EDA on Airline Dataset | Kaggle Dataset\n\n# import pandas as pd \n# import numpy as np\n# FIRST-AUTHOR: remove plotting\n# import plotly.express as px\n# import seaborn as sns\n# import matplotlib.pyplot as plt",
       "rewrite-ns": 21865,
       "overhead-ns": 21865,
       "exec-ns": 107712,
@@ -66,7 +66,7 @@
       "rewritten": "df.info()\n"
     },
     {
-      "raw": "# To 5 Airports with highest value counts \n\n\ntop_5_airport_df = df['Airport Name'].value_counts().head(5)\ntop_5_airport_df = pd.DataFrame({'Airport Name': top_5_airport_df.index, 'Count': top_5_airport_df.values})\ntop_5_airport_df = top_5_airport_df.sort_values(by='Count', ascending=True)\n\n# ALEX: remove plotting\n# fig = px.bar(top_5_airport_df, x='Count', y='Airport Name', title='Top 5 Airport with highest Value count' )\n# fig.show()",
+      "raw": "# To 5 Airports with highest value counts \n\n\ntop_5_airport_df = df['Airport Name'].value_counts().head(5)\ntop_5_airport_df = pd.DataFrame({'Airport Name': top_5_airport_df.index, 'Count': top_5_airport_df.values})\ntop_5_airport_df = top_5_airport_df.sort_values(by='Count', ascending=True)\n\n# FIRST-AUTHOR: remove plotting\n# fig = px.bar(top_5_airport_df, x='Count', y='Airport Name', title='Top 5 Airport with highest Value count' )\n# fig.show()",
       "rewrite-ns": 1645211,
       "overhead-ns": 1645211,
       "exec-ns": 247068426,
@@ -84,7 +84,7 @@
       "rewritten": "df['Country Name'].value_counts().head(20)\n"
     },
     {
-      "raw": "# Vizualizing the previous cell \n\ntop_20_countries_df =  df['Country Name'].value_counts().head(20)\ntop_20_countries_df = pd.DataFrame({'Country Name': top_20_countries_df.index, 'Count': top_20_countries_df.values})\ntop_20_countries_df = top_20_countries_df.sort_values(by='Count', ascending=True)\n\n# ALEX: remove plotting\n# fig = px.bar(top_20_countries_df, x='Count', y='Country Name', title='Top 20 Countries' )\n# fig.show()",
+      "raw": "# Vizualizing the previous cell \n\ntop_20_countries_df =  df['Country Name'].value_counts().head(20)\ntop_20_countries_df = pd.DataFrame({'Country Name': top_20_countries_df.index, 'Count': top_20_countries_df.values})\ntop_20_countries_df = top_20_countries_df.sort_values(by='Count', ascending=True)\n\n# FIRST-AUTHOR: remove plotting\n# fig = px.bar(top_20_countries_df, x='Count', y='Country Name', title='Top 20 Countries' )\n# fig.show()",
       "rewrite-ns": 1648405,
       "overhead-ns": 1648405,
       "exec-ns": 126621812,
@@ -93,7 +93,7 @@
       "rewritten": "top_20_countries_df = df['Country Name'].value_counts().head(20)\ntop_20_countries_df = pd.DataFrame({'Country Name': top_20_countries_df.\n    index, 'Count': top_20_countries_df.values})\ntop_20_countries_df = top_20_countries_df.sort_values(by='Count', ascending\n    =True)\n"
     },
     {
-      "raw": "# Ratio between Male Travellers and Female Travellers\n\nTravl_Ratio =  df['Gender'].value_counts()\nTravl_Ratio = pd.DataFrame({'Gender': Travl_Ratio.index, 'Count': Travl_Ratio.values})\n\n# Plotting a Donut Chart that represents the travelers ratio \n\n# ALEX: remove plotting\n# fig2 = px.pie(Travl_Ratio, values='Count', names='Gender', hole=0.5)\n# fig2.update_layout(title=\"Traveller's Ratio Male vs Female \")\n# fig2.show()",
+      "raw": "# Ratio between Male Travellers and Female Travellers\n\nTravl_Ratio =  df['Gender'].value_counts()\nTravl_Ratio = pd.DataFrame({'Gender': Travl_Ratio.index, 'Count': Travl_Ratio.values})\n\n# Plotting a Donut Chart that represents the travelers ratio \n\n# FIRST-AUTHOR: remove plotting\n# fig2 = px.pie(Travl_Ratio, values='Count', names='Gender', hole=0.5)\n# fig2.update_layout(title=\"Traveller's Ratio Male vs Female \")\n# fig2.show()",
       "rewrite-ns": 1082616,
       "overhead-ns": 1082616,
       "exec-ns": 124730084,
@@ -111,7 +111,7 @@
       "rewritten": "Pilot_df = df[['Country Name', 'Pilot Name']]\npilot_pivot = pd.pivot_table(Pilot_df, index=['Country Name'], aggfunc='count')\npilot_pivot.rename(columns={'Pilot Name': 'Pilot Count'}, inplace=True)\npilot_pivot = pilot_pivot.reset_index()\npilot_pivot.sort_values(by='Pilot Count', ascending=False, inplace=True)\npilot_pivot.head(10)\n"
     },
     {
-      "raw": "# Bar Plot for Pilot Count per Country  \n\n# ALEX: remove plotting\n# fig3 = px.bar(pilot_pivot.head(10), x='Pilot Count', y='Country Name', title='Pilot Count by Country')\n# fig3.show()\n_ = pilot_pivot.head(10)",
+      "raw": "# Bar Plot for Pilot Count per Country  \n\n# FIRST-AUTHOR: remove plotting\n# fig3 = px.bar(pilot_pivot.head(10), x='Pilot Count', y='Country Name', title='Pilot Count by Country')\n# fig3.show()\n_ = pilot_pivot.head(10)",
       "rewrite-ns": 427931,
       "overhead-ns": 427931,
       "exec-ns": 331694,
@@ -156,7 +156,7 @@
       "rewritten": "US_data['Date'] = pd.to_datetime(US_data['Departure_Date'])\nUS_data['Quarter'] = US_data['Date'].dt.quarter\nUS_data['Month'] = US_data['Date'].dt.month\nUS_data['Week'] = US_data['Date'].dt.isocalendar().week\nUS_data\n"
     },
     {
-      "raw": "#  Creating a Customer Column based on Departure and Arrival Airport \nUS_data['Route'] = US_data['Airport_Name'].str.cat(US_data['Arrival_Airport'], sep=' -to- ')\n\nUS_Flight_Route = US_data['Route'].value_counts()\nUS_Flight_Route = pd.DataFrame({'Route': US_Flight_Route.index, 'Count': US_Flight_Route.values})\nTop_20_US_Flight_Route = US_Flight_Route.head(20)\n\n# Plotting a Donut Chart that represents the travelers ratio \n\n# ALEX: remove plotting\n# fig5 = px.bar(Top_20_US_Flight_Route, y='Route', x='Count')\n# fig5.update_layout(title=\"Ratio of USA Visitors\")\n# fig5.show()\n",
+      "raw": "#  Creating a Customer Column based on Departure and Arrival Airport \nUS_data['Route'] = US_data['Airport_Name'].str.cat(US_data['Arrival_Airport'], sep=' -to- ')\n\nUS_Flight_Route = US_data['Route'].value_counts()\nUS_Flight_Route = pd.DataFrame({'Route': US_Flight_Route.index, 'Count': US_Flight_Route.values})\nTop_20_US_Flight_Route = US_Flight_Route.head(20)\n\n# Plotting a Donut Chart that represents the travelers ratio \n\n# FIRST-AUTHOR: remove plotting\n# fig5 = px.bar(Top_20_US_Flight_Route, y='Route', x='Count')\n# fig5.update_layout(title=\"Ratio of USA Visitors\")\n# fig5.show()\n",
       "rewrite-ns": 2039004,
       "overhead-ns": 2039004,
       "exec-ns": 241250399,
@@ -192,7 +192,7 @@
       "rewritten": "filtered_df1_no_duplicates\nTotal_flights = filtered_df1_no_duplicates['Month'].value_counts()\nTotal_flights = Total_flights.reset_index()\nTotal_flights.sort_values(by='index', ascending=True, inplace=True)\nTotal_flights\n"
     },
     {
-      "raw": "# Histogram representation of the flights \n\n# ALEX: remove plotting\n# fig6 = px.bar(Total_flights, x='index',y='Month', title='MOM Flights')\n# fig6.show()",
+      "raw": "# Histogram representation of the flights \n\n# FIRST-AUTHOR: remove plotting\n# fig6 = px.bar(Total_flights, x='index',y='Month', title='MOM Flights')\n# fig6.show()",
       "rewrite-ns": 17092,
       "overhead-ns": 17092,
       "exec-ns": 88567,
@@ -210,7 +210,7 @@
       "rewritten": "Average_Flight = np.mean(Total_flights['Month'])\nAverage_Flight\n"
     },
     {
-      "raw": "# Ratio of Visitors per Nations/Country of Origin\n\nVisitors_per_nations = df['Nationality'].value_counts()\nVisitors_per_nations.head()\nVisitors_per_nations_1 = Visitors_per_nations.head(20).reset_index()\nVisitors_per_nations_1.sort_values(by='Nationality', ascending=False, inplace=True)\nVisitors_per_nations_1.head(5)\n# ALEX: remove plotting\n# fig7 = px.pie(Visitors_per_nations_1, values='Nationality', names='index', hole=0.5, title='Nationality Ratio (TOP 20)')\n# fig7.show()",
+      "raw": "# Ratio of Visitors per Nations/Country of Origin\n\nVisitors_per_nations = df['Nationality'].value_counts()\nVisitors_per_nations.head()\nVisitors_per_nations_1 = Visitors_per_nations.head(20).reset_index()\nVisitors_per_nations_1.sort_values(by='Nationality', ascending=False, inplace=True)\nVisitors_per_nations_1.head(5)\n# FIRST-AUTHOR: remove plotting\n# fig7 = px.pie(Visitors_per_nations_1, values='Nationality', names='index', hole=0.5, title='Nationality Ratio (TOP 20)')\n# fig7.show()",
       "rewrite-ns": 1367387,
       "overhead-ns": 1367387,
       "exec-ns": 130593081,

@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 118,
   "cells": [
     {
-      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 5GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# FIRST-AUTHOR: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 5GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 431979
@@ -327,7 +327,7 @@
       "total-ns": 9128452
     },
     {
-      "raw": "# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# fig, ax = plt.subplots()\nx=df_products['product_variation_size_id'].value_counts().index\ny=df_products['product_variation_size_id'].value_counts()\n# ALEX: remove plotting\n# ax.bar(x, y, align='center')\n# ax.set_xticks(x)\n# ax.set_xlabel('Size')\n# ax.set_title('size counts')\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# fig, ax = plt.subplots()\nx=df_products['product_variation_size_id'].value_counts().index\ny=df_products['product_variation_size_id'].value_counts()\n# FIRST-AUTHOR: remove plotting\n# ax.bar(x, y, align='center')\n# ax.set_xticks(x)\n# ax.set_xlabel('Size')\n# ax.set_title('size counts')\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1344332
@@ -483,7 +483,7 @@
       "total-ns": 2029057
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots()\nx=df_products['shipping_option_price'].value_counts().index\ny=df_products['shipping_option_price'].value_counts()\n# ALEX: remove plotting\n# ax.bar(x, y, align='center')\n# ax.set_xticks(x)\n# ax.set_xlabel('price shipping')\n# ax.set_title('price shipping counts')\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig, ax = plt.subplots()\nx=df_products['shipping_option_price'].value_counts().index\ny=df_products['shipping_option_price'].value_counts()\n# FIRST-AUTHOR: remove plotting\n# ax.bar(x, y, align='center')\n# ax.set_xticks(x)\n# ax.set_xlabel('price shipping')\n# ax.set_title('price shipping counts')\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1089019
@@ -507,7 +507,7 @@
       "total-ns": 948553
     },
     {
-      "raw": "# ALEX: remove plotting\n# import seaborn as sns \n# sns.countplot(df_products['countries_shipped_to'].value_counts()[:20])\n_ = df_products['countries_shipped_to'].value_counts()[:20]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# import seaborn as sns \n# sns.countplot(df_products['countries_shipped_to'].value_counts()[:20])\n_ = df_products['countries_shipped_to'].value_counts()[:20]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 879169
@@ -555,13 +555,13 @@
       "total-ns": 37345966
     },
     {
-      "raw": "# ALEX: remove plotting\n# from wordcloud import WordCloud\ntext=list(df_products['title'])\n# ALEX: remove plotting\n# textcol=''\n# for a in text :\n#     textcol=textcol+a\n# wordcloudmodel=WordCloud().generate(textcol)\n# plt.imshow(wordcloudmodel,interpolation='bilinear')\n# #plt.axis(\"on\")\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# from wordcloud import WordCloud\ntext=list(df_products['title'])\n# FIRST-AUTHOR: remove plotting\n# textcol=''\n# for a in text :\n#     textcol=textcol+a\n# wordcloudmodel=WordCloud().generate(textcol)\n# plt.imshow(wordcloudmodel,interpolation='bilinear')\n# #plt.axis(\"on\")\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 601160
     },
     {
-      "raw": "text=list(df_products['title'])\n# ALEX: remove plotting\n# textcol=''\n# for a in text :\n#     textcol=textcol+a\n# wordcloudmodel=WordCloud().generate(textcol)\n# plt.imshow(wordcloudmodel,interpolation='bilinear')\n# plt.show()",
+      "raw": "text=list(df_products['title'])\n# FIRST-AUTHOR: remove plotting\n# textcol=''\n# for a in text :\n#     textcol=textcol+a\n# wordcloudmodel=WordCloud().generate(textcol)\n# plt.imshow(wordcloudmodel,interpolation='bilinear')\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 506573
@@ -585,7 +585,7 @@
       "total-ns": 1228615
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.barplot(df_products['rating'].value_counts().index,df_products['rating'].value_counts())\n_ = df_products['rating'].value_counts().index,df_products['rating'].value_counts()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.barplot(df_products['rating'].value_counts().index,df_products['rating'].value_counts())\n_ = df_products['rating'].value_counts().index,df_products['rating'].value_counts()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 971993
@@ -597,7 +597,7 @@
       "total-ns": 1179607
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.barplot(df_products['merchant_rating'].value_counts().index ,df_products['merchant_rating'].value_counts())\n_ = df_products['merchant_rating'].value_counts().index ,df_products['merchant_rating'].value_counts()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.barplot(df_products['merchant_rating'].value_counts().index ,df_products['merchant_rating'].value_counts())\n_ = df_products['merchant_rating'].value_counts().index ,df_products['merchant_rating'].value_counts()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 961211
@@ -657,7 +657,7 @@
       "total-ns": 265265
     },
     {
-      "raw": "X=[ 'price','uses_ad_boosts', 'rating', 'badges_count', 'badge_local_product','badge_product_quality',\n   'badge_fast_shipping', 'shipping_option_price',\n       'shipping_is_express', 'countries_shipped_to','merchant_rating',\n       'merchant_has_profile_picture',\n       'product_color_beige', 'product_color_black', 'product_color_blue',\n       'product_color_brown', 'product_color_gray', 'product_color_green',\n       'product_color_multicolor', 'product_color_orange',\n       'product_color_pink', 'product_color_purple', 'product_color_red',\n       'product_color_rose', 'product_color_white', 'product_color_yellow',\n       'shipping_option_name_Express Shipping',\n       'shipping_option_name_Standard Shipping', 'origin_country_AT',\n       'origin_country_CN', 'origin_country_GB', 'origin_country_SG',\n       'origin_country_US', 'origin_country_VE', 'buymentlang_Arabic',\n       'buymentlang_English', 'buymentlang_French', 'buymentlang_German',\n       'buymentlang_Italian', 'buymentlang_Khmer', 'buymentlang_Polish',\n       'buymentlang_Portuguese', 'buymentlang_Romanian', 'buymentlang_Russian',\n       'buymentlang_Spanish', 'buymentlang_Thailand', 'buymentlang_Turkish',\n       'product_variation_size_id_3x', 'product_variation_size_id_3xl',\n       'product_variation_size_id_4xl', 'product_variation_size_id_5xl',\n       'product_variation_size_id_6xl', 'product_variation_size_id_l',\n       'product_variation_size_id_m', 'product_variation_size_id_s',\n       'product_variation_size_id_xl', 'product_variation_size_id_xs',\n       'product_variation_size_id_xxl', 'product_variation_size_id_xxs',\n       'product_variation_size_id_xxxs'\n       ]\n# ALEX: make notebook run with input scaling\n_idx = set(df_products.index)\nX = [x for x in X if x in _idx]\nX=df_products[X]\nY=df_products['units_sold']",
+      "raw": "X=[ 'price','uses_ad_boosts', 'rating', 'badges_count', 'badge_local_product','badge_product_quality',\n   'badge_fast_shipping', 'shipping_option_price',\n       'shipping_is_express', 'countries_shipped_to','merchant_rating',\n       'merchant_has_profile_picture',\n       'product_color_beige', 'product_color_black', 'product_color_blue',\n       'product_color_brown', 'product_color_gray', 'product_color_green',\n       'product_color_multicolor', 'product_color_orange',\n       'product_color_pink', 'product_color_purple', 'product_color_red',\n       'product_color_rose', 'product_color_white', 'product_color_yellow',\n       'shipping_option_name_Express Shipping',\n       'shipping_option_name_Standard Shipping', 'origin_country_AT',\n       'origin_country_CN', 'origin_country_GB', 'origin_country_SG',\n       'origin_country_US', 'origin_country_VE', 'buymentlang_Arabic',\n       'buymentlang_English', 'buymentlang_French', 'buymentlang_German',\n       'buymentlang_Italian', 'buymentlang_Khmer', 'buymentlang_Polish',\n       'buymentlang_Portuguese', 'buymentlang_Romanian', 'buymentlang_Russian',\n       'buymentlang_Spanish', 'buymentlang_Thailand', 'buymentlang_Turkish',\n       'product_variation_size_id_3x', 'product_variation_size_id_3xl',\n       'product_variation_size_id_4xl', 'product_variation_size_id_5xl',\n       'product_variation_size_id_6xl', 'product_variation_size_id_l',\n       'product_variation_size_id_m', 'product_variation_size_id_s',\n       'product_variation_size_id_xl', 'product_variation_size_id_xs',\n       'product_variation_size_id_xxl', 'product_variation_size_id_xxs',\n       'product_variation_size_id_xxxs'\n       ]\n# FIRST-AUTHOR: make notebook run with input scaling\n_idx = set(df_products.index)\nX = [x for x in X if x in _idx]\nX=df_products[X]\nY=df_products['units_sold']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1820845
@@ -687,19 +687,19 @@
       "total-ns": 2636182
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.linear_model import LinearRegression \n# from sklearn.preprocessing import StandardScaler\n# from sklearn.preprocessing import normalize\n# from sklearn.model_selection import train_test_split\n# from sklearn.metrics import mean_absolute_error\n# from sklearn.metrics import r2_score\n# scaler = StandardScaler()\n# lin = LinearRegression()",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.linear_model import LinearRegression \n# from sklearn.preprocessing import StandardScaler\n# from sklearn.preprocessing import normalize\n# from sklearn.model_selection import train_test_split\n# from sklearn.metrics import mean_absolute_error\n# from sklearn.metrics import r2_score\n# scaler = StandardScaler()\n# lin = LinearRegression()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 197162
     },
     {
-      "raw": "# ALEX: remove ML code\n# def modelfit(X,Y,scaler,modelalgorithm,train_test_split):\n#     #scaler.fit_transform(X,Y)\n#     normalize(X, norm='l2', axis=1, copy=True, return_norm=False)\n#     scaler.fit_transform(X,Y)\n#     #scaler.fit_transform()\n#     X_train, X_test, y_train, y_test=train_test_split(X,Y,test_size=.2,random_state=42)\n#     modelalgorithm.fit(X_train,y_train)\n#     prediction =modelalgorithm.predict(X_test)\n#     #print(mean_absolute_error(y_test,prediction))\n#     return r2_score(y_test,prediction)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# def modelfit(X,Y,scaler,modelalgorithm,train_test_split):\n#     #scaler.fit_transform(X,Y)\n#     normalize(X, norm='l2', axis=1, copy=True, return_norm=False)\n#     scaler.fit_transform(X,Y)\n#     #scaler.fit_transform()\n#     X_train, X_test, y_train, y_test=train_test_split(X,Y,test_size=.2,random_state=42)\n#     modelalgorithm.fit(X_train,y_train)\n#     prediction =modelalgorithm.predict(X_test)\n#     #print(mean_absolute_error(y_test,prediction))\n#     return r2_score(y_test,prediction)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 207054
     },
     {
-      "raw": "# ALEX: remove ML code\n# modelfit(X,Y,scaler,lin,train_test_split)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# modelfit(X,Y,scaler,lin,train_test_split)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 151592
@@ -717,55 +717,55 @@
       "total-ns": 191235
     },
     {
-      "raw": "# ALEX: remove ML code\n# accuracy=[]\n# Start=[]\n# End=[]\n# maxac=modelfit(X.iloc[:,0:1],Y,scaler,lin,train_test_split)\n# index_i=0\n# index_j=0\nfor i in range(1,X.shape[1]):\n    for j in range(1,X.shape[1]):\n        if (i>j):\n            X_model=X.iloc[:,j:i]\n# ALEX: remove ML code\n#             print(\"this model use data start from\",j,\"column to\",i ,\"column\")\n#             try :\n#                 ac=modelfit(X_model,Y,scaler,lin,train_test_split)\n#                 accuracy.append(ac)\n#                 Start.append(j)\n#                 End.append(i)\n#                 if ac>=maxac:\n#                     maxac=ac\n#                     index_i=i\n#                     index_j=j\n#                 print(ac)\n#             except ValueError :\n#                 print(\"error\")\n            ",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# accuracy=[]\n# Start=[]\n# End=[]\n# maxac=modelfit(X.iloc[:,0:1],Y,scaler,lin,train_test_split)\n# index_i=0\n# index_j=0\nfor i in range(1,X.shape[1]):\n    for j in range(1,X.shape[1]):\n        if (i>j):\n            X_model=X.iloc[:,j:i]\n# FIRST-AUTHOR: remove ML code\n#             print(\"this model use data start from\",j,\"column to\",i ,\"column\")\n#             try :\n#                 ac=modelfit(X_model,Y,scaler,lin,train_test_split)\n#                 accuracy.append(ac)\n#                 Start.append(j)\n#                 End.append(i)\n#                 if ac>=maxac:\n#                     maxac=ac\n#                     index_i=i\n#                     index_j=j\n#                 print(ac)\n#             except ValueError :\n#                 print(\"error\")\n            ",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 671740
     },
     {
-      "raw": "# ALEX: remove plotting\n# from mpl_toolkits.mplot3d import Axes3D\n# fig = plt.figure()\n# ax = fig.add_subplot(111, projection='3d')\n# ax.plot(Start,End,accuracy)\n# plt.xlabel(\"x\")\n# plt.ylabel(\"y\")\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# from mpl_toolkits.mplot3d import Axes3D\n# fig = plt.figure()\n# ax = fig.add_subplot(111, projection='3d')\n# ax.plot(Start,End,accuracy)\n# plt.xlabel(\"x\")\n# plt.ylabel(\"y\")\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 190563
     },
     {
-      "raw": "# ALEX: remove ML code\n# index_i",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# index_i",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 153328
     },
     {
-      "raw": "# ALEX: remove ML code\n# index_j",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# index_j",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 146790
     },
     {
-      "raw": "# ALEX: remove ML code\n# max(accuracy)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# max(accuracy)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 146392
     },
     {
-      "raw": "# ALEX: remove ML code\n# min(accuracy)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# min(accuracy)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 143948
     },
     {
-      "raw": "X_predict=X.iloc[:,49:59]\ny_result=Y.iloc[:]\n#print(X.iloc[25,7:12])\n# ALEX: remove ML code\n# scaler.fit_transform(X_predict,Y)\n# X_train, X_test, y_train, y_test=train_test_split(X_predict,Y,test_size=.2,random_state=42)\n# lin.fit(X_train,y_train)\n# prediction =lin.predict(X.iloc[:,49:59])\n# #print(mean_absolute_error(y_test,prediction))\n# print(prediction,y_result)",
+      "raw": "X_predict=X.iloc[:,49:59]\ny_result=Y.iloc[:]\n#print(X.iloc[25,7:12])\n# FIRST-AUTHOR: remove ML code\n# scaler.fit_transform(X_predict,Y)\n# X_train, X_test, y_train, y_test=train_test_split(X_predict,Y,test_size=.2,random_state=42)\n# lin.fit(X_train,y_train)\n# prediction =lin.predict(X.iloc[:,49:59])\n# #print(mean_absolute_error(y_test,prediction))\n# print(prediction,y_result)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 597266
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.plot(prediction)\n# plt.show()\n# plt.plot(y_result)\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.plot(prediction)\n# plt.show()\n# plt.plot(y_result)\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 168596
     },
     {
-      "raw": "# ALEX: remove ML code\n# prediction.mean()",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# prediction.mean()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 145252
@@ -777,13 +777,13 @@
       "total-ns": 412574
     },
     {
-      "raw": "# ALEX: remove ML code\n# col=[]\n# accuracy=[]\nfor j in range(1,X.shape[1]):\n    X_model=X.iloc[:,j:j+1]\n# ALEX: remove ML code\n#     print(\"this model use data start from\",j,\"column to\")\n#     ac=modelfit(X_model,Y,scaler,lin,train_test_split)\n#     print(ac)\n#     accuracy.append(ac)\n#     col.append(j)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# col=[]\n# accuracy=[]\nfor j in range(1,X.shape[1]):\n    X_model=X.iloc[:,j:j+1]\n# FIRST-AUTHOR: remove ML code\n#     print(\"this model use data start from\",j,\"column to\")\n#     ac=modelfit(X_model,Y,scaler,lin,train_test_split)\n#     print(ac)\n#     accuracy.append(ac)\n#     col.append(j)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 466811
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.plot(col,accuracy)\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.plot(col,accuracy)\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 160240

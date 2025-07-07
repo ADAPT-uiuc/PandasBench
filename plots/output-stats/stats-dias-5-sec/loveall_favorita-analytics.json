@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 2156,
   "cells": [
     {
-      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\nimport matplotlib.pyplot as plt\n\n# ALEX: remove ML code\n# import xgboost as xgb\n\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list the files in the input directory\n\n# ALEX: remove path printing\n# from subprocess import check_output\n# print(check_output([\"ls\", \"./input\"]).decode(\"utf8\"))\n\n# Any results you write to the current directory are saved as output.",
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\nimport matplotlib.pyplot as plt\n\n# FIRST-AUTHOR: remove ML code\n# import xgboost as xgb\n\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list the files in the input directory\n\n# FIRST-AUTHOR: remove path printing\n# from subprocess import check_output\n# print(check_output([\"ls\", \"./input\"]).decode(\"utf8\"))\n\n# Any results you write to the current directory are saved as output.",
       "rewrite-ns": 818002,
       "overhead-ns": 818002,
       "exec-ns": 533372876,
@@ -39,7 +39,7 @@
       "rewritten": "train_items = pd.merge(train, items, how='inner')\ntrain_items.tail(5)\n"
     },
     {
-      "raw": "#Lets find out most popular item ordered by people across the 6 millions rows we have read.\n#We will group by item_nbr and add the unit sales.\ndf = train_items['unit_sales'].groupby(train_items['item_nbr']).sum()\n#In order to find top 10 popular items we will sort the numpy array and pick the top 10 from\n#the list.\ndf = df.sort_values()\ndf_highest = df.nlargest(n=10)\n\n#Plot the highest list of items.\n# ALEX: remove plotting\n# df_highest.plot(kind='bar',figsize = (10,10),  title = \"Top 10 items sold across all stores\")\n# plt.show()",
+      "raw": "#Lets find out most popular item ordered by people across the 6 millions rows we have read.\n#We will group by item_nbr and add the unit sales.\ndf = train_items['unit_sales'].groupby(train_items['item_nbr']).sum()\n#In order to find top 10 popular items we will sort the numpy array and pick the top 10 from\n#the list.\ndf = df.sort_values()\ndf_highest = df.nlargest(n=10)\n\n#Plot the highest list of items.\n# FIRST-AUTHOR: remove plotting\n# df_highest.plot(kind='bar',figsize = (10,10),  title = \"Top 10 items sold across all stores\")\n# plt.show()",
       "rewrite-ns": 1348769,
       "overhead-ns": 1348769,
       "exec-ns": 82452962,
@@ -48,7 +48,7 @@
       "rewritten": "df = train_items['unit_sales'].groupby(train_items['item_nbr']).sum()\ndf = df.sort_values()\ndf_highest = df.nlargest(n=10)\n"
     },
     {
-      "raw": "#Next we find lowest/less demand product. We use nsmallest to find the bottom 10 items,\n#probably it doesn;t matter even if we stock them.\ndf_lowest = df.nsmallest(n=10)\n# ALEX: remove plotting\n# df_lowest.plot(kind='bar',figsize = (10,10),  title = \"Bottom 10 items sold\")\n# plt.show()",
+      "raw": "#Next we find lowest/less demand product. We use nsmallest to find the bottom 10 items,\n#probably it doesn;t matter even if we stock them.\ndf_lowest = df.nsmallest(n=10)\n# FIRST-AUTHOR: remove plotting\n# df_lowest.plot(kind='bar',figsize = (10,10),  title = \"Bottom 10 items sold\")\n# plt.show()",
       "rewrite-ns": 474891,
       "overhead-ns": 474891,
       "exec-ns": 2053726,
@@ -84,7 +84,7 @@
       "rewritten": "print(train_items.tail(2))\n"
     },
     {
-      "raw": "df_year = train_items.groupby(['quarter_item_purchased', 'item_nbr'])['unit_sales'].sum()\ndf_year = df_year.sort_values()\ndf_year_highest = df_year.nlargest(n=10)\n#Plot the highest list of items.\n# ALEX: remove plotting\n# df_year_highest.plot(kind='bar',figsize = (10,10),  title = \"Top items sold Quarterly\")\n# plt.show()",
+      "raw": "df_year = train_items.groupby(['quarter_item_purchased', 'item_nbr'])['unit_sales'].sum()\ndf_year = df_year.sort_values()\ndf_year_highest = df_year.nlargest(n=10)\n#Plot the highest list of items.\n# FIRST-AUTHOR: remove plotting\n# df_year_highest.plot(kind='bar',figsize = (10,10),  title = \"Top items sold Quarterly\")\n# plt.show()",
       "rewrite-ns": 1314629,
       "overhead-ns": 1314629,
       "exec-ns": 245423099,
@@ -93,7 +93,7 @@
       "rewritten": "df_year = train_items.groupby(['quarter_item_purchased', 'item_nbr'])[\n    'unit_sales'].sum()\ndf_year = df_year.sort_values()\ndf_year_highest = df_year.nlargest(n=10)\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(9,10))\ndf_items = train_items.groupby(['family'])['unit_sales'].sum()\ndf_items = df_items.sort_values()\ndf_items_highest = df_items.nlargest(n=10)\n# ALEX: remove plotting\n# plt.pie(df_items_highest, labels=df_items_highest.index,shadow=False,autopct='%1.1f%%')\n# plt.tight_layout()\n# plt.show()\n_ = df_items_highest.index\n",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(9,10))\ndf_items = train_items.groupby(['family'])['unit_sales'].sum()\ndf_items = df_items.sort_values()\ndf_items_highest = df_items.nlargest(n=10)\n# FIRST-AUTHOR: remove plotting\n# plt.pie(df_items_highest, labels=df_items_highest.index,shadow=False,autopct='%1.1f%%')\n# plt.tight_layout()\n# plt.show()\n_ = df_items_highest.index\n",
       "rewrite-ns": 1470726,
       "overhead-ns": 1470726,
       "exec-ns": 227421607,
@@ -111,7 +111,7 @@
       "rewritten": "grocery_info = train_items.loc[train_items['family'] == 'GROCERY I']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,12))\n# #print (grocery_info.tail(2))\n# plt.plot(grocery_info['day_item_purchased'],grocery_info['unit_sales'])\n# plt.show()\n_ = grocery_info['day_item_purchased']\n_ = grocery_info['unit_sales']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12,12))\n# #print (grocery_info.tail(2))\n# plt.plot(grocery_info['day_item_purchased'],grocery_info['unit_sales'])\n# plt.show()\n_ = grocery_info['day_item_purchased']\n_ = grocery_info['unit_sales']",
       "rewrite-ns": 613474,
       "overhead-ns": 613474,
       "exec-ns": 403436,
@@ -120,7 +120,7 @@
       "rewritten": "_ = grocery_info['day_item_purchased']\n_ = grocery_info['unit_sales']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(9,10))\ndf_items = train_items.groupby(['family','perishable'])['unit_sales'].sum()\ndf_items = df_items.sort_values()\ndf_items_perish_highest = df_items.nlargest(n=10)\n# ALEX: remove plotting\n# plt.pie(df_items_perish_highest, labels=df_items_perish_highest.index,shadow=False,autopct='%1.1f%%')\n# plt.tight_layout()\n# plt.show()\n_ = df_items_perish_highest.index",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(9,10))\ndf_items = train_items.groupby(['family','perishable'])['unit_sales'].sum()\ndf_items = df_items.sort_values()\ndf_items_perish_highest = df_items.nlargest(n=10)\n# FIRST-AUTHOR: remove plotting\n# plt.pie(df_items_perish_highest, labels=df_items_perish_highest.index,shadow=False,autopct='%1.1f%%')\n# plt.tight_layout()\n# plt.show()\n_ = df_items_perish_highest.index",
       "rewrite-ns": 1493569,
       "overhead-ns": 1493569,
       "exec-ns": 370335407,
@@ -147,7 +147,7 @@
       "rewritten": "transaction['date'] = pd.to_datetime(transaction['date'], format='%Y-%m-%d')\ntransaction['day_item_purchased'] = transaction['date'].dt.day\ntransaction['month_item_purchased'] = transaction['date'].dt.month\ntransaction['quarter_item_purchased'] = transaction['date'].dt.quarter\ntransaction['year_item_purchased'] = transaction['date'].dt.year\nprint(transaction.tail(2))\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(25,25))\n# plt.plot(transaction['date'],transaction['transactions'])\n# plt.show()\n_ = transaction['date']\n_ = transaction['transactions']\n",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(25,25))\n# plt.plot(transaction['date'],transaction['transactions'])\n# plt.show()\n_ = transaction['date']\n_ = transaction['transactions']\n",
       "rewrite-ns": 550269,
       "overhead-ns": 550269,
       "exec-ns": 286814,
@@ -156,7 +156,7 @@
       "rewritten": "_ = transaction['date']\n_ = transaction['transactions']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(8,12))\ntrans_day = transaction['transactions'].groupby(transaction['year_item_purchased']).sum()\n# ALEX: remove plotting\n# trans_day.plot(kind='bar')\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(8,12))\ntrans_day = transaction['transactions'].groupby(transaction['year_item_purchased']).sum()\n# FIRST-AUTHOR: remove plotting\n# trans_day.plot(kind='bar')\n# plt.show()",
       "rewrite-ns": 663358,
       "overhead-ns": 663358,
       "exec-ns": 885589,
@@ -174,7 +174,7 @@
       "rewritten": "stores = pd.read_csv('./input/stores.scaled.csv')\nprint(stores.head())\n"
     },
     {
-      "raw": "#Lets find out number of cities in each state, which in nothing but finding out number of stores in each\n#in each state.\ndf = stores['city'].groupby(stores['state']).count()\n# ALEX: remove plotting\n# df.plot(kind='bar', figsize = (12,8), yticks=np.arange(min(df), max(df)+1, 1.0), title = \"Number of cities in each state\")\n# plt.show()\n_ = min(df)\n_ = max(df)",
+      "raw": "#Lets find out number of cities in each state, which in nothing but finding out number of stores in each\n#in each state.\ndf = stores['city'].groupby(stores['state']).count()\n# FIRST-AUTHOR: remove plotting\n# df.plot(kind='bar', figsize = (12,8), yticks=np.arange(min(df), max(df)+1, 1.0), title = \"Number of cities in each state\")\n# plt.show()\n_ = min(df)\n_ = max(df)",
       "rewrite-ns": 1120817,
       "overhead-ns": 1120817,
       "exec-ns": 721555,
@@ -201,7 +201,7 @@
       "rewritten": "oils = pd.read_csv('./input/oil.scaled.csv')\noils['date'] = pd.to_datetime(oils['date'], format='%Y-%m-%d')\noils['day_item_purchased'] = oils['date'].dt.day\noils['month_item_purchased'] = oils['date'].dt.month\noils['quarter_item_purchased'] = oils['date'].dt.quarter\noils['year_item_purchased'] = oils['date'].dt.year\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(25,25))\n# #trans_day = transaction['transactions'].groupby(transaction['year_item_purchased']).sum()\n# plt.plot(oils['date'],oils['dcoilwtico'])\n# #trans_day.plot(kind='bar')\n# plt.show()\n_ = oils['date']\n_ = oils['dcoilwtico']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(25,25))\n# #trans_day = transaction['transactions'].groupby(transaction['year_item_purchased']).sum()\n# plt.plot(oils['date'],oils['dcoilwtico'])\n# #trans_day.plot(kind='bar')\n# plt.show()\n_ = oils['date']\n_ = oils['dcoilwtico']",
       "rewrite-ns": 568177,
       "overhead-ns": 568177,
       "exec-ns": 313976,

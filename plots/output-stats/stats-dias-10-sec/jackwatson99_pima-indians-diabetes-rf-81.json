@@ -39,7 +39,7 @@
       "rewritten": "train_df.info()\n"
     },
     {
-      "raw": "# ALEX: evaluate lazy computation\nevaluate_lazy(train_df.describe())",
+      "raw": "# FIRST-AUTHOR: evaluate lazy computation\nevaluate_lazy(train_df.describe())",
       "rewrite-ns": 390486,
       "overhead-ns": 390486,
       "exec-ns": 2347363846,
@@ -57,7 +57,7 @@
       "rewritten": "train_df['Glucose'] = train_df['Glucose'].replace(0, train_df['Glucose'].mean()\n    )\ntrain_df['BloodPressure'] = train_df['BloodPressure'].replace(0, train_df[\n    'BloodPressure'].mean())\ntrain_df['SkinThickness'] = train_df['SkinThickness'].replace(0, train_df[\n    'SkinThickness'].mean())\ntrain_df['Insulin'] = train_df['Insulin'].replace(0, train_df['Insulin'].mean()\n    )\ntrain_df['BMI'] = train_df['BMI'].replace(0, train_df['BMI'].mean())\n"
     },
     {
-      "raw": "# ALEX: evaluate lazy computation\nevaluate_lazy(train_df.describe())",
+      "raw": "# FIRST-AUTHOR: evaluate lazy computation\nevaluate_lazy(train_df.describe())",
       "rewrite-ns": 432818,
       "overhead-ns": 432818,
       "exec-ns": 2860115785,
@@ -66,7 +66,7 @@
       "rewritten": "evaluate_lazy(train_df.describe())\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# import seaborn as sb\n# import matplotlib.pyplot as plt",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# import seaborn as sb\n# import matplotlib.pyplot as plt",
       "rewrite-ns": 31610,
       "overhead-ns": 31610,
       "exec-ns": 150641,
@@ -84,7 +84,7 @@
       "rewritten": ""
     },
     {
-      "raw": "corr_matrix = train_df.corr()\n# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize = (10,8))\n# sb.heatmap(corr_matrix, annot = True, fmt='.2g', vmin = -1,\n#             vmax = 1, center = 0, cmap = 'coolwarm')\nevaluate_lazy(corr_matrix)",
+      "raw": "corr_matrix = train_df.corr()\n# FIRST-AUTHOR: remove plotting\n# fig, ax = plt.subplots(figsize = (10,8))\n# sb.heatmap(corr_matrix, annot = True, fmt='.2g', vmin = -1,\n#             vmax = 1, center = 0, cmap = 'coolwarm')\nevaluate_lazy(corr_matrix)",
       "rewrite-ns": 595044,
       "overhead-ns": 595044,
       "exec-ns": 2292031363,
@@ -93,7 +93,7 @@
       "rewritten": "corr_matrix = train_df.corr()\nevaluate_lazy(corr_matrix)\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import train_test_split\n# from sklearn.ensemble import RandomForestClassifier\n# from sklearn.model_selection import GridSearchCV\n# from sklearn.metrics import accuracy_score",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.model_selection import train_test_split\n# from sklearn.ensemble import RandomForestClassifier\n# from sklearn.model_selection import GridSearchCV\n# from sklearn.metrics import accuracy_score",
       "rewrite-ns": 29095,
       "overhead-ns": 29095,
       "exec-ns": 100861,
@@ -102,7 +102,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# x_train, x_test, y_train, y_test = train_test_split(train_df.drop('Outcome', axis=1), train_df['Outcome'], \n#                                                   test_size = 0.2)\nevaluate_lazy(train_df.drop('Outcome', axis=1))\nevaluate_lazy(train_df['Outcome'])",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# x_train, x_test, y_train, y_test = train_test_split(train_df.drop('Outcome', axis=1), train_df['Outcome'], \n#                                                   test_size = 0.2)\nevaluate_lazy(train_df.drop('Outcome', axis=1))\nevaluate_lazy(train_df['Outcome'])",
       "rewrite-ns": 825383,
       "overhead-ns": 825383,
       "exec-ns": 205175165,
@@ -111,7 +111,7 @@
       "rewritten": "evaluate_lazy(train_df.drop('Outcome', axis=1))\nevaluate_lazy(train_df['Outcome'])\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# print(x_train.shape, y_train.shape)\n# print(x_test.shape, y_test.shape)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# print(x_train.shape, y_train.shape)\n# print(x_test.shape, y_test.shape)",
       "rewrite-ns": 19856,
       "overhead-ns": 19856,
       "exec-ns": 101932,
@@ -120,7 +120,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# model = RandomForestClassifier(n_estimators=250, max_features='auto',\n#                               max_depth = 6, criterion='entropy')\n# model.fit(x_train, y_train)\n# y_pred = model.predict(x_test)\n# print(\"Accuracy score of Random Forest: \", (accuracy_score(y_pred, y_test))*100)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# model = RandomForestClassifier(n_estimators=250, max_features='auto',\n#                               max_depth = 6, criterion='entropy')\n# model.fit(x_train, y_train)\n# y_pred = model.predict(x_test)\n# print(\"Accuracy score of Random Forest: \", (accuracy_score(y_pred, y_test))*100)",
       "rewrite-ns": 13083,
       "overhead-ns": 13083,
       "exec-ns": 69075,

@@ -633,7 +633,7 @@
       "rewritten": "job_data.to_csv('Cleaned_Job_Data.csv', index=False)\njob_data.to_excel('Cleaned_Job_Data.xlsx', index=False)\n"
     },
     {
-      "raw": "# Include the necessary packages fro analysisi and visualization\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# %matplotlib inline",
+      "raw": "# Include the necessary packages fro analysisi and visualization\n# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# %matplotlib inline",
       "rewrite-ns": 19412,
       "overhead-ns": 19412,
       "exec-ns": 86273,
@@ -651,7 +651,7 @@
       "rewritten": "job_data.describe()\n"
     },
     {
-      "raw": "#Obtain the relationships between columns\n# ALEX: remove plotting\n# sns.pairplot(job_data)",
+      "raw": "#Obtain the relationships between columns\n# FIRST-AUTHOR: remove plotting\n# sns.pairplot(job_data)",
       "rewrite-ns": 13948,
       "overhead-ns": 13948,
       "exec-ns": 71892,
@@ -660,7 +660,7 @@
       "rewritten": ""
     },
     {
-      "raw": "industry_salary = [\n    round(job_data.loc[job_data[\"industry\"]==\"Biotech & Pharmaceuticals\",\"avg_salary_estimate\"].mean(), 2),\n    round(job_data.loc[job_data[\"industry\"]==\"IT Services\",\"avg_salary_estimate\"].mean(), 2),\n    round(job_data.loc[job_data[\"industry\"]==\"Computer Hardware & Software\",\"avg_salary_estimate\"].mean(), 2),\n    round(job_data.loc[job_data[\"industry\"]==\"Aerospace & Defense\",\"avg_salary_estimate\"].mean(), 2),\n    round(job_data.loc[job_data[\"industry\"]==\"Enterprise Software & Network Solutions\",\"avg_salary_estimate\"].mean(), 2)\n]\n\ntop_paying_industries = [\n    \"Biotech & Pharmaceuticals\",\n    \"IT Services\",\n    \"Computer Hardware & Software\",\n    \"Aerospace & Defense\",\n    \"Enterprise Software & Network Solutions\"\n]\n\n# ALEX: remove plotting\n# plt.bar(top_paying_industries, industry_salary)\n# plt.ylim(110, 140)\n# plt.xlabel(\"Job Industry\")\n# plt.ylabel(\"Average Salary\")\n\n# # Rotate the x-axis labels by 70 degrees\n# plt.xticks(rotation=70)\n\n# plt.show()",
+      "raw": "industry_salary = [\n    round(job_data.loc[job_data[\"industry\"]==\"Biotech & Pharmaceuticals\",\"avg_salary_estimate\"].mean(), 2),\n    round(job_data.loc[job_data[\"industry\"]==\"IT Services\",\"avg_salary_estimate\"].mean(), 2),\n    round(job_data.loc[job_data[\"industry\"]==\"Computer Hardware & Software\",\"avg_salary_estimate\"].mean(), 2),\n    round(job_data.loc[job_data[\"industry\"]==\"Aerospace & Defense\",\"avg_salary_estimate\"].mean(), 2),\n    round(job_data.loc[job_data[\"industry\"]==\"Enterprise Software & Network Solutions\",\"avg_salary_estimate\"].mean(), 2)\n]\n\ntop_paying_industries = [\n    \"Biotech & Pharmaceuticals\",\n    \"IT Services\",\n    \"Computer Hardware & Software\",\n    \"Aerospace & Defense\",\n    \"Enterprise Software & Network Solutions\"\n]\n\n# FIRST-AUTHOR: remove plotting\n# plt.bar(top_paying_industries, industry_salary)\n# plt.ylim(110, 140)\n# plt.xlabel(\"Job Industry\")\n# plt.ylabel(\"Average Salary\")\n\n# # Rotate the x-axis labels by 70 degrees\n# plt.xticks(rotation=70)\n\n# plt.show()",
       "rewrite-ns": 4029934,
       "overhead-ns": 4029934,
       "exec-ns": 2003963,
@@ -669,7 +669,7 @@
       "rewritten": "industry_salary = [round(job_data.loc[job_data['industry'] ==\n    'Biotech & Pharmaceuticals', 'avg_salary_estimate'].mean(), 2), round(\n    job_data.loc[job_data['industry'] == 'IT Services',\n    'avg_salary_estimate'].mean(), 2), round(job_data.loc[job_data[\n    'industry'] == 'Computer Hardware & Software', 'avg_salary_estimate'].\n    mean(), 2), round(job_data.loc[job_data['industry'] ==\n    'Aerospace & Defense', 'avg_salary_estimate'].mean(), 2), round(\n    job_data.loc[job_data['industry'] ==\n    'Enterprise Software & Network Solutions', 'avg_salary_estimate'].mean(\n    ), 2)]\ntop_paying_industries = ['Biotech & Pharmaceuticals', 'IT Services',\n    'Computer Hardware & Software', 'Aerospace & Defense',\n    'Enterprise Software & Network Solutions']\n"
     },
     {
-      "raw": "# Let's start by analyzing the average salary for job postings\n# ALEX: remove plotting\n# sns.boxplot(x=job_data['avg_salary_estimate'])\n_ = job_data['avg_salary_estimate']",
+      "raw": "# Let's start by analyzing the average salary for job postings\n# FIRST-AUTHOR: remove plotting\n# sns.boxplot(x=job_data['avg_salary_estimate'])\n_ = job_data['avg_salary_estimate']",
       "rewrite-ns": 303163,
       "overhead-ns": 303163,
       "exec-ns": 211834,
@@ -696,7 +696,7 @@
       "rewritten": "df.shape\n"
     },
     {
-      "raw": "# Make a comparison between the years the company has been in the market and the avg. salary.\n# ALEX: remove plotting\n# sns.lmplot(x='years_in_market',y='avg_salary_estimate',data=df)\n",
+      "raw": "# Make a comparison between the years the company has been in the market and the avg. salary.\n# FIRST-AUTHOR: remove plotting\n# sns.lmplot(x='years_in_market',y='avg_salary_estimate',data=df)\n",
       "rewrite-ns": 12821,
       "overhead-ns": 12821,
       "exec-ns": 64294,
@@ -705,7 +705,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# Generate a heatmap based on the numerical columns of the dataframe\n# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(10,10)) \nmatrix = np.triu(df.select_dtypes(include=[np.number]).corr())\n# ALEX: remove plotting\n# sns.heatmap(df.select_dtypes(include=[np.number]).corr(),annot=True, fmt='.1g', vmin=-1, vmax=1, center= 0,  ax=ax)\n_ = df.select_dtypes(include=[np.number]).corr()",
+      "raw": "# Generate a heatmap based on the numerical columns of the dataframe\n# FIRST-AUTHOR: remove plotting\n# fig, ax = plt.subplots(figsize=(10,10)) \nmatrix = np.triu(df.select_dtypes(include=[np.number]).corr())\n# FIRST-AUTHOR: remove plotting\n# sns.heatmap(df.select_dtypes(include=[np.number]).corr(),annot=True, fmt='.1g', vmin=-1, vmax=1, center= 0,  ax=ax)\n_ = df.select_dtypes(include=[np.number]).corr()",
       "rewrite-ns": 1255482,
       "overhead-ns": 1255482,
       "exec-ns": 1340952,
@@ -714,7 +714,7 @@
       "rewritten": "matrix = np.triu(df.select_dtypes(include=[np.number]).corr())\n_ = df.select_dtypes(include=[np.number]).corr()\n"
     },
     {
-      "raw": "# Check the sector values\n# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(10,10)) \n# chart = sns.barplot(x=df.sector.value_counts().index, y=df.sector.value_counts())\n# _= chart.set_xticklabels(chart.get_xticklabels(), rotation=75)\n_ = df.sector.value_counts().index\n_ = df.sector.value_counts()",
+      "raw": "# Check the sector values\n# FIRST-AUTHOR: remove plotting\n# fig, ax = plt.subplots(figsize=(10,10)) \n# chart = sns.barplot(x=df.sector.value_counts().index, y=df.sector.value_counts())\n# _= chart.set_xticklabels(chart.get_xticklabels(), rotation=75)\n_ = df.sector.value_counts().index\n_ = df.sector.value_counts()",
       "rewrite-ns": 698966,
       "overhead-ns": 698966,
       "exec-ns": 819737,

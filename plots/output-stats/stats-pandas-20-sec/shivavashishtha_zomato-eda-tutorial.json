@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 224,
   "cells": [
     {
-      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import matplotlib.cm as cm\n# import seaborn as sns\n# import random\n# from wordcloud import WordCloud",
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# import matplotlib.cm as cm\n# import seaborn as sns\n# import random\n# from wordcloud import WordCloud",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 382356
@@ -315,7 +315,7 @@
       "total-ns": 3958024
     },
     {
-      "raw": "height = top10_chains.values\nbars = top10_chains.index\ny_pos = np.arange(len(bars))\n\n# ALEX: remove plotting\n# fig = plt.figure(figsize=[11,7], frameon=False)\n# ax = fig.gca()\n# ax.spines[\"top\"].set_visible(\"#424242\")\n# ax.spines[\"right\"].set_visible(False)\n# ax.spines[\"left\"].set_color(\"#424242\")\n# ax.spines[\"bottom\"].set_color(\"#424242\")\n\n# #colors = [\"green\",\"blue\",\"magenta\",\"cyan\",\"gray\",\"yellow\",\"purple\",\"violet\",\"orange\",\"red\",\"maroon\"]\n# #random.shuffle(colors)\n# colors = [\"#f9cdac\",\"#f2a49f\",\"#ec7c92\",\"#e65586\",\"#bc438b\",\"#933291\",\"#692398\",\"#551c7b\",\"#41155e\",\"#2d0f41\"]\n# plt.barh(y_pos, height, color=colors)\n \n# plt.xticks(color=\"#424242\")\n\n# plt.yticks(y_pos, bars, color=\"#424242\")\n# plt.xlabel(\"Number of outlets in India\")\n\n# for i, v in enumerate(height):\n#     ax.text(v+3, i, str(v), color='#424242')\n# plt.title(\"Top 10 Restaurant chain in India (by number of outlets)\")\n\n\n# plt.show()",
+      "raw": "height = top10_chains.values\nbars = top10_chains.index\ny_pos = np.arange(len(bars))\n\n# FIRST-AUTHOR: remove plotting\n# fig = plt.figure(figsize=[11,7], frameon=False)\n# ax = fig.gca()\n# ax.spines[\"top\"].set_visible(\"#424242\")\n# ax.spines[\"right\"].set_visible(False)\n# ax.spines[\"left\"].set_color(\"#424242\")\n# ax.spines[\"bottom\"].set_color(\"#424242\")\n\n# #colors = [\"green\",\"blue\",\"magenta\",\"cyan\",\"gray\",\"yellow\",\"purple\",\"violet\",\"orange\",\"red\",\"maroon\"]\n# #random.shuffle(colors)\n# colors = [\"#f9cdac\",\"#f2a49f\",\"#ec7c92\",\"#e65586\",\"#bc438b\",\"#933291\",\"#692398\",\"#551c7b\",\"#41155e\",\"#2d0f41\"]\n# plt.barh(y_pos, height, color=colors)\n \n# plt.xticks(color=\"#424242\")\n\n# plt.yticks(y_pos, bars, color=\"#424242\")\n# plt.xlabel(\"Number of outlets in India\")\n\n# for i, v in enumerate(height):\n#     ax.text(v+3, i, str(v), color='#424242')\n# plt.title(\"Top 10 Restaurant chain in India (by number of outlets)\")\n\n\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 390054
@@ -339,13 +339,13 @@
       "total-ns": 4240578
     },
     {
-      "raw": "height = pd.Series(top10_chains2.values).map(lambda x : np.round(x, 2))\nbars = top10_chains2.index\ny_pos = np.arange(len(bars))\n\n# ALEX: remove plotting\n# fig = plt.figure(figsize=[11,7], frameon=False)\n# ax = fig.gca()\n# ax.spines[\"top\"].set_visible(\"#424242\")\n# ax.spines[\"right\"].set_visible(False)\n# ax.spines[\"left\"].set_color(\"#424242\")\n# ax.spines[\"bottom\"].set_color(\"#424242\")\n\n# #colors = [\"green\",\"blue\",\"magenta\",\"cyan\",\"gray\",\"yellow\",\"purple\",\"violet\",\"orange\",\"red\",\"maroon\"]\n# #random.shuffle(colors)\n# colors = ['#fded86', '#fce36b', '#f7c65d', '#f1a84f', '#ec8c41', '#e76f34', '#e25328', '#b04829', '#7e3e2b', '#4c3430']\n# plt.barh(y_pos, height, color=colors)\n\n# plt.xlim(3)\n# plt.xticks(color=\"#424242\")\n# plt.yticks(y_pos, bars, color=\"#424242\")\n# plt.xlabel(\"Number of outlets in India\")\n\n# for i, v in enumerate(height):\n#     ax.text(v + 0.01, i, str(v), color='#424242')\n# plt.title(\"Top 10 Restaurant chain in India (by average Rating)\")\n\n\n# plt.show()",
+      "raw": "height = pd.Series(top10_chains2.values).map(lambda x : np.round(x, 2))\nbars = top10_chains2.index\ny_pos = np.arange(len(bars))\n\n# FIRST-AUTHOR: remove plotting\n# fig = plt.figure(figsize=[11,7], frameon=False)\n# ax = fig.gca()\n# ax.spines[\"top\"].set_visible(\"#424242\")\n# ax.spines[\"right\"].set_visible(False)\n# ax.spines[\"left\"].set_color(\"#424242\")\n# ax.spines[\"bottom\"].set_color(\"#424242\")\n\n# #colors = [\"green\",\"blue\",\"magenta\",\"cyan\",\"gray\",\"yellow\",\"purple\",\"violet\",\"orange\",\"red\",\"maroon\"]\n# #random.shuffle(colors)\n# colors = ['#fded86', '#fce36b', '#f7c65d', '#f1a84f', '#ec8c41', '#e76f34', '#e25328', '#b04829', '#7e3e2b', '#4c3430']\n# plt.barh(y_pos, height, color=colors)\n\n# plt.xlim(3)\n# plt.xticks(color=\"#424242\")\n# plt.yticks(y_pos, bars, color=\"#424242\")\n# plt.xlabel(\"Number of outlets in India\")\n\n# for i, v in enumerate(height):\n#     ax.text(v + 0.01, i, str(v), color='#424242')\n# plt.title(\"Top 10 Restaurant chain in India (by average Rating)\")\n\n\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 692802
     },
     {
-      "raw": "est_count = data.groupby(\"establishment\").count()[\"res_id\"].sort_values(ascending=False)[:5]\n\n# ALEX: remove plotting\n# fig = plt.figure(figsize=[8,5], frameon=False)\n# ax = fig.gca()\n# ax.spines[\"top\"].set_visible(False)\n# ax.spines[\"right\"].set_visible(False)\n# ax.spines[\"left\"].set_color(\"#424242\")\n# ax.spines[\"bottom\"].set_color(\"#424242\")\n\n# #colors = [\"green\",\"blue\",\"magenta\",\"cyan\",\"gray\",\"yellow\",\"purple\",\"violet\",\"orange\",\"red\",\"maroon\"]\n# #random.shuffle(colors)\n# colors = [\"#2d0f41\",'#933291',\"#e65586\",\"#f2a49f\",\"#f9cdac\"]\n# plt.bar(est_count.index, est_count.values, color=colors)\n\n# plt.xticks(range(0, 6), color=\"#424242\")\n# plt.yticks(range(0, 25000, 5000), color=\"#424242\")\n# plt.xlabel(\"Top 5 establishment types\")\n\n# for i, v in enumerate(est_count):\n#     ax.text(i-0.2, v+500, str(v), color='#424242')\n# plt.title(\"Number of restaurants (by establishment type)\")\n\n\n# plt.show()\n_ = est_count.index\n_ = est_count.values",
+      "raw": "est_count = data.groupby(\"establishment\").count()[\"res_id\"].sort_values(ascending=False)[:5]\n\n# FIRST-AUTHOR: remove plotting\n# fig = plt.figure(figsize=[8,5], frameon=False)\n# ax = fig.gca()\n# ax.spines[\"top\"].set_visible(False)\n# ax.spines[\"right\"].set_visible(False)\n# ax.spines[\"left\"].set_color(\"#424242\")\n# ax.spines[\"bottom\"].set_color(\"#424242\")\n\n# #colors = [\"green\",\"blue\",\"magenta\",\"cyan\",\"gray\",\"yellow\",\"purple\",\"violet\",\"orange\",\"red\",\"maroon\"]\n# #random.shuffle(colors)\n# colors = [\"#2d0f41\",'#933291',\"#e65586\",\"#f2a49f\",\"#f9cdac\"]\n# plt.bar(est_count.index, est_count.values, color=colors)\n\n# plt.xticks(range(0, 6), color=\"#424242\")\n# plt.yticks(range(0, 25000, 5000), color=\"#424242\")\n# plt.xlabel(\"Top 5 establishment types\")\n\n# for i, v in enumerate(est_count):\n#     ax.text(i-0.2, v+500, str(v), color='#424242')\n# plt.title(\"Number of restaurants (by establishment type)\")\n\n\n# plt.show()\n_ = est_count.index\n_ = est_count.values",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 26144541
@@ -375,7 +375,7 @@
       "total-ns": 3780018
     },
     {
-      "raw": "city_counts = data.groupby(\"city\").count()[\"res_id\"].sort_values(ascending=True)[-10:]\n\nheight = pd.Series(city_counts.values)\nbars = city_counts.index\ny_pos = np.arange(len(bars))\n\n# ALEX: remove plotting\n# fig = plt.figure(figsize=[11,7], frameon=False)\n# ax = fig.gca()\n# ax.spines[\"top\"].set_visible(\"#424242\")\n# ax.spines[\"right\"].set_visible(False)\n# ax.spines[\"left\"].set_color(\"#424242\")\n# ax.spines[\"bottom\"].set_color(\"#424242\")\n\n# #colors = [\"green\",\"blue\",\"magenta\",\"cyan\",\"gray\",\"yellow\",\"purple\",\"violet\",\"orange\",\"red\",\"maroon\"]\n# #random.shuffle(colors)\n# colors = ['#dcecc9', '#aadacc', '#78c6d0', '#48b3d3', '#3e94c0', '#3474ac', '#2a5599', '#203686', '#18216b', '#11174b']\n# plt.barh(y_pos, height, color=colors)\n\n# plt.xlim(3)\n# plt.xticks(color=\"#424242\")\n# plt.yticks(y_pos, bars, color=\"#424242\")\n# plt.xlabel(\"Number of outlets\")\n\n# for i, v in enumerate(height):\n#     ax.text(v + 20, i, str(v), color='#424242')\n# plt.title(\"Number of restaurants (by city)\")\n\n\n# plt.show()",
+      "raw": "city_counts = data.groupby(\"city\").count()[\"res_id\"].sort_values(ascending=True)[-10:]\n\nheight = pd.Series(city_counts.values)\nbars = city_counts.index\ny_pos = np.arange(len(bars))\n\n# FIRST-AUTHOR: remove plotting\n# fig = plt.figure(figsize=[11,7], frameon=False)\n# ax = fig.gca()\n# ax.spines[\"top\"].set_visible(\"#424242\")\n# ax.spines[\"right\"].set_visible(False)\n# ax.spines[\"left\"].set_color(\"#424242\")\n# ax.spines[\"bottom\"].set_color(\"#424242\")\n\n# #colors = [\"green\",\"blue\",\"magenta\",\"cyan\",\"gray\",\"yellow\",\"purple\",\"violet\",\"orange\",\"red\",\"maroon\"]\n# #random.shuffle(colors)\n# colors = ['#dcecc9', '#aadacc', '#78c6d0', '#48b3d3', '#3e94c0', '#3474ac', '#2a5599', '#203686', '#18216b', '#11174b']\n# plt.barh(y_pos, height, color=colors)\n\n# plt.xlim(3)\n# plt.xticks(color=\"#424242\")\n# plt.yticks(y_pos, bars, color=\"#424242\")\n# plt.xlabel(\"Number of outlets\")\n\n# for i, v in enumerate(height):\n#     ax.text(v + 20, i, str(v), color='#424242')\n# plt.title(\"Number of restaurants (by city)\")\n\n\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 26488799
@@ -411,7 +411,7 @@
       "total-ns": 2335775
     },
     {
-      "raw": "c_count = cuisines.value_counts()[:5]\n\n# ALEX: remove plotting\n# fig = plt.figure(figsize=[8,5], frameon=False)\n# ax = fig.gca()\n# ax.spines[\"top\"].set_visible(False)\n# ax.spines[\"right\"].set_visible(False)\n# ax.spines[\"left\"].set_color(\"#424242\")\n# ax.spines[\"bottom\"].set_color(\"#424242\")\n\n# #colors = [\"green\",\"blue\",\"magenta\",\"cyan\",\"gray\",\"yellow\",\"purple\",\"violet\",\"orange\",\"red\",\"maroon\"]\n# #random.shuffle(colors)\n# colors = ['#4c3430', '#b04829', '#ec8c41', '#f7c65d','#fded86']\n# plt.bar(c_count.index, c_count.values, color=colors)\n\n# plt.xticks(range(0, 6), color=\"#424242\")\n# plt.yticks(range(0, 30000, 5000), color=\"#424242\")\n# plt.xlabel(\"Top 5 cuisines\")\n\n# for i, v in enumerate(c_count):\n#     ax.text(i-0.2, v+500, str(v), color='#424242')\n# plt.title(\"Number of restaurants (by cuisine type)\")\n\n\n# plt.show()\n_ = c_count.index\n_ = c_count.values",
+      "raw": "c_count = cuisines.value_counts()[:5]\n\n# FIRST-AUTHOR: remove plotting\n# fig = plt.figure(figsize=[8,5], frameon=False)\n# ax = fig.gca()\n# ax.spines[\"top\"].set_visible(False)\n# ax.spines[\"right\"].set_visible(False)\n# ax.spines[\"left\"].set_color(\"#424242\")\n# ax.spines[\"bottom\"].set_color(\"#424242\")\n\n# #colors = [\"green\",\"blue\",\"magenta\",\"cyan\",\"gray\",\"yellow\",\"purple\",\"violet\",\"orange\",\"red\",\"maroon\"]\n# #random.shuffle(colors)\n# colors = ['#4c3430', '#b04829', '#ec8c41', '#f7c65d','#fded86']\n# plt.bar(c_count.index, c_count.values, color=colors)\n\n# plt.xticks(range(0, 6), color=\"#424242\")\n# plt.yticks(range(0, 30000, 5000), color=\"#424242\")\n# plt.xlabel(\"Top 5 cuisines\")\n\n# for i, v in enumerate(c_count):\n#     ax.text(i-0.2, v+500, str(v), color='#424242')\n# plt.title(\"Number of restaurants (by cuisine type)\")\n\n\n# plt.show()\n_ = c_count.index\n_ = c_count.values",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 3582625
@@ -447,7 +447,7 @@
       "total-ns": 11507888
     },
     {
-      "raw": "h_count = hl.value_counts()[:5]\n\n# ALEX: remove plotting\n# fig = plt.figure(figsize=[10,6], frameon=False)\n# ax = fig.gca()\n# ax.spines[\"top\"].set_visible(False)\n# ax.spines[\"right\"].set_visible(False)\n# ax.spines[\"left\"].set_color(\"#424242\")\n# ax.spines[\"bottom\"].set_color(\"#424242\")\n\n# #colors = [\"green\",\"blue\",\"magenta\",\"cyan\",\"gray\",\"yellow\",\"purple\",\"violet\",\"orange\",\"red\",\"maroon\"]\n# #random.shuffle(colors)\n# colors = ['#11174b', '#2a5599', '#3e94c0', '#78c6d0', '#dcecc9']\n# plt.bar(h_count.index, h_count.values, color=colors)\n\n# plt.xticks(range(0, 6), color=\"#424242\")\n# plt.yticks(range(0, 70000, 10000), color=\"#424242\")\n# plt.xlabel(\"Top 5 highlights\")\n\n# for i, v in enumerate(h_count):\n#     ax.text(i-0.2, v+500, str(v), color='#424242')\n# plt.title(\"Number of restaurants (by highlights)\")\n\n\n# plt.show()\n_ = h_count.index\n_ = h_count.values",
+      "raw": "h_count = hl.value_counts()[:5]\n\n# FIRST-AUTHOR: remove plotting\n# fig = plt.figure(figsize=[10,6], frameon=False)\n# ax = fig.gca()\n# ax.spines[\"top\"].set_visible(False)\n# ax.spines[\"right\"].set_visible(False)\n# ax.spines[\"left\"].set_color(\"#424242\")\n# ax.spines[\"bottom\"].set_color(\"#424242\")\n\n# #colors = [\"green\",\"blue\",\"magenta\",\"cyan\",\"gray\",\"yellow\",\"purple\",\"violet\",\"orange\",\"red\",\"maroon\"]\n# #random.shuffle(colors)\n# colors = ['#11174b', '#2a5599', '#3e94c0', '#78c6d0', '#dcecc9']\n# plt.bar(h_count.index, h_count.values, color=colors)\n\n# plt.xticks(range(0, 6), color=\"#424242\")\n# plt.yticks(range(0, 70000, 10000), color=\"#424242\")\n# plt.xlabel(\"Top 5 highlights\")\n\n# for i, v in enumerate(h_count):\n#     ax.text(i-0.2, v+500, str(v), color='#424242')\n# plt.title(\"Number of restaurants (by highlights)\")\n\n\n# plt.show()\n_ = h_count.index\n_ = h_count.values",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 13178805
@@ -483,31 +483,31 @@
       "total-ns": 1436521
     },
     {
-      "raw": "# https://www.geeksforgeeks.org/generating-word-cloud-python/\n\n# ALEX: remove plotting\n# hl_str = \"\"\n# for i in hl:\n#     hl_str += str(i) + \" \"\n# wordcloud = WordCloud(width = 800, height = 500, \n#                 background_color ='white', \n#                 min_font_size = 10, max_words=30).generate(hl_str) \n                         \n# plt.figure(figsize = (8, 8), facecolor = None) \n# plt.imshow(wordcloud) \n# plt.axis(\"off\") \n# plt.tight_layout(pad = 0) \n  \n# plt.show()",
+      "raw": "# https://www.geeksforgeeks.org/generating-word-cloud-python/\n\n# FIRST-AUTHOR: remove plotting\n# hl_str = \"\"\n# for i in hl:\n#     hl_str += str(i) + \" \"\n# wordcloud = WordCloud(width = 800, height = 500, \n#                 background_color ='white', \n#                 min_font_size = 10, max_words=30).generate(hl_str) \n                         \n# plt.figure(figsize = (8, 8), facecolor = None) \n# plt.imshow(wordcloud) \n# plt.axis(\"off\") \n# plt.tight_layout(pad = 0) \n  \n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 171373
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.kdeplot(data['aggregate_rating'], shade=True)\n# plt.title(\"Ratings distribution\")\n# plt.show()\n_ = data['aggregate_rating']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.kdeplot(data['aggregate_rating'], shade=True)\n# plt.title(\"Ratings distribution\")\n# plt.show()\n_ = data['aggregate_rating']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 250109
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.kdeplot(data['average_cost_for_two'], shade=True)\n# plt.title(\"Average cost for 2 distribution\")\n# plt.show()\n_ = data['average_cost_for_two']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.kdeplot(data['average_cost_for_two'], shade=True)\n# plt.title(\"Average cost for 2 distribution\")\n# plt.show()\n_ = data['average_cost_for_two']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 228360
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.kdeplot(data['average_cost_for_two'], shade=True)\n# plt.xlim([0, 6000])\n# plt.xticks(range(0,6000,500))\n# plt.title(\"Average cost for 2 distribution\")\n# plt.show()\n_ = data['average_cost_for_two']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.kdeplot(data['average_cost_for_two'], shade=True)\n# plt.xlim([0, 6000])\n# plt.xticks(range(0,6000,500))\n# plt.title(\"Average cost for 2 distribution\")\n# plt.show()\n_ = data['average_cost_for_two']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 200016
     },
     {
-      "raw": "pr_count = data.groupby(\"price_range\").count()[\"name\"]\n\n# ALEX: remove plotting\n# fig = plt.figure(figsize=[8,5], frameon=False)\n# ax = fig.gca()\n# ax.spines[\"top\"].set_visible(False)\n# ax.spines[\"right\"].set_visible(False)\n# ax.spines[\"left\"].set_color(\"#424242\")\n# ax.spines[\"bottom\"].set_color(\"#424242\")\n\n# #colors = [\"green\",\"blue\",\"magenta\",\"cyan\",\"gray\",\"yellow\",\"purple\",\"violet\",\"orange\",\"red\",\"maroon\"]\n# #random.shuffle(colors)\n# colors = [\"#2d0f41\",'#933291',\"#f2a49f\",\"#f9cdac\"]\n# plt.bar(pr_count.index, pr_count.values, color=colors)\n\n# plt.xticks(range(0, 5), color=\"#424242\")\n# plt.yticks(range(0, 40000, 5000), color=\"#424242\")\n# plt.xlabel(\"Price Ranges\")\n\n# for i, v in enumerate(pr_count):\n#     ax.text(i+0.85, v+700, str(v), color='#424242')\n# plt.title(\"Number of restaurants (by price ranges)\")\n\n\n# plt.show()\n_ = pr_count.index\n_ = pr_count.values",
+      "raw": "pr_count = data.groupby(\"price_range\").count()[\"name\"]\n\n# FIRST-AUTHOR: remove plotting\n# fig = plt.figure(figsize=[8,5], frameon=False)\n# ax = fig.gca()\n# ax.spines[\"top\"].set_visible(False)\n# ax.spines[\"right\"].set_visible(False)\n# ax.spines[\"left\"].set_color(\"#424242\")\n# ax.spines[\"bottom\"].set_color(\"#424242\")\n\n# #colors = [\"green\",\"blue\",\"magenta\",\"cyan\",\"gray\",\"yellow\",\"purple\",\"violet\",\"orange\",\"red\",\"maroon\"]\n# #random.shuffle(colors)\n# colors = [\"#2d0f41\",'#933291',\"#f2a49f\",\"#f9cdac\"]\n# plt.bar(pr_count.index, pr_count.values, color=colors)\n\n# plt.xticks(range(0, 5), color=\"#424242\")\n# plt.yticks(range(0, 40000, 5000), color=\"#424242\")\n# plt.xlabel(\"Price Ranges\")\n\n# for i, v in enumerate(pr_count):\n#     ax.text(i+0.85, v+700, str(v), color='#424242')\n# plt.title(\"Number of restaurants (by price ranges)\")\n\n\n# plt.show()\n_ = pr_count.index\n_ = pr_count.values",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 37687513
@@ -519,13 +519,13 @@
       "total-ns": 1536951
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.plot(\"average_cost_for_two\",\"aggregate_rating\", data=data, linestyle=\"none\", marker=\"o\")\n# plt.xlim([0,6000])\n# plt.title(\"Relationship between Average cost and Rating\")\n# plt.xlabel(\"Average cost for two\")\n# plt.ylabel(\"Ratings\")\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.plot(\"average_cost_for_two\",\"aggregate_rating\", data=data, linestyle=\"none\", marker=\"o\")\n# plt.xlim([0,6000])\n# plt.title(\"Relationship between Average cost and Rating\")\n# plt.xlabel(\"Average cost for two\")\n# plt.ylabel(\"Ratings\")\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 137207
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.plot(\"average_cost_for_two\",\"aggregate_rating\", data=data.sample(1000), linestyle=\"none\", marker=\"o\")\n# plt.xlim([0,3000])\n# plt.show()\n_ = data.sample(1000)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.plot(\"average_cost_for_two\",\"aggregate_rating\", data=data.sample(1000), linestyle=\"none\", marker=\"o\")\n# plt.xlim([0,3000])\n# plt.show()\n_ = data.sample(1000)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1377962
@@ -537,7 +537,7 @@
       "total-ns": 1293770
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.boxplot(x='price_range', y='aggregate_rating', data=data)\n# plt.ylim(1)\n# plt.title(\"Relationship between Price range and Ratings\")\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.boxplot(x='price_range', y='aggregate_rating', data=data)\n# plt.ylim(1)\n# plt.title(\"Relationship between Price range and Ratings\")\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 122534

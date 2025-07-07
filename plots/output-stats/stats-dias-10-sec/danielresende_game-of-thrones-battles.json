@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 901,
   "cells": [
     {
-      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n\n# %matplotlib inline\n\n# plt.rcParams['figure.figsize'] = (10, 6)\n# plt.style.use('ggplot')",
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n\n# %matplotlib inline\n\n# plt.rcParams['figure.figsize'] = (10, 6)\n# plt.style.use('ggplot')",
       "rewrite-ns": 490637,
       "overhead-ns": 490637,
       "exec-ns": 270191,
@@ -12,7 +12,7 @@
       "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
     },
     {
-      "raw": "battles = pd.read_csv('./input/battles.scaled.csv')\n\n'''\nthere is an error on the data\non the Battle of Castle Black, it was Mance Rayder the attacker, not Stannis Baratheon\n'''\n# ALEX: make notebook run\n# battles.set_value(27, 'attacker_king', 'Mance Rayder')\n# battles.set_value(27, 'defender_king', 'Stannis Baratheon')\nbattles.at[27, 'attacker_king'] = 'Mance Rayder'\nbattles.at[27, 'defender_king'] = 'Stannis Baratheon'\n\nprint(battles.info())",
+      "raw": "battles = pd.read_csv('./input/battles.scaled.csv')\n\n'''\nthere is an error on the data\non the Battle of Castle Black, it was Mance Rayder the attacker, not Stannis Baratheon\n'''\n# FIRST-AUTHOR: make notebook run\n# battles.set_value(27, 'attacker_king', 'Mance Rayder')\n# battles.set_value(27, 'defender_king', 'Stannis Baratheon')\nbattles.at[27, 'attacker_king'] = 'Mance Rayder'\nbattles.at[27, 'defender_king'] = 'Stannis Baratheon'\n\nprint(battles.info())",
       "rewrite-ns": 1503705,
       "overhead-ns": 1503705,
       "exec-ns": 3477800080,
@@ -30,7 +30,7 @@
       "rewritten": "battles.head(5)\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# battles.groupby(['attacker_king', 'defender_king']).count()['name'].plot(kind = 'barh')\nbattles.groupby(['attacker_king', 'defender_king']).count()['name']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# battles.groupby(['attacker_king', 'defender_king']).count()['name'].plot(kind = 'barh')\nbattles.groupby(['attacker_king', 'defender_king']).count()['name']",
       "rewrite-ns": 620176,
       "overhead-ns": 620176,
       "exec-ns": 1413244604,
@@ -39,7 +39,7 @@
       "rewritten": "battles.groupby(['attacker_king', 'defender_king']).count()['name']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# battles.groupby(['attacker_king','attacker_outcome']).count()['name'].unstack().plot(kind = 'barh')\nbattles.groupby(['attacker_king','attacker_outcome']).count()['name'].unstack()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# battles.groupby(['attacker_king','attacker_outcome']).count()['name'].unstack().plot(kind = 'barh')\nbattles.groupby(['attacker_king','attacker_outcome']).count()['name'].unstack()",
       "rewrite-ns": 797458,
       "overhead-ns": 797458,
       "exec-ns": 1427999821,
@@ -48,7 +48,7 @@
       "rewritten": "battles.groupby(['attacker_king', 'attacker_outcome']).count()['name'].unstack(\n    )\n"
     },
     {
-      "raw": "def commander_battles(attack, defend):\n    namesdict = {}\n    for i in range(len(attack.index)):\n        for name in attack.index[i].split(', '):\n            if name in namesdict:\n# ALEX: make notebook run\n#                 namesdict[name] = namesdict[name] + attack.ix[i]\n                namesdict[name] = namesdict[name] + attack.iloc[i]\n            else:\n# ALEX: make notebook run\n#                 namesdict[name] = attack.ix[i]\n                namesdict[name] = attack.iloc[i]\n    for i in range(len(defend.index)):\n        for name in defend.index[i].split(', '):\n            if name in namesdict:\n# ALEX: make notebook run\n#                 namesdict[name] = namesdict[name] + defend.ix[i]\n                namesdict[name] = namesdict[name] + defend.iloc[i]\n            else:\n# ALEX: make notebook run\n#                 namesdict[name] = defend.ix[i]\n                namesdict[name] = defend.iloc[i]\n    return namesdict\n\ncommander_exp = commander_battles(battles.groupby('attacker_commander').count()['name'], battles.groupby('defender_commander').count()['name'])\ncommander_exp = pd.DataFrame.from_dict(commander_exp, 'index')\ncommander_exp.rename(columns = {0:'num_battles'}, inplace = True)\n# ALEX: remove plotting\n# commander_exp.sort_values('num_battles').tail(15).plot(kind = 'barh')\ncommander_exp.sort_values('num_battles').tail(15)",
+      "raw": "def commander_battles(attack, defend):\n    namesdict = {}\n    for i in range(len(attack.index)):\n        for name in attack.index[i].split(', '):\n            if name in namesdict:\n# FIRST-AUTHOR: make notebook run\n#                 namesdict[name] = namesdict[name] + attack.ix[i]\n                namesdict[name] = namesdict[name] + attack.iloc[i]\n            else:\n# FIRST-AUTHOR: make notebook run\n#                 namesdict[name] = attack.ix[i]\n                namesdict[name] = attack.iloc[i]\n    for i in range(len(defend.index)):\n        for name in defend.index[i].split(', '):\n            if name in namesdict:\n# FIRST-AUTHOR: make notebook run\n#                 namesdict[name] = namesdict[name] + defend.ix[i]\n                namesdict[name] = namesdict[name] + defend.iloc[i]\n            else:\n# FIRST-AUTHOR: make notebook run\n#                 namesdict[name] = defend.ix[i]\n                namesdict[name] = defend.iloc[i]\n    return namesdict\n\ncommander_exp = commander_battles(battles.groupby('attacker_commander').count()['name'], battles.groupby('defender_commander').count()['name'])\ncommander_exp = pd.DataFrame.from_dict(commander_exp, 'index')\ncommander_exp.rename(columns = {0:'num_battles'}, inplace = True)\n# FIRST-AUTHOR: remove plotting\n# commander_exp.sort_values('num_battles').tail(15).plot(kind = 'barh')\ncommander_exp.sort_values('num_battles').tail(15)",
       "rewrite-ns": 6557911,
       "overhead-ns": 6557911,
       "exec-ns": 2880092277,
@@ -57,7 +57,7 @@
       "rewritten": "def commander_battles(attack, defend):\n    namesdict = {}\n    for i in range(len(attack.index)):\n        for name in attack.index[i].split(', '):\n            if name in namesdict:\n                namesdict[name] = namesdict[name] + attack.iloc[i]\n            else:\n                namesdict[name] = attack.iloc[i]\n    for i in range(len(defend.index)):\n        for name in defend.index[i].split(', '):\n            if name in namesdict:\n                namesdict[name] = namesdict[name] + defend.iloc[i]\n            else:\n                namesdict[name] = defend.iloc[i]\n    return namesdict\ncommander_exp = commander_battles(battles.groupby('attacker_commander').\n    count()['name'], battles.groupby('defender_commander').count()['name'])\ncommander_exp = pd.DataFrame.from_dict(commander_exp, 'index')\ncommander_exp.rename(columns={(0): 'num_battles'}, inplace=True)\ncommander_exp.sort_values('num_battles').tail(15)\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# battles.groupby(['attacker_king', 'battle_type']).count()['name'].unstack().plot(kind = 'barh')\nbattles.groupby(['attacker_king', 'battle_type']).count()['name'].unstack()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# battles.groupby(['attacker_king', 'battle_type']).count()['name'].unstack().plot(kind = 'barh')\nbattles.groupby(['attacker_king', 'battle_type']).count()['name'].unstack()",
       "rewrite-ns": 753751,
       "overhead-ns": 753751,
       "exec-ns": 1420494341,
@@ -66,7 +66,7 @@
       "rewritten": "battles.groupby(['attacker_king', 'battle_type']).count()['name'].unstack()\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# ax = battles[battles['attacker_outcome'] == 'win'].plot(kind = 'scatter', y = 'attacker_size', x = 'defender_size', label = 'win', s=100)\n# battles[battles['attacker_outcome'] == 'loss'].plot(kind = 'scatter', y = 'attacker_size', x = 'defender_size', label = 'loss', color = 'r', s=100, ax = ax)\nbattles[battles['attacker_outcome'] == 'win']\nbattles[battles['attacker_outcome'] == 'loss']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# ax = battles[battles['attacker_outcome'] == 'win'].plot(kind = 'scatter', y = 'attacker_size', x = 'defender_size', label = 'win', s=100)\n# battles[battles['attacker_outcome'] == 'loss'].plot(kind = 'scatter', y = 'attacker_size', x = 'defender_size', label = 'loss', color = 'r', s=100, ax = ax)\nbattles[battles['attacker_outcome'] == 'win']\nbattles[battles['attacker_outcome'] == 'loss']",
       "rewrite-ns": 881520,
       "overhead-ns": 881520,
       "exec-ns": 264361332,
@@ -75,7 +75,7 @@
       "rewritten": "battles[battles['attacker_outcome'] == 'win']\nbattles[battles['attacker_outcome'] == 'loss']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# battles.groupby(['region']).count()['name'].sort_values().plot(kind = 'barh')\nbattles.groupby(['region']).count()['name'].sort_values()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# battles.groupby(['region']).count()['name'].sort_values().plot(kind = 'barh')\nbattles.groupby(['region']).count()['name'].sort_values()",
       "rewrite-ns": 712951,
       "overhead-ns": 712951,
       "exec-ns": 1435281949,

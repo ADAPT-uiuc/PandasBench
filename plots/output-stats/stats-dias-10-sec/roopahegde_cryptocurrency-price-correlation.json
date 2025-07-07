@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 873,
   "cells": [
     {
-      "raw": "#Import required libraries\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns",
+      "raw": "#Import required libraries\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n\n# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns",
       "rewrite-ns": 689041,
       "overhead-ns": 689041,
       "exec-ns": 404187,
@@ -183,7 +183,7 @@
       "rewritten": "ltc_grouped.shape\n"
     },
     {
-      "raw": "btc = btc_grouped['Close'].max()\neth = eth_grouped['Close'].max()\nltc = ltc_grouped['Close'].max()\n\n#What is the highest closing value of Bitcoin and when\nprint(\"Highest average value of BTC \", btc,\"was recorded on \",btc_grouped[btc_grouped['Close'] == btc].index.values[0])\n\n#What is the highest closing value of Ethereum and when\nprint(\"Highest average value of ETH \", eth,\"was recorded on \",eth_grouped[eth_grouped['Close'] == eth].index.values[0])\n\n#What is the highest closing value of Litecoin and when\nprint(\"Highest average value of LTC \", ltc,\"was recorded on \",ltc_grouped[ltc_grouped['Close'] == ltc].index.values[0])\n\n\n# ALEX: remove plotting\n# sns.barplot(x = [\"Bitcoin\",\"Ethereum\",\"Litecoin\"], y = [btc,eth,ltc])\n# plt.title(\"Comparision of average highest value in a day between Jan-2020 and 2021-04-14\")\n# plt.show()",
+      "raw": "btc = btc_grouped['Close'].max()\neth = eth_grouped['Close'].max()\nltc = ltc_grouped['Close'].max()\n\n#What is the highest closing value of Bitcoin and when\nprint(\"Highest average value of BTC \", btc,\"was recorded on \",btc_grouped[btc_grouped['Close'] == btc].index.values[0])\n\n#What is the highest closing value of Ethereum and when\nprint(\"Highest average value of ETH \", eth,\"was recorded on \",eth_grouped[eth_grouped['Close'] == eth].index.values[0])\n\n#What is the highest closing value of Litecoin and when\nprint(\"Highest average value of LTC \", ltc,\"was recorded on \",ltc_grouped[ltc_grouped['Close'] == ltc].index.values[0])\n\n\n# FIRST-AUTHOR: remove plotting\n# sns.barplot(x = [\"Bitcoin\",\"Ethereum\",\"Litecoin\"], y = [btc,eth,ltc])\n# plt.title(\"Comparision of average highest value in a day between Jan-2020 and 2021-04-14\")\n# plt.show()",
       "rewrite-ns": 3633506,
       "overhead-ns": 3633506,
       "exec-ns": 1702305,
@@ -192,7 +192,7 @@
       "rewritten": "btc = btc_grouped['Close'].max()\neth = eth_grouped['Close'].max()\nltc = ltc_grouped['Close'].max()\nprint('Highest average value of BTC ', btc, 'was recorded on ', btc_grouped\n    [btc_grouped['Close'] == btc].index.values[0])\nprint('Highest average value of ETH ', eth, 'was recorded on ', eth_grouped\n    [eth_grouped['Close'] == eth].index.values[0])\nprint('Highest average value of LTC ', ltc, 'was recorded on ', ltc_grouped\n    [ltc_grouped['Close'] == ltc].index.values[0])\n"
     },
     {
-      "raw": "btc = btc_grouped['Volume'].max()\neth = eth_grouped['Volume'].max()\nltc = ltc_grouped['Volume'].max()\n\n\n#What is the highest closing volume of Bitcoin and when\nprint(\"Highest volume of BTC \", btc,\"was recorded on \",\n      btc_grouped[btc_grouped['Volume'] == btc].index.values[0])\n\n#What is the highest closing volume of Ethereum and when\nprint(\"Highest volume of ETH \", eth,\"was recorded on \",\n     eth_grouped[eth_grouped['Volume'] == eth].index.values[0])\n\n#What is the highest closing volume of Litecoin and when\nprint(\"Highest volume of LTC \", ltc,\"was recorded on \",\n     ltc_grouped[ltc_grouped['Volume'] == ltc].index.values[0])\n\n# ALEX: remove plotting\n# sns.barplot(x = [\"Bitcoin\",\"Ethereum\",\"Litecoin\"], y = [btc,eth,ltc])\n# plt.title(\"Comparision of highest volume in a day between Jan-2020 and 2021-04-14\")\n# plt.show()",
+      "raw": "btc = btc_grouped['Volume'].max()\neth = eth_grouped['Volume'].max()\nltc = ltc_grouped['Volume'].max()\n\n\n#What is the highest closing volume of Bitcoin and when\nprint(\"Highest volume of BTC \", btc,\"was recorded on \",\n      btc_grouped[btc_grouped['Volume'] == btc].index.values[0])\n\n#What is the highest closing volume of Ethereum and when\nprint(\"Highest volume of ETH \", eth,\"was recorded on \",\n     eth_grouped[eth_grouped['Volume'] == eth].index.values[0])\n\n#What is the highest closing volume of Litecoin and when\nprint(\"Highest volume of LTC \", ltc,\"was recorded on \",\n     ltc_grouped[ltc_grouped['Volume'] == ltc].index.values[0])\n\n# FIRST-AUTHOR: remove plotting\n# sns.barplot(x = [\"Bitcoin\",\"Ethereum\",\"Litecoin\"], y = [btc,eth,ltc])\n# plt.title(\"Comparision of highest volume in a day between Jan-2020 and 2021-04-14\")\n# plt.show()",
       "rewrite-ns": 3478213,
       "overhead-ns": 3478213,
       "exec-ns": 1534624,
@@ -219,7 +219,7 @@
       "rewritten": "print('Lowest average closing value of BTC ', btc_grouped['Close'].min())\nprint('Lowest average closing value of ETH ', eth_grouped['Close'].min())\nprint('Lowest average closing value of LTC ', ltc_grouped['Close'].min())\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=[15,5])\n# sns.lineplot(x = btc_grouped.index , y = 'Close', data = btc_grouped)\n# plt.show()\n_ = btc_grouped.index",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=[15,5])\n# sns.lineplot(x = btc_grouped.index , y = 'Close', data = btc_grouped)\n# plt.show()\n_ = btc_grouped.index",
       "rewrite-ns": 247010,
       "overhead-ns": 247010,
       "exec-ns": 191096,
@@ -228,7 +228,7 @@
       "rewritten": "_ = btc_grouped.index\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=[15,5])\n# sns.lineplot(x = eth_grouped.index , y = 'Close', data = eth_grouped)\n# plt.show()\n_ = eth_grouped.index",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=[15,5])\n# sns.lineplot(x = eth_grouped.index , y = 'Close', data = eth_grouped)\n# plt.show()\n_ = eth_grouped.index",
       "rewrite-ns": 237206,
       "overhead-ns": 237206,
       "exec-ns": 172196,
@@ -237,7 +237,7 @@
       "rewritten": "_ = eth_grouped.index\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=[15,5])\n# sns.lineplot(x = ltc_grouped.asfreq('M').index , y = 'Close', data = ltc_grouped.asfreq('M'))\n# plt.xticks(ticks = ltc_grouped.asfreq('M').index, labels = ['Jan-20', 'Feb-20', 'Mar-20', 'Apr-20',\n#                                                             'May-20', 'Jun-20', 'Jul-20', 'Aug-20', 'Sep-20', 'Oct-20',\n#                                                            'Nov-20', 'Dec-20', 'Jan-21', 'Feb-21', 'Mar-21'])\n# plt.show()\n\n_ = ltc_grouped.asfreq('M').index\n_ = ltc_grouped.asfreq('M')\n_ = ltc_grouped.asfreq('M').index",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=[15,5])\n# sns.lineplot(x = ltc_grouped.asfreq('M').index , y = 'Close', data = ltc_grouped.asfreq('M'))\n# plt.xticks(ticks = ltc_grouped.asfreq('M').index, labels = ['Jan-20', 'Feb-20', 'Mar-20', 'Apr-20',\n#                                                             'May-20', 'Jun-20', 'Jul-20', 'Aug-20', 'Sep-20', 'Oct-20',\n#                                                            'Nov-20', 'Dec-20', 'Jan-21', 'Feb-21', 'Mar-21'])\n# plt.show()\n\n_ = ltc_grouped.asfreq('M').index\n_ = ltc_grouped.asfreq('M')\n_ = ltc_grouped.asfreq('M').index",
       "rewrite-ns": 1083935,
       "overhead-ns": 1083935,
       "exec-ns": 3869105,
@@ -246,7 +246,7 @@
       "rewritten": "_ = ltc_grouped.asfreq('M').index\n_ = ltc_grouped.asfreq('M')\n_ = ltc_grouped.asfreq('M').index\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(15,6))\n# btc_grouped['Close'].plot(c='blue')\n# eth_grouped['Close'].plot(c='cyan')\n# ltc_grouped['Close'].plot(c='orange')\n# plt.title('Comparision of cryptocurrency values through 2020')\n# plt.legend(('Bitcoin','Ethereum', 'Litecoin'))\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15,6))\n# btc_grouped['Close'].plot(c='blue')\n# eth_grouped['Close'].plot(c='cyan')\n# ltc_grouped['Close'].plot(c='orange')\n# plt.title('Comparision of cryptocurrency values through 2020')\n# plt.legend(('Bitcoin','Ethereum', 'Litecoin'))\n# plt.show()",
       "rewrite-ns": 13429,
       "overhead-ns": 13429,
       "exec-ns": 66522,
@@ -255,7 +255,7 @@
       "rewritten": ""
     },
     {
-      "raw": "#Plot all the three currencies together to understand the trend of average closing value by day\n# ALEX: remove plotting\n# plt.figure(figsize=(15,6))\n# btc_grouped['Close'].plot(c='blue')\n# eth_grouped['Close'].plot(c='cyan')\n# ltc_grouped['Close'].plot(c='orange')\n# plt.title('Comparision of cryptocurrency values through 2020')\n# plt.legend(('Bitcoin','Ethereum', 'Litecoin'))\n# plt.yscale('log')\n# plt.show()",
+      "raw": "#Plot all the three currencies together to understand the trend of average closing value by day\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15,6))\n# btc_grouped['Close'].plot(c='blue')\n# eth_grouped['Close'].plot(c='cyan')\n# ltc_grouped['Close'].plot(c='orange')\n# plt.title('Comparision of cryptocurrency values through 2020')\n# plt.legend(('Bitcoin','Ethereum', 'Litecoin'))\n# plt.yscale('log')\n# plt.show()",
       "rewrite-ns": 12257,
       "overhead-ns": 12257,
       "exec-ns": 61676,
@@ -264,7 +264,7 @@
       "rewritten": ""
     },
     {
-      "raw": "#Plot all the three currencies together to understand the trend of volume transcted by day\n# ALEX: remove plotting\n# plt.figure(figsize=(15,6))\n# btc_grouped['Volume'].plot(c='blue')\n# eth_grouped['Volume'].plot(c='cyan')\n# ltc_grouped['Volume'].plot(c='orange')\n# plt.title('Comparision of cryptocurrency volume by day through 2020')\n# plt.legend(('Bitcoin','Ethereum', 'Litecoin'))\n# #plt.yscale('log')\n# plt.show()",
+      "raw": "#Plot all the three currencies together to understand the trend of volume transcted by day\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15,6))\n# btc_grouped['Volume'].plot(c='blue')\n# eth_grouped['Volume'].plot(c='cyan')\n# ltc_grouped['Volume'].plot(c='orange')\n# plt.title('Comparision of cryptocurrency volume by day through 2020')\n# plt.legend(('Bitcoin','Ethereum', 'Litecoin'))\n# #plt.yscale('log')\n# plt.show()",
       "rewrite-ns": 12393,
       "overhead-ns": 12393,
       "exec-ns": 57304,
@@ -300,7 +300,7 @@
       "rewritten": "btc_eth_ltc.corr()\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize = (15,8))\n# sns.heatmap(btc_eth_ltc.corr(), annot = True)\n# plt.show()\n_ = btc_eth_ltc.corr()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize = (15,8))\n# sns.heatmap(btc_eth_ltc.corr(), annot = True)\n# plt.show()\n_ = btc_eth_ltc.corr()",
       "rewrite-ns": 315710,
       "overhead-ns": 315710,
       "exec-ns": 424738,

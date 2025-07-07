@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 4363,
   "cells": [
     {
-      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove ML code, plotting\n# from sklearn.preprocessing import LabelEncoder\n# from sklearn.model_selection import train_test_split\n# from sklearn.ensemble import RandomForestClassifier\n# import matplotlib.pyplot as plt\n# %matplotlib inline\n# import seaborn as sns\n# plt.style.use('bmh')\n# plt.style.use('ggplot')\n# plt.rcParams['figure.figsize'] = 20, 10",
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# FIRST-AUTHOR: remove ML code, plotting\n# from sklearn.preprocessing import LabelEncoder\n# from sklearn.model_selection import train_test_split\n# from sklearn.ensemble import RandomForestClassifier\n# import matplotlib.pyplot as plt\n# %matplotlib inline\n# import seaborn as sns\n# plt.style.use('bmh')\n# plt.style.use('ggplot')\n# plt.rcParams['figure.figsize'] = 20, 10",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 389702
@@ -183,19 +183,19 @@
       "total-ns": 265925
     },
     {
-      "raw": "# ALEX: remove plotting\n# hdf[['AMT_GOODS_PRICE',\n#   'AMT_INCOME_TOTAL',\n#  'AMT_ANNUITY',\n#  'DAYS_EMPLOYED',\n#   'DAYS_BIRTH',\n#   'AMT_CREDIT',\n#  'DAYDIFF']].hist(figsize=(16, 10), bins=50, xlabelsize=8, ylabelsize=8);\nhdf[['AMT_GOODS_PRICE',\n  'AMT_INCOME_TOTAL',\n 'AMT_ANNUITY',\n 'DAYS_EMPLOYED',\n  'DAYS_BIRTH',\n  'AMT_CREDIT',\n 'DAYDIFF']]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# hdf[['AMT_GOODS_PRICE',\n#   'AMT_INCOME_TOTAL',\n#  'AMT_ANNUITY',\n#  'DAYS_EMPLOYED',\n#   'DAYS_BIRTH',\n#   'AMT_CREDIT',\n#  'DAYDIFF']].hist(figsize=(16, 10), bins=50, xlabelsize=8, ylabelsize=8);\nhdf[['AMT_GOODS_PRICE',\n  'AMT_INCOME_TOTAL',\n 'AMT_ANNUITY',\n 'DAYS_EMPLOYED',\n  'DAYS_BIRTH',\n  'AMT_CREDIT',\n 'DAYDIFF']]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 4759015
     },
     {
-      "raw": "correlation = hdf[['AMT_GOODS_PRICE',\n  'AMT_INCOME_TOTAL',\n 'AMT_ANNUITY',\n 'DAYS_EMPLOYED',\n  'DAYS_BIRTH',\n  'AMT_CREDIT',\n 'DAYDIFF']].corr()\n# ALEX: remove plotting\n# plt.figure(figsize=(7,7))\n# flatui = [\"#9b59b6\", \"#3498db\", \"#95a5a6\", \"#e74c3c\", \"#34495e\", \"#2ecc71\"]\n# sns.heatmap(correlation, vmax=1, square=True,annot=True,cmap=flatui)\n# plt.title('Correlation between different fearures')",
+      "raw": "correlation = hdf[['AMT_GOODS_PRICE',\n  'AMT_INCOME_TOTAL',\n 'AMT_ANNUITY',\n 'DAYS_EMPLOYED',\n  'DAYS_BIRTH',\n  'AMT_CREDIT',\n 'DAYDIFF']].corr()\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(7,7))\n# flatui = [\"#9b59b6\", \"#3498db\", \"#95a5a6\", \"#e74c3c\", \"#34495e\", \"#2ecc71\"]\n# sns.heatmap(correlation, vmax=1, square=True,annot=True,cmap=flatui)\n# plt.title('Correlation between different fearures')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 70820863
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.preprocessing import Normalizer\n# normalized_application = Normalizer().fit_transform(hdf[['AMT_GOODS_PRICE','AMT_INCOME_TOTAL','AMT_ANNUITY','AMT_CREDIT','DAYDIFF']])\n#print (normalized_application)\nnormalized_application = hdf[['AMT_GOODS_PRICE','AMT_INCOME_TOTAL','AMT_ANNUITY','AMT_CREDIT','DAYDIFF']]\ncorrelation=pd.DataFrame(normalized_application).corr()\ncorrelation.columns=['AMT_GOODS_PRICE','AMT_INCOME_TOTAL','AMT_ANNUITY','AMT_CREDIT','DAYDIFF']\n# ALEX: remove plotting\n# plt.figure(figsize=(8,8))\n# flatui = [\"#9b59b6\", \"#3498db\", \"#95a5a6\", \"#e74c3c\", \"#34495e\", \"#2ecc71\"]\n# sns.heatmap(correlation, vmax=1, square=True,annot=True,cmap=flatui)\n# plt.title('Correlation between different fearures')",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.preprocessing import Normalizer\n# normalized_application = Normalizer().fit_transform(hdf[['AMT_GOODS_PRICE','AMT_INCOME_TOTAL','AMT_ANNUITY','AMT_CREDIT','DAYDIFF']])\n#print (normalized_application)\nnormalized_application = hdf[['AMT_GOODS_PRICE','AMT_INCOME_TOTAL','AMT_ANNUITY','AMT_CREDIT','DAYDIFF']]\ncorrelation=pd.DataFrame(normalized_application).corr()\ncorrelation.columns=['AMT_GOODS_PRICE','AMT_INCOME_TOTAL','AMT_ANNUITY','AMT_CREDIT','DAYDIFF']\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(8,8))\n# flatui = [\"#9b59b6\", \"#3498db\", \"#95a5a6\", \"#e74c3c\", \"#34495e\", \"#2ecc71\"]\n# sns.heatmap(correlation, vmax=1, square=True,annot=True,cmap=flatui)\n# plt.title('Correlation between different fearures')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 40242683
@@ -225,25 +225,25 @@
       "total-ns": 328259
     },
     {
-      "raw": "# ALEX: remove plotting\n# hd[['AMT_GOODS_PRICE',\n#   'AMT_INCOME_TOTAL_log',\n#  'AMT_ANNUITY',\n#   'AMT_CREDIT',\n#  'DAYDIFF']].hist(figsize=(16, 10), bins=50, xlabelsize=8, ylabelsize=8);\nhd[['AMT_GOODS_PRICE',\n  'AMT_INCOME_TOTAL_log',\n 'AMT_ANNUITY',\n  'AMT_CREDIT',\n 'DAYDIFF']]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# hd[['AMT_GOODS_PRICE',\n#   'AMT_INCOME_TOTAL_log',\n#  'AMT_ANNUITY',\n#   'AMT_CREDIT',\n#  'DAYDIFF']].hist(figsize=(16, 10), bins=50, xlabelsize=8, ylabelsize=8);\nhd[['AMT_GOODS_PRICE',\n  'AMT_INCOME_TOTAL_log',\n 'AMT_ANNUITY',\n  'AMT_CREDIT',\n 'DAYDIFF']]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 7978499
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.preprocessing import Normalizer\n# normalized_application = Normalizer().fit_transform(hd[['AMT_GOODS_PRICE',\n#   'AMT_INCOME_TOTAL_log',\n#  'AMT_ANNUITY',\n#   'AMT_CREDIT',\n#  'DAYDIFF']])\nnormalized_application = hd[['AMT_GOODS_PRICE',\n  'AMT_INCOME_TOTAL_log',\n 'AMT_ANNUITY',\n  'AMT_CREDIT',\n 'DAYDIFF']]\n#print (normalized_application)\ncorrelation=pd.DataFrame(normalized_application).corr()\ncorrelation.columns=['AMT_GOODS_PRICE',\n  'AMT_INCOME_TOTAL_log',\n 'AMT_ANNUITY',\n  'AMT_CREDIT',\n 'DAYDIFF']\n# ALEX: remove plotting\n# plt.figure(figsize=(8,8))\n# flatui = [\"#9b59b6\", \"#3498db\", \"#95a5a6\", \"#e74c3c\", \"#34495e\", \"#2ecc71\"]\n# sns.heatmap(correlation, vmax=1, square=True,annot=True,cmap=flatui)\n# plt.title('Correlation between different fearures')",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.preprocessing import Normalizer\n# normalized_application = Normalizer().fit_transform(hd[['AMT_GOODS_PRICE',\n#   'AMT_INCOME_TOTAL_log',\n#  'AMT_ANNUITY',\n#   'AMT_CREDIT',\n#  'DAYDIFF']])\nnormalized_application = hd[['AMT_GOODS_PRICE',\n  'AMT_INCOME_TOTAL_log',\n 'AMT_ANNUITY',\n  'AMT_CREDIT',\n 'DAYDIFF']]\n#print (normalized_application)\ncorrelation=pd.DataFrame(normalized_application).corr()\ncorrelation.columns=['AMT_GOODS_PRICE',\n  'AMT_INCOME_TOTAL_log',\n 'AMT_ANNUITY',\n  'AMT_CREDIT',\n 'DAYDIFF']\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(8,8))\n# flatui = [\"#9b59b6\", \"#3498db\", \"#95a5a6\", \"#e74c3c\", \"#34495e\", \"#2ecc71\"]\n# sns.heatmap(correlation, vmax=1, square=True,annot=True,cmap=flatui)\n# plt.title('Correlation between different fearures')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 39911520
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.scatter(hd['AMT_ANNUITY'],hd['AMT_CREDIT'])\n# plt.xlabel(\"amt annuity\")\n# plt.ylabel(\"amt credit\")\n_ = hd['AMT_ANNUITY']\n_ = hd['AMT_CREDIT']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.scatter(hd['AMT_ANNUITY'],hd['AMT_CREDIT'])\n# plt.xlabel(\"amt annuity\")\n# plt.ylabel(\"amt credit\")\n_ = hd['AMT_ANNUITY']\n_ = hd['AMT_CREDIT']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 419246
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.scatter(hd['AMT_GOODS_PRICE'],hd['DAYDIFF'])\n# plt.xlabel(\"amt good\")\n# plt.ylabel(\"amt credit\")\n_ = hd['AMT_GOODS_PRICE']\n_ = hd['DAYDIFF']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.scatter(hd['AMT_GOODS_PRICE'],hd['DAYDIFF'])\n# plt.xlabel(\"amt good\")\n# plt.ylabel(\"amt credit\")\n_ = hd['AMT_GOODS_PRICE']\n_ = hd['DAYDIFF']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 371755

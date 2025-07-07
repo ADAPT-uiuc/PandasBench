@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 904,
   "cells": [
     {
-      "raw": "#importing libraries\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib\n# from matplotlib import pyplot as plt\n# %matplotlib inline\npd.pandas.set_option('display.max_columns',None)\npd.pandas.set_option('display.max_rows',None)\nimport warnings\nwarnings.filterwarnings('ignore')",
+      "raw": "#importing libraries\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# FIRST-AUTHOR: remove plotting\n# import seaborn as sns\n# import matplotlib\n# from matplotlib import pyplot as plt\n# %matplotlib inline\npd.pandas.set_option('display.max_columns',None)\npd.pandas.set_option('display.max_rows',None)\nimport warnings\nwarnings.filterwarnings('ignore')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 464615
@@ -33,13 +33,13 @@
       "total-ns": 857335826
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,8))\n# sns.heatmap(df.isnull(), cbar=False,cmap=\"Greens\");\n_ = df.isnull()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(10,8))\n# sns.heatmap(df.isnull(), cbar=False,cmap=\"Greens\");\n_ = df.isnull()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 829410946
     },
     {
-      "raw": "# ALEX: make notebook run with input scaling\n# df.drop(['BuildingArea','Address'],axis=1).head(5)\ndf.drop(['BuildingArea','Address'],axis=1,errors='ignore').head(5)",
+      "raw": "# FIRST-AUTHOR: make notebook run with input scaling\n# df.drop(['BuildingArea','Address'],axis=1).head(5)\ndf.drop(['BuildingArea','Address'],axis=1,errors='ignore').head(5)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 101069727
@@ -63,13 +63,13 @@
       "total-ns": 3611695260
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,8))\ncorr=df[continuous_feature].corr()\n# ALEX: remove plotting\n# plt.title('Correlation heatmap of continuous features',fontsize=15)\n# sns.heatmap(corr);",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(10,8))\ncorr=df[continuous_feature].corr()\n# FIRST-AUTHOR: remove plotting\n# plt.title('Correlation heatmap of continuous features',fontsize=15)\n# sns.heatmap(corr);",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 240729784
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig, axarr = plt.subplots(2, 2, figsize=(12, 10))\n\n# sns.distplot(df['Price'],ax=axarr[0][0],color='blue',hist_kws=dict(edgecolor=\"k\", linewidth=2)).set_title('Distribution of Price')\n# sns.distplot(df['Distance'],ax=axarr[1][0],color='green',hist_kws=dict(edgecolor=\"k\", linewidth=2)).set_title('Distribution of Distance')\n# sns.distplot(np.log(df['Price']),ax=axarr[0][1],color='red',hist_kws=dict(edgecolor=\"k\", linewidth=2)).set_title('Distribution of Price(Transformed value on log scale)')\n# sns.distplot(df['Landsize'],ax=axarr[1][1],color='orange',hist_kws=dict(edgecolor=\"k\", linewidth=2)).set_title('Distribution of Landsize')\n# plt.subplots_adjust(hspace=.6)\n# sns.set_style('darkgrid')\n# sns.despine()\n\n_ = df['Price']\n_ = df['Distance']\n_ = np.log(df['Price'])\n_ = df['Landsize']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig, axarr = plt.subplots(2, 2, figsize=(12, 10))\n\n# sns.distplot(df['Price'],ax=axarr[0][0],color='blue',hist_kws=dict(edgecolor=\"k\", linewidth=2)).set_title('Distribution of Price')\n# sns.distplot(df['Distance'],ax=axarr[1][0],color='green',hist_kws=dict(edgecolor=\"k\", linewidth=2)).set_title('Distribution of Distance')\n# sns.distplot(np.log(df['Price']),ax=axarr[0][1],color='red',hist_kws=dict(edgecolor=\"k\", linewidth=2)).set_title('Distribution of Price(Transformed value on log scale)')\n# sns.distplot(df['Landsize'],ax=axarr[1][1],color='orange',hist_kws=dict(edgecolor=\"k\", linewidth=2)).set_title('Distribution of Landsize')\n# plt.subplots_adjust(hspace=.6)\n# sns.set_style('darkgrid')\n# sns.despine()\n\n_ = df['Price']\n_ = df['Distance']\n_ = np.log(df['Price'])\n_ = df['Landsize']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 2481149
@@ -81,7 +81,7 @@
       "total-ns": 3919457
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,8))\n# sns.scatterplot(y=np.log(df['price_per_unit_area']),x=df['Distance'],data=df,hue='Regionname').set_title(\"Distance from property to CBD\",fontsize=20);\n_ = np.log(df['price_per_unit_area'])\n_ = df['Distance']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(10,8))\n# sns.scatterplot(y=np.log(df['price_per_unit_area']),x=df['Distance'],data=df,hue='Regionname').set_title(\"Distance from property to CBD\",fontsize=20);\n_ = np.log(df['price_per_unit_area'])\n_ = df['Distance']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 3633317
@@ -105,13 +105,13 @@
       "total-ns": 63537139
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig, axarr = plt.subplots(2, 2, figsize=(14,10))\n# fig.suptitle('Property features',fontsize=15)\n\n# sns.countplot(df['Rooms'],ax=axarr[0][0],palette='cubehelix').set_title('No. of Rooms')\n# sns.countplot(df['Bedroom2'],ax=axarr[1][0],palette='cubehelix').set_title('No. of Bedrooms')\n# sns.boxplot(x=df['Bedroom2'],y=df['Price'],ax=axarr[1][1],palette='husl').set_title('Price with respect to number of bedrooms')\n# sns.boxplot(x=df['Rooms'],y=df['Price'],ax=axarr[0][1],palette='husl').set_title('Price with respect to no. of rooms')\n\n# plt.subplots_adjust(hspace=.4)\n# sns.set_style('darkgrid')\n# sns.despine()\n_ = df['Rooms']\n_ = df['Bedroom2']\n_ = df['Bedroom2']\n_ = df['Price']\n_ = df['Rooms']\n_ = df['Price']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig, axarr = plt.subplots(2, 2, figsize=(14,10))\n# fig.suptitle('Property features',fontsize=15)\n\n# sns.countplot(df['Rooms'],ax=axarr[0][0],palette='cubehelix').set_title('No. of Rooms')\n# sns.countplot(df['Bedroom2'],ax=axarr[1][0],palette='cubehelix').set_title('No. of Bedrooms')\n# sns.boxplot(x=df['Bedroom2'],y=df['Price'],ax=axarr[1][1],palette='husl').set_title('Price with respect to number of bedrooms')\n# sns.boxplot(x=df['Rooms'],y=df['Price'],ax=axarr[0][1],palette='husl').set_title('Price with respect to no. of rooms')\n\n# plt.subplots_adjust(hspace=.4)\n# sns.set_style('darkgrid')\n# sns.despine()\n_ = df['Rooms']\n_ = df['Bedroom2']\n_ = df['Bedroom2']\n_ = df['Price']\n_ = df['Rooms']\n_ = df['Price']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1166413
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig, axarr = plt.subplots(2, 2, figsize=(14, 10))\n# fig.suptitle('Property features',fontsize=15)\n\n# sns.countplot(df['Bathroom'],ax=axarr[0][0],palette='husl').set_title('No. of Bathrooms')\n# sns.violinplot(x= \"Bathroom\",y=\"Price\",data=df,palette=\"Set2\",ax=axarr[0][1]).set_title('No. of Bathrooms vs Price')\n# sns.countplot(df['Car'],ax=axarr[1][0],palette='husl').set_title('No.of Cars')\n# sns.boxenplot(x=\"Car\",y=\"Price\",data=df,palette=\"Set1\",ax=axarr[1][1]).set_title('No.of Cars vs Price');\n\n\n# plt.subplots_adjust(hspace=.4)\n# sns.set_style('darkgrid')\n# sns.despine()\n\n_ = df['Bathroom']\n_ = df['Car']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig, axarr = plt.subplots(2, 2, figsize=(14, 10))\n# fig.suptitle('Property features',fontsize=15)\n\n# sns.countplot(df['Bathroom'],ax=axarr[0][0],palette='husl').set_title('No. of Bathrooms')\n# sns.violinplot(x= \"Bathroom\",y=\"Price\",data=df,palette=\"Set2\",ax=axarr[0][1]).set_title('No. of Bathrooms vs Price')\n# sns.countplot(df['Car'],ax=axarr[1][0],palette='husl').set_title('No.of Cars')\n# sns.boxenplot(x=\"Car\",y=\"Price\",data=df,palette=\"Set1\",ax=axarr[1][1]).set_title('No.of Cars vs Price');\n\n\n# plt.subplots_adjust(hspace=.4)\n# sns.set_style('darkgrid')\n# sns.despine()\n\n_ = df['Bathroom']\n_ = df['Car']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 356583
@@ -123,49 +123,49 @@
       "total-ns": 142581705
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# g=sns.countplot(df['CouncilArea'],data=df,palette='Set2')\n# g.set_xticklabels(g.get_xticklabels(), rotation=90)\n# g.set_title('No.of properties in each Council Area',fontsize=15);\n_ = df['CouncilArea']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12,8))\n# g=sns.countplot(df['CouncilArea'],data=df,palette='Set2')\n# g.set_xticklabels(g.get_xticklabels(), rotation=90)\n# g.set_title('No.of properties in each Council Area',fontsize=15);\n_ = df['CouncilArea']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 401572
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,8))\n# g=sns.stripplot(x=df['CouncilArea'],y=df['Price'],hue='Type',data=df,palette='Set1')\n# g.set_xticklabels(g.get_xticklabels(), rotation=90)\n# g.set_title('Preferred Council Area by Price',fontsize=15);\n_ = df['CouncilArea']\n_ = df['Price']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(10,8))\n# g=sns.stripplot(x=df['CouncilArea'],y=df['Price'],hue='Type',data=df,palette='Set1')\n# g.set_xticklabels(g.get_xticklabels(), rotation=90)\n# g.set_title('Preferred Council Area by Price',fontsize=15);\n_ = df['CouncilArea']\n_ = df['Price']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 352621
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,6))\n# g=sns.countplot(df['Regionname'],hue='Type',data=df,palette='Set2')\n# g.set_xticklabels(g.get_xticklabels(), rotation=90)\n# g.set_title('Preferred region by property type',fontsize=15);\n\n_ = df['Regionname']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(10,6))\n# g=sns.countplot(df['Regionname'],hue='Type',data=df,palette='Set2')\n# g.set_xticklabels(g.get_xticklabels(), rotation=90)\n# g.set_title('Preferred region by property type',fontsize=15);\n\n_ = df['Regionname']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 249588
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,8))\ng=df.groupby(['Regionname'])['Price'].mean().sort_values()\n# ALEX: remove plotting\n# g=sns.boxplot(x='Regionname', y='Price', data=df,order=list(g.index),palette='cubehelix')\n# g=sns.stripplot(x='Regionname', y='Price', data=df,color='orange',jitter=0.2,size=2.5)\n# g.set_xticklabels(g.get_xticklabels(), rotation=90)\n# plt.title('Price with respect to Region',fontsize=15);\n_ = list(g.index)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(10,8))\ng=df.groupby(['Regionname'])['Price'].mean().sort_values()\n# FIRST-AUTHOR: remove plotting\n# g=sns.boxplot(x='Regionname', y='Price', data=df,order=list(g.index),palette='cubehelix')\n# g=sns.stripplot(x='Regionname', y='Price', data=df,color='orange',jitter=0.2,size=2.5)\n# g.set_xticklabels(g.get_xticklabels(), rotation=90)\n# plt.title('Price with respect to Region',fontsize=15);\n_ = list(g.index)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 54714623
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig, axs = plt.subplots(ncols=2,figsize=(15,6))\n\n# sns.boxplot(x=df['Method'],y=df['Price'],ax=axs[0],palette='cubehelix').set_title('Price vs Method')\n\n# sns.stripplot(x=df['Type'],y=df['Price'],ax=axs[1],palette='hls').set_title('Price vs Type');\n_ = df['Method']\n_ = df['Price']\n_ = df['Type']\n_ = df['Price']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig, axs = plt.subplots(ncols=2,figsize=(15,6))\n\n# sns.boxplot(x=df['Method'],y=df['Price'],ax=axs[0],palette='cubehelix').set_title('Price vs Method')\n\n# sns.stripplot(x=df['Type'],y=df['Price'],ax=axs[1],palette='hls').set_title('Price vs Type');\n_ = df['Method']\n_ = df['Price']\n_ = df['Type']\n_ = df['Price']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 499102
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig, axarr = plt.subplots(2, 1, figsize=(12, 16))\n# fig.suptitle('Preferred Locations',fontsize=15)\n\n# sns.scatterplot(y=df['Lattitude'],x=df['Longtitude'],hue=df['Regionname'],palette='husl',ax=axarr[0]).set_title('Lattitude-Longitude, Regionname')\n# sns.scatterplot(y=df['Lattitude'],x=df['Longtitude'],hue=df['Type'],palette='Set1',ax=axarr[1]).set_title('Lattitude-Longitude,Type')\n# plt.show()\n_ = df['Lattitude']\n_ = df['Longtitude']\n_ = df['Regionname']\n_ = df['Lattitude']\n_ = df['Longtitude']\n_ = df['Type']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig, axarr = plt.subplots(2, 1, figsize=(12, 16))\n# fig.suptitle('Preferred Locations',fontsize=15)\n\n# sns.scatterplot(y=df['Lattitude'],x=df['Longtitude'],hue=df['Regionname'],palette='husl',ax=axarr[0]).set_title('Lattitude-Longitude, Regionname')\n# sns.scatterplot(y=df['Lattitude'],x=df['Longtitude'],hue=df['Type'],palette='Set1',ax=axarr[1]).set_title('Lattitude-Longitude,Type')\n# plt.show()\n_ = df['Lattitude']\n_ = df['Longtitude']\n_ = df['Regionname']\n_ = df['Lattitude']\n_ = df['Longtitude']\n_ = df['Type']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 538697
     },
     {
-      "raw": "# ALEX: make notebook run with input scaling\n# df=df.drop(index=9968,axis=1)\ndf=df.drop(index=9968,axis=1,errors='ignore')",
+      "raw": "# FIRST-AUTHOR: make notebook run with input scaling\n# df=df.drop(index=9968,axis=1)\ndf=df.drop(index=9968,axis=1,errors='ignore')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 112772051
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig, axarr = plt.subplots(2, 1, figsize=(12, 10))\n\n# fig.suptitle('Trend in Price over the years',fontsize=20)\n\n# sns.lineplot(x='YearBuilt',y='Price',data=df,hue='Type',palette='Set1',ax=axarr[0])\n\n# sns.lineplot(x='YearBuilt',y='Price',data=df,hue='Regionname',palette='Set1',ax=axarr[1]);\n",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig, axarr = plt.subplots(2, 1, figsize=(12, 10))\n\n# fig.suptitle('Trend in Price over the years',fontsize=20)\n\n# sns.lineplot(x='YearBuilt',y='Price',data=df,hue='Type',palette='Set1',ax=axarr[0])\n\n# sns.lineplot(x='YearBuilt',y='Price',data=df,hue='Regionname',palette='Set1',ax=axarr[1]);\n",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 212070
@@ -177,19 +177,19 @@
       "total-ns": 250809601
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,8))\n# gg=sns.countplot(df['Date'],palette='hls',hue='Type',data=df)\n# gg.set_xticklabels(gg.get_xticklabels(), rotation=70)\n# gg.set_title('Month and year of highest sale (2016-2017)',fontsize=15);\n\n_ = df['Date']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(10,8))\n# gg=sns.countplot(df['Date'],palette='hls',hue='Type',data=df)\n# gg.set_xticklabels(gg.get_xticklabels(), rotation=70)\n# gg.set_title('Month and year of highest sale (2016-2017)',fontsize=15);\n\n_ = df['Date']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 18758259
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,8))\ng=df.groupby(['SellerG','Type','Method']).Price.sum().sort_values(ascending=False).head(20)\n# ALEX: remove plotting\n# g.plot(kind='barh',color='orange',title='Top realtors by Type and Method')\n# plt.xlabel('Price');\n",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(10,8))\ng=df.groupby(['SellerG','Type','Method']).Price.sum().sort_values(ascending=False).head(20)\n# FIRST-AUTHOR: remove plotting\n# g.plot(kind='barh',color='orange',title='Top realtors by Type and Method')\n# plt.xlabel('Price');\n",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 157574395
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(16,10))\n# plt.title('Correlation heatmap', fontsize=20)\ncorr_matrix=df.corr()\nmask = np.zeros_like(corr_matrix)\nmask[np.triu_indices_from(mask)] = True\n# ALEX: remove plotting\n# sns.heatmap(corr_matrix,annot=True ,cbar = True,cmap=\"YlGnBu\",mask=mask);",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(16,10))\n# plt.title('Correlation heatmap', fontsize=20)\ncorr_matrix=df.corr()\nmask = np.zeros_like(corr_matrix)\nmask[np.triu_indices_from(mask)] = True\n# FIRST-AUTHOR: remove plotting\n# sns.heatmap(corr_matrix,annot=True ,cbar = True,cmap=\"YlGnBu\",mask=mask);",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 599873993

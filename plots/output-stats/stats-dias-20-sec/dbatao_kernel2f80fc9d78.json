@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 1872,
   "cells": [
     {
-      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 5GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# FIRST-AUTHOR: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('/kaggle/input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 5GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
       "rewrite-ns": 504506,
       "overhead-ns": 504506,
       "exec-ns": 271084,
@@ -12,7 +12,7 @@
       "rewritten": "import numpy as np\nexec(os.environ['IREWR_IMPORTS'])\n"
     },
     {
-      "raw": "# import numpy as np\n# import pandas as pd\n# ALEX: remove plotting, ML code\n# from matplotlib import pyplot as plt\n# import seaborn as sns\n# from sklearn.preprocessing import PowerTransformer",
+      "raw": "# import numpy as np\n# import pandas as pd\n# FIRST-AUTHOR: remove plotting, ML code\n# from matplotlib import pyplot as plt\n# import seaborn as sns\n# from sklearn.preprocessing import PowerTransformer",
       "rewrite-ns": 12342,
       "overhead-ns": 12342,
       "exec-ns": 67462,
@@ -48,7 +48,7 @@
       "rewritten": ""
     },
     {
-      "raw": "#\u76ee\u7684\u5909\u6570\u3067\u3042\u308b\u5bb6\u306e\u4fa1\u683c\u306e\u30d2\u30b9\u30c8\u30b0\u30e9\u30e0\u3092\u8868\u793a\u3059\u308b\n# ALEX: remove plotting\n# plt.figure(figsize=(20, 10))\n# sns.distplot(train['SalePrice'])\n_ = train['SalePrice']",
+      "raw": "#\u76ee\u7684\u5909\u6570\u3067\u3042\u308b\u5bb6\u306e\u4fa1\u683c\u306e\u30d2\u30b9\u30c8\u30b0\u30e9\u30e0\u3092\u8868\u793a\u3059\u308b\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(20, 10))\n# sns.distplot(train['SalePrice'])\n_ = train['SalePrice']",
       "rewrite-ns": 329193,
       "overhead-ns": 329193,
       "exec-ns": 242258,
@@ -93,7 +93,7 @@
       "rewritten": ""
     },
     {
-      "raw": "#\u7269\u4ef6\u306e\u5e83\u3055\u3092\u5408\u8a08\u3057\u305f\u5909\u6570\u3092\u4f5c\u6210\ntrain[\"TotalSF\"] = train[\"1stFlrSF\"] + train[\"2ndFlrSF\"] + train[\"TotalBsmtSF\"]\ntest_x[\"TotalSF\"] = test_x[\"1stFlrSF\"] + test_x[\"2ndFlrSF\"] + test_x[\"TotalBsmtSF\"]\n\n#\u7269\u4ef6\u306e\u5e83\u3055\u3068\u7269\u4ef6\u4fa1\u683c\u306e\u6563\u5e03\u56f3\u3092\u4f5c\u6210\n# ALEX: remove plotting\n# plt.figure(figsize=(20, 10))\n# plt.scatter(train[\"TotalSF\"],train[\"SalePrice\"])\n# plt.xlabel(\"TotalSF\")\n# plt.ylabel(\"SalePrice\")\n_ = train[\"TotalSF\"]\n_ = train[\"SalePrice\"]",
+      "raw": "#\u7269\u4ef6\u306e\u5e83\u3055\u3092\u5408\u8a08\u3057\u305f\u5909\u6570\u3092\u4f5c\u6210\ntrain[\"TotalSF\"] = train[\"1stFlrSF\"] + train[\"2ndFlrSF\"] + train[\"TotalBsmtSF\"]\ntest_x[\"TotalSF\"] = test_x[\"1stFlrSF\"] + test_x[\"2ndFlrSF\"] + test_x[\"TotalBsmtSF\"]\n\n#\u7269\u4ef6\u306e\u5e83\u3055\u3068\u7269\u4ef6\u4fa1\u683c\u306e\u6563\u5e03\u56f3\u3092\u4f5c\u6210\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(20, 10))\n# plt.scatter(train[\"TotalSF\"],train[\"SalePrice\"])\n# plt.xlabel(\"TotalSF\")\n# plt.ylabel(\"SalePrice\")\n_ = train[\"TotalSF\"]\n_ = train[\"SalePrice\"]",
       "rewrite-ns": 2044857,
       "overhead-ns": 2044857,
       "exec-ns": 3444932,
@@ -111,7 +111,7 @@
       "rewritten": ""
     },
     {
-      "raw": "#\u5916\u308c\u5024\u3092\u9664\u5916\u3059\u308b\ntrain = train.drop(train[(train['TotalSF']>7500) & (train['SalePrice']<300000)].index)\n\n#\u7269\u4ef6\u306e\u5e83\u3055\u3068\u7269\u4ef6\u4fa1\u683c\u306e\u6563\u5e03\u56f3\u3092\u4f5c\u6210\n# ALEX: remove plotting\n# plt.figure(figsize=(20, 10))\n# plt.scatter(train[\"TotalSF\"],train[\"SalePrice\"])\n# plt.xlabel(\"TotalSF\")\n# plt.ylabel(\"SalePrice\")\n_ = train[\"TotalSF\"]\n_ = train[\"SalePrice\"]",
+      "raw": "#\u5916\u308c\u5024\u3092\u9664\u5916\u3059\u308b\ntrain = train.drop(train[(train['TotalSF']>7500) & (train['SalePrice']<300000)].index)\n\n#\u7269\u4ef6\u306e\u5e83\u3055\u3068\u7269\u4ef6\u4fa1\u683c\u306e\u6563\u5e03\u56f3\u3092\u4f5c\u6210\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(20, 10))\n# plt.scatter(train[\"TotalSF\"],train[\"SalePrice\"])\n# plt.xlabel(\"TotalSF\")\n# plt.ylabel(\"SalePrice\")\n_ = train[\"TotalSF\"]\n_ = train[\"SalePrice\"]",
       "rewrite-ns": 1580640,
       "overhead-ns": 1580640,
       "exec-ns": 129262548,
@@ -120,7 +120,7 @@
       "rewritten": "train = train.drop(train[(train['TotalSF'] > 7500) & (train['SalePrice'] < \n    300000)].index)\n_ = train['TotalSF']\n_ = train['SalePrice']\n"
     },
     {
-      "raw": "#\u7bc9\u5e74\u6570\u3068\u7269\u4ef6\u4fa1\u683c\u306e\u6563\u5e03\u56f3\u3092\u4f5c\u6210\n#plt.scatter(train[\"YearBuilt\"],train[\"SalePrice\"],color = \"#e41a1c\")\n#plt.xlabel(\"YearBuilt\")\n#plt.ylabel(\"SalePrice\")\n\ndata = pd.concat([train[\"YearBuilt\"],train[\"SalePrice\"]],axis=1)\n\n# ALEX: remove plotting\n# plt.figure(figsize=(20, 10))\n# plt.xticks(rotation='90')\n# sns.boxplot(x=\"YearBuilt\",y=\"SalePrice\",data=data)",
+      "raw": "#\u7bc9\u5e74\u6570\u3068\u7269\u4ef6\u4fa1\u683c\u306e\u6563\u5e03\u56f3\u3092\u4f5c\u6210\n#plt.scatter(train[\"YearBuilt\"],train[\"SalePrice\"],color = \"#e41a1c\")\n#plt.xlabel(\"YearBuilt\")\n#plt.ylabel(\"SalePrice\")\n\ndata = pd.concat([train[\"YearBuilt\"],train[\"SalePrice\"]],axis=1)\n\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(20, 10))\n# plt.xticks(rotation='90')\n# sns.boxplot(x=\"YearBuilt\",y=\"SalePrice\",data=data)",
       "rewrite-ns": 816348,
       "overhead-ns": 816348,
       "exec-ns": 2012996,
@@ -138,7 +138,7 @@
       "rewritten": ""
     },
     {
-      "raw": "#\u5916\u308c\u5024\u3092\u9664\u5916\u3059\u308b\ntrain = train.drop(train[(train['YearBuilt']<2000) & (train['SalePrice']>600000)].index)\n\n#\u30b0\u30e9\u30d5\u3092\u63cf\u753b\u3059\u308b\ndata = pd.concat([train[\"YearBuilt\"],train[\"SalePrice\"]],axis=1)\n\n# ALEX: remove plotting\n# plt.figure(figsize=(20, 10))\n# plt.xticks(rotation='90')\n# sns.boxplot(x=\"YearBuilt\",y=\"SalePrice\",data=data)",
+      "raw": "#\u5916\u308c\u5024\u3092\u9664\u5916\u3059\u308b\ntrain = train.drop(train[(train['YearBuilt']<2000) & (train['SalePrice']>600000)].index)\n\n#\u30b0\u30e9\u30d5\u3092\u63cf\u753b\u3059\u308b\ndata = pd.concat([train[\"YearBuilt\"],train[\"SalePrice\"]],axis=1)\n\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(20, 10))\n# plt.xticks(rotation='90')\n# sns.boxplot(x=\"YearBuilt\",y=\"SalePrice\",data=data)",
       "rewrite-ns": 1745730,
       "overhead-ns": 1745730,
       "exec-ns": 109649085,
@@ -156,7 +156,7 @@
       "rewritten": ""
     },
     {
-      "raw": "#\u5bb6\u306e\u6750\u8cea\u30fb\u5b8c\u6210\u5ea6\u3068\u7269\u4ef6\u4fa1\u683c\u306e\u6563\u5e03\u56f3\u3092\u4f5c\u6210\n# ALEX: remove plotting\n# plt.figure(figsize=(20, 10))\n# plt.scatter(train[\"OverallQual\"],train[\"SalePrice\"])\n# plt.xlabel(\"OverallQual\")\n# plt.ylabel(\"SalePrice\")\n_ = train[\"OverallQual\"]\n_ = train[\"SalePrice\"]",
+      "raw": "#\u5bb6\u306e\u6750\u8cea\u30fb\u5b8c\u6210\u5ea6\u3068\u7269\u4ef6\u4fa1\u683c\u306e\u6563\u5e03\u56f3\u3092\u4f5c\u6210\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(20, 10))\n# plt.scatter(train[\"OverallQual\"],train[\"SalePrice\"])\n# plt.xlabel(\"OverallQual\")\n# plt.ylabel(\"SalePrice\")\n_ = train[\"OverallQual\"]\n_ = train[\"SalePrice\"]",
       "rewrite-ns": 589330,
       "overhead-ns": 589330,
       "exec-ns": 346058,
@@ -174,7 +174,7 @@
       "rewritten": ""
     },
     {
-      "raw": "#\u5916\u308c\u5024\u3092\u9664\u5916\u3059\u308b\ntrain = train.drop(train[(train['OverallQual']<5) & (train['SalePrice']>200000)].index)\ntrain = train.drop(train[(train['OverallQual']<10) & (train['SalePrice']>500000)].index)\n\n#\u30b0\u30e9\u30d5\u3092\u63cf\u753b\u3059\u308b\n# ALEX: remove plotting\n# plt.figure(figsize=(20, 10))\n# plt.scatter(train[\"OverallQual\"],train[\"SalePrice\"])\n# plt.xlabel(\"OverallQual\")\n# plt.ylabel(\"SalePrice\")\n_ = train[\"OverallQual\"]\n_ = train[\"SalePrice\"]",
+      "raw": "#\u5916\u308c\u5024\u3092\u9664\u5916\u3059\u308b\ntrain = train.drop(train[(train['OverallQual']<5) & (train['SalePrice']>200000)].index)\ntrain = train.drop(train[(train['OverallQual']<10) & (train['SalePrice']>500000)].index)\n\n#\u30b0\u30e9\u30d5\u3092\u63cf\u753b\u3059\u308b\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(20, 10))\n# plt.scatter(train[\"OverallQual\"],train[\"SalePrice\"])\n# plt.xlabel(\"OverallQual\")\n# plt.ylabel(\"SalePrice\")\n_ = train[\"OverallQual\"]\n_ = train[\"SalePrice\"]",
       "rewrite-ns": 3255258,
       "overhead-ns": 3255258,
       "exec-ns": 205167617,
@@ -228,7 +228,7 @@
       "rewritten": ""
     },
     {
-      "raw": "#\u6b20\u640d\u5024\u306e\u6570\u3092\u30b0\u30e9\u30d5\u5316\n# ALEX: remove plotting\n# plt.figure(figsize=(20,10))\n# plt.xticks(rotation='90')\n# sns.barplot(x=all_data_na.index, y=all_data_na)\n_ = all_data_na.index",
+      "raw": "#\u6b20\u640d\u5024\u306e\u6570\u3092\u30b0\u30e9\u30d5\u5316\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(20,10))\n# plt.xticks(rotation='90')\n# sns.barplot(x=all_data_na.index, y=all_data_na)\n_ = all_data_na.index",
       "rewrite-ns": 297293,
       "overhead-ns": 297293,
       "exec-ns": 273573,
@@ -300,7 +300,7 @@
       "rewritten": ""
     },
     {
-      "raw": "#\u76ee\u7684\u5909\u6570\u306e\u5bfe\u6570log(x+1)\u3092\u3068\u308b\ntrain_y = np.log1p(train_y)\n\n#\u5206\u5e03\u3092\u53ef\u8996\u5316\n# ALEX: remove plotting\n# plt.figure(figsize=(20, 10))\n# sns.distplot(train_y)",
+      "raw": "#\u76ee\u7684\u5909\u6570\u306e\u5bfe\u6570log(x+1)\u3092\u3068\u308b\ntrain_y = np.log1p(train_y)\n\n#\u5206\u5e03\u3092\u53ef\u8996\u5316\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(20, 10))\n# sns.distplot(train_y)",
       "rewrite-ns": 454252,
       "overhead-ns": 454252,
       "exec-ns": 1430114,
@@ -318,7 +318,7 @@
       "rewritten": ""
     },
     {
-      "raw": "#\u6570\u5024\u306e\u8aac\u660e\u5909\u6570\u306e\u30ea\u30b9\u30c8\u3092\u4f5c\u6210\nnum_feats = all_data.dtypes[all_data.dtypes != \"object\" ].index\n\n#\u5404\u8aac\u660e\u5909\u6570\u306e\u6b6a\u5ea6\u3092\u8a08\u7b97\nskewed_feats = all_data[num_feats].apply(lambda x: x.skew()).sort_values(ascending = False)\n\n#\u30b0\u30e9\u30d5\u5316\n# ALEX: remove plotting\n# plt.figure(figsize=(20,10))\n# plt.xticks(rotation='90')\n# sns.barplot(x=skewed_feats.index, y=skewed_feats)\n_ = skewed_feats.index",
+      "raw": "#\u6570\u5024\u306e\u8aac\u660e\u5909\u6570\u306e\u30ea\u30b9\u30c8\u3092\u4f5c\u6210\nnum_feats = all_data.dtypes[all_data.dtypes != \"object\" ].index\n\n#\u5404\u8aac\u660e\u5909\u6570\u306e\u6b6a\u5ea6\u3092\u8a08\u7b97\nskewed_feats = all_data[num_feats].apply(lambda x: x.skew()).sort_values(ascending = False)\n\n#\u30b0\u30e9\u30d5\u5316\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(20,10))\n# plt.xticks(rotation='90')\n# sns.barplot(x=skewed_feats.index, y=skewed_feats)\n_ = skewed_feats.index",
       "rewrite-ns": 1662365,
       "overhead-ns": 1676069,
       "exec-ns": 489999718,
@@ -354,7 +354,7 @@
       "rewritten": ""
     },
     {
-      "raw": "#Yeo-Johnson\u5909\u63db\n# ALEX: remove ML code\n# pt = PowerTransformer()\n# pt.fit(all_data[skewed_feats_over])\n\n# #\u5909\u63db\u5f8c\u306e\u30c7\u30fc\u30bf\u3067\u5404\u5217\u3092\u7f6e\u63db\n# all_data[skewed_feats_over] = pt.transform(all_data[skewed_feats_over])\n_ = all_data[skewed_feats_over]\nall_data[skewed_feats_over] = all_data[skewed_feats_over]\n\n#\u5404\u8aac\u660e\u5909\u6570\u306e\u6b6a\u5ea6\u3092\u8a08\u7b97\nskewed_feats_fixed = all_data[skewed_feats_over].apply(lambda x: x.skew()).sort_values(ascending = False)\n\n#\u30b0\u30e9\u30d5\u5316\n# ALEX: remove plotting\n# plt.figure(figsize=(20,10))\n# plt.xticks(rotation='90')\n# sns.barplot(x=skewed_feats_fixed.index, y=skewed_feats_fixed)\n_ = skewed_feats_fixed.index",
+      "raw": "#Yeo-Johnson\u5909\u63db\n# FIRST-AUTHOR: remove ML code\n# pt = PowerTransformer()\n# pt.fit(all_data[skewed_feats_over])\n\n# #\u5909\u63db\u5f8c\u306e\u30c7\u30fc\u30bf\u3067\u5404\u5217\u3092\u7f6e\u63db\n# all_data[skewed_feats_over] = pt.transform(all_data[skewed_feats_over])\n_ = all_data[skewed_feats_over]\nall_data[skewed_feats_over] = all_data[skewed_feats_over]\n\n#\u5404\u8aac\u660e\u5909\u6570\u306e\u6b6a\u5ea6\u3092\u8a08\u7b97\nskewed_feats_fixed = all_data[skewed_feats_over].apply(lambda x: x.skew()).sort_values(ascending = False)\n\n#\u30b0\u30e9\u30d5\u5316\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(20,10))\n# plt.xticks(rotation='90')\n# sns.barplot(x=skewed_feats_fixed.index, y=skewed_feats_fixed)\n_ = skewed_feats_fixed.index",
       "rewrite-ns": 1812103,
       "overhead-ns": 1817380,
       "exec-ns": 546808319,
@@ -453,7 +453,7 @@
       "rewritten": "train_x = all_data.iloc[:train_x.shape[0], :].reset_index(drop=True)\ntest_x = all_data.iloc[train_x.shape[0]:, :].reset_index(drop=True)\nprint('train_x: ' + str(train_x.shape))\nprint('test_x: ' + str(test_x.shape))\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.ensemble import RandomForestRegressor,  GradientBoostingRegressor\n# from sklearn.model_selection import KFold, cross_val_score, train_test_split\n# from sklearn.metrics import mean_squared_error\n# import xgboost as xgb\n# from sklearn.model_selection import GridSearchCV\n# import lightgbm as lgb",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.ensemble import RandomForestRegressor,  GradientBoostingRegressor\n# from sklearn.model_selection import KFold, cross_val_score, train_test_split\n# from sklearn.metrics import mean_squared_error\n# import xgboost as xgb\n# from sklearn.model_selection import GridSearchCV\n# import lightgbm as lgb",
       "rewrite-ns": 27588,
       "overhead-ns": 27588,
       "exec-ns": 110060,
@@ -471,7 +471,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# \u30c7\u30fc\u30bf\u306e\u5206\u5272\n# ALEX: remove ML code\n# train_x, valid_x, train_y, valid_y = train_test_split(\n#         train_x,\n#         train_y,\n#         test_size=0.3,\n#         random_state=0)",
+      "raw": "# \u30c7\u30fc\u30bf\u306e\u5206\u5272\n# FIRST-AUTHOR: remove ML code\n# train_x, valid_x, train_y, valid_y = train_test_split(\n#         train_x,\n#         train_y,\n#         test_size=0.3,\n#         random_state=0)",
       "rewrite-ns": 14593,
       "overhead-ns": 14593,
       "exec-ns": 65119,
@@ -489,7 +489,7 @@
       "rewritten": ""
     },
     {
-      "raw": "#\u7279\u5fb4\u91cf\u3068\u76ee\u7684\u5909\u6570\u3092xgboost\u306e\u30c7\u30fc\u30bf\u69cb\u9020\u306b\u5909\u63db\u3059\u308b\n# ALEX: remove ML code\n# dtrain = xgb.DMatrix(train_x, label=train_y)\n# dvalid = xgb.DMatrix(valid_x,label=valid_y)\n\n# #\u30d1\u30e9\u30e1\u30fc\u30bf\u3092\u6307\u5b9a\u3057\u3066GBDT\n# num_round = 5000\n# evallist = [(dvalid, 'eval'), (dtrain, 'train')]\n\n# evals_result = {}\n\n# #\u30d1\u30e9\u30e1\u30fc\u30bf\n# param = {\n#             'max_depth': 3,\n#             'eta': 0.01,\n#             'objective': 'reg:squarederror',\n# }\n\n# #\u5b66\u7fd2\u306e\u5b9f\u884c\n# bst = xgb.train(\n#                         param, dtrain,\n#                         num_round,\n#                         evallist,\n#                         evals_result=evals_result,\n#                         # \u4e00\u5b9a\u30e9\u30a6\u30f3\u30c9\u56de\u3057\u3066\u3082\u6539\u5584\u304c\u898b\u8fbc\u3081\u306a\u3044\u5834\u5408\u306f\u5b66\u7fd2\u3092\u6253\u3061\u5207\u308b\n#                         early_stopping_rounds=1000\n# )",
+      "raw": "#\u7279\u5fb4\u91cf\u3068\u76ee\u7684\u5909\u6570\u3092xgboost\u306e\u30c7\u30fc\u30bf\u69cb\u9020\u306b\u5909\u63db\u3059\u308b\n# FIRST-AUTHOR: remove ML code\n# dtrain = xgb.DMatrix(train_x, label=train_y)\n# dvalid = xgb.DMatrix(valid_x,label=valid_y)\n\n# #\u30d1\u30e9\u30e1\u30fc\u30bf\u3092\u6307\u5b9a\u3057\u3066GBDT\n# num_round = 5000\n# evallist = [(dvalid, 'eval'), (dtrain, 'train')]\n\n# evals_result = {}\n\n# #\u30d1\u30e9\u30e1\u30fc\u30bf\n# param = {\n#             'max_depth': 3,\n#             'eta': 0.01,\n#             'objective': 'reg:squarederror',\n# }\n\n# #\u5b66\u7fd2\u306e\u5b9f\u884c\n# bst = xgb.train(\n#                         param, dtrain,\n#                         num_round,\n#                         evallist,\n#                         evals_result=evals_result,\n#                         # \u4e00\u5b9a\u30e9\u30a6\u30f3\u30c9\u56de\u3057\u3066\u3082\u6539\u5584\u304c\u898b\u8fbc\u3081\u306a\u3044\u5834\u5408\u306f\u5b66\u7fd2\u3092\u6253\u3061\u5207\u308b\n#                         early_stopping_rounds=1000\n# )",
       "rewrite-ns": 16810,
       "overhead-ns": 16810,
       "exec-ns": 53853,
@@ -498,7 +498,7 @@
       "rewritten": ""
     },
     {
-      "raw": "#\u5b66\u7fd2\u66f2\u7dda\u3092\u53ef\u8996\u5316\u3059\u308b\n# ALEX: remove plotting, ML code\n# plt.figure(figsize=(20, 10))\n# train_metric = evals_result['train']['rmse']\n# plt.plot(train_metric, label='train rmse')\n# eval_metric = evals_result['eval']['rmse']\n# plt.plot(eval_metric, label='eval rmse')\n# plt.grid()\n# plt.legend()\n# plt.xlabel('rounds')\n# plt.ylabel('rmse')\n# plt.ylim(0, 0.3)\n# plt.show()",
+      "raw": "#\u5b66\u7fd2\u66f2\u7dda\u3092\u53ef\u8996\u5316\u3059\u308b\n# FIRST-AUTHOR: remove plotting, ML code\n# plt.figure(figsize=(20, 10))\n# train_metric = evals_result['train']['rmse']\n# plt.plot(train_metric, label='train rmse')\n# eval_metric = evals_result['eval']['rmse']\n# plt.plot(eval_metric, label='eval rmse')\n# plt.grid()\n# plt.legend()\n# plt.xlabel('rounds')\n# plt.ylabel('rmse')\n# plt.ylim(0, 0.3)\n# plt.show()",
       "rewrite-ns": 12570,
       "overhead-ns": 12570,
       "exec-ns": 57554,
@@ -507,7 +507,7 @@
       "rewritten": ""
     },
     {
-      "raw": "#\u7279\u5fb4\u91cf\u3054\u3068\u306e\u91cd\u8981\u5ea6\u3092\u53ef\u8996\u5316\u3059\u308b\n# ALEX: remove plotting\n# ax = xgb.plot_importance(bst)\n# fig = ax.figure\n# fig.set_size_inches(10, 30)",
+      "raw": "#\u7279\u5fb4\u91cf\u3054\u3068\u306e\u91cd\u8981\u5ea6\u3092\u53ef\u8996\u5316\u3059\u308b\n# FIRST-AUTHOR: remove plotting\n# ax = xgb.plot_importance(bst)\n# fig = ax.figure\n# fig.set_size_inches(10, 30)",
       "rewrite-ns": 10769,
       "overhead-ns": 10769,
       "exec-ns": 55151,
@@ -516,7 +516,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# dtest = xgb.DMatrix(test_x)\nmy_submission = pd.DataFrame()\nmy_submission[\"Id\"] = test_ID\n# ALEX: remove ML code\n# my_submission[\"SalePrice\"] = np.exp(bst.predict(dtest))\n# you could use any filename. We choose submission here\nmy_submission.to_csv('submission.csv', index=False)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# dtest = xgb.DMatrix(test_x)\nmy_submission = pd.DataFrame()\nmy_submission[\"Id\"] = test_ID\n# FIRST-AUTHOR: remove ML code\n# my_submission[\"SalePrice\"] = np.exp(bst.predict(dtest))\n# you could use any filename. We choose submission here\nmy_submission.to_csv('submission.csv', index=False)",
       "rewrite-ns": 948792,
       "overhead-ns": 948792,
       "exec-ns": 166724262,

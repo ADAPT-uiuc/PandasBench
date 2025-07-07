@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 722,
   "cells": [
     {
-      "raw": "\nimport numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# %matplotlib inline\ndf=pd.read_csv('./input/911.scaled.csv')\ndf.info()\n",
+      "raw": "\nimport numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n\n# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# %matplotlib inline\ndf=pd.read_csv('./input/911.scaled.csv')\ndf.info()\n",
       "rewrite-ns": 1151434,
       "overhead-ns": 1151434,
       "exec-ns": 2999560253,
@@ -66,7 +66,7 @@
       "rewritten": "evaluate_lazy(df['Reason'].value_counts(5))\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# import seaborn as sns\n# sns.countplot(x='Reason',data=df,palette='viridis')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# import seaborn as sns\n# sns.countplot(x='Reason',data=df,palette='viridis')",
       "rewrite-ns": 21331,
       "overhead-ns": 21331,
       "exec-ns": 101894,
@@ -147,7 +147,7 @@
       "rewritten": "df.head()\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.countplot(x='day of week',data=df,palette='viridis',hue='Reason')\n# plt.legend(bbox_to_anchor=(1.05,1),loc=2)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.countplot(x='day of week',data=df,palette='viridis',hue='Reason')\n# plt.legend(bbox_to_anchor=(1.05,1),loc=2)",
       "rewrite-ns": 15320,
       "overhead-ns": 15320,
       "exec-ns": 77698,
@@ -156,7 +156,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.countplot(x='month',data=df,palette='viridis',hue='Reason')\n# plt.legend(bbox_to_anchor=(1.05,1),loc=2)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.countplot(x='month',data=df,palette='viridis',hue='Reason')\n# plt.legend(bbox_to_anchor=(1.05,1),loc=2)",
       "rewrite-ns": 13277,
       "overhead-ns": 13277,
       "exec-ns": 67661,
@@ -183,7 +183,7 @@
       "rewritten": "byMonth.head()\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# byMonth['lat'].plot()\nevaluate_lazy(byMonth['lat'])",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# byMonth['lat'].plot()\nevaluate_lazy(byMonth['lat'])",
       "rewrite-ns": 385432,
       "overhead-ns": 385432,
       "exec-ns": 816295,
@@ -192,7 +192,7 @@
       "rewritten": "evaluate_lazy(byMonth['lat'])\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.lmplot(x='month',y='twp',data=byMonth.reset_index())\nevaluate_lazy(byMonth.reset_index())",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.lmplot(x='month',y='twp',data=byMonth.reset_index())\nevaluate_lazy(byMonth.reset_index())",
       "rewrite-ns": 376621,
       "overhead-ns": 376621,
       "exec-ns": 7532819,
@@ -210,7 +210,7 @@
       "rewritten": "df['date'] = df['timeStamp'].apply(lambda t: t.date())\nevaluate_lazy(df['date'])\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# df.groupby('date').count()['lat'].plot()\n# plt.tight_layout()\nevaluate_lazy(df.groupby('date').count()['lat'])",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# df.groupby('date').count()['lat'].plot()\n# plt.tight_layout()\nevaluate_lazy(df.groupby('date').count()['lat'])",
       "rewrite-ns": 648209,
       "overhead-ns": 648209,
       "exec-ns": 723346505,
@@ -228,7 +228,7 @@
       "rewritten": "dayHour = df.groupby(by=['day of week', 'hour']).count()['Reason'].unstack()\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.heatmap(dayHour,cmap='viridis')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.heatmap(dayHour,cmap='viridis')",
       "rewrite-ns": 29520,
       "overhead-ns": 29520,
       "exec-ns": 177518,
@@ -237,7 +237,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.clustermap(dayHour,cmap='viridis')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.clustermap(dayHour,cmap='viridis')",
       "rewrite-ns": 14794,
       "overhead-ns": 14794,
       "exec-ns": 89237,
@@ -246,7 +246,7 @@
       "rewritten": ""
     },
     {
-      "raw": "dayMonth=df.groupby(by=['day of week','month']).count()['Reason'].unstack()\n# ALEX: remove plotting\n# sns.clustermap(dayMonth,cmap='viridis')",
+      "raw": "dayMonth=df.groupby(by=['day of week','month']).count()['Reason'].unstack()\n# FIRST-AUTHOR: remove plotting\n# sns.clustermap(dayMonth,cmap='viridis')",
       "rewrite-ns": 882774,
       "overhead-ns": 882774,
       "exec-ns": 711250033,
@@ -255,7 +255,7 @@
       "rewritten": "dayMonth = df.groupby(by=['day of week', 'month']).count()['Reason'].unstack()\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.heatmap(dayMonth,cmap='viridis')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.heatmap(dayMonth,cmap='viridis')",
       "rewrite-ns": 22891,
       "overhead-ns": 22891,
       "exec-ns": 114139,

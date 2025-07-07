@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 113,
   "cells": [
     {
-      "raw": "import numpy as np\n# ALEX: remove plotting\n# import seaborn as sns\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])",
+      "raw": "import numpy as np\n# FIRST-AUTHOR: remove plotting\n# import seaborn as sns\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])",
       "rewrite-ns": 495161,
       "overhead-ns": 495161,
       "exec-ns": 273597,
@@ -48,7 +48,7 @@
       "rewritten": "df.info()\n"
     },
     {
-      "raw": "# ALEX: make notebook run\n# df.mean()\ndf.mean(numeric_only=True)",
+      "raw": "# FIRST-AUTHOR: make notebook run\n# df.mean()\ndf.mean(numeric_only=True)",
       "rewrite-ns": 359975,
       "overhead-ns": 359975,
       "exec-ns": 1053524,
@@ -57,7 +57,7 @@
       "rewritten": "df.mean(numeric_only=True)\n"
     },
     {
-      "raw": "# ALEX: make notebook run\n# df.std()\ndf.std(numeric_only=True)",
+      "raw": "# FIRST-AUTHOR: make notebook run\n# df.std()\ndf.std(numeric_only=True)",
       "rewrite-ns": 346587,
       "overhead-ns": 346587,
       "exec-ns": 1092672,
@@ -75,7 +75,7 @@
       "rewritten": "df.isna().sum()\n"
     },
     {
-      "raw": "# ALEX: make notebook run\n# df.corr()\ndf.corr(numeric_only=True)",
+      "raw": "# FIRST-AUTHOR: make notebook run\n# df.corr()\ndf.corr(numeric_only=True)",
       "rewrite-ns": 346637,
       "overhead-ns": 346637,
       "exec-ns": 3695751,
@@ -84,7 +84,7 @@
       "rewritten": "df.corr(numeric_only=True)\n"
     },
     {
-      "raw": "# ALEX: make notebook run\n# corr = df.corr()\ncorr = df.corr(numeric_only=True)\n# ALEX: remove plotting\n# sns.heatmap(corr, \n#             xticklabels=corr.columns.values,\n#             yticklabels=corr.columns.values);\n_ = corr.columns.values\n_ = corr.columns.values",
+      "raw": "# FIRST-AUTHOR: make notebook run\n# corr = df.corr()\ncorr = df.corr(numeric_only=True)\n# FIRST-AUTHOR: remove plotting\n# sns.heatmap(corr, \n#             xticklabels=corr.columns.values,\n#             yticklabels=corr.columns.values);\n_ = corr.columns.values\n_ = corr.columns.values",
       "rewrite-ns": 906241,
       "overhead-ns": 906241,
       "exec-ns": 473125,
@@ -111,7 +111,7 @@
       "rewritten": "df['variety'].nunique()\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.scatterplot(x=\"sepal.width\", y=\"sepal.length\", data=df, color=\"magenta\");",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.scatterplot(x=\"sepal.width\", y=\"sepal.length\", data=df, color=\"magenta\");",
       "rewrite-ns": 11814,
       "overhead-ns": 11814,
       "exec-ns": 62500,
@@ -120,7 +120,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.jointplot(x=\"sepal.width\", y=\"sepal.length\", data=df, color=\"magenta\");",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.jointplot(x=\"sepal.width\", y=\"sepal.length\", data=df, color=\"magenta\");",
       "rewrite-ns": 10157,
       "overhead-ns": 10157,
       "exec-ns": 58604,
@@ -129,7 +129,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.scatterplot(x=\"sepal.width\", y=\"sepal.length\", hue=\"variety\", data=df);",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.scatterplot(x=\"sepal.width\", y=\"sepal.length\", hue=\"variety\", data=df);",
       "rewrite-ns": 10672,
       "overhead-ns": 10672,
       "exec-ns": 59017,
@@ -147,7 +147,7 @@
       "rewritten": "pd.value_counts(df.values.flatten())\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.violinplot(y = \"sepal.width\", data = df);",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.violinplot(y = \"sepal.width\", data = df);",
       "rewrite-ns": 11893,
       "overhead-ns": 11893,
       "exec-ns": 65611,
@@ -156,7 +156,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.distplot(df[\"sepal.width\"], bins=16, color=\"blue\");\n_ = df[\"sepal.width\"]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.distplot(df[\"sepal.width\"], bins=16, color=\"blue\");\n_ = df[\"sepal.width\"]",
       "rewrite-ns": 305044,
       "overhead-ns": 305044,
       "exec-ns": 196484,
@@ -165,7 +165,7 @@
       "rewritten": "_ = df['sepal.width']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.violinplot(x = \"variety\", y = \"sepal.length\", data = df);",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.violinplot(x = \"variety\", y = \"sepal.length\", data = df);",
       "rewrite-ns": 11460,
       "overhead-ns": 11460,
       "exec-ns": 61101,
@@ -174,7 +174,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.countplot(x = \"variety\", data = df);",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.countplot(x = \"variety\", data = df);",
       "rewrite-ns": 10226,
       "overhead-ns": 10226,
       "exec-ns": 57145,
@@ -183,7 +183,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.jointplot(x = df[\"sepal.width\"], y = df[\"sepal.length\"], color = \"purple\");\n_ = df[\"sepal.width\"]\n_ = df[\"sepal.length\"]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.jointplot(x = df[\"sepal.width\"], y = df[\"sepal.length\"], color = \"purple\");\n_ = df[\"sepal.width\"]\n_ = df[\"sepal.length\"]",
       "rewrite-ns": 540387,
       "overhead-ns": 540387,
       "exec-ns": 218600,
@@ -192,7 +192,7 @@
       "rewritten": "_ = df['sepal.width']\n_ = df['sepal.length']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.jointplot(x = df[\"sepal.width\"], y = df[\"sepal.length\"],kind=\"kde\", color = \"purple\");\n_ = df[\"sepal.width\"]\n_ = df[\"sepal.length\"]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.jointplot(x = df[\"sepal.width\"], y = df[\"sepal.length\"],kind=\"kde\", color = \"purple\");\n_ = df[\"sepal.width\"]\n_ = df[\"sepal.length\"]",
       "rewrite-ns": 524507,
       "overhead-ns": 524507,
       "exec-ns": 206756,
@@ -201,7 +201,7 @@
       "rewritten": "_ = df['sepal.width']\n_ = df['sepal.length']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.scatterplot(x=\"petal.width\", y=\"petal.length\", data=df);",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.scatterplot(x=\"petal.width\", y=\"petal.length\", data=df);",
       "rewrite-ns": 10834,
       "overhead-ns": 10834,
       "exec-ns": 59597,
@@ -210,7 +210,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.scatterplot(x=\"petal.width\", y=\"petal.length\",hue=\"variety\", data=df);",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.scatterplot(x=\"petal.width\", y=\"petal.length\",hue=\"variety\", data=df);",
       "rewrite-ns": 10033,
       "overhead-ns": 10033,
       "exec-ns": 56122,
@@ -219,7 +219,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.lmplot(x=\"petal.width\", y=\"petal.length\", data=df);",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.lmplot(x=\"petal.width\", y=\"petal.length\", data=df);",
       "rewrite-ns": 9890,
       "overhead-ns": 9890,
       "exec-ns": 55692,

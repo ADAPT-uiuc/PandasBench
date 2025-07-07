@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 10299,
   "cells": [
     {
-      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# from matplotlib import pyplot as plt\n# import seaborn as sns\n# import missingno as msno\nimport datetime\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 5GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting\n# from matplotlib import pyplot as plt\n# import seaborn as sns\n# import missingno as msno\nimport datetime\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# FIRST-AUTHOR: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# You can write up to 5GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session",
       "rewrite-ns": 568035,
       "overhead-ns": 568035,
       "exec-ns": 285026,
@@ -120,7 +120,7 @@
       "rewritten": "print(\n    f'There are {my_transaction.isnull().any().sum()} columns in my_train transaction dataset with missing values.'\n    )\n"
     },
     {
-      "raw": "# Eksik verileri oransal bar ile gorsellestirme\n# ALEX: remove plotting\n# msno.bar(train_Mytransaction);",
+      "raw": "# Eksik verileri oransal bar ile gorsellestirme\n# FIRST-AUTHOR: remove plotting\n# msno.bar(train_Mytransaction);",
       "rewrite-ns": 21281,
       "overhead-ns": 21281,
       "exec-ns": 116234,
@@ -129,7 +129,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# msno.matrix(my_transaction);",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# msno.matrix(my_transaction);",
       "rewrite-ns": 19810,
       "overhead-ns": 19810,
       "exec-ns": 106305,
@@ -138,7 +138,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# degiskenler arasindaki yokluk koralasyonu  -1 demek- birinde null varsa digerinde de null her durumda var\n# ALEX: remove plotting\n# msno.heatmap(my_transaction);",
+      "raw": "# degiskenler arasindaki yokluk koralasyonu  -1 demek- birinde null varsa digerinde de null her durumda var\n# FIRST-AUTHOR: remove plotting\n# msno.heatmap(my_transaction);",
       "rewrite-ns": 19960,
       "overhead-ns": 19960,
       "exec-ns": 93746,
@@ -246,7 +246,7 @@
       "rewritten": "my_transaction.columns\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# import seaborn as sns\nmy_transaction_TransactionAmt_Fraud=my_transaction[['isFraud','TransactionAmt']]\n# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(5,5))\n# sns.heatmap(my_transaction_TransactionAmt_Fraud.corr(), ax=ax,linewidths=.5,annot=True)\n# plt.show()\n_ = my_transaction_TransactionAmt_Fraud.corr()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# import seaborn as sns\nmy_transaction_TransactionAmt_Fraud=my_transaction[['isFraud','TransactionAmt']]\n# FIRST-AUTHOR: remove plotting\n# fig, ax = plt.subplots(figsize=(5,5))\n# sns.heatmap(my_transaction_TransactionAmt_Fraud.corr(), ax=ax,linewidths=.5,annot=True)\n# plt.show()\n_ = my_transaction_TransactionAmt_Fraud.corr()",
       "rewrite-ns": 728904,
       "overhead-ns": 728904,
       "exec-ns": 20463284,
@@ -255,7 +255,7 @@
       "rewritten": "my_transaction_TransactionAmt_Fraud = my_transaction[['isFraud',\n    'TransactionAmt']]\n_ = my_transaction_TransactionAmt_Fraud.corr()\n"
     },
     {
-      "raw": "# boxplot\n# ALEX: remove plotting\n# sns.boxplot(x=my_transaction['TransactionAmt']);\n_ = my_transaction['TransactionAmt']",
+      "raw": "# boxplot\n# FIRST-AUTHOR: remove plotting\n# sns.boxplot(x=my_transaction['TransactionAmt']);\n_ = my_transaction['TransactionAmt']",
       "rewrite-ns": 348294,
       "overhead-ns": 348294,
       "exec-ns": 347240,
@@ -309,7 +309,7 @@
       "rewritten": "my_transaction.card1.describe()\n"
     },
     {
-      "raw": "# ALEX: make notebook run\ndf = my_transaction\n\ndf_train, df_test = df[df['isFraud'] != 'test'], df[df['isFraud'] == 2].drop('isFraud', axis=1)",
+      "raw": "# FIRST-AUTHOR: make notebook run\ndf = my_transaction\n\ndf_train, df_test = df[df['isFraud'] != 'test'], df[df['isFraud'] == 2].drop('isFraud', axis=1)",
       "rewrite-ns": 1445090,
       "overhead-ns": 1445090,
       "exec-ns": 434617925,

@@ -26,6 +26,8 @@ original data used by the notebooks. The easiest way to get both is using one of
 our Docker images, which we describe below. But, we also provide information on
 how to perform the setup manually.
 
+**IMPORTANT**: The image links are hidden for anonymity. But we provide the Dockerfiles to build them.
+
 ## Docker
 
 We provide 2 Docker images:
@@ -61,7 +63,7 @@ is much larger than **Lite**, in case this is an issue.
 For the Full image, you just immediately run it, for example:
 
 ```
-docker run -it --name pandasbench_c_full --rm baziotis/pandasbench:1.0.0-full bash
+docker run -it --name pandasbench_c_full --rm <HIDDEN>/pandasbench:1.0.0-full bash
 ```
 
 </details>
@@ -110,7 +112,7 @@ You can now delete the `data/` directory.
 
 Finally, you can run the image and bind the PandasBench directory:
 ```
-docker run -it -v ./:/home/ubuntu/PandasBench --name pandasbench_c_lite --rm baziotis/pandasbench:1.0.0-lite bash
+docker run -it -v ./:/home/ubuntu/PandasBench --name pandasbench_c_lite --rm <HIDDEN>/pandasbench:1.0.0-lite bash
 ```
 
 </details>
@@ -164,9 +166,3 @@ python3 run_all.py --help
 # Extending PandasBench
 
 To add a new Pandas API implementation, in `setup_import_lib.py` add an "library name, dynamic imports as a string" pair to the `imports` dictionary. To add a new Pandas API complement, do the same thing with the `add_ons` dictionary in `setup_import_lib.py`.
-
-# Publications
-
-- [PandasBench: A Benchmark for the Pandas API](https://arxiv.org/abs/2506.02345)<br/>
-[Alex Broihier](https://alex-d-b.github.io/), [Stefanos Baziotis](https://sbaziotis.com/), [Daniel Kang](https://ddkang.github.io/), [Charith Mendis](https://charithmendis.com/)<br/>
-Arxiv, 2025

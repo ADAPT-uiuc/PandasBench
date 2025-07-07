@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 128,
   "cells": [
     {
-      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# %matplotlib inline",
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# %matplotlib inline",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 373122
@@ -93,13 +93,13 @@
       "total-ns": 3320050
     },
     {
-      "raw": "# ALEX: remove plotting\n# country_price[:5].plot(kind='bar')\ncountry_price[:5]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# country_price[:5].plot(kind='bar')\ncountry_price[:5]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 401887
     },
     {
-      "raw": "# ALEX: remove plotting\n# country_price[33:].plot(kind='bar')\ncountry_price[33:]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# country_price[33:].plot(kind='bar')\ncountry_price[33:]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 365396
@@ -111,7 +111,7 @@
       "total-ns": 2070312357
     },
     {
-      "raw": "# ALEX: remove plotting\n# new_df.groupby('Year')['TotalAmount'].sum().plot(kind='bar')\nnew_df.groupby('Year')['TotalAmount'].sum()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# new_df.groupby('Year')['TotalAmount'].sum().plot(kind='bar')\nnew_df.groupby('Year')['TotalAmount'].sum()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1520996
@@ -123,7 +123,7 @@
       "total-ns": 257651
     },
     {
-      "raw": "new_df['Mon'] = pd.DatetimeIndex(new_df['InvoiceDate']).month\nnew_df['month'] = pd.DatetimeIndex(new_df['InvoiceDate']).month_name\n# ALEX: remove plotting\n# new_df.groupby(['Mon', 'Year'])['TotalAmount'].sum().plot(kind='bar', title = 'Sales Moth Wise') \nnew_df.groupby(['Mon', 'Year'])['TotalAmount'].sum()\n\n\n",
+      "raw": "new_df['Mon'] = pd.DatetimeIndex(new_df['InvoiceDate']).month\nnew_df['month'] = pd.DatetimeIndex(new_df['InvoiceDate']).month_name\n# FIRST-AUTHOR: remove plotting\n# new_df.groupby(['Mon', 'Year'])['TotalAmount'].sum().plot(kind='bar', title = 'Sales Moth Wise') \nnew_df.groupby(['Mon', 'Year'])['TotalAmount'].sum()\n\n\n",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 3949784293
@@ -147,13 +147,13 @@
       "total-ns": 11212188
     },
     {
-      "raw": "cus_id =  pd.DataFrame(new_df.groupby('Country')['CustomerID'].count().sort_values(ascending = False))\n# ALEX: remove plotting\n# cus_id[:5].plot(kind='bar', title='Country with most customers')\ncus_id[:5]",
+      "raw": "cus_id =  pd.DataFrame(new_df.groupby('Country')['CustomerID'].count().sort_values(ascending = False))\n# FIRST-AUTHOR: remove plotting\n# cus_id[:5].plot(kind='bar', title='Country with most customers')\ncus_id[:5]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1878380
     },
     {
-      "raw": "# ALEX: remove plotting\n# cus_id[-5:].plot(kind='bar', title='Least customers for country')\ncus_id[-5:]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# cus_id[-5:].plot(kind='bar', title='Least customers for country')\ncus_id[-5:]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 233937

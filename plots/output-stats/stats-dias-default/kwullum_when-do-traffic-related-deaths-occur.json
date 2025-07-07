@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 246,
   "cells": [
     {
-      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# %matplotlib inline",
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# %matplotlib inline",
       "rewrite-ns": 683285,
       "overhead-ns": 683285,
       "exec-ns": 381388,
@@ -84,7 +84,7 @@
       "rewritten": "df_pivot = df_pivot.reindex(['Monday', 'Tuesday', 'Wednesday', 'Thursday',\n    'Friday', 'Saturday', 'Sunday'])\ndf_pivot\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig, ax = plt.subplots(figsize=(30,8))\n# graph = sns.heatmap(df_pivot, cmap=\"Blues\", linecolor=\"white\", linewidths=0.1)\n\n# ax.set_title(\"Number of traffic-related deaths per day & hour combination\", y=1.3, fontsize=30, fontweight=\"bold\")\n# ax.set_xlabel(\"\")\n# ax.set_ylabel(\"\")\n\n# #from matplotlib import rcParams\n# #rcParams['axes.titlepad'] = 130 # Space between the title and graph\n\n# locs, labels = plt.yticks() # Rotating row labels\n# plt.setp(labels, rotation=0) # Rotating row labels\n\n# ax.xaxis.tick_top() # x axis on top\n# ax.xaxis.set_label_position('top') # x axis on top\n\n# graph.tick_params(axis='both',labelsize=15) # Tick label size\n# graph",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig, ax = plt.subplots(figsize=(30,8))\n# graph = sns.heatmap(df_pivot, cmap=\"Blues\", linecolor=\"white\", linewidths=0.1)\n\n# ax.set_title(\"Number of traffic-related deaths per day & hour combination\", y=1.3, fontsize=30, fontweight=\"bold\")\n# ax.set_xlabel(\"\")\n# ax.set_ylabel(\"\")\n\n# #from matplotlib import rcParams\n# #rcParams['axes.titlepad'] = 130 # Space between the title and graph\n\n# locs, labels = plt.yticks() # Rotating row labels\n# plt.setp(labels, rotation=0) # Rotating row labels\n\n# ax.xaxis.tick_top() # x axis on top\n# ax.xaxis.set_label_position('top') # x axis on top\n\n# graph.tick_params(axis='both',labelsize=15) # Tick label size\n# graph",
       "rewrite-ns": 28283,
       "overhead-ns": 28283,
       "exec-ns": 125497,

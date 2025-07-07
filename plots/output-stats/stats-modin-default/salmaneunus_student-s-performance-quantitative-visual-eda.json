@@ -27,13 +27,13 @@
       "total-ns": 68427839
     },
     {
-      "raw": "# ALEX: remove non Pandas code\n# import datetime\n\n# x = datetime.datetime.now()",
+      "raw": "# FIRST-AUTHOR: remove non Pandas code\n# import datetime\n\n# x = datetime.datetime.now()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 278680
     },
     {
-      "raw": "# ALEX: remove non Pandas code\n# x",
+      "raw": "# FIRST-AUTHOR: remove non Pandas code\n# x",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 245675
@@ -117,37 +117,37 @@
       "total-ns": 29868443
     },
     {
-      "raw": "# ALEX: remove plotting\n# All_scores.plot()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# All_scores.plot()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 246370
     },
     {
-      "raw": "# ALEX: remove plotting\n# All_scores[\"math score\"].plot()\nAll_scores[\"math score\"]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# All_scores[\"math score\"].plot()\nAll_scores[\"math score\"]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1484622
     },
     {
-      "raw": "# ALEX: remove plotting\n# All_scores.plot.scatter(x=\"reading score\",y=\"writing score\",alpha=0.5)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# All_scores.plot.scatter(x=\"reading score\",y=\"writing score\",alpha=0.5)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 230486
     },
     {
-      "raw": "# ALEX: remove plotting\n# sp.plot.box()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sp.plot.box()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 207493
     },
     {
-      "raw": "# ALEX: remove plotting\n# axs = sp.plot.area(figsize=(20,16),subplots = True)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# axs = sp.plot.area(figsize=(20,16),subplots = True)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 208876
     },
     {
-      "raw": "# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# fig, axs = plt.subplots(figsize=(20,16));\n\n# sp.plot.area(ax=axs);\n\n# axs.set_ylabel(\"Scores for different Subjects\");\n\n# fig.savefig(\"Scores.png\")",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# fig, axs = plt.subplots(figsize=(20,16));\n\n# sp.plot.area(ax=axs);\n\n# axs.set_ylabel(\"Scores for different Subjects\");\n\n# fig.savefig(\"Scores.png\")",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 247246
@@ -201,7 +201,7 @@
       "total-ns": 58469750
     },
     {
-      "raw": "# ALEX: remove plotting\n# a.plot()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# a.plot()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 257510
@@ -213,7 +213,7 @@
       "total-ns": 57553659
     },
     {
-      "raw": "# ALEX: remove plotting\n# b.plot(figsize=(20,16))",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# b.plot(figsize=(20,16))",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 260572
@@ -225,7 +225,7 @@
       "total-ns": 59158417
     },
     {
-      "raw": "# ALEX: remove plotting\n# c.plot()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# c.plot()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 254370

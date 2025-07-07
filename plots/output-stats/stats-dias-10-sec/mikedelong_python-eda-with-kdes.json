@@ -30,7 +30,7 @@
       "rewritten": "df.nunique()\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# from seaborn import kdeplot\n# kdeplot(data=df, x='Age', hue='Gender')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# from seaborn import kdeplot\n# kdeplot(data=df, x='Age', hue='Gender')",
       "rewrite-ns": 21896,
       "overhead-ns": 21896,
       "exec-ns": 120997,
@@ -39,7 +39,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# from matplotlib.pyplot import subplots\n# _, ax = subplots(figsize=(12, 12), ncols=2, nrows=2,  )\ncolumns = [key for key, value in df.nunique().to_dict().items() if value < 10]\nfor index, column in enumerate(columns):\n    df[column].value_counts() # .plot(ax=ax.ravel()[index], kind='bar', legend=True)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# from matplotlib.pyplot import subplots\n# _, ax = subplots(figsize=(12, 12), ncols=2, nrows=2,  )\ncolumns = [key for key, value in df.nunique().to_dict().items() if value < 10]\nfor index, column in enumerate(columns):\n    df[column].value_counts() # .plot(ax=ax.ravel()[index], kind='bar', legend=True)",
       "rewrite-ns": 2526738,
       "overhead-ns": 2529818,
       "exec-ns": 2033640605,
@@ -48,7 +48,7 @@
       "rewritten": "columns = [key for key, value in df.nunique().to_dict().items() if value < 10]\nfor index, column in enumerate(columns):\n    df[column].value_counts()\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# kdeplot(data=df, x='Passenger ID', hue='Flight Status')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# kdeplot(data=df, x='Passenger ID', hue='Flight Status')",
       "rewrite-ns": 23821,
       "overhead-ns": 23821,
       "exec-ns": 115523,

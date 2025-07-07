@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 494,
   "cells": [
     {
-      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns",
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 262163
@@ -51,7 +51,7 @@
       "total-ns": 25658027
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(8,6))\n# colors = ['blue', 'green', 'red', 'purple', 'orange', 'yellow']\n# plt.bar(Category_count.index, Category_count.values, color = colors)\n# plt.title(\"Category wise Order Count\")\n# plt.xticks(rotation=90)\n# plt.show()\nCategory_count.index\nCategory_count.values",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(8,6))\n# colors = ['blue', 'green', 'red', 'purple', 'orange', 'yellow']\n# plt.bar(Category_count.index, Category_count.values, color = colors)\n# plt.title(\"Category wise Order Count\")\n# plt.xticks(rotation=90)\n# plt.show()\nCategory_count.index\nCategory_count.values",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 268505
@@ -63,7 +63,7 @@
       "total-ns": 25455294
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,6))\n# colors = ['red', 'green', 'blue', 'yellow', 'purple', 'orange', 'pink', 'teal', 'brown', 'gray']\n\n# plt.bar(top_10_products.index, top_10_products.values, color = colors)\n# plt.title(\"Top 10 Products by its Order count\")\n# plt.xticks(rotation=90)\n# plt.show()\ntop_10_products.index\ntop_10_products.values",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(10,6))\n# colors = ['red', 'green', 'blue', 'yellow', 'purple', 'orange', 'pink', 'teal', 'brown', 'gray']\n\n# plt.bar(top_10_products.index, top_10_products.values, color = colors)\n# plt.title(\"Top 10 Products by its Order count\")\n# plt.xticks(rotation=90)\n# plt.show()\ntop_10_products.index\ntop_10_products.values",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 227866
@@ -81,7 +81,7 @@
       "total-ns": 46283826
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,8))\n# ab=sns.barplot(x='Item Name',y='Sales',data=Item_sales)\n# ab.bar_label(ab.containers[0])\n# plt.title('Top 10 Products by its Sales')\n# plt.xlabel('Product Name')\n# plt.ylabel('Sales')\n# plt.xticks(rotation=90)\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(10,8))\n# ab=sns.barplot(x='Item Name',y='Sales',data=Item_sales)\n# ab.bar_label(ab.containers[0])\n# plt.title('Top 10 Products by its Sales')\n# plt.xlabel('Product Name')\n# plt.ylabel('Sales')\n# plt.xticks(rotation=90)\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 200299
@@ -99,7 +99,7 @@
       "total-ns": 11247980
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(6,6))\n# plt.pie(Year_wise_sales,autopct ='%.2f%%',labels =Year_wise_sales.index)\n# plt.title('Year Wise Sales')\n# plt.show()\nevaluate_lazy(Year_wise_sales.index)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(6,6))\n# plt.pie(Year_wise_sales,autopct ='%.2f%%',labels =Year_wise_sales.index)\n# plt.title('Year Wise Sales')\n# plt.show()\nevaluate_lazy(Year_wise_sales.index)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 217624
@@ -129,7 +129,7 @@
       "total-ns": 63874388
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.preprocessing import LabelEncoder\n# le =LabelEncoder()",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.preprocessing import LabelEncoder\n# le =LabelEncoder()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 186619
@@ -141,7 +141,7 @@
       "total-ns": 29276724
     },
     {
-      "raw": "# Converting all categorical columns into numeric\nfor col in categorical_columns:\n# ALEX: remove ML code\n#     merge[col] = le.fit_transform(merge[col])\n    merge[col] = merge[col]\n    \nmerge.head()",
+      "raw": "# Converting all categorical columns into numeric\nfor col in categorical_columns:\n# FIRST-AUTHOR: remove ML code\n#     merge[col] = le.fit_transform(merge[col])\n    merge[col] = merge[col]\n    \nmerge.head()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 99632487
@@ -159,61 +159,61 @@
       "total-ns": 358748
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import train_test_split",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.model_selection import train_test_split",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 141853
     },
     {
-      "raw": "# Split data into train and test datasets\n# ALEX: remove ML code\n# x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)",
+      "raw": "# Split data into train and test datasets\n# FIRST-AUTHOR: remove ML code\n# x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 107575
     },
     {
-      "raw": "# ALEX: remove ML code\n# len(x_train)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# len(x_train)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 97823
     },
     {
-      "raw": "# ALEX: remove ML code\n# len(x_test)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# len(x_test)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 94731
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.ensemble import RandomForestClassifier\n# model =RandomForestClassifier()",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.ensemble import RandomForestClassifier\n# model =RandomForestClassifier()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 100654
     },
     {
-      "raw": "# ALEX: remove ML code\n# model.fit(x_train,y_train)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# model.fit(x_train,y_train)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 91857
     },
     {
-      "raw": "# ALEX: remove ML code\n# model.predict(x_test)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# model.predict(x_test)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 89791
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import cross_val_score",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.model_selection import cross_val_score",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 89997
     },
     {
-      "raw": "# ALEX: remove ML code\n# score =cross_val_score(RandomForestClassifier(),x,y)\n# score",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# score =cross_val_score(RandomForestClassifier(),x,y)\n# score",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 92728
     },
     {
-      "raw": "# ALEX: remove ML code\n# score.mean()",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# score.mean()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 91122

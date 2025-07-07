@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 128,
   "cells": [
     {
-      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns",
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns",
       "rewrite-ns": 686331,
       "overhead-ns": 686331,
       "exec-ns": 397812,
@@ -39,7 +39,7 @@
       "rewritten": "evaluate_lazy(df.describe().transpose())\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.distplot(df['price'])\nevaluate_lazy(df['price'])",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.distplot(df['price'])\nevaluate_lazy(df['price'])",
       "rewrite-ns": 498516,
       "overhead-ns": 498516,
       "exec-ns": 1863459,
@@ -48,7 +48,7 @@
       "rewritten": "evaluate_lazy(df['price'])\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.countplot(df['bedrooms'])\nevaluate_lazy(df['bedrooms'])",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.countplot(df['bedrooms'])\nevaluate_lazy(df['bedrooms'])",
       "rewrite-ns": 494756,
       "overhead-ns": 494756,
       "exec-ns": 1405018,
@@ -57,7 +57,7 @@
       "rewritten": "evaluate_lazy(df['bedrooms'])\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='price',y='sqft_living',data=df)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='price',y='sqft_living',data=df)",
       "rewrite-ns": 20239,
       "overhead-ns": 20239,
       "exec-ns": 106131,
@@ -66,7 +66,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.boxplot(x='bedrooms',y='price',data=df)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.boxplot(x='bedrooms',y='price',data=df)",
       "rewrite-ns": 17496,
       "overhead-ns": 17496,
       "exec-ns": 94982,
@@ -75,7 +75,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='price',y='long',data=df)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='price',y='long',data=df)",
       "rewrite-ns": 17833,
       "overhead-ns": 17833,
       "exec-ns": 92896,
@@ -84,7 +84,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='price',y='lat',data=df)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='price',y='lat',data=df)",
       "rewrite-ns": 16454,
       "overhead-ns": 16454,
       "exec-ns": 90224,
@@ -93,7 +93,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='long',y='lat',data=df,hue='price')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='long',y='lat',data=df,hue='price')",
       "rewrite-ns": 17208,
       "overhead-ns": 17208,
       "exec-ns": 96072,
@@ -131,7 +131,7 @@
       "rewritten": "non_top_1_perc = df.sort_values('price', ascending=False).iloc[216:]\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='long',y='lat',\n#                 data=non_top_1_perc,hue='price',\n#                 palette='RdYlGn',edgecolor=None,alpha=0.2)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12,8))\n# sns.scatterplot(x='long',y='lat',\n#                 data=non_top_1_perc,hue='price',\n#                 palette='RdYlGn',edgecolor=None,alpha=0.2)",
       "rewrite-ns": 21140,
       "overhead-ns": 21140,
       "exec-ns": 104605,
@@ -140,7 +140,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.boxplot(x='waterfront',y='price',data=df)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.boxplot(x='waterfront',y='price',data=df)",
       "rewrite-ns": 18840,
       "overhead-ns": 18840,
       "exec-ns": 95671,
@@ -212,7 +212,7 @@
       "rewritten": "df['year'] = df['date'].apply(lambda date: date.year)\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.boxplot(x='year',y='price',data=df)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.boxplot(x='year',y='price',data=df)",
       "rewrite-ns": 20740,
       "overhead-ns": 20740,
       "exec-ns": 106361,
@@ -221,7 +221,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.boxplot(x='month',y='price',data=df)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.boxplot(x='month',y='price',data=df)",
       "rewrite-ns": 19138,
       "overhead-ns": 19138,
       "exec-ns": 94653,
@@ -230,7 +230,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# df.groupby('month').mean()['price'].plot()\nevaluate_lazy(df.groupby('month').mean()['price'])",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# df.groupby('month').mean()['price'].plot()\nevaluate_lazy(df.groupby('month').mean()['price'])",
       "rewrite-ns": 804608,
       "overhead-ns": 804608,
       "exec-ns": 5582481,
@@ -239,7 +239,7 @@
       "rewritten": "evaluate_lazy(df.groupby('month').mean()['price'])\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# df.groupby('year').mean()['price'].plot()\nevaluate_lazy(df.groupby('year').mean()['price'])",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# df.groupby('year').mean()['price'].plot()\nevaluate_lazy(df.groupby('year').mean()['price'])",
       "rewrite-ns": 811265,
       "overhead-ns": 811265,
       "exec-ns": 5481901,
@@ -320,7 +320,7 @@
       "rewritten": "X = df.drop('price', axis=1)\ny = df['price']\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import train_test_split",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.model_selection import train_test_split",
       "rewrite-ns": 19787,
       "overhead-ns": 19787,
       "exec-ns": 103518,
@@ -329,7 +329,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.3,random_state=101)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.3,random_state=101)",
       "rewrite-ns": 18673,
       "overhead-ns": 18673,
       "exec-ns": 95441,
@@ -338,7 +338,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.preprocessing import MinMaxScaler",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.preprocessing import MinMaxScaler",
       "rewrite-ns": 17284,
       "overhead-ns": 17284,
       "exec-ns": 92417,
@@ -347,7 +347,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# scaler = MinMaxScaler()",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# scaler = MinMaxScaler()",
       "rewrite-ns": 16330,
       "overhead-ns": 16330,
       "exec-ns": 89784,
@@ -356,7 +356,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# X_train= scaler.fit_transform(X_train)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# X_train= scaler.fit_transform(X_train)",
       "rewrite-ns": 15451,
       "overhead-ns": 15451,
       "exec-ns": 87162,
@@ -365,7 +365,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# X_test = scaler.transform(X_test)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# X_test = scaler.transform(X_test)",
       "rewrite-ns": 13678,
       "overhead-ns": 13678,
       "exec-ns": 74114,
@@ -374,7 +374,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# X_train.shape",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# X_train.shape",
       "rewrite-ns": 13598,
       "overhead-ns": 13598,
       "exec-ns": 74805,
@@ -383,7 +383,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# X_test.shape",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# X_test.shape",
       "rewrite-ns": 13763,
       "overhead-ns": 13763,
       "exec-ns": 73632,
@@ -392,7 +392,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# from tensorflow.keras.models import Sequential\n# from tensorflow.keras.layers import Dense, Activation\n# from tensorflow.keras.optimizers import Adam",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from tensorflow.keras.models import Sequential\n# from tensorflow.keras.layers import Dense, Activation\n# from tensorflow.keras.optimizers import Adam",
       "rewrite-ns": 14138,
       "overhead-ns": 14138,
       "exec-ns": 74539,
@@ -401,7 +401,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# model = Sequential()\n\n# model.add(Dense(19,activation='relu'))\n# model.add(Dense(19,activation='relu'))\n# model.add(Dense(19,activation='relu'))\n# model.add(Dense(19,activation='relu'))\n# model.add(Dense(1))\n\n# model.compile(optimizer='adam',loss='mse')",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# model = Sequential()\n\n# model.add(Dense(19,activation='relu'))\n# model.add(Dense(19,activation='relu'))\n# model.add(Dense(19,activation='relu'))\n# model.add(Dense(19,activation='relu'))\n# model.add(Dense(1))\n\n# model.compile(optimizer='adam',loss='mse')",
       "rewrite-ns": 14785,
       "overhead-ns": 14785,
       "exec-ns": 72957,
@@ -410,7 +410,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# model.fit(x=X_train,y=y_train.values,\n#           validation_data=(X_test,y_test.values),\n#           batch_size=128,epochs=400)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# model.fit(x=X_train,y=y_train.values,\n#           validation_data=(X_test,y_test.values),\n#           batch_size=128,epochs=400)",
       "rewrite-ns": 14266,
       "overhead-ns": 14266,
       "exec-ns": 75976,
@@ -419,7 +419,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# losses = pd.DataFrame(model.history.history)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# losses = pd.DataFrame(model.history.history)",
       "rewrite-ns": 13765,
       "overhead-ns": 13765,
       "exec-ns": 75881,
@@ -428,7 +428,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# losses.plot()",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# losses.plot()",
       "rewrite-ns": 13767,
       "overhead-ns": 13767,
       "exec-ns": 86107,
@@ -437,7 +437,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.metrics import mean_squared_error,mean_absolute_error,explained_variance_score",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.metrics import mean_squared_error,mean_absolute_error,explained_variance_score",
       "rewrite-ns": 13982,
       "overhead-ns": 13982,
       "exec-ns": 73542,
@@ -446,7 +446,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# X_test",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# X_test",
       "rewrite-ns": 12806,
       "overhead-ns": 12806,
       "exec-ns": 68875,
@@ -455,7 +455,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# predictions = model.predict(X_test)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# predictions = model.predict(X_test)",
       "rewrite-ns": 13221,
       "overhead-ns": 13221,
       "exec-ns": 67838,
@@ -464,7 +464,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# mean_absolute_error(y_test,predictions)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# mean_absolute_error(y_test,predictions)",
       "rewrite-ns": 13068,
       "overhead-ns": 13068,
       "exec-ns": 68671,
@@ -473,7 +473,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# np.sqrt(mean_squared_error(y_test,predictions))",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# np.sqrt(mean_squared_error(y_test,predictions))",
       "rewrite-ns": 13084,
       "overhead-ns": 13084,
       "exec-ns": 68898,
@@ -482,7 +482,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# explained_variance_score(y_test,predictions)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# explained_variance_score(y_test,predictions)",
       "rewrite-ns": 13116,
       "overhead-ns": 13116,
       "exec-ns": 69592,
@@ -509,7 +509,7 @@
       "rewritten": "evaluate_lazy(df['price'].median())\n"
     },
     {
-      "raw": "# Our predictions\n# ALEX: remove plotting\n# plt.scatter(y_test,predictions)\n\n# # Perfect predictions\n# plt.plot(y_test,y_test,'r')",
+      "raw": "# Our predictions\n# FIRST-AUTHOR: remove plotting\n# plt.scatter(y_test,predictions)\n\n# # Perfect predictions\n# plt.plot(y_test,y_test,'r')",
       "rewrite-ns": 15960,
       "overhead-ns": 15960,
       "exec-ns": 79214,
@@ -527,7 +527,7 @@
       "rewritten": "single_house = df.drop('price', axis=1).iloc[0]\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# single_house = scaler.transform(single_house.values.reshape(-1, 19))\nsingle_house.values.reshape(-1, 19)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# single_house = scaler.transform(single_house.values.reshape(-1, 19))\nsingle_house.values.reshape(-1, 19)",
       "rewrite-ns": 480566,
       "overhead-ns": 480566,
       "exec-ns": 749902,
@@ -545,7 +545,7 @@
       "rewritten": "evaluate_lazy(single_house)\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# model.predict(single_house)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# model.predict(single_house)",
       "rewrite-ns": 13885,
       "overhead-ns": 13885,
       "exec-ns": 75644,

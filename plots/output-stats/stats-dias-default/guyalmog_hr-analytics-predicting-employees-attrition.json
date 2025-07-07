@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 331,
   "cells": [
     {
-      "raw": "from datetime import datetime\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting, ML code\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier, GradientBoostingClassifier, ExtraTreesClassifier, VotingClassifier\n# from sklearn.naive_bayes import GaussianNB\n# from sklearn.discriminant_analysis import LinearDiscriminantAnalysis\n# from sklearn.linear_model import LogisticRegression\n# from sklearn.neighbors import KNeighborsClassifier\n# from sklearn.tree import DecisionTreeClassifier\n# from sklearn.neural_network import MLPClassifier\n# from sklearn.svm import SVC\n# from sklearn.model_selection import GridSearchCV, cross_val_score, StratifiedKFold, learning_curve, train_test_split, RandomizedSearchCV\n# from sklearn import preprocessing\n# from sklearn.metrics import r2_score, accuracy_score, roc_auc_score, mean_squared_error",
+      "raw": "from datetime import datetime\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# FIRST-AUTHOR: remove plotting, ML code\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier, GradientBoostingClassifier, ExtraTreesClassifier, VotingClassifier\n# from sklearn.naive_bayes import GaussianNB\n# from sklearn.discriminant_analysis import LinearDiscriminantAnalysis\n# from sklearn.linear_model import LogisticRegression\n# from sklearn.neighbors import KNeighborsClassifier\n# from sklearn.tree import DecisionTreeClassifier\n# from sklearn.neural_network import MLPClassifier\n# from sklearn.svm import SVC\n# from sklearn.model_selection import GridSearchCV, cross_val_score, StratifiedKFold, learning_curve, train_test_split, RandomizedSearchCV\n# from sklearn import preprocessing\n# from sklearn.metrics import r2_score, accuracy_score, roc_auc_score, mean_squared_error",
       "rewrite-ns": 816264,
       "overhead-ns": 816264,
       "exec-ns": 464454,
@@ -84,7 +84,7 @@
       "rewritten": "times.shape\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig, axs = plt.subplots(1,3, figsize = (12,4))\n# sns.distplot(times.iloc[4, :261], ax=axs[0]).set(xlabel = 'In time', ylabel = 'Frequency',xlim=(7,12))\n# sns.distplot(times.iloc[72, :261], ax=axs[1]).set(xlabel = 'In time', ylabel = 'Frequency',xlim=(7,12))\n# sns.distplot(times.iloc[102, :261], ax=axs[2]).set(xlabel = 'In time', ylabel = 'Frequency',xlim=(7,12))\n# plt.tight_layout()\n_ = times.iloc[4, :261]\n_ = times.iloc[72, :261]\n_ = times.iloc[102, :261]\n",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig, axs = plt.subplots(1,3, figsize = (12,4))\n# sns.distplot(times.iloc[4, :261], ax=axs[0]).set(xlabel = 'In time', ylabel = 'Frequency',xlim=(7,12))\n# sns.distplot(times.iloc[72, :261], ax=axs[1]).set(xlabel = 'In time', ylabel = 'Frequency',xlim=(7,12))\n# sns.distplot(times.iloc[102, :261], ax=axs[2]).set(xlabel = 'In time', ylabel = 'Frequency',xlim=(7,12))\n# plt.tight_layout()\n_ = times.iloc[4, :261]\n_ = times.iloc[72, :261]\n_ = times.iloc[102, :261]\n",
       "rewrite-ns": 1341530,
       "overhead-ns": 1341530,
       "exec-ns": 1195428,
@@ -93,7 +93,7 @@
       "rewritten": "_ = times.iloc[4, :261]\n_ = times.iloc[72, :261]\n_ = times.iloc[102, :261]\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,4))\n# g = plt.plot(times.iloc[4, :261])\n_ = times.iloc[4, :261]\n",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(10,4))\n# g = plt.plot(times.iloc[4, :261])\n_ = times.iloc[4, :261]\n",
       "rewrite-ns": 495973,
       "overhead-ns": 495973,
       "exec-ns": 534554,
@@ -102,7 +102,7 @@
       "rewritten": "_ = times.iloc[4, :261]\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(10,4))\n# g = plt.plot(times.iloc[25, :261])\n_ = times.iloc[25, :261]\n",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(10,4))\n# g = plt.plot(times.iloc[25, :261])\n_ = times.iloc[25, :261]\n",
       "rewrite-ns": 467325,
       "overhead-ns": 467325,
       "exec-ns": 496818,
@@ -165,7 +165,7 @@
       "rewritten": "emp_data.loc[emp_data['EnvironmentSatisfaction'].isnull()]\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig, axs = plt.subplots(1,3, figsize=(10,4))\n# sns.barplot(emp_data['EnvironmentSatisfaction'], emp_data['JobSatisfaction'],ax=axs[0])\n# sns.barplot(emp_data['WorkLifeBalance'], emp_data['JobSatisfaction'],ax=axs[1])\n# sns.barplot(emp_data['WorkLifeBalance'], emp_data['EnvironmentSatisfaction'],ax=axs[2])\n# plt.tight_layout(pad=3)\n_ = emp_data['EnvironmentSatisfaction']\n_ = emp_data['JobSatisfaction']\n_ = emp_data['WorkLifeBalance']\n_ = emp_data['JobSatisfaction']\n_ = emp_data['WorkLifeBalance']\n_ = emp_data['EnvironmentSatisfaction']\n",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig, axs = plt.subplots(1,3, figsize=(10,4))\n# sns.barplot(emp_data['EnvironmentSatisfaction'], emp_data['JobSatisfaction'],ax=axs[0])\n# sns.barplot(emp_data['WorkLifeBalance'], emp_data['JobSatisfaction'],ax=axs[1])\n# sns.barplot(emp_data['WorkLifeBalance'], emp_data['EnvironmentSatisfaction'],ax=axs[2])\n# plt.tight_layout(pad=3)\n_ = emp_data['EnvironmentSatisfaction']\n_ = emp_data['JobSatisfaction']\n_ = emp_data['WorkLifeBalance']\n_ = emp_data['JobSatisfaction']\n_ = emp_data['WorkLifeBalance']\n_ = emp_data['EnvironmentSatisfaction']\n",
       "rewrite-ns": 1400406,
       "overhead-ns": 1400406,
       "exec-ns": 463538,
@@ -174,7 +174,7 @@
       "rewritten": "_ = emp_data['EnvironmentSatisfaction']\n_ = emp_data['JobSatisfaction']\n_ = emp_data['WorkLifeBalance']\n_ = emp_data['JobSatisfaction']\n_ = emp_data['WorkLifeBalance']\n_ = emp_data['EnvironmentSatisfaction']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(emp_data, col='WorkLifeBalance',size=2.4, aspect=2, col_wrap=2 )\n# g = g.map(sns.distplot, 'JobSatisfaction', )",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.FacetGrid(emp_data, col='WorkLifeBalance',size=2.4, aspect=2, col_wrap=2 )\n# g = g.map(sns.distplot, 'JobSatisfaction', )",
       "rewrite-ns": 12295,
       "overhead-ns": 12295,
       "exec-ns": 62149,
@@ -183,7 +183,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(emp_data, col='JobSatisfaction',row ='WorkLifeBalance', size=2.4, aspect=2 )\n# g = g.map(sns.distplot, 'EnvironmentSatisfaction' )",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.FacetGrid(emp_data, col='JobSatisfaction',row ='WorkLifeBalance', size=2.4, aspect=2 )\n# g = g.map(sns.distplot, 'EnvironmentSatisfaction' )",
       "rewrite-ns": 11465,
       "overhead-ns": 11465,
       "exec-ns": 58261,
@@ -309,7 +309,7 @@
       "rewritten": "df.isna().sum()\ndf.head()\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.distplot(df['total']).set(xlabel = 'Total Hours Of Work', ylabel = 'Frequency')\n_ = df['total']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.distplot(df['total']).set(xlabel = 'Total Hours Of Work', ylabel = 'Frequency')\n_ = df['total']",
       "rewrite-ns": 296594,
       "overhead-ns": 296594,
       "exec-ns": 229514,
@@ -327,7 +327,7 @@
       "rewritten": "print(df['total'][df['total'] <= 7].value_counts().sum())\nprint(df['total'][(df['total'] > 7) & (df['total'] <= 8)].value_counts().sum())\nprint(df['total'][df['total'] > 8].value_counts().sum())\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(8,4))\n# plt.subplot(1,2,1)\n# sns.distplot(df['avg_in'], bins=20)\n# plt.subplot(1,2,2)\n# s = sns.distplot(df['avg_out'], bins=20)\n# plt.xticks((range(16,22)))\n# plt.tight_layout(pad=5)\n_ = df['avg_in']\n_ = df['avg_out']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(8,4))\n# plt.subplot(1,2,1)\n# sns.distplot(df['avg_in'], bins=20)\n# plt.subplot(1,2,2)\n# s = sns.distplot(df['avg_out'], bins=20)\n# plt.xticks((range(16,22)))\n# plt.tight_layout(pad=5)\n_ = df['avg_in']\n_ = df['avg_out']",
       "rewrite-ns": 521531,
       "overhead-ns": 521531,
       "exec-ns": 275391,
@@ -336,7 +336,7 @@
       "rewritten": "_ = df['avg_in']\n_ = df['avg_out']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(8,4))\n# plt.subplot(1,2,1)\n# sns.distplot(df['med_in'], bins=10)\n# plt.subplot(1,2,2)\n# s = sns.distplot(df['med_out'], bins=20)\n# plt.xticks((range(16,22)))\n# plt.tight_layout(pad=5)\n_ = df['med_in']\n_ = df['med_out']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(8,4))\n# plt.subplot(1,2,1)\n# sns.distplot(df['med_in'], bins=10)\n# plt.subplot(1,2,2)\n# s = sns.distplot(df['med_out'], bins=20)\n# plt.xticks((range(16,22)))\n# plt.tight_layout(pad=5)\n_ = df['med_in']\n_ = df['med_out']",
       "rewrite-ns": 507046,
       "overhead-ns": 507046,
       "exec-ns": 255301,
@@ -345,7 +345,7 @@
       "rewritten": "_ = df['med_in']\n_ = df['med_out']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot, 'total')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot, 'total')",
       "rewrite-ns": 12218,
       "overhead-ns": 12218,
       "exec-ns": 62987,
@@ -354,7 +354,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot, 'med_in')\n",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot, 'med_in')\n",
       "rewrite-ns": 10200,
       "overhead-ns": 10200,
       "exec-ns": 56409,
@@ -363,7 +363,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'med_out')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'med_out')",
       "rewrite-ns": 10036,
       "overhead-ns": 10036,
       "exec-ns": 54204,
@@ -372,7 +372,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'avg_in')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'avg_in')",
       "rewrite-ns": 9302,
       "overhead-ns": 9302,
       "exec-ns": 52812,
@@ -381,7 +381,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition' )\n# g = g.map(sns.distplot , 'avg_out')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition' )\n# g = g.map(sns.distplot , 'avg_out')",
       "rewrite-ns": 9566,
       "overhead-ns": 9566,
       "exec-ns": 51550,
@@ -390,7 +390,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,4))\n# plt.subplot(1,3,1)\n# g = sns.barplot(df['Attrition'], df['EnvironmentSatisfaction'], hue=df['JobSatisfaction'])\n# plt.legend(loc ='upper right')\n# plt.subplot(1,3,2)\n# s = sns.barplot(df['Attrition'], df['JobInvolvement'], hue=df['JobSatisfaction'])\n# plt.legend(loc ='upper right')\n# plt.subplot(1,3,3)\n# f = sns.barplot(df['Attrition'], df['WorkLifeBalance'], hue=df['JobSatisfaction'])\n# plt.legend(loc ='upper right')\n# plt.tight_layout()\n_ = df['Attrition']\n_ = df['EnvironmentSatisfaction']\n_ = df['JobSatisfaction']\n_ = df['Attrition']\n_ = df['JobInvolvement']\n_ = df['JobSatisfaction']\n_ = df['Attrition']\n_ = df['WorkLifeBalance']\n_ = df['JobSatisfaction']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12,4))\n# plt.subplot(1,3,1)\n# g = sns.barplot(df['Attrition'], df['EnvironmentSatisfaction'], hue=df['JobSatisfaction'])\n# plt.legend(loc ='upper right')\n# plt.subplot(1,3,2)\n# s = sns.barplot(df['Attrition'], df['JobInvolvement'], hue=df['JobSatisfaction'])\n# plt.legend(loc ='upper right')\n# plt.subplot(1,3,3)\n# f = sns.barplot(df['Attrition'], df['WorkLifeBalance'], hue=df['JobSatisfaction'])\n# plt.legend(loc ='upper right')\n# plt.tight_layout()\n_ = df['Attrition']\n_ = df['EnvironmentSatisfaction']\n_ = df['JobSatisfaction']\n_ = df['Attrition']\n_ = df['JobInvolvement']\n_ = df['JobSatisfaction']\n_ = df['Attrition']\n_ = df['WorkLifeBalance']\n_ = df['JobSatisfaction']",
       "rewrite-ns": 2115983,
       "overhead-ns": 2115983,
       "exec-ns": 596859,
@@ -399,7 +399,7 @@
       "rewritten": "_ = df['Attrition']\n_ = df['EnvironmentSatisfaction']\n_ = df['JobSatisfaction']\n_ = df['Attrition']\n_ = df['JobInvolvement']\n_ = df['JobSatisfaction']\n_ = df['Attrition']\n_ = df['WorkLifeBalance']\n_ = df['JobSatisfaction']\n"
     },
     {
-      "raw": "cat_cols = ['BusinessTravel', 'Department','EducationField', 'Gender',\n       'JobRole', 'MaritalStatus','JobInvolvement', 'PerformanceRating',\n       'EnvironmentSatisfaction', 'JobSatisfaction', 'WorkLifeBalance', 'JobLevel']\n# ALEX: remove plotting\n# plt.figure(figsize=(15,18))\nfor i in range(len(cat_cols)):\n# ALEX: remove plotting\n#     plt.subplot(4,3,i+1)\n#     sns.countplot(df[cat_cols[i]], hue=df['Attrition'])\n    _ = df[cat_cols[i]]\n    _ = df['Attrition']\n    if len(df[cat_cols[i]].unique()) >= 3:\n        pass\n# ALEX: remove plotting\n#         plt.xticks(rotation=75)\n# plt.tight_layout()",
+      "raw": "cat_cols = ['BusinessTravel', 'Department','EducationField', 'Gender',\n       'JobRole', 'MaritalStatus','JobInvolvement', 'PerformanceRating',\n       'EnvironmentSatisfaction', 'JobSatisfaction', 'WorkLifeBalance', 'JobLevel']\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(15,18))\nfor i in range(len(cat_cols)):\n# FIRST-AUTHOR: remove plotting\n#     plt.subplot(4,3,i+1)\n#     sns.countplot(df[cat_cols[i]], hue=df['Attrition'])\n    _ = df[cat_cols[i]]\n    _ = df['Attrition']\n    if len(df[cat_cols[i]].unique()) >= 3:\n        pass\n# FIRST-AUTHOR: remove plotting\n#         plt.xticks(rotation=75)\n# plt.tight_layout()",
       "rewrite-ns": 1196857,
       "overhead-ns": 1196857,
       "exec-ns": 1916127,
@@ -410,7 +410,7 @@
       "rewritten": "cat_cols = ['BusinessTravel', 'Department', 'EducationField', 'Gender',\n    'JobRole', 'MaritalStatus', 'JobInvolvement', 'PerformanceRating',\n    'EnvironmentSatisfaction', 'JobSatisfaction', 'WorkLifeBalance', 'JobLevel'\n    ]\nfor i in range(len(cat_cols)):\n    _ = df[cat_cols[i]]\n    _ = df['Attrition']\n    if dias.rewriter.len_unique(series=df[cat_cols[i]]) >= 3:\n        pass\n"
     },
     {
-      "raw": "def Att_ratio(data, col):\n    col_values = data[col].unique()\n    print('For',col, ':')\n    for index, item in enumerate(col_values):\n# ALEX: make notebook run with input scaling\n        if type(item) == float or (type(item) == np.float64 and np.isnan(item)):\n            continue\n        ratio = len(df.loc[(df[col] == col_values[index]) & (df['Attrition'] == 1)])/len(df.loc[(df[col] == col_values[index]) & (df['Attrition'] == 0)])\n        print('The Attrition ratio(Yes/No) under the category %s is %f' %(item, ratio))\n    print('-----------------------------------------------------------------------------------------------')\n\n        ",
+      "raw": "def Att_ratio(data, col):\n    col_values = data[col].unique()\n    print('For',col, ':')\n    for index, item in enumerate(col_values):\n# FIRST-AUTHOR: make notebook run with input scaling\n        if type(item) == float or (type(item) == np.float64 and np.isnan(item)):\n            continue\n        ratio = len(df.loc[(df[col] == col_values[index]) & (df['Attrition'] == 1)])/len(df.loc[(df[col] == col_values[index]) & (df['Attrition'] == 0)])\n        print('The Attrition ratio(Yes/No) under the category %s is %f' %(item, ratio))\n    print('-----------------------------------------------------------------------------------------------')\n\n        ",
       "rewrite-ns": 4369527,
       "overhead-ns": 4369527,
       "exec-ns": 812022,
@@ -455,7 +455,7 @@
       "rewritten": "df.columns\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.distplot(df.MonthlyIncome)\n_ = df.MonthlyIncome",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.distplot(df.MonthlyIncome)\n_ = df.MonthlyIncome",
       "rewrite-ns": 246589,
       "overhead-ns": 246589,
       "exec-ns": 222880,
@@ -464,7 +464,7 @@
       "rewritten": "_ = df.MonthlyIncome\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'MaritalStatus', row = 'Department')\n# g = g.map(sns.distplot , 'MonthlyIncome')\n# g.fig.subplots_adjust(top=1,right=1.4, wspace=1)\n",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.FacetGrid(df,col = 'MaritalStatus', row = 'Department')\n# g = g.map(sns.distplot , 'MonthlyIncome')\n# g.fig.subplots_adjust(top=1,right=1.4, wspace=1)\n",
       "rewrite-ns": 12266,
       "overhead-ns": 12266,
       "exec-ns": 60525,
@@ -491,7 +491,7 @@
       "rewritten": "df.columns\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(14,8))\ntop_corr = df.corr().nlargest(15, 'MonthlyIncome').index\ncm = np.corrcoef(df[top_corr].values.T)\n# ALEX: remove plotting\n# g = sns.heatmap(cm, cbar=True, annot=True, cmap='BrBG',yticklabels = top_corr.values, xticklabels=top_corr.values)\n_ = top_corr.values\n_ = top_corr.values",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(14,8))\ntop_corr = df.corr().nlargest(15, 'MonthlyIncome').index\ncm = np.corrcoef(df[top_corr].values.T)\n# FIRST-AUTHOR: remove plotting\n# g = sns.heatmap(cm, cbar=True, annot=True, cmap='BrBG',yticklabels = top_corr.values, xticklabels=top_corr.values)\n_ = top_corr.values\n_ = top_corr.values",
       "rewrite-ns": 1396111,
       "overhead-ns": 1396111,
       "exec-ns": 9113340,
@@ -500,7 +500,7 @@
       "rewritten": "top_corr = df.corr().nlargest(15, 'MonthlyIncome').index\ncm = np.corrcoef(df[top_corr].values.T)\n_ = top_corr.values\n_ = top_corr.values\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.distplot(df['MonthlyIncome'][df['Attrition'] == 0],color='blue')\n# f = sns.distplot(df['MonthlyIncome'][df['Attrition'] == 1],color='orange')\n_ = df['MonthlyIncome'][df['Attrition'] == 0]\n_ = df['MonthlyIncome'][df['Attrition'] == 1]\ndf.groupby('Attrition').MonthlyIncome.agg(['mean','median'])\n",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.distplot(df['MonthlyIncome'][df['Attrition'] == 0],color='blue')\n# f = sns.distplot(df['MonthlyIncome'][df['Attrition'] == 1],color='orange')\n_ = df['MonthlyIncome'][df['Attrition'] == 0]\n_ = df['MonthlyIncome'][df['Attrition'] == 1]\ndf.groupby('Attrition').MonthlyIncome.agg(['mean','median'])\n",
       "rewrite-ns": 1576856,
       "overhead-ns": 1576856,
       "exec-ns": 3875193,
@@ -509,7 +509,7 @@
       "rewritten": "_ = df['MonthlyIncome'][df['Attrition'] == 0]\n_ = df['MonthlyIncome'][df['Attrition'] == 1]\ndf.groupby('Attrition').MonthlyIncome.agg(['mean', 'median'])\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(14,8))\ntop_corr = df.corr().nlargest(15, 'Age').index\ncm = np.corrcoef(df[top_corr].values.T)\n# ALEX: remove plotting\n# g = sns.heatmap(cm, cbar=True, annot=True, cmap='BrBG',yticklabels = top_corr.values, xticklabels=top_corr.values)\n_ = top_corr.values\n_ = top_corr.values",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(14,8))\ntop_corr = df.corr().nlargest(15, 'Age').index\ncm = np.corrcoef(df[top_corr].values.T)\n# FIRST-AUTHOR: remove plotting\n# g = sns.heatmap(cm, cbar=True, annot=True, cmap='BrBG',yticklabels = top_corr.values, xticklabels=top_corr.values)\n_ = top_corr.values\n_ = top_corr.values",
       "rewrite-ns": 1410464,
       "overhead-ns": 1410464,
       "exec-ns": 8513034,
@@ -518,7 +518,7 @@
       "rewritten": "top_corr = df.corr().nlargest(15, 'Age').index\ncm = np.corrcoef(df[top_corr].values.T)\n_ = top_corr.values\n_ = top_corr.values\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig, axs = plt.subplots(1,3, figsize = (12,4))\n# sns.distplot(df['Age'], ax=axs[0])\n# sns.distplot(df['YearsSinceLastPromotion'], ax=axs[1])\n# sns.distplot(df['YearsAtCompany'], ax=axs[2])\n# plt.tight_layout()\n_ = df['Age']\n_ = df['YearsSinceLastPromotion']\n_ = df['YearsAtCompany']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig, axs = plt.subplots(1,3, figsize = (12,4))\n# sns.distplot(df['Age'], ax=axs[0])\n# sns.distplot(df['YearsSinceLastPromotion'], ax=axs[1])\n# sns.distplot(df['YearsAtCompany'], ax=axs[2])\n# plt.tight_layout()\n_ = df['Age']\n_ = df['YearsSinceLastPromotion']\n_ = df['YearsAtCompany']",
       "rewrite-ns": 749074,
       "overhead-ns": 749074,
       "exec-ns": 339604,
@@ -527,7 +527,7 @@
       "rewritten": "_ = df['Age']\n_ = df['YearsSinceLastPromotion']\n_ = df['YearsAtCompany']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.distplot(df['Age'][df['Attrition'] == 0],color='blue')\n# sns.distplot(df['Age'][df['Attrition'] == 1],color='orange')\n# plt.legend(['No','Yes'])\n_ = df['Age'][df['Attrition'] == 0]\n_ = df['Age'][df['Attrition'] == 1]",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.distplot(df['Age'][df['Attrition'] == 0],color='blue')\n# sns.distplot(df['Age'][df['Attrition'] == 1],color='orange')\n# plt.legend(['No','Yes'])\n_ = df['Age'][df['Attrition'] == 0]\n_ = df['Age'][df['Attrition'] == 1]",
       "rewrite-ns": 1064876,
       "overhead-ns": 1064876,
       "exec-ns": 620755,
@@ -536,7 +536,7 @@
       "rewritten": "_ = df['Age'][df['Attrition'] == 0]\n_ = df['Age'][df['Attrition'] == 1]\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'Age')\n# g.fig.subplots_adjust(top=1,right=1.2)\n#plt.tight_layout()\ndf.groupby('Attrition').Age.agg(['median','mean'])",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'Age')\n# g.fig.subplots_adjust(top=1,right=1.2)\n#plt.tight_layout()\ndf.groupby('Attrition').Age.agg(['median','mean'])",
       "rewrite-ns": 575115,
       "overhead-ns": 575115,
       "exec-ns": 3311858,
@@ -545,7 +545,7 @@
       "rewritten": "df.groupby('Attrition').Age.agg(['median', 'mean'])\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.scatterplot(df['Age'], df['total'])\n_ = df['Age']\n_ = df['total']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.scatterplot(df['Age'], df['total'])\n_ = df['Age']\n_ = df['total']",
       "rewrite-ns": 525034,
       "overhead-ns": 525034,
       "exec-ns": 260608,
@@ -554,7 +554,7 @@
       "rewritten": "_ = df['Age']\n_ = df['total']\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'YearsSinceLastPromotion')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').YearsSinceLastPromotion.agg(['median','mean'])",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'YearsSinceLastPromotion')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').YearsSinceLastPromotion.agg(['median','mean'])",
       "rewrite-ns": 564101,
       "overhead-ns": 564101,
       "exec-ns": 3313102,
@@ -563,7 +563,7 @@
       "rewritten": "df.groupby('Attrition').YearsSinceLastPromotion.agg(['median', 'mean'])\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'YearsWithCurrManager')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').YearsWithCurrManager.agg(['median','mean'])",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'YearsWithCurrManager')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').YearsWithCurrManager.agg(['median','mean'])",
       "rewrite-ns": 584016,
       "overhead-ns": 584016,
       "exec-ns": 3524005,
@@ -572,7 +572,7 @@
       "rewritten": "df.groupby('Attrition').YearsWithCurrManager.agg(['median', 'mean'])\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'YearsAtCompany')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').YearsAtCompany.agg(['median','mean'])",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'YearsAtCompany')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').YearsAtCompany.agg(['median','mean'])",
       "rewrite-ns": 575329,
       "overhead-ns": 575329,
       "exec-ns": 3329470,
@@ -581,7 +581,7 @@
       "rewritten": "df.groupby('Attrition').YearsAtCompany.agg(['median', 'mean'])\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'DistanceFromHome')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').DistanceFromHome.agg(['median','mean'])\n",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'DistanceFromHome')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').DistanceFromHome.agg(['median','mean'])\n",
       "rewrite-ns": 574941,
       "overhead-ns": 574941,
       "exec-ns": 3348837,
@@ -590,7 +590,7 @@
       "rewritten": "df.groupby('Attrition').DistanceFromHome.agg(['median', 'mean'])\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'TotalWorkingYears')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').TotalWorkingYears.agg(['median','mean'])",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'TotalWorkingYears')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').TotalWorkingYears.agg(['median','mean'])",
       "rewrite-ns": 575592,
       "overhead-ns": 575592,
       "exec-ns": 3365613,
@@ -599,7 +599,7 @@
       "rewritten": "df.groupby('Attrition').TotalWorkingYears.agg(['median', 'mean'])\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'Education')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').Education.agg(['median','mean'])",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'Education')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').Education.agg(['median','mean'])",
       "rewrite-ns": 576235,
       "overhead-ns": 576235,
       "exec-ns": 3331786,
@@ -608,7 +608,7 @@
       "rewritten": "df.groupby('Attrition').Education.agg(['median', 'mean'])\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'PercentSalaryHike')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').PercentSalaryHike.agg(['median','mean'])",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'PercentSalaryHike')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').PercentSalaryHike.agg(['median','mean'])",
       "rewrite-ns": 571901,
       "overhead-ns": 571901,
       "exec-ns": 3351567,
@@ -617,7 +617,7 @@
       "rewritten": "df.groupby('Attrition').PercentSalaryHike.agg(['median', 'mean'])\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'NumCompaniesWorked')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').NumCompaniesWorked.agg(['median','mean'])",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'NumCompaniesWorked')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').NumCompaniesWorked.agg(['median','mean'])",
       "rewrite-ns": 575865,
       "overhead-ns": 575865,
       "exec-ns": 3347007,
@@ -626,7 +626,7 @@
       "rewritten": "df.groupby('Attrition').NumCompaniesWorked.agg(['median', 'mean'])\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'YearsSinceLastPromotion')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').YearsSinceLastPromotion.agg(['median','mean'])",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'YearsSinceLastPromotion')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').YearsSinceLastPromotion.agg(['median','mean'])",
       "rewrite-ns": 575576,
       "overhead-ns": 575576,
       "exec-ns": 3333513,
@@ -635,7 +635,7 @@
       "rewritten": "df.groupby('Attrition').YearsSinceLastPromotion.agg(['median', 'mean'])\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'StockOptionLevel')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').StockOptionLevel.agg(['median','mean'])",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.FacetGrid(df,col = 'Attrition')\n# g = g.map(sns.distplot , 'StockOptionLevel')\n# g.fig.subplots_adjust(top=1,right=1.2)\ndf.groupby('Attrition').StockOptionLevel.agg(['median','mean'])",
       "rewrite-ns": 579291,
       "overhead-ns": 579291,
       "exec-ns": 3364827,
@@ -707,7 +707,7 @@
       "rewritten": "x_copy = x.copy()\n"
     },
     {
-      "raw": "## scaling the features\n\n# ALEX: remove ML code\n# scaler = preprocessing.StandardScaler()\n# x = scaler.fit_transform(x)\n",
+      "raw": "## scaling the features\n\n# FIRST-AUTHOR: remove ML code\n# scaler = preprocessing.StandardScaler()\n# x = scaler.fit_transform(x)\n",
       "rewrite-ns": 12112,
       "overhead-ns": 12112,
       "exec-ns": 64298,
@@ -725,7 +725,7 @@
       "rewritten": "x_copy.head()\n"
     },
     {
-      "raw": "## splitting the sets into train and test\n\n# ALEX: remove ML code\n# x_train, x_test, y_train, y_test = train_test_split(x, y, train_size = 0.7, random_state=42)",
+      "raw": "## splitting the sets into train and test\n\n# FIRST-AUTHOR: remove ML code\n# x_train, x_test, y_train, y_test = train_test_split(x, y, train_size = 0.7, random_state=42)",
       "rewrite-ns": 13346,
       "overhead-ns": 13346,
       "exec-ns": 66064,
@@ -734,7 +734,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# Defining a function which examines each model based on the score, then show each one's score and STD, as well as graphic comparison\n# evaluate each model in turn\n# def get_scores(score1, score2):\n#     models = []\n#     models.append(('LR', LogisticRegression()))\n#     models.append(('LDA', LinearDiscriminantAnalysis()))\n#     models.append(('KNN', KNeighborsClassifier()))\n#     models.append(('CART', DecisionTreeClassifier()))\n#     models.append(('NB', GaussianNB()))\n#     models.append(('SVM', SVC()))\n#     models.append(('ADA', AdaBoostClassifier()))\n#     models.append(('GradientBooster', GradientBoostingClassifier()))\n#     models.append(('ExtraTrees', ExtraTreesClassifier()))\n#     models.append(('RandomForest', RandomForestClassifier()))\n#     cv_scores = []\n#     test_scores = []\n#     names = []\n#     stds = []\n#     differences = []\n#     #res = pd.DataFrame(columns = {'Model',score+('(train)'), 'Std', score+('(test_score)'), 'difference'})\n#     #res = res[['Model',score+('(train)'), 'Std', score+('(test_score)'), 'difference']]\n#     res = pd.DataFrame()\n#     for index, model in enumerate(models):\n#         kfold = StratifiedKFold(n_splits=7)\n#         cv_results = cross_val_score(model[1], x_train, y_train, cv=kfold, scoring=score1)\n#         cv_scores.append(cv_results)\n#         names.append(model[0])\n#         model[1].fit(x_train,y_train)\n#         predictions = model[1].predict(x_test)\n#         test_score = score2(predictions, y_test)\n#         test_scores.append(test_score)\n#         stds.append(cv_results.std())\n#         differences.append((cv_results.mean() - test_score))\n#         res.loc[index,'Model'] = model[0]\n#         res.loc[index,score1+('(train)')] = cv_results.mean()\n#         res.loc[index,score1+('(test_score)')] = test_score\n#         res.loc[index,'Std'] = cv_results.std()\n#         res.loc[index,'difference'] = cv_results.mean() - test_score\n#     # boxplot algorithm comparison\n#     fig = plt.figure(figsize = (12,5))\n#     fig.suptitle('Model Comparison')\n#     ax = fig.add_subplot(121)\n#     plt.boxplot(cv_scores)\n#     ax.set_xticklabels(names, rotation=70)\n#     axs = fig.add_subplot(122)\n#     sns.barplot(names,test_scores)\n#     axs.set_xticklabels(names, rotation=70)\n#     plt.tight_layout(pad=5)\n#     return res\n#     plt.show()\n\n    \n",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# Defining a function which examines each model based on the score, then show each one's score and STD, as well as graphic comparison\n# evaluate each model in turn\n# def get_scores(score1, score2):\n#     models = []\n#     models.append(('LR', LogisticRegression()))\n#     models.append(('LDA', LinearDiscriminantAnalysis()))\n#     models.append(('KNN', KNeighborsClassifier()))\n#     models.append(('CART', DecisionTreeClassifier()))\n#     models.append(('NB', GaussianNB()))\n#     models.append(('SVM', SVC()))\n#     models.append(('ADA', AdaBoostClassifier()))\n#     models.append(('GradientBooster', GradientBoostingClassifier()))\n#     models.append(('ExtraTrees', ExtraTreesClassifier()))\n#     models.append(('RandomForest', RandomForestClassifier()))\n#     cv_scores = []\n#     test_scores = []\n#     names = []\n#     stds = []\n#     differences = []\n#     #res = pd.DataFrame(columns = {'Model',score+('(train)'), 'Std', score+('(test_score)'), 'difference'})\n#     #res = res[['Model',score+('(train)'), 'Std', score+('(test_score)'), 'difference']]\n#     res = pd.DataFrame()\n#     for index, model in enumerate(models):\n#         kfold = StratifiedKFold(n_splits=7)\n#         cv_results = cross_val_score(model[1], x_train, y_train, cv=kfold, scoring=score1)\n#         cv_scores.append(cv_results)\n#         names.append(model[0])\n#         model[1].fit(x_train,y_train)\n#         predictions = model[1].predict(x_test)\n#         test_score = score2(predictions, y_test)\n#         test_scores.append(test_score)\n#         stds.append(cv_results.std())\n#         differences.append((cv_results.mean() - test_score))\n#         res.loc[index,'Model'] = model[0]\n#         res.loc[index,score1+('(train)')] = cv_results.mean()\n#         res.loc[index,score1+('(test_score)')] = test_score\n#         res.loc[index,'Std'] = cv_results.std()\n#         res.loc[index,'difference'] = cv_results.mean() - test_score\n#     # boxplot algorithm comparison\n#     fig = plt.figure(figsize = (12,5))\n#     fig.suptitle('Model Comparison')\n#     ax = fig.add_subplot(121)\n#     plt.boxplot(cv_scores)\n#     ax.set_xticklabels(names, rotation=70)\n#     axs = fig.add_subplot(122)\n#     sns.barplot(names,test_scores)\n#     axs.set_xticklabels(names, rotation=70)\n#     plt.tight_layout(pad=5)\n#     return res\n#     plt.show()\n\n    \n",
       "rewrite-ns": 23155,
       "overhead-ns": 23155,
       "exec-ns": 59763,
@@ -743,7 +743,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# get_scores('accuracy', accuracy_score)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# get_scores('accuracy', accuracy_score)",
       "rewrite-ns": 10347,
       "overhead-ns": 10347,
       "exec-ns": 62501,
@@ -752,7 +752,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# params = {'bootstrap': [True, False],\n#  'max_depth': [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, None],\n#  'max_features': ['auto', 'sqrt'],\n#  'min_samples_leaf': [1, 2, 4],\n#  'min_samples_split': [2, 5, 10],\n#  'n_estimators': [200, 400, 600, 800, 1000]}\n# RandomForest = RandomForestClassifier()\n# randomgrid_forest = RandomizedSearchCV(estimator=RandomForest, param_distributions = params, \n#                                cv=5, n_iter=25, scoring = 'accuracy',\n#                                n_jobs = 4, verbose = 3, random_state = 42,\n#                                return_train_score = True)\n# randomgrid_forest.fit(x_train,y_train)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# params = {'bootstrap': [True, False],\n#  'max_depth': [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, None],\n#  'max_features': ['auto', 'sqrt'],\n#  'min_samples_leaf': [1, 2, 4],\n#  'min_samples_split': [2, 5, 10],\n#  'n_estimators': [200, 400, 600, 800, 1000]}\n# RandomForest = RandomForestClassifier()\n# randomgrid_forest = RandomizedSearchCV(estimator=RandomForest, param_distributions = params, \n#                                cv=5, n_iter=25, scoring = 'accuracy',\n#                                n_jobs = 4, verbose = 3, random_state = 42,\n#                                return_train_score = True)\n# randomgrid_forest.fit(x_train,y_train)",
       "rewrite-ns": 12344,
       "overhead-ns": 12344,
       "exec-ns": 52539,
@@ -761,7 +761,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# randomgrid_forest.score(x_test, y_test)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# randomgrid_forest.score(x_test, y_test)",
       "rewrite-ns": 9763,
       "overhead-ns": 9763,
       "exec-ns": 52463,
@@ -770,7 +770,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# forest_preds = randomgrid_forest.predict(x_test)\n# roc_auc_score(forest_preds, y_test)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# forest_preds = randomgrid_forest.predict(x_test)\n# roc_auc_score(forest_preds, y_test)",
       "rewrite-ns": 9909,
       "overhead-ns": 9909,
       "exec-ns": 51534,
@@ -779,7 +779,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# randomgrid_forest.best_estimator_",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# randomgrid_forest.best_estimator_",
       "rewrite-ns": 9695,
       "overhead-ns": 9695,
       "exec-ns": 51316,
@@ -788,7 +788,7 @@
       "rewritten": ""
     },
     {
-      "raw": "### I created a function which take a model and scoring method, then shows the cross validation score for each estimator\n### and plot it next to the test score.\n# ALEX: remove ML code\n# def estimators_compare(model, cv_score, metrics_score):\n#     train_scores = []\n#     test_scores= []\n#     estimators = [80,100,200,400,600,800,1200]\n#     res = pd.DataFrame(columns = {'Number Of Estimators', 'train_score', 'test_score'})\n#     for ind, i in enumerate(estimators):\n#         mode = model(n_estimators=i)\n#         kfold = StratifiedKFold(n_splits=7)\n#         cv_results = cross_val_score(mode, x_train, y_train, cv=kfold, scoring=cv_score)\n#         mode.fit(x_train, y_train)\n#         predictions = mode.predict(x_test)\n#         train_score = cv_results.mean()\n#         train_scores.append(train_score)\n#         test_score = metrics_score(predictions, y_test)\n#         test_scores.append(test_score)\n#         res.loc[ind,'Number Of Estimators'] = i\n#         res.loc[ind,'train_score'] = train_score\n#         res.loc[ind,'test_score'] = test_score\n\n#     plt.plot(estimators, train_scores, color='red')\n#     plt.plot(estimators, test_scores, color='blue')\n#     legs = ['train', 'test']\n#     plt.legend(legs)\n#     return res",
+      "raw": "### I created a function which take a model and scoring method, then shows the cross validation score for each estimator\n### and plot it next to the test score.\n# FIRST-AUTHOR: remove ML code\n# def estimators_compare(model, cv_score, metrics_score):\n#     train_scores = []\n#     test_scores= []\n#     estimators = [80,100,200,400,600,800,1200]\n#     res = pd.DataFrame(columns = {'Number Of Estimators', 'train_score', 'test_score'})\n#     for ind, i in enumerate(estimators):\n#         mode = model(n_estimators=i)\n#         kfold = StratifiedKFold(n_splits=7)\n#         cv_results = cross_val_score(mode, x_train, y_train, cv=kfold, scoring=cv_score)\n#         mode.fit(x_train, y_train)\n#         predictions = mode.predict(x_test)\n#         train_score = cv_results.mean()\n#         train_scores.append(train_score)\n#         test_score = metrics_score(predictions, y_test)\n#         test_scores.append(test_score)\n#         res.loc[ind,'Number Of Estimators'] = i\n#         res.loc[ind,'train_score'] = train_score\n#         res.loc[ind,'test_score'] = test_score\n\n#     plt.plot(estimators, train_scores, color='red')\n#     plt.plot(estimators, test_scores, color='blue')\n#     legs = ['train', 'test']\n#     plt.legend(legs)\n#     return res",
       "rewrite-ns": 14761,
       "overhead-ns": 14761,
       "exec-ns": 51095,
@@ -797,7 +797,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# estimators_compare(RandomForestClassifier, 'accuracy', accuracy_score)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# estimators_compare(RandomForestClassifier, 'accuracy', accuracy_score)",
       "rewrite-ns": 9533,
       "overhead-ns": 9533,
       "exec-ns": 50605,
@@ -806,7 +806,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# final_random_forest = RandomForestClassifier(bootstrap=False, ccp_alpha=0.0, class_weight=None,\n#                        criterion='gini', max_depth=40, max_features='sqrt',\n#                        max_leaf_nodes=None, max_samples=None,\n#                        min_impurity_decrease=0.0, min_impurity_split=None,\n#                        min_samples_leaf=1, min_samples_split=2,\n#                        min_weight_fraction_leaf=0.0, n_estimators=100,\n#                        n_jobs=None, oob_score=False, random_state=None,\n#                        verbose=0, warm_start=False)\n# final_random_forest.fit(x_train, y_train)\n# final_random_forest.score(x_test, y_test)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# final_random_forest = RandomForestClassifier(bootstrap=False, ccp_alpha=0.0, class_weight=None,\n#                        criterion='gini', max_depth=40, max_features='sqrt',\n#                        max_leaf_nodes=None, max_samples=None,\n#                        min_impurity_decrease=0.0, min_impurity_split=None,\n#                        min_samples_leaf=1, min_samples_split=2,\n#                        min_weight_fraction_leaf=0.0, n_estimators=100,\n#                        n_jobs=None, oob_score=False, random_state=None,\n#                        verbose=0, warm_start=False)\n# final_random_forest.fit(x_train, y_train)\n# final_random_forest.score(x_test, y_test)",
       "rewrite-ns": 12356,
       "overhead-ns": 12356,
       "exec-ns": 52813,
@@ -815,7 +815,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# featuers_coefficients = final_random_forest.feature_importances_.tolist()\nfeature_names = x_copy.columns\n# ALEX: remove ML code\n# feats = pd.DataFrame(pd.Series(featuers_coefficients, feature_names).sort_values(ascending=False),columns=['Coefficient'])\n# feats",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# featuers_coefficients = final_random_forest.feature_importances_.tolist()\nfeature_names = x_copy.columns\n# FIRST-AUTHOR: remove ML code\n# feats = pd.DataFrame(pd.Series(featuers_coefficients, feature_names).sort_values(ascending=False),columns=['Coefficient'])\n# feats",
       "rewrite-ns": 252650,
       "overhead-ns": 252650,
       "exec-ns": 174875,
@@ -824,7 +824,7 @@
       "rewritten": "feature_names = x_copy.columns\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# params2 = {'bootstrap': [True, False],\n#  'max_depth': [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, None],\n#  'max_features': ['auto', 'sqrt'],\n#  'min_samples_leaf': [1, 2, 4],\n#  'min_samples_split': [2, 5, 10],\n#  'n_estimators': [200, 400, 600, 800, 1000]}\n# ExtraTress = ExtraTreesClassifier()\n# randomgrid_extrees = RandomizedSearchCV(estimator=ExtraTress, param_distributions = params2, \n#                                cv=5, n_iter=25, scoring = 'accuracy',\n#                                n_jobs = 4, verbose = 3, random_state = 42,\n#                                return_train_score = True)\n# randomgrid_extrees.fit(x_train,y_train)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# params2 = {'bootstrap': [True, False],\n#  'max_depth': [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, None],\n#  'max_features': ['auto', 'sqrt'],\n#  'min_samples_leaf': [1, 2, 4],\n#  'min_samples_split': [2, 5, 10],\n#  'n_estimators': [200, 400, 600, 800, 1000]}\n# ExtraTress = ExtraTreesClassifier()\n# randomgrid_extrees = RandomizedSearchCV(estimator=ExtraTress, param_distributions = params2, \n#                                cv=5, n_iter=25, scoring = 'accuracy',\n#                                n_jobs = 4, verbose = 3, random_state = 42,\n#                                return_train_score = True)\n# randomgrid_extrees.fit(x_train,y_train)",
       "rewrite-ns": 12683,
       "overhead-ns": 12683,
       "exec-ns": 54766,
@@ -833,7 +833,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# randomgrid_extrees.score(x_test, y_test)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# randomgrid_extrees.score(x_test, y_test)",
       "rewrite-ns": 9740,
       "overhead-ns": 9740,
       "exec-ns": 52058,
@@ -842,7 +842,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# randomgrid_extrees.best_estimator_",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# randomgrid_extrees.best_estimator_",
       "rewrite-ns": 9864,
       "overhead-ns": 9864,
       "exec-ns": 52472,
@@ -851,7 +851,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# estimators_compare(ExtraTreesClassifier, 'accuracy', accuracy_score)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# estimators_compare(ExtraTreesClassifier, 'accuracy', accuracy_score)",
       "rewrite-ns": 10023,
       "overhead-ns": 10023,
       "exec-ns": 52857,
@@ -860,7 +860,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# final_extra_trees_A = ExtraTreesClassifier(max_depth=40, max_features='sqrt', n_estimators=600)\n# final_extra_trees_A.fit(x_train, y_train)\n# print(final_extra_trees_A.score(x_test, y_test))\n# final_extra_trees_B = ExtraTreesClassifier(max_depth=40, max_features='sqrt', n_estimators=100)\n# final_extra_trees_B.fit(x_train, y_train)\n# print(final_extra_trees_B.score(x_test, y_test))",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# final_extra_trees_A = ExtraTreesClassifier(max_depth=40, max_features='sqrt', n_estimators=600)\n# final_extra_trees_A.fit(x_train, y_train)\n# print(final_extra_trees_A.score(x_test, y_test))\n# final_extra_trees_B = ExtraTreesClassifier(max_depth=40, max_features='sqrt', n_estimators=100)\n# final_extra_trees_B.fit(x_train, y_train)\n# print(final_extra_trees_B.score(x_test, y_test))",
       "rewrite-ns": 10870,
       "overhead-ns": 10870,
       "exec-ns": 50728,
@@ -869,7 +869,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# ALEX: remove ML code\n# featuers_coefficients = final_extra_trees.feature_importances_.tolist()\nfeature_names = x_copy.columns\n# ALEX: remove ML code\n# feats = pd.DataFrame(pd.Series(featuers_coefficients, feature_names).sort_values(ascending=False),columns=['Coefficient'])\n# feats",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# featuers_coefficients = final_extra_trees.feature_importances_.tolist()\nfeature_names = x_copy.columns\n# FIRST-AUTHOR: remove ML code\n# feats = pd.DataFrame(pd.Series(featuers_coefficients, feature_names).sort_values(ascending=False),columns=['Coefficient'])\n# feats",
       "rewrite-ns": 245459,
       "overhead-ns": 245459,
       "exec-ns": 170994,

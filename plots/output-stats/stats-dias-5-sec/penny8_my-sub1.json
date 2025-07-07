@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 166,
   "cells": [
     {
-      "raw": "# ALEX: remove unused code\n# import time\n# start_time = time.time()\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\nfrom datetime import datetime\n# from pandas import Series\n# ALEX: remove ML code\n# from sklearn.ensemble import RandomForestRegressor\n\n# from subprocess import check_output",
+      "raw": "# FIRST-AUTHOR: remove unused code\n# import time\n# start_time = time.time()\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\nfrom datetime import datetime\n# from pandas import Series\n# FIRST-AUTHOR: remove ML code\n# from sklearn.ensemble import RandomForestRegressor\n\n# from subprocess import check_output",
       "rewrite-ns": 808323,
       "overhead-ns": 808323,
       "exec-ns": 454023,
@@ -93,7 +93,7 @@
       "rewritten": "test['store_and_fwd_flag'] = test['store_and_fwd_flag'].map({'N': 0, 'Y': 1}\n    ).astype(int)\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,5))\n# plt.subplot(1, 2, 1)\n# Series(train['month']).value_counts().sort_index().plot(kind = 'bar')\n# plt.xlabel(\"Month\")\n# plt.ylabel(\"Count\")\n# plt.title('Which month has the most rides? (train data)')\n# plt.subplot(1, 2, 2)\n# Series(test['month']).value_counts().sort_index().plot(kind = 'bar')\n# plt.xlabel(\"Month\")\n# plt.ylabel(\"Count\")\n# plt.title('Which month has the most rides? (test data)')\npd.Series(train['month']).value_counts().sort_index()\npd.Series(test['month']).value_counts().sort_index()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12,5))\n# plt.subplot(1, 2, 1)\n# Series(train['month']).value_counts().sort_index().plot(kind = 'bar')\n# plt.xlabel(\"Month\")\n# plt.ylabel(\"Count\")\n# plt.title('Which month has the most rides? (train data)')\n# plt.subplot(1, 2, 2)\n# Series(test['month']).value_counts().sort_index().plot(kind = 'bar')\n# plt.xlabel(\"Month\")\n# plt.ylabel(\"Count\")\n# plt.title('Which month has the most rides? (test data)')\npd.Series(train['month']).value_counts().sort_index()\npd.Series(test['month']).value_counts().sort_index()",
       "rewrite-ns": 1176386,
       "overhead-ns": 1176386,
       "exec-ns": 3525183,
@@ -102,7 +102,7 @@
       "rewritten": "pd.Series(train['month']).value_counts().sort_index()\npd.Series(test['month']).value_counts().sort_index()\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,5))\n# plt.subplot(1, 2, 1)\n# Series(train['day']).value_counts().sort_index().plot(kind = 'bar')\n# plt.xlabel(\"Day\")\n# plt.ylabel(\"Count\")\n# plt.title('Which day has the most rides?(train data)')\n# plt.subplot(1, 2, 2)\n# Series(test['day']).value_counts().sort_index().plot(kind = 'bar')\n# plt.xlabel(\"Day\")\n# plt.ylabel(\"Count\")\n# plt.title('Which day has the most rides?(test data)')\npd.Series(train['day']).value_counts().sort_index()\npd.Series(test['day']).value_counts().sort_index()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12,5))\n# plt.subplot(1, 2, 1)\n# Series(train['day']).value_counts().sort_index().plot(kind = 'bar')\n# plt.xlabel(\"Day\")\n# plt.ylabel(\"Count\")\n# plt.title('Which day has the most rides?(train data)')\n# plt.subplot(1, 2, 2)\n# Series(test['day']).value_counts().sort_index().plot(kind = 'bar')\n# plt.xlabel(\"Day\")\n# plt.ylabel(\"Count\")\n# plt.title('Which day has the most rides?(test data)')\npd.Series(train['day']).value_counts().sort_index()\npd.Series(test['day']).value_counts().sort_index()",
       "rewrite-ns": 2985943,
       "overhead-ns": 2985943,
       "exec-ns": 2779971,
@@ -111,7 +111,7 @@
       "rewritten": "pd.Series(train['day']).value_counts().sort_index()\npd.Series(test['day']).value_counts().sort_index()\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# plt.figure(figsize=(12,5))\n# plt.subplot(1, 2, 1)\n# Series(train['day_of_week']).value_counts().sort_index().plot(kind = 'bar')\n# plt.xlabel(\"Day of week\")\n# plt.ylabel(\"Count\")\n# plt.title('Which day of week has the most rides? \\n (0 = Monday)-(train data)')\n# plt.subplot(1, 2, 2)\n# Series(test['day_of_week']).value_counts().sort_index().plot(kind = 'bar')\n# plt.xlabel(\"Day of week\")\n# plt.ylabel(\"Count\")\n# plt.title('Which day of week has the most rides? \\n (0 = Monday)-(test data)')\npd.Series(train['day_of_week']).value_counts().sort_index()\npd.Series(test['day_of_week']).value_counts().sort_index()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12,5))\n# plt.subplot(1, 2, 1)\n# Series(train['day_of_week']).value_counts().sort_index().plot(kind = 'bar')\n# plt.xlabel(\"Day of week\")\n# plt.ylabel(\"Count\")\n# plt.title('Which day of week has the most rides? \\n (0 = Monday)-(train data)')\n# plt.subplot(1, 2, 2)\n# Series(test['day_of_week']).value_counts().sort_index().plot(kind = 'bar')\n# plt.xlabel(\"Day of week\")\n# plt.ylabel(\"Count\")\n# plt.title('Which day of week has the most rides? \\n (0 = Monday)-(test data)')\npd.Series(train['day_of_week']).value_counts().sort_index()\npd.Series(test['day_of_week']).value_counts().sort_index()",
       "rewrite-ns": 1129584,
       "overhead-ns": 1129584,
       "exec-ns": 1861187,
@@ -120,7 +120,7 @@
       "rewritten": "pd.Series(train['day_of_week']).value_counts().sort_index()\npd.Series(test['day_of_week']).value_counts().sort_index()\n"
     },
     {
-      "raw": "# ALEX: remove extra dependencies\n# from geopy.distance import great_circle\ndef distance(p_lat,p_long,d_lat,d_long):\n    pickup = (p_lat, p_long)\n    dropoff = (d_lat, d_long)\n# ALEX: remove extra dependencies\n#     distance_all=great_circle(pickup, dropoff).km\n#     return distance_all\n    return 50",
+      "raw": "# FIRST-AUTHOR: remove extra dependencies\n# from geopy.distance import great_circle\ndef distance(p_lat,p_long,d_lat,d_long):\n    pickup = (p_lat, p_long)\n    dropoff = (d_lat, d_long)\n# FIRST-AUTHOR: remove extra dependencies\n#     distance_all=great_circle(pickup, dropoff).km\n#     return distance_all\n    return 50",
       "rewrite-ns": 883682,
       "overhead-ns": 883682,
       "exec-ns": 309641,
@@ -165,7 +165,7 @@
       "rewritten": "test['d1'] = test['distance_est'] <= 5\ntest['d2'] = test['distance_est'].between(5, 10, inclusive=False)\ntest['d3'] = test['distance_est'].between(10, 20, inclusive=False)\ntest['d4'] = test['distance_est'].between(20, 30, inclusive=False)\ntest['d5'] = test['distance_est'].between(30, 100, inclusive=False)\ntest['d6'] = test['distance_est'] > 100\n"
     },
     {
-      "raw": "#dimension reduction of pickup and dropoff (not sure about this step)\n# ALEX: remove ML code\n# from sklearn.decomposition import TruncatedSVD\n# tsvd = TruncatedSVD(n_components=1, random_state=1)",
+      "raw": "#dimension reduction of pickup and dropoff (not sure about this step)\n# FIRST-AUTHOR: remove ML code\n# from sklearn.decomposition import TruncatedSVD\n# tsvd = TruncatedSVD(n_components=1, random_state=1)",
       "rewrite-ns": 13644,
       "overhead-ns": 13644,
       "exec-ns": 84896,
@@ -174,7 +174,7 @@
       "rewritten": ""
     },
     {
-      "raw": "#for train data\nframes_p_train=[train['pickup_latitude'],train['pickup_longitude']]\np_train=pd.concat(frames_p_train,axis=1)\n\nframes_d_train=[train['dropoff_latitude'],train['dropoff_longitude']]\nd_train=pd.concat(frames_d_train,axis=1)\n\n# ALEX: remove ML code\n# train['tsvd_p']=tsvd.fit_transform(p_train)\n# train['tsvd_d']=tsvd.fit_transform(d_train)\ntrain['tsvd_p'] = p_train.iloc[:,0]\ntrain['tsvd_d'] = d_train.iloc[:,0]",
+      "raw": "#for train data\nframes_p_train=[train['pickup_latitude'],train['pickup_longitude']]\np_train=pd.concat(frames_p_train,axis=1)\n\nframes_d_train=[train['dropoff_latitude'],train['dropoff_longitude']]\nd_train=pd.concat(frames_d_train,axis=1)\n\n# FIRST-AUTHOR: remove ML code\n# train['tsvd_p']=tsvd.fit_transform(p_train)\n# train['tsvd_d']=tsvd.fit_transform(d_train)\ntrain['tsvd_p'] = p_train.iloc[:,0]\ntrain['tsvd_d'] = d_train.iloc[:,0]",
       "rewrite-ns": 2518357,
       "overhead-ns": 2518357,
       "exec-ns": 2981602,
@@ -183,7 +183,7 @@
       "rewritten": "frames_p_train = [train['pickup_latitude'], train['pickup_longitude']]\np_train = pd.concat(frames_p_train, axis=1)\nframes_d_train = [train['dropoff_latitude'], train['dropoff_longitude']]\nd_train = pd.concat(frames_d_train, axis=1)\ntrain['tsvd_p'] = p_train.iloc[:, 0]\ntrain['tsvd_d'] = d_train.iloc[:, 0]\n"
     },
     {
-      "raw": "#for test data\nframes_p_test=[test['pickup_latitude'],test['pickup_longitude']]\np_test=pd.concat(frames_p_test,axis=1)\n\nframes_d_test=[test['dropoff_latitude'],test['dropoff_longitude']]\nd_test=pd.concat(frames_d_test,axis=1)\n\n# ALEX: remove ML code\n# test['tsvd_p']=tsvd.fit_transform(p_test)\n# test['tsvd_d']=tsvd.fit_transform(d_test)\ntest['tsvd_p'] = p_test.iloc[:,0]\ntest['tsvd_d'] = d_test.iloc[:,0]",
+      "raw": "#for test data\nframes_p_test=[test['pickup_latitude'],test['pickup_longitude']]\np_test=pd.concat(frames_p_test,axis=1)\n\nframes_d_test=[test['dropoff_latitude'],test['dropoff_longitude']]\nd_test=pd.concat(frames_d_test,axis=1)\n\n# FIRST-AUTHOR: remove ML code\n# test['tsvd_p']=tsvd.fit_transform(p_test)\n# test['tsvd_d']=tsvd.fit_transform(d_test)\ntest['tsvd_p'] = p_test.iloc[:,0]\ntest['tsvd_d'] = d_test.iloc[:,0]",
       "rewrite-ns": 2605147,
       "overhead-ns": 2605147,
       "exec-ns": 2404689,
@@ -219,7 +219,7 @@
       "rewritten": "test['direction'] = [calculate_initial_compass_bearing((test[\n    'pickup_latitude'].loc[i], test['pickup_longitude'].loc[i]), (test[\n    'dropoff_latitude'].loc[i], test['dropoff_longitude'].loc[i])) for i in\n    range(len(test['pickup_latitude']))]\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.heatmap(train.corr())\n_ = train.corr()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.heatmap(train.corr())\n_ = train.corr()",
       "rewrite-ns": 321257,
       "overhead-ns": 321257,
       "exec-ns": 81418413,
@@ -237,7 +237,7 @@
       "rewritten": "test_id = test['id']\ntest = test.drop(['id', 'pickup_datetime'], axis=1)\nX = train.drop(['id', 'trip_duration', 'pickup_datetime',\n    'dropoff_datetime'], axis=1)\nY = train['trip_duration']\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# RF = RandomForestRegressor(verbose=True)\n# RF.fit(X, Y)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# RF = RandomForestRegressor(verbose=True)\n# RF.fit(X, Y)",
       "rewrite-ns": 15405,
       "overhead-ns": 15405,
       "exec-ns": 83116,
@@ -246,7 +246,7 @@
       "rewritten": ""
     },
     {
-      "raw": "features_list = X.columns.values\n# ALEX: remove ML code\n# feature_importance = RF.feature_importances_\n# sorted_idx = np.argsort(feature_importance)\nfeature_importance = X.columns.values\nsorted_idx = np.argsort(feature_importance)\n \n# ALEX: remove plotting\n# plt.figure(figsize=(5,10))\n# plt.barh(range(len(sorted_idx)), feature_importance[sorted_idx], align='center')\n# plt.yticks(range(len(sorted_idx)), features_list[sorted_idx])\n# plt.xlabel('Importance')\n# plt.title('Feature importances')\n# plt.draw()\n# plt.show()\n_ = feature_importance[sorted_idx]\n_ = features_list[sorted_idx]",
+      "raw": "features_list = X.columns.values\n# FIRST-AUTHOR: remove ML code\n# feature_importance = RF.feature_importances_\n# sorted_idx = np.argsort(feature_importance)\nfeature_importance = X.columns.values\nsorted_idx = np.argsort(feature_importance)\n \n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(5,10))\n# plt.barh(range(len(sorted_idx)), feature_importance[sorted_idx], align='center')\n# plt.yticks(range(len(sorted_idx)), features_list[sorted_idx])\n# plt.xlabel('Importance')\n# plt.title('Feature importances')\n# plt.draw()\n# plt.show()\n_ = feature_importance[sorted_idx]\n_ = features_list[sorted_idx]",
       "rewrite-ns": 1403133,
       "overhead-ns": 1403133,
       "exec-ns": 396031,
@@ -255,7 +255,7 @@
       "rewritten": "features_list = X.columns.values\nfeature_importance = X.columns.values\nsorted_idx = np.argsort(feature_importance)\n_ = feature_importance[sorted_idx]\n_ = features_list[sorted_idx]\n"
     },
     {
-      "raw": "# ALEX: remove ML code\n# Y_pred = RF.predict(test)\nY_pred = Y",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# Y_pred = RF.predict(test)\nY_pred = Y",
       "rewrite-ns": 190723,
       "overhead-ns": 190723,
       "exec-ns": 185176,

@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 186,
   "cells": [
     {
-      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# ALEX: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt\n# %matplotlib inline",
+      "raw": "# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport numpy as np\n# FIRST-AUTHOR: remove plotting\n# import seaborn as sns\n# import matplotlib.pyplot as plt\n# %matplotlib inline",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 3423352223
@@ -39,13 +39,13 @@
       "total-ns": 7617311
     },
     {
-      "raw": "#correlation to SalePrice\n# ALEX: remove plotting\n# plt.figure(figsize=(12,6))\n# df.corr()['SalePrice'].drop('SalePrice').sort_values().plot(kind='bar')\ndf.corr()['SalePrice'].drop('SalePrice').sort_values()",
+      "raw": "#correlation to SalePrice\n# FIRST-AUTHOR: remove plotting\n# plt.figure(figsize=(12,6))\n# df.corr()['SalePrice'].drop('SalePrice').sort_values().plot(kind='bar')\ndf.corr()['SalePrice'].drop('SalePrice').sort_values()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 202539546
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.jointplot(x='OverallQual', y='SalePrice', data=df)\n\n# sns.jointplot(x='GrLivArea', y='SalePrice', data=df)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.jointplot(x='OverallQual', y='SalePrice', data=df)\n\n# sns.jointplot(x='GrLivArea', y='SalePrice', data=df)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 417519
@@ -63,7 +63,7 @@
       "total-ns": 75311001
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.scatterplot(x='PoolArea',y='SalePrice',data=df.fillna('Missing'),hue='PoolQC')\n_ = df.fillna('Missing')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.scatterplot(x='PoolArea',y='SalePrice',data=df.fillna('Missing'),hue='PoolQC')\n_ = df.fillna('Missing')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 3816780
@@ -87,7 +87,7 @@
       "total-ns": 545094259
     },
     {
-      "raw": "# ALEX: remove plotting\n# df.plot(x='LotFrontage',y='LotArea',kind='scatter')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# df.plot(x='LotFrontage',y='LotArea',kind='scatter')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 293942
@@ -117,7 +117,7 @@
       "total-ns": 92739137
     },
     {
-      "raw": "# focusing on first row, and found some point does not follow the trend\n# ALEX: remove plotting\n# sns.pairplot(df[['SalePrice','GrLivArea','1stFlrSF','TotalBsmtSF','LotFrontage','LotArea']].dropna())\n_ = df[['SalePrice','GrLivArea','1stFlrSF','TotalBsmtSF','LotFrontage','LotArea']].dropna()",
+      "raw": "# focusing on first row, and found some point does not follow the trend\n# FIRST-AUTHOR: remove plotting\n# sns.pairplot(df[['SalePrice','GrLivArea','1stFlrSF','TotalBsmtSF','LotFrontage','LotArea']].dropna())\n_ = df[['SalePrice','GrLivArea','1stFlrSF','TotalBsmtSF','LotFrontage','LotArea']].dropna()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 13979261
@@ -153,7 +153,7 @@
       "total-ns": 4268465
     },
     {
-      "raw": "# ALEX: remove plotting\n# df.plot(x='LowQualFinSF',y='SalePrice',kind='scatter')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# df.plot(x='LowQualFinSF',y='SalePrice',kind='scatter')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 259249
@@ -165,13 +165,13 @@
       "total-ns": 34676593
     },
     {
-      "raw": "#before take square root\n# ALEX: remove plotting\n# sns.jointplot(x=df['GrLivArea'],y=df['SalePrice'].apply(np.log1p),data=df,kind='reg')\n_ = df['GrLivArea']\n_ = df['SalePrice'].apply(np.log1p)",
+      "raw": "#before take square root\n# FIRST-AUTHOR: remove plotting\n# sns.jointplot(x=df['GrLivArea'],y=df['SalePrice'].apply(np.log1p),data=df,kind='reg')\n_ = df['GrLivArea']\n_ = df['SalePrice'].apply(np.log1p)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 79307991
     },
     {
-      "raw": "#after take square root\n# ALEX: remove plotting\n# sns.jointplot(x=df['GrLivArea']**0.5,y=df['SalePrice'].apply(np.log1p),data=df,kind='reg')\n_ = df['GrLivArea']**0.5\n_ = df['SalePrice'].apply(np.log1p)",
+      "raw": "#after take square root\n# FIRST-AUTHOR: remove plotting\n# sns.jointplot(x=df['GrLivArea']**0.5,y=df['SalePrice'].apply(np.log1p),data=df,kind='reg')\n_ = df['GrLivArea']**0.5\n_ = df['SalePrice'].apply(np.log1p)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 86121024
@@ -213,49 +213,49 @@
       "total-ns": 638038
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.linear_model import RidgeCV\n# reg = RidgeCV()\n# reg.fit(X_train,np.log1p(y_train))\n_ = np.log1p(y_train)\n#reg.fit(X_train,y_train)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.linear_model import RidgeCV\n# reg = RidgeCV()\n# reg.fit(X_train,np.log1p(y_train))\n_ = np.log1p(y_train)\n#reg.fit(X_train,y_train)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 69712592
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import cross_val_score\n# log_rms = np.sqrt(-np.mean(cross_val_score(reg, X_train,np.log1p(y_train), cv=5,scoring='neg_mean_squared_error')))\n# #log_rms = np.sqrt(-np.mean(cross_val_score(reg, X_train,y_train, cv=5,scoring='neg_mean_squared_log_error')))\n# print(f'RMLS : {log_rms}')\n_ = np.log1p(y_train)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.model_selection import cross_val_score\n# log_rms = np.sqrt(-np.mean(cross_val_score(reg, X_train,np.log1p(y_train), cv=5,scoring='neg_mean_squared_error')))\n# #log_rms = np.sqrt(-np.mean(cross_val_score(reg, X_train,y_train, cv=5,scoring='neg_mean_squared_log_error')))\n# print(f'RMLS : {log_rms}')\n_ = np.log1p(y_train)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 22561942
     },
     {
-      "raw": "# ALEX: remove ML code\n# pred = np.expm1(reg.predict(X_train))\npred = np.expm1(y_train.to_numpy())\n#pred = reg.predict(X_train)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# pred = np.expm1(reg.predict(X_train))\npred = np.expm1(y_train.to_numpy())\n#pred = reg.predict(X_train)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 9996563
     },
     {
-      "raw": "comparison = pd.DataFrame({'prediction':pred.reshape(pred.shape[0],),'actual':y_train,'error':pred.reshape(pred.shape[0],)-y_train})\n# ALEX: remove plotting\n# sns.distplot(comparison['error'])\n_ = comparison['error']",
+      "raw": "comparison = pd.DataFrame({'prediction':pred.reshape(pred.shape[0],),'actual':y_train,'error':pred.reshape(pred.shape[0],)-y_train})\n# FIRST-AUTHOR: remove plotting\n# sns.distplot(comparison['error'])\n_ = comparison['error']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 71176546
     },
     {
-      "raw": "# ALEX: remove plotting\n# comparison.plot(x='prediction',y='error',kind='scatter')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# comparison.plot(x='prediction',y='error',kind='scatter')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 384090
     },
     {
-      "raw": "# ALEX: remove plotting\n# comparison.plot(x='prediction',y='actual',kind='scatter')",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# comparison.plot(x='prediction',y='actual',kind='scatter')",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 374387
     },
     {
-      "raw": "# output result for submission\n# ALEX: remove ML code\n# pred = np.expm1(reg.predict(X_test))\npred = np.expm1(y_train.to_numpy())\n# ALEX: make notebook run\n# pred = pd.DataFrame(pred.reshape(1459, ))\npred = pd.DataFrame(pred.reshape(pred.shape[0], ))\noutput = pd.concat([df_test['Id'],pred],axis=1).rename(columns={0:'SalePrice'})\noutput.to_csv('submission.csv',index=False)",
+      "raw": "# output result for submission\n# FIRST-AUTHOR: remove ML code\n# pred = np.expm1(reg.predict(X_test))\npred = np.expm1(y_train.to_numpy())\n# FIRST-AUTHOR: make notebook run\n# pred = pd.DataFrame(pred.reshape(1459, ))\npred = pd.DataFrame(pred.reshape(pred.shape[0], ))\noutput = pd.concat([df_test['Id'],pred],axis=1).rename(columns={0:'SalePrice'})\noutput.to_csv('submission.csv',index=False)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1491358088
     },
     {
-      "raw": "steps = ['Control','Outliers','Log_y','Modification','Non-linearity','Collinearity']\nrmls = [0.15494899171649665,0.14154336306738766,0.11543537404168344,0.11479554199015254,0.11394995795225088,0.11326714995779572]\nscores = pd.DataFrame({'steps':steps,'rmls':rmls})\n\n# ALEX: remove plotting\n# scores.plot(x='steps',y='rmls',marker='o',rot=90)\n# plt.xlabel('Preprocessing Actions',fontsize=14)\n# plt.ylabel('RMLS',fontsize=14)\n# plt.title('RMLS Changing wrt to Preprocessing Actions',fontsize=16)",
+      "raw": "steps = ['Control','Outliers','Log_y','Modification','Non-linearity','Collinearity']\nrmls = [0.15494899171649665,0.14154336306738766,0.11543537404168344,0.11479554199015254,0.11394995795225088,0.11326714995779572]\nscores = pd.DataFrame({'steps':steps,'rmls':rmls})\n\n# FIRST-AUTHOR: remove plotting\n# scores.plot(x='steps',y='rmls',marker='o',rot=90)\n# plt.xlabel('Preprocessing Actions',fontsize=14)\n# plt.ylabel('RMLS',fontsize=14)\n# plt.title('RMLS Changing wrt to Preprocessing Actions',fontsize=16)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 4495635

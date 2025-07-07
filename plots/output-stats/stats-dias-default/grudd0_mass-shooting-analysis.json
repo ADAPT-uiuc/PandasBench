@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 116,
   "cells": [
     {
-      "raw": "# import packages \n# ALEX: remove plotting\n# %matplotlib inline\nimport numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# ALEX: remove plotting\n# import datetime\n# import matplotlib.pyplot as plt\n# import matplotlib.ticker as ticker\n# import matplotlib.dates as mdates\n# from sklearn import linear_model",
+      "raw": "# import packages \n# FIRST-AUTHOR: remove plotting\n# %matplotlib inline\nimport numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\n# FIRST-AUTHOR: remove plotting\n# import datetime\n# import matplotlib.pyplot as plt\n# import matplotlib.ticker as ticker\n# import matplotlib.dates as mdates\n# from sklearn import linear_model",
       "rewrite-ns": 498498,
       "overhead-ns": 498498,
       "exec-ns": 270386,
@@ -39,7 +39,7 @@
       "rewritten": "date = pd.date_range(start='1966-01-01', end='2017-01-01', freq='AS')\nratio = 10, 6\n"
     },
     {
-      "raw": "# analysis for yearly attack counts\n# ALEX: remove plotting\n# plt.close('all')\n# fig,ax = plt.subplots(figsize=ratio)\n# ax.plot(date,df.Fatalities.resample('AS').count().fillna(0),'-o')\n# # set xaxis major labels\n# ax.xaxis.set_major_locator(mdates.YearLocator(5,month=1,day=1))\n# ax.xaxis.set_major_formatter(mdates.DateFormatter(\"%Y\"))\n# # set grid lines\n# ax.xaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.xaxis.grid(True,'major') # turn on major tic grid lines;\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.xlabel('Year')\n# plt.ylabel('Number Attacks');\n# plt.title('Number Attacks by Year');\n_ = df.Fatalities.resample('AS').count().fillna(0)",
+      "raw": "# analysis for yearly attack counts\n# FIRST-AUTHOR: remove plotting\n# plt.close('all')\n# fig,ax = plt.subplots(figsize=ratio)\n# ax.plot(date,df.Fatalities.resample('AS').count().fillna(0),'-o')\n# # set xaxis major labels\n# ax.xaxis.set_major_locator(mdates.YearLocator(5,month=1,day=1))\n# ax.xaxis.set_major_formatter(mdates.DateFormatter(\"%Y\"))\n# # set grid lines\n# ax.xaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.xaxis.grid(True,'major') # turn on major tic grid lines;\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.xlabel('Year')\n# plt.ylabel('Number Attacks');\n# plt.title('Number Attacks by Year');\n_ = df.Fatalities.resample('AS').count().fillna(0)",
       "rewrite-ns": 673415,
       "overhead-ns": 673415,
       "exec-ns": 2517522,
@@ -48,7 +48,7 @@
       "rewritten": "_ = df.Fatalities.resample('AS').count().fillna(0)\n"
     },
     {
-      "raw": "# attacks per million population\npop = df_pop.population\ncount = df.Fatalities.resample('AS').count().fillna(0)\ncount_pop = count / pop\n# ALEX: remove plotting\n# plt.close('all')\n# fig,ax = plt.subplots(figsize=ratio)\ndate2 = pd.date_range(start='1966-01-01', end='2017-01-01', freq='AS')\n# ALEX: remove plotting\n# ax.plot(date2,count_pop,'-o')\n# # major labels\n# ax.xaxis.set_major_locator(mdates.YearLocator(5,month=1,day=1))\n# ax.xaxis.set_major_formatter(mdates.DateFormatter(\"%Y\"))\n# # grid lines\n# ax.xaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.xaxis.grid(True,'major') # turn on major tic grid lines;\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.xlabel('Year')\n# plt.ylabel('Attacks per Million');\n# plt.title('Attacks per Million People');",
+      "raw": "# attacks per million population\npop = df_pop.population\ncount = df.Fatalities.resample('AS').count().fillna(0)\ncount_pop = count / pop\n# FIRST-AUTHOR: remove plotting\n# plt.close('all')\n# fig,ax = plt.subplots(figsize=ratio)\ndate2 = pd.date_range(start='1966-01-01', end='2017-01-01', freq='AS')\n# FIRST-AUTHOR: remove plotting\n# ax.plot(date2,count_pop,'-o')\n# # major labels\n# ax.xaxis.set_major_locator(mdates.YearLocator(5,month=1,day=1))\n# ax.xaxis.set_major_formatter(mdates.DateFormatter(\"%Y\"))\n# # grid lines\n# ax.xaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.xaxis.grid(True,'major') # turn on major tic grid lines;\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.xlabel('Year')\n# plt.ylabel('Attacks per Million');\n# plt.title('Attacks per Million People');",
       "rewrite-ns": 1519854,
       "overhead-ns": 1519854,
       "exec-ns": 2033051,
@@ -57,7 +57,7 @@
       "rewritten": "pop = df_pop.population\ncount = df.Fatalities.resample('AS').count().fillna(0)\ncount_pop = count / pop\ndate2 = pd.date_range(start='1966-01-01', end='2017-01-01', freq='AS')\n"
     },
     {
-      "raw": "# Attacks Rolling Average 5 Year Windows\n# ALEX: remove plotting\n# plt.close('all')\n# fig,ax = plt.subplots(figsize=ratio)\nc = df.Fatalities.resample(\"AS\").count().fillna(0).rolling(window=5, min_periods=5).sum()\n# ALEX: remove plotting\n# ax.plot(c.index,c,'-o')\n# # major labels\n# ax.xaxis.set_major_locator(mdates.YearLocator(5,month=1,day=1))\n# ax.xaxis.set_major_formatter(mdates.DateFormatter(\"%Y\"))\n# # grid lines\n# ax.xaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.xaxis.grid(True,'major') # turn on major tic grid lines;\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.xlabel('5 Year Window End Point')\n# plt.ylabel('Attacks');\n# plt.title('Attacks for Rolling 5 Year Window');\n_ = c.index",
+      "raw": "# Attacks Rolling Average 5 Year Windows\n# FIRST-AUTHOR: remove plotting\n# plt.close('all')\n# fig,ax = plt.subplots(figsize=ratio)\nc = df.Fatalities.resample(\"AS\").count().fillna(0).rolling(window=5, min_periods=5).sum()\n# FIRST-AUTHOR: remove plotting\n# ax.plot(c.index,c,'-o')\n# # major labels\n# ax.xaxis.set_major_locator(mdates.YearLocator(5,month=1,day=1))\n# ax.xaxis.set_major_formatter(mdates.DateFormatter(\"%Y\"))\n# # grid lines\n# ax.xaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.xaxis.grid(True,'major') # turn on major tic grid lines;\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.xlabel('5 Year Window End Point')\n# plt.ylabel('Attacks');\n# plt.title('Attacks for Rolling 5 Year Window');\n_ = c.index",
       "rewrite-ns": 1263454,
       "overhead-ns": 1263454,
       "exec-ns": 1595815,
@@ -66,7 +66,7 @@
       "rewritten": "c = df.Fatalities.resample('AS').count().fillna(0).rolling(window=5,\n    min_periods=5).sum()\n_ = c.index\n"
     },
     {
-      "raw": "# Attacks per Year per Million Population for Rolling 5 Year Windows\n# ALEX: remove plotting\n# plt.close('all')\n# fig,ax = plt.subplots(figsize=ratio)\n#date2 = pd.date_range(start='1966-01-01', end='2017-01-01', freq='AS')\ndate2 = pd.date_range(start='1970-01-01', end='2021-01-01', freq='AS')\ns = df.Fatalities.resample(\"AS\").count().fillna(0).rolling(window=5, min_periods=5).mean()\np = df_pop.population.rolling(window=5, min_periods=5).mean()\nsp = s/p\n# ALEX: remove plotting\n# ax.plot(sp.index,s/p,'-o')\n# # major labels\n# ax.xaxis.set_major_locator(mdates.YearLocator(5,month=1,day=1))\n# ax.xaxis.set_major_formatter(mdates.DateFormatter(\"%Y\"))\n# # grid lines\n# ax.xaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.xaxis.grid(True,'major') # turn on major tic grid lines;\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.xlabel('end of 5 Year segment')\n# plt.ylabel('Attacks per Year per Million Population');\n# plt.title('Attacks per Year per Million Population for Rolling 5 Year Windows');\n_ = sp.index\n_ = s/p",
+      "raw": "# Attacks per Year per Million Population for Rolling 5 Year Windows\n# FIRST-AUTHOR: remove plotting\n# plt.close('all')\n# fig,ax = plt.subplots(figsize=ratio)\n#date2 = pd.date_range(start='1966-01-01', end='2017-01-01', freq='AS')\ndate2 = pd.date_range(start='1970-01-01', end='2021-01-01', freq='AS')\ns = df.Fatalities.resample(\"AS\").count().fillna(0).rolling(window=5, min_periods=5).mean()\np = df_pop.population.rolling(window=5, min_periods=5).mean()\nsp = s/p\n# FIRST-AUTHOR: remove plotting\n# ax.plot(sp.index,s/p,'-o')\n# # major labels\n# ax.xaxis.set_major_locator(mdates.YearLocator(5,month=1,day=1))\n# ax.xaxis.set_major_formatter(mdates.DateFormatter(\"%Y\"))\n# # grid lines\n# ax.xaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.xaxis.grid(True,'major') # turn on major tic grid lines;\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.xlabel('end of 5 Year segment')\n# plt.ylabel('Attacks per Year per Million Population');\n# plt.title('Attacks per Year per Million Population for Rolling 5 Year Windows');\n_ = sp.index\n_ = s/p",
       "rewrite-ns": 2579088,
       "overhead-ns": 2579088,
       "exec-ns": 2475346,
@@ -75,7 +75,7 @@
       "rewritten": "date2 = pd.date_range(start='1970-01-01', end='2021-01-01', freq='AS')\ns = df.Fatalities.resample('AS').count().fillna(0).rolling(window=5,\n    min_periods=5).mean()\np = df_pop.population.rolling(window=5, min_periods=5).mean()\nsp = s / p\n_ = sp.index\n_ = s / p\n"
     },
     {
-      "raw": "# analysis for yearly fatalities\n# ALEX: remove plotting\n# plt.close('all')\n# fig,ax = plt.subplots(figsize=ratio)\n# ax.plot(date,df.Fatalities.resample('AS').sum().fillna(0),'-o')\n# # set major xaxis labels\n# ax.xaxis.set_major_locator(mdates.YearLocator(5,month=1,day=1))\n# ax.xaxis.set_major_formatter(mdates.DateFormatter(\"%Y\"))\n# # set grid lines\n# ax.xaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.xaxis.grid(True,'major') # turn on major tic grid lines;\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.xlabel('Year')\n# plt.ylabel('Fatalities');\n# plt.title('Fatalities per Year');\n_ = df.Fatalities.resample('AS').sum().fillna(0)",
+      "raw": "# analysis for yearly fatalities\n# FIRST-AUTHOR: remove plotting\n# plt.close('all')\n# fig,ax = plt.subplots(figsize=ratio)\n# ax.plot(date,df.Fatalities.resample('AS').sum().fillna(0),'-o')\n# # set major xaxis labels\n# ax.xaxis.set_major_locator(mdates.YearLocator(5,month=1,day=1))\n# ax.xaxis.set_major_formatter(mdates.DateFormatter(\"%Y\"))\n# # set grid lines\n# ax.xaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.xaxis.grid(True,'major') # turn on major tic grid lines;\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.xlabel('Year')\n# plt.ylabel('Fatalities');\n# plt.title('Fatalities per Year');\n_ = df.Fatalities.resample('AS').sum().fillna(0)",
       "rewrite-ns": 641951,
       "overhead-ns": 641951,
       "exec-ns": 1397434,
@@ -84,7 +84,7 @@
       "rewritten": "_ = df.Fatalities.resample('AS').sum().fillna(0)\n"
     },
     {
-      "raw": "# analysis fatalities per shooting by year\n# ALEX: remove plotting\n# plt.close('all')\n# fig,ax = plt.subplots(figsize=ratio)\n# ax.plot(date,df.Fatalities.resample('AS').mean().fillna(0),'-o')\n# # major labels\n# ax.xaxis.set_major_locator(mdates.YearLocator(5,month=1,day=1))\n# ax.xaxis.set_major_formatter(mdates.DateFormatter(\"%Y\"))\n# # grid lines\n# ax.xaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.xaxis.grid(True,'major') # turn on major tic grid lines;\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.xlabel('Year')\n# plt.ylabel('Fatalities per Attack');\n# plt.title('Fatalities per Attack by Year');\n_ = df.Fatalities.resample('AS').mean().fillna(0)",
+      "raw": "# analysis fatalities per shooting by year\n# FIRST-AUTHOR: remove plotting\n# plt.close('all')\n# fig,ax = plt.subplots(figsize=ratio)\n# ax.plot(date,df.Fatalities.resample('AS').mean().fillna(0),'-o')\n# # major labels\n# ax.xaxis.set_major_locator(mdates.YearLocator(5,month=1,day=1))\n# ax.xaxis.set_major_formatter(mdates.DateFormatter(\"%Y\"))\n# # grid lines\n# ax.xaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.xaxis.grid(True,'major') # turn on major tic grid lines;\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.xlabel('Year')\n# plt.ylabel('Fatalities per Attack');\n# plt.title('Fatalities per Attack by Year');\n_ = df.Fatalities.resample('AS').mean().fillna(0)",
       "rewrite-ns": 638401,
       "overhead-ns": 638401,
       "exec-ns": 1445536,
@@ -93,7 +93,7 @@
       "rewritten": "_ = df.Fatalities.resample('AS').mean().fillna(0)\n"
     },
     {
-      "raw": "# Fatalities per Year Rolling Average 5 Year Windows\n# ALEX: remove plotting\n# plt.close('all')\n# fig,ax = plt.subplots(figsize=ratio)\nf = df.Fatalities.resample(\"AS\").sum().fillna(0).rolling(window=5, min_periods=5).sum()\nc = df.Fatalities.resample(\"AS\").count().fillna(0).rolling(window=5, min_periods=5).sum()\n# ALEX: remove plotting\n# ax.plot(f.index,f/c,'-o')\n# # major labels\n# ax.xaxis.set_major_locator(mdates.YearLocator(5,month=1,day=1))\n# ax.xaxis.set_major_formatter(mdates.DateFormatter(\"%Y\"))\n# # grid lines\n# ax.xaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.xaxis.grid(True,'major') # turn on major tic grid lines;\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.xlabel('5 Year Window End Point')\n# plt.ylabel('Fatalities per Shooting');\n# plt.title('Fatalities per Shooting for Rolling 5 Year Window');\n_ = f.index\n_ = f/c",
+      "raw": "# Fatalities per Year Rolling Average 5 Year Windows\n# FIRST-AUTHOR: remove plotting\n# plt.close('all')\n# fig,ax = plt.subplots(figsize=ratio)\nf = df.Fatalities.resample(\"AS\").sum().fillna(0).rolling(window=5, min_periods=5).sum()\nc = df.Fatalities.resample(\"AS\").count().fillna(0).rolling(window=5, min_periods=5).sum()\n# FIRST-AUTHOR: remove plotting\n# ax.plot(f.index,f/c,'-o')\n# # major labels\n# ax.xaxis.set_major_locator(mdates.YearLocator(5,month=1,day=1))\n# ax.xaxis.set_major_formatter(mdates.DateFormatter(\"%Y\"))\n# # grid lines\n# ax.xaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.xaxis.grid(True,'major') # turn on major tic grid lines;\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.xlabel('5 Year Window End Point')\n# plt.ylabel('Fatalities per Shooting');\n# plt.title('Fatalities per Shooting for Rolling 5 Year Window');\n_ = f.index\n_ = f/c",
       "rewrite-ns": 2278264,
       "overhead-ns": 2278264,
       "exec-ns": 3054820,
@@ -102,7 +102,7 @@
       "rewritten": "f = df.Fatalities.resample('AS').sum().fillna(0).rolling(window=5,\n    min_periods=5).sum()\nc = df.Fatalities.resample('AS').count().fillna(0).rolling(window=5,\n    min_periods=5).sum()\n_ = f.index\n_ = f / c\n"
     },
     {
-      "raw": "# Fatalities per Million People in Population by Year\npop = df_pop.population\nsum = df.Fatalities.resample('AS').sum().fillna(0)\nsum_pop = sum / pop\n# ALEX: remove plotting\n# plt.close('all')\n# fig,ax = plt.subplots(figsize=ratio)\ndate2 = pd.date_range(start='1966-01-01', end='2017-01-01', freq='AS')\n# ALEX: remove plotting\n# ax.plot(date2,sum_pop,'-o')\n# # major labels\n# ax.xaxis.set_major_locator(mdates.YearLocator(5,month=1,day=1))\n# ax.xaxis.set_major_formatter(mdates.DateFormatter(\"%Y\"))\n# # grid lines\n# ax.xaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.xaxis.grid(True,'major') # turn on major tic grid lines;\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.xlabel('Year')\n# plt.ylabel('Fatalities per Million');\n# plt.title('Fatalities per Million People in Population by Year');",
+      "raw": "# Fatalities per Million People in Population by Year\npop = df_pop.population\nsum = df.Fatalities.resample('AS').sum().fillna(0)\nsum_pop = sum / pop\n# FIRST-AUTHOR: remove plotting\n# plt.close('all')\n# fig,ax = plt.subplots(figsize=ratio)\ndate2 = pd.date_range(start='1966-01-01', end='2017-01-01', freq='AS')\n# FIRST-AUTHOR: remove plotting\n# ax.plot(date2,sum_pop,'-o')\n# # major labels\n# ax.xaxis.set_major_locator(mdates.YearLocator(5,month=1,day=1))\n# ax.xaxis.set_major_formatter(mdates.DateFormatter(\"%Y\"))\n# # grid lines\n# ax.xaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.xaxis.grid(True,'major') # turn on major tic grid lines;\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.xlabel('Year')\n# plt.ylabel('Fatalities per Million');\n# plt.title('Fatalities per Million People in Population by Year');",
       "rewrite-ns": 1500745,
       "overhead-ns": 1500745,
       "exec-ns": 2053486,
@@ -111,7 +111,7 @@
       "rewritten": "pop = df_pop.population\nsum = df.Fatalities.resample('AS').sum().fillna(0)\nsum_pop = sum / pop\ndate2 = pd.date_range(start='1966-01-01', end='2017-01-01', freq='AS')\n"
     },
     {
-      "raw": "# Fatalities per Year for Rolling 5 Year Windows\n# ALEX: remove plotting\n# plt.close('all')\n# fig,ax = plt.subplots(figsize=ratio)\ns = df.Fatalities.resample(\"AS\").sum().fillna(0).rolling(window=5, min_periods=5).mean()\n# ALEX: remove plotting\n# ax.plot(s.index,s,'-o')\n# # major labels\n# ax.xaxis.set_major_locator(mdates.YearLocator(5,month=1,day=1))\n# ax.xaxis.set_major_formatter(mdates.DateFormatter(\"%Y\"))\n# # grid lines\n# ax.xaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.xaxis.grid(True,'major') # turn on major tic grid lines;\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.xlabel('end of 5 Year segment')\n# plt.ylabel('Fatalities per Year');\n# plt.title('Fatalities per Year for Rolling 5 Year Windows');\n_ = s.index",
+      "raw": "# Fatalities per Year for Rolling 5 Year Windows\n# FIRST-AUTHOR: remove plotting\n# plt.close('all')\n# fig,ax = plt.subplots(figsize=ratio)\ns = df.Fatalities.resample(\"AS\").sum().fillna(0).rolling(window=5, min_periods=5).mean()\n# FIRST-AUTHOR: remove plotting\n# ax.plot(s.index,s,'-o')\n# # major labels\n# ax.xaxis.set_major_locator(mdates.YearLocator(5,month=1,day=1))\n# ax.xaxis.set_major_formatter(mdates.DateFormatter(\"%Y\"))\n# # grid lines\n# ax.xaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.xaxis.grid(True,'major') # turn on major tic grid lines;\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.xlabel('end of 5 Year segment')\n# plt.ylabel('Fatalities per Year');\n# plt.title('Fatalities per Year for Rolling 5 Year Windows');\n_ = s.index",
       "rewrite-ns": 1222233,
       "overhead-ns": 1222233,
       "exec-ns": 1631936,
@@ -120,7 +120,7 @@
       "rewritten": "s = df.Fatalities.resample('AS').sum().fillna(0).rolling(window=5,\n    min_periods=5).mean()\n_ = s.index\n"
     },
     {
-      "raw": "# Fatalities per Year for Rolling 5 Year Windows\n# ALEX: remove plotting\n# plt.close('all')\n# fig,ax = plt.subplots(figsize=ratio)\n#date2 = pd.date_range(start='1966-01-01', end='2017-01-01', freq='AS')\ndate2 = pd.date_range(start='1970-01-01', end='2021-01-01', freq='AS')\ns = df.Fatalities.resample(\"AS\").sum().fillna(0).rolling(window=5, min_periods=5).mean()\np = df_pop.population.rolling(window=5, min_periods=5).mean()\n#ax.plot(date2,s/p,'-o')\n# ALEX: remove plotting\n# ax.plot(s.index,s/p,'-o')\n# # major labels\n# ax.xaxis.set_major_locator(mdates.YearLocator(5,month=1,day=1))\n# ax.xaxis.set_major_formatter(mdates.DateFormatter(\"%Y\"))\n# # grid lines\n# ax.xaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.xaxis.grid(True,'major') # turn on major tic grid lines;\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.xlabel('end of 5 Year segment')\n# plt.ylabel('Fatalities per Year per Million Population');\n# plt.title('Fatalities per Year per Million Population for Rolling 5 Year Windows');\n_ = s.index\n_ = s/p",
+      "raw": "# Fatalities per Year for Rolling 5 Year Windows\n# FIRST-AUTHOR: remove plotting\n# plt.close('all')\n# fig,ax = plt.subplots(figsize=ratio)\n#date2 = pd.date_range(start='1966-01-01', end='2017-01-01', freq='AS')\ndate2 = pd.date_range(start='1970-01-01', end='2021-01-01', freq='AS')\ns = df.Fatalities.resample(\"AS\").sum().fillna(0).rolling(window=5, min_periods=5).mean()\np = df_pop.population.rolling(window=5, min_periods=5).mean()\n#ax.plot(date2,s/p,'-o')\n# FIRST-AUTHOR: remove plotting\n# ax.plot(s.index,s/p,'-o')\n# # major labels\n# ax.xaxis.set_major_locator(mdates.YearLocator(5,month=1,day=1))\n# ax.xaxis.set_major_formatter(mdates.DateFormatter(\"%Y\"))\n# # grid lines\n# ax.xaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.xaxis.grid(True,'major') # turn on major tic grid lines;\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.xlabel('end of 5 Year segment')\n# plt.ylabel('Fatalities per Year per Million Population');\n# plt.title('Fatalities per Year per Million Population for Rolling 5 Year Windows');\n_ = s.index\n_ = s/p",
       "rewrite-ns": 2339305,
       "overhead-ns": 2339305,
       "exec-ns": 2475975,
@@ -147,7 +147,7 @@
       "rewritten": "df.Race = df.Race.str.strip()\nto_replace_list = ['white', 'White', 'Some other race', 'unclear',\n    'Unknown', 'White American or European American/Some other Race',\n    'Asian American', 'Asian American/Some other race', 'black', 'Black',\n    'Black American or African American/Unknown',\n    'Native American or Alaska Native']\nreplace_list = ['White American or European American',\n    'White American or European American', 'Other', 'Other', 'Other',\n    'White American or European American', 'Asian', 'Asian',\n    'Black American or African American',\n    'Black American or African American',\n    'Black American or African American', 'Native American']\ndf.Race = df.Race.replace(to_replace_list, replace_list)\nrace = df.Race.value_counts()\nrace\n"
     },
     {
-      "raw": "# plot pie chart for race distribution\n# ALEX: remove plotting\n# fig,ax = plt.subplots(figsize=(10,10))\n# ax.pie(x=race,labels=race.index,rotatelabels=False, autopct='%.2f%%');\n# plt.title('Shooter Race Distribution');\n_ = race.index",
+      "raw": "# plot pie chart for race distribution\n# FIRST-AUTHOR: remove plotting\n# fig,ax = plt.subplots(figsize=(10,10))\n# ax.pie(x=race,labels=race.index,rotatelabels=False, autopct='%.2f%%');\n# plt.title('Shooter Race Distribution');\n_ = race.index",
       "rewrite-ns": 251203,
       "overhead-ns": 251203,
       "exec-ns": 183366,
@@ -165,7 +165,7 @@
       "rewritten": "df_race = df.groupby(pd.Grouper(key='Date', freq='5AS'))['Race'].value_counts()\nticklabels = ['1966 - 1970', '1971 - 1975', '1976 - 1980', '1981 - 1985',\n    '1986 - 1990', '1991 - 1995', '1996 - 2000', '2001 - 2005',\n    '2006 - 2010', '2011 - 2015', '2016 - 2017']\ndf_race\n"
     },
     {
-      "raw": "# Shooter Race Distribution 5 Year Windows\ndf_race_us = df_race.unstack()\n# ALEX: remove plotting\n# ax = df_race_us.plot(kind='bar',x=df_race_us.index,stacked=True,figsize=(10,6))\n# plt.title('Shooter Race Distribution 5 Year Window')\n# plt.xlabel('5 Year Window')\n# plt.ylabel('Shootings')\n# ax.xaxis.set_major_formatter(ticker.FixedFormatter(ticklabels))\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.gcf().autofmt_xdate()\n_ = df_race_us.index",
+      "raw": "# Shooter Race Distribution 5 Year Windows\ndf_race_us = df_race.unstack()\n# FIRST-AUTHOR: remove plotting\n# ax = df_race_us.plot(kind='bar',x=df_race_us.index,stacked=True,figsize=(10,6))\n# plt.title('Shooter Race Distribution 5 Year Window')\n# plt.xlabel('5 Year Window')\n# plt.ylabel('Shootings')\n# ax.xaxis.set_major_formatter(ticker.FixedFormatter(ticklabels))\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.gcf().autofmt_xdate()\n_ = df_race_us.index",
       "rewrite-ns": 513799,
       "overhead-ns": 513799,
       "exec-ns": 1040773,
@@ -183,7 +183,7 @@
       "rewritten": "size = df.groupby(pd.Grouper(key='Date', freq='5AS'))['Race'].size()\nnorm = df_race / size * 100\n"
     },
     {
-      "raw": "# Normerilzed Shooter Race distribution 5 Year Windows\nnorm_us = norm.unstack()\n#ax = norm_us.plot(kind='bar',x=df_race_us.index,stacked=True,figsize=(20,10))\n# ALEX: remove plotting\n# ax = norm_us.plot(kind='bar',x=norm_us.index,stacked=True,figsize=(10,6))\n# plt.title('Normerilzed Shooter Race Distribution 5 Year Windows')\n# plt.xlabel('5 Year Window')\n# plt.ylabel('Normilized Shootings %')\n# ax.xaxis.set_major_formatter(ticker.FixedFormatter(ticklabels))\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.gcf().autofmt_xdate()\n_ = norm_us.index",
+      "raw": "# Normerilzed Shooter Race distribution 5 Year Windows\nnorm_us = norm.unstack()\n#ax = norm_us.plot(kind='bar',x=df_race_us.index,stacked=True,figsize=(20,10))\n# FIRST-AUTHOR: remove plotting\n# ax = norm_us.plot(kind='bar',x=norm_us.index,stacked=True,figsize=(10,6))\n# plt.title('Normerilzed Shooter Race Distribution 5 Year Windows')\n# plt.xlabel('5 Year Window')\n# plt.ylabel('Normilized Shootings %')\n# ax.xaxis.set_major_formatter(ticker.FixedFormatter(ticklabels))\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.gcf().autofmt_xdate()\n_ = norm_us.index",
       "rewrite-ns": 511684,
       "overhead-ns": 511684,
       "exec-ns": 655369,
@@ -192,7 +192,7 @@
       "rewritten": "norm_us = norm.unstack()\n_ = norm_us.index\n"
     },
     {
-      "raw": "# creats dataframe with Race Demographics\n# https://en.wikipedia.org/wiki/Historical_racial_and_ethnic_demographics_of_the_United_States#Historical_\n# data_for_all_races_and_for_Hispanic_origin_(1610%E2%80%932010)\nnon_hispanic_white = pd.Series([153217498,169622593,180256366,188128296,194552774,196817552])\nhispanic_any_race = pd.Series([5814784,8920940,14608673,22354059,35305818,50477594])\n# assume 5,000,000 for missing data for years 1960,1970,1980,1990 for two_or_more_races\ntwo_or_more_races = pd.Series([5000000,5000000,5000000,5000000,6826228,9009073])\nSome_other_race = pd.Series([87606,230064,6758319,9804847,15359073,19107368])\nasian_pacific_islander = pd.Series([980337,1526401,3500439,7273662,10641833,15214265])\nAmerican_indian_eskimo = pd.Series([551669,795110,1420400,1959234,2475956,2932248])\nBlack = pd.Series([18871831,22539362,26495025,29986060,34658190,38929319])\nWhite = pd.Series([158831732,178119221,188371622,199686070,211460626,223553265])\nhispanic_non_white = hispanic_any_race - (White - non_hispanic_white)\ndf_race_dem = pd.DataFrame({'non_hispanic_white':non_hispanic_white,\n                        'hispanic_any_race':hispanic_any_race,\n                        'two_or_more_races':two_or_more_races,\n                        'Some_other_race':Some_other_race,\n                       'asian_pacific_islander':asian_pacific_islander,\n                       'American_indian_eskimo':American_indian_eskimo,\n                       'Black':Black,\n                       'White':White,'hispanic_non_white':hispanic_non_white})\ndf_race_dem.index = [1960,1970,1980,1990,2000,2010]\n# creat dataframe with Race Demographics means for 5 year segments\ndef extract(df,col):\n    y = df[col].values.reshape(-1,1)\n    x = df.index.values.reshape(-1,1).astype(float)\n# ALEX: remove ML code\n#     reg_white = linear_model.LinearRegression().fit(x,y)\n#     ans = reg_white.predict(np.array(np.arange(1966,2018,1)).reshape(-1,1)).tolist()\n    ans = y\n    flattened = [int(val) for sublist in ans for val in sublist]\n    return flattened\nnon_hispanic_white = pd.Series(extract(df_race_dem,'non_hispanic_white'))\nhispanic_non_white = pd.Series(extract(df_race_dem,'hispanic_non_white'))\nAmerican_indian_eskimo = pd.Series(extract(df_race_dem,'American_indian_eskimo'))\nBlack = pd.Series(extract(df_race_dem,'Black'))\nhispanic_any_race = pd.Series(extract(df_race_dem,'hispanic_any_race'))\nSome_other_race = pd.Series(extract(df_race_dem,'Some_other_race'))\nWhite = pd.Series(extract(df_race_dem,'White'))\nasian_pacific_islander = pd.Series(extract(df_race_dem,'asian_pacific_islander'))\ntwo_or_more_races = pd.Series(extract(df_race_dem,'two_or_more_races'))\ndf_race_dem_reg = pd.DataFrame({'Asian':asian_pacific_islander,\n                                'Black American or African American':Black,\n                                'Latino':hispanic_non_white,\n                                'Native American':American_indian_eskimo,\n                                'Other':Some_other_race,\n                                'White American or European American':White,\n                                'Two or more races':two_or_more_races,\n                                })\n# ALEX: make notebook run\n# date = pd.date_range(start='1966-01-01', end='2017-01-01', freq='AS')\ndate = pd.date_range(start='1966-01-01', end='2017-01-01', periods=6)\ndf_race_dem_reg = df_race_dem_reg.set_index(date)\ndf_race_dem_reg_5 = df_race_dem_reg.resample(\"5AS\").mean()\ndf_race_dem_reg_5",
+      "raw": "# creats dataframe with Race Demographics\n# https://en.wikipedia.org/wiki/Historical_racial_and_ethnic_demographics_of_the_United_States#Historical_\n# data_for_all_races_and_for_Hispanic_origin_(1610%E2%80%932010)\nnon_hispanic_white = pd.Series([153217498,169622593,180256366,188128296,194552774,196817552])\nhispanic_any_race = pd.Series([5814784,8920940,14608673,22354059,35305818,50477594])\n# assume 5,000,000 for missing data for years 1960,1970,1980,1990 for two_or_more_races\ntwo_or_more_races = pd.Series([5000000,5000000,5000000,5000000,6826228,9009073])\nSome_other_race = pd.Series([87606,230064,6758319,9804847,15359073,19107368])\nasian_pacific_islander = pd.Series([980337,1526401,3500439,7273662,10641833,15214265])\nAmerican_indian_eskimo = pd.Series([551669,795110,1420400,1959234,2475956,2932248])\nBlack = pd.Series([18871831,22539362,26495025,29986060,34658190,38929319])\nWhite = pd.Series([158831732,178119221,188371622,199686070,211460626,223553265])\nhispanic_non_white = hispanic_any_race - (White - non_hispanic_white)\ndf_race_dem = pd.DataFrame({'non_hispanic_white':non_hispanic_white,\n                        'hispanic_any_race':hispanic_any_race,\n                        'two_or_more_races':two_or_more_races,\n                        'Some_other_race':Some_other_race,\n                       'asian_pacific_islander':asian_pacific_islander,\n                       'American_indian_eskimo':American_indian_eskimo,\n                       'Black':Black,\n                       'White':White,'hispanic_non_white':hispanic_non_white})\ndf_race_dem.index = [1960,1970,1980,1990,2000,2010]\n# creat dataframe with Race Demographics means for 5 year segments\ndef extract(df,col):\n    y = df[col].values.reshape(-1,1)\n    x = df.index.values.reshape(-1,1).astype(float)\n# FIRST-AUTHOR: remove ML code\n#     reg_white = linear_model.LinearRegression().fit(x,y)\n#     ans = reg_white.predict(np.array(np.arange(1966,2018,1)).reshape(-1,1)).tolist()\n    ans = y\n    flattened = [int(val) for sublist in ans for val in sublist]\n    return flattened\nnon_hispanic_white = pd.Series(extract(df_race_dem,'non_hispanic_white'))\nhispanic_non_white = pd.Series(extract(df_race_dem,'hispanic_non_white'))\nAmerican_indian_eskimo = pd.Series(extract(df_race_dem,'American_indian_eskimo'))\nBlack = pd.Series(extract(df_race_dem,'Black'))\nhispanic_any_race = pd.Series(extract(df_race_dem,'hispanic_any_race'))\nSome_other_race = pd.Series(extract(df_race_dem,'Some_other_race'))\nWhite = pd.Series(extract(df_race_dem,'White'))\nasian_pacific_islander = pd.Series(extract(df_race_dem,'asian_pacific_islander'))\ntwo_or_more_races = pd.Series(extract(df_race_dem,'two_or_more_races'))\ndf_race_dem_reg = pd.DataFrame({'Asian':asian_pacific_islander,\n                                'Black American or African American':Black,\n                                'Latino':hispanic_non_white,\n                                'Native American':American_indian_eskimo,\n                                'Other':Some_other_race,\n                                'White American or European American':White,\n                                'Two or more races':two_or_more_races,\n                                })\n# FIRST-AUTHOR: make notebook run\n# date = pd.date_range(start='1966-01-01', end='2017-01-01', freq='AS')\ndate = pd.date_range(start='1966-01-01', end='2017-01-01', periods=6)\ndf_race_dem_reg = df_race_dem_reg.set_index(date)\ndf_race_dem_reg_5 = df_race_dem_reg.resample(\"5AS\").mean()\ndf_race_dem_reg_5",
       "rewrite-ns": 16562889,
       "overhead-ns": 16562889,
       "exec-ns": 13349083,
@@ -210,7 +210,7 @@
       "rewritten": "df_race_norm = df_race.unstack() / df_race_dem_reg_5 * 100000\ndf_race_norm\n"
     },
     {
-      "raw": "# Normerilzed Shooter Race distribution 5 Year Windows per 100,000 in poulation\n#ax = norm_us.plot(kind='bar',x=df_race_us.index,stacked=True,figsize=(20,10))\n# ALEX: remove plotting\n# ax = df_race_norm.plot(kind='bar',x=df_race_norm.index,stacked=False,figsize=(15,9))\n# plt.title('Normerilzed Shooter Race Distribution per 100,000 in 5 Year Windows')\n# plt.xlabel('5 Year Window')\n# plt.ylabel('Shootings per 100,000')\n# ax.xaxis.set_major_formatter(ticker.FixedFormatter(ticklabels))\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.gcf().autofmt_xdate()\n_ = df_race_norm.index",
+      "raw": "# Normerilzed Shooter Race distribution 5 Year Windows per 100,000 in poulation\n#ax = norm_us.plot(kind='bar',x=df_race_us.index,stacked=True,figsize=(20,10))\n# FIRST-AUTHOR: remove plotting\n# ax = df_race_norm.plot(kind='bar',x=df_race_norm.index,stacked=False,figsize=(15,9))\n# plt.title('Normerilzed Shooter Race Distribution per 100,000 in 5 Year Windows')\n# plt.xlabel('5 Year Window')\n# plt.ylabel('Shootings per 100,000')\n# ax.xaxis.set_major_formatter(ticker.FixedFormatter(ticklabels))\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.gcf().autofmt_xdate()\n_ = df_race_norm.index",
       "rewrite-ns": 262345,
       "overhead-ns": 262345,
       "exec-ns": 184636,
@@ -228,7 +228,7 @@
       "rewritten": "df.Gender = df.Gender.str.strip()\nto_replace_list = ['M', 'M/F']\nreplace_list = ['Male', 'Male/Female']\ndf.Gender = df.Gender.replace(to_replace_list, replace_list)\nGender = df.Gender.value_counts()\nGender\n"
     },
     {
-      "raw": "# plot pie chart for race distribution\n# ALEX: remove plotting\n# fig,ax = plt.subplots(figsize=(10,10))\n# ax.pie(x=Gender,labels=Gender.index,rotatelabels=False, autopct='%.2f%%');\n# plt.title('Shooter Gender Distribution');\n_ = Gender.index",
+      "raw": "# plot pie chart for race distribution\n# FIRST-AUTHOR: remove plotting\n# fig,ax = plt.subplots(figsize=(10,10))\n# ax.pie(x=Gender,labels=Gender.index,rotatelabels=False, autopct='%.2f%%');\n# plt.title('Shooter Gender Distribution');\n_ = Gender.index",
       "rewrite-ns": 250490,
       "overhead-ns": 250490,
       "exec-ns": 179061,
@@ -237,7 +237,7 @@
       "rewritten": "_ = Gender.index\n"
     },
     {
-      "raw": "# calculate weekday name column\n# ALEX: make notebook run\n# df['day_of_week'] = df['Date'].dt.weekday_name\ndf['day_of_week'] = df['Date'].dt.day_name()\nday_of_week = df.day_of_week.value_counts()",
+      "raw": "# calculate weekday name column\n# FIRST-AUTHOR: make notebook run\n# df['day_of_week'] = df['Date'].dt.weekday_name\ndf['day_of_week'] = df['Date'].dt.day_name()\nday_of_week = df.day_of_week.value_counts()",
       "rewrite-ns": 832182,
       "overhead-ns": 832182,
       "exec-ns": 1118075,
@@ -246,7 +246,7 @@
       "rewritten": "df['day_of_week'] = df['Date'].dt.day_name()\nday_of_week = df.day_of_week.value_counts()\n"
     },
     {
-      "raw": "# plot pie chart for day of week\n# ALEX: remove plotting\n# fig,ax = plt.subplots(figsize=(10,10))\n# ax.pie(x=day_of_week,labels=day_of_week.index,rotatelabels=False, autopct='%.2f%%');\n# plt.title('Day of Week Distribution');\n_ = day_of_week.index",
+      "raw": "# plot pie chart for day of week\n# FIRST-AUTHOR: remove plotting\n# fig,ax = plt.subplots(figsize=(10,10))\n# ax.pie(x=day_of_week,labels=day_of_week.index,rotatelabels=False, autopct='%.2f%%');\n# plt.title('Day of Week Distribution');\n_ = day_of_week.index",
       "rewrite-ns": 253458,
       "overhead-ns": 253458,
       "exec-ns": 180182,
@@ -264,7 +264,7 @@
       "rewritten": "df['month_of_year'] = df['Date'].dt.month\nmonth_of_year = df.month_of_year.value_counts()\n"
     },
     {
-      "raw": "# plot pie chart for day of week\n# ALEX: remove plotting\n# fig,ax = plt.subplots(figsize=(10,10))\n# ax.pie(x=month_of_year,labels=month_of_year.index,rotatelabels=False, autopct='%.2f%%');\n# plt.title('Month of Year Distribution');\n_ = month_of_year.index",
+      "raw": "# plot pie chart for day of week\n# FIRST-AUTHOR: remove plotting\n# fig,ax = plt.subplots(figsize=(10,10))\n# ax.pie(x=month_of_year,labels=month_of_year.index,rotatelabels=False, autopct='%.2f%%');\n# plt.title('Month of Year Distribution');\n_ = month_of_year.index",
       "rewrite-ns": 256268,
       "overhead-ns": 256268,
       "exec-ns": 182535,
@@ -282,7 +282,7 @@
       "rewritten": "f_month = df.groupby(pd.Grouper(key='month_of_year'))['Fatalities'].sum()\nf_month_sum = f_month.sum()\nf_month_sum_norm = f_month / f_month_sum * 100\nf_month_sum_norm_sort = f_month_sum_norm.sort_index()\nf_month\n"
     },
     {
-      "raw": "# Normerilzed month fatality distribution\n# ALEX: remove plotting\n# ax = f_month_sum_norm_sort.plot(kind='bar',x=f_month_sum_norm_sort.index,stacked=True,figsize=(10,6))\n# plt.title('Normerilzed Monthly Fatality Distribution')\n# plt.xlabel('Month')\n# plt.ylabel('Normilized Fatalities %')\n# #ax.xaxis.set_major_formatter(ticker.FixedFormatter(ticklabels))\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.gcf().autofmt_xdate()\n_ = f_month_sum_norm_sort.index",
+      "raw": "# Normerilzed month fatality distribution\n# FIRST-AUTHOR: remove plotting\n# ax = f_month_sum_norm_sort.plot(kind='bar',x=f_month_sum_norm_sort.index,stacked=True,figsize=(10,6))\n# plt.title('Normerilzed Monthly Fatality Distribution')\n# plt.xlabel('Month')\n# plt.ylabel('Normilized Fatalities %')\n# #ax.xaxis.set_major_formatter(ticker.FixedFormatter(ticklabels))\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.gcf().autofmt_xdate()\n_ = f_month_sum_norm_sort.index",
       "rewrite-ns": 254565,
       "overhead-ns": 254565,
       "exec-ns": 181569,
@@ -300,7 +300,7 @@
       "rewritten": "size = df.groupby(pd.Grouper(key='Date', freq='5AS'))['month_of_year'].size()\ndf_month_5 = df.groupby(pd.Grouper(key='Date', freq='5AS'))['month_of_year'\n    ].value_counts()\nticklabels = ['1966 - 1970', '1971 - 1975', '1976 - 1980', '1981 - 1985',\n    '1986 - 1990', '1991 - 1995', '1996 - 2000', '2001 - 2005',\n    '2006 - 2010', '2011 - 2015', '2016 - 2017']\ndf_month_5_n = df_month_5 / size * 100\n"
     },
     {
-      "raw": "# Number of shooting by month 5 Year Windows\ndf_month_5_n_us = df_month_5_n.unstack()\n# ALEX: remove plotting\n# ax = df_month_5_n_us.plot(kind='bar',x=df_month_5_n_us.index,stacked=True,figsize=(10,6),colormap='Paired')\n# plt.title('Number Shootings Normerilzed Month Distribution 5 Year Window')\n# plt.xlabel('5 Year Window')\n# plt.ylabel('Number Shootings')\n# ax.xaxis.set_major_formatter(ticker.FixedFormatter(ticklabels))\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.gcf().autofmt_xdate()\n_ = df_month_5_n_us.index",
+      "raw": "# Number of shooting by month 5 Year Windows\ndf_month_5_n_us = df_month_5_n.unstack()\n# FIRST-AUTHOR: remove plotting\n# ax = df_month_5_n_us.plot(kind='bar',x=df_month_5_n_us.index,stacked=True,figsize=(10,6),colormap='Paired')\n# plt.title('Number Shootings Normerilzed Month Distribution 5 Year Window')\n# plt.xlabel('5 Year Window')\n# plt.ylabel('Number Shootings')\n# ax.xaxis.set_major_formatter(ticker.FixedFormatter(ticklabels))\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.gcf().autofmt_xdate()\n_ = df_month_5_n_us.index",
       "rewrite-ns": 515689,
       "overhead-ns": 515689,
       "exec-ns": 649303,
@@ -309,7 +309,7 @@
       "rewritten": "df_month_5_n_us = df_month_5_n.unstack()\n_ = df_month_5_n_us.index\n"
     },
     {
-      "raw": "# plot pie chart mental health distribution\nmental = df['Mental Health Issues'].value_counts()\n# ALEX: remove plotting\n# fig,ax = plt.subplots(figsize=(10,10))\n# ax.pie(x=mental,labels=mental.index,rotatelabels=False, autopct='%.2f%%');\n# plt.title('Mental Health Distribution');\n_ = mental.index",
+      "raw": "# plot pie chart mental health distribution\nmental = df['Mental Health Issues'].value_counts()\n# FIRST-AUTHOR: remove plotting\n# fig,ax = plt.subplots(figsize=(10,10))\n# ax.pie(x=mental,labels=mental.index,rotatelabels=False, autopct='%.2f%%');\n# plt.title('Mental Health Distribution');\n_ = mental.index",
       "rewrite-ns": 619111,
       "overhead-ns": 619111,
       "exec-ns": 533218,
@@ -318,7 +318,7 @@
       "rewritten": "mental = df['Mental Health Issues'].value_counts()\n_ = mental.index\n"
     },
     {
-      "raw": "# plot pie chart mental health distribution\ncause = df['Cause'].value_counts()\n# ALEX: remove plotting\n# fig,ax = plt.subplots(figsize=(10,10))\n# ax.pie(x=cause,labels=cause.index,rotatelabels=False, autopct='%.2f%%');\n# plt.title('Cause Distribution');\n_ = cause.index",
+      "raw": "# plot pie chart mental health distribution\ncause = df['Cause'].value_counts()\n# FIRST-AUTHOR: remove plotting\n# fig,ax = plt.subplots(figsize=(10,10))\n# ax.pie(x=cause,labels=cause.index,rotatelabels=False, autopct='%.2f%%');\n# plt.title('Cause Distribution');\n_ = cause.index",
       "rewrite-ns": 613103,
       "overhead-ns": 613103,
       "exec-ns": 523939,
@@ -327,7 +327,7 @@
       "rewritten": "cause = df['Cause'].value_counts()\n_ = cause.index\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# from wordcloud import WordCloud, STOPWORDS\n# stopwords = set(STOPWORDS)\n# wordcloud = WordCloud(background_color='white',stopwords=stopwords,max_words=100,\n#                       max_font_size=40).generate(str(df['Summary']))\n# plt.figure(figsize=(10,6))\n# plt.imshow(wordcloud)\n# plt.axis('off')\n# plt.show()\n_ = str(df['Summary'])",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# from wordcloud import WordCloud, STOPWORDS\n# stopwords = set(STOPWORDS)\n# wordcloud = WordCloud(background_color='white',stopwords=stopwords,max_words=100,\n#                       max_font_size=40).generate(str(df['Summary']))\n# plt.figure(figsize=(10,6))\n# plt.imshow(wordcloud)\n# plt.axis('off')\n# plt.show()\n_ = str(df['Summary'])",
       "rewrite-ns": 404445,
       "overhead-ns": 404445,
       "exec-ns": 760035,
@@ -363,7 +363,7 @@
       "rewritten": "print('{0:.1f}% of the summary blocks contain the word student'.format(len(\n    students) / len(df) * 100))\n"
     },
     {
-      "raw": "ages = df.Age.values\nsum = []\nfor i in ages:\n# ALEX: make notebook work with input scaling\n#     if type(i) == float:\n    if type(i) == float or type(i) == np.float64:\n        continue\n    print('\"Age\"', i)\n    s = i.split(',')\n    sum.append(s)\nflattened = [int(val) for sublist in sum for val in sublist]",
+      "raw": "ages = df.Age.values\nsum = []\nfor i in ages:\n# FIRST-AUTHOR: make notebook work with input scaling\n#     if type(i) == float:\n    if type(i) == float or type(i) == np.float64:\n        continue\n    print('\"Age\"', i)\n    s = i.split(',')\n    sum.append(s)\nflattened = [int(val) for sublist in sum for val in sublist]",
       "rewrite-ns": 2418970,
       "overhead-ns": 2418970,
       "exec-ns": 816796,
@@ -372,7 +372,7 @@
       "rewritten": "ages = df.Age.values\nsum = []\nfor i in ages:\n    if type(i) == float or type(i) == np.float64:\n        continue\n    print('\"Age\"', i)\n    s = i.split(',')\n    sum.append(s)\nflattened = [int(val) for sublist in sum for val in sublist]\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# fig,ax = plt.subplots(figsize=ratio)\n# ax.hist(flattened,bins=10)\n# ax.xaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.xaxis.grid(True,'major') # turn on major tic grid lines;\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.xlabel('Age')\n# plt.ylabel('Number of shooters');\n# plt.title('Histogram of Shooter Age');",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# fig,ax = plt.subplots(figsize=ratio)\n# ax.hist(flattened,bins=10)\n# ax.xaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.xaxis.grid(True,'major') # turn on major tic grid lines;\n# ax.yaxis.grid(False,'minor') # turn off minor tic grid lines\n# ax.yaxis.grid(True,'major') # turn on major tic grid lines;\n# plt.xlabel('Age')\n# plt.ylabel('Number of shooters');\n# plt.title('Histogram of Shooter Age');",
       "rewrite-ns": 13979,
       "overhead-ns": 13979,
       "exec-ns": 66536,
@@ -381,7 +381,7 @@
       "rewritten": ""
     },
     {
-      "raw": "# plot pie chart for targets\ntarget = df.Target.value_counts()\n# ALEX: remove plotting\n# df.Target.value_counts()[:20].plot(kind='barh',figsize=(10,6))\n# plt.xlabel('Counts')\n# plt.title('What are  the Targets');\n_ = df.Target.value_counts()[:20]",
+      "raw": "# plot pie chart for targets\ntarget = df.Target.value_counts()\n# FIRST-AUTHOR: remove plotting\n# df.Target.value_counts()[:20].plot(kind='barh',figsize=(10,6))\n# plt.xlabel('Counts')\n# plt.title('What are  the Targets');\n_ = df.Target.value_counts()[:20]",
       "rewrite-ns": 781476,
       "overhead-ns": 781476,
       "exec-ns": 840925,
@@ -390,7 +390,7 @@
       "rewritten": "target = df.Target.value_counts()\n_ = df.Target.value_counts()[:20]\n"
     },
     {
-      "raw": "# ALEX: remove plotting\n# from plotly.offline import download_plotlyjs, init_notebook_mode, iplot\n# from plotly.graph_objs import *\n# init_notebook_mode()\n\n#df_f = df[df['Fatalities'] > 5]\ndf['text'] = 'Fatalities ' + (df['Fatalities']).astype(str) + '<br>' + (df['Location']).astype(str)\nscale = 5\nkilled = [dict(\n    type = 'scattergeo',\n    locationmode = 'USA-states',\n    lon = df['Longitude'],\n    lat = df['Latitude'],\n     text = df['text'],\n     marker = dict(\n        size = df['Fatalities']*scale,\n        color = \"rgb(0,116,217)\",\n        line = dict(width=0.5, color='rgb(40,40,40)'),\n        sizemode = 'area'\n    ),\n    #name = ?\n)]\n    \n# ALEX: remove plotting\n# layout = dict(\n#     title = 'Mass Shooting Fatalities',\n#     showlegend = False,\n#     geo = dict(\n#         scope='usa',\n#         projection=dict( type='albers usa' ),\n#         showland = True,\n#         landcolor = 'rgb(217, 217, 217)',\n#         subunitwidth=1,\n#         countrywidth=1,\n#         subunitcolor=\"rgb(255, 255, 255)\",\n#         countrycolor=\"rgb(255, 255, 255)\"\n#     )\n# )\n# fig = dict( data=killed, layout=layout )\n# iplot( fig)",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# from plotly.offline import download_plotlyjs, init_notebook_mode, iplot\n# from plotly.graph_objs import *\n# init_notebook_mode()\n\n#df_f = df[df['Fatalities'] > 5]\ndf['text'] = 'Fatalities ' + (df['Fatalities']).astype(str) + '<br>' + (df['Location']).astype(str)\nscale = 5\nkilled = [dict(\n    type = 'scattergeo',\n    locationmode = 'USA-states',\n    lon = df['Longitude'],\n    lat = df['Latitude'],\n     text = df['text'],\n     marker = dict(\n        size = df['Fatalities']*scale,\n        color = \"rgb(0,116,217)\",\n        line = dict(width=0.5, color='rgb(40,40,40)'),\n        sizemode = 'area'\n    ),\n    #name = ?\n)]\n    \n# FIRST-AUTHOR: remove plotting\n# layout = dict(\n#     title = 'Mass Shooting Fatalities',\n#     showlegend = False,\n#     geo = dict(\n#         scope='usa',\n#         projection=dict( type='albers usa' ),\n#         showland = True,\n#         landcolor = 'rgb(217, 217, 217)',\n#         subunitwidth=1,\n#         countrywidth=1,\n#         subunitcolor=\"rgb(255, 255, 255)\",\n#         countrycolor=\"rgb(255, 255, 255)\"\n#     )\n# )\n# fig = dict( data=killed, layout=layout )\n# iplot( fig)",
       "rewrite-ns": 2880353,
       "overhead-ns": 2880353,
       "exec-ns": 1576916,

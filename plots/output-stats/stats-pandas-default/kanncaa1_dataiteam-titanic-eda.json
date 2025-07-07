@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 114,
   "cells": [
     {
-      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# plt.style.use(\"seaborn-whitegrid\")\n\n# import seaborn as sns\n\nfrom collections import Counter\n\nimport warnings\nwarnings.filterwarnings(\"ignore\")\n\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# ALEX: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# Any results you write to the current directory are saved as output.",
+      "raw": "# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load in \n\nimport numpy as np # linear algebra\n# import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\nexec(os.environ['IREWR_IMPORTS'])\n\n# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# plt.style.use(\"seaborn-whitegrid\")\n\n# import seaborn as sns\n\nfrom collections import Counter\n\nimport warnings\nwarnings.filterwarnings(\"ignore\")\n\n# Input data files are available in the \"../input/\" directory.\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\n# FIRST-AUTHOR: remove path printing\n# import os\n# for dirname, _, filenames in os.walk('./input'):\n#     for filename in filenames:\n#         print(os.path.join(dirname, filename))\n\n# Any results you write to the current directory are saved as output.",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 641546
@@ -39,7 +39,7 @@
       "total-ns": 5685078
     },
     {
-      "raw": "def bar_plot(variable):\n    \"\"\"\n        input: variable ex: \"Sex\"\n        output: bar plot & value count\n    \"\"\"\n    # get feature\n    var = train_df[variable]\n    # count number of categorical variable(value/sample)\n    varValue = var.value_counts()\n    \n    # visualize\n# ALEX: remove plotting\n#     plt.figure(figsize = (9,3))\n#     plt.bar(varValue.index, varValue)\n#     plt.xticks(varValue.index, varValue.index.values)\n#     plt.ylabel(\"Frequency\")\n#     plt.title(variable)\n#     plt.show()\n#     print(\"{}: \\n {}\".format(variable,varValue))\n    _ = varValue.index\n    _ = varValue.index\n    _ = varValue.index.values\n    _ = \"{}: \\n {}\".format(variable,varValue)\n    ",
+      "raw": "def bar_plot(variable):\n    \"\"\"\n        input: variable ex: \"Sex\"\n        output: bar plot & value count\n    \"\"\"\n    # get feature\n    var = train_df[variable]\n    # count number of categorical variable(value/sample)\n    varValue = var.value_counts()\n    \n    # visualize\n# FIRST-AUTHOR: remove plotting\n#     plt.figure(figsize = (9,3))\n#     plt.bar(varValue.index, varValue)\n#     plt.xticks(varValue.index, varValue.index.values)\n#     plt.ylabel(\"Frequency\")\n#     plt.title(variable)\n#     plt.show()\n#     print(\"{}: \\n {}\".format(variable,varValue))\n    _ = varValue.index\n    _ = varValue.index\n    _ = varValue.index.values\n    _ = \"{}: \\n {}\".format(variable,varValue)\n    ",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 905485
@@ -57,7 +57,7 @@
       "total-ns": 3785406
     },
     {
-      "raw": "def plot_hist(variable):\n# ALEX: remove plotting\n#     plt.figure(figsize = (9,3))\n#     plt.hist(train_df[variable], bins = 50)\n#     plt.xlabel(variable)\n#     plt.ylabel(\"Frequency\")\n#     plt.title(\"{} distribution with hist\".format(variable))\n#     plt.show()\n    _ = train_df[variable]\n    _ = \"{} distribution with hist\".format(variable)",
+      "raw": "def plot_hist(variable):\n# FIRST-AUTHOR: remove plotting\n#     plt.figure(figsize = (9,3))\n#     plt.hist(train_df[variable], bins = 50)\n#     plt.xlabel(variable)\n#     plt.ylabel(\"Frequency\")\n#     plt.title(\"{} distribution with hist\".format(variable))\n#     plt.show()\n    _ = train_df[variable]\n    _ = \"{} distribution with hist\".format(variable)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 447802
@@ -141,7 +141,7 @@
       "total-ns": 831031
     },
     {
-      "raw": "# ALEX: remove plotting\n# train_df.boxplot(column=\"Fare\",by = \"Embarked\")\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# train_df.boxplot(column=\"Fare\",by = \"Embarked\")\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 176133
@@ -171,49 +171,49 @@
       "total-ns": 879920
     },
     {
-      "raw": "list1 = [\"SibSp\", \"Parch\", \"Age\", \"Fare\", \"Survived\"]\n# ALEX: remove plotting\n# sns.heatmap(train_df[list1].corr(), annot = True, fmt = \".2f\")\n# plt.show()\n_ = train_df[list1].corr()",
+      "raw": "list1 = [\"SibSp\", \"Parch\", \"Age\", \"Fare\", \"Survived\"]\n# FIRST-AUTHOR: remove plotting\n# sns.heatmap(train_df[list1].corr(), annot = True, fmt = \".2f\")\n# plt.show()\n_ = train_df[list1].corr()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1295981
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.factorplot(x = \"SibSp\", y = \"Survived\", data = train_df, kind = \"bar\", size = 6)\n# g.set_ylabels(\"Survived Probability\")\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.factorplot(x = \"SibSp\", y = \"Survived\", data = train_df, kind = \"bar\", size = 6)\n# g.set_ylabels(\"Survived Probability\")\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 184686
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.factorplot(x = \"Parch\", y = \"Survived\", kind = \"bar\", data = train_df, size = 6)\n# g.set_ylabels(\"Survived Probability\")\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.factorplot(x = \"Parch\", y = \"Survived\", kind = \"bar\", data = train_df, size = 6)\n# g.set_ylabels(\"Survived Probability\")\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 172699
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.factorplot(x = \"Pclass\", y = \"Survived\", data = train_df, kind = \"bar\", size = 6)\n# g.set_ylabels(\"Survived Probability\")\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.factorplot(x = \"Pclass\", y = \"Survived\", data = train_df, kind = \"bar\", size = 6)\n# g.set_ylabels(\"Survived Probability\")\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 165597
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(train_df, col = \"Survived\")\n# g.map(sns.distplot, \"Age\", bins = 25)\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.FacetGrid(train_df, col = \"Survived\")\n# g.map(sns.distplot, \"Age\", bins = 25)\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 163826
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(train_df, col = \"Survived\", row = \"Pclass\", size = 2)\n# g.map(plt.hist, \"Age\", bins = 25)\n# g.add_legend()\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.FacetGrid(train_df, col = \"Survived\", row = \"Pclass\", size = 2)\n# g.map(plt.hist, \"Age\", bins = 25)\n# g.add_legend()\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 168973
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(train_df, row = \"Embarked\", size = 2)\n# g.map(sns.pointplot, \"Pclass\",\"Survived\",\"Sex\")\n# g.add_legend()\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.FacetGrid(train_df, row = \"Embarked\", size = 2)\n# g.map(sns.pointplot, \"Pclass\",\"Survived\",\"Sex\")\n# g.add_legend()\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 162323
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.FacetGrid(train_df, row = \"Embarked\", col = \"Survived\", size = 2.3)\n# g.map(sns.barplot, \"Sex\", \"Fare\")\n# g.add_legend()\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.FacetGrid(train_df, row = \"Embarked\", col = \"Survived\", size = 2.3)\n# g.map(sns.barplot, \"Sex\", \"Fare\")\n# g.add_legend()\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 158942
@@ -225,19 +225,19 @@
       "total-ns": 760107
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.factorplot(x = \"Sex\", y = \"Age\", data = train_df, kind = \"box\")\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.factorplot(x = \"Sex\", y = \"Age\", data = train_df, kind = \"box\")\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 167880
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.factorplot(x = \"Sex\", y = \"Age\", hue = \"Pclass\",data = train_df, kind = \"box\")\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.factorplot(x = \"Sex\", y = \"Age\", hue = \"Pclass\",data = train_df, kind = \"box\")\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 158379
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.factorplot(x = \"Parch\", y = \"Age\", data = train_df, kind = \"box\")\n# sns.factorplot(x = \"SibSp\", y = \"Age\", data = train_df, kind = \"box\")\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.factorplot(x = \"Parch\", y = \"Age\", data = train_df, kind = \"box\")\n# sns.factorplot(x = \"SibSp\", y = \"Age\", data = train_df, kind = \"box\")\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 159571
@@ -249,7 +249,7 @@
       "total-ns": 181909
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.heatmap(train_df[[\"Age\",\"Sex\",\"SibSp\",\"Parch\",\"Pclass\"]].corr(), annot = True)\n# plt.show()\n_ = train_df[[\"Age\",\"Sex\",\"SibSp\",\"Parch\",\"Pclass\"]].corr()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.heatmap(train_df[[\"Age\",\"Sex\",\"SibSp\",\"Parch\",\"Pclass\"]].corr(), annot = True)\n# plt.show()\n_ = train_df[[\"Age\",\"Sex\",\"SibSp\",\"Parch\",\"Pclass\"]].corr()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1329796
@@ -285,7 +285,7 @@
       "total-ns": 475612
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.countplot(x=\"Title\", data = train_df)\n# plt.xticks(rotation = 60)\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.countplot(x=\"Title\", data = train_df)\n# plt.xticks(rotation = 60)\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 175637
@@ -297,13 +297,13 @@
       "total-ns": 2942783
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.countplot(x=\"Title\", data = train_df)\n# plt.xticks(rotation = 60)\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.countplot(x=\"Title\", data = train_df)\n# plt.xticks(rotation = 60)\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 179713
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.factorplot(x = \"Title\", y = \"Survived\", data = train_df, kind = \"bar\")\n# g.set_xticklabels([\"Master\",\"Mrs\",\"Mr\",\"Other\"])\n# g.set_ylabels(\"Survival Probability\")\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.factorplot(x = \"Title\", y = \"Survived\", data = train_df, kind = \"bar\")\n# g.set_xticklabels([\"Master\",\"Mrs\",\"Mr\",\"Other\"])\n# g.set_ylabels(\"Survival Probability\")\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 175243
@@ -345,7 +345,7 @@
       "total-ns": 359791
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.factorplot(x = \"Fsize\", y = \"Survived\", data = train_df, kind = \"bar\")\n# g.set_ylabels(\"Survival\")\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.factorplot(x = \"Fsize\", y = \"Survived\", data = train_df, kind = \"bar\")\n# g.set_ylabels(\"Survival\")\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 177007
@@ -363,13 +363,13 @@
       "total-ns": 366569
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.countplot(x = \"family_size\", data = train_df)\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.countplot(x = \"family_size\", data = train_df)\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 162638
     },
     {
-      "raw": "# ALEX: remove plotting\n# g = sns.factorplot(x = \"family_size\", y = \"Survived\", data = train_df, kind = \"bar\")\n# g.set_ylabels(\"Survival\")\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# g = sns.factorplot(x = \"family_size\", y = \"Survived\", data = train_df, kind = \"bar\")\n# g.set_ylabels(\"Survival\")\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 162498
@@ -387,7 +387,7 @@
       "total-ns": 482381
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.countplot(x = \"Embarked\", data = train_df)\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.countplot(x = \"Embarked\", data = train_df)\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 193578
@@ -435,7 +435,7 @@
       "total-ns": 3381448
     },
     {
-      "raw": "# ALEX: remove plotting\n# sns.countplot(x = \"Pclass\", data = train_df)\n# plt.show()",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# sns.countplot(x = \"Pclass\", data = train_df)\n# plt.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 176569
@@ -465,7 +465,7 @@
       "total-ns": 278924
     },
     {
-      "raw": "# ALEX: remove ML code\n# from sklearn.model_selection import train_test_split, StratifiedKFold, GridSearchCV\n# from sklearn.linear_model import LogisticRegression\n# from sklearn.svm import SVC\n# from sklearn.ensemble import RandomForestClassifier, VotingClassifier\n# from sklearn.neighbors import KNeighborsClassifier\n# from sklearn.tree import DecisionTreeClassifier\n# from sklearn.metrics import accuracy_score",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# from sklearn.model_selection import train_test_split, StratifiedKFold, GridSearchCV\n# from sklearn.linear_model import LogisticRegression\n# from sklearn.svm import SVC\n# from sklearn.ensemble import RandomForestClassifier, VotingClassifier\n# from sklearn.neighbors import KNeighborsClassifier\n# from sklearn.tree import DecisionTreeClassifier\n# from sklearn.metrics import accuracy_score",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 198039
@@ -489,43 +489,43 @@
       "total-ns": 349655
     },
     {
-      "raw": "train = train_df[:train_df_len]\nX_train = train.drop(labels = \"Survived\", axis = 1)\ny_train = train[\"Survived\"]\n# ALEX: remove ML code\n# X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size = 0.33, random_state = 42)\n# print(\"X_train\",len(X_train))\n# print(\"X_test\",len(X_test))\n# print(\"y_train\",len(y_train))\n# print(\"y_test\",len(y_test))\nprint(\"test\",len(test))",
+      "raw": "train = train_df[:train_df_len]\nX_train = train.drop(labels = \"Survived\", axis = 1)\ny_train = train[\"Survived\"]\n# FIRST-AUTHOR: remove ML code\n# X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size = 0.33, random_state = 42)\n# print(\"X_train\",len(X_train))\n# print(\"X_test\",len(X_test))\n# print(\"y_train\",len(y_train))\n# print(\"y_test\",len(y_test))\nprint(\"test\",len(test))",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 1365293
     },
     {
-      "raw": "# ALEX: remove ML code\n# logreg = LogisticRegression()\n# logreg.fit(X_train, y_train)\n# acc_log_train = round(logreg.score(X_train, y_train)*100,2) \n# acc_log_test = round(logreg.score(X_test,y_test)*100,2)\n# print(\"Training Accuracy: % {}\".format(acc_log_train))\n# print(\"Testing Accuracy: % {}\".format(acc_log_test))",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# logreg = LogisticRegression()\n# logreg.fit(X_train, y_train)\n# acc_log_train = round(logreg.score(X_train, y_train)*100,2) \n# acc_log_test = round(logreg.score(X_test,y_test)*100,2)\n# print(\"Training Accuracy: % {}\".format(acc_log_train))\n# print(\"Testing Accuracy: % {}\".format(acc_log_test))",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 201050
     },
     {
-      "raw": "# ALEX: remove ML code\n# random_state = 42\n# classifier = [DecisionTreeClassifier(random_state = random_state),\n#              SVC(random_state = random_state),\n#              RandomForestClassifier(random_state = random_state),\n#              LogisticRegression(random_state = random_state),\n#              KNeighborsClassifier()]\n\n# dt_param_grid = {\"min_samples_split\" : range(10,500,20),\n#                 \"max_depth\": range(1,20,2)}\n\n# svc_param_grid = {\"kernel\" : [\"rbf\"],\n#                  \"gamma\": [0.001, 0.01, 0.1, 1],\n#                  \"C\": [1,10,50,100,200,300,1000]}\n\n# rf_param_grid = {\"max_features\": [1,3,10],\n#                 \"min_samples_split\":[2,3,10],\n#                 \"min_samples_leaf\":[1,3,10],\n#                 \"bootstrap\":[False],\n#                 \"n_estimators\":[100,300],\n#                 \"criterion\":[\"gini\"]}\n\n# logreg_param_grid = {\"C\":np.logspace(-3,3,7),\n#                     \"penalty\": [\"l1\",\"l2\"]}\n\n# knn_param_grid = {\"n_neighbors\": np.linspace(1,19,10, dtype = int).tolist(),\n#                  \"weights\": [\"uniform\",\"distance\"],\n#                  \"metric\":[\"euclidean\",\"manhattan\"]}\n# classifier_param = [dt_param_grid,\n#                    svc_param_grid,\n#                    rf_param_grid,\n#                    logreg_param_grid,\n#                    knn_param_grid]",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# random_state = 42\n# classifier = [DecisionTreeClassifier(random_state = random_state),\n#              SVC(random_state = random_state),\n#              RandomForestClassifier(random_state = random_state),\n#              LogisticRegression(random_state = random_state),\n#              KNeighborsClassifier()]\n\n# dt_param_grid = {\"min_samples_split\" : range(10,500,20),\n#                 \"max_depth\": range(1,20,2)}\n\n# svc_param_grid = {\"kernel\" : [\"rbf\"],\n#                  \"gamma\": [0.001, 0.01, 0.1, 1],\n#                  \"C\": [1,10,50,100,200,300,1000]}\n\n# rf_param_grid = {\"max_features\": [1,3,10],\n#                 \"min_samples_split\":[2,3,10],\n#                 \"min_samples_leaf\":[1,3,10],\n#                 \"bootstrap\":[False],\n#                 \"n_estimators\":[100,300],\n#                 \"criterion\":[\"gini\"]}\n\n# logreg_param_grid = {\"C\":np.logspace(-3,3,7),\n#                     \"penalty\": [\"l1\",\"l2\"]}\n\n# knn_param_grid = {\"n_neighbors\": np.linspace(1,19,10, dtype = int).tolist(),\n#                  \"weights\": [\"uniform\",\"distance\"],\n#                  \"metric\":[\"euclidean\",\"manhattan\"]}\n# classifier_param = [dt_param_grid,\n#                    svc_param_grid,\n#                    rf_param_grid,\n#                    logreg_param_grid,\n#                    knn_param_grid]",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 315418
     },
     {
-      "raw": "# ALEX: remove ML code\n# cv_result = []\n# best_estimators = []\n# for i in range(len(classifier)):\n#     clf = GridSearchCV(classifier[i], param_grid=classifier_param[i], cv = StratifiedKFold(n_splits = 10), scoring = \"accuracy\", n_jobs = -1,verbose = 1)\n#     clf.fit(X_train,y_train)\n#     cv_result.append(clf.best_score_)\n#     best_estimators.append(clf.best_estimator_)\n#     print(cv_result[i])",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# cv_result = []\n# best_estimators = []\n# for i in range(len(classifier)):\n#     clf = GridSearchCV(classifier[i], param_grid=classifier_param[i], cv = StratifiedKFold(n_splits = 10), scoring = \"accuracy\", n_jobs = -1,verbose = 1)\n#     clf.fit(X_train,y_train)\n#     cv_result.append(clf.best_score_)\n#     best_estimators.append(clf.best_estimator_)\n#     print(cv_result[i])",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 193558
     },
     {
-      "raw": "# ALEX: remove ML code\n# cv_results = pd.DataFrame({\"Cross Validation Means\":cv_result, \"ML Models\":[\"DecisionTreeClassifier\", \"SVM\",\"RandomForestClassifier\",\n#              \"LogisticRegression\",\n#              \"KNeighborsClassifier\"]})\n\n# g = sns.barplot(\"Cross Validation Means\", \"ML Models\", data = cv_results)\n# g.set_xlabel(\"Mean Accuracy\")\n# g.set_title(\"Cross Validation Scores\")",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# cv_results = pd.DataFrame({\"Cross Validation Means\":cv_result, \"ML Models\":[\"DecisionTreeClassifier\", \"SVM\",\"RandomForestClassifier\",\n#              \"LogisticRegression\",\n#              \"KNeighborsClassifier\"]})\n\n# g = sns.barplot(\"Cross Validation Means\", \"ML Models\", data = cv_results)\n# g.set_xlabel(\"Mean Accuracy\")\n# g.set_title(\"Cross Validation Scores\")",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 182765
     },
     {
-      "raw": "# ALEX: remove ML code\n# votingC = VotingClassifier(estimators = [(\"dt\",best_estimators[0]),\n#                                         (\"rfc\",best_estimators[2]),\n#                                         (\"lr\",best_estimators[3])],\n#                                         voting = \"soft\", n_jobs = -1)\n# votingC = votingC.fit(X_train, y_train)\n# print(accuracy_score(votingC.predict(X_test),y_test))",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# votingC = VotingClassifier(estimators = [(\"dt\",best_estimators[0]),\n#                                         (\"rfc\",best_estimators[2]),\n#                                         (\"lr\",best_estimators[3])],\n#                                         voting = \"soft\", n_jobs = -1)\n# votingC = votingC.fit(X_train, y_train)\n# print(accuracy_score(votingC.predict(X_test),y_test))",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 177272
     },
     {
-      "raw": "# ALEX: remove ML code\n# test_survived = pd.Series(votingC.predict(test), name = \"Survived\").astype(int)\n# results = pd.concat([test_PassengerId, test_survived],axis = 1)\n# results.to_csv(\"titanic.csv\", index = False)",
+      "raw": "# FIRST-AUTHOR: remove ML code\n# test_survived = pd.Series(votingC.predict(test), name = \"Survived\").astype(int)\n# results = pd.concat([test_PassengerId, test_survived],axis = 1)\n# results.to_csv(\"titanic.csv\", index = False)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 158993

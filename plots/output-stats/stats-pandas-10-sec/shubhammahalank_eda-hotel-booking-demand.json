@@ -3,7 +3,7 @@
   "max-mem-in-mb2": 981,
   "cells": [
     {
-      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport datetime\n\n# ALEX: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# import folium\n# %matplotlib inline",
+      "raw": "import numpy as np\n# import pandas as pd\nexec(os.environ['IREWR_IMPORTS'])\nimport datetime\n\n# FIRST-AUTHOR: remove plotting\n# import matplotlib.pyplot as plt\n# import seaborn as sns\n# import folium\n# %matplotlib inline",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 413587
@@ -45,7 +45,7 @@
       "total-ns": 7842169978
     },
     {
-      "raw": "# Plot to show outlier in Average Daily Rate\n# ALEX: remove plotting\n# ax = sns.boxplot(x=hotel_bookings['adr'])\n_ = hotel_bookings['adr']",
+      "raw": "# Plot to show outlier in Average Daily Rate\n# FIRST-AUTHOR: remove plotting\n# ax = sns.boxplot(x=hotel_bookings['adr'])\n_ = hotel_bookings['adr']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 297510
@@ -63,19 +63,19 @@
       "total-ns": 91361532
     },
     {
-      "raw": "# ALEX: remove plotting\n# ax = sns.boxplot(x=hotel_bookings['adr'])\n_ = hotel_bookings['adr']",
+      "raw": "# FIRST-AUTHOR: remove plotting\n# ax = sns.boxplot(x=hotel_bookings['adr'])\n_ = hotel_bookings['adr']",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 376885
     },
     {
-      "raw": "# The function generating the EDA for categorical data\n\ndef categorical_eda(df):\n    \"\"\"Given dataframe, generate EDA of categorical data\"\"\"\n    print(\"To check: Unique count of non-numeric data\")\n    print(df.select_dtypes(include=['category']).nunique())\n    # Plot count distribution of categorical data\n    \n    for col in df.select_dtypes(include='category').columns:\n        if df[col].nunique() < 20:\n# ALEX: remove plotting\n#             fig = sns.catplot(x=col, kind=\"count\", data=df)\n#             fig.set_xticklabels(rotation=90)\n#             plt.show()\n            pass\n        \n        \ncategorical_eda(hotel_bookings)",
+      "raw": "# The function generating the EDA for categorical data\n\ndef categorical_eda(df):\n    \"\"\"Given dataframe, generate EDA of categorical data\"\"\"\n    print(\"To check: Unique count of non-numeric data\")\n    print(df.select_dtypes(include=['category']).nunique())\n    # Plot count distribution of categorical data\n    \n    for col in df.select_dtypes(include='category').columns:\n        if df[col].nunique() < 20:\n# FIRST-AUTHOR: remove plotting\n#             fig = sns.catplot(x=col, kind=\"count\", data=df)\n#             fig.set_xticklabels(rotation=90)\n#             plt.show()\n            pass\n        \n        \ncategorical_eda(hotel_bookings)",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 73966195
     },
     {
-      "raw": "country_count = hotel_bookings['country'].value_counts()\ncountry_count_df = pd.DataFrame(country_count)\ncountry_count_df = country_count_df.reset_index()\ncountry_count_df.columns = ['country','booking_count']\ncountry_count_df = country_count_df[country_count_df['booking_count'] > 10]\n\n# ALEX: remove plotting\n# import plotly.express as px\n\n# fig = px.choropleth(country_count_df, locations=\"country\",\n#                     color=\"booking_count\",\n#                     hover_name=\"country\",\n#                     color_continuous_scale=px.colors.sequential.RdBu)\n# fig.show()",
+      "raw": "country_count = hotel_bookings['country'].value_counts()\ncountry_count_df = pd.DataFrame(country_count)\ncountry_count_df = country_count_df.reset_index()\ncountry_count_df.columns = ['country','booking_count']\ncountry_count_df = country_count_df[country_count_df['booking_count'] > 10]\n\n# FIRST-AUTHOR: remove plotting\n# import plotly.express as px\n\n# fig = px.choropleth(country_count_df, locations=\"country\",\n#                     color=\"booking_count\",\n#                     hover_name=\"country\",\n#                     color_continuous_scale=px.colors.sequential.RdBu)\n# fig.show()",
       "external_calls": {},
       "all_calls": {},
       "total-ns": 4064125
