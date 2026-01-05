@@ -72,7 +72,7 @@ def main():
   if _PBENCH_use_dias:
     # Use the rewriter as a lib. Note, however, that importing the rewriter will
     # overwrite apply().
-    os.environ["_PBENCH_USE_AS_LIB"] = "True"
+    os.environ["_IREWR_USE_AS_LIB"] = "True"
     import dias.rewriter
 
   _PBENCH_error_file = _PBENCH_run_config['error_file']
