@@ -1,0 +1,213 @@
+1
+--- RUNNING: akgauravin/gun-violence-data-exploration-and-plotting
+2
+--- RUNNING: akshaypetkar/supermarket-sales-analysis
+3
+--- RUNNING: arimishabirin/globalsalary-simple-eda
+4
+--- RUNNING: arjoonn/scout-script-7
+5
+--- RUNNING: artgor/eda-and-models
+There was an error while running /home/ubuntu/PandasBench/notebooks/artgor/eda-and-models/eda-and-models.ipynb. See /home/ubuntu/PandasBench/runner/errors/artgor.eda-and-models.error.txt, errors/artgor.eda-and-models.stderr.txt and errors/artgor.eda-and-models.stdout.txt
+6
+--- RUNNING: ashukr/first-step-ingestion-to-prediction
+7
+--- RUNNING: atultaur/house-sales-in-king-county
+8
+--- RUNNING: ayushsingh5941/tweet-disaster-or-not
+9
+--- RUNNING: balajivenkat96/solar-plants
+10
+--- RUNNING: bcannon/indexing-selecting-assigning
+11
+--- RUNNING: beratozmen/clash-of-clans-exploratory-data-analysis
+12
+--- RUNNING: blaskowitz100/feature-engineering-based-on-the-suprise-me
+13
+--- RUNNING: brianmendieta/data-cleaning-plus-eda
+14
+--- RUNNING: carlmcbrideellis/simple-eda-of-kaggle-grandmasters-scheduled
+There was an error while running /home/ubuntu/PandasBench/notebooks/carlmcbrideellis/simple-eda-of-kaggle-grandmasters-scheduled/simple-eda-of-kaggle-grandmasters-scheduled.ipynb. See /home/ubuntu/PandasBench/runner/errors/carlmcbrideellis.simple-eda-of-kaggle-grandmasters-scheduled.error.txt, errors/carlmcbrideellis.simple-eda-of-kaggle-grandmasters-scheduled.stderr.txt and errors/carlmcbrideellis.simple-eda-of-kaggle-grandmasters-scheduled.stdout.txt
+15
+--- RUNNING: charulatashelar/indian-startup-funding-exploratory-data-analysis
+16
+--- RUNNING: chinstan/notebook249b4f3f5b
+17
+--- RUNNING: christophriley/intro-machine-learning
+18
+--- RUNNING: corazzon/how-to-use-pandas-filter-in-survey-eda
+19
+--- RUNNING: danielresende/game-of-thrones-battles
+20
+--- RUNNING: dbatao/kernel2f80fc9d78
+21
+--- RUNNING: deffro/eda-is-fun
+There was an error while running /home/ubuntu/PandasBench/notebooks/deffro/eda-is-fun/eda-is-fun.ipynb. See /home/ubuntu/PandasBench/runner/errors/deffro.eda-is-fun.error.txt, errors/deffro.eda-is-fun.stderr.txt and errors/deffro.eda-is-fun.stdout.txt
+22
+--- RUNNING: drainvers/instacart-sandbox-lmf
+There was an error while running /home/ubuntu/PandasBench/notebooks/drainvers/instacart-sandbox-lmf/instacart-sandbox-lmf.ipynb. See /home/ubuntu/PandasBench/runner/errors/drainvers.instacart-sandbox-lmf.error.txt, errors/drainvers.instacart-sandbox-lmf.stderr.txt and errors/drainvers.instacart-sandbox-lmf.stdout.txt
+23
+--- RUNNING: ersinsen/fraud-3-eda
+There was an error while running /home/ubuntu/PandasBench/notebooks/ersinsen/fraud-3-eda/fraud-3-eda.ipynb. See /home/ubuntu/PandasBench/runner/errors/ersinsen.fraud-3-eda.error.txt, errors/ersinsen.fraud-3-eda.stderr.txt and errors/ersinsen.fraud-3-eda.stdout.txt
+24
+--- RUNNING: galiph/titanic-explorary-data-analysis
+25
+--- RUNNING: gautamsihag/notebook32c1acdb76
+26
+--- RUNNING: gmanish/help-ngo-country-clustering
+27
+--- RUNNING: gravix/gradient-in-a-box
+28
+--- RUNNING: grudd0/mass-shooting-analysis
+29
+--- RUNNING: gsilves/quiz-4-question-1
+30
+--- RUNNING: guyalmog/hr-analytics-predicting-employees-attrition
+31
+--- RUNNING: j0thu777/onlineretailanalysis
+32
+--- RUNNING: jackwatson99/pima-indians-diabetes-rf-81
+33
+--- RUNNING: jagangupta/stop-the-s-toxic-comments-eda
+34
+--- RUNNING: jaideepvalani/useful-eda-for-beginners-rsna-embolism
+35
+--- RUNNING: jirakst/book-recommendation
+36
+--- RUNNING: julieberteaux/workshop-2
+37
+--- RUNNING: jyotsananegi/melbourne-housing-snapshot-eda
+38
+--- RUNNING: kanncaa1/dataiteam-titanic-eda
+39
+--- RUNNING: kenjee/titanic-project-example
+40
+--- RUNNING: kimtaehun/simple-preprocessing-for-time-series-prediction
+41
+--- RUNNING: kmader/analyzing-matches
+42
+--- RUNNING: koko1998/summer-products-and-sales-wish-com
+43
+--- RUNNING: kwullum/when-do-traffic-related-deaths-occur
+44
+--- RUNNING: loveall/favorita-analytics
+45
+--- RUNNING: luckygemini/notebook5d5fc80c9f
+46
+--- RUNNING: luizep/movieslens20m
+47
+--- RUNNING: macespinoza/simple-eda-with-python-pandas-data-avocado-paltas
+48
+--- RUNNING: madseth/customer-shopping-trends-dataset-eda
+49
+--- RUNNING: mahtieu/nyc-taxi-fare-prediction-data-expl-xgboost
+50
+--- RUNNING: mathewvondersaar/analysis-of-student-performance
+51
+--- RUNNING: maxiaoyue/data-cleaning-challenge-handling-missing-values
+52
+--- RUNNING: mikedelong/python-eda-with-kdes
+53
+--- RUNNING: muhammadawaistayyab/used-cars-in-pakistan-stats
+54
+--- RUNNING: mustafatatarhan1/iris-kernel
+55
+--- RUNNING: nadare/feature-engenieering-with-pivot-table
+56
+--- RUNNING: nandhuelan/ott-platforms
+57
+--- RUNNING: narasimhach/ashrae-data-preprocessing
+There was an error while running /home/ubuntu/PandasBench/notebooks/narasimhach/ashrae-data-preprocessing/ashrae-data-preprocessing.ipynb. See /home/ubuntu/PandasBench/runner/errors/narasimhach.ashrae-data-preprocessing.error.txt, errors/narasimhach.ashrae-data-preprocessing.stderr.txt and errors/narasimhach.ashrae-data-preprocessing.stdout.txt
+58
+--- RUNNING: nihhaar/etltransform
+59
+--- RUNNING: paramarthasengupta/plotly-eda-top-movies-of-20th-century
+60
+--- RUNNING: penny8/my-sub1
+61
+--- RUNNING: pmr3508f20977e697/poverty-level-pmr3508-2018-f20977e697
+62
+--- RUNNING: poiss0nriot/classifying-client-type-using-client-names
+63
+--- RUNNING: pradeepjeya/allstate-encoding-high-cardinality-features
+64
+--- RUNNING: qingyuanwu/deep-neural-network
+There was an error while running /home/ubuntu/PandasBench/notebooks/qingyuanwu/deep-neural-network/deep-neural-network.ipynb. See /home/ubuntu/PandasBench/runner/errors/qingyuanwu.deep-neural-network.error.txt, errors/qingyuanwu.deep-neural-network.stderr.txt and errors/qingyuanwu.deep-neural-network.stdout.txt
+65
+--- RUNNING: qnqfbqfqo/electric-vehicle-landscape-in-washington-state
+66
+--- RUNNING: robikscube/big-data-bowl-comprehensive-eda-with-pandas
+67
+--- RUNNING: robinfaber/monsters-a-simple-logistic-regression-approach
+68
+--- RUNNING: roopahegde/cryptocurrency-price-correlation
+69
+--- RUNNING: roydatascience/malware-detection-stacking-2-0
+70
+--- RUNNING: sabya40/data-cleaning-and-pandas-for-beginners
+71
+--- RUNNING: sal001/beginner-s-note-top-12-by-single-linear-model
+72
+--- RUNNING: salmaneunus/student-s-performance-quantitative-visual-eda
+73
+--- RUNNING: saniaks/melbourne-house-price-eda
+74
+--- RUNNING: sanket30/eda-of-application-train-home-credit-default
+75
+--- RUNNING: santhoshrao1995/assi01-santhosh-19101036
+76
+--- RUNNING: seriousran/eda-ing
+77
+--- RUNNING: shashi772/data-cleaning-challenge-parsing-dates
+78
+--- RUNNING: shivavashishtha/zomato-eda-tutorial
+79
+--- RUNNING: shubhammahalank/eda-hotel-booking-demand
+80
+--- RUNNING: shunjiangxu/blood-is-thicker-than-water-friendship-forever
+81
+--- RUNNING: snanilim/video-games-sales-analysis-and-visualization
+82
+--- RUNNING: stefanjov/my-first-normalize-on-big-dataset
+83
+--- RUNNING: sudheer259/house-price-prediction
+84
+--- RUNNING: sunnybiswas/eda-on-airline-dataset
+85
+--- RUNNING: tanulsingh077/twitter-sentiment-extaction-analysis-eda-and-model
+86
+--- RUNNING: taylorhickem/singapore-building-energy
+87
+--- RUNNING: teemingyi/pubg-data-exploration-example-matches
+88
+--- RUNNING: thirumani/biggboss-hindi-telugu-tamil-kannada-marathi-bangla
+89
+--- RUNNING: trinath003/data-manipulation-visualisation-on-kaggle-datasets
+90
+--- RUNNING: tunguz/fathers-day-specials-just-the-features
+There was an error while running /home/ubuntu/PandasBench/notebooks/tunguz/fathers-day-specials-just-the-features/fathers-day-specials-just-the-features.ipynb. See /home/ubuntu/PandasBench/runner/errors/tunguz.fathers-day-specials-just-the-features.error.txt, errors/tunguz.fathers-day-specials-just-the-features.stderr.txt and errors/tunguz.fathers-day-specials-just-the-features.stdout.txt
+91
+--- RUNNING: ukveteran/sarima-time-series-eda-predict-jma-sao-paulo
+92
+--- RUNNING: vatsalmavani/music-recommendation-system-using-spotify-dataset
+93
+--- RUNNING: vbmokin/automatic-eda-with-pandas-profiling-2-9-09-2020
+94
+--- RUNNING: vinothsuku/osic-pulmonary-fibrosis-simple-eda
+95
+--- RUNNING: viviktpharale/house-price-prediction-eda-linear-ridge-lasso
+96
+--- RUNNING: willkoehrsen/start-here-a-gentle-introduction
+97
+--- RUNNING: wyl4417/machine-learning-and-how-it-affects-you
+98
+--- RUNNING: xingobar/computer-science-data-visualization
+99
+--- RUNNING: xokent/cyber-security-attack-eda
+100
+--- RUNNING: yashjaiswal1097/911-emergency-calls-kernel
+101
+--- RUNNING: yonelanuba/elo-merchant-by-yonela
+There was an error while running /home/ubuntu/PandasBench/notebooks/yonelanuba/elo-merchant-by-yonela/elo-merchant-by-yonela.ipynb. See /home/ubuntu/PandasBench/runner/errors/yonelanuba.elo-merchant-by-yonela.error.txt, errors/yonelanuba.elo-merchant-by-yonela.stderr.txt and errors/yonelanuba.elo-merchant-by-yonela.stdout.txt
+102
+--- RUNNING: yuliagm/talkingdata-eda-plus-time-patterns
