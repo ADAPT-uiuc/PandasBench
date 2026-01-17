@@ -85,12 +85,10 @@ def run_nb_file(nb_path: str, library: str, num_cores: int, add_on: str, scale_f
   return True
 
 def run_nb_paper(nb_dir: str, library: str, num_cores: int, add_on: str, scale_factor: float, scale_input: bool):
-  nb_file = ""
-  dirEntries = os.listdir(nb_dir)
-  for entry in dirEntries:
-    if '.ipynb' in entry and entry[0] != '.':
-      nb_file = entry
-      break
-  nb_path = "/".join((nb_dir, nb_file))
+  updated_nb = "/".join((nb_dir, "updated.ipynb"))
+  if os.path.exists(updated_nb):
+    nb_path = updated_nb
+  else:
+    nb_path = "/".join((nb_dir, "old.ipynb"))
 
   return run_nb_file(nb_path, library, num_cores, add_on, scale_factor, scale_input)
