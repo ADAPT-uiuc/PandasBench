@@ -1,0 +1,12 @@
+FROM python:3.14.0-slim
+
+WORKDIR /home/ubuntu/
+
+SHELL ["/bin/bash", "-c"]
+
+COPY ./requirements-pandas2.txt .
+
+RUN apt-get update -q \
+    && apt-get install -y --no-install-recommends gcc g++ build-essential \
+    && rm -rf /var/lib/apt/lists/* \
+    && pip install --no-cache-dir -r ./requirements-pandas2.txt
